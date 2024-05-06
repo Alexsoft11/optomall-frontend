@@ -1,24 +1,35 @@
-import React, { TouchEventHandler } from "react";
+import React, { useState } from "react";
 import { Button as AntdButton } from "antd";
+
+type ButtonType =
+  | "line"
+  | "text"
+  | "default"
+  | "primary"
+  | "dashed"
+  | undefined;
 
 export interface ButtonProps {
   shape?: "circle" | "round";
-  type?: "primary" | "link" | "text" | "default" | "dashed";
+  type?: ButtonType;
   htmlType?: "button" | "reset" | "submit";
   block?: boolean;
-  onClick?: any; //weird class in antd
+  onClick?: any;
   size?: "large" | "middle" | "small";
   onMouseEnter?: React.MouseEventHandler<HTMLElement>;
   onMouseLeave?: React.MouseEventHandler<HTMLElement>;
   onFocus?: React.FocusEventHandler<HTMLSpanElement>;
-  onTouchStart?: TouchEventHandler;
-  onTouchEnd?: TouchEventHandler;
+  onTouchStart?: React.TouchEventHandler<HTMLSpanElement>;
+  onTouchEnd?: React.TouchEventHandler<HTMLSpanElement>;
   label?: React.ReactNode | string;
   danger?: boolean;
   loading?: boolean;
   className?: string;
   disabled?: boolean;
   title?: string;
+  iconId?: React.ReactNode;
+  iconPosition?: "left" | "right" | "top" | "bottom";
+  style?: React.CSSProperties | undefined;
   icon?: React.ReactNode;
 }
 
@@ -40,12 +51,39 @@ export const Button = ({
   danger,
   loading,
   title,
+  iconId,
+  iconPosition,
+  style,
   icon,
 }: ButtonProps) => {
-  const actualButton = (
+  const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const { offsetX, offsetY } = e.nativeEvent;
+    setMouseCoords({ x: offsetX, y: offsetY });
+  };
+
+  const isLeftPosition = iconPosition === "left";
+  const isRightPosition = iconPosition === "right";
+  const isTopPosition = iconPosition === "top";
+  const isBottomPosition = iconPosition === "bottom";
+
+  const buttonClassName = `ant-btn ${className} ${
+    shape === "circle" ? "circle" : shape === "round" ? "round" : "round"
+  } ${className} ${size ? `ant-btn-${size}` : "ant-btn-middle"}`;
+
+  const buttonStyle = {
+    ...style,
+    "--mouse-x": `${mouseCoords.x}px`,
+    "--mouse-y": `${mouseCoords.y}px`,
+    display: isTopPosition || isBottomPosition ? "flex" : undefined,
+    flexDirection: isTopPosition ? "column" : isBottomPosition ? "column-reverse" : undefined,
+  } as React.CSSProperties;
+
+  return (
     <AntdButton
       disabled={disabled}
-      className={className}
+      className={buttonClassName}
       type={type}
       htmlType={htmlType}
       onClick={onClick}
@@ -60,11 +98,13 @@ export const Button = ({
       danger={danger}
       loading={loading}
       title={title}
-      icon={icon}
+      icon={icon ? icon : isRightPosition ? undefined : null}
+      style={buttonStyle}
+      onMouseMove={handleMouseMove}
     >
+      {/* {isLeftPosition && <SvgSelector id={String(iconId)} />} */}
       {!!label && <span className="text">{label}</span>}
+      {/* {isRightPosition && <SvgSelector id={String(iconId)} />} */}
     </AntdButton>
   );
-
-  return actualButton;
 };
