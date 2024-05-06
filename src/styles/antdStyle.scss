@@ -1,0 +1,135 @@
+// ant-Button
+.ant-btn {
+    transition: all 0.2s ease-in-out !important;
+    border: none !important;
+  
+    svg {
+      min-width: 6px !important;
+      min-height: 12px !important;
+      max-width: 24px !important;
+      max-height: 24px !important;
+    }
+
+    div {
+        display: none !important;
+    }
+}
+  
+  .ant-btn-large.circle {
+    border-radius: 100% !important;
+    max-width: 56px !important;
+    max-height: 56px !important;
+    min-width: 56px !important;
+    min-height: 56px !important;
+    padding: 0px !important;
+  }
+  
+  .ant-btn-middle.circle {
+    border-radius: 100% !important;
+    max-width: 38px !important;
+    max-height: 38px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    padding: 0px !important;
+  }
+  
+  .ant-btn-small.circle {
+    border-radius: 100% !important;
+    max-width: 32px !important;
+    max-height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    padding: 0px !important;
+  }
+  
+  .ant-btn.round {
+    border-radius: 10px !important;
+  }
+  
+  .ant-btn-large {
+    width: 100% !important;
+    min-height: 56px !important;
+    max-width: fit-content !important;
+  
+    span {
+      font-size: 1rem !important;
+      font-weight: 600 !important;
+      line-height: 1.5rem !important;
+      letter-spacing: 0.20000000298023224px !important;
+      text-align: center !important;
+    }
+  }
+  
+  .ant-btn-middle {
+    width: 100% !important;
+    min-height: 41px !important;
+    height: 41px !important;
+    max-width: fit-content !important;
+  
+    span {
+      font-size: 14px !important;
+      font-weight: 400 !important;
+      line-height: 1.0588rem !important;
+      letter-spacing: 0.2px !important;
+      text-align: center !important;
+    }
+  }
+  
+  .ant-btn-small {
+    width: 100% !important;
+    min-height: 32px !important;
+    max-width: fit-content !important;
+  
+    span {
+      font-size: 0.75rem !important;
+      font-weight: 400 !important;
+      line-height: 1rem !important;
+      letter-spacing: 0.20000000298023224px !important;
+      text-align: center !important;
+    }
+  }
+
+// generalBtn
+.generalbtn {
+  min-width: 100% !important;
+  border-radius: 3px !important;
+  box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5) !important;
+  line-height: 1.25 !important;
+  background: #FC6E51 !important;
+
+  span {
+      text-decoration: none !important;
+      color: white !important;
+      font-size: 16px !important;
+      letter-spacing: .08em !important;
+      text-transform: uppercase !important;
+  }
+  position: relative !important;
+  transition: background-color .6s ease !important;
+  overflow: hidden !important;
+  &:after {
+    content: "" !important;
+    position: absolute !important;
+    width: 0 !important;
+    height: 0 !important;
+    top: 50% !important;
+    left: 50% !important;
+    top: var(--mouse-y) !important;
+    left: var(--mouse-x) !important;
+    transform-style: flat !important;
+    transform: translate3d(-50%,-50%,0) !important;
+    background: rgba(white,.1) !important;
+    border-radius: 100% !important;
+    transition: width .3s ease, height .3s ease !important;
+  }
+  &:focus,
+  &:hover {
+      background: darken(#FC6E51,7%) !important;
+  }
+  &:active {
+    &:after {
+      width: 300px !important;
+      height: 300px !important;
+    }
+  }
+}
