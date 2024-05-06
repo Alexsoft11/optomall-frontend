@@ -33,6 +33,7 @@ const MainLayout = ({ children }: ILayoutsProps) => {
       router.events.off("routeChangeError", handleComplete);
     };
   }, [router]);
+  
   return (
     <>
       {/* {loading && <Loader isComponent={false} />} */}
