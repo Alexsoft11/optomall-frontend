@@ -4,8 +4,8 @@
     border: none !important;
   
     svg {
-      min-width: 6px !important;
-      min-height: 12px !important;
+      min-width: 24px !important;
+      min-height: 24px !important;
       max-width: 24px !important;
       max-height: 24px !important;
     }
@@ -63,8 +63,10 @@
   .ant-btn-middle {
     width: 100% !important;
     min-height: 41px !important;
-    height: 41px !important;
+    height: 100% !important;
+    max-height: 44px !important;
     max-width: fit-content !important;
+    display: none !important;
   
     span {
       font-size: 14px !important;
@@ -93,17 +95,21 @@
 .generalbtn {
   min-width: 100% !important;
   border-radius: 3px !important;
-  box-shadow: 0px 0px 12px -2px rgba(0,0,0,0.5) !important;
   line-height: 1.25 !important;
-  background: #FC6E51 !important;
+  background: #FF4200 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 
   span {
       text-decoration: none !important;
       color: white !important;
-      font-size: 16px !important;
+      font-size: 14px !important;
       letter-spacing: .08em !important;
       text-transform: uppercase !important;
   }
+
+
   position: relative !important;
   transition: background-color .6s ease !important;
   overflow: hidden !important;
@@ -132,4 +138,28 @@
       height: 300px !important;
     }
   }
+}
+
+// HeadBtn 
+.headbtn {
+  padding: 3px 8px !important;
+  border-radius: 3px !important;
+  line-height: 1.25 !important;
+  background: #FF4200 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  span {
+    color: #FFF !important;
+    font-size: 0.75rem !important;
+    font-style: normal !important;
+    font-weight: 300 !important;
+    line-height: normal !important;
+  }
+
+
+  position: relative !important;
+  transition: background-color .6s ease !important;
+  overflow: hidden !important;
 }

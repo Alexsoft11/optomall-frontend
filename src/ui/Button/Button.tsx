@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button as AntdButton } from "antd";
+import SvgSelector from "@/assets/icons/SvgSelector";
 
 type ButtonType =
   | "line"
@@ -76,7 +77,6 @@ export const Button = ({
     ...style,
     "--mouse-x": `${mouseCoords.x}px`,
     "--mouse-y": `${mouseCoords.y}px`,
-    display: isTopPosition || isBottomPosition ? "flex" : undefined,
     flexDirection: isTopPosition ? "column" : isBottomPosition ? "column-reverse" : undefined,
   } as React.CSSProperties;
 
@@ -102,9 +102,9 @@ export const Button = ({
       style={buttonStyle}
       onMouseMove={handleMouseMove}
     >
-      {/* {isLeftPosition && <SvgSelector id={String(iconId)} />} */}
+      {(isLeftPosition || isTopPosition) && <SvgSelector id={String(iconId)} />}
       {!!label && <span className="text">{label}</span>}
-      {/* {isRightPosition && <SvgSelector id={String(iconId)} />} */}
+      {(isRightPosition || isBottomPosition) && <SvgSelector id={String(iconId)} />}
     </AntdButton>
   );
 };
