@@ -1,1 +1,20 @@
-{}
+{
+    "Auth": {
+        "signin": "Войти",
+        "forgotPassword": "Забыли пароль?",
+        "password": "Пароль",
+        "yourPassword": "Ваш пароль",
+        "repeatYourPassword": "Повторите свой пароль",
+        "email": "Э-почта",
+        "notRegistred": "Вы не зарегистрированы?",
+        "registerNow": "Зарегстрироваться сейчас",
+        "continueGoogle": "Продолжить с Google",
+        "regist": "Зарегистрироваться",
+        "name": "Имя",
+        "secondName": "Фамиля",
+        "tel": "Телефон",
+        "save": "Сохранить и продолжить",
+        "info": "Личная информация"
+
+    }
+}

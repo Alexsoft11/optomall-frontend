@@ -62,7 +62,7 @@ export const Button = ({
       title={title}
       icon={icon}
     >
-      {!!label && <span className="text">{label}</span>}
+      {!!label && <span  className="text">{label}</span>}
     </AntdButton>
   );
 

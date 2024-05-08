@@ -1,3 +1,10 @@
 {
-    
+    "Auth": {
+        "signin": "Sign in",
+        "forgotPassword": "Forgot your password?",
+        "password": "Password",
+        "email": "Email",
+        "notRegistred": "You are not registred?",
+        "registerNow": "Register now"
+    }
 }
