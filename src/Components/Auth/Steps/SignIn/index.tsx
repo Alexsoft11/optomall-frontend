@@ -5,6 +5,7 @@ import { Button } from '@/ui';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import GoogleButton from '../../GoogleButton';
+import { validateEmail, validatePassword } from '../../Functions';
 
 export default function SignIn() {
     const [form] = Form.useForm()
@@ -35,12 +36,25 @@ export default function SignIn() {
                     autoComplete="off"
                 >
 
-                    <Form.Item name="email">
+                    <Form.Item
+                        name="email"
+                        rules={[
+                            { required: true, message: 'Пожалуйста, введите адрес электронной почты' },
+                            { validator: validateEmail }
+                        ]}
+                    >
                         <Input type="email" className={styles.input} placeholder={t("email")} />
                     </Form.Item>
 
-                    <Form.Item name="password">
-                        <Input type="password" placeholder={t("password")} />
+                    <Form.Item
+                        name="password"
+                        rules={[
+                            { required: true, message: 'введите пароль' },
+                            { validator: validatePassword }
+                        ]}
+                        hasFeedback
+                    >
+                        <Input.Password type="password" placeholder={t("yourPassword")} />
                     </Form.Item>
 
                     <span className={styles.forgot_Password}>

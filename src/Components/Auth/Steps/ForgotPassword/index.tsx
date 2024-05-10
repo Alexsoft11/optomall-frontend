@@ -4,6 +4,7 @@ import { Form, Input } from 'antd';
 import { Button, Modal } from '@/ui';
 import { useTranslations } from 'next-intl';
 import { AuthModalSvg } from '@/assets/icons';
+import { validateEmail } from '../../Functions';
 
 export default function ForgotPassword() {
     const [form] = Form.useForm()
@@ -35,7 +36,13 @@ export default function ForgotPassword() {
                     autoComplete="off"
                 >
 
-                    <Form.Item name="email">
+                    <Form.Item
+                        name="email"
+                        rules={[
+                            { required: true, message: 'Пожалуйста, введите адрес электронной почты' },
+                            { validator: validateEmail }
+                        ]}
+                    >
                         <Input type="email" className={styles.input} placeholder={t("email")} />
                     </Form.Item>
 
