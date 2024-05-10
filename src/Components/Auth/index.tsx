@@ -1,12 +1,9 @@
 import React from 'react';
-import styles from './Auth.module.css';
-import SignIn from './Steps/SignIn';
-
+import styles from './AuthPage.module.css';
 import { AuAuthBackground } from '@/assets/images';
 import Image from 'next/image';
-import Registration from './Steps/Registration';
-import Info from './Steps/Info';
 import { useRouter } from 'next/router';
+import { ForgotPassword, Info, Registration, SignIn } from './Steps';
 
 export default function AuthPage() {
     let rout = useRouter()
@@ -20,6 +17,7 @@ export default function AuthPage() {
                 {rout.query.step === "signin" ? <SignIn /> : null}
                 {rout.query.step === "regist" ? <Registration /> : null}
                 {rout.query.step === "info" ? <Info /> : null}
+                {rout.query.step === "forgot-password" ? <ForgotPassword /> : null}
             </div>
         </div>
     );
