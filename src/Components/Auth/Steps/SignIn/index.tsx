@@ -43,7 +43,11 @@ export default function SignIn() {
                         <Input type="password" placeholder={t("password")} />
                     </Form.Item>
 
-                    <Link className={styles.forgot_Password} href="#">{t("forgotPassword")}</Link>
+                    <span className={styles.forgot_Password}>
+                        <Link href="/auth?step=forgot-password">
+                            {t("forgotPassword")}
+                        </Link>
+                    </span>
 
                     <Form.Item className={styles.submitButton}>
                         <Button type="primary" htmlType="submit" label={t('signin')} />

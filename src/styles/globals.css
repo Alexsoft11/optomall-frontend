@@ -4,16 +4,7 @@ body {
 }
 
 /*==================> AUTH START <================== */
-.auth form .ant-col-16 {
-  max-width: none;
-}
 
-.auth form .ant-form-item {
-  margin-bottom: 0px;
-}
-
-.auth span .ant-input {
-  padding: 8px 1px !important;
-}
+ 
 
 /*==================> AUTH END <================== */

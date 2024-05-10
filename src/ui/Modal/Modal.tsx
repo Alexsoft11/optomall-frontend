@@ -1,4 +1,5 @@
 import { Modal as AntdModal } from 'antd';
+import Image, { StaticImageData } from 'next/image';
 import { useEffect } from 'react';
 
 export interface ModalProps {
@@ -17,6 +18,9 @@ export interface ModalProps {
   getContainer?: string | false | HTMLElement | undefined;
   destroyOnClose?: boolean;
   centered?: boolean;
+  className?: string;
+  img?: StaticImageData;
+  description?: string;
 }
 
 export const Modal = ({
@@ -35,6 +39,9 @@ export const Modal = ({
   getContainer,
   destroyOnClose,
   centered,
+  img,
+  className,
+  description
 }: ModalProps) => {
   useEffect(() => {
     if (open) {
@@ -60,7 +67,20 @@ export const Modal = ({
       getContainer={getContainer}
       destroyOnClose={destroyOnClose}
       centered={centered}
+      className={className}
     >
+      <p></p>
+      <div>
+        {img ? (
+          <div>
+            <Image src={img} width={74} height={74} alt='#' />
+          </div>
+        ) : null}
+
+        <p>
+          {description}
+        </p>
+      </div>
       {children}
     </AntdModal>
   );
