@@ -1,7 +1,6 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import Navbar from "../Navbar/index";
 import Footer from "../Footer/index";
-import "react-toastify/dist/ReactToastify.css";
 import "aos/dist/aos.css";
 import AOS from "aos";
 import { useRouter } from "next/router";

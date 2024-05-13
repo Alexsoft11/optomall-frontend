@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button as AntdButton } from "antd";
 import SvgSelector from "@/assets/icons/SvgSelector";
+import { StyledButton } from './style';
 
 type ButtonType =
   | "line"
@@ -81,7 +82,7 @@ export const Button = ({
   } as React.CSSProperties;
 
   return (
-    <AntdButton
+    <StyledButton
       disabled={disabled}
       className={buttonClassName}
       type={type}
@@ -105,6 +106,6 @@ export const Button = ({
       {(isLeftPosition || isTopPosition) && <SvgSelector id={String(iconId)} />}
       {!!label && <span className="text">{label}</span>}
       {(isRightPosition || isBottomPosition) && <SvgSelector id={String(iconId)} />}
-    </AntdButton>
+    </StyledButton>
   );
 };
