@@ -12,10 +12,10 @@ const SearchBtn = () => {
             <input type="text" />
             
             <Button 
-            className='generalbtn'
-            shape='circle'
-            iconId='photo-svg'
-            iconPosition='left'
+              className='generalbtn'
+              shape='circle'
+              iconId='photo-svg'
+              iconPosition='left'
             />
         </div>
     </>

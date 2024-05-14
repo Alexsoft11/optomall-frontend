@@ -89,52 +89,51 @@
 
 // // generalBtn
 // .generalbtn {
-//   min-width: 100% !important;
-//   border-radius: 3px !important;
-//   line-height: 1.25 !important;
-//   background: #FF4200 !important;
-//   display: flex !important;
-//   align-items: center !important;
-//   justify-content: center !important;
+//     min-width: 100%;
+//     line-height: 1.25;
+//     background: #FF4200;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
 
-//   span {
-//       text-decoration: none !important;
-//       color: white !important;
-//       font-size: 14px !important;
-//       letter-spacing: .08em !important;
-//       text-transform: uppercase !important;
-//   }
+//     span {
+//         text-decoration: none;
+//         color: white;
+//         font-size: 14px;
+//         letter-spacing: .08em;
+//         text-transform: uppercase;
+//     }
 
 
-//   position: relative !important;
-//   transition: background-color .6s ease !important;
-//   overflow: hidden !important;
-//   &:after {
-//     content: "" !important;
-//     position: absolute !important;
-//     width: 0 !important;
-//     height: 0 !important;
-//     top: 50% !important;
-//     left: 50% !important;
-//     top: var(--mouse-y) !important;
-//     left: var(--mouse-x) !important;
-//     transform-style: flat !important;
-//     transform: translate3d(-50%,-50%,0) !important;
-//     background: rgba(white,.1) !important;
-//     border-radius: 100% !important;
-//     transition: width .3s ease, height .3s ease !important;
-//   }
-//   &:focus,
-//   &:hover {
-//       background: darken(#FC6E51,7%) !important;
-//   }
-//   &:active {
+//     // position: relative;
+//     // transition: background-color .6s ease;
+//     // overflow: hidden;
 //     &:after {
-//       width: 300px !important;
-//       height: 300px !important;
+//       content: "";
+//       position: absolute;
+//       width: 0;
+//       height: 0;
+//       top: 50%;
+//       left: 50%;
+//       top: var(--mouse-y);
+//       left: var(--mouse-x);
+//       transform-style: flat;
+//       transform: translate3d(-50%,-50%,0);
+//       background: rgba(white,.1);
+//       border-radius: 100%;
+//       transition: width .3s ease, height .3s ease;
+//     }
+//     &:focus,
+//     &:hover {
+//         background: darken(#FC6E51,7%);
+//     }
+//     &:active {
+//       &:after {
+//         width: 300px;
+//         height: 300px;
+//       }
 //     }
 //   }
-// }
 
 // // HeadBtn 
 // .headbtn {
