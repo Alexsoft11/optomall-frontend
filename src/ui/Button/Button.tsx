@@ -3,17 +3,9 @@ import { Button as AntdButton } from "antd";
 import SvgSelector from "@/assets/icons/SvgSelector";
 import { StyledButton } from './style';
 
-type ButtonType =
-  | "line"
-  | "text"
-  | "default"
-  | "primary"
-  | "dashed"
-  | undefined;
-
 export interface ButtonProps {
   shape?: "circle" | "round";
-  type?: ButtonType;
+  type?: "dashed" | "default" | "text" | "link" | "primary" | undefined;
   htmlType?: "button" | "reset" | "submit";
   block?: boolean;
   onClick?: any;
