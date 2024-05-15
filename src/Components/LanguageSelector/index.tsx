@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import styles from "./Language.module.scss";
 import React, { useState, useRef, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
-import SvgSelector from "@/Assets/Icons/SvgSelector";
-import { en_flag, ru_flag, uz_flag } from "@/Assets/Images";
+import SvgSelector from "../../../public/assets/icons/SvgSelector";
+import { en_flag, ru_flag, uz_flag } from "../../../public/assets/images";
 
 const LanguageSelector = () => {
   const router = useRouter();
