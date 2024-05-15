@@ -1,11 +1,13 @@
 import styled from 'styled-components';
-import { Button as AntdButton } from "antd";
+import { Button } from "antd";
 
-export const StyledButton = styled(AntdButton)`
-
-.headbtn {
+export const StyledButton = styled(Button)`
     transition: all 0.2s ease-in-out;
     border: none;
+
+    &:hover {
+      background: #FF4200 !important;
+    }
   
     svg {
       min-width: 24px;
@@ -22,7 +24,7 @@ export const StyledButton = styled(AntdButton)`
       border-radius: 100%;
       max-width: 38px;
       max-height: 38px;
-      min-width: 38px;
+      min-width: 38px !important;
       min-height: 38px;
       padding: 0;
     }
@@ -71,5 +73,76 @@ export const StyledButton = styled(AntdButton)`
         text-align: center;
       }
     }
-}
+
+    &.headbtn {
+      padding: 3px 8px;
+      border-radius: 10px;
+      line-height: 1.25;
+      background: #FF4200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: auto;
+      width: 66px;
+
+      span {
+        color: #FFF;
+        font-size: 0.75rem;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+      }
+
+
+      position: relative;
+      transition: background-color .6s ease;
+      overflow: hidden;
+    }
+
+    &.generalbtn {
+      min-width: 100%;
+      line-height: 1.25;
+      background: #FF4200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      span {
+          text-decoration: none;
+          color: white;
+          font-size: 14px;
+          letter-spacing: .08em;
+          text-transform: uppercase;
+      }
+
+
+      position: relative;
+      transition: background-color .6s ease;
+      overflow: hidden;
+      &:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: 50%;
+        left: 50%;
+        top: var(--mouse-y);
+        left: var(--mouse-x);
+        transform-style: flat;
+        transform: translate3d(-50%,-50%,0);
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 100%;
+        transition: width .3s ease, height .3s ease;
+      }
+      &:focus,
+      &:hover {
+          background: darken(#FC6E51,7%);
+      }
+      &:active {
+        &:after {
+          width: 300px;
+          height: 300px;
+        }
+      }
+    }
 `;
