@@ -1,0 +1,35 @@
+.main {
+    grid-area: items;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+    gap: 20px;
+    min-width: 0;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 20px;
+
+    .items_info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .swiper {
+        flex-grow: 1 !important;
+        min-width: 0 !important;
+    }
+
+    .itemsCount {
+        color: rgba(163, 163, 163, 1);
+    }
+
+    p {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16.94px;
+    }
+
+
+}

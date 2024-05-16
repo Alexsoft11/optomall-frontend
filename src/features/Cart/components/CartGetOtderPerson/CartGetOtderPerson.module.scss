@@ -1,0 +1,21 @@
+.main {
+    border: 1px solid rgba(255, 66, 0, 1);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+
+    .form_block {
+        display: flex;
+        gap: 21px;
+    }
+
+    h2 {
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 24.2px;
+    }
+
+}
