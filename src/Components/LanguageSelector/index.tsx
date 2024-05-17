@@ -4,7 +4,7 @@ import styles from "./Language.module.scss";
 import React, { useState, useRef, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
 import SvgSelector from "$/assets/icons/SvgSelector";
-import { en_flag, ru_flag, uz_flag } from "$/assets/images";
+// import { en_flag, ru_flag, uz_flag } from "$/assets/images";
 
 const LanguageSelector = () => {
   const router = useRouter();
@@ -14,11 +14,11 @@ const LanguageSelector = () => {
 
   const languages = router.locales;
 
-  const images: { [key: string]: StaticImageData } = {
-    uz: uz_flag,
-    ru: ru_flag,
-    en: en_flag,
-  };
+  // const images: { [key: string]: StaticImageData } = {
+  //   uz: uz_flag,
+  //   ru: ru_flag,
+  //   en: en_flag,
+  // };
 
   const handleLanguageChange = (lang: string) => {
     setSelectedLanguage(lang || "");

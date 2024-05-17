@@ -21,7 +21,7 @@ export default function CartOrder() {
                     <h1>{t('total')}</h1>
                     <p>{CartOrderMockdata.count} uzs</p>
                 </div>
-                <Button onClick={() => toOrder()} className={styles.complite_btn} label={t("complite")} />
+                <Button onClick={() => toOrder()} label={t("complite")} />
             </div>
             <CartGetOrder />
         </div>
