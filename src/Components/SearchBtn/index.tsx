@@ -1,4 +1,4 @@
-import SvgSelector from '@/assets/icons/SvgSelector'
+import SvgSelector from '$/assets/icons/SvgSelector'
 import { Button } from '@/ui/index'
 import React from 'react'
 import styles from './Search.module.scss'

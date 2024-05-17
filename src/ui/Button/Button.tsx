@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button as AntdButton } from "antd";
-import SvgSelector from "@/assets/icons/SvgSelector";
+import SvgSelector from "$/assets/icons/SvgSelector";
 import { StyledButton } from './style';
 
 export interface ButtonProps {
