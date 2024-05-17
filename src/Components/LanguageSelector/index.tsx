@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import styles from "./Language.module.scss";
 import React, { useState, useRef, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
-import SvgSelector from "@/Assets/Icons/SvgSelector";
-import { en_flag, ru_flag, uz_flag } from "@/Assets/Images";
+import SvgSelector from "$/assets/icons/SvgSelector";
+import { en_flag, ru_flag, uz_flag } from "$/assets/images";
 
 const LanguageSelector = () => {
   const router = useRouter();
@@ -65,7 +65,6 @@ const LanguageSelector = () => {
         <ul className={styles.language_list}>
           {languages?.map((lang) => (
             <li key={lang} onClick={() => handleLanguageChange(lang)}>
-              <Image className={styles.flag} src={images[lang]} alt="image" />
               {lang}
             </li>
           ))}
