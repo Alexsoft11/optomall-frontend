@@ -1,15 +1,17 @@
-import { CartOrderPage } from '@/features/Cart';
+
+import { CartBasketPage, CartOrderPage } from '@/features/Cart';
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/router';
+
 
 import React from 'react';
 
 export default function Cart() {
-    const route = useRouter()
+    const t = useTranslations('Cart')
     return (
         <div>
-            {route.query.step === 'order'? <CartOrderPage /> : null}
-            {route.query.step === 'cart'? <CartOrderPage /> : null}
-            
+            <h1 style={{ color: "black", margin: '100px 0px 0px 50px' }}>{t('title')}</h1>
+            <CartBasketPage />
         </div>
     );
 }

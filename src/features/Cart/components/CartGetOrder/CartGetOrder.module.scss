@@ -1,5 +1,6 @@
 .main {
     grid-area: getOrder;
     display: flex;
+    flex-direction: column;
     gap: 20px;
 }
