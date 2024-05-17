@@ -8,79 +8,49 @@ export const CartMockdata: CartOrderDataInterface = {
         {
             id: 0,
             image: CartWearImg,
+            title: 'Lorem ipsum is dolor set amet',
+            color: 'black',
+            size: 'XL',
+            cost: 1.650,
+            count: 1,
         },
         {
             id: 1,
             image: CartWearImg,
+            title: 'Lorem ipsum is dolor set amet',
+            color: 'black',
+            size: 'XL',
+            cost: 1.650,
+            count: 1,
         },
         {
             id: 2,
             image: CartWearImg,
+            title: 'Lorem ipsum is dolor set amet',
+            color: 'black',
+            size: 'XL',
+            cost: 1.650,
+            count: 1,
         },
         {
             id: 3,
             image: CartWearImg,
+            title: 'Lorem ipsum is dolor set amet',
+            color: 'black',
+            size: 'XL',
+            cost: 1.650,
+            count: 1,
         },
         {
             id: 4,
             image: CartWearImg,
+            title: 'Lorem ipsum is dolor set amet',
+            color: 'black',
+            size: 'XL',
+            cost: 1.650,
+            count: 1,
         },
-        {
-            id: 5,
-            image: CartWearImg,
-        },
-        {
-            id: 6,
-            image: CartWearImg,
-        },
-        {
-            id: 7,
-            image: CartWearImg,
-        },
-        {
-            id: 8,
-            image: CartWearImg,
-        },
-        {
-            id: 9,
-            image: CartWearImg,
-        },
-        {
-            id: 10,
-            image: CartWearImg,
-        },
-        {
-            id: 11,
-            image: CartWearImg,
-        },
-        {
-            id: 12,
-            image: CartWearImg,
-        },
-        {
-            id: 13,
-            image: CartWearImg,
-        },
-        {
-            id: 14,
-            image: CartWearImg,
-        },
-        {
-            id: 15,
-            image: CartWearImg,
-        },
-        {
-            id: 16,
-            image: CartWearImg,
-        },
-        {
-            id: 17,
-            image: CartWearImg,
-        },
-        {
-            id: 18,
-            image: CartWearImg,
-        },
+        
     ]
 }
 
