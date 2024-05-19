@@ -2,8 +2,9 @@ import React from 'react';
 import styles from './CartBasketItem.module.scss';
 import { CartOrderItemInterface } from '@/features/Cart/interface';
 import Image from 'next/image';
-import { MinusSvg, PlusSvg } from '@/assets/images';
-import { Button, Checkbox } from 'antd';
+import { MinusSvg, PlusSvg } from '$/assets/images';
+import { Button } from 'antd';
+import { Checkbox } from '@/ui';
 
 interface Props {
     item: CartOrderItemInterface

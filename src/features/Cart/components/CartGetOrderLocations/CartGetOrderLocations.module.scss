@@ -1,5 +1,5 @@
 .main {
-    border: 1px solid rgba(255, 66, 0, 1);
+    border: 1px solid var(--primary-color);
     border-radius: 10px;
     padding: 20px;
     display: flex;
@@ -30,6 +30,6 @@
         font-size: 14px;
         font-weight: 500;
         line-height: 16.94px;
-        color: rgba(255, 66, 0, 1);
+        color: var(--primary-color);
     }
 }

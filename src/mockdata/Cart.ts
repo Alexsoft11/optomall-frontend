@@ -1,4 +1,4 @@
-import { CartWearImg } from "@/assets/images";
+import { CartWearImg } from "$/assets/images";
 import { CartOrderDataInterface, CartOrderInterface } from "@/features/Cart/interface";
 
 export const CartMockdata: CartOrderDataInterface = {
