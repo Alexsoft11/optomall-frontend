@@ -1,17 +1,11 @@
 import React, { useState } from "react";
 import { Button as AntdButton } from "antd";
-
-type ButtonType =
-  | "line"
-  | "text"
-  | "default"
-  | "primary"
-  | "dashed"
-  | undefined;
+import SvgSelector from "$/assets/icons/SvgSelector";
+import { StyledButton } from './style';
 
 export interface ButtonProps {
   shape?: "circle" | "round";
-  type?: ButtonType;
+  type?: "dashed" | "default" | "text" | "link" | "primary" | undefined;
   htmlType?: "button" | "reset" | "submit";
   block?: boolean;
   onClick?: any;
@@ -76,12 +70,11 @@ export const Button = ({
     ...style,
     "--mouse-x": `${mouseCoords.x}px`,
     "--mouse-y": `${mouseCoords.y}px`,
-    display: isTopPosition || isBottomPosition ? "flex" : undefined,
     flexDirection: isTopPosition ? "column" : isBottomPosition ? "column-reverse" : undefined,
   } as React.CSSProperties;
 
   return (
-    <AntdButton
+    <StyledButton
       disabled={disabled}
       className={buttonClassName}
       type={type}
@@ -102,9 +95,9 @@ export const Button = ({
       style={buttonStyle}
       onMouseMove={handleMouseMove}
     >
-      {/* {isLeftPosition && <SvgSelector id={String(iconId)} />} */}
+      {(isLeftPosition || isTopPosition) && <SvgSelector id={String(iconId)} />}
       {!!label && <span className="text">{label}</span>}
-      {/* {isRightPosition && <SvgSelector id={String(iconId)} />} */}
-    </AntdButton>
+      {(isRightPosition || isBottomPosition) && <SvgSelector id={String(iconId)} />}
+    </StyledButton>
   );
 };
