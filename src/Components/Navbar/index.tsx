@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import { Button } from '@/ui/index'
 import styles from './Navbar.module.scss'
 import Image from 'next/image'
@@ -14,7 +14,9 @@ import NavigationCard from '../NavigationCard'
 
 const Navbar = () => {
   const router = useRouter();
-  const [openModal, setOpenModal] = useState<'user' | 'nav' | null>(null);
+  type ModalState = 'user' | 'nav' | null;
+
+  const [openModal, setOpenModal] = useState<ModalState>(null);
   const [activeTab, setActiveTab] = useState('1');
 
   const handleUserBtnClick = () => {
