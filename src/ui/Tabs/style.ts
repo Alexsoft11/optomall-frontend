@@ -36,6 +36,10 @@ export const StyledTabs = styled(Tabs)`
         max-width: 100%;
         max-height: 75vh;
 
+        @media (max-width:970px) {
+            padding-right: 45px;
+        }
+
         &::-webkit-scrollbar {
             width: 15px;
             background: var(--light-grey-3);
