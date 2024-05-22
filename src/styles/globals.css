@@ -145,3 +145,7 @@ a {
     max-width: 1440px;
     margin: auto;
 }
+
+.swiper-slide {
+    height: auto !important;
+}
