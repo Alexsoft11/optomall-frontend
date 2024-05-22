@@ -6,12 +6,7 @@ import { Form, Input } from 'antd';
 export default function CartGetOrderPerson() {
     const t = useTranslations('Cart')
     const [form] = Form.useForm();
-    const [clientReady, setClientReady] = useState(false);
 
-    // To disable submit button at the beginning.
-    useEffect(() => {
-        setClientReady(true);
-    }, []);
     const onFinish = (values : any) => {
         console.log('Finish:', values);
     };
