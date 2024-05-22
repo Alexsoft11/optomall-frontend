@@ -8,7 +8,7 @@ export interface ModalProps {
   children?: React.ReactNode;
   open: boolean;
   onOk?: (e: React.MouseEvent<HTMLElement>) => void;
-  onCancel?: (e: React.MouseEvent<HTMLElement>) => void;
+  onCancel: React.Dispatch<React.SetStateAction<boolean>>
   okText?: string;
   cancelText?: string;
   zIndex?: number;
@@ -44,7 +44,7 @@ export const Modal = ({
   img,
   className,
   description,
-  bgColor
+  bgColor,
 }: ModalProps) => {
   useEffect(() => {
     if (open) {
@@ -59,7 +59,7 @@ export const Modal = ({
       title={title}
       open={open}
       onOk={onOk}
-      onCancel={onCancel}
+      onCancel={() => onCancel(false)}
       okText={okText}
       cancelText={cancelText}
       zIndex={zIndex}
