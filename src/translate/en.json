@@ -6,5 +6,11 @@
         "email": "Email",
         "notRegistred": "You are not registred?",
         "registerNow": "Register now"
+    },
+    "Cart": {
+        "title": "Корзина",
+        "item": "Товары",
+        "total": "Итого",
+        "complite": "ОФОРМИТЬ"
     }
 }

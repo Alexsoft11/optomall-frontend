@@ -1,0 +1,27 @@
+.main {
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+
+    .form_block {
+        display: flex;
+        gap: 21px;
+
+        input {
+            &::placeholder {
+                color: var(--davys-grey);
+            }
+        }
+    }
+
+    h2 {
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 24.2px;
+    }
+
+}
