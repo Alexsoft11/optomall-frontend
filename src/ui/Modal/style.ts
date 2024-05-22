@@ -4,9 +4,8 @@ export const StyledModal = styled(AntdModal)`
 
 & {
     width: min-content !important;
-    margin: 0px !important;
-    left: 50%;
-    transform: translate(-50%, 20%);
+    display: flex;
+    justify-content: center;
 }
 
 .ant-modal-footer {
