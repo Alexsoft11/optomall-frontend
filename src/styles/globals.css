@@ -88,6 +88,8 @@
     --emerald-green: #00AC26;
     --mint-cream: #D6FFDF;
     --light-grey-2: #EEEEEE;
+    --light-grey-3: #EBEBEB;
+    --grey-mid-color: #BFBEBE;
     --davys-grey: #777777;
     --red: #FF0000;
     /* 44px */
@@ -142,4 +144,8 @@ a {
     width: 85%;
     max-width: 1440px;
     margin: auto;
+}
+
+.swiper-slide {
+    height: auto !important;
 }
