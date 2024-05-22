@@ -1,6 +1,7 @@
 import { Modal as AntdModal } from 'antd';
 import Image, { StaticImageData } from 'next/image';
 import { useEffect } from 'react';
+import { StyledModal } from './style';
 
 export interface ModalProps {
   title?: string;
@@ -21,6 +22,7 @@ export interface ModalProps {
   className?: string;
   img?: StaticImageData;
   description?: string;
+  bgColor: string;
 }
 
 export const Modal = ({
@@ -41,7 +43,8 @@ export const Modal = ({
   centered,
   img,
   className,
-  description
+  description,
+  bgColor
 }: ModalProps) => {
   useEffect(() => {
     if (open) {
@@ -52,7 +55,7 @@ export const Modal = ({
   }, [open]);
 
   return (
-    <AntdModal
+    <StyledModal
       title={title}
       open={open}
       onOk={onOk}
@@ -70,10 +73,10 @@ export const Modal = ({
       className={className}
     >
       <p></p>
-      <div>
+      <div className='modal-body'>
         {img ? (
-          <div>
-            <Image src={img} width={74} height={74} alt='#' />
+          <div style={{background: bgColor}} className='message-modal-img'>
+            <Image src={img} width={34} height={34} alt='#' />
           </div>
         ) : null}
 
@@ -82,6 +85,6 @@ export const Modal = ({
         </p>
       </div>
       {children}
-    </AntdModal>
+    </StyledModal>
   );
 };

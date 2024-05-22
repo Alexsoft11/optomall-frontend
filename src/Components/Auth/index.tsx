@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './AuthPage.module.css';
-import { AuAuthBackground } from '@/assets/images';
+import { AuAuthBackground } from '$/assets/images';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { ForgotPassword, Info, Registration, SignIn } from './Steps';

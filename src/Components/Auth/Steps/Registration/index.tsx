@@ -1,7 +1,6 @@
 import React from 'react';
-import styles from './Registration.module.css';
+import styles from './Registration.module.scss';
 import { Form, Input } from 'antd';
-import Link from 'next/link';
 import { Button } from '@/ui';
 import { useTranslations } from 'next-intl';
 import GoogleButton from '../../GoogleButton';

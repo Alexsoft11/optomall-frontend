@@ -1,1 +1,0 @@
-export { default as AuAuthBackground } from "./AuthBackground.svg";
