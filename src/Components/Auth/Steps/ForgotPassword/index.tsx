@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import styles from './ForgotPassword.module.css';
+import styles from './ForgotPassword.module.scss';
 import { Form, Input } from 'antd';
 import { Button, Modal } from '@/ui';
 import { useTranslations } from 'next-intl';
-import { AuthModalSvg } from '@/assets/icons';
+import { AuthModalSvg } from '$/assets/images';
 import { validateEmail } from '../../Functions';
 
 export default function ForgotPassword() {
     const [form] = Form.useForm()
     const t = useTranslations("Auth")
-    const [modalIsOpen, setModalIsOpen] = useState(false)
+    const [modalIsOpen, setModalIsOpen] = useState(true)
 
     function submit(data: any) {
         setModalIsOpen(true)
@@ -22,6 +22,7 @@ export default function ForgotPassword() {
             <div className={styles.form}>
                 <Form
                     form={form}
+                    className={styles.form}
                     onFinish={(e) => submit(e)}
                     name="basic"
                     labelCol={{
@@ -47,11 +48,11 @@ export default function ForgotPassword() {
                     </Form.Item>
 
                     <Form.Item className={styles.submitButton}>
-                        <Button type="primary" htmlType="submit" className='generalbtn' label={t('save')} />
+                        <Button type="primary" htmlType="submit" label={t('save')} />
                     </Form.Item>
 
                 </Form>
-                <Modal img={AuthModalSvg} open={modalIsOpen} className='custom-modal' />
+                <Modal bgColor='#CCCCCC' img={AuthModalSvg} description={t('modalMessage')} open={modalIsOpen} />
             </div>
         </div>
     )

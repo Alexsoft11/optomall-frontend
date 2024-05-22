@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './SignIn.module.css';
+import styles from './SignIn.module.scss';
 import { Form, Input } from 'antd';
 import { Button } from '@/ui';
 import { useTranslations } from 'next-intl';
@@ -43,7 +43,7 @@ export default function SignIn() {
                             { validator: validateEmail }
                         ]}
                     >
-                        <Input type="email" className={styles.input} placeholder={t("email")} />
+                        <Input type="email" placeholder={t("email")} />
                     </Form.Item>
 
                     <Form.Item

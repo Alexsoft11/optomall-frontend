@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Info.module.css';
+import styles from './Info.module.scss';
 import { Form, Input } from 'antd';
 import { Button } from '@/ui';
 import { useTranslations } from 'next-intl';
