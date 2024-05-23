@@ -1,8 +1,35 @@
 {
+    "Auth": {
+        "signin": "Kirish",
+        "forgotPassword": "Parolni unutdingizmi?",
+        "password": "Parol",
+        "yourPassword": "Sizning parolingiz",
+        "repeatYourPassword": "Parolni takrorlang",
+        "email": "Elektron pochta",
+        "notRegistred": "Ro'yxatdan o'tmaganmisiz?",
+        "registerNow": "Hozir ro'yxatdan o'ting",
+        "continueGoogle": "Google bilan davom eting",
+        "regist": "Ro'yxatdan o'tish",
+        "name": "Ism",
+        "secondName": "Familiya",
+        "tel": "Telefon",
+        "save": "Saqlash va davom etish",
+        "info": "Shaxsiy ma'lumot",
+        "resetPassword": "Parolni tiklash",
+        "modalMessage": "Biz sizga tasdiqlash maktubini yubordik!",
+        "minSymbolPassword": "Parol kamida 8 ta belgidan iborat bo'lishi kerak",
+        "passwordsIsDifferent": "Parollar mos emas",
+        "emailIncorect": "Yaroqli elektron pochta manzilini kiriting"
+    },
     "Cart": {
-        "title": "Корзина",
-        "item": "Товары",
-        "total": "Итого",
-        "complite": "ОФОРМИТЬ"
+        "item": "Mahsulotlar",
+        "total": "Jami",
+        "complite": "Rasmiylashtirish",
+        "address": "Yetkazib berish manzili",
+        "addressInMap": "Yetkazib berish manzilini xaritada ko'rsating",
+        "enterAddres": "Manzilni kiriting",
+        "person": "Buyurtma oluvchisi",
+        "name": "Ism",
+        "phone": "Telefon raqami"
     }
 }
