@@ -268,7 +268,7 @@
 // wrap-styles
 
 .wrap {
-    position: absolute;
+    position: fixed;
     visibility: hidden;
     background-color: var(--black-color);
     opacity: 0;
@@ -277,6 +277,9 @@
     bottom: 0;
     right: 0;
     transition: .3s;
+    height: 100%;
+    width: 100%;
+    min-height: 100%;
 
     @media (max-width:768px) {
         display: none;
