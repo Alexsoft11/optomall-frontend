@@ -66,4 +66,27 @@ export const StyledTabs = styled(Tabs)`
         display: none;
     }
 }
+
+&.products_tab {
+    .ant-tabs-tab-btn {
+        color: var(--black-color);
+        font-size: 0.875rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+    
+    .ant-tabs-tab-active .ant-tabs-tab-btn {
+        color: var(--black-color);
+    }
+
+    .ant-tabs-ink-bar {
+        height: 1px;
+        background-color: var(--black-color);
+    }
+
+    .ant-tabs-nav-wrap::before {
+        display: none;
+    }
+}
 `

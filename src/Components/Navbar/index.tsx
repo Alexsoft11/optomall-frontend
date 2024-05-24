@@ -532,6 +532,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+      
       <div 
         className={`${styles.wrap} ${(openModal === 'nav' || openModal === 'user') ? styles.open : ''}`} 
         onClick={handleWrapBtnClick}
