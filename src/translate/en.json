@@ -1,3 +1,35 @@
 {
-    
+    "Auth": {
+        "signin": "Sign In",
+        "forgotPassword": "Forgot Password?",
+        "password": "Password",
+        "yourPassword": "Your Password",
+        "repeatYourPassword": "Repeat Your Password",
+        "email": "Email",
+        "notRegistred": "Not Registered?",
+        "registerNow": "Register Now",
+        "continueGoogle": "Continue with Google",
+        "regist": "Register",
+        "name": "Name",
+        "secondName": "Surname",
+        "tel": "Phone",
+        "save": "Save and Continue",
+        "info": "Personal Information",
+        "resetPassword": "Reset Password",
+        "modalMessage": "We have sent you a confirmation email!",
+        "minSymbolPassword": "Password must be at least 8 characters",
+        "passwordsIsDifferent": "Passwords do not match",
+        "emailIncorect": "Enter a valid email address"
+    },
+    "Cart": {
+        "item": "Items",
+        "total": "Total",
+        "complite": "Checkout",
+        "address": "Delivery Address",
+        "addressInMap": "Specify delivery address on the map",
+        "enterAddres": "Enter Address",
+        "person": "Order Recipient",
+        "name": "Name",
+        "phone": "Phone Number"
+    }
 }

@@ -1,12 +1,14 @@
 import { Modal as AntdModal } from 'antd';
+import Image, { StaticImageData } from 'next/image';
 import { useEffect } from 'react';
+import { StyledModal } from './style';
 
 export interface ModalProps {
   title?: string;
   children?: React.ReactNode;
   open: boolean;
   onOk?: (e: React.MouseEvent<HTMLElement>) => void;
-  onCancel?: (e: React.MouseEvent<HTMLElement>) => void;
+  onCancel: React.Dispatch<React.SetStateAction<boolean>>
   okText?: string;
   cancelText?: string;
   zIndex?: number;
@@ -17,6 +19,10 @@ export interface ModalProps {
   getContainer?: string | false | HTMLElement | undefined;
   destroyOnClose?: boolean;
   centered?: boolean;
+  className?: string;
+  img?: StaticImageData;
+  description?: string;
+  bgColor: string;
 }
 
 export const Modal = ({
@@ -35,6 +41,10 @@ export const Modal = ({
   getContainer,
   destroyOnClose,
   centered,
+  img,
+  className,
+  description,
+  bgColor,
 }: ModalProps) => {
   useEffect(() => {
     if (open) {
@@ -45,11 +55,11 @@ export const Modal = ({
   }, [open]);
 
   return (
-    <AntdModal
+    <StyledModal
       title={title}
       open={open}
       onOk={onOk}
-      onCancel={onCancel}
+      onCancel={() => onCancel(false)}
       okText={okText}
       cancelText={cancelText}
       zIndex={zIndex}
@@ -60,8 +70,21 @@ export const Modal = ({
       getContainer={getContainer}
       destroyOnClose={destroyOnClose}
       centered={centered}
+      className={className}
     >
+      <p></p>
+      <div className='modal-body'>
+        {img ? (
+          <div style={{background: bgColor}} className='message-modal-img'>
+            <Image src={img} width={34} height={34} alt='#' />
+          </div>
+        ) : null}
+
+        <p>
+          {description}
+        </p>
+      </div>
       {children}
-    </AntdModal>
+    </StyledModal>
   );
 };
