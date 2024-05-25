@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Checkbox as AntdCheckbox } from 'antd';
 import { Rule } from 'rc-field-form/lib/interface';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { StyledChackbox } from './style';
 
 export interface CheckboxProps {
   onChange?: ((e: CheckboxChangeEvent) => void) | undefined;
@@ -30,9 +31,9 @@ export const Checkbox = ({
 }: CheckboxProps) => {
   return (
     <Form.Item name={name} rules={rules} className={className} noStyle={noStyle} initialValue={initialValue}>
-      <AntdCheckbox disabled={disabled} onChange={onChange} checked={checked}>
+      <StyledChackbox disabled={disabled} onChange={onChange} checked={checked}>
         {label}
-      </AntdCheckbox>
+      </StyledChackbox>
     </Form.Item>
   );
 };
