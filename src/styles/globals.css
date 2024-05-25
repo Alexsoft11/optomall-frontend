@@ -144,6 +144,10 @@ a {
     width: 85%;
     max-width: 1440px;
     margin: auto;
+
+    @media (max-width:425px) {
+      width: 90%;
+    }
 }
 
 .swiper-slide {

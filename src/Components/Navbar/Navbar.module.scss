@@ -220,6 +220,11 @@
         align-items: center;
         justify-content: space-between;
         gap: 40px;
+
+        @media (max-width:370px) {
+            gap: 30px;
+            padding: 15px 30px 30px 30px;
+        }
     }
 
     &__mobile_item {

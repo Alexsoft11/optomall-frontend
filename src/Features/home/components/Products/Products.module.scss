@@ -1,11 +1,10 @@
 .products {
     margin-top: 60px;
-    &__inner {
-
-    }
 
     &__top {
-
+        @media (max-width:768px) {
+            display: none;
+        }
     }
 
     &__cards {
@@ -22,7 +21,12 @@
             grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); 
         }
 
-        @media (max-width:460px) {
+        @media (max-width:700px) {
+            grid-template-columns: repeat(auto-fit, minmax(165px,1fr));
+            column-gap: 20px;
+        }
+
+        @media (max-width:390px) {
             display: flex;
             align-items: center;
             justify-content: center;

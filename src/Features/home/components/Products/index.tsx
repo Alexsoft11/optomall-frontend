@@ -1,62 +1,12 @@
 import React from 'react'
 import styles from './Products.module.scss'
 import { CustomTabs } from '@/ui/Tabs'
-import { ProductImage } from '$/assets/images'
-import ProductCard from '@/Components/ProductCard'
-import { ProductCardInterface } from '@/Components/Types'
+import ProductCard from '@/Components/Card'
 import TabPane from 'antd/es/tabs/TabPane'
+import { CardsMockData } from '@/mockdata/Cards'
+import { ProductTabsData } from '@/constants/products'
 
 const Products = () => {
-    const dataCards: ProductCardInterface[] = [
-        {
-            title: 'Lorem ipsum is dolor set amet',
-            price: 'UZS 1650',
-            imageUrl: ProductImage,
-        },
-        {
-            title: 'Lorem ipsum is dolor set amet',
-            price: 'UZS 1650',
-            imageUrl: ProductImage,
-        },
-        {
-            title: 'Lorem ipsum is dolor set amet',
-            price: 'UZS 1650',
-            imageUrl: ProductImage,
-        },
-        {
-            title: 'Lorem ipsum is dolor set amet',
-            price: 'UZS 1650',
-            imageUrl: ProductImage,
-        },
-        {
-            title: 'Lorem ipsum is dolor set amet',
-            price: 'UZS 1650',
-            imageUrl: ProductImage,
-        },
-        {
-            title: 'Lorem ipsum is dolor set amet',
-            price: 'UZS 1650',
-            imageUrl: ProductImage,
-        },
-    ]
-
-    const tabData = [
-        { 
-            key: '1', 
-            tab: 'Распродажа',
-            content: ''
-            },
-        { 
-            key: '2', 
-            tab: 'Топ-товары',
-            content: ''
-        },
-        { 
-            key: '3', 
-            tab: 'Рекомендуем вам',
-            content: ''
-        },
-    ]
   return (
     <>
         <div className={styles.products}>
@@ -66,7 +16,7 @@ const Products = () => {
                         <CustomTabs
                             className='products_tab'
                         >
-                            {tabData.map(tab => (
+                            {ProductTabsData.map(tab => (
                                 <TabPane
                                     key={tab.key}
                                     tab={tab.tab}
@@ -78,7 +28,7 @@ const Products = () => {
                     </div>
 
                     <div className={styles.products__cards}>
-                        <ProductCard data={dataCards}/>
+                        <ProductCard data={CardsMockData}/>
                     </div>
                 </div>
             </div>

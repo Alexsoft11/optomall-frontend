@@ -88,9 +88,7 @@ export const StyledButton = styled(Button)`
       span {
         color: #FFF;
         font-size: 0.75rem;
-        font-style: normal;
         font-weight: 300;
-        line-height: normal;
       }
 
 
