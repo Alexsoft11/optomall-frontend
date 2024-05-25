@@ -10,9 +10,7 @@ export const StyledTabs = styled(Tabs)`
 
         color: var(--black-color);
         font-size: 16px;
-        font-style: normal;
         font-weight: 400;
-        line-height: normal;
     }
 
     .ant-tabs-tab-active {
@@ -71,13 +69,13 @@ export const StyledTabs = styled(Tabs)`
     .ant-tabs-tab-btn {
         color: var(--black-color);
         font-size: 0.875rem;
-        font-style: normal;
         font-weight: 400;
-        line-height: normal;
     }
     
     .ant-tabs-tab-active .ant-tabs-tab-btn {
         color: var(--black-color);
+        font-weight: 400;
+        text-shadow: none;
     }
 
     .ant-tabs-ink-bar {

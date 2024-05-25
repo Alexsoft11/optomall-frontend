@@ -1,5 +1,4 @@
-.productcard {
-    
+.card {
     &__image {
         border-radius: 20px;
         margin-bottom: 15px;
@@ -7,8 +6,13 @@
         max-width: 240px;
         max-height: 240px;
 
-        @media (max-width:460px) {
+        @media (max-width:425px) {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width:390px) {
             min-width: 240px;
+            min-height: 240px;
         }
 
         img {
@@ -21,18 +25,18 @@
     &__title {
         color: var(--black-color);
         font-size: 0.875rem;
-        font-style: normal;
         font-weight: 400;
-        line-height: normal;
 
         margin-bottom: 10px;
+
+        @media (max-width:425px) {
+            margin-bottom: 5px;
+        }
     }
 
     &__price {
         color: var(--primary-color);
         font-size: 1.25rem;
-        font-style: normal;
         font-weight: 500;
-        line-height: normal;
     }
 }
