@@ -10,8 +10,8 @@ interface CardProps {
 const Card = ({ data }: CardProps) => {
   return (
     <>
-        {data.map((item, index) => (
-            <div key={index} className={styles.card}>
+        {data.map((item, idx) => (
+            <div key={idx} className={styles.card}>
                 <div className={styles.card__image}>
                     <Image src={item.imageUrl} alt="img"/>
                 </div>
