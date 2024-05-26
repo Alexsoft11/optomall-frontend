@@ -142,10 +142,10 @@ const Navbar = () => {
 
       <div className={styles.navbar__mobile}>
         <div className={styles.navbar__mobile_inner}>
-          {NavLinks.map((item, index) => (
+          {NavLinks.map((item, idx) => (
             <Link
               className={`${styles.navbar__mobile_item} ${router.pathname === item.link ? styles.activeItem : ''}`}
-              key={index}
+              key={idx}
               href={item.link}
             >
               <SvgSelector id={`${item.key}-svg`} />
