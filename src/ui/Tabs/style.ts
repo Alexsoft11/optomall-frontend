@@ -9,7 +9,7 @@ export const StyledTabs = styled(Tabs)`
         margin: 0px !important;
 
         color: var(--black-color);
-        font-size: 16px;
+        font-size: var(--paragraph);
         font-weight: 400;
     }
 
@@ -68,7 +68,7 @@ export const StyledTabs = styled(Tabs)`
 &.products_tab {
     .ant-tabs-tab-btn {
         color: var(--black-color);
-        font-size: 0.875rem;
+        font-size: var(--paragraph-two);
         font-weight: 400;
     }
     

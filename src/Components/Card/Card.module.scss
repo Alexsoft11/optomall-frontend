@@ -24,7 +24,7 @@
 
     &__title {
         color: var(--black-color);
-        font-size: 0.875rem;
+        font-size: var(--paragraph-two);
         font-weight: 400;
 
         margin-bottom: 10px;
@@ -36,7 +36,7 @@
 
     &__price {
         color: var(--primary-color);
-        font-size: 1.25rem;
+        font-size: var(--heading-six);
         font-weight: 500;
     }
 }
