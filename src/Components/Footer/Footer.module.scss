@@ -35,7 +35,7 @@
 
 .footer_links a {
     color: var(--black-color);
-    font-size: 1rem;
+    font-size: var(--paragraph);
     font-weight: 400;
 }
 
@@ -67,7 +67,7 @@
 
 .copyright {
     color: #7f7f7f;
-    font-size: 0.875rem;
+    font-size: var(--paragraph-two);
     font-weight: 400;
 }
 

@@ -21,7 +21,7 @@
 
     &__title {
         color: var(--black-color);
-        font-size: 1.5rem;
+        font-size: var(--heading-five);
         font-weight: 400;
         margin-bottom: 20px;
 
@@ -36,7 +36,7 @@
 
         a {
             color: var(--black-color);
-            font-size: 0.875rem;
+            font-size: var(--paragraph-two);
             font-weight: 400;
             padding: 10px 0px;
 
