@@ -5,9 +5,8 @@ import { Button } from '@/ui';
 import { useTranslations } from 'next-intl';
 
 export default function Info() {
-
-    const [form] = Form.useForm()
-    const t = useTranslations("Auth")
+    const [form] = Form.useForm();
+    const t = useTranslations("Auth");
 
     function submit(data: any) {
         console.log(data);
@@ -34,15 +33,30 @@ export default function Info() {
                     autoComplete="off"
                 >
 
-                    <Form.Item name="name">
+                    <Form.Item
+                        name="name"
+                        rules={[
+                            { required: true, message: t('requiredNameMessage') },
+                        ]}
+                    >
                         <Input type="text" className={styles.input} placeholder={t("name")} />
                     </Form.Item>
 
-                    <Form.Item name="secondName">
+                    <Form.Item
+                        name="secondName"
+                        rules={[
+                            { required: true, message: t('requiredSecondNameMessage') },
+                        ]}
+                    >
                         <Input type="text" placeholder={t("secondName")} />
                     </Form.Item>
 
-                    <Form.Item name="tel">
+                    <Form.Item
+                        name="tel"
+                        rules={[
+                            { required: true, message: t('requiredTelMessage') },
+                        ]}
+                    >
                         <Input type="tel" placeholder={t("tel")} />
                     </Form.Item>
 

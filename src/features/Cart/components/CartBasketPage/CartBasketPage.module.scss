@@ -1,9 +1,16 @@
 .main {
     display: grid;
     gap: 20px;
-    grid-template-areas: 'items items items order';
+    grid-template-areas: 'items items order_side';
     grid-template-columns: 60dvw;
     max-width: 1450px;
     margin: 0 auto;
 
+
+    .order_side {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        grid-area: order_side;
+    }
 }
