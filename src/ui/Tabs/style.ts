@@ -9,10 +9,8 @@ export const StyledTabs = styled(Tabs)`
         margin: 0px !important;
 
         color: var(--black-color);
-        font-size: 16px;
-        font-style: normal;
+        font-size: var(--paragraph);
         font-weight: 400;
-        line-height: normal;
     }
 
     .ant-tabs-tab-active {
@@ -63,6 +61,29 @@ export const StyledTabs = styled(Tabs)`
     }
 
     .ant-tabs-nav-more {
+        display: none;
+    }
+}
+
+&.products_tab {
+    .ant-tabs-tab-btn {
+        color: var(--black-color);
+        font-size: var(--paragraph-two);
+        font-weight: 400;
+    }
+    
+    .ant-tabs-tab-active .ant-tabs-tab-btn {
+        color: var(--black-color);
+        font-weight: 400;
+        text-shadow: none;
+    }
+
+    .ant-tabs-ink-bar {
+        height: 1px;
+        background-color: var(--black-color);
+    }
+
+    .ant-tabs-nav-wrap::before {
         display: none;
     }
 }
