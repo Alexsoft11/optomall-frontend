@@ -1,0 +1,40 @@
+import React from 'react'
+import styles from './Products.module.scss'
+import { CustomTabs } from '@/ui/Tabs'
+import ProductCard from '@/Components/Card'
+import TabPane from 'antd/es/tabs/TabPane'
+import { CardsMockData } from '@/mockdata/Cards'
+import { ProductTabsData } from '@/constants/products'
+
+const Products = () => {
+  return (
+    <>
+        <div className={styles.products}>
+            <div className='container'>
+                <div className={styles.products__inner}>
+                    <div className={styles.products__top}>
+                        <CustomTabs
+                            className='products_tab'
+                        >
+                            {ProductTabsData.map(tab => (
+                                <TabPane
+                                    key={tab.key}
+                                    tab={tab.tab}
+                                    className={styles.products__item}
+                                >
+                                </TabPane>
+                            ))}
+                        </CustomTabs>
+                    </div>
+
+                    <div className={styles.products__cards}>
+                        <ProductCard data={CardsMockData}/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </>
+  )
+}
+
+export default Products

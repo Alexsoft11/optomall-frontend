@@ -31,7 +31,7 @@ export const StyledModal = styled(AntdModal)`
             width: 226px;
             text-align: center;
             width: 266px;
-            font-size: 16px;
+            font-size: var(--paragraph);
             font-weight: 400;
             line-height: 19.36px;
         }

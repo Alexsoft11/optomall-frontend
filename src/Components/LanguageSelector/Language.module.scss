@@ -8,8 +8,7 @@
         gap: 5px;
         cursor: pointer;
         span {
-          font-size: 0.875rem;
-          font-style: normal;
+          font-size: var(--paragraph-two);
           font-weight: 400;
           line-height: 98.523%;
           text-transform: capitalize;
@@ -45,8 +44,7 @@
         backdrop-filter: blur(80px);
         background: var(--white-color);
         li {
-          font-size: 0.875rem;
-          font-style: normal;
+          font-size: var(--paragraph-two);
           font-weight: 700;
           line-height: 98.523%;
           text-transform: capitalize;
