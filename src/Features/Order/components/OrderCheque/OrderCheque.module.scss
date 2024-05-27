@@ -1,0 +1,16 @@
+.main {
+    grid-area: cheque;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0px 0px 6px 0px #00000026;
+    border-radius: 10px;
+    padding: 20px 12px;
+    height: min-content;
+
+    p {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 19.36px;
+    }
+}
