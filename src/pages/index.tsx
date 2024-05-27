@@ -1,3 +1,4 @@
+import { Products } from "@/features/home";
 import Head from "next/head";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
         <title>Home</title>
       </Head>
       <h1>Home</h1>
+      <Products/>
     </>
   );
 }

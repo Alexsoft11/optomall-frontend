@@ -3,7 +3,7 @@ import "@/styles/antdStyle.scss";
 import IntlWrapperProvider from "@/utils/intlWrapperProvider";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import MainLayout from "@/Components/Layout/index";
+import MainLayout from "@/components/Layout/index";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

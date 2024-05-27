@@ -220,6 +220,11 @@
         align-items: center;
         justify-content: space-between;
         gap: 40px;
+
+        @media (max-width:370px) {
+            gap: 30px;
+            padding: 15px 30px 30px 30px;
+        }
     }
 
     &__mobile_item {
@@ -240,7 +245,7 @@
         }
 
         p {
-            font-size: 0.6875rem;
+            font-size: var(--paragraph-three);
             font-weight: 500;
             line-height: 13.31px;
             text-align: left;
@@ -268,7 +273,7 @@
 // wrap-styles
 
 .wrap {
-    position: absolute;
+    position: fixed;
     visibility: hidden;
     background-color: var(--black-color);
     opacity: 0;
@@ -277,6 +282,9 @@
     bottom: 0;
     right: 0;
     transition: .3s;
+    height: 100%;
+    width: 100%;
+    min-height: 100%;
 
     @media (max-width:768px) {
         display: none;

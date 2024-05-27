@@ -1,6 +1,5 @@
 import React from 'react';
-import styles from './';
-import AuthPage from '@/Components/Auth';
+import AuthPage from '@/components/Auth';
 
 export default function Auth() {
     return (
