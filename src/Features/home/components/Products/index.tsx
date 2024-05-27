@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './Products.module.scss'
 import { CustomTabs } from '@/ui/Tabs'
-import ProductCard from '@/Components/Card'
+import Card from '@/components/Card'
 import TabPane from 'antd/es/tabs/TabPane'
 import { CardsMockData } from '@/mockdata/Cards'
 import { ProductTabsData } from '@/constants/products'
@@ -28,7 +28,9 @@ const Products = () => {
                     </div>
 
                     <div className={styles.products__cards}>
-                        <ProductCard data={CardsMockData}/>
+                        {CardsMockData.map((el:any, idx:number)=>(
+                            <Card path={el.id} data={el} idx={idx}/>
+                        ))}
                     </div>
                 </div>
             </div>
