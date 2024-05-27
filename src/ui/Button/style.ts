@@ -37,7 +37,7 @@ export const StyledButton = styled(Button)`
       min-height: 56px;
   
       span {
-        font-size: 1rem;
+        font-size: var(--paragraph);
         font-weight: 600;
         line-height: 1.5rem;
         letter-spacing: 0.2px;
@@ -52,7 +52,7 @@ export const StyledButton = styled(Button)`
       display: none;
   
       span {
-        font-size: 14px;
+        font-size: var(--paragraph-two);
         font-weight: 400;
         line-height: 1.0588rem;
         letter-spacing: 0.2px;
@@ -66,7 +66,7 @@ export const StyledButton = styled(Button)`
       max-width: fit-content;
   
       span {
-        font-size: 0.75rem;
+        font-size: var(--paragraph-three);
         font-weight: 400;
         line-height: 1rem;
         letter-spacing: 0.2px;
@@ -87,10 +87,8 @@ export const StyledButton = styled(Button)`
 
       span {
         color: #FFF;
-        font-size: 0.75rem;
-        font-style: normal;
+        font-size: var(--paragraph-three);
         font-weight: 300;
-        line-height: normal;
       }
 
 
@@ -110,7 +108,7 @@ export const StyledButton = styled(Button)`
       span {
           text-decoration: none;
           color: white;
-          font-size: 14px;
+          font-size: var(--paragraph-two);
           letter-spacing: .08em;
           text-transform: uppercase;
       }

@@ -102,10 +102,17 @@
     --heading-four: 1.75rem;
     /* 25px */
     --heading-five: 1.5625rem;
+    /* 20px */
+    --heading-six: 1.25rem;
     /* 18px */
-    --heading-six: 1.125rem;
+    --heading-seven: 1.125rem;
     /* 16px */
     --paragraph: 1rem;
+    /* 14px */
+    --paragraph-two: 0.875rem;
+    /* 12px */
+    --paragraph-three: 0.75rem;
+
   
     --navbar-height: 80px;
 }
@@ -144,6 +151,10 @@ a {
     width: 85%;
     max-width: 1440px;
     margin: auto;
+
+    @media (max-width:425px) {
+      width: 90%;
+    }
 }
 
 .swiper-slide {
