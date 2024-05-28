@@ -12,7 +12,6 @@ export default function Cart() {
             <Head>
                 <title>{t('basket')}</title>
             </Head>
-            <h1 style={{ color: "black", margin: '100px 0px 0px 50px' }}>{t('basket')}</h1>
             <CartBasketPage />
         </div>
     );

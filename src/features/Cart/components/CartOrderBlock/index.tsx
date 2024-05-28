@@ -19,21 +19,18 @@ export default function CartOrder({ cost, itemValue, orderId }: Props) {
 
     return (
         <div className={styles.main}>
-            <div className={styles.order_block}>
-                {orderId?
-                    <p className={styles.order_title}>{t('item')}, {itemValue}</p> :
-                    <p className={styles.order_title}>{t('payment')}</p>
-                }
-                <div className={styles.total}>
-                    <h1>{t('total')}</h1>
-                    <p>{cost} uzs</p>
-                </div>
-                {orderId?
-                    <Button className={styles.complite_btn} label={t("loadCheque")} />:
-                    <Button onClick={() => toOrder()} className={styles.complite_btn} label={t("complite")} />
-                }
+            {orderId ?
+                <p className={styles.order_title}>{t('payment')}</p>:
+                <p className={styles.order_title}>{t('item')}, {itemValue}</p> 
+            }
+            <div className={styles.total}>
+                <h1>{t('total')}:</h1>
+                <p>{cost} uzs</p>
             </div>
-            
+            {orderId ?
+                <Button className={styles.complite_btn} label={t("loadCheque")} /> :
+                <Button onClick={() => toOrder()} className={styles.complite_btn} label={t("complite")} />
+            }
         </div>
     );
 }
