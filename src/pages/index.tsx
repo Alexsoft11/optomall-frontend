@@ -1,6 +1,6 @@
 import { SliderImg } from "$/assets/images";
 import CustomSliders from "@/Components/CustomSliders";
-import { Products } from "@/features/home";
+import { Products } from "@/Features/home";
 import Head from "next/head";
 import Image from "next/image";
 
@@ -51,8 +51,11 @@ export default function Home() {
         arrows={true}
         timeAutoPlay={8000}
         autoPlay={true}
+        slidesToShow={3}
+        slidesToScroll={1}
+        centered={true}
       />
-      <CustomSliders 
+      <CustomSliders
         SliderData={reviews.map((review, idx) => (
           <div key={idx}>
             <h3>{review.name}</h3>
@@ -65,6 +68,9 @@ export default function Home() {
         arrows={true}
         autoPlay={true}
         timeAutoPlay={8000}
+        slidesToShow={3}
+        slidesToScroll={1}
+        centered={false}
       />
       <Products/>
     </>

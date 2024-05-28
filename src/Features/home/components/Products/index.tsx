@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './Products.module.scss'
 import { CustomTabs } from '@/ui/Tabs'
-import Card from '@/components/Card'
+import Card from '@/Components/Card'
 import TabPane from 'antd/es/tabs/TabPane'
 import { CardsMockData } from '@/mockdata/Cards'
 import { ProductTabsData } from '@/constants/products'

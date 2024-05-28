@@ -8,6 +8,9 @@ interface SliderProps {
   arrows?: boolean;
   autoPlay?: boolean;
   timeAutoPlay?: number;
+  slidesToShow?: number;
+  slidesToScroll?: number;
+  centered?: boolean;
 }
 
 const CustomSliders = ({
@@ -16,6 +19,9 @@ const CustomSliders = ({
   arrows,
   timeAutoPlay,
   autoPlay,
+  slidesToShow,
+  slidesToScroll,
+  centered,
 }: SliderProps) => {
   return (
     <div>
@@ -30,6 +36,9 @@ const CustomSliders = ({
         dots={dots}
         draggable
         pauseOnHover={false}
+        slidesToShow={slidesToShow}
+        slidesToScroll={slidesToScroll}
+        centerMode={centered}
       >
         {SliderData?.map((el, index) => (
           <div key={index}>{el}</div>
