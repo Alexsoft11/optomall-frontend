@@ -1,85 +1,78 @@
 .main {
     display: flex;
-    flex-direction: column;
     gap: 17px;
-    
+    align-items: flex-end;
 
-    .Checkbox {
-        display: flex;
-        justify-content: end;
-        div {
-            margin: 0px;
-        }
+    .item_img {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        border-radius: 5px;
     }
 
     .item_block {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        width: 100%;
 
-        .item_info {
+        .item_text {
             display: flex;
-            gap: 20px;
+            justify-content: space-between;
 
-            .item_img {
-                position: relative;
-                width: 100px;
-                height: 100px;
-                border-radius: 5px;
+            h3 {
+                font-size: var(--heading-five);
+                font-weight: 500;
+                line-height: 24.2px;
             }
 
-            .item_text {
-
+            .item_info {
                 display: flex;
                 flex-direction: column;
-                gap: 5px;
-
+                gap: 5px ;
                 p {
-                    font-size: var(--paragraph);
+                    font-size: var(--heading-seven);
                     font-weight: 400;
                     line-height: 19.36px;
                 }
 
                 span {
-                    color: var(--davys-grey);
-                    font-size: var(--paragraph-two);
+                    color: var(--silver-grey);
+                    font-size: var(--paragraph);
                     font-weight: 400;
                     line-height: 16.94px;
                 }
             }
         }
 
-        .item_cost {
+        .checkbox {
             display: flex;
-            flex-direction: column;
-            gap: 24px;
             justify-content: end;
-            text-align: right;
+            margin: 0px 0px 17px 0px;
 
-            h3 {
-                font-size: var(--heading-six);
-                font-weight: 500;
-                line-height: 24.2px;
+            div {
+                margin: 0px;
             }
+        }
 
-            .change_value {
+        .change_value {
+            align-self: flex-end;
+            width: min-content;
+            background: var(--light-grey);
+            padding: 5px;
+            border-radius: 10px;
+            display: flex;
+            gap: 23px;
+            align-items: center;
 
-                background: var(--light-grey);
+            button {
+                background: white;
+                border-radius: 8px;
                 padding: 5px;
-                border-radius: 10px;
                 display: flex;
-                gap: 23px;
+                justify-content: center;
                 align-items: center;
-
-                button {
-                    background: white;
-                    border-radius: 8px;
-                    padding: 5px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
             }
+
         }
     }
 

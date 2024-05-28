@@ -14,7 +14,7 @@ export default function CartBasketItems() {
             <div className={styles.swiper}>
                 <Swiper
                     slidesPerView={4}
-                    spaceBetween={10}
+                    spaceBetween={40}
                     mousewheel={true}
                     direction="vertical"
                     scrollbar={{ draggable: true }}
