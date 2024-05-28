@@ -1,5 +1,5 @@
 import { CartWearImg } from "$/assets/images";
-import { CartOrderDataInterface, CartOrderInterface } from "@/features/Cart/interface";
+import { CartOrderDataInterface, CartOrderInterface } from "@/Features/Cart/interface";
 
 export const CartMockdata: CartOrderDataInterface = {
     itemsCount: 10,

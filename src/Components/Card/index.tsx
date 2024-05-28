@@ -1,7 +1,7 @@
 /** @format */
 
 import React from "react";
-import { CardInterface } from "../Types";
+import { CardInterface } from "@/interfaces";
 import styles from "./Card.module.scss";
 import Image from "next/image";
 import Link from "next/link";
