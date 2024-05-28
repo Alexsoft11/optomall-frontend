@@ -29,7 +29,7 @@ const Products = () => {
 
                     <div className={styles.products__cards}>
                         {CardsMockData.map((el:any, idx:number)=>(
-                            <Card path={el.id} data={el} idx={idx}/>
+                            <Card key={idx} path={el.id} data={el} idx={idx}/>
                         ))}
                     </div>
                 </div>
