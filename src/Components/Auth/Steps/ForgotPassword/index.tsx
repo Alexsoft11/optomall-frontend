@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './ForgotPassword.module.scss';
 import { Form, Input } from 'antd';
-import { Button, Modal } from '@/ui';
+import { Button } from '@/ui';
 import { useTranslations } from 'next-intl';
-import { AuthModalSvg } from '$/assets/images';
 import { validateEmail } from '../../Functions';
 
 interface Props {
-    setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+    setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function ForgotPassword({setModalIsOpen}:Props) {
-    const [form] = Form.useForm()
-    const t = useTranslations("Auth")
+export default function ForgotPassword({ setModalIsOpen }: Props) {
+    const [form] = Form.useForm();
+    const t = useTranslations("Auth");
 
     function submit(data: any) {
-        setModalIsOpen(true)
+        setModalIsOpen(true);
     }
 
     return (
@@ -29,23 +28,16 @@ export default function ForgotPassword({setModalIsOpen}:Props) {
                         className={styles.form}
                         onFinish={(e) => submit(e)}
                         name="basic"
-                        labelCol={{
-                            span: 8,
-                        }}
-                        wrapperCol={{
-                            span: 16,
-                        }}
-                        style={{
-                            maxWidth: 600,
-                        }}
+                        labelCol={{ span: 8 }}
+                        wrapperCol={{ span: 16 }}
+                        style={{ maxWidth: 600 }}
                         autoComplete="off"
                     >
-
                         <Form.Item
                             name="email"
                             rules={[
-                                { required: true, message: 'Пожалуйста, введите адрес электронной почты' },
-                                { validator: validateEmail }
+                                { required: true, message: t('requiredEmailMessage') },
+                                { validator: (rule, value) => validateEmail(t, rule, value) }
                             ]}
                         >
                             <Input type="email" className={styles.input} placeholder={t("email")} />
@@ -57,7 +49,6 @@ export default function ForgotPassword({setModalIsOpen}:Props) {
                     </Form>
                 </div>
             </div>
-
         </div>
-    )
+    );
 }

@@ -1,7 +1,18 @@
 .main {
-    display: grid;
+    display: flex;
     gap: 20px;
-    grid-template-areas: 'items items items order';
-    grid-template-columns: 60dvw;
-    max-width: 1450px;
+
+    .order_side {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        grid-area: order_side;
+    }
+
+    @media (max-width: 769px) {
+        margin: 20px 0px 0px 0px; 
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 }

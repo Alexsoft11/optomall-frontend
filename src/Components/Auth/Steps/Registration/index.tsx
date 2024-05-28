@@ -2,13 +2,13 @@ import React from 'react';
 import styles from './Registration.module.scss';
 import { Form, Input } from 'antd';
 import { Button } from '@/ui';
-import { useTranslations } from 'next-intl';
 import GoogleButton from '../../GoogleButton';
 import { validateConfirmPassword, validateEmail, validatePassword } from '../../Functions';
+import { useTranslations } from 'next-intl';
 
 export default function Registration() {
-    const [form] = Form.useForm()
-    const t = useTranslations("Auth")
+    const [form] = Form.useForm();
+    const t = useTranslations("Auth");
 
     function submit(data: any) {
         console.log(data);
@@ -38,8 +38,8 @@ export default function Registration() {
                     <Form.Item
                         name="email"
                         rules={[
-                            { required: true, message: 'Пожалуйста, введите адрес электронной почты' },
-                            { validator: validateEmail }
+                            { required: true, message: t('requiredEmailMessage') },
+                            { validator: (rule, value) => validateEmail(t, rule, value) }
                         ]}
                     >
                         <Input type="email" className={styles.input} placeholder={t("email")} />
@@ -48,8 +48,8 @@ export default function Registration() {
                     <Form.Item
                         name="password"
                         rules={[
-                            { required: true, message: 'введите пароль' },
-                            { validator: validatePassword }
+                            { required: true, message: t('requiredPasswordMessage') },
+                            { validator: (rule, value) => validatePassword(t, rule, value) }
                         ]}
                         hasFeedback
                     >
@@ -60,8 +60,8 @@ export default function Registration() {
                         name="confirmPassword"
                         hasFeedback
                         rules={[
-                            { required: true, message: 'Пожалуйста, подтвердите пароль' },
-                            validateConfirmPassword,
+                            { required: true, message: t('requiredConfirmPasswordMessage') },
+                            { validator: (rule, value) => validateConfirmPassword(t, form).validator(rule, value) }
                         ]}
                     >
                         <Input.Password type="password" placeholder={t("repeatYourPassword")} />
