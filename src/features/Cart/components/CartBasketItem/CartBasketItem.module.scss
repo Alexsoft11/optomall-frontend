@@ -7,6 +7,9 @@
     .Checkbox {
         display: flex;
         justify-content: end;
+        div {
+            margin: 0px;
+        }
     }
 
     .item_block {
@@ -78,5 +81,9 @@
                 }
             }
         }
+    }
+
+    @media (max-width: 769px) {
+        gap: 0px;
     }
 }

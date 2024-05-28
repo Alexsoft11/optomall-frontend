@@ -11,7 +11,20 @@
         display: flex;
         gap: 21px;
 
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        div {
+            margin: 0px !important;
+            width: 100%;
+        }
+
         input {
+            padding: 9px;
             &::placeholder {
                 color: var(--davys-grey);
             }

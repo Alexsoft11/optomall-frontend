@@ -8,8 +8,8 @@ import GoogleButton from '../../GoogleButton';
 import { validateEmail, validatePassword } from '../../Functions';
 
 export default function SignIn() {
-    const [form] = Form.useForm()
-    const t = useTranslations("Auth")
+    const [form] = Form.useForm();
+    const t = useTranslations("Auth");
 
     function submit(data: any) {
         console.log(data);
@@ -24,23 +24,16 @@ export default function SignIn() {
                     form={form}
                     onFinish={(e) => submit(e)}
                     name="basic"
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 16,
-                    }}
-                    style={{
-                        maxWidth: 600,
-                    }}
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    style={{ maxWidth: 600 }}
                     autoComplete="off"
                 >
-
                     <Form.Item
                         name="email"
                         rules={[
-                            { required: true, message: 'Пожалуйста, введите адрес электронной почты' },
-                            { validator: validateEmail }
+                            { required: true, message: t('requiredEmailMessage') },
+                            { validator: (rule, value) => validateEmail(t, rule, value) }
                         ]}
                     >
                         <Input type="email" placeholder={t("email")} />
@@ -49,8 +42,8 @@ export default function SignIn() {
                     <Form.Item
                         name="password"
                         rules={[
-                            { required: true, message: 'введите пароль' },
-                            { validator: validatePassword }
+                            { required: true, message: t('requiredPasswordMessage') },
+                            { validator: (rule, value) => validatePassword(t, rule, value) }
                         ]}
                         hasFeedback
                     >
@@ -66,13 +59,10 @@ export default function SignIn() {
                     <Form.Item className={styles.submitButton}>
                         <Button type="primary" htmlType="submit" label={t('signin')} />
                     </Form.Item>
-
                 </Form>
 
                 <div className={styles.not_registred}>
-                    <p>
-                        {t("notRegistred")}
-                    </p>
+                    <p>{t("notRegistred")}</p>
                     <span>
                         <Link href="/auth?step=regist">{t("registerNow")}</Link>
                     </span>
