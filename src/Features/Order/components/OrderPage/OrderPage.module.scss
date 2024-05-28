@@ -1,17 +1,13 @@
 .main {
-    margin: 100px 0px 0px 0px;
-    display: grid;
+
+    display: flex;
     gap: 20px;
-    grid-template-areas: 'cheque order_block';
-    grid-template-columns: 60dvw;
 
     @media (max-width:  1350px) {
         display: flex;
     }
 
     @media (max-width:  770px) {
-        margin: 20px 0px 0px 0px;
-        display: flex;
         gap: 10px;
     }
 

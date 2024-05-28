@@ -7,7 +7,9 @@
     gap: 23px;
     border-radius: 10px;
     height: min-content;
-    width: 310px;
+    max-width: 310px;
+    width: 100%;
+
 
     .order_title {
         font-size: var(--paragraph-two);
@@ -50,12 +52,22 @@
     }
 
     @media (max-width: 950px) {
-        width: 260px;
+        width: 300px;
+
+        .total {
+            h1,
+            p {
+                font-size: var(--heading-six);
+                font-weight: 500;
+                line-height: 23.05px;
+            }
+        }
     }
 
     @media (max-width: 769px) {
         position: fixed;
         bottom: 70px;
+        max-width: none;
         width: 100%;
         left: 0px;
         border-radius: 0px;

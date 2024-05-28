@@ -3,6 +3,7 @@ import styles from './OrderCheque.module.scss';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { CopySvg } from '$/assets/images';
+import { message } from 'antd';
 
 interface Props {
     cost: number,
@@ -12,10 +13,19 @@ interface Props {
 export default function OrderCheque({ cardId, cost }: Props) {
 
     const t = useTranslations('Order')
+    const [messageApi, contextHolder] = message.useMessage();
+    const copyText = () => {
+        navigator.clipboard.writeText(cardId);
+        messageApi.open({
+            type: 'success',
+            content: 'Text copyed!',
+        });
+    }
 
 
     return (
         <div className={styles.main}>
+            {contextHolder}
             <p className={styles.pay_text}>
                 {t("payTutorialText")}
             </p>
@@ -23,13 +33,13 @@ export default function OrderCheque({ cardId, cost }: Props) {
                 {t("payCost")}
                 <span>{cost}</span>
             </p>
-            <p className={styles.card_number}>
+            <div className={styles.card_number}>
                 {t("cardNumber")}
                 <div>
                     <p>{cardId}</p>
-                    <Image src={CopySvg} width={24} height={24} alt='#' />
+                    <Image src={CopySvg} width={24} height={24} alt='#' onClick={copyText} />
                 </div>
-            </p>
+            </div>
 
         </div>
     );

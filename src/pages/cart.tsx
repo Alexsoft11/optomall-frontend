@@ -14,7 +14,7 @@ export default function Cart() {
                 <title>{t('basket')}</title>
             </Head>
             <div style={{ color: "black", display: 'flex', flexDirection: 'column', gap: '30px', justifyContent: 'start', margin: '100px 0px 0px 50px' }}>
-                <GoToBack pathArr={[{ title: "catalog", path: "" }]} />
+                <GoToBack pathArr={[{ title: "basket", path: "" }]} />
                 <h1>{t('basket')}</h1>
                 <CartBasketPage />
             </div>
