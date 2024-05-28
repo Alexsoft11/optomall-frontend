@@ -1,0 +1,30 @@
+.slider_arrow_left {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    z-index: 1;
+    cursor: pointer;
+  }
+  
+  .slider_arrow_right {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    z-index: 1;
+    cursor: pointer;
+  }
+  
+  .slider_arrow_icon_left,
+  .slider_arrow_icon_right {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .customStyles {
+    // Ваши стили для карусели
+  }
+  
+  .default {
+    // Стили по умолчанию
+  }
+  

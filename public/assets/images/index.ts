@@ -6,3 +6,4 @@ export { default as AuthModalSvg } from "./AuthModalSvg.svg";
 export { default as CartWearImg } from "./CartWearImg.svg";
 export { default as MinusSvg } from "./minus.svg";
 export { default as PlusSvg } from "./plus.svg";
+export { default as SliderImg } from "./slider.png";
