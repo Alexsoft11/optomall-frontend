@@ -1,6 +1,5 @@
 import React from "react";
-import { Carousel } from "antd";
-import styles from "./CustomSliders.module.scss";
+import { StyledCustomSlider } from "./style";
 
 interface SliderProps {
   SliderData: React.JSX.Element[];
@@ -11,40 +10,39 @@ interface SliderProps {
   slidesToShow?: number;
   slidesToScroll?: number;
   centered?: boolean;
+  className?: string;
 }
 
 const CustomSliders = ({
   SliderData,
-  dots,
-  arrows,
-  timeAutoPlay,
-  autoPlay,
-  slidesToShow,
-  slidesToScroll,
-  centered,
+  dots = true,
+  arrows = true,
+  timeAutoPlay = 3000,
+  autoPlay = true,
+  slidesToShow = 1,
+  slidesToScroll = 1,
+  centered = false,
+  className,
 }: SliderProps) => {
   return (
-    <div>
-      <Carousel
-        arrows={arrows}
-        waitForAnimate={true}
-        dotPosition="bottom"
-        autoplaySpeed={timeAutoPlay}
-        className={styles.customStyles}
-        swipeToSlide={true}
-        autoplay={autoPlay}
-        dots={dots}
-        draggable
-        pauseOnHover={false}
-        slidesToShow={slidesToShow}
-        slidesToScroll={slidesToScroll}
-        centerMode={centered}
-      >
-        {SliderData?.map((el, index) => (
-          <div key={index}>{el}</div>
-        ))}
-      </Carousel>
-    </div>
+    <StyledCustomSlider
+      arrows={arrows}
+      dotPosition="bottom"
+      autoplaySpeed={timeAutoPlay}
+      className={className}
+      swipeToSlide={true}
+      autoplay={autoPlay}
+      dots={dots}
+      draggable
+      pauseOnHover={true}
+      slidesToShow={slidesToShow}
+      slidesToScroll={slidesToScroll}
+      centerMode={centered}
+    >
+      {SliderData?.map((el, index) => (
+        <div key={index}>{el}</div>
+      ))}
+    </StyledCustomSlider>
   );
 };
 
