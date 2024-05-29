@@ -8,7 +8,7 @@ export const CartMockdata: CartOrderDataInterface = {
         {
             id: 0,
             image: CartWearImg,
-            title: 'Lorem ipsum is dolor set amet',
+            title: 'Lorem ipsum is dolor set amet lorem Lorem ipsum is dolor set amet lorem Lorem ipsum is dolor set amet lorem Lorem ipsum is dolor set amet lorem Lorem ipsum is dolor set amet loremLorem ipsum is dolor set amet lorem Lorem ipsum is dolor set amet lorem Lorem ipsum is dolor set amet loremv Lorem ipsum is dolor set amet loremLorem ipsum is dolor set amet loremLorem ipsum is dolor set amet lorem Lorem ipsum is dolor set amet lorem',
             color: 'black',
             size: 'XL',
             cost: 1.650,

@@ -17,6 +17,7 @@ export default function CartBasketItems() {
                     spaceBetween={40}
                     mousewheel={true}
                     direction="vertical"
+                    loop
                     scrollbar={{ draggable: true }}
                 >
                     {CartMockdata.data.map(el => (
