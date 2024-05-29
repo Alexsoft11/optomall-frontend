@@ -16,7 +16,7 @@ const Card = ({ data, idx, path = "#",}: CardProps) => {
   return (
     <>
       <Link href={path} key={idx}>
-        <div key={idx} className={styles.card}>
+        <div className={styles.card}>
           <div className={styles.card__image}>
             <Image src={data.imageUrl} alt='img' />
           </div>

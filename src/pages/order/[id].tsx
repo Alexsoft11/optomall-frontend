@@ -1,5 +1,5 @@
 import React from 'react';
-import { OrderPage } from '@/features/Order';
+import { OrderPage } from '@/Features/Order';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import GoToBack from '@/Components/GoToBack';
