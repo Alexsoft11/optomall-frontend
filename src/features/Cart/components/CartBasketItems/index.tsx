@@ -16,10 +16,9 @@ export default function CartBasketItems() {
       <div className={styles.swiper}>
         <Swiper
           slidesPerView={4}
-          spaceBetween={20}
+          spaceBetween={10}
           mousewheel={true}
           direction="vertical"
-          loop
           scrollbar={{ draggable: true }}
         >
           {CartMockdata.data.map((el) => (
