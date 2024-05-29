@@ -1,10 +1,10 @@
 /** @format */
 
 import React from "react";
-import { CardInterface } from "../Types";
 import styles from "./Card.module.scss";
 import Image from "next/image";
 import Link from "next/link";
+import { CardInterface } from "@/interfaces";
 
 interface CardProps {
   data: CardInterface;
