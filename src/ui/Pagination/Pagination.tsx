@@ -1,8 +1,23 @@
-import React from 'react';
-import { Pagination as AntdPagination } from 'antd';
-import type { PaginationProps } from 'antd';
+import React from "react";
+import { Pagination as AntdPagination } from "antd";
 
-const Pagination = ({ current, pageSize, onChange, total, prevIcon, nextIcon }: PaginationProps) => {
+interface PaginationProps {
+  current: any;
+  pageSize: number;
+  onChange: any;
+  total: number;
+  prevIcon: any;
+  nextIcon: any;
+}
+
+const Pagination = ({
+  current,
+  pageSize,
+  onChange,
+  total,
+  prevIcon,
+  nextIcon,
+}: PaginationProps) => {
   return (
     <AntdPagination
       current={current}
