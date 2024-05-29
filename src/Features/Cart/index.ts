@@ -1,12 +1,11 @@
-
 import CartBasketItem from "./components/CartBasketItem";
 import CartBasketItems from "./components/CartBasketItems";
 import CartBasketPage from "./components/CartBasketPage";
 import CartGetOrder from "./components/CartGetOrder";
 import CartGetOrderLocations from "./components/CartGetOrderLocations";
 import CartGetOrderPerson from "./components/CartGetOtderPerson";
-import CartOrder from "./components/CartOrderBlock";
 import CartOrderBlock from "./components/CartOrderBlock";
+
 
 
 export {
@@ -14,5 +13,4 @@ export {
     CartOrderBlock, CartBasketItem,
     CartBasketItems, CartGetOrder,
     CartGetOrderLocations, CartGetOrderPerson,
-    CartOrder,
 }
