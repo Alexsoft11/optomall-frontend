@@ -2,7 +2,7 @@ import { CartWearImg } from "$/assets/images";
 import {
   CartOrderDataInterface,
   CartOrderInterface,
-} from "@/Features/Cartt/interface";
+} from "@/Features/Cart/interface";
 
 export const CartMockdata: CartOrderDataInterface = {
   itemsCount: 10,
