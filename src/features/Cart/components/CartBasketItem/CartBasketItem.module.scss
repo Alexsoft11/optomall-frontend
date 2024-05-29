@@ -1,82 +1,141 @@
 .main {
-    display: flex;
-    gap: 17px;
-    align-items: flex-end;
+    display: grid;
+    grid-template-areas:
+        '. . checkbox'
+        'img text text'
+        'img .  change_value';
+    grid-template-columns: 98px;
+    justify-self: end;
+    grid-template-rows: 30px 60px 40px;
 
     .item_img {
+        grid-area: img;
         position: relative;
         width: 100px;
         height: 100px;
         border-radius: 5px;
     }
 
-    .item_block {
+    .item_text {
+        grid-area: text;
         display: flex;
-        flex-direction: column;
-        width: 100%;
+        justify-content: space-between;
+
+        h3 {
+            align-self: center;
+            font-size: var(--heading-five);
+            font-weight: 500;
+            line-height: 24.2px;
+        }
+
+        .item_info {
+            max-width: 400px;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 50%;
+
+            p {
+                max-height: 50px;
+                font-size: var(--heading-seven);
+                font-weight: 400;
+                line-height: 19.36px;
+
+                word-wrap: break-word;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+
+
+            span {
+                color: var(--silver-grey);
+                font-size: var(--paragraph);
+                font-weight: 400;
+                line-height: 16.94px;
+            }
+        }
+    }
+
+    .checkbox {
+        justify-self: end;
+        grid-area: checkbox;
+        width: min-content;
+
+        div {
+            margin: 0px;
+        }
+    }
+
+    .change_value {
+        grid-area: change_value;
+        justify-self: end;
+        width: min-content;
+        background: var(--light-grey);
+        padding: 5px;
+        border-radius: 10px;
+        display: flex;
+        gap: 23px;
+        align-items: center;
+
+        button {
+            background: white;
+            border-radius: 8px;
+            padding: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    }
+
+
+    @media (max-width: 1000px) {
+        grid-template-areas:
+            'img text checkbox'
+            'change_value .  .';
+        grid-template-columns: 80px auto;
+        gap: 10px;
+        justify-self: start;
+        grid-template-rows: 80px 60px;
+
+        .item_img {
+            width: 80px;
+            height: 80px;
+        }
 
         .item_text {
+            gap: 10px;
             display: flex;
-            justify-content: space-between;
+            width: 100%;
+            flex-direction: column;
+            justify-content: start;
 
             h3 {
-                font-size: var(--heading-five);
-                font-weight: 500;
-                line-height: 24.2px;
+                align-self: flex-start;
             }
 
             .item_info {
                 display: flex;
                 flex-direction: column;
-                gap: 5px ;
-                p {
-                    font-size: var(--heading-seven);
-                    font-weight: 400;
-                    line-height: 19.36px;
-                }
+                gap: 5px;
 
-                span {
-                    color: var(--silver-grey);
+                p {
                     font-size: var(--paragraph);
                     font-weight: 400;
                     line-height: 16.94px;
                 }
-            }
-        }
 
-        .checkbox {
-            display: flex;
-            justify-content: end;
-            margin: 0px 0px 17px 0px;
-
-            div {
-                margin: 0px;
+                span {
+                    display: none;
+                }
             }
         }
 
         .change_value {
-            align-self: flex-end;
-            width: min-content;
-            background: var(--light-grey);
-            padding: 5px;
-            border-radius: 10px;
-            display: flex;
-            gap: 23px;
-            align-items: center;
-
-            button {
-                background: white;
-                border-radius: 8px;
-                padding: 5px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
+            height: min-content;
+            justify-self: start;
         }
-    }
-
-    @media (max-width: 769px) {
-        gap: 0px;
     }
 }
