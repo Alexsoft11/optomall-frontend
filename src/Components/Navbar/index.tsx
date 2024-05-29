@@ -40,7 +40,7 @@ const Navbar = () => {
   return (
     <>
       <div className={styles.navbar}>
-        <div className='container'>
+        <div className="container">
           <div className={styles.navbar__inner}>
             <div className={styles.navbar__block}>
               <Button 
@@ -51,10 +51,10 @@ const Navbar = () => {
                 size='middle'
                 onClick={handleNavBtnClick}
               />
-              <SearchBtn/>
+              <SearchBtn />
 
-              <Link href='/'>
-                <SvgSelector id="support-svg"/>
+              <Link href="/">
+                <SvgSelector id="support-svg" />
               </Link>
             </div>
 
@@ -63,7 +63,7 @@ const Navbar = () => {
             </div>
 
             <div className={styles.navbar__items}>
-              <LanguageSelector/>
+              <LanguageSelector />
 
               <button className={styles.navbar__shop_btn}><SvgSelector id='shop-svg'/></button>
 
@@ -73,28 +73,28 @@ const Navbar = () => {
 
               <div className={`${styles.navbar__user_modal} ${openModal === 'user' ? styles.open : ''}`}>
                 <div className={styles.navbar__user_inner}>
-                  <Link href='/' className={styles.navbar__user_item}>
-                    <SvgSelector id="user-modal-svg"/>
+                  <Link href="/" className={styles.navbar__user_item}>
+                    <SvgSelector id="user-modal-svg" />
                     <p>Мой аккаунт</p>
                   </Link>
 
-                  <Link href='/' className={styles.navbar__user_item}>
-                    <SvgSelector id="message-modal-svg"/>
+                  <Link href="/" className={styles.navbar__user_item}>
+                    <SvgSelector id="message-modal-svg" />
                     <p>Мои сообщения</p>
                   </Link>
 
-                  <Link href='/' className={styles.navbar__user_item}>
-                    <SvgSelector id="shop-modal-svg"/>
+                  <Link href="/" className={styles.navbar__user_item}>
+                    <SvgSelector id="shop-modal-svg" />
                     <p>Мои покупки</p>
                   </Link>
 
-                  <Link href='/' className={styles.navbar__user_item}>
-                    <SvgSelector id="search-modal-svg"/>
+                  <Link href="/" className={styles.navbar__user_item}>
+                    <SvgSelector id="search-modal-svg" />
                     <p>Как считается растаможка</p>
                   </Link>
 
-                  <Link href='/' className={styles.navbar__user_item}>
-                    <SvgSelector id="exit-modal-svg"/>
+                  <Link href="/" className={styles.navbar__user_item}>
+                    <SvgSelector id="exit-modal-svg" />
                     <p>Выйти</p>
                   </Link>
                 </div>
@@ -155,7 +155,7 @@ const Navbar = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
