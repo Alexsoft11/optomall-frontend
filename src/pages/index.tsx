@@ -43,19 +43,20 @@ export default function Home() {
         <title>Home</title>
       </Head>
       <h1>Home</h1>
-      <CustomSliders 
+      <CustomSliders
         SliderData={images.map((src, idx) => (
-          <Image key={idx} src={src} alt='img' width={500} height={500} />
-        ))} 
+          <Image key={idx} src={src} alt={`img-${idx}`} width={500} height={500} />
+        ))}
         dots={true}
         arrows={true}
-        timeAutoPlay={8000}
+        timeAutoPlay={5000}
         autoPlay={true}
-        slidesToShow={3}
+        slidesToShow={1}
         slidesToScroll={1}
         centered={true}
+        className="home-slider"
       />
-      <CustomSliders
+      {/* <CustomSliders
         SliderData={reviews.map((review, idx) => (
           <div key={idx}>
             <h3>{review.name}</h3>
@@ -71,7 +72,7 @@ export default function Home() {
         slidesToShow={3}
         slidesToScroll={1}
         centered={false}
-      />
+      /> */}
       <Products/>
     </>
   );
