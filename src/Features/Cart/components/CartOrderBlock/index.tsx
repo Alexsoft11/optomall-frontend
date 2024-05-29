@@ -3,7 +3,6 @@ import styles from './CartOrder.module.scss';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/ui';
 import { useRouter } from 'next/router';
-import CartGetOrder from '../CartGetOrder';
 
 interface Props {
     cost: number;
