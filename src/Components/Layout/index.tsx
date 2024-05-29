@@ -34,8 +34,9 @@ const MainLayout = ({ children }: ILayoutsProps) => {
     };
   }, [router]);
 
-  console.log(router);
-
+  if (router.pathname.includes("auth")) {
+    return children;
+  }
   return (
     <>
       {/* {loading && <Loader isComponent={false} />} */}
