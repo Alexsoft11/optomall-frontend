@@ -18,6 +18,7 @@ const MainLayout = ({ children }: ILayoutsProps) => {
       easing: "ease-in-out",
     });
   }, []);
+
   useEffect(() => {
     const handleStart = () => setLoading(true);
     const handleComplete = () => setLoading(false);
@@ -32,7 +33,9 @@ const MainLayout = ({ children }: ILayoutsProps) => {
       router.events.off("routeChangeError", handleComplete);
     };
   }, [router]);
-  
+
+  console.log(router);
+
   return (
     <>
       {/* {loading && <Loader isComponent={false} />} */}
