@@ -32,7 +32,6 @@ export default function SignIn() {
                     <Form.Item
                         name="email"
                         rules={[
-                            { required: true, message: t('requiredEmailMessage') },
                             { validator: (rule, value) => validateEmail(t, rule, value) }
                         ]}
                     >
@@ -42,7 +41,6 @@ export default function SignIn() {
                     <Form.Item
                         name="password"
                         rules={[
-                            { required: true, message: t('requiredPasswordMessage') },
                             { validator: (rule, value) => validatePassword(t, rule, value) }
                         ]}
                         hasFeedback
