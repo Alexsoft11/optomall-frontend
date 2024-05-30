@@ -1,10 +1,10 @@
 .main {
     display: grid;
     grid-template-areas:
-        '. . checkbox'
-        'img text text'
-        'img .  change_value';
-    grid-template-columns: 98px;
+        ". . checkbox"
+        "img text text"
+        "img . change_value";
+    grid-template-columns: 98px minmax(100px, auto) 130px;
     justify-self: end;
     grid-template-rows: 30px 60px 40px;
 
@@ -29,12 +29,11 @@
         }
 
         .item_info {
-            max-width: 400px;
-            height: auto;
+            max-width: 50%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             gap: 5px;
-            width: 50%;
 
             p {
                 max-height: 50px;
@@ -42,9 +41,23 @@
                 font-weight: 400;
                 line-height: 19.36px;
 
-                word-wrap: break-word;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2; /* Number of lines to show */
+                -webkit-box-orient: vertical;
+                white-space: normal;
+                word-wrap: break-word; /* Allows text to wrap within the fixed width */
+
+                &::after {
+                    content: '...';
+                    display: block;
+                    height: 100%;
+                    width: 100%;
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                  }
             }
 
 
@@ -58,17 +71,25 @@
         }
     }
 
-    .checkbox {
+
+
+    .checkbox_block {
+        display: flex;
         justify-self: end;
         grid-area: checkbox;
         width: min-content;
 
-        div {
-            margin: 0px;
+        .checkbox {
+            div {
+                position: static;
+                margin: 0px;
+            }
         }
     }
 
+
     .change_value {
+        height: min-content;
         grid-area: change_value;
         justify-self: end;
         width: min-content;
@@ -95,7 +116,7 @@
         grid-template-areas:
             'img text checkbox'
             'change_value .  .';
-        grid-template-columns: 80px auto;
+        grid-template-columns: 80px minmax(100px, auto) 20px;
         gap: 10px;
         justify-self: start;
         grid-template-rows: 80px 60px;
@@ -106,22 +127,22 @@
         }
 
         .item_text {
-            gap: 10px;
+            gap: 3px;
             display: flex;
             width: 100%;
             flex-direction: column;
-            justify-content: start;
+            
 
             h3 {
                 align-self: flex-start;
             }
 
             .item_info {
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
+                max-width: 80%;
 
                 p {
+                    -webkit-line-clamp: 3; 
+                    max-height: 100%;
                     font-size: var(--paragraph);
                     font-weight: 400;
                     line-height: 16.94px;
