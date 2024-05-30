@@ -13,34 +13,39 @@ interface Props {
 export default function CartBasketItem({ item }: Props) {
   return (
     <div className={styles.main}>
-      <div className={styles.Checkbox}>
-        <Checkbox />
+
+      <div className={styles.item_img}>
+        <Image fill alt="#" src={item.image} />
       </div>
-      <div className={styles.item_block}>
+
+      <div className={styles.item_text}>
+
         <div className={styles.item_info}>
-          <div className={styles.item_img}>
-            <Image fill alt="#" src={item.image} />
-          </div>
-          <div className={styles.item_text}>
-            <p>{item.title}</p>
-            <span>
-              {item.color} · {item.size}
-            </span>
-          </div>
+          <p>{item.title}</p>
+          <span>
+            {item.color} · {item.size}
+          </span>
         </div>
-        <div className={styles.item_cost}>
-          <h3>{item.cost}</h3>
-          <div className={styles.change_value}>
-            <Button>
-              <Image src={MinusSvg} width={24} height={24} alt="#" />
-            </Button>
-            <h4>{item.count}</h4>
-            <Button>
-              <Image src={PlusSvg} width={24} height={24} alt="#" />
-            </Button>
-          </div>
+
+        <h3>{item.cost}</h3>
+      </div>
+
+      <div className={styles.checkbox_block}>
+        <div className={styles.Checkbox}>
+          <Checkbox />
         </div>
       </div>
+
+      <div className={styles.change_value}>
+        <Button>
+          <Image src={MinusSvg} width={24} height={24} alt="#" />
+        </Button>
+        <h4>{item.count}</h4>
+        <Button>
+          <Image src={PlusSvg} width={24} height={24} alt="#" />
+        </Button>
+      </div>
+
     </div>
   );
 }
