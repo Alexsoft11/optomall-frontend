@@ -1,0 +1,27 @@
+.main {
+    grid-area: items;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    width: 100%;
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+
+    .swiper {
+        max-height: 67dvh;
+        overflow: hidden;
+        cursor: grab;
+    }
+
+    .items_count {
+        color: var(--silver-grey);
+        font-size: var(--paragraph-two);
+        font-weight: 400;
+        line-height: 16.94px;
+    }
+
+
+}
