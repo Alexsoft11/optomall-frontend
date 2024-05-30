@@ -2,6 +2,9 @@ import { Modal as AntdModal } from 'antd';
 import Image, { StaticImageData } from 'next/image';
 import { useEffect } from 'react';
 import { StyledModal } from './style';
+import { chequeSuccessDataInterface } from '@/interfaces';
+import { useTranslations } from 'next-intl';
+import { Button } from '../Button';
 
 export interface ModalProps {
   title?: string;
@@ -23,6 +26,7 @@ export interface ModalProps {
   img?: StaticImageData;
   description?: string;
   bgColor: string;
+  chequeSuccessData?: chequeSuccessDataInterface | null;
 }
 
 export const Modal = ({
@@ -45,6 +49,7 @@ export const Modal = ({
   className,
   description,
   bgColor,
+  chequeSuccessData = null,
 }: ModalProps) => {
   useEffect(() => {
     if (open) {
@@ -53,6 +58,8 @@ export const Modal = ({
       document.body.style.overflow = 'unset';
     }
   }, [open]);
+
+  const t = useTranslations('UiModal')
 
   return (
     <StyledModal
@@ -75,16 +82,37 @@ export const Modal = ({
       <p></p>
       <div className='modal-body'>
         {img ? (
-          <div style={{background: bgColor}} className='message-modal-img'>
+          <div style={{ background: bgColor }} className='message-modal-img'>
             <Image src={img} width={34} height={34} alt='#' />
           </div>
         ) : null}
 
-        <p>
-          {description}
-        </p>
+        {!chequeSuccessData ? <p className='modal-descripion'> {description} </p> : (
+          <div className='message-modal-success'>
+            <h2>{t('success')}</h2>
+            <div className='message-modal-text_block'>
+              <p className='message-modal-paragraph'>
+                {t('address')}
+              </p>
+              <p className='message-modal-text'>
+                {chequeSuccessData.address}
+              </p>
+            </div>
+            <div className='message-modal-text_block'>
+              <p className='message-modal-paragraph'>
+                {t('date')}
+              </p>
+              <p className='message-modal-text'>
+                {chequeSuccessData.date}
+              </p>
+            </div>
+            <div className="confirmButton">
+              <Button onClick={() => onCancel(false)} type="primary" htmlType="button" className='generalbtn' label={t('confirm')} />
+            </div>
+          </div>
+        )}
+
       </div>
-      {children}
     </StyledModal>
   );
 };
