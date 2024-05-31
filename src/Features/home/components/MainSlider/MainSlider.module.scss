@@ -78,5 +78,10 @@
             max-height: 350px;
             height: auto;
         }
+
+        @media (max-width:550px) {
+            max-height: 300px;
+            height: auto;
+        }
     }
 }
