@@ -1,6 +1,6 @@
 import { SliderImg } from "$/assets/images";
-import CustomSliders from "@/Componentss/CustomSliders";
-import { Products } from "@/Features/home";
+import CustomSliders from "@/components/CustomSliders";
+import { Products } from "@/features/home";
 import Head from "next/head";
 import Image from "next/image";
 

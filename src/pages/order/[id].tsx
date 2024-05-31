@@ -1,8 +1,8 @@
 import React from "react";
-import { OrderPage } from "@/Features/Order";
+import { OrderPage } from "@/features/Order";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import GoToBack from "@/Componentss/GoToBack";
+import GoToBack from "@/components/GoToBack";
 import { useTranslations } from "next-intl";
 
 export default function Order() {
