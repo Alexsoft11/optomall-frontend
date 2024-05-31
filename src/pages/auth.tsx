@@ -1,5 +1,5 @@
 import React from "react";
-import AuthPage from "@/Componentss/Auth";
+import AuthPage from "@/components/Auth";
 
 export default function Auth() {
   return (
