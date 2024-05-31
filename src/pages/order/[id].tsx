@@ -2,7 +2,7 @@ import React from 'react';
 import { OrderPage } from '@/Features/Order';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import GoToBack from '@/Components/GoToBack';
+import GoToBack from '@/components/GoToBack';
 import { useTranslations } from 'next-intl';
 
 export default function Order() {
