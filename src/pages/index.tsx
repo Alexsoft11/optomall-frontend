@@ -1,4 +1,3 @@
-import { SliderImg } from "$/assets/images";
 import { MainSlider, Products } from "@/Features/home";
 import Head from "next/head";
 
