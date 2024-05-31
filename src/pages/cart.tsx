@@ -1,4 +1,4 @@
-import GoToBack from "@/Components/GoToBack";
+import GoToBack from "@/Componentss/GoToBack";
 import { CartBasketPage } from "@/Features/Cart";
 import { useTranslations } from "next-intl";
 import Head from "next/head";
