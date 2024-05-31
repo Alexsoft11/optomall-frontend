@@ -1,11 +1,21 @@
 import React from 'react'
 import styles from './MainSlider.module.scss'
-import CustomSliders from '@/Components/CustomSliders'
+import CustomSliders from '@/components/CustomSliders'
 import { MainSliderImages } from '@/mockdata/Sliders';
 import Image from 'next/image';
-import SearchBtn from '@/Components/SearchBtn';
+import SearchBtn from '@/components/SearchBtn';
+import Link from 'next/link';
 
 const MainSlider = () => {
+  const SliderDataImages = () => 
+    MainSliderImages.map((el, idx) => (
+      <div key={idx} className={styles.slider_image}>
+        <Link href="/">
+            <Image src={el} alt='img'/>
+        </Link>
+      </div>
+    ));
+  
   return (
     <>
       <div className={styles.mainbanner}>
@@ -17,17 +27,15 @@ const MainSlider = () => {
 
         <div className={styles.main_slider}>
             <CustomSliders
-                SliderData={MainSliderImages.map((src, idx) => (
-                    <Image key={idx} src={src} alt="img" />
-                ))}
-                dots={true}
-                arrows={true}
-                timeAutoPlay={5000}
-                autoPlay={true}
-                slidesToShow={1}
-                slidesToScroll={1}
-                centered={true}
-                className="home-slider"
+              SliderData={SliderDataImages()}
+              dots={true}
+              arrows={true}
+              timeAutoPlay={5000}
+              autoPlay={false}
+              slidesToShow={1}
+              slidesToScroll={1}
+              centered={true}
+              className="home-slider"
             />
         </div>
       </div>
