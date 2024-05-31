@@ -4,7 +4,7 @@ import { CustomTabs } from "@/ui/Tabs";
 import TabPane from "antd/es/tabs/TabPane";
 import { CardsMockData } from "@/mockdata/Cards";
 import { ProductTabsData } from "@/constants/products";
-import Card from "@/Componentss/Card";
+import Card from "@/components/Card";
 
 const Products = () => {
   return (
