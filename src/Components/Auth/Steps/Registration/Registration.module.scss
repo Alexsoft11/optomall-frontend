@@ -16,6 +16,22 @@
             }
         }
 
+        span {
+            padding: 0px 5px 0px 0px;
+
+            input {
+                font-size: var(--paragraph-two);
+                font-weight: 400;
+                line-height: 16.94px;
+                padding: 12px;
+                margin: 0px;
+    
+                &::placeholder {
+                    color: var(--davys-grey);
+                }
+            }
+        }
+
         h1 {
             font-size: var(--heading-two);
             font-weight: 400;
