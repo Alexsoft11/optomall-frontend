@@ -9,7 +9,6 @@ export default function Home() {
       <Head>
         <title>Home</title>
       </Head>
-      <h1>Home</h1>
       <MainSlider/>
       <Products/>
     </>
