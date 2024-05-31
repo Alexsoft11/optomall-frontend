@@ -1,5 +1,4 @@
 import { SliderImg } from "$/assets/images";
-import CustomSliders from "@/Components/CustomSliders";
 import { MainSlider, Products } from "@/Features/home";
 import Head from "next/head";
 
