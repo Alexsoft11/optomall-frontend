@@ -1,39 +1,35 @@
 import { SliderImg } from "$/assets/images";
-import CustomSliders from "@/Components/CustomSliders";
+import CustomSliders from "@/Componentss/CustomSliders";
 import { Products } from "@/Features/home";
 import Head from "next/head";
 import Image from "next/image";
 
 export default function Home() {
-  const images = [
-    SliderImg,
-    SliderImg,
-    SliderImg,
-  ];
-  
+  const images = [SliderImg, SliderImg, SliderImg];
+
   const reviews = [
     {
-      name: 'Ирина',
-      date: '04 апреля 2023',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat ante, tempor ut ligula gravida, bibendum pulvinar massa.',
+      name: "Ирина",
+      date: "04 апреля 2023",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat ante, tempor ut ligula gravida, bibendum pulvinar massa.",
       stars: 5,
     },
     {
-      name: 'Ирина',
-      date: '04 апреля 2023',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat ante, tempor ut ligula gravida, bibendum pulvinar massa.',
+      name: "Ирина",
+      date: "04 апреля 2023",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat ante, tempor ut ligula gravida, bibendum pulvinar massa.",
       stars: 5,
     },
     {
-      name: 'Ирина',
-      date: '04 апреля 2023',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat ante, tempor ut ligula gravida, bibendum pulvinar massa.',
+      name: "Ирина",
+      date: "04 апреля 2023",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat ante, tempor ut ligula gravida, bibendum pulvinar massa.",
       stars: 5,
     },
     {
-      name: 'Ирина',
-      date: '04 апреля 2023',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat ante, tempor ut ligula gravida, bibendum pulvinar massa.',
+      name: "Ирина",
+      date: "04 апреля 2023",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat ante, tempor ut ligula gravida, bibendum pulvinar massa.",
       stars: 5,
     },
   ];
@@ -45,7 +41,13 @@ export default function Home() {
       <h1>Home</h1>
       <CustomSliders
         SliderData={images.map((src, idx) => (
-          <Image key={idx} src={src} alt={`img-${idx}`} width={500} height={500} />
+          <Image
+            key={idx}
+            src={src}
+            alt={`img-${idx}`}
+            width={500}
+            height={500}
+          />
         ))}
         dots={true}
         arrows={true}
@@ -73,7 +75,7 @@ export default function Home() {
         slidesToScroll={1}
         centered={false}
       /> */}
-      <Products/>
+      <Products />
     </>
   );
 }
