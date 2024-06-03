@@ -1,18 +1,23 @@
 import React from 'react';
 import styles from './Registration.module.scss';
-import { Form, Input } from 'antd';
+import { Form, Input, message } from 'antd';
 import { Button } from '@/ui';
 import GoogleButton from '../../GoogleButton';
 import { validateConfirmPassword, validateEmail, validatePassword } from '../../Functions';
 import { useTranslations } from 'next-intl';
+import { useMutation } from '@tanstack/react-query';
+import { API } from '@/services/api';
+
 
 export default function Registration() {
     const [form] = Form.useForm();
     const t = useTranslations("Auth");
 
-    function submit(data: any) {
-        console.log(data);
-    }
+    const { mutate } = useMutation({
+        mutationFn: (data: any) => API.postRegistration(data),
+        onSuccess: (response) => message.success("register success" ),
+        onError: (error) => message.error('register failed') 
+    })
 
     return (
         <div className={styles.main}>
@@ -21,7 +26,7 @@ export default function Registration() {
             <div className={styles.form}>
                 <Form
                     form={form}
-                    onFinish={(e) => submit(e)}
+                    onFinish={(data) => mutate(data)}
                     name="basic"
                     labelCol={{
                         span: 8,
