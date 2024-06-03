@@ -22,7 +22,7 @@ export default function CartOrder({ cost, itemValue, orderId }: Props) {
     const orderModals = () => {
         setModalIsOpen(true)
         setTimeout(() => {
-            setResponse(true)
+            setResponse(false)
             setModalIsOpen(false)
             setResponseModal(true)
         }, 2000)
@@ -45,7 +45,7 @@ export default function CartOrder({ cost, itemValue, orderId }: Props) {
             }
             <Modal
                 onCancel={setModalIsOpen}
-                bgColor="#CCCCCC"
+                className='bg_white'
                 img={SearchSvg}
                 description={t("checkMessage")}
                 open={modalIsOpen}
@@ -54,18 +54,17 @@ export default function CartOrder({ cost, itemValue, orderId }: Props) {
             {response ?
                 <Modal
                     onCancel={setResponseModal}
-                    bgColor="#00AC26"
                     img={SuccsessSvg}
                     chequeSuccessData={{
                         address: 'Lorem ipsum is dolor set amet consectetur ',
                         date: '29.04.2024 - 17:10'
                     }}
                     open={responseModal}
-                    className='ant-modal-closeBtn-closed'
+                    className='ant-modal-closeBtn-closed bg_green'
                 /> :
                 <Modal
+                    className='bg_red'
                     onCancel={setResponseModal}
-                    bgColor="#FF4200"
                     img={WarningSvg}
                     description={t("checkWarningMessage")}
                     open={responseModal}
