@@ -13,8 +13,5 @@ export const axiosInstance = Axios.create({
 
 
 export const API = {
-    //Auth
-    postRegistration: (data: any) => axiosInstance
-    .post("auth/rgister")
-    .then(res => res.data),
+  
 };

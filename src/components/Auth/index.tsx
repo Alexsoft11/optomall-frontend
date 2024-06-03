@@ -3,7 +3,7 @@ import styles from "./AuthPage.module.css";
 import { AuAuthBackground, AuthModalSvg } from "$/assets/images";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { ForgotPassword, Info, Registration, SignIn } from "./Steps";
+import { ForgotPassword, Info, NewPassword, Registration, SignIn } from "./Steps";
 import { useTranslations } from "next-intl";
 import { Modal } from "@/ui";
 
@@ -22,6 +22,7 @@ export default function AuthPage() {
           {rout.query.step === "signin" || !rout.query.step  ? <SignIn /> : null}
           {rout.query.step === "regist" ? <Registration /> : null}
           {rout.query.step === "info" ? <Info /> : null}
+          {rout.query.step === "reset" ? <NewPassword /> : null}
           {rout.query.step === "forgot-password" ? (
             <ForgotPassword setModalIsOpen={setModalIsOpen} />
           ) : null}

@@ -2,7 +2,9 @@ import useHandleError from "./useHandleError";
 import { useEffect, useState } from "react";
 import axios, { AxiosRequestConfig } from "axios";
 import { useRouter } from "next/router";
-import { env } from "process";
+import { BASE_URL } from "@/services/api";
+import { useJwt } from "./useJwt";
+
 
 interface InvalidRequestResponse {
   status_code: number;
@@ -53,6 +55,7 @@ function useQueryApiClient({
   const [isError, setIsError] = useState<boolean>(false);
   const [isRefetching, setIsRefetching] = useState<boolean>(false);
   const router = useRouter();
+  const token = useJwt();
   const [handleError] = useHandleError();
 
   const enableOnMount = request?.enableOnMount; // For methods except 'GET'
@@ -133,13 +136,14 @@ function useQueryApiClient({
     const requestConfig: AxiosRequestConfig = {
       url: url,
       method: method,
-      baseURL: baseUrl || process.env.base_url,
+      baseURL: baseUrl || BASE_URL,
       responseType: multipart ? "blob" : "json",
       paramsSerializer: {
         indexes: true,
       },
       headers: {
-        "Content-Type": multipart ? "multipart/form-data" : "application/json",     
+        "Content-Type": multipart ? "multipart/form-data" : "application/json",
+        ...(token && { Authorization: `Bearer ${token}` }),
       },
     };
 

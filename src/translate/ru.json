@@ -5,6 +5,9 @@
         "home": "Главная"
     },
     "Auth": {
+        "confirmCode": "Код подтверждения",
+        "confirmCodeIncorect": "неверный код подтверждения",
+        "reset": "Новый пароль",
         "signin": "Войти",
         "forgotPassword": "Забыли пароль?",
         "password": "Пароль",
