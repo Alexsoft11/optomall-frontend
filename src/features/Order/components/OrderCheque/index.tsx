@@ -31,7 +31,9 @@ export default function OrderCheque({ cardId, cost }: Props) {
             </p>
             <p className={styles.pay_cost}>
                 {t("payCost")}
-                <span>{cost}</span>
+                <span>
+                    <b> {cost} sum </b>
+                </span>
             </p>
             <div className={styles.card_number}>
                 {t("cardNumber")}

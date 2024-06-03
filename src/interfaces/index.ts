@@ -6,3 +6,8 @@ export interface CardInterface {
     price?: string; 
     imageUrl: StaticImageData;
 }
+
+export interface chequeSuccessDataInterface {
+    address: string,
+    date: string,
+}
