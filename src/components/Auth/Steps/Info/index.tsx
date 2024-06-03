@@ -1,15 +1,32 @@
 import React from 'react';
 import styles from './Info.module.scss';
-import { Form, Input } from 'antd';
+import { Form, Input, message } from 'antd';
 import { Button } from '@/ui';
 import { useTranslations } from 'next-intl';
+import useQueryApiClient from '@/utils/useQueryApiClient';
+import Cookies from 'universal-cookie';
 
 export default function Info() {
     const [form] = Form.useForm();
     const t = useTranslations("Auth");
+    const cookies = new Cookies();
 
-    function submit(data: any) {
-        console.log(data);
+    const { appendData: createData } = useQueryApiClient({
+        request: {
+            url: 'profile/update',
+            method: 'POST',
+            disableOnMount: true,
+        },
+        onSuccess(res) {
+            message.success('succsess register!')
+        },
+        onError(err) {
+            message.error('register failed :(')
+        } 
+    })
+
+    const onFinish = (values: any) => {
+        createData(values)
     }
 
     return (
@@ -19,7 +36,7 @@ export default function Info() {
             <div className={styles.form}>
                 <Form
                     form={form}
-                    onFinish={(e) => submit(e)}
+                    onFinish={(data) => onFinish(data)}
                     name="basic"
                     labelCol={{
                         span: 8,
@@ -43,7 +60,7 @@ export default function Info() {
                     </Form.Item>
 
                     <Form.Item
-                        name="secondName"
+                        name="last_name"
                         rules={[
                             { required: true, message: t('requiredSecondNameMessage') },
                         ]}
@@ -52,7 +69,7 @@ export default function Info() {
                     </Form.Item>
 
                     <Form.Item
-                        name="tel"
+                        name="phone"
                         rules={[
                             { required: true, message: t('requiredTelMessage') },
                         ]}
