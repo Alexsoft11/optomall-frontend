@@ -25,7 +25,7 @@ export interface ModalProps {
   className?: string;
   img?: StaticImageData;
   description?: string;
-  bgColor: string;
+  bgColor?: string;
   chequeSuccessData?: chequeSuccessDataInterface | null;
 }
 
@@ -82,7 +82,7 @@ export const Modal = ({
       <p></p>
       <div className='modal-body'>
         {img ? (
-          <div style={{ background: bgColor }} className='message-modal-img'>
+          <div className={`message-modal-img ${className}`}>
             <Image src={img} width={34} height={34} alt='#' />
           </div>
         ) : null}

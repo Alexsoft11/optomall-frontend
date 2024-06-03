@@ -96,5 +96,17 @@ export const StyledModal = styled(AntdModal)`
         justify-content: center;
         align-items: center;
     }
+
+    .bg_green {
+        background: var(--emerald-green);
+    }
+
+    .bg_red {
+        background: var(--primary-color);
+    }
+
+    .bg_white {
+        background: var(--light-white);
+    }
 }
 `
