@@ -1,8 +1,7 @@
-import GoToBack from '@/components/GoToBack';
-import { CartBasketNoItems, CartBasketPage } from '@/Features/Cart';
-import { CartMockdata } from '@/mockdata/Cart';
-import { useTranslations } from 'next-intl';
-import Head from 'next/head';
+import GoToBack from "@/components/GoToBack";
+import { CartBasketPage } from "@/features/Cart";
+import { useTranslations } from "next-intl";
+import Head from "next/head";
 
 import React from "react";
 
