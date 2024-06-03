@@ -8,3 +8,6 @@ export { default as MinusSvg } from "./minus.svg";
 export { default as PlusSvg } from "./plus.svg";
 export { default as SliderImg } from "./slider.png";
 export { default as CopySvg } from "./CopySvg.svg";
+export { default as SearchSvg } from "./SearchSvg.svg";
+export { default as WarningSvg } from "./WarningSvg.svg";
+export { default as SuccsessSvg } from "./SuccsessSvg.svg";
