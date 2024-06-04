@@ -1,21 +1,14 @@
 import React from 'react'
 import styles from './MainSlider.module.scss'
-import CustomSliders from '@/components/CustomSliders'
 import { MainSliderImages } from '@/mockdata/Sliders';
-import Image from 'next/image';
 import SearchBtn from '@/components/SearchBtn';
-import Link from 'next/link';
+import MainSliderCard from '../MainSliderCard';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 const MainSlider = () => {
-  const SliderDataImages = () => 
-    MainSliderImages.map((el, idx) => (
-      <div key={idx} className={styles.slider_image}>
-        <Link href="/">
-            <Image src={el} alt='img'/>
-        </Link>
-      </div>
-    ));
-  
   return (
     <>
       <div className={styles.mainbanner}>
@@ -26,17 +19,43 @@ const MainSlider = () => {
         </div>
 
         <div className={styles.main_slider}>
-            <CustomSliders
-              SliderData={SliderDataImages()}
-              dots={true}
-              arrows={true}
-              timeAutoPlay={5000}
-              autoPlay={false}
-              slidesToShow={1}
-              slidesToScroll={1}
-              centered={true}
-              className="home-slider"
-            />
+          <Swiper
+            slidesPerView={1.1}
+            spaceBetween={10}
+            centeredSlides={true}
+            pagination={{
+              clickable: true,
+            }}
+            breakpoints={{
+              768: {
+                slidesPerView: 1.15,
+                spaceBetween: 20,
+                centeredSlides: true
+              },
+              390: {
+                slidesPerView: 1.2,
+                spaceBetween: 10,
+                centeredSlides: true
+              }
+            }}
+            autoplay={{
+              delay: 4500,
+              disableOnInteraction: true,
+            }}
+            loop={true}
+            navigation={{
+              nextEl: `.next-btn`,
+              prevEl: `.prev-btn`,
+            }}
+            modules={[Pagination, Autoplay, Navigation]}
+            className={styles.my_swiper}
+          >
+            {MainSliderImages?.map((el, idx) => (
+              <SwiperSlide key={idx} className={styles.swiper}>
+                <MainSliderCard el={el} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
     </>
