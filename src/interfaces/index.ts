@@ -17,3 +17,7 @@ export interface CardCategoryInterface {
 export interface MainSliderItemInterface {
     imageUrl: StaticImageData;
 }
+export interface chequeSuccessDataInterface {
+    address: string,
+    date: string,
+}
