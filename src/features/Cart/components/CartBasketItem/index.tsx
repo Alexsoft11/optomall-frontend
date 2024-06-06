@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./CartBasketItem.module.scss";
-import { CartOrderItemInterface } from "@/features/Cart/interface";
+import { CartOrderItemInterface } from "@/featuredab/Cart/interface";
 import Image from "next/image";
 import { MinusSvg, PlusSvg } from "$/assets/images";
 import { Button } from "antd";
