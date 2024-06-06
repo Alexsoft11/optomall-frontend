@@ -136,7 +136,7 @@ function useQueryApiClient({
     const requestConfig: AxiosRequestConfig = {
       url: url,
       method: method,
-      baseURL: baseUrl || BASE_URL,
+      baseURL: baseUrl || BASE_URL + 'api/',
       responseType: multipart ? "blob" : "json",
       paramsSerializer: {
         indexes: true,

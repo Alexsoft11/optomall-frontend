@@ -3,7 +3,6 @@ import styles from './CartOrder.module.scss';
 import { useTranslations } from 'next-intl';
 import { Button, Modal } from '@/ui';
 import { useRouter } from 'next/router';
-import CartGetOrder from '../CartGetOrder';
 import { SearchSvg, SuccsessSvg, WarningSvg } from '$/assets/images';
 
 interface Props {
@@ -12,7 +11,7 @@ interface Props {
     orderId?: string
 }
 
-export default function CartOrder({ cost, itemValue, orderId }: Props) {
+export default function CartOrderBlock({ cost, itemValue, orderId }: Props) {
     const t = useTranslations('Cart')
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [responseModal, setResponseModal] = useState(false);
