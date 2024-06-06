@@ -1,6 +1,6 @@
 import GoToBack from "@/components/GoToBack";
-import { CartBasketPage } from "@/featuress/Cart";
-import CartBasketNoItems from "@/featuress/Cart/components/CartBasketNoItems/index";
+import { CartBasketPage } from "@/features/Cart";
+import CartBasketNoItems from "@/features/Cart/components/CartBasketNoItems/index";
 import { CartMockdata } from "@/mockdata/Cart";
 import { useTranslations } from "next-intl";
 import Head from "next/head";
