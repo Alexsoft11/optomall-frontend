@@ -30,7 +30,7 @@ export default function AuthPage() {
       </div>
       <Modal
         onCancel={setModalIsOpen}
-        bgColor="#CCCCCC"
+        className='bg_white'
         img={AuthModalSvg}
         description={t("modalMessage")}
         open={modalIsOpen}

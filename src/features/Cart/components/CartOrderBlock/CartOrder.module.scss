@@ -7,8 +7,7 @@
     gap: 23px;
     border-radius: 10px;
     height: min-content;
-    max-width: 310px;
-    width: 100%;
+    width: 310px;
 
 
     .order_title {
@@ -51,17 +50,8 @@
         }
     }
 
-    @media (max-width: 950px) {
-        width: 300px;
-
-        .total {
-            h1,
-            p {
-                font-size: var(--heading-six);
-                font-weight: 500;
-                line-height: 23.05px;
-            }
-        }
+    @media (max-width: 1080px) {
+        width: 280px;
     }
 
     @media (max-width: 769px) {

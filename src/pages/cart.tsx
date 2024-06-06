@@ -1,5 +1,7 @@
 import GoToBack from "@/components/GoToBack";
 import { CartBasketPage } from "@/features/Cart";
+import CartBasketNoItems from "@/features/Cart/components/CartBasketNoItems/index";
+import { CartMockdata } from "@/mockdata/Cart";
 import { useTranslations } from "next-intl";
 import Head from "next/head";
 
@@ -19,12 +21,12 @@ export default function Cart() {
           flexDirection: "column",
           gap: "30px",
           justifyContent: "start",
-          margin: "100px 0px 0px 50px",
+          margin: "20px 0px 0px 0px",
         }}
       >
         <GoToBack pathArr={[{ title: "basket", path: "" }]} />
         <h1>{t("basket")}</h1>
-        <CartBasketPage />
+        {CartMockdata.data.length ? <CartBasketPage /> : <CartBasketNoItems />}
       </div>
     </div>
   );

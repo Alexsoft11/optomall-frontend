@@ -131,15 +131,6 @@ const Navbar = () => {
         onClick={handleWrapBtnClick}
       ></div>
 
-
-      {/* <div className={styles.navbar__search_mobile}>
-        <div className='container'>
-          <div className={styles.navbar__search_inner}>
-            <SearchBtn/>
-          </div>
-        </div>
-      </div> */}
-
       <div className={styles.navbar__mobile}>
         <div className={styles.navbar__mobile_inner}>
           {NavLinks.map((item, idx) => (
