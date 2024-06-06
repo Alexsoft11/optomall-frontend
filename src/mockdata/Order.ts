@@ -1,4 +1,4 @@
-import { OrderDataInterface } from "@/featuress/Order/interfaces";
+import { OrderDataInterface } from "@/features/Order/interfaces";
 
 export const OrderMockdata: OrderDataInterface = {
   cost: 1678,
