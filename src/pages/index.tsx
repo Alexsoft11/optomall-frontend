@@ -1,6 +1,6 @@
-import Category from "@/featuredab/home/components/Category";
-import MainSlider from "@/featuredab/home/components/MainSlider";
-import Products from "@/featuredab/home/components/Products";
+import Category from "@/features/home/components/Category";
+import MainSlider from "@/features/home/components/MainSlider";
+import Products from "@/features/home/components/Products";
 import Head from "next/head";
 
 export default function Home() {
