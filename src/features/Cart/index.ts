@@ -5,7 +5,7 @@ import CartGetOrder from "./components/CartGetOrder";
 import CartGetOrderLocations from "./components/CartGetOrderLocations";
 import CartGetOrderPerson from "./components/CartGetOtderPerson";
 import CartOrderBlock from "./components/CartOrderBlock";
-import { CartBasketNoItems } from "./components/CartBasketNoItems";
+import CartBasketNoItems from "./components/CartBasketNoItems";
 
 export {
   CartBasketPage,
