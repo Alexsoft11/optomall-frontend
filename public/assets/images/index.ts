@@ -8,6 +8,9 @@ export { default as MinusSvg } from "./minus.svg";
 export { default as PlusSvg } from "./plus.svg";
 export { default as SliderImg } from "./slider.png";
 export { default as CopySvg } from "./CopySvg.svg";
+export { default as CategoryImg1 } from './Category_img1.png'
+export { default as CategoryImg2 } from './Category_img2.png'
+export { default as CategoryImg3 } from './Category_img3.png'
 export { default as SearchSvg } from "./SearchSvg.svg";
 export { default as WarningSvg } from "./WarningSvg.svg";
 export { default as SuccsessSvg } from "./SuccsessSvg.svg";
