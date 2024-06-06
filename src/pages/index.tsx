@@ -1,4 +1,6 @@
-import { Category, MainSlider, Products } from "@/features/home";
+import Category from "@/features/home/components/Category";
+import MainSlider from "@/features/home/components/MainSlider";
+import Products from "@/features/home/components/Products";
 import Head from "next/head";
 
 export default function Home() {
@@ -7,9 +9,9 @@ export default function Home() {
       <Head>
         <title>Home</title>
       </Head>
-      <MainSlider/>
-      <Category/>
-      <Products/>
+      <MainSlider />
+      <Category />
+      <Products />
     </>
   );
 }
