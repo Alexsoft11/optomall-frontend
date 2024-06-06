@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./CartBasketItem.module.scss";
-import { CartOrderItemInterface } from "@/features/Cart/interface";
+import { CartOrderItemInterface } from "@/featuress/Cart/interface";
 import Image from "next/image";
 import { MinusSvg, PlusSvg } from "$/assets/images";
 import { Button } from "antd";
@@ -13,13 +13,11 @@ interface Props {
 export default function CartBasketItem({ item }: Props) {
   return (
     <div className={styles.main}>
-
       <div className={styles.item_img}>
         <Image fill alt="#" src={item.image} />
       </div>
 
       <div className={styles.item_text}>
-
         <div className={styles.item_info}>
           <p>{item.title}</p>
           <span>
@@ -45,7 +43,6 @@ export default function CartBasketItem({ item }: Props) {
           <Image src={PlusSvg} width={24} height={24} alt="#" />
         </Button>
       </div>
-
     </div>
   );
 }
