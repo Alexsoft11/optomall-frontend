@@ -1,9 +1,16 @@
 import React from "react";
-import { OrderPage } from "@/features/Order";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import GoToBack from "@/components/GoToBack";
 import { useTranslations } from "next-intl";
+import PageTitle from "@/components/PageTitle";
+import dynamic from "next/dynamic";
+
+const OrderPage = dynamic( () => import("@/features/Order/components/OrderPage"),
+  // {
+  //   loading: () => <Loader />,
+  // }
+);
 
 export default function Order() {
   const router = useRouter();
@@ -15,18 +22,9 @@ export default function Order() {
       <Head>
         <title>{t("basket")}</title>
       </Head>
-      <div
-        style={{
-          color: "black",
-          display: "flex",
-          flexDirection: "column",
-          gap: "30px",
-          justifyContent: "start",
-          margin: "10px 0px 0px 0px",
-        }}
-      >
+      <div>
         <GoToBack pathArr={[{ title: "order", path: "" }]} />
-        <h1>{t("basket")}</h1>
+        <PageTitle />
         <OrderPage orderId={id as string} />
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './CartGetOrder.module.scss';
-import { CartGetOrderLocations, CartGetOrderPerson } from '../..';
+import CartGetOrderLocations from '../CartGetOrderLocations';
+import CartGetOrderPerson from '../CartGetOtderPerson';
 
 export default function CartGetOrder() {
     return (

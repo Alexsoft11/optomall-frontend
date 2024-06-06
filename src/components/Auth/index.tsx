@@ -3,9 +3,39 @@ import styles from "./AuthPage.module.css";
 import { AuAuthBackground, AuthModalSvg } from "$/assets/images";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { ForgotPassword, Info, NewPassword, Registration, SignIn } from "./Steps";
 import { useTranslations } from "next-intl";
 import { Modal } from "@/ui";
+import dynamic from "next/dynamic";
+
+const ForgotPassword = dynamic( () => import("./Steps/ForgotPassword"),
+  // {
+  //   loading: () => <Loader />,
+  // }
+);
+
+const Info = dynamic( () => import("./Steps/Info"),
+  // {
+  //   loading: () => <Loader />,
+  // }
+);
+
+const NewPassword = dynamic( () => import("./Steps/NewPassword"),
+  // {
+  //   loading: () => <Loader />,
+  // }
+);
+
+const Registration = dynamic( () => import("./Steps/Registration"),
+  // {
+  //   loading: () => <Loader />,
+  // }
+);
+
+const SignIn = dynamic( () => import("./Steps/SignIn"),
+  // {
+  //   loading: () => <Loader />,
+  // }
+);
 
 export default function AuthPage() {
   let rout = useRouter();
