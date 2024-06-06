@@ -13,13 +13,16 @@ export const StyledModal = styled(AntdModal)`
 }
 
 .ant-modal-content {
+
     border-radius: 20px;
     width: 312px;
     margin-top: 14%;
     padding: 20px;
-    height: 235px;
+    height: auto;
+    
 
     .modal-body {
+        text-align: center;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -27,13 +30,61 @@ export const StyledModal = styled(AntdModal)`
         padding: 20px 10px 10px  10px;
         flex-direction: column;
 
-        p {
+        .modal-descripion {
             width: 226px;
             text-align: center;
             width: 266px;
             font-size: var(--paragraph);
             font-weight: 400;
             line-height: 19.36px;
+        }
+
+        .message-modal-success {
+
+            .confirmButton {
+                 button {
+                    width: 100%;
+                    font-size: var(--paragraph-two);
+                    font-weight: 400;
+                    line-height: 16.94px;
+                    padding: 12px;
+                    height: auto;
+                    background: rgba(255, 66, 0, 1);
+                    border-radius: 10px;
+                }
+            }
+
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            h2 {
+                font-size: var(--heading-six);
+                font-weight: 500;
+                line-height: 24.2px;
+            }
+
+            .message-modal-text_block {
+                display: flex;
+                flex-direction: column;
+                text-align: center; 
+                gap: 5px;
+                padding: 0px 0px 10px 0px;
+
+                .message-modal-paragraph {
+                    color: var(--silver-grey);
+                    font-size: var(--paragraph-three);
+                    font-weight: 400;
+                    line-height: 14.52px;
+                }
+
+                .message-modal-text {
+                    font-size: var(--paragraph-two);
+                    font-weight: 400;
+                    line-height: 16.94px;
+                }
+            }
+
         }
     }
 
@@ -44,6 +95,18 @@ export const StyledModal = styled(AntdModal)`
         width: 74px;
         justify-content: center;
         align-items: center;
+    }
+
+    .bg_green {
+        background: var(--emerald-green);
+    }
+
+    .bg_red {
+        background: var(--primary-color);
+    }
+
+    .bg_white {
+        background: var(--light-white);
     }
 }
 `
