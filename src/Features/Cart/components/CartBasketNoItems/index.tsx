@@ -6,7 +6,7 @@ import { Button } from "@/ui";
 import Image from "next/image";
 import { BasketSvg } from "$/assets/images";
 
-export const CartBasketNoItems = () => {
+const CartBasketNoItems = () => {
   const t = useTranslations("Cart");
   const router = useRouter();
 
@@ -32,3 +32,4 @@ export const CartBasketNoItems = () => {
     </div>
   );
 };
+export default CartBasketNoItems;
