@@ -46,7 +46,7 @@ const MainLayout = ({ children }: ILayoutsProps) => {
         {/* <link rel="icon" type="image/png" href="/saray-plast.png" /> */}
       </Head>
       <Navbar />
-      <main>{children}</main>
+      <main className="main_page">{children}</main>
       <Footer />
     </>
   );
