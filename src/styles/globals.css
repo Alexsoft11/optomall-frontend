@@ -167,8 +167,16 @@ a {
   height: 8px;
 }
 
+.main_page {
+  padding: 97px 0px 0px 0px;
+}
+
 .go_to_back svg {
   transform: rotate(-90deg);
+}
+
+.go_to_back {
+  padding: 0px 0px 20px 0px;
 }
 
 .go_to_back .ant-breadcrumb-link a {
@@ -177,7 +185,16 @@ a {
   line-height: 20px;
   letter-spacing: 0em;
 
-  @media screen and (max-width: 400px) {
+}
+
+@media (max-width: 768px) {
+  .main_page {
+    padding: 20px 0px 0px 0px;
+  }
+}
+
+@media (max-width: 400px) {
+  .go_to_back .ant-breadcrumb-link a {
     font-size: 14px;
   }
 }

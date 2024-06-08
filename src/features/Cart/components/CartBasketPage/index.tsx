@@ -1,7 +1,10 @@
 import React from "react";
 import styles from "./CartBasketPage.module.scss";
-import { CartBasketItems, CartGetOrder, CartOrderBlock } from "@/features/Cart";
 import { CartOrderMockdata } from "@/mockdata/Cart";
+import CartBasketItems from "../CartBasketItems";
+import CartOrderBlock from "../CartOrderBlock";
+import CartGetOrder from "../CartGetOrder";
+
 
 export default function CartBasketPage() {
   return (
