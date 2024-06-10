@@ -22,9 +22,7 @@ export default function Registration() {
             disableOnMount: true,
         },
         onSuccess(res) {
-            console.log(res.message);
-            
-            message.success(res, 2000)
+            message.success(res.message)
             setTimeout(() => router.push('auth/'), 2000)
         },
         onError(err) {
