@@ -109,6 +109,13 @@
   /* 12px */
   --paragraph-three: 0.75rem;
 
+  /* pxels */
+
+  /* 14px */
+  --paragraph-two-px: 14px;
+  /* 12px */
+  --paragraph-three-px: 12px;
+
 
   --navbar-height: 80px;
 }
