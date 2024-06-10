@@ -1,5 +1,6 @@
 import { MessagesPage } from '@/Features/Messages';
 import GoToBack from '@/components/GoToBack';
+import PageTitle from '@/components/PageTitle';
 import { MessagesMocdata } from '@/mockdata/Messages';
 import { useTranslations } from 'next-intl';
 import Head from 'next/head';
@@ -12,9 +13,9 @@ export default function Messages() {
             <Head>
                 <title>{t('messages')}</title>
             </Head>
-            <div style={{ color: "black", display: 'flex', flexDirection: 'column', gap: '30px', justifyContent: 'start', margin: '10px 0px 0px 0px' }}>
+            <div>
                 <GoToBack pathArr={[{ title: "messages", path: "" }]} />
-                <h1>{t('basket')}</h1>
+                <PageTitle/>
                 <MessagesPage data={MessagesMocdata}  />
             </div>
         </div>
