@@ -6,7 +6,8 @@ import { useTranslations } from "next-intl";
 import PageTitle from "@/components/PageTitle";
 import dynamic from "next/dynamic";
 
-const OrderPage = dynamic( () => import("@/features/Order/components/OrderPage"),
+const OrderPage = dynamic(
+  () => import("@/features/Order/components/OrderPage")
   // {
   //   loading: () => <Loader />,
   // }

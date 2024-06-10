@@ -1,0 +1,38 @@
+.catalog_detail {
+
+    @media (min-width:768px) {
+        display: none;
+    }
+
+    &__title {
+        color: var(--primary-color);
+        font-size: var(--paragraph-three-px);
+        font-weight: 400;
+
+        margin-bottom: 10px;
+        text-align: left;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 50px;
+        padding: 13px 0px;
+
+        @media (max-width:375px) {
+            gap: 30px;
+        }
+
+        p {
+            color: var(--black-color);
+            font-size: var(--paragraph-two-px);
+            font-weight: 400;
+        }
+
+        svg {
+            max-width: 24px;
+            max-height: 24px;
+        }
+    }
+}

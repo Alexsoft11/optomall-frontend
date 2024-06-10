@@ -6,13 +6,15 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import React from "react";
 
-const CartBasketPage = dynamic( () => import("@/features/Cart/components/CartBasketPage"),
+const CartBasketPage = dynamic(
+  () => import("@/features/Cart/components/CartBasketPage")
   // {
   //   loading: () => <Loader />,
   // }
 );
 
-const CartBasketNoItems = dynamic( () => import("@/features/Cart/components/CartBasketNoItems"),
+const CartBasketNoItems = dynamic(
+  () => import("@/features/Cart/components/CartBasketNoItems")
   // {
   //   loading: () => <Loader />,
   // }
