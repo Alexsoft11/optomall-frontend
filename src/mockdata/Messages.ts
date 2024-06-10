@@ -1,4 +1,4 @@
-import { MessagesDataInterface } from "@/Features/Messages/interface";
+import { MessagesDataInterface } from "@/features/Messages/interface";
 
 export const MessagesMocdata: MessagesDataInterface[] = [
     {
