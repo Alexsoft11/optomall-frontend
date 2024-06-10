@@ -34,7 +34,12 @@
         "modalMessage": "Мы отправили вам письмо с подтверждением на вашу почту!",
         "minSymbolPassword": "Пароль должен содержать минимум 8 символов",
         "passwordsIsDifferent": "Пароли не совпадают",
-        "emailIncorect": "Введите действительный адрес электронной почты"
+        "emailIncorect": "Введите действительный адрес электронной почты",
+
+        "haveAccount": "У вас есть аккаунт?",
+        "requiredTelMessage": "Введите действительный номер телефона",
+        "requiredNameMessage": "Введите имя",
+        "requiredSecondNameMessage": "Введите фамилию"
     },
     "Cart": {
         "item": "Товаров",

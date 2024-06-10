@@ -30,3 +30,10 @@ export const validateConfirmCode = (t: Function, currentValue: any, value: strin
   }
   return Promise.resolve();
 };
+
+export const validatePhone = (t: Function, currentValue: any, value: string) => {
+  if (!/^\+998(\d){9}$/m.test(value)) {
+    return Promise.reject(new Error(t('requiredTelMessage')));
+  }
+  return Promise.resolve();
+};
