@@ -1,12 +1,12 @@
-import CatalogCategory from '@/features/Catalog/components/CatalogCategory'
-import React from 'react'
+import CatalogCategory from "@/features/Catalog/components/CatalogCategory";
+import React from "react";
 
 const Catalog = () => {
   return (
     <>
-        <CatalogCategory/>
+      <CatalogCategory />
     </>
-  )
-}
+  );
+};
 
-export default Catalog
+export default Catalog;
