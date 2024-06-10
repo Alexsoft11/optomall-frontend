@@ -1,0 +1,22 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    box-shadow: 0px 0px 4px 0px #00000040;
+    border-radius: 10px;
+    width: 100%;
+
+    h3 {
+        font-size: var(--paragraph);
+        font-weight: 500;
+        line-height: 19.36px;
+    }
+
+    p {
+        height: auto;
+        font-size: var(--paragraph-two);
+        font-weight: 400;
+        line-height: 16.94px;
+    }
+}
