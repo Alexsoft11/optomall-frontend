@@ -1,6 +1,6 @@
-import { MessagesPage } from '@/Features/Messages';
 import GoToBack from '@/components/GoToBack';
 import PageTitle from '@/components/PageTitle';
+import { MessagesPage } from '@/features/Messages';
 import { MessagesMocdata } from '@/mockdata/Messages';
 import { useTranslations } from 'next-intl';
 import Head from 'next/head';
