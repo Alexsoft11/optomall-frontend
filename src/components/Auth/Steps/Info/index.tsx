@@ -9,15 +9,6 @@ import { validatePhone } from '../../Functions';
 export default function Info() {
     const [form] = Form.useForm();
     const t = useTranslations("Auth");
-    const [phoneValue, setPhoneValue] = useState('+998')
-
-    const phoneValidate = (e: any) => {
-        console.log(e);
-
-        if (!/^\+998(\d){9}$/m.test(e.target.value)) {
-            return
-        } else setPhoneValue(e.target.value)
-    }
 
     const { appendData: createData } = useQueryApiClient({
         request: {
@@ -82,7 +73,7 @@ export default function Info() {
                             { validator: (rule, value) => validatePhone(t, rule, value) }
                         ]}
                     >
-                        <Input type='text' onChange={(e) => phoneValidate(e)} placeholder={t('tel')} />
+                        <Input type='text' placeholder={t('tel')} />
                     </Form.Item>
 
                     <Form.Item className={styles.submitButton}>
