@@ -8,6 +8,7 @@ import GoogleButton from '../../GoogleButton';
 import { validateEmail, validatePassword } from '../../Functions';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import Cookies from 'universal-cookie';
+import { useRouter } from 'next/router';
 
 
 export default function SignIn() {
@@ -15,6 +16,7 @@ export default function SignIn() {
     const t = useTranslations("Auth");
     const cookies = new Cookies();
     const expirationDate = new Date();
+    const router = useRouter();
     expirationDate.setDate(expirationDate.getDate() + 3);
 
     const { appendData: createData } = useQueryApiClient({
@@ -25,6 +27,7 @@ export default function SignIn() {
         },
         onSuccess(res) {
             message.success('succsess sigin!');
+            setTimeout(() => router.push('/'), 2000)
             cookies.set('token', Buffer.from(res.token).toString('base64'), { expires: expirationDate })
         },
         onError(err) {

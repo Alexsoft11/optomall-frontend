@@ -16,6 +16,15 @@
             }
         }
 
+        .have_account {
+            display: flex;
+            gap: 5px;
+
+            a {
+                color: var(--primary-color);
+            }
+        }
+
         span {
             padding: 0px 5px 0px 0px;
 
@@ -25,6 +34,7 @@
                 line-height: 16.94px;
                 padding: 12px;
                 margin: 0px;
+                height: 100%;
     
                 &::placeholder {
                     color: var(--davys-grey);
