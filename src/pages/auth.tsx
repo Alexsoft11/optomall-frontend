@@ -1,10 +1,10 @@
-import React from 'react';
-import AuthPage from '@/Components/Auth';
+import React from "react";
+import AuthPage from "@/components/Auth";
 
 export default function Auth() {
-    return (
-        <div>
-            <AuthPage />
-        </div>
-    );
+  return (
+    <div>
+      <AuthPage />
+    </div>
+  );
 }

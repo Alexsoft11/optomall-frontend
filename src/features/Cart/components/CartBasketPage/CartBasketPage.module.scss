@@ -1,0 +1,19 @@
+.main {
+    padding: 10px 0px 0px 0px;
+    display: flex;
+    gap: 20px;
+
+    .order_side {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        grid-area: order_side;
+    }
+
+    @media (max-width: 769px) {
+        padding: 0px; 
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
