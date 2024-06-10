@@ -15,8 +15,8 @@ export const CartMockdata: CartOrderDataInterface = {
       color: "black",
       size: "string",
       cost: 100,
-      count: 1
-    }
+      count: 1,
+    },
   ],
 };
 
