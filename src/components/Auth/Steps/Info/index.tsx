@@ -12,15 +12,15 @@ export default function Info() {
 
     const { appendData: createData } = useQueryApiClient({
         request: {
-            url: 'profile/update',
+            url: 'prsonal-data',
             method: 'POST',
             disableOnMount: true,
         },
         onSuccess(res) {
-            message.success('succsess!')
+            message.success(res.message)
         },
         onError(err) {
-            message.error('failed :(')
+            message.error(err.error)
         }
     })
 
