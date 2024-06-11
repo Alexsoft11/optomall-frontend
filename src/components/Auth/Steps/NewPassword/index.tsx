@@ -18,11 +18,11 @@ export default function NewPassword() {
             disableOnMount: true,
         },
         onSuccess(res) {
-            message.success('succsess register!')
+            message.success(res.message)
         },
         onError(err) {
-            message.error('register failed :(')
-        } 
+            message.error(err.error)
+        }  
     })
 
     const onFinish = (values: any) => {
