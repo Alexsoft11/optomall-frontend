@@ -26,7 +26,7 @@ export default function Registration() {
             setTimeout(() => router.push('auth/'), 2000)
         },
         onError(err) {
-            message.error('register failed :(')
+            message.error(err.error)
         } 
     })
 
