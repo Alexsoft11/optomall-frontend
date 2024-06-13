@@ -70,6 +70,7 @@
         "address": "Delivery Address:",
         "recipient": "Order Recipient:",
         "moreDetail": "More Detail",
-        "orderCost": "Total Cost:"
+        "orderCost": "Total Cost:",
+        "currency": "uzs"
     }
 }

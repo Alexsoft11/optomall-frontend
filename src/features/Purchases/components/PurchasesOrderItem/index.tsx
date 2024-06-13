@@ -2,12 +2,14 @@ import React from 'react';
 import styles from './PurchasesOrderItem.module.scss';
 import { PurchasesItemInterface } from '../../interfaces';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 interface Props {
     item: PurchasesItemInterface
 }
 
 export default function PurchasesOrderItem({ item }: Props) {
+    const t = useTranslations('Purchases')
     return (
         <div className={styles.main}>
             <div className={styles.item_img}>
@@ -19,7 +21,7 @@ export default function PurchasesOrderItem({ item }: Props) {
                     <p>{item.title}</p>
                 </div>
 
-                <h3>{item.price} uzs</h3>
+                <h3>{item.price} {t('currency')}</h3>
             </div>
         </div>
     );

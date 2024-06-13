@@ -70,6 +70,7 @@
         "address": "Yetkazib berish manzili:",
         "recipient": "Buyurtma oluvchisi:",
         "moreDetail": "Batafsil",
-        "orderCost": "Umumiy summa:"
+        "orderCost": "Umumiy summa:",
+        "currency": "so'm"
     }
 }

@@ -10,4 +10,23 @@
         grid-row: auto;
         gap: 20px;
     }
+
+    .switch_buttons {
+        display: flex;
+        gap: 20px;
+
+        button {
+            padding: 8.5px 15px;
+            height: auto;
+            span {
+                color: var(--light-white);
+            }
+        }
+
+        .active_switch {
+            span {
+                color: var(--primary-color) ;
+            }
+        }
+    }
 }
