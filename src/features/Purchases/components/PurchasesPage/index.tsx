@@ -1,15 +1,32 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import styles from './PurchasesPage.module.scss';
 import { PurchasesOrderInterface } from '../../interfaces';
 import PurchasesItem from '../PurchasesItem';
+import { Button } from 'antd';
+import { useTranslations } from 'next-intl';
 
 interface Props {
     data: PurchasesOrderInterface[]
 }
+
+export default function PurchasesPage({ data }: Props) {
+    const t = useTranslations('Purchases')
+    const [activeSwitch, setActiveSwitch] = useState('all')
     
-export default function PurchasesPage({data}: Props) {
+    const setSwitch = (name : string) => {
+        setActiveSwitch(name)
+    }
+
     return (
         <div className={styles.main}>
+            <div className={styles.switch_buttons}>
+                <Button onClick={() => setSwitch("active")} className={`${activeSwitch === 'active'? styles.active_switch : null}`}>
+                    {t('active')}
+                </Button>
+                <Button  onClick={() => setSwitch("all")} className={`${activeSwitch === 'all'? styles.active_switch : null}`}>
+                    {t('all')}
+                </Button>
+            </div>
             <div className={styles.items}>
                 {data?.map(el => (
                     <Fragment key={el.id}>

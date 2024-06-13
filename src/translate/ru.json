@@ -77,6 +77,7 @@
         "address": "Адресс доставки:",
         "recipient": "Получатель заказа:",
         "moreDetail": "Подробно",
-        "orderCost": "Общая сумма:"
+        "orderCost": "Общая сумма:",
+        "currency": "сум"
     }
 }

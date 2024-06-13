@@ -18,8 +18,6 @@ export default function PurchasesItem({ item }: Props) {
     const handleClick = () => {
         setIsRotatedUp(!isRotatedUp);
         setFirstLoad(false)
-        console.log(firstLoad);
-        
     };
 
     return (
@@ -53,7 +51,7 @@ export default function PurchasesItem({ item }: Props) {
             </div>
             <div className={styles.order_items}>
                 {item.data.map(el => (
-                    <Fragment>
+                    <Fragment key={el.id}>
                         <PurchasesOrderItem item={el} />
                     </Fragment>
                 ))}
