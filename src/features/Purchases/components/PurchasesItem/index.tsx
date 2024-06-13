@@ -14,12 +14,16 @@ export default function PurchasesItem({ item }: Props) {
     const t = useTranslations('Purchases')
 
     const [isRotatedUp, setIsRotatedUp] = useState(false);
-
+    const [firstLoad, setFirstLoad] = useState(true)
     const handleClick = () => {
         setIsRotatedUp(!isRotatedUp);
+        setFirstLoad(false)
+        console.log(firstLoad);
+        
     };
+
     return (
-        <div className={`${styles.main} ${isRotatedUp ? styles.detailOpen : styles.detailClose}`}>
+        <div className={`${styles.main} ${isRotatedUp ? styles.detailOpen : (firstLoad? styles.firsLoadAnimation : styles.detailClose)}`}>
             <div className={styles.order_info}>
                 <p>{t('goods')}: {item.itemsCount}</p>
                 <div className={styles["status_" + item.status]}>{t(`${item.status}`)}</div>
