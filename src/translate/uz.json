@@ -2,7 +2,8 @@
     "GLOBAL": {
         "cart": "Savat",
         "order": "Buyurtma qilish",
-        "home": "Bosh sahifa"
+        "home": "Bosh sahifa",
+        "purchases": "Mening xaridlarim"
     },
     "UiModal": {
         "success": "Chek muvaffaqiyatli tasdiqlandi",
@@ -56,5 +57,20 @@
         "payCost": "To'lanadigan summa: ",
         "cardNumber": "Oluvchining karta raqami: ",
         "payTutorialText": "Quyidagi karta raqamini nusxalab oling, so'ngra bank ilovangizni oching va ko'rsatilgan summani bir to'lov bilan ushbu raqamga o'tkazing. Diqqat! Quyida ko'rsatilgan aniq summani o'tkazish kerak!"
+    },
+    "Purchases": {
+        "active": "Faol",
+        "all": "Barchasi",
+        "goods": "Mahsulotlar",
+        "Processing": "Tayyorlanmoqda",
+        "Delivered": "Yetkazib berildi",
+        "Cancelled": "Bekor qilindi",
+        "Shipped": "Jo'natildi",
+        "orderDate": "Buyurtma sanasi:",
+        "address": "Yetkazib berish manzili:",
+        "recipient": "Buyurtma oluvchisi:",
+        "moreDetail": "Batafsil",
+        "orderCost": "Umumiy summa:",
+        "currency": "so'm"
     }
 }
