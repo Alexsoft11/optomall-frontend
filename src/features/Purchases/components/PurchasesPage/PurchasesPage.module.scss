@@ -3,13 +3,18 @@
     flex-direction: column;
     gap: 20px;
 
-    .items {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: auto;
-        grid-row: auto;
-        gap: 20px;
+    .items_block {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(auto,310px));
+            gap: 20px;
+        }
     }
+
 
     .switch_buttons {
         display: flex;
@@ -18,6 +23,7 @@
         button {
             padding: 8.5px 15px;
             height: auto;
+
             span {
                 color: var(--light-white);
             }
@@ -25,7 +31,7 @@
 
         .active_switch {
             span {
-                color: var(--primary-color) ;
+                color: var(--primary-color);
             }
         }
     }
