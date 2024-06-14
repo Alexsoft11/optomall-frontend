@@ -1,18 +1,42 @@
 import React from 'react';
 import styles from './SignIn.module.scss';
-import { Form, Input } from 'antd';
+import { Form, Input, message } from 'antd';
 import { Button } from '@/ui';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import GoogleButton from '../../GoogleButton';
 import { validateEmail, validatePassword } from '../../Functions';
+import useQueryApiClient from '@/utils/useQueryApiClient';
+import Cookies from 'universal-cookie';
+import { useRouter } from 'next/router';
+
 
 export default function SignIn() {
     const [form] = Form.useForm();
     const t = useTranslations("Auth");
+    const cookies = new Cookies();
+    const expirationDate = new Date();
+    const router = useRouter();
+    expirationDate.setDate(expirationDate.getDate() + 3);
 
-    function submit(data: any) {
-        console.log(data);
+    const { appendData: createData } = useQueryApiClient({
+        request: {
+            url: 'login',
+            method: 'POST',
+            disableOnMount: true,
+        },
+        onSuccess(res) {
+            message.success(res.message)
+            setTimeout(() => router.push('/'), 2000)
+            cookies.set('token', Buffer.from(res.token).toString('base64'), { expires: expirationDate })
+        },
+        onError(err) {
+            message.error(err.error)
+        } 
+    })
+
+    const onFinish = (values: any) => {
+        createData(values)
     }
 
     return (
@@ -22,7 +46,7 @@ export default function SignIn() {
             <div className={styles.form}>
                 <Form
                     form={form}
-                    onFinish={(e) => submit(e)}
+                    onFinish={(data) => onFinish(data)}
                     name="basic"
                     labelCol={{ span: 8 }}
                     wrapperCol={{ span: 16 }}

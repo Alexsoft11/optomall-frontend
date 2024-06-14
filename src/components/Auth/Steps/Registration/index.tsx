@@ -1,17 +1,37 @@
 import React from 'react';
 import styles from './Registration.module.scss';
-import { Form, Input } from 'antd';
+import { Form, Input, message } from 'antd';
 import { Button } from '@/ui';
 import GoogleButton from '../../GoogleButton';
 import { validateConfirmPassword, validateEmail, validatePassword } from '../../Functions';
 import { useTranslations } from 'next-intl';
+import useQueryApiClient from '@/utils/useQueryApiClient';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+
 
 export default function Registration() {
     const [form] = Form.useForm();
     const t = useTranslations("Auth");
+    const router = useRouter()
+    
+    const { appendData: createData } = useQueryApiClient({
+        request: {
+            url: 'register',
+            method: 'POST',
+            disableOnMount: true,
+        },
+        onSuccess(res) {
+            message.success(res.message)
+            setTimeout(() => router.push('auth/'), 2000)
+        },
+        onError(err) {
+            message.error(err.error)
+        } 
+    })
 
-    function submit(data: any) {
-        console.log(data);
+    const onFinish = (values: any) => {
+        createData(values)
     }
 
     return (
@@ -21,7 +41,7 @@ export default function Registration() {
             <div className={styles.form}>
                 <Form
                     form={form}
-                    onFinish={(e) => submit(e)}
+                    onFinish={(data) => onFinish(data)}
                     name="basic"
                     labelCol={{
                         span: 8,
@@ -38,7 +58,6 @@ export default function Registration() {
                     <Form.Item
                         name="email"
                         rules={[
-                            { required: true, message: t('requiredEmailMessage') },
                             { validator: (rule, value) => validateEmail(t, rule, value) }
                         ]}
                     >
@@ -48,7 +67,6 @@ export default function Registration() {
                     <Form.Item
                         name="password"
                         rules={[
-                            { required: true, message: t('requiredPasswordMessage') },
                             { validator: (rule, value) => validatePassword(t, rule, value) }
                         ]}
                         hasFeedback
@@ -57,18 +75,25 @@ export default function Registration() {
                     </Form.Item>
 
                     <Form.Item
-                        name="confirmPassword"
+                        name="confirm_password"
                         hasFeedback
                         rules={[
-                            { required: true, message: t('requiredConfirmPasswordMessage') },
                             { validator: (rule, value) => validateConfirmPassword(t, form).validator(rule, value) }
                         ]}
                     >
                         <Input.Password type="password" placeholder={t("repeatYourPassword")} />
                     </Form.Item>
 
+                    <span className={styles.have_account}>
+                        {t('haveAccount')}
+
+                        <Link href="/auth">
+                            {t("signin")}
+                        </Link>
+                    </span>
+
                     <Form.Item className={styles.submitButton}>
-                        <Button type="primary" htmlType="submit" className='generalbtn' label={t('signin')} />
+                        <Button type="primary" htmlType="submit" className='generalbtn' label={t('regist')} />
                     </Form.Item>
 
                 </Form>

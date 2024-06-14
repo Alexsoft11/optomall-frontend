@@ -13,13 +13,11 @@ interface Props {
 export default function CartBasketItem({ item }: Props) {
   return (
     <div className={styles.main}>
-
       <div className={styles.item_img}>
         <Image fill alt="#" src={item.image} />
       </div>
 
       <div className={styles.item_text}>
-
         <div className={styles.item_info}>
           <p>{item.title}</p>
           <span>
@@ -45,7 +43,6 @@ export default function CartBasketItem({ item }: Props) {
           <Image src={PlusSvg} width={24} height={24} alt="#" />
         </Button>
       </div>
-
     </div>
   );
 }

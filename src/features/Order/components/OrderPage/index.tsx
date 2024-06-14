@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./OrderPage.module.scss";
-import { OrderCheque } from "../..";
-import { CartOrderBlock } from "@/features/Cart";
 import { OrderMockdata } from "@/mockdata/Order";
+import OrderCheque from "../OrderCheque";
+import { CartOrderBlock } from "@/features/Cart";
 
 interface Props {
   orderId: string;
