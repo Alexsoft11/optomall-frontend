@@ -48,16 +48,6 @@
                 -webkit-box-orient: vertical;
                 white-space: normal;
                 word-wrap: break-word; /* Allows text to wrap within the fixed width */
-
-                &::after {
-                    content: '...';
-                    display: block;
-                    height: 100%;
-                    width: 100%;
-                    position: absolute;
-                    bottom: 0;
-                    right: 0;
-                  }
             }
 
 
