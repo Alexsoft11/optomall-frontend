@@ -3,7 +3,8 @@
         "cart": "Savat",
         "order": "Buyurtma qilish",
         "home": "Bosh sahifa",
-        "purchases": "Mening xaridlarim"
+        "purchases": "Mening xaridlarim",
+        "currency": "so'm"
     },
     "UiModal": {
         "success": "Chek muvaffaqiyatli tasdiqlandi",
