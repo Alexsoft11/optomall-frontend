@@ -2,7 +2,9 @@
     "GLOBAL": {
         "cart": "Cart",
         "order": "Order",
-        "home": "Home"
+        "home": "Home",
+        "purchases": "My Purchases",
+        "currency": "uzs"
     },
     "UiModal": {
         "success": "Receipt successfully confirmed",
@@ -56,5 +58,20 @@
         "payCost": "Amount to be paid: ",
         "cardNumber": "Recipient's card number: ",
         "payTutorialText": "Copy the card number below, then open your bank app and transfer the amount specified below in a single payment. Note! You need to transfer the exact amount specified below!"
+    },
+    "Purchases": {
+        "active": "Active",
+        "all": "All",
+        "goods": "Goods",
+        "Processing": "Processing",
+        "Delivered": "Delivered",
+        "Cancelled": "Cancelled",
+        "Shipped": "Shipped",
+        "orderDate": "Order Date:",
+        "address": "Delivery Address:",
+        "recipient": "Order Recipient:",
+        "moreDetail": "More Detail",
+        "orderCost": "Total Cost:",
+        "currency": "uzs"
     }
 }
