@@ -136,7 +136,7 @@
         visibility: hidden;
         opacity: 0;
         transition: .2s ease;
-        top: 55px;
+        top: 65px;
 
         position: absolute;
         right: 0;
@@ -148,7 +148,7 @@
         }
         
         &.open {
-            top: 62px;
+            top: 72px;
             visibility: inherit;
             opacity: 1;
         }
@@ -286,6 +286,7 @@
     height: 100%;
     width: 100%;
     min-height: 100%;
+    z-index: 998;
 
     @media (max-width:768px) {
         display: none;
@@ -310,6 +311,10 @@
     border-radius: 10px;
     box-shadow: 0px 0px 4px 0px #00000040;
     width: 85%;
+
+    @media (max-width:1160px) {
+        width: 100%;
+    }
 
     @media (max-width:768px) {
         display: none;

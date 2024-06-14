@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from './ForgotPassword.module.scss';
-import { Form, Input } from 'antd';
+import { Form, Input, message } from 'antd';
 import { Button } from '@/ui';
 import { useTranslations } from 'next-intl';
 import { validateEmail } from '../../Functions';
+import useQueryApiClient from '@/utils/useQueryApiClient';
 
 interface Props {
     setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,8 +14,22 @@ export default function ForgotPassword({ setModalIsOpen }: Props) {
     const [form] = Form.useForm();
     const t = useTranslations("Auth");
 
-    function submit(data: any) {
-        setModalIsOpen(true);
+    const { appendData: createData } = useQueryApiClient({
+        request: {
+            url: 'password/forgot',
+            method: 'POST',
+            disableOnMount: true,
+        },
+        onSuccess(res) {
+            message.success(res.message)
+        },
+        onError(err) {
+            message.error(err.error)
+        } 
+    })
+
+    const onFinish = (values: any) => {
+        createData(values)
     }
 
     return (
@@ -26,7 +41,7 @@ export default function ForgotPassword({ setModalIsOpen }: Props) {
                     <Form
                         form={form}
                         className={styles.form}
-                        onFinish={(e) => submit(e)}
+                        onFinish={(data) => onFinish(data)}
                         name="basic"
                         labelCol={{ span: 8 }}
                         wrapperCol={{ span: 16 }}

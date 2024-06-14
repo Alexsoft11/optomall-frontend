@@ -10,6 +10,8 @@
             font-weight: 400;
             line-height: 16.94px;
             padding: 12px;
+            height: 100%;
+            display: flex;
 
             &::placeholder {
                 color: var(--davys-grey);
@@ -25,14 +27,14 @@
         form {
             display: flex;
             flex-direction: column;
-            gap: 20px;   
+            gap: 20px;
         }
-         
+
         div {
             max-width: 100% !important;
             margin: 0px;
         }
-        
+
     }
 
 

@@ -9,7 +9,7 @@ export const validatePassword = (t: Function, currentValue: any, value: string) 
 
 export const validateConfirmPassword = (t: Function, getFieldValue: any) => ({
   validator(currentValue: any, value: string) {
-    if (!value || getFieldValue('password') === value) {
+    if (!value || getFieldValue.getFieldValue('password') === value) {
       return Promise.resolve();
     }
     return Promise.reject(new Error(t('passwordsIsDifferent')));
@@ -20,6 +20,20 @@ export const validateEmail = (t: Function, currentValue: any, value: string) => 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!emailRegex.test(value)) {
     return Promise.reject(new Error(t('emailIncorect')));
+  }
+  return Promise.resolve();
+};
+
+export const validateConfirmCode = (t: Function, currentValue: any, value: string) => {
+  if (value.length !== 6) {
+    return Promise.reject(new Error(t('confirmCodeIncorect')));
+  }
+  return Promise.resolve();
+};
+
+export const validatePhone = (t: Function, currentValue: any, value: string) => {
+  if (!/^\+998(\d){9}$/m.test(value)) {
+    return Promise.reject(new Error(t('requiredTelMessage')));
   }
   return Promise.resolve();
 };

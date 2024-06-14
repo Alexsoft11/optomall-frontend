@@ -1,11 +1,42 @@
 import React, { useState } from "react";
-import styles from "./AuthPage.module.css";
+import styles from "./AuthPage.module.scss";
 import { AuAuthBackground, AuthModalSvg } from "$/assets/images";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { ForgotPassword, Info, Registration, SignIn } from "./Steps";
 import { useTranslations } from "next-intl";
 import { Modal } from "@/ui";
+import dynamic from "next/dynamic";
+import LanguageSelector from "../LanguageSelector";
+
+const ForgotPassword = dynamic(() => import("./Steps/ForgotPassword"),
+  // {
+  //   loading: () => <Loader />,
+  // }
+);
+
+const Info = dynamic(() => import("./Steps/Info"),
+  // {
+  //   loading: () => <Loader />,
+  // }
+);
+
+const NewPassword = dynamic(() => import("./Steps/NewPassword"),
+  // {
+  //   loading: () => <Loader />,
+  // }
+);
+
+const Registration = dynamic(() => import("./Steps/Registration"),
+  // {
+  //   loading: () => <Loader />,
+  // }
+);
+
+const SignIn = dynamic(() => import("./Steps/SignIn"),
+  // {
+  //   loading: () => <Loader />,
+  // }
+);
 
 export default function AuthPage() {
   let rout = useRouter();
@@ -19,17 +50,23 @@ export default function AuthPage() {
           <div className={styles.img}>
             <Image src={AuAuthBackground} alt="#" fill={true} />
           </div>
-          {rout.query.step === "signin" || !rout.query.step  ? <SignIn /> : null}
-          {rout.query.step === "regist" ? <Registration /> : null}
-          {rout.query.step === "info" ? <Info /> : null}
-          {rout.query.step === "forgot-password" ? (
-            <ForgotPassword setModalIsOpen={setModalIsOpen} />
-          ) : null}
+          <div className={styles.forms_side}>
+            <div className={styles.language_selector__block}>
+              <LanguageSelector />
+            </div>
+            {rout.query.step === "signin" || !rout.query.step ? <SignIn /> : null}
+            {rout.query.step === "regist" ? <Registration /> : null}
+            {rout.query.step === "info" ? <Info /> : null}
+            {rout.query.step === "reset" ? <NewPassword /> : null}
+            {rout.query.step === "forgot-password" ? (
+              <ForgotPassword setModalIsOpen={setModalIsOpen} />
+            ) : null}
+          </div>
         </div>
       </div>
       <Modal
         onCancel={setModalIsOpen}
-        bgColor="#CCCCCC"
+        className='bg_white'
         img={AuthModalSvg}
         description={t("modalMessage")}
         open={modalIsOpen}

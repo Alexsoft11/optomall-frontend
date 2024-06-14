@@ -34,6 +34,11 @@ export const StyledTabs = styled(Tabs)`
         max-width: 100%;
         max-height: 75vh;
 
+        @media (max-width:1160px) {
+            max-width: 300px;
+            padding-right: 30px;
+        }
+
         @media (max-width:970px) {
             padding-right: 45px;
         }

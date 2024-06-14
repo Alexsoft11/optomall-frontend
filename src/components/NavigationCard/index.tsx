@@ -11,12 +11,12 @@ const NavigationCard = ({data}: NavigationCardProps) => {
     <>
         <div className={styles.navigationcard}>
             <div className={styles.navigationcard__inner}>
-                <h1 className={styles.navigationcard__title}>{data.title}</h1>
+                {/* <h1 className={styles.navigationcard__title}>{data.title}</h1> */}
 
                 <div className={styles.navigationcard__list}>
                     {
-                        data?.links.map((item: any, idx: number) => (
-                            <Link key={idx} href={item.link}>{item.text}</Link>
+                        data?.sub_categories?.map((item: any, idx: number) => (
+                            <Link key={idx} href="/">{item.name}</Link>
                         ))
                     }
                 </div>

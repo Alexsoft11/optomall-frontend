@@ -1,0 +1,32 @@
+.main {
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 990px) {
+        width: 100dvw;
+        height: 90dvh;
+        justify-content: center;
+        align-self: center;
+    }
+
+    .forms_side {
+        display: flex;
+        flex-direction: column;
+        
+        .language_selector__block {
+            position: absolute;
+            top: 18px;
+            right: 70px;
+        }
+    }
+
+    .img {
+        position: relative;
+        width: 60dvw;
+        height: 100dvh;
+
+        @media (max-width: 990px) {
+            display: none;
+        }
+    }
+}

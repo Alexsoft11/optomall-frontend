@@ -1,23 +1,37 @@
-import GoToBack from '@/components/GoToBack';
-import { CartBasketNoItems, CartBasketPage } from '@/features/Cart';
-import { CartMockdata } from '@/mockdata/Cart';
-import { useTranslations } from 'next-intl';
-import Head from 'next/head';
-
+import GoToBack from "@/components/GoToBack";
+import PageTitle from "@/components/PageTitle";
+import { CartMockdata } from "@/mockdata/Cart";
+import { useTranslations } from "next-intl";
+import dynamic from "next/dynamic";
+import Head from "next/head";
 import React from "react";
 
+const CartBasketPage = dynamic(
+  () => import("@/features/Cart/components/CartBasketPage")
+  // {
+  //   loading: () => <Loader />,
+  // }
+);
+
+const CartBasketNoItems = dynamic(
+  () => import("@/features/Cart/components/CartBasketNoItems")
+  // {
+  //   loading: () => <Loader />,
+  // }
+);
+
 export default function Cart() {
-    const t = useTranslations('GLOBAL')
-    return (
-        <div className='container'>
-            <Head>
-                <title>{t('basket')}</title>
-            </Head>
-            <div style={{ color: "black", display: 'flex', flexDirection: 'column', gap: '30px', justifyContent: 'start', margin: '20px 0px 0px 0px' }}>
-                <GoToBack pathArr={[{ title: "basket", path: "" }]} />
-                <h1>{t('basket')}</h1>
-               {CartMockdata.data.length?  <CartBasketPage /> : <CartBasketNoItems />}
-            </div>
-        </div>
-    );
+  const t = useTranslations("GLOBAL");
+  return (
+    <div className="container">
+      <Head>
+        <title>{t("cart")}</title>
+      </Head>
+      <div>
+        <GoToBack pathArr={[{ title: "cart", path: "" }]} />
+        <PageTitle />
+        {CartMockdata.data.length ? <CartBasketPage /> : <CartBasketNoItems />}
+      </div>
+    </div>
+  );
 }
