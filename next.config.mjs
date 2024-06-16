@@ -5,6 +5,9 @@ const nextConfig = {
     locales: ["en", "ru", "uz"],
     defaultLocale: "ru",
   },
+  images: {
+    domains: ["176.221.29.121", "optom-taobao-backend.line.pm"],
+  },
   compiler: {
     styledComponents: true,
   },

@@ -1,19 +1,20 @@
 import React from "react";
 import Image from "next/image";
 import styles from './MainSliderCard.module.scss'
-import { MainSliderItemInterface } from "@/interfaces";
+import { SlidersDataInterface } from "@/interfaces";
 
 interface Props {
-  el: MainSliderItemInterface;
+  el: SlidersDataInterface;
 }
 const MainSliderCard = ({ el }: Props) => {
-
   return (
     <div className={styles.main_card}>
       <div className={styles.main_card__inner}>
         <Image
           className={styles.main_card__image}
-          src={el.imageUrl}
+          src={el.image}
+          width={1000}
+          height={1000}
           alt="#"
         />
       </div>

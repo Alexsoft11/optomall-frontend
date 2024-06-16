@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/ui/index';
 import { HeadLogo } from '$/assets/images/index';
-import { CustomTabs } from '@/ui/Tabs';
 import { NavLinks } from '@/constants/navbar';
-import { message } from 'antd';
-import { CategoryCatalogInterface, SubCategoryInterface } from '@/interfaces';
 import styles from './Navbar.module.scss';
 import Image from 'next/image';
 import SvgSelector from '$/assets/icons/SvgSelector';
 import SearchBtn from '../SearchBtn/index';
 import Link from 'next/link';
 import LanguageSelector from '../LanguageSelector/index';
-import TabPane from 'antd/es/tabs/TabPane';
-import NavigationCard from '../NavigationCard';
-import useQueryApiClient from '@/utils/useQueryApiClient';
 import { useRouter } from 'next/router';
+import CatalogTab from '../CatalogTab';
 
 
 const Navbar = () => {
@@ -22,39 +17,6 @@ const Navbar = () => {
   type ModalState = 'user' | 'nav' | null;
 
   const [openModal, setOpenModal] = useState<ModalState>(null);
-  const [activeTab, setActiveTab] = useState('1');
-  const [CatalogTabsData, setCatalogTabsData] = useState<CategoryCatalogInterface[]>([]);
-  const [subCategoryData, setSubCategoryData] = useState<SubCategoryInterface[]>([]);
-
-  const { appendData: getCategoryData } = useQueryApiClient({
-      request: {
-          url: 'categories-from-taobao',
-          method: 'GET',
-          disableOnMount: true,
-      },
-      onSuccess(res) {
-        setCatalogTabsData(res.categories)
-      },
-      onError(err) {
-          message.error('register failed :(')
-      }
-  })
-
-  const { appendData: getSubCategoryData } = useQueryApiClient({
-      request: {
-          url: `sub-categories-from-taobao?categoryId=${activeTab}`,
-          method: 'GET',
-          disableOnMount: true,
-      },
-      onSuccess(res) {
-        setSubCategoryData(res)
-      },
-      onError(err) {
-          message.error('register failed :(')
-      }
-  })
-
-  useEffect(() => getCategoryData(), []);
 
   const handleUserBtnClick = () => {
     setOpenModal(openModal === 'user' ? null : 'user');
@@ -68,10 +30,7 @@ const Navbar = () => {
     setOpenModal(null);
   };
 
-  const handleTabChange = (key: any) => {
-    setActiveTab(key);
-    getSubCategoryData();
-  };
+
   return (
     <>
       <div className={styles.navbar}>
@@ -136,26 +95,7 @@ const Navbar = () => {
               </div>
             </div>
 
-            <div className={`${styles.navigation} ${openModal === 'nav' ? styles.open : ''}`}>
-              <div className={styles.navigation__inner}>
-                <CustomTabs
-                  activeKey={activeTab}
-                  onChange={handleTabChange}
-                  tabPosition="left"
-                  className={`${styles.navigation__tab} navigation_btn`}
-                >
-                  {CatalogTabsData.map(tab => (
-                    <TabPane
-                      key={tab.externalId}
-                      tab={tab.name}
-                      className={styles.navigation__item}
-                    >
-                      <NavigationCard data={subCategoryData}/>
-                    </TabPane>
-                  ))}
-                </CustomTabs>
-              </div>
-            </div>
+            <CatalogTab setOpenModal={setOpenModal} openModal={openModal}/>
 
           </div>
         </div>
