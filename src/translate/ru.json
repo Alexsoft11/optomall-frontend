@@ -81,5 +81,8 @@
         "moreDetail": "Подробно",
         "orderCost": "Общая сумма:",
         "currency": "сум"
+    },
+    "Search": {
+        "platform": "Платформа"
     }
 }

@@ -4,8 +4,10 @@ import SvgSelector from '$/assets/icons/SvgSelector'
 import Card from '@/components/Card'
 import { CardsMockData } from '@/mockdata/Cards'
 import SearchBtn from '@/components/SearchBtn'
+import { useTranslations } from 'next-intl'
 
 const Search = () => {
+    const t = useTranslations("Search")
     const [activePlatform, setActivePlatform] = useState('alibaba');
 
     const handleButtonClick = (platform: any) => {
@@ -19,14 +21,14 @@ const Search = () => {
                 <div className={styles.search__inner}>
                     <div className={styles.search__media}>
                         <div className={styles.search__platform}>
-                            <h2>Платформа:</h2>
+                            <h2>{t('platform')}:</h2>
 
                             <button
                                 className={`${styles.search__platform_btn} ${activePlatform === 'alibaba' ? styles.active : ''}`}
                                 onClick={() => handleButtonClick('alibaba')}
                             >
                                 <SvgSelector id="alibaba-svg"/>
-                                <span>Alibaba</span>
+                                <span>1688</span>
                             </button>
 
                             <button
