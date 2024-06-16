@@ -7,8 +7,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { SlidersDataInterface } from '@/interfaces';
 
-const MainSlider = () => {
+interface Props {
+  data: SlidersDataInterface[];
+}
+
+const MainSlider: React.FC<Props> = ({ data }) => {
   return (
     <>
       <div className={styles.mainbanner}>
@@ -50,7 +55,7 @@ const MainSlider = () => {
             modules={[Pagination, Autoplay, Navigation]}
             className={styles.my_swiper}
           >
-            {MainSliderImages?.map((el, idx) => (
+            {data?.map((el: any, idx) => (
               <SwiperSlide key={idx} className={styles.swiper}>
                 <MainSliderCard el={el} />
               </SwiperSlide>

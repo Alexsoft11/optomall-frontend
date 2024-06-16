@@ -1,7 +1,7 @@
 import { StaticImageData } from "next/image";
 
 export interface CardInterface {
-    id:string,
+    id: string,
     title?: string;
     price?: string; 
     imageUrl: StaticImageData;
@@ -42,4 +42,10 @@ export interface SubCategoryInterface {
     provider: string;
     externaId: string;
     parentId: string;
+}
+
+export interface SlidersDataInterface {
+    id: number;
+    url: string;
+    image: StaticImageData;
 }
