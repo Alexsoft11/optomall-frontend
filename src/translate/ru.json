@@ -5,11 +5,13 @@
         "home": "Главная",
         "messages": "Мои сообщения",
         "catalog": "Каталог",
-        "purchases": "Мои покупки",
         "my-reviews": "Мои отзывы",
         "registration": "Зарегистрироваться",
         "signin": "Войти",
-        "back": "Назад"
+        "back": "Назад",
+        "results": "Результаты поиска",
+        "purchases": "Мои покупки",
+        "currency": "сум"
     },
     "UiModal": {
         "success": "Чек успешно подвержден",

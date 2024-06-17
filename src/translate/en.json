@@ -4,7 +4,8 @@
         "order": "Order",
         "home": "Home",
         "purchases": "My Purchases",
-        "myReviews": "My Reviews" 
+        "myReviews": "My Reviews",
+        "currency": "uzs"
     },
     "UiModal": {
         "success": "Receipt successfully confirmed",

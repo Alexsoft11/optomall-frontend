@@ -4,7 +4,8 @@
         "order": "Buyurtma qilish",
         "home": "Bosh sahifa",
         "purchases": "Mening xaridlarim",
-        "myReviews": "Mening sharhlarim" 
+        "myReviews": "Mening sharhlarim" ,
+        "currency": "so'm"
     },
     "UiModal": {
         "success": "Chek muvaffaqiyatli tasdiqlandi",
