@@ -3,7 +3,8 @@
         "cart": "Cart",
         "order": "Order",
         "home": "Home",
-        "purchases": "My Purchases"
+        "purchases": "My Purchases",
+        "myReviews": "My Reviews" 
     },
     "UiModal": {
         "success": "Receipt successfully confirmed",

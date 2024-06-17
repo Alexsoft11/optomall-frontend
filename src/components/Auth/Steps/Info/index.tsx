@@ -5,6 +5,7 @@ import { Button } from '@/ui';
 import { useTranslations } from 'next-intl';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import { validatePhone } from '../../Functions';
+import GoToBack from '@/components/GoToBack';
 
 export default function Info() {
     const [form] = Form.useForm();
@@ -30,6 +31,7 @@ export default function Info() {
 
     return (
         <div className={styles.main}>
+            <GoToBack backUrl='/auth?step=regist' />
             <h1>{t('info')}</h1>
             <p className={styles.desc}>Lorem, ipsum dolor sit amet</p>
             <div className={styles.form}>

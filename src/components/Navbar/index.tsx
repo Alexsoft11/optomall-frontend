@@ -113,12 +113,12 @@ const Navbar = () => {
                     <p>Мой аккаунт</p>
                   </Link>
 
-                  <Link href="/" className={styles.navbar__user_item}>
+                  <Link href="/messages" className={styles.navbar__user_item}>
                     <SvgSelector id="message-modal-svg" />
                     <p>Мои сообщения</p>
                   </Link>
 
-                  <Link href="/" className={styles.navbar__user_item}>
+                  <Link href="/purchases" className={styles.navbar__user_item}>
                     <SvgSelector id="shop-modal-svg" />
                     <p>Мои покупки</p>
                   </Link>

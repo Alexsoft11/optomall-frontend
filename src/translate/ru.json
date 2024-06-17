@@ -5,7 +5,11 @@
         "home": "Главная",
         "messages": "Мои сообщения",
         "catalog": "Каталог",
-        "purchases": "Мои покупки"
+        "purchases": "Мои покупки",
+        "my-reviews": "Мои отзывы",
+        "registration": "Зарегистрироваться",
+        "signin": "Войти",
+        "back": "Назад"
     },
     "UiModal": {
         "success": "Чек успешно подвержден",
@@ -79,5 +83,13 @@
         "moreDetail": "Подробно",
         "orderCost": "Общая сумма:",
         "currency": "сум"
+    },
+    "MyReviews" : {
+        "waitForReview": "Ждут оценки",
+        "reviewed": "Оставленные",
+        "review": "Оставит отзыв",
+        "reviewProduct": "Оцените товар",
+        "enterComment": "Введите коментарий",
+        "sendReview": "Опубликовать"
     }
 }
