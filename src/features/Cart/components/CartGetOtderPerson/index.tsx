@@ -7,7 +7,7 @@ export default function CartGetOrderPerson() {
     const t = useTranslations('Cart')
     const [form] = Form.useForm();
 
-    const onFinish = (values : any) => {
+    const onFinish = (values: any) => {
         console.log('Finish:', values);
     };
     return (
@@ -15,7 +15,19 @@ export default function CartGetOrderPerson() {
             <h2>{t('person')}</h2>
             <div className={styles.form_block}>
                 <Form form={form} name="horizontal_login" layout="inline" onFinish={onFinish}>
-                    <Form.Item name="name">
+                    <Form.Item name="name"
+                        rules={
+                            [
+                                {
+                                    required: true,
+                                    message: t('enterYourName'),
+                                },
+                                {
+                                    pattern: /^[A-Za-z\s]+$/,
+                                    message: t("nameValidation"),
+                                },
+                            ]
+                        }>
                         <Input type='text' placeholder={t("name")} />
                     </Form.Item>
                     <Form.Item name="phone">

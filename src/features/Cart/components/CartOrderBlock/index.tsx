@@ -4,14 +4,16 @@ import { useTranslations } from 'next-intl';
 import { Button, Modal } from '@/ui';
 import { useRouter } from 'next/router';
 import { SearchSvg, SuccsessSvg, WarningSvg } from '$/assets/images';
+import { CartOrderItemInterface } from '../../interface';
 
 interface Props {
     cost: number;
     itemValue?: number,
-    orderId?: string
+    orderId?: string,
+    orderItems: CartOrderItemInterface[]
 }
 
-export default function CartOrderBlock({ cost, itemValue, orderId }: Props) {
+export default function CartOrderBlock({ cost, itemValue, orderId, orderItems }: Props) {
     const t = useTranslations('Cart')
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [responseModal, setResponseModal] = useState(false);
@@ -26,7 +28,9 @@ export default function CartOrderBlock({ cost, itemValue, orderId }: Props) {
             setResponseModal(true)
         }, 2000)
     }
-    const toOrder = () => rout.push(`/order/138715136`)
+    const toOrder = () => {
+        rout.push(`/order/138715136`)
+    }
 
     return (
         <div className={styles.main}>
