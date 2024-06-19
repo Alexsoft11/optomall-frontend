@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { ProductTabsData } from "@/constants/products";
 import Products from "@/features/home/components/Products";
 import { CardInterface, SlidersDataInterface } from "@/interfaces";
 import useQueryApiClient from "@/utils/useQueryApiClient";
@@ -20,9 +19,6 @@ export default function Home() {
     onSuccess(res) {
       setSlidersData(res.sliders);
       console.log(res.sliders);
-    },
-    onError(err) {
-      message.error("Failed to fetch sliders");
     }
   });
 
@@ -47,7 +43,7 @@ export default function Home() {
       </Head>
       <MainSlider data={slidersData} />
       <Category />
-      <Products getProductsData={getProductsData} products={products}/>
+      <Products getProductsData={getProductsData} products={products} isProductsLoading={isProductsLoading}/>
     </>
   );
 }

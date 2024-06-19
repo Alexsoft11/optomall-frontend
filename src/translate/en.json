@@ -4,7 +4,8 @@
         "order": "Order",
         "home": "Home",
         "purchases": "My Purchases",
-        "currency": "uzs"
+        "currency": "uzs",
+        "loadingData": "Loading data..."
     },
     "Navbar": {
         "account": "My Account",
