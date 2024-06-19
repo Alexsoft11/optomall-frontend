@@ -64,7 +64,9 @@ const Navbar = () => {
 
               {token && (
                   <>
-                    <button className={styles.navbar__shop_btn}><SvgSelector id='shop-svg'/></button>
+                    <button className={styles.navbar__shop_btn}>
+                      <Link  href='/cart'><SvgSelector id='shop-svg'/></Link>
+                    </button>
 
                     <button className={`${styles.navbar__user_btn} ${openModal === 'user' ? styles.open : ''}`} onClick={handleUserBtnClick}>
                       <SvgSelector id='user-svg'/>
