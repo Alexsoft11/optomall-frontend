@@ -4,6 +4,13 @@
         "order": "Order",
         "home": "Home"
     },
+    "Navbar": {
+        "account": "My Account",
+        "messages": "My Messages",
+        "purchases": "My Purchases",
+        "customs": "How Customs Clearance is Calculated",
+        "logout": "Logout"
+    },
     "UiModal": {
         "success": "Receipt successfully confirmed",
         "address": "Delivery address",

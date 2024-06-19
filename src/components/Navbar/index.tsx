@@ -10,10 +10,14 @@ import Link from 'next/link';
 import LanguageSelector from '../LanguageSelector/index';
 import { useRouter } from 'next/router';
 import CatalogTab from '../CatalogTab';
+import { useTranslations } from 'next-intl';
+import { useJwt } from '@/utils/useJwt';
 
 
 const Navbar = () => {
+  const token = useJwt();
   const router = useRouter();
+  const t = useTranslations("Navbar")
   type ModalState = 'user' | 'nav' | null;
 
   const [openModal, setOpenModal] = useState<ModalState>(null);
@@ -29,7 +33,6 @@ const Navbar = () => {
   const handleWrapBtnClick = () => {
     setOpenModal(null);
   };
-
 
   return (
     <>
@@ -59,40 +62,44 @@ const Navbar = () => {
             <div className={styles.navbar__items}>
               <LanguageSelector />
 
-              <button className={styles.navbar__shop_btn}><SvgSelector id='shop-svg'/></button>
+              {token && (
+                  <>
+                    <button className={styles.navbar__shop_btn}><SvgSelector id='shop-svg'/></button>
 
-              <button className={`${styles.navbar__user_btn} ${openModal === 'user' ? styles.open : ''}`} onClick={handleUserBtnClick}>
-                <SvgSelector id='user-svg'/>
-              </button>
+                    <button className={`${styles.navbar__user_btn} ${openModal === 'user' ? styles.open : ''}`} onClick={handleUserBtnClick}>
+                      <SvgSelector id='user-svg'/>
+                    </button>
 
-              <div className={`${styles.navbar__user_modal} ${openModal === 'user' ? styles.open : ''}`}>
-                <div className={styles.navbar__user_inner}>
-                  <Link href="/" className={styles.navbar__user_item}>
-                    <SvgSelector id="user-modal-svg" />
-                    <p>Мой аккаунт</p>
-                  </Link>
+                    <div className={`${styles.navbar__user_modal} ${openModal === 'user' ? styles.open : ''}`}>
+                      <div className={styles.navbar__user_inner}>
+                        <Link href="/" className={styles.navbar__user_item}>
+                          <SvgSelector id="user-modal-svg" />
+                          <p>{t("account")}</p>
+                        </Link>
 
-                  <Link href="/" className={styles.navbar__user_item}>
-                    <SvgSelector id="message-modal-svg" />
-                    <p>Мои сообщения</p>
-                  </Link>
+                        <Link href="/" className={styles.navbar__user_item}>
+                          <SvgSelector id="message-modal-svg" />
+                          <p>{t("messages")}</p>
+                        </Link>
 
-                  <Link href="/" className={styles.navbar__user_item}>
-                    <SvgSelector id="shop-modal-svg" />
-                    <p>Мои покупки</p>
-                  </Link>
+                        <Link href="/" className={styles.navbar__user_item}>
+                          <SvgSelector id="shop-modal-svg" />
+                          <p>{t("purchases")}</p>
+                        </Link>
 
-                  <Link href="/" className={styles.navbar__user_item}>
-                    <SvgSelector id="search-modal-svg" />
-                    <p>Как считается растаможка</p>
-                  </Link>
+                        <Link href="/" className={styles.navbar__user_item}>
+                          <SvgSelector id="search-modal-svg" />
+                          <p>{t("customs")}</p>
+                        </Link>
 
-                  <Link href="/" className={styles.navbar__user_item}>
-                    <SvgSelector id="exit-modal-svg" />
-                    <p>Выйти</p>
-                  </Link>
-                </div>
-              </div>
+                        <Link href="/" className={styles.navbar__user_item}>
+                          <SvgSelector id="exit-modal-svg" />
+                          <p>{t("logout")}</p>
+                        </Link>
+                      </div>
+                    </div>
+                  </>
+                )}
             </div>
 
             <CatalogTab setOpenModal={setOpenModal} openModal={openModal}/>

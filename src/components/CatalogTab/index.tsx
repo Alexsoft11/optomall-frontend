@@ -18,7 +18,7 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
     const [isOverflowed, setIsOverflowed] = useState(false);
     const [activeTab, setActiveTab] = useState('1');
     const textRef = useRef<any>(null);
-  
+
     useEffect(() => {
         const { current } = textRef;
         if (current) {
@@ -33,7 +33,7 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
             disableOnMount: true,
         },
         onSuccess(res) {
-          setCatalogTabsData(res.categories)
+            setCatalogTabsData(res.categories)
         },
         onError(err) {
             message.error('register failed :(')
@@ -41,7 +41,7 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
     })
 
     useEffect(() => getCategoryData(), []);
-    
+
     const { appendData: getSubCategoryData } = useQueryApiClient({
         request: {
             url: `sub-categories-from-taobao?categoryId=${activeTab}`,
@@ -61,37 +61,28 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
         getSubCategoryData();
     };
 
-  return (
-    <div className={`${styles.navigation} ${openModal === 'nav' ? styles.open : ''}`}>
-        <div className={styles.navigation__inner}>
-        <CustomTabs
-            activeKey={activeTab}
-            onChange={handleTabChange}
-            tabPosition="left"
-            className={`${styles.navigation__tab} navigation_btn`}
-        >
-            {CatalogTabsData.map(tab => (
-            <TabPane
-                key={tab.id}
-                tab={(
-                    <Tooltip
-                        overlayClassName="tooltip-white"
-                        title={isOverflowed ? tab?.name : ''}
-                    >
-                        <h2 className="title_project_modal" ref={textRef}>
-                        {tab?.name}
-                        </h2>
-                    </Tooltip>
-                )}
-                className={styles.navigation__item}
+    return (
+        <div className={`${styles.navigation} ${openModal === 'nav' ? styles.open : ''}`}>
+            <div className={styles.navigation__inner}>
+            <CustomTabs
+                activeKey={activeTab}
+                onChange={handleTabChange}
+                tabPosition="left"
+                className={`${styles.navigation__tab} navigation_btn`}
             >
-                <NavigationCard data={subCategoryData} setOpenModal={setOpenModal} />
-            </TabPane>
-            ))}
-        </CustomTabs>
+                {CatalogTabsData.map(tab => (
+                <TabPane
+                    key={tab.id}
+                    tab={tab.name}
+                    className={styles.navigation__item}
+                >
+                    <NavigationCard data={subCategoryData} setOpenModal={setOpenModal} />
+                </TabPane>
+                ))}
+            </CustomTabs>
+            </div>
         </div>
-    </div>
-  );
+    );
 }
 
 export default CatalogTab;

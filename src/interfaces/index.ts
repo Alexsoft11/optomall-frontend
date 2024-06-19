@@ -4,7 +4,7 @@ export interface CardInterface {
     id: string,
     title?: string;
     price?: string; 
-    imageUrl: StaticImageData;
+    image: StaticImageData;
 }
 
 export interface CardCategoryInterface {
