@@ -21,6 +21,11 @@ const Navbar = () => {
   type ModalState = 'user' | 'nav' | null;
 
   const [openModal, setOpenModal] = useState<ModalState>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleUserBtnClick = () => {
     setOpenModal(openModal === 'user' ? null : 'user');
@@ -62,7 +67,7 @@ const Navbar = () => {
             <div className={styles.navbar__items}>
               <LanguageSelector />
 
-              {token && (
+              {isMounted && token && (
                   <>
                     <button className={styles.navbar__shop_btn}>
                       <Link  href='/cart'><SvgSelector id='shop-svg'/></Link>

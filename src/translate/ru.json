@@ -7,7 +7,8 @@
         "catalog": "Каталог",
         "results": "Результаты поиска",
         "purchases": "Мои покупки",
-        "currency": "сум"
+        "currency": "сум",
+        "loadingData": "Загрузка данных..."
     },
     "Navbar": {
         "account": "Мой аккаунт",
