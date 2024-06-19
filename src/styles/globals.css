@@ -190,11 +190,9 @@ a {
 }
 
 .go_to_back .ant-breadcrumb-link a {
-  font-size: 16px;
+  font-size: var(--paragraph-two);
   font-weight: 400;
-  line-height: 20px;
-  letter-spacing: 0em;
-
+  line-height: 16.94px;  
 }
 
 @media (max-width: 768px) {
@@ -205,7 +203,9 @@ a {
 
 @media (max-width: 400px) {
   .go_to_back .ant-breadcrumb-link a {
-    font-size: 14px;
+    font-size: var(--paragraph-three);
+    font-weight: 400;
+    line-height: 14.52px;    
   }
 }
 
