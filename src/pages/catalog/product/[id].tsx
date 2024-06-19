@@ -11,23 +11,22 @@ const CatalogProductPage = () => {
     const [productData, setProductData] = useState(null);
     console.log('product',productData)
 
-
-    const { appendData: getSlidersData } = useQueryApiClient({
+    const { appendData: getProductData } = useQueryApiClient({
       request: {
           url: `products-from-taobao?subCategoryId=${id}&productsCount=15`,
           method: 'GET',
-          disableOnMount: true,
       },
       onSuccess(res) {
         setProductData(res.products)
         console.log(res)
       },
-      onError(err) {
-          message.error('register failed :(')
-      }
     })
   
-    useEffect(() => getSlidersData(), []);
+    useEffect(() => {
+      if (id) {
+        getProductData();
+      }
+    }, [id]);
   return (
     <>
       <div className="container">

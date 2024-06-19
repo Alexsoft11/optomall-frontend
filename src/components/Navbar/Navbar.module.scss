@@ -87,6 +87,8 @@
 
     &__shop_btn {
         margin-left: 22px;
+        display: flex;
+        align-items: center;
 
         @media (max-width:768px) {
             display: none;
@@ -96,6 +98,8 @@
     &__user_btn {
         margin-left: 30px;
         transition: .3s ease;
+        display: flex;
+        align-items: center;
 
         @media (max-width:768px) {
             display: none;

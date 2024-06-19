@@ -4,6 +4,13 @@
         "order": "Buyurtma qilish",
         "home": "Bosh sahifa"
     },
+    "Navbar": {
+        "account": "Mening hisobim",
+        "messages": "Mening xabarlarim",
+        "purchases": "Mening xaridlarim",
+        "customs": "Bojxona hisoblash qanday amalga oshiriladi",
+        "logout": "Chiqish"
+    },
     "UiModal": {
         "success": "Chek muvaffaqiyatli tasdiqlandi",
         "address": "Yetkazib berish manzili",
