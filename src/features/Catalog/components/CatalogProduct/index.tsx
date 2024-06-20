@@ -10,7 +10,6 @@ interface Props {
 }
 
 const CatalogProduct = ({ data }: Props) => {
-    console.log('data', data)
   return (
     <>
         <div className={styles.catalog_product}>

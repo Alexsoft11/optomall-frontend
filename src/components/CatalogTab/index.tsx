@@ -35,9 +35,6 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
         onSuccess(res) {
             setCatalogTabsData(res.categories)
         },
-        onError(err) {
-            message.error('register failed :(')
-        }
     })
 
     useEffect(() => getCategoryData(), []);
@@ -51,9 +48,6 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
         onSuccess(res) {
         setSubCategoryData(res)
         },
-        onError(err) {
-            message.error('register failed :(')
-        }
     })
 
     const handleTabChange = (key: any) => {

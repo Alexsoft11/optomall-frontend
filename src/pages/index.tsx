@@ -18,7 +18,6 @@ export default function Home() {
     },
     onSuccess(res) {
       setSlidersData(res.sliders);
-      console.log(res.sliders);
     }
   });
 
@@ -26,15 +25,12 @@ export default function Home() {
     request: {
       url: `products?query=&tab=:tab`,
       method: 'GET',
+      disableOnMount: true,
     },
     onSuccess(res: any) {
       setProducts(res.products);
     }
   });
-
-  useEffect(() => {
-    getSlidersData();
-  }, []);
 
   return (
     <>

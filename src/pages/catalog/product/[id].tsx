@@ -7,26 +7,25 @@ import { useRouter } from "next/router";
 
 const CatalogProductPage = () => {
   const router = useRouter();
-    const { id } = router.query;
-    const [productData, setProductData] = useState(null);
-    console.log('product',productData)
+  const { id } = router.query;
+  const [productData, setProductData] = useState(null);
 
-    const { appendData: getProductData } = useQueryApiClient({
-      request: {
-          url: `products-from-taobao?subCategoryId=${id}&productsCount=15`,
-          method: 'GET',
-      },
-      onSuccess(res) {
-        setProductData(res.products)
-        console.log(res)
-      },
-    })
+  const { appendData: getProductData } = useQueryApiClient({
+    request: {
+        url: `products-from-taobao?subCategoryId=${id}&productsCount=15`,
+        method: 'GET',
+    },
+    onSuccess(res) {
+      setProductData(res.products)
+    },
+  })
+
+  useEffect(() => {
+    if (id) {
+      getProductData();
+    }
+  }, [id]);
   
-    useEffect(() => {
-      if (id) {
-        getProductData();
-      }
-    }, [id]);
   return (
     <>
       <div className="container">
