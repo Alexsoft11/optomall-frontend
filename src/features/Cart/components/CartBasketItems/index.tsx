@@ -14,19 +14,11 @@ export default function CartBasketItems() {
         {t("item")} {CartMockdata.data.length}
       </p>
       <div className={styles.swiper}>
-        <Swiper
-          slidesPerView={4}
-          spaceBetween={10}
-          mousewheel={true}
-          direction="vertical"
-          scrollbar={{ draggable: true }}
-        >
-          {CartMockdata.data.map((el) => (
-            <SwiperSlide key={el.id}>
-              <CartBasketItem item={el} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {CartMockdata.data.map((el) => (
+          <Fragment key={el.id}>
+            <CartBasketItem item={el} />
+          </Fragment>
+        ))}
       </div>
     </div>
   );

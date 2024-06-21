@@ -1,3 +1,6 @@
+import { CategoryImg1, CategoryImg2, CategoryImg3 } from "$/assets/images";
+import { CatalogCategoriesInterface } from "@/interfaces";
+
 export const CatalogTabsData = [
     { 
       key: '1', 
@@ -448,4 +451,67 @@ export const CatalogTabsData = [
         ]
       }
     },
+];
+
+export const CatalogCategoriesData: CatalogCategoriesInterface[] = [
+  {
+    id: 1,
+    imageUrl: CategoryImg1,
+    title: "Смартфоны",
+  },
+  {
+    id: 2,
+    imageUrl: CategoryImg2,
+    title: "Багаж и сумки",
+  },
+  {
+    id: 3,
+    imageUrl: CategoryImg3,
+    title: "Дом, сад и офис",
+  },
+  {
+    id: 4,
+    imageUrl: CategoryImg1,
+    title: "Смартфоны",
+  },
+  {
+    id: 5,
+    imageUrl: CategoryImg2,
+    title: "Багаж и сумки",
+  },
+  {
+    id: 6,
+    imageUrl: CategoryImg3,
+    title: "Дом, сад и офис",
+  },
+  {
+    id: 7,
+    imageUrl: CategoryImg1,
+    title: "Смартфоны",
+  },
+  {
+    id: 8,
+    imageUrl: CategoryImg2,
+    title: "Багаж и сумки",
+  },
+  {
+    id: 9,
+    imageUrl: CategoryImg3,
+    title: "Дом, сад и офис",
+  },
+  {
+    id: 10,
+    imageUrl: CategoryImg1,
+    title: "Смартфоны",
+  },
+  {
+    id: 11,
+    imageUrl: CategoryImg2,
+    title: "Багаж и сумки",
+  },
+  {
+    id: 12,
+    imageUrl: CategoryImg3,
+    title: "Дом, сад и офис",
+  },
 ];

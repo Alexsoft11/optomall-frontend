@@ -26,7 +26,7 @@ export default function CartOrderBlock({ cost, itemValue, orderId }: Props) {
             setResponseModal(true)
         }, 2000)
     }
-    const toOrder = () => rout.push(`/order`)
+    const toOrder = () => rout.push(`/order/138715136`)
 
     return (
         <div className={styles.main}>

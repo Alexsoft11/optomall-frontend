@@ -72,7 +72,9 @@
   --white-color: #fff;
   --black-color: #000;
   --primary-color: #FF4200;
+  --papaya-whip: #FFEDD2;
   --silver-grey: #A3A3A3;
+  --carrot-orange: #ED8204;
   --jet-black: #101010;
   --light-grey: #D9D9D9;
   --light-khaki: #CDC500;
@@ -87,6 +89,7 @@
   --grey-mid-color: #BFBEBE;
   --light-white: #CCCCCC;
   --davys-grey: #777777;
+  --light-red: #FFC9C9;
   --red: #FF0000;
   /* 44px */
   --heading-one: 2.75rem;
@@ -108,6 +111,13 @@
   --paragraph-two: 0.875rem;
   /* 12px */
   --paragraph-three: 0.75rem;
+
+  /* pxels */
+
+  /* 14px */
+  --paragraph-two-px: 14px;
+  /* 12px */
+  --paragraph-three-px: 12px;
 
 
   --navbar-height: 80px;

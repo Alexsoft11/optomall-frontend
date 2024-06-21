@@ -21,10 +21,10 @@ export default function ForgotPassword({ setModalIsOpen }: Props) {
             disableOnMount: true,
         },
         onSuccess(res) {
-            message.success('succsess!')
+            message.success(res.message)
         },
         onError(err) {
-            message.error('failed :(')
+            message.error(err.error)
         } 
     })
 

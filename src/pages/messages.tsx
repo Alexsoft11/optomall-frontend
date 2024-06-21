@@ -13,17 +13,17 @@ const MessagesPage = dynamic( () => import("@/features/Messages/MessagesPage"),
 );
 
 export default function Messages() {
-    const t = useTranslations('GLOBAL')
-    return (
-        <div className='container'>
-            <Head>
-                <title>{t('messages')}</title>
-            </Head>
-            <div>
-                <GoToBack pathArr={[{ title: "messages", path: "" }]} />
-                <PageTitle/>
-                <MessagesPage data={MessagesMocdata}  />
-            </div>
-        </div>
-    );
+  const t = useTranslations("GLOBAL");
+  return (
+    <div className="container">
+      <Head>
+        <title>{t("messages")}</title>
+      </Head>
+      <div>
+        <GoToBack pathArr={[{ title: "messages", path: "" }]} />
+        <PageTitle />
+        <MessagesPage data={MessagesMocdata} />
+      </div>
+    </div>
+  );
 }

@@ -5,12 +5,14 @@ import Image from "next/image";
 import { MinusSvg, PlusSvg } from "$/assets/images";
 import { Button } from "antd";
 import { Checkbox } from "@/ui";
+import { useTranslations } from "next-intl";
 
 interface Props {
   item: CartOrderItemInterface;
 }
 
 export default function CartBasketItem({ item }: Props) {
+  const t = useTranslations('GLOBAL')
   return (
     <div className={styles.main}>
       <div className={styles.item_img}>
@@ -25,7 +27,7 @@ export default function CartBasketItem({ item }: Props) {
           </span>
         </div>
 
-        <h3>{item.cost}</h3>
+        <h3>{item.cost} {t('currency')}</h3>
       </div>
 
       <div className={styles.checkbox_block}>
