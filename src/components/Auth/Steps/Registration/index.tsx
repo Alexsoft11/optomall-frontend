@@ -6,11 +6,14 @@ import GoogleButton from '../../GoogleButton';
 import { validateConfirmPassword, validateEmail, validatePassword } from '../../Functions';
 import { useTranslations } from 'next-intl';
 import useQueryApiClient from '@/utils/useQueryApiClient';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 
 export default function Registration() {
     const [form] = Form.useForm();
     const t = useTranslations("Auth");
+    const router = useRouter()
     
     const { appendData: createData } = useQueryApiClient({
         request: {
@@ -19,10 +22,11 @@ export default function Registration() {
             disableOnMount: true,
         },
         onSuccess(res) {
-            message.success('succsess register!')
+            message.success(res.message)
+            setTimeout(() => router.push('auth/'), 2000)
         },
         onError(err) {
-            message.error('register failed :(')
+            message.error(err.error)
         } 
     })
 
@@ -80,8 +84,16 @@ export default function Registration() {
                         <Input.Password type="password" placeholder={t("repeatYourPassword")} />
                     </Form.Item>
 
+                    <span className={styles.have_account}>
+                        {t('haveAccount')}
+
+                        <Link href="/auth">
+                            {t("signin")}
+                        </Link>
+                    </span>
+
                     <Form.Item className={styles.submitButton}>
-                        <Button type="primary" htmlType="submit" className='generalbtn' label={t('signin')} />
+                        <Button type="primary" htmlType="submit" className='generalbtn' label={t('regist')} />
                     </Form.Item>
 
                 </Form>

@@ -1,11 +1,27 @@
 {
+    "GLOBAL": {
+        "cart": "Savat",
+        "order": "Buyurtma qilish",
+        "home": "Bosh sahifa",
+        "purchases": "Mening xaridlarim",
+        "currency": "so'm"
+    },
+    "UiModal": {
+        "success": "Chek muvaffaqiyatli tasdiqlandi",
+        "address": "Yetkazib berish manzili",
+        "date": "Yetkazib berish sanasi va vaqti",
+        "confirm": "Tushundim"
+    },
     "Auth": {
+        "confirmCode": "Tasdiqlash kodi",
+        "confirmCodeIncorect": "Noto'g'ri tasdiqlash kodi",
+        "reset": "Yangi parol",
         "signin": "Kirish",
         "forgotPassword": "Parolni unutdingizmi?",
         "password": "Parol",
         "yourPassword": "Sizning parolingiz",
-        "repeatYourPassword": "Parolni takrorlang",
-        "email": "Elektron pochta",
+        "repeatYourPassword": "Parolingizni takrorlang",
+        "email": "Email",
         "notRegistred": "Ro'yxatdan o'tmaganmisiz?",
         "registerNow": "Hozir ro'yxatdan o'ting",
         "continueGoogle": "Google bilan davom eting",
@@ -14,22 +30,48 @@
         "secondName": "Familiya",
         "tel": "Telefon",
         "save": "Saqlash va davom etish",
-        "info": "Shaxsiy ma'lumot",
+        "info": "Shaxsiy ma'lumotlar",
         "resetPassword": "Parolni tiklash",
-        "modalMessage": "Biz sizga tasdiqlash maktubini yubordik!",
+        "modalMessage": "Biz sizga tasdiqlash xatini yubordik!",
         "minSymbolPassword": "Parol kamida 8 ta belgidan iborat bo'lishi kerak",
-        "passwordsIsDifferent": "Parollar mos emas",
+        "passwordsIsDifferent": "Parollar mos kelmaydi",
         "emailIncorect": "Yaroqli elektron pochta manzilini kiriting"
     },
     "Cart": {
         "item": "Mahsulotlar",
         "total": "Jami",
-        "complite": "Rasmiylashtirish",
+        "complite": "BUYURTMA QILISH",
         "address": "Yetkazib berish manzili",
-        "addressInMap": "Yetkazib berish manzilini xaritada ko'rsating",
+        "addressInMap": "Xaritada yetkazib berish manzilini belgilang",
         "enterAddres": "Manzilni kiriting",
         "person": "Buyurtma oluvchisi",
         "name": "Ism",
-        "phone": "Telefon raqami"
+        "phone": "Telefon raqami",
+        "payment": "To'lovni tasdiqlang",
+        "loadCheque": "To'lov cheki yuklang",
+        "basketNoItems": "Savatda hali hech narsa yo'q",
+        "goToBuy": "Sotib olishga o'ting",
+        "checkMessage": "To'lov cheki tekshirilmoqda. Bu biroz vaqt olishi mumkin, iltimos, kuting",
+        "checkWarningMessage": "Chek tasdiqlanmadi. Chekni tekshiring va qayta urinib ko'ring."
+    },
+    "Order": {
+        "payCost": "To'lanadigan summa: ",
+        "cardNumber": "Oluvchining karta raqami: ",
+        "payTutorialText": "Quyidagi karta raqamini nusxalab oling, so'ngra bank ilovangizni oching va ko'rsatilgan summani bir to'lov bilan ushbu raqamga o'tkazing. Diqqat! Quyida ko'rsatilgan aniq summani o'tkazish kerak!"
+    },
+    "Purchases": {
+        "active": "Faol",
+        "all": "Barchasi",
+        "goods": "Mahsulotlar",
+        "Processing": "Tayyorlanmoqda",
+        "Delivered": "Yetkazib berildi",
+        "Cancelled": "Bekor qilindi",
+        "Shipped": "Jo'natildi",
+        "orderDate": "Buyurtma sanasi:",
+        "address": "Yetkazib berish manzili:",
+        "recipient": "Buyurtma oluvchisi:",
+        "moreDetail": "Batafsil",
+        "orderCost": "Umumiy summa:",
+        "currency": "so'm"
     }
 }
