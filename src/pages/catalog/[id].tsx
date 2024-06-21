@@ -24,7 +24,6 @@ const CatalogDetailPage = () => {
       getCatalogItemsData();
     }
   }, [id]);
-  console.log(catalogItemsData)
   return (
     <>
       <div className="container">

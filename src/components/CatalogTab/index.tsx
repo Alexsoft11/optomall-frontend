@@ -30,14 +30,11 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
         request: {
             url: 'categories-from-taobao',
             method: 'GET',
-            disableOnMount: true,
         },
         onSuccess(res) {
             setCatalogTabsData(res.categories)
         },
     })
-
-    useEffect(() => getCategoryData(), []);
 
     const { appendData: getSubCategoryData } = useQueryApiClient({
         request: {

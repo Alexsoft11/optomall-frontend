@@ -81,5 +81,10 @@
         "moreDetail": "More Detail",
         "orderCost": "Total Cost:",
         "currency": "uzs"
+    },
+    "Products": {
+        "tab_1": "Discount",
+        "tab_2": "Top Products",
+        "tab_3": "Recommended for you"
     }
 }
