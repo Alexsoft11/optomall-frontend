@@ -50,18 +50,6 @@
         }
     }
 
-    @media (max-width: 1080px) {
-        width: 280px;
-
-        .total {
-
-            h1,
-            p {
-                font-size: var(--heading-six)
-            }
-        }
-    }
-
     @media (max-width: 769px) {
         position: fixed;
         bottom: 70px;
