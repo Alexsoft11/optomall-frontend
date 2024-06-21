@@ -4,7 +4,15 @@
         "order": "Buyurtma qilish",
         "home": "Bosh sahifa",
         "purchases": "Mening xaridlarim",
-        "currency": "so'm"
+        "currency": "so'm",
+        "loadingData": "Ma'lumotlar yuklanmoqda..."
+    },
+    "Navbar": {
+        "account": "Mening hisobim",
+        "messages": "Mening xabarlarim",
+        "purchases": "Mening xaridlarim",
+        "customs": "Bojxona hisoblash qanday amalga oshiriladi",
+        "logout": "Chiqish"
     },
     "UiModal": {
         "success": "Chek muvaffaqiyatli tasdiqlandi",
@@ -73,5 +81,10 @@
         "moreDetail": "Batafsil",
         "orderCost": "Umumiy summa:",
         "currency": "so'm"
+    },
+    "Products": {
+        "tab_1": "Chegirma",
+        "tab_2": "Eng yaxshi mahsulotlar",
+        "tab_3": "Siz uchun tavsiya etamiz"
     }
 }

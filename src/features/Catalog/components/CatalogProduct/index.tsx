@@ -5,8 +5,11 @@ import { CardsMockData } from '@/mockdata/Cards'
 import Card from '@/components/Card'
 import SvgSelector from '$/assets/icons/SvgSelector'
 
+interface Props {
+    data: any;
+}
 
-const CatalogProduct = () => {
+const CatalogProduct = ({ data }: Props) => {
   return (
     <>
         <div className={styles.catalog_product}>
@@ -23,7 +26,7 @@ const CatalogProduct = () => {
                     </div>
 
                     <div className={styles.catalog_product__cards}>
-                        {CardsMockData.map((el: any, idx: number) => (
+                        {data?.map((el: any, idx: number) => (
                             <Card key={el.id} path={el.id} data={el} idx={idx} />
                         ))}
                     </div>

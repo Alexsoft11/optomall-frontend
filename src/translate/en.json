@@ -4,7 +4,15 @@
         "order": "Order",
         "home": "Home",
         "purchases": "My Purchases",
-        "currency": "uzs"
+        "currency": "uzs",
+        "loadingData": "Loading data..."
+    },
+    "Navbar": {
+        "account": "My Account",
+        "messages": "My Messages",
+        "purchases": "My Purchases",
+        "customs": "How Customs Clearance is Calculated",
+        "logout": "Logout"
     },
     "UiModal": {
         "success": "Receipt successfully confirmed",
@@ -73,5 +81,10 @@
         "moreDetail": "More Detail",
         "orderCost": "Total Cost:",
         "currency": "uzs"
+    },
+    "Products": {
+        "tab_1": "Discount",
+        "tab_2": "Top Products",
+        "tab_3": "Recommended for you"
     }
 }
