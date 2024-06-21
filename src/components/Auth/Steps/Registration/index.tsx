@@ -8,13 +8,14 @@ import { useTranslations } from 'next-intl';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import GoToBack from '@/components/GoToBack';
 
 
 export default function Registration() {
     const [form] = Form.useForm();
     const t = useTranslations("Auth");
     const router = useRouter()
-    
+
     const { appendData: createData } = useQueryApiClient({
         request: {
             url: 'register',
@@ -24,10 +25,7 @@ export default function Registration() {
         onSuccess(res) {
             message.success(res.message)
             setTimeout(() => router.push('auth/'), 2000)
-        },
-        onError(err) {
-            message.error(err.error)
-        } 
+        }
     })
 
     const onFinish = (values: any) => {
@@ -36,6 +34,7 @@ export default function Registration() {
 
     return (
         <div className={styles.main}>
+            <GoToBack pathArr={[{ title: "registration", path: "" }]} />
             <h1>{t('regist')}</h1>
             <p className={styles.desc}>Lorem, ipsum dolor sit amet</p>
             <div className={styles.form}>
