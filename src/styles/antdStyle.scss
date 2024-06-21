@@ -87,6 +87,13 @@
           width: 80px;
           height: 80px;
         }
+
+        .avatar-uploader {
+          span {
+            background: var(--light-grey);
+            border-radius: 10px;
+          }
+        }
       }
     }
 
