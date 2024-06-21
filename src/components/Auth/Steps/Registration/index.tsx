@@ -25,9 +25,6 @@ export default function Registration() {
         onSuccess(res) {
             message.success(res.message)
             setTimeout(() => router.push('auth/'), 2000)
-        },
-        onError(err) {
-            message.error(err.error)
         }
     })
 
