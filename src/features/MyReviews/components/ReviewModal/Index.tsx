@@ -3,6 +3,8 @@ import styles from './ReviewModal.module.scss';
 import { Form, Input, Modal, Rate, Upload, message } from 'antd';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/ui';
+import Image from 'next/image';
+import { AddSvg } from '$/assets/images';
 
 interface Props {
     modalIsOpen: boolean,
@@ -33,6 +35,8 @@ export default function ReviewModal({ modalIsOpen, onCancel }: Props) {
     };
 
     const handleChange = (info: any) => {
+        console.log(info);
+        
         if (info.file.status === 'done') {
             // Get this url from response in real world.
             setImageUrl(info.file.response.url);
@@ -75,7 +79,7 @@ export default function ReviewModal({ modalIsOpen, onCancel }: Props) {
                         beforeUpload={beforeUpload}
                         onChange={handleChange}
                     >
-                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : 'Upload'}
+                        {imageUrl ? <Image src={imageUrl} alt="" style={{ width: '100%' }} /> : <Image src={AddSvg} width={24} height={24} alt="" style={{ width: '100%' }} />}
                     </Upload>
                     <Upload
                         name="avatar"
@@ -86,7 +90,7 @@ export default function ReviewModal({ modalIsOpen, onCancel }: Props) {
                         beforeUpload={beforeUpload}
                         onChange={handleChange}
                     >
-                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : 'Upload'}
+                        {imageUrl ? <Image src={imageUrl} alt="" style={{ width: '100%' }} /> : <Image src={AddSvg} width={24} height={24} alt="" style={{ width: '100%' }} />}
                     </Upload>
                     <Upload
                         name="avatar"
@@ -97,7 +101,7 @@ export default function ReviewModal({ modalIsOpen, onCancel }: Props) {
                         beforeUpload={beforeUpload}
                         onChange={handleChange}
                     >
-                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : 'Upload'}
+                        {imageUrl ? <Image src={imageUrl} alt="" style={{ width: '100%' }} /> : <Image src={AddSvg} width={24} height={24} alt="" style={{ width: '100%' }} />}
                     </Upload>
                     <Upload
                         name="avatar"
@@ -108,7 +112,7 @@ export default function ReviewModal({ modalIsOpen, onCancel }: Props) {
                         beforeUpload={beforeUpload}
                         onChange={handleChange}
                     >
-                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : 'Upload'}
+                        {imageUrl ? <Image src={imageUrl} alt="" style={{ width: '100%' }} /> : <Image src={AddSvg} width={24} height={24} alt="" style={{ width: '100%' }} />}
                     </Upload>
                 </div>
                 <Form.Item className='review-modal__submitButton'>
