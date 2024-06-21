@@ -183,18 +183,28 @@ a {
 
 .go_to_back svg {
   transform: rotate(-90deg);
+  height: 100%;
+}
+
+.go_to_back svg path {
+  stroke-width: 1px;
 }
 
 .go_to_back {
-  padding: 0px 0px 20px 0px;
+  padding: 0px 0px 30px 0px;
 }
 
-.go_to_back .ant-breadcrumb-link a {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 20px;
-  letter-spacing: 0em;
+.go_to_back li {
+  display: flex;
+  align-items: center;
+}
 
+.go_to_back .ant-breadcrumb-link a,
+.go_to_back .ant-breadcrumb-link p {
+  font-size: var(--paragraph);
+  font-weight: 400;
+  line-height: 16.94px;
+  letter-spacing: 0em;
 }
 
 @media (max-width: 768px) {
@@ -205,7 +215,12 @@ a {
 
 @media (max-width: 400px) {
   .go_to_back .ant-breadcrumb-link a {
-    font-size: 14px;
+    font-size: var(--paragraph-three);
+    line-height: 14.52px;
+  }
+
+  .go_to_back {
+    padding: 0px 0px 20px 0px;
   }
 }
 

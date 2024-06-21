@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './OrderCheque.module.scss';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -14,12 +14,18 @@ export default function OrderCheque({ cardId, cost }: Props) {
 
     const t = useTranslations('Order')
     const [messageApi, contextHolder] = message.useMessage();
+    const [messageVisible, setMessageVisible] = useState(false);
+    
     const copyText = () => {
         navigator.clipboard.writeText(cardId);
-        messageApi.open({
-            type: 'success',
-            content: t('textCopyed'),
-        });
+        if (!messageVisible) {
+            setMessageVisible(true);
+            messageApi.open({
+                type: 'success',
+                content: t('textCopyed'),
+                onClose: () => setMessageVisible(false),
+            });
+        }
     }
 
 
