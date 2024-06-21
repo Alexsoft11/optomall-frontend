@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/ui/index';
 import { HeadLogo } from '$/assets/images/index';
-import { NavLinks } from '@/constants/navbar';
+import { ModalLinks, NavLinks } from '@/constants/navbar';
 import styles from './Navbar.module.scss';
 import Image from 'next/image';
 import SvgSelector from '$/assets/icons/SvgSelector';
@@ -79,30 +79,12 @@ const Navbar = () => {
 
                     <div className={`${styles.navbar__user_modal} ${openModal === 'user' ? styles.open : ''}`}>
                       <div className={styles.navbar__user_inner}>
-                        <Link href="/" className={styles.navbar__user_item}>
-                          <SvgSelector id="user-modal-svg" />
-                          <p>{t("account")}</p>
-                        </Link>
-
-                        <Link href="/" className={styles.navbar__user_item}>
-                          <SvgSelector id="message-modal-svg" />
-                          <p>{t("messages")}</p>
-                        </Link>
-
-                        <Link href="/" className={styles.navbar__user_item}>
-                          <SvgSelector id="shop-modal-svg" />
-                          <p>{t("purchases")}</p>
-                        </Link>
-
-                        <Link href="/" className={styles.navbar__user_item}>
-                          <SvgSelector id="search-modal-svg" />
-                          <p>{t("customs")}</p>
-                        </Link>
-
-                        <Link href="/" className={styles.navbar__user_item}>
-                          <SvgSelector id="exit-modal-svg" />
-                          <p>{t("logout")}</p>
-                        </Link>
+                        {ModalLinks.map((link: any) => (
+                          <Link href={link.href} className={styles.navbar__user_item} key={link.id}>
+                            <SvgSelector id={link.id} />
+                            <p>{t(link.textKey)}</p>
+                          </Link>
+                        ))}
                       </div>
                     </div>
                   </>
