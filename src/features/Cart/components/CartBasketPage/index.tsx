@@ -11,7 +11,7 @@ export default function CartBasketPage() {
     <div className={styles.main}>
       <CartBasketItems />
       <div className={styles.order_side}>
-        <CartOrderBlock cost={CartOrderMockdata.count} />
+        <CartOrderBlock itemValue={CartOrderMockdata.itemsValue} cost={CartOrderMockdata.count} />
         <CartGetOrder />
       </div>
     </div>
