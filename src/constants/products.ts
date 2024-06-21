@@ -1,16 +1,16 @@
 export const ProductTabsData = [
     { 
-        key: '1',
+        key: 'Discount',
         tab: 'Распродажа',
         content: ''
     },
     { 
-        key: '2', 
+        key: 'Top', 
         tab: 'Топ-товары',
         content: ''
     },
     { 
-        key: '3', 
+        key: 'Recommended', 
         tab: 'Рекомендуем вам',
         content: ''
     },

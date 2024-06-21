@@ -11,7 +11,15 @@
         "back": "Back",
         "results": "Search Results",
         "purchases": "My Purchases",
-        "currency": "sum"
+        "currency": "uzs",
+        "loadingData": "Loading data..."
+    },
+    "Navbar": {
+        "account": "My Account",
+        "messages": "My Messages",
+        "purchases": "My Purchases",
+        "customs": "How Customs Clearance is Calculated",
+        "logout": "Logout"
     },
     "UiModal": {
         "success": "Receipt successfully confirmed",
@@ -93,5 +101,10 @@
         "reviewProduct": "Rate the Product",
         "enterComment": "Enter Comment",
         "sendReview": "Publish"
+    },
+    "Products": {
+        "tab_1": "Discount",
+        "tab_2": "Top Products",
+        "tab_3": "Recommended for you"
     }
 }
