@@ -5,14 +5,17 @@ import { Button } from '@/ui';
 import { useTranslations } from 'next-intl';
 import { validateEmail } from '../../Functions';
 import useQueryApiClient from '@/utils/useQueryApiClient';
+import GoToBack from '@/components/GoToBack';
+import { useRouter } from 'next/router';
 
 interface Props {
-    setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 export default function ForgotPassword({ setModalIsOpen }: Props) {
     const [form] = Form.useForm();
     const t = useTranslations("Auth");
+    const router = useRouter()
 
     const { appendData: createData } = useQueryApiClient({
         request: {
@@ -22,10 +25,11 @@ export default function ForgotPassword({ setModalIsOpen }: Props) {
         },
         onSuccess(res) {
             message.success(res.message)
-        },
-        onError(err) {
-            message.error(err.error)
-        } 
+            router.push({
+                pathname: '/auth',
+                query: {step: 'reset'}
+            })
+        }
     })
 
     const onFinish = (values: any) => {
@@ -35,6 +39,7 @@ export default function ForgotPassword({ setModalIsOpen }: Props) {
     return (
         <div>
             <div className={styles.main}>
+                <GoToBack backUrl='/auth' />
                 <h1>{t('resetPassword')}</h1>
                 <p className={styles.desc}>Lorem, ipsum dolor sit amet</p>
                 <div className={styles.form}>

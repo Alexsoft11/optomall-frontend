@@ -22,7 +22,7 @@ export default function OrderCheque({ cardId, cost }: Props) {
             setMessageVisible(true);
             messageApi.open({
                 type: 'success',
-                content: 'Text copied!',
+                content: t('textCopyed'),
                 onClose: () => setMessageVisible(false),
             });
         }

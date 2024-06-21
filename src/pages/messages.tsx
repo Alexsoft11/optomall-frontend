@@ -1,12 +1,13 @@
-import GoToBack from '@/components/GoToBack';
-import PageTitle from '@/components/PageTitle';
-import { MessagesMocdata } from '@/mockdata/Messages';
-import { useTranslations } from 'next-intl';
-import dynamic from 'next/dynamic';
-import Head from 'next/head';
-import React from 'react';
+import GoToBack from "@/components/GoToBack";
+import PageTitle from "@/components/PageTitle";
+import { MessagesMocdata } from "@/mockdata/Messages";
+import { useTranslations } from "next-intl";
+import dynamic from "next/dynamic";
+import Head from "next/head";
+import React from "react";
 
-const MessagesPage = dynamic( () => import("@/features/Messages/MessagesPage"),
+const MessagesPage = dynamic(
+  () => import("@/features/Messages/MessagesPage")
   // {
   //   loading: () => <Loader />,
   // }
