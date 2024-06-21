@@ -81,5 +81,10 @@
         "moreDetail": "Batafsil",
         "orderCost": "Umumiy summa:",
         "currency": "so'm"
+    },
+    "Products": {
+        "tab_1": "Chegirma",
+        "tab_2": "Eng yaxshi mahsulotlar",
+        "tab_3": "Siz uchun tavsiya etamiz"
     }
 }
