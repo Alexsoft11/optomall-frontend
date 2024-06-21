@@ -19,9 +19,6 @@ export default function Info() {
         },
         onSuccess(res) {
             message.success(res.message)
-        },
-        onError(err) {
-            message.error(err.error)
         }
     })
 

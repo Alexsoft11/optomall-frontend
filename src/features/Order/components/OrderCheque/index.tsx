@@ -18,7 +18,7 @@ export default function OrderCheque({ cardId, cost }: Props) {
         navigator.clipboard.writeText(cardId);
         messageApi.open({
             type: 'success',
-            content: 'Text copyed!',
+            content: t('textCopyed'),
         });
     }
 

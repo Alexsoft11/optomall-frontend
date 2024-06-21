@@ -29,9 +29,6 @@ export default function ForgotPassword({ setModalIsOpen }: Props) {
                 pathname: '/auth',
                 query: {step: 'reset'}
             })
-        },
-        onError(err) {
-            message.error(err.error)
         }
     })
 
