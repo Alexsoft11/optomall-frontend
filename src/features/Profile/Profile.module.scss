@@ -1,0 +1,15 @@
+/** @format */
+
+.navbar__user_item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0px 20px;
+  color: #000;
+  text-decoration: none;
+  p{
+    width: 100%;
+    padding: 10px 0px;
+    border-bottom: 1px solid #D9D7D7;
+  }
+}

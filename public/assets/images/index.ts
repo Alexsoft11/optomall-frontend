@@ -15,3 +15,8 @@ export { default as CategoryImg3 } from './Category_img3.png'
 export { default as SearchSvg } from "./SearchSvg.svg";
 export { default as WarningSvg } from "./WarningSvg.svg";
 export { default as SuccsessSvg } from "./SuccsessSvg.svg";
+export { default as UploadIcon } from "./uploadIcon.svg";
+export { default as editAccountIcon } from "./editAccountIcon.svg";
+
+
+
