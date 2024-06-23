@@ -23,7 +23,7 @@ const CatalogDetailPage = () => {
     if (id) {
       getCatalogItemsData();
     }
-  }, [id]);
+  }, [getCatalogItemsData, id]);
   return (
     <>
       <div className="container">
