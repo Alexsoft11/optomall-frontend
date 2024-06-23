@@ -24,7 +24,7 @@ const CatalogProductPage = () => {
     if (id) {
       getProductData();
     }
-  }, [id]);
+  }, [getProductData, id]);
   
   return (
     <>
