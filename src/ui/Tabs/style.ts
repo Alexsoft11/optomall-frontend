@@ -31,7 +31,7 @@ export const StyledTabs = styled(Tabs)`
     .ant-tabs-nav-list {
         padding-right: 85px;
         overflow-y: auto;
-        max-width: 100%;
+        max-width: 400px;
         max-height: 75vh;
 
         @media (max-width:1160px) {
@@ -68,13 +68,30 @@ export const StyledTabs = styled(Tabs)`
     .ant-tabs-nav-more {
         display: none;
     }
+
+    .ant-tabs-tab-btn {
+        &:active {
+            color: var(--black-color); 
+        }
+    }
 }
 
 &.products_tab {
+    .ant-tabs-nav {
+        &::before {
+            border-bottom: 0px;
+        }
+        margin-bottom: 30px;
+    }
+
     .ant-tabs-tab-btn {
         color: var(--black-color);
         font-size: var(--paragraph-two);
         font-weight: 400;
+
+        &:active {
+            color: var(--black-color); 
+        }
     }
     
     .ant-tabs-tab-active .ant-tabs-tab-btn {

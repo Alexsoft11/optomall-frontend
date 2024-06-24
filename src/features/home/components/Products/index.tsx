@@ -21,6 +21,11 @@ const Products = ({ getProductsData, products, isProductsLoading }: Props) => {
     getProductsData({ tab: key });
   };
 
+
+  useEffect(() => {
+    handleTabChange('top') 
+  }, [])
+  
   return (
     <div className={styles.products}>
       <div className="container">
