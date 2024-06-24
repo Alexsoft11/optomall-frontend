@@ -15,16 +15,24 @@ interface Props {
 const CatalogTab = ({ openModal, setOpenModal }: Props) => {
     const [CatalogTabsData, setCatalogTabsData] = useState<CategoryCatalogInterface[]>([]);
     const [subCategoryData, setSubCategoryData] = useState<SubCategoryInterface[]>([]);
-    const [isOverflowed, setIsOverflowed] = useState(false);
     const [activeTab, setActiveTab] = useState('1');
     const textRef = useRef<any>(null);
+    const [isOverflowed, setIsOverflowed] = useState(false);
 
     useEffect(() => {
         const { current } = textRef;
         if (current) {
-            setIsOverflowed(current.scrollHeight > current.clientHeight);
+          setIsOverflowed(current?.scrollWidth > current?.clientHeight);
         }
-    }, [textRef, CatalogTabsData]);
+    }, [textRef]);
+
+    const truncateText = (text: any, maxLength: any) => {
+        if (text.length <= maxLength) {
+            return text;
+        } else {
+            return text.slice(0, maxLength) + "...";
+        }
+    };
 
     const { appendData: getCategoryData } = useQueryApiClient({
         request: {
@@ -62,13 +70,24 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
                 className={`${styles.navigation__tab} navigation_btn`}
             >
                 {CatalogTabsData.map(tab => (
-                <TabPane
-                    key={tab.id}
-                    tab={tab.name}
-                    className={styles.navigation__item}
-                >
-                    <NavigationCard data={subCategoryData} setOpenModal={setOpenModal} />
-                </TabPane>
+                    <TabPane
+                        key={tab.id}
+                        tab={
+                            <Tooltip
+                                overlayClassName="tooltip-white"
+                                title={isOverflowed ? tab.name : ""}
+                            >
+                                <p
+                                    ref={textRef}
+                                >
+                                    {truncateText(tab.name, 25)}
+                                </p>
+                            </Tooltip>
+                        }
+                        className={styles.navigation__item}
+                    >
+                        <NavigationCard data={subCategoryData} setOpenModal={setOpenModal} />
+                    </TabPane>
                 ))}
             </CustomTabs>
             </div>
