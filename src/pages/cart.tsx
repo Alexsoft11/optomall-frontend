@@ -25,7 +25,7 @@ export default function Cart() {
   return (
     <div className="container">
       <Head>
-        <title>{t("cart")}</title>
+        <title>{t("cart")} {" "}</title>
       </Head>
       <div>
         <GoToBack pathArr={[{ title: "cart", path: "" }]} />
