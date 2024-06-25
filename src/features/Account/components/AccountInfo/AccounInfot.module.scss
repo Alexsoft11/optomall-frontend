@@ -32,6 +32,20 @@
     }
   }
 }
+.form{
+  margin-top: 30px;
+}
+.confirm_btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #ff4200 !important;
+  color: #fff !important;
+  border: none;
+  height: auto !important;
+  padding: 10px 0px !important;
+}
 @media (max-width: 769px) {
   .card_info {
     box-shadow: none;

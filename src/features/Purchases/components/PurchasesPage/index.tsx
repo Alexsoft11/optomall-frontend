@@ -11,19 +11,19 @@ interface Props {
 
 export default function PurchasesPage({ data }: Props) {
     const t = useTranslations('Purchases')
-    const [activeSwitch, setActiveSwitch] = useState('all')
+    const [defautlSwitch, setDefautlSwitch] = useState(true)
 
-    const setSwitch = (name: string) => {
-        setActiveSwitch(name)
+    const setSwitch = () => {
+        setDefautlSwitch(!defautlSwitch)
     }
 
     return (
         <div className={styles.main}>
             <div className={styles.switch_buttons}>
-                <Button onClick={() => setSwitch("active")} className={`${activeSwitch === 'active' ? styles.active_switch : null}`}>
+                <Button onClick={() => setSwitch()} className={`${defautlSwitch? styles.active_switch : null}`}>
                     {t('active')}
                 </Button>
-                <Button onClick={() => setSwitch("all")} className={`${activeSwitch === 'all' ? styles.active_switch : null}`}>
+                <Button onClick={() => setSwitch()} className={`${!defautlSwitch? styles.active_switch : null}`}>
                     {t('all')}
                 </Button>
             </div>

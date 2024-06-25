@@ -1,8 +1,106 @@
 .swiper {
-    .swiper-pagination {
+  .swiper-pagination {
+    display: none;
+
+    @media (max-width: 768px) {
+      display: block;
+    }
+  }
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-rate .ant-rate-star-first, :where(.css-dev-only-do-not-override-1okl62o).ant-rate .ant-rate-star-second {
+  color: var(--light-grey);
+  font-size: var(--heading-four);
+
+}
+:where(.css-dev-only-do-not-override-1okl62o).ant-input-affix-wrapper {
+  padding: 0px 11px !important;
+}
+.ant-input{
+  padding: 10px 11px !important;
+}
+.review-modal {
+  display: flex;
+  justify-content: center;
+
+  
+
+  .ant-modal-content {
+    width: 100%;
+
+    .ant-modal-footer {
       display: none;
-      @media (max-width: 768px) {
-        display: block;
+    }
+
+    .ant-modal-header {
+      text-align: center;
+      font-size: var(--heading-six);
+      font-weight: 400;
+      line-height: 24.2px;
+    }
+
+    .ant-modal-body {
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .review-modal__rate {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+
+          p {
+            font-size: var(--paragraph-three);
+            color: var(--davys-grey);
+            font-weight: 400;
+            line-height: 14.52px;
+          }
+
+        }
+
+        .review-modal__comment {
+
+          div {
+            margin: 0px;
+          }
+        }
+
+
+        .review-modal__submitButton {
+          button {
+              width: 100%;
+              font-size: var(--paragraph-two);
+              font-weight: 400;
+              line-height: 16.94px;
+              padding: 12px;
+              height: auto;
+              background: rgba(255, 66, 0, 1);
+              border-radius: 5px;
+          }
+      }
+
+      }
+
+      .review-modal__upload {
+        display: flex;
+        gap: 10px;
+
+        .ant-upload-select {
+          width: 80px;
+          height: 80px;
+        }
+
+        .avatar-uploader {
+          span {
+            background: var(--light-grey);
+            border-radius: 10px;
+          }
+        }
       }
     }
+
+  }
 }

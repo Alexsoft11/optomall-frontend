@@ -13,7 +13,7 @@ const ModalForms:FC<IProps> = ({children,isOpen,onClick}) => {
   }
 
   return (
-    <Modal open={isOpen} onCancel={onClick}>
+    <Modal footer open={isOpen} onCancel={onClick}>
       {children}
     </Modal>
   )

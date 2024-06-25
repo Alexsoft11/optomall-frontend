@@ -9,7 +9,7 @@ import styles from "./UserProfile.module.scss";
 import React, { useState } from "react";
 
 const UserProfile = ({ user }: any) => {
-  const [imageUrl, setImageUrl] = useState(user.profileImage);
+  const [imageUrl, setImageUrl] = useState(user?.profileImage);
 
   const handleChange = (info: any) => {
     if (info.file.status === "done") {
@@ -35,7 +35,7 @@ const UserProfile = ({ user }: any) => {
       ) : (
         <>
           <Avatar size={64} style={{ backgroundColor: "#D0D0D0" }}>
-            {user.name.charAt(0)}
+            {user?.name.charAt(0)}
           </Avatar>
           <div className={styles.uploadIcon}>
             <Image className={styles.icon} src={UploadIcon} alt='#' />
@@ -43,8 +43,8 @@ const UserProfile = ({ user }: any) => {
         </>
       )}
       <div className={styles.profile_info}>
-        <p>{user.name}</p>
-        <span>ID: {user.id}</span>
+        <p>{user?.name}</p>
+        <span>ID: {user?.unique_id}</span>
       </div>
     </div>
   );

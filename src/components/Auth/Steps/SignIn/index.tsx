@@ -9,6 +9,7 @@ import { validateEmail, validatePassword } from '../../Functions';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router';
+import GoToBack from '@/components/GoToBack';
 
 
 export default function SignIn() {
@@ -29,10 +30,7 @@ export default function SignIn() {
             message.success(res.message)
             setTimeout(() => router.push('/'), 2000)
             cookies.set('token', Buffer.from(res.token).toString('base64'), { expires: expirationDate })
-        },
-        onError(err) {
-            message.error(err.error)
-        } 
+        }
     })
 
     const onFinish = (values: any) => {
@@ -41,6 +39,7 @@ export default function SignIn() {
 
     return (
         <div className={styles.main}>
+            <GoToBack pathArr={[{ title: "signin", path: "" }]} />
             <h1>{t('signin')}</h1>
             <p className={styles.desc}>Lorem, ipsum dolor sit amet</p>
             <div className={styles.form}>

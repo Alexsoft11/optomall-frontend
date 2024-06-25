@@ -29,7 +29,7 @@ const Profile = () => {
 
       <Link href='/' className={styles.navbar__user_item}>
         <SvgSelector id='exit-modal-svg' />
-        <p>Выйти</p>
+        <p className={styles.loggout}>Выйти</p>
       </Link>
     </div>
   );
