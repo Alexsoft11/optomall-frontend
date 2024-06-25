@@ -6,7 +6,12 @@ const nextConfig = {
     defaultLocale: "ru",
   },
   images: {
-    domains: ["176.221.29.121", "optom-taobao-backend.line.pm", 'img.alicdn.com'],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
   },
   compiler: {
     styledComponents: true,

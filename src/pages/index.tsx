@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Products from "@/features/home/components/Products";
 import { CardInterface, SlidersDataInterface } from "@/interfaces";
 import useQueryApiClient from "@/utils/useQueryApiClient";
-import { message } from "antd/lib";
 import Head from "next/head";
 import MainSlider from "@/features/home/components/MainSlider";
 import Category from "@/features/home/components/Category";
