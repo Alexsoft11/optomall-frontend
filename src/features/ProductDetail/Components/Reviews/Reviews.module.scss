@@ -1,0 +1,24 @@
+.review-card {
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid #f0f0f0;
+}
+.reviews{
+  margin-top: 7px;
+}
+.review-card h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.review-card p {
+  margin: 5px 0;
+}
+.navigators {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+}
