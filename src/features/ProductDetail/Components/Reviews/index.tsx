@@ -1,4 +1,4 @@
-import { reviews } from '@/mockdata/detailData'
+
 import { Button, Rate } from 'antd'
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -7,6 +7,7 @@ import "swiper/css";
 import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import SvgSelector from '$/assets/icons/SvgSelector'
+import { reviews } from '@/mockdata/detailData';
 const Reviews = () => {
   return (
     <div  className={styles.reviews}>

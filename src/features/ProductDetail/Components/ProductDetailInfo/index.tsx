@@ -7,17 +7,18 @@ import SliderColors from "../SliderColors";
 
 
 
-const ProductDetailInfo = ({ productDetails, setSelectedImage }: any) => {
+const ProductDetailInfo = ({ productDetails, setSelectedImage, product}: any) => {
+  console.log(product)
   return (
     <div className={styles.product_info_detail}>
       <div className={styles.productInfo}>
-        <h1>{productDetails.title}</h1>
+        <h1>{product?.title}</h1>
         <div className={styles.rating}>
         <Rate disabled defaultValue={5}/>
           <span>{productDetails.rating}</span>
           <span>({productDetails.reviews} купили)</span>
         </div>
-        <SliderColors />
+        <SliderColors data={product.colors}/>
         <div className={styles.productSpecs}>
           <div>
             <span>Url</span>
@@ -33,7 +34,7 @@ const ProductDetailInfo = ({ productDetails, setSelectedImage }: any) => {
           </div>
           <div>
             <span>Страна производства</span>
-            <span>{productDetails.country}</span>
+            <span>{product.location}</span>
           </div>
           <div>
             <span>Особенности модели</span>
@@ -41,7 +42,7 @@ const ProductDetailInfo = ({ productDetails, setSelectedImage }: any) => {
           </div>
         </div>
       </div>
-      <ProductOrderSection productDetails={productDetails} />
+      <ProductOrderSection product={product} />
     </div>
   );
 };

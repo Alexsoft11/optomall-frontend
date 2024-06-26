@@ -36,6 +36,7 @@
   height: 0;
 }
 .imageThumbnails_card {
+  position: relative;
   padding: 10px;
   border: 1px solid;
   background: #000;
@@ -52,7 +53,7 @@
 }
 
 .imageThumbnails img.active {
-  border: 2px solid #000;
+  // border: 2px solid #000;
 }
 .stick {
   width: 113px;

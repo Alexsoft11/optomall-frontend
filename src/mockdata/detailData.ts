@@ -1,4 +1,6 @@
-import { fakeDetailImg1, fakeDetailImg2, fakeDetailImg3, fakeDetailImg4, fakeDetailImg5 } from "$/assets/fakeImages/images";
+// import { fakeDetailImg1, fakeDetailImg2, fakeDetailImg3, fakeDetailImg4, fakeDetailImg5 } from 
+
+import { fakeDetailImg1, fakeDetailImg2, fakeDetailImg3, fakeDetailImg4, fakeDetailImg5 } from "$/assets/fakeImages";
 
 export const detailData = [
     {

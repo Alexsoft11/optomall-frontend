@@ -6,11 +6,13 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import Image from "next/image";
-import { detailData } from "@/mockdata/detailData";
+
 import styles from "./SliderColors.module.scss";
 import SvgSelector from "$/assets/icons/SvgSelector";
+import { detailData } from "@/mockdata/detailData";
 
-const SliderColors = () => {
+const SliderColors = ({data}:any) => {
+  console.log(data)
   return (
     <div className={styles.swiper_colors}>
       <Swiper
@@ -37,11 +39,12 @@ const SliderColors = () => {
         }}
         modules={[Navigation]}
         className='slider_colors'>
-   {detailData.map((el, idx) => (
+   {data?.map((el:any, idx:number) => (
   <SwiperSlide key={idx}>
-    <div className={`${styles.slide_color} ${!el.status ? styles.inactive : ''}`}>
-      <Image src={el.image} alt='#frefr' />
-      {!el.status && <div className={styles.stick}></div>}
+    <div className={`${styles.slide_color}`}>
+      <Image src={el.miniImageUrl} alt='#frefr' fill/>
+      {/* <span>{el.value}</span> */}
+      {/* {!el.status && <div className={styles.stick}></div>} */}
     </div>
   </SwiperSlide>
 ))}

@@ -21,13 +21,12 @@ const isMobile =(windowWidth:number) =>  windowWidth > 560
         };
       }, []);
 
-      console.log(window.innerWidth);
+    
       
 
     return isMobile(windowWidth) ? (
         <div className={styles.imagePreview}>
           <Image src={selectedImage} alt='Selected' fill/>
-          
         </div>
       ) : (
         <>

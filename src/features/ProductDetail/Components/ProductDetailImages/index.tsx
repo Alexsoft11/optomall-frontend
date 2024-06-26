@@ -6,22 +6,24 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { detailData } from "@/mockdata/detailData";
 
+
 const Detail = dynamic(() => import("./detail"),{ssr:false})
 
-const ProductDetailImages = ({ selectedImage, setSelectedImage }: any) => {
+const ProductDetailImages = ({ selectedImage, setSelectedImage, product }: any) => {
   return (  
   <div className={styles.productDetail}>
       <div className={styles.imageThumbnails}>
-        {detailData.map((item: any) => (
+        {product?.pictures.map((item: any) => (
           <div className={styles.imageThumbnails_card}>
             <Image
               key={item.id}
-              src={item.image}
+              fill
+              src={item.image_url}
               alt={`Thumbnail ${item.id}`}
-              onClick={() => setSelectedImage(item.image)}
-              className={selectedImage === item.img ? styles.active : ""}
+              onClick={() => setSelectedImage(item.image_url)}
+              className={selectedImage === item.image_url ? styles.active : ""}
             />
-            <div className={styles.stick}></div>
+
           </div>
         ))}
       </div>
