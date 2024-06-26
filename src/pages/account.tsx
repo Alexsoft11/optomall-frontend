@@ -10,7 +10,6 @@ const AccountPage = () => {
       method: 'GET',
     },
     onSuccess(res) {
-      console.log(res)
       setUser(res)
     }
   });

@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState } from "react";
 import ModalForms from "../ModalForms";
 import { Button, Form, Input, message } from "antd";
@@ -8,8 +6,10 @@ import UserProfile from "../UserProfile";
 import Image from "next/image";
 import { editAccountIcon } from "$/assets/images";
 import useQueryApiClient from "@/utils/useQueryApiClient";
+import { useTranslations } from "next-intl";
 
 const AccountInfo = ({ user }: any) => {
+  const t = useTranslations("")
   const [open, setOpen] = useState({
     isEmail: false,
     isUserName: false,
@@ -34,9 +34,6 @@ const AccountInfo = ({ user }: any) => {
       message.success(res.message);
       setOpen({ ...open, isEmail: false });
     },
-    onError: (error) => {
-      message.error('Failed to update email');
-    },
   });
 
   const { appendData: updateName } = useQueryApiClient({
@@ -48,9 +45,6 @@ const AccountInfo = ({ user }: any) => {
     onSuccess: (res) => {
       message.success(res.message);
       setOpen({ ...open, isUserName: false });
-    },
-    onError: (error) => {
-      message.error('Failed to update name');
     },
   });
 
@@ -64,9 +58,6 @@ const AccountInfo = ({ user }: any) => {
       message.success(res.message);
       setOpen({ ...open, isPhoneNumber: false });
     },
-    onError: (error) => {
-      message.error('Failed to update phone number');
-    },
   });
 
   const { appendData: updatePassword } = useQueryApiClient({
@@ -78,9 +69,6 @@ const AccountInfo = ({ user }: any) => {
     onSuccess: (res) => {
       message.success(res.message);
       setOpen({ ...open, isResetPassword: false });
-    },
-    onError: (error) => {
-      message.error('Failed to update password');
     },
   });
 
@@ -100,10 +88,10 @@ const AccountInfo = ({ user }: any) => {
         <UserProfile user={user} />
         <div className={styles.info}>
           <div className={styles.card}>
-            <p>Электронная почта:</p>
+            <p>{t("Account.mail")}</p>
             <div>
               <span>{user?.email}</span>
-              <button>Изменить</button>
+              <button>{t("Account.change")}</button>
               <Image
                 src={editAccountIcon}
                 alt="#"
@@ -113,10 +101,10 @@ const AccountInfo = ({ user }: any) => {
             </div>
           </div>
           <div className={styles.card}>
-            <p>Имя:</p>
+            <p>{t("Account.name")}</p>
             <div>
               <span>{user?.name}</span>
-              <button>Изменить</button>
+              <button>{t("Account.change")}</button>
               <Image
                 src={editAccountIcon}
                 alt="#"
@@ -126,10 +114,10 @@ const AccountInfo = ({ user }: any) => {
             </div>
           </div>
           <div className={styles.card}>
-            <p>Номер телефона:</p>
+            <p>{t("Account.phone")}</p>
             <div>
               <span>{user?.phone}</span>
-              <button>Изменить</button>
+              <button>{t("Account.change")}</button>
               <Image
                 src={editAccountIcon}
                 alt="#"
@@ -139,10 +127,10 @@ const AccountInfo = ({ user }: any) => {
             </div>
           </div>
           <div className={styles.card}>
-            <p>Пароль:</p>
+            <p>{t("Auth.password")}</p>
             <div>
               <span>********</span>
-              <button>Изменить</button>
+              <button>{t("Account.change")}</button>
               <Image
                 src={editAccountIcon}
                 alt="#"
@@ -163,10 +151,10 @@ const AccountInfo = ({ user }: any) => {
           className={styles.form}
         >
           <Form.Item name="email">
-            <Input placeholder="Email" />
+            <Input placeholder={t("Account.mail")} />
           </Form.Item>
           <Button htmlType="submit" loading={loading.email} className={styles.confirm_btn}>
-            Подвердить
+            {t("Account.confirm")}
           </Button>
         </Form>
       </ModalForms>
@@ -180,11 +168,11 @@ const AccountInfo = ({ user }: any) => {
           className={styles.form}
         >
           <Form.Item name="name">
-            <Input placeholder="Username" />
+            <Input placeholder={t("Account.name")} />
           </Form.Item>
           <Form.Item>
             <Button htmlType="submit" loading={loading.name} className={styles.confirm_btn}>
-              Подвердить
+              {t("Account.confirm")}
             </Button>
           </Form.Item>
         </Form>
@@ -199,10 +187,10 @@ const AccountInfo = ({ user }: any) => {
           className={styles.form}
         >
           <Form.Item name="phone">
-            <Input placeholder="Phone number" />
+            <Input placeholder={t("Account.phone")} />
           </Form.Item>
           <Button htmlType="submit" loading={loading.phone} className={styles.confirm_btn}>
-            Подвердить
+            {t("Account.confirm")}
           </Button>
         </Form>
       </ModalForms>
@@ -218,7 +206,7 @@ const AccountInfo = ({ user }: any) => {
             <Input.Password placeholder="Confirm password" />
           </Form.Item>
           <Button htmlType="submit" loading={loading.password} className={styles.confirm_btn}>
-            Подвердить
+            {t("Account.confirm")}
           </Button>
         </Form>
       </ModalForms>

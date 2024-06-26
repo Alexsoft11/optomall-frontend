@@ -26,7 +26,6 @@ const UserProfile = ({ user }: any) => {
             <Upload
               name='profile'
               showUploadList={false}
-              action='/upload' // Replace with your upload URL
               onChange={handleChange}>
               <Image className={styles.icon} src={UploadIcon} alt='#' />
             </Upload>
