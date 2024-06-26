@@ -44,30 +44,32 @@ const Navbar = () => {
       <div className={styles.navbar}>
         <div className="container">
           <div className={styles.navbar__inner}>
-            <div className={styles.navbar__block}>
-              <Button 
-                className='headbtn'
-                iconId='catalog-svg' 
-                iconPosition='top' 
-                label='Каталог'
-                size='middle'
-                onClick={handleNavBtnClick}
-              />
-              <SearchBtn />
+            <div className={styles.navbar__top}>
+              <div className={styles.navbar__block}>
+                <Button 
+                  className='headbtn'
+                  iconId='catalog-svg' 
+                  iconPosition='top' 
+                  label='Каталог'
+                  size='middle'
+                  onClick={handleNavBtnClick}
+                />
+                <SearchBtn />
 
-              <Link href="/">
-                <SvgSelector id="support-svg" />
-              </Link>
-            </div>
+                <Link href="/">
+                  <SvgSelector id="support-svg" />
+                </Link>
+              </div>
 
-            <div className={styles.navbar__logo}>
-              <Image src={HeadLogo} alt='img'/>
+              <div className={styles.navbar__logo}>
+                <Image src={HeadLogo} alt='img'/>
+              </div>
             </div>
 
             <div className={styles.navbar__items}>
               <LanguageSelector />
 
-              {isMounted && token && (
+              {isMounted && token ? (
                   <>
                     <button className={styles.navbar__shop_btn}>
                       <Link  href='/cart'><SvgSelector id='shop-svg'/></Link>
@@ -86,6 +88,26 @@ const Navbar = () => {
                           </Link>
                         ))}
                       </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={styles.navbar__btn_access}>
+                      <Button
+                        className='generalbtn'
+                        label={t('btn_access')}
+                        size='large'
+                        href='/auth'
+                      />
+                    </div>
+
+                    <div className={styles.navbar__btn_regist}>
+                      <Button
+                        className='line_btn'
+                        label={t('btn_regist')}
+                        size='large'
+                        href='/auth?step=regist'
+                      />
                     </div>
                   </>
                 )}

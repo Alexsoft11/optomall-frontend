@@ -19,7 +19,9 @@
         "messages": "My Messages",
         "purchases": "My Purchases",
         "customs": "How Customs Clearance is Calculated",
-        "logout": "Logout"
+        "logout": "Logout",
+        "btn_access": "Access",
+        "btn_regist": "Register"
     },
     "UiModal": {
         "success": "Receipt successfully confirmed",

@@ -19,7 +19,9 @@
         "messages": "Mening xabarlarim",
         "purchases": "Mening xaridlarim",
         "customs": "Bojxona hisoblash qanday amalga oshiriladi",
-        "logout": "Chiqish"
+        "logout": "Chiqish",
+        "btn_access": "Kirish",
+        "btn_regist": "Ro’yxatdan o’tish"
     },
     "UiModal": {
         "success": "Chek muvaffaqiyatli tasdiqlandi",
