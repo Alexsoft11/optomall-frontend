@@ -1,0 +1,39 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .items_block {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(auto,310px));
+            gap: 20px;
+            row-gap: 40px;
+        }
+    }
+
+
+    .switch_buttons {
+        display: flex;
+        gap: 20px;
+
+        button {
+            padding: 8.5px 15px;
+            height: auto;
+
+            span {
+                color: var(--light-white);
+            }
+        }
+
+        .active_switch {
+            span {
+                color: var(--primary-color);
+            }
+        }
+    }
+}

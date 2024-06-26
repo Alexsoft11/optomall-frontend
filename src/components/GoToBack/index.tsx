@@ -5,13 +5,15 @@ import { useTranslations } from "next-intl";
 import { IGoToBack } from "../Types";
 import SvgSelector from "$/assets/icons/SvgSelector";
 
-const GoToBack: FC<IGoToBack> = ({ pathArr, styles = {color: ''} }) => {
+const GoToBack: FC<IGoToBack> = ({ pathArr, styles = {color: ''}, backUrl }) => {
   const t = useTranslations("GLOBAL");
-  const arr = [{ title: <Link href={"/"}>{t("home")}</Link> }];
+  let arr = [{ title: <Link href={"/"}>{t("home")}</Link> }];
 
-  pathArr.map((el:any) => {
+  pathArr?.map((el:any) => {
     arr.push({ title: el.path ? <Link style={{cursor: el.path ? 'pointer' : "default"}} href={el.path}>{el.titleNotr ? el.titleNotr : t(el.title)}</Link>  : <p  style={{cursor:'pointer'}}>{el.titleNotr ? el.titleNotr : t(el.title)}</p>});
   });
+
+  if (backUrl) arr = [{title: <Link href={backUrl}>{t("back")}</Link>}, {title: <span></span>}]
 
   return (
     <div className="go_to_back" data-aos="fade-up">
