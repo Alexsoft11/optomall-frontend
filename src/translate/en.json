@@ -108,5 +108,13 @@
         "tab_1": "Discount",
         "tab_2": "Top Products",
         "tab_3": "Recommended for you"
+    },
+    "Account": {
+      "change": "Change",
+      "mail": "Email",
+      "name":"Name",
+      "phone":"Phone number",
+      "confirm":"Confirm"
+
     }
 }

@@ -108,5 +108,12 @@
         "tab_1": "Chegirma",
         "tab_2": "Eng yaxshi mahsulotlar",
         "tab_3": "Siz uchun tavsiya etamiz"
+    },
+    "Account": {
+      "change": "ozgartirish",
+      "mail": "Elektron pochta",
+      "name":"Ism",
+      "phone":"Telefon raqami",
+      "confirm":"Tasdiqlash"
     }
 }
