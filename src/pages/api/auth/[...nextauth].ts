@@ -11,8 +11,8 @@ export const authOptions = {
     ],
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
-        async redirect({ url, baseUrl }: any) {
-            return baseUrl;
+        async signIn({user, account, profile}: any) {            
+            return true;
         }
     }
 }

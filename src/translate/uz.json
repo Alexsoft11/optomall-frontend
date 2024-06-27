@@ -65,7 +65,9 @@
         "requiredTelMessage": "Iltimos, haqiqiy telefon raqamini kiriting",
         "requiredNameMessage": "Iltimos, ismingizni kiriting",
         "requiredSecondNameMessage": "Iltimos, familiyangizni kiriting",
-        "emailAlredyUsed": "elektron pochta allaqachon band qilingan!"
+        "emailAlredyUsed": "elektron pochta allaqachon band qilingan!",
+        "wrong_password": "noto‘g‘ri parol",
+        "email_doesnt_exist": "elektron pochta ro‘yxatdan o‘tmagan"
     },
     "Cart": {
         "item": "Mahsulotlar",

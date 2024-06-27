@@ -65,7 +65,9 @@
         "requiredTelMessage": "Введите действительный номер телефона",
         "requiredNameMessage": "Введите имя",
         "requiredSecondNameMessage": "Введите фамилию",
-        "emailAlredyUsed": "электронная почта уже занята!"
+        "emailAlredyUsed": "электронная почта уже занята!",
+        "wrong_password": "неверный пароль",
+        "email_doesnt_exist": "электронная почта не зарегистрирована"
     },
     "Cart": {
         "item": "Товаров",

@@ -65,7 +65,9 @@
         "requiredTelMessage": "Please enter a valid phone number",
         "requiredNameMessage": "Please enter your name",
         "requiredSecondNameMessage": "Please enter your last name",
-        "emailAlredyUsed": "email is already in use!"
+        "emailAlredyUsed": "email is already in use!",
+        "wrong_password": "incorrect password",
+        "email_doesnt_exist": "email is not registered"
     },
     "Cart": {
         "item": "Items",
