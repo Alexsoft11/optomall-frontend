@@ -11,7 +11,11 @@ import Link from 'next/link';
 import GoToBack from '@/components/GoToBack';
 
 
-export default function Registration() {
+interface Props {
+    setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+}
+
+export default function Registration({setModalIsOpen}: Props) {
     const [form] = Form.useForm();
     const t = useTranslations("Auth");
     const router = useRouter()
@@ -24,7 +28,8 @@ export default function Registration() {
         },
         onSuccess(res) {
             message.success(res.message)
-            setTimeout(() => router.push('auth/'), 2000)
+            setModalIsOpen(true)
+            setTimeout(() => router.push('auth/'), 1500)
         }
     })
 
@@ -57,8 +62,9 @@ export default function Registration() {
                     <Form.Item
                         name="email"
                         rules={[
-                            { validator: (rule, value) => validateEmail(t, rule, value) }
+                            { validator: (rule, value) => validateEmail(t, rule, value, true)}
                         ]}
+                        validateTrigger={'onBlur'}
                     >
                         <Input type="email" className={styles.input} placeholder={t("email")} />
                     </Form.Item>

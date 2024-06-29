@@ -11,7 +11,6 @@ import { useRouter } from 'next/router';
 import CatalogTab from '../CatalogTab';
 import { useTranslations } from 'next-intl';
 import { useJwt } from '@/utils/useJwt';
-import { Button } from '@/ui';
 
 
 const Navbar = () => {
@@ -26,6 +25,10 @@ const Navbar = () => {
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  const logOut = (textKey: string) => {
+    if (textKey === 'logout') UseLogOut()
+  }
 
   const handleUserBtnClick = () => {
     setOpenModal(openModal === 'user' ? null : 'user');
@@ -44,32 +47,31 @@ const Navbar = () => {
       <div className={styles.navbar}>
         <div className="container">
           <div className={styles.navbar__inner}>
-            <div className={styles.navbar__block}>
-              <Button 
-                className='headbtn'
-                iconId='catalog-svg' 
-                iconPosition='top' 
-                label='Каталог'
-                size='middle'
-                onClick={handleNavBtnClick}
-              />
-              <SearchBtn />
+            <div className={styles.navbar__top}>
+              <div className={styles.navbar__block}>
+                <Button 
+                  className='headbtn'
+                  iconId='catalog-svg' 
+                  iconPosition='top' 
+                  label='Каталог'
+                  size='middle'
+                  onClick={handleNavBtnClick}
+                />
+                <SearchBtn />
 
-              <Link href="/">
-                <SvgSelector id="support-svg" />
-              </Link>
-            </div>
+                <Link href="/">
+                  <SvgSelector id="support-svg" />
+                </Link>
+              </div>
 
             <div className={styles.navbar__logo}>
-              <Link href="/">
-                <Image src={HeadLogo} alt='img'/>
-              </Link>
+              <Image src={HeadLogo} alt='img'/>
             </div>
 
             <div className={styles.navbar__items}>
               <LanguageSelector />
 
-              {isMounted && token && (
+              {isMounted && token ? (
                   <>
                     <button className={styles.navbar__shop_btn}>
                       <Link  href='/cart'><SvgSelector id='shop-svg'/></Link>
@@ -82,12 +84,32 @@ const Navbar = () => {
                     <div className={`${styles.navbar__user_modal} ${openModal === 'user' ? styles.open : ''}`}>
                       <div className={styles.navbar__user_inner}>
                         {ModalLinks.map((link: any) => (
-                          <Link href={link.href} className={styles.navbar__user_item} key={link.id}>
+                          <Link href={link.href} onClick={() => logOut(link.textKey)} className={styles.navbar__user_item} key={link.id}>
                             <SvgSelector id={link.id} />
                             <p>{t(link.textKey)}</p>
                           </Link>
                         ))}
                       </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={styles.navbar__btn_access}>
+                      <Button
+                        className='generalbtn'
+                        label={t('btn_access')}
+                        size='large'
+                        href='/auth'
+                      />
+                    </div>
+
+                    <div className={styles.navbar__btn_regist}>
+                      <Button
+                        className='line_btn'
+                        label={t('btn_regist')}
+                        size='large'
+                        href='/auth?step=regist'
+                      />
                     </div>
                   </>
                 )}

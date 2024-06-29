@@ -1,3 +1,8 @@
+import { BASE_URL } from "@/services/api";
+import useQueryApiClient from "@/utils/useQueryApiClient";
+import axios from "axios";
+import { useRouter } from "next/router";
+
 // utils/validation.ts
 export const validatePassword = (t: Function, currentValue: any, value: string) => {
   const passwordRegex = /^[a-zA-Z0-9_]{8,}$/;
@@ -16,11 +21,21 @@ export const validateConfirmPassword = (t: Function, getFieldValue: any) => ({
   },
 });
 
-export const validateEmail = (t: Function, currentValue: any, value: string) => {
+export async function validateEmail(t: Function, currentValue: any, value: string, isRegistPage: boolean = false) {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!emailRegex.test(value)) {
     return Promise.reject(new Error(t('emailIncorect')));
+  } else {
+    if (value  == 'regist') {
+      let response = await (await (axios.post(`${BASE_URL}api/check-email`, { email: value })).then(res => res.data.message))
+    if (response === "true") {
+      return Promise.reject(new Error(t('emailAlredyUsed')));
+    } else if (response  === "false") {
+      return Promise.resolve();
+    }
+    }
   }
+
   return Promise.resolve();
 };
 
@@ -32,7 +47,7 @@ export const validateConfirmCode = (t: Function, currentValue: any, value: strin
 };
 
 export const validatePhone = (t: Function, currentValue: any, value: string) => {
-  if (!/^\+998(\d){9}$/m.test(value)) {
+  if (!/^(\d){9}$/m.test(value)) {
     return Promise.reject(new Error(t('requiredTelMessage')));
   }
   return Promise.resolve();

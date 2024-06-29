@@ -198,7 +198,9 @@ a {
   display: flex;
   align-items: center;
 }
-
+.go_to_back .ant-breadcrumb a {
+  height: 0px;
+}
 .go_to_back .ant-breadcrumb-link a,
 .go_to_back .ant-breadcrumb-link p {
   font-size: var(--paragraph);
