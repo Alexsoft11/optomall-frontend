@@ -6,7 +6,7 @@
 
     .form {
         input {
-            font-size: var(--paragraph-two);
+            font-size: var(--paragraph-two) !important;
             font-weight: 400;
             line-height: 16.94px;
             padding: 12px;
@@ -33,6 +33,18 @@
         div {
             max-width: 100% !important;
             margin: 0px;
+
+            span {
+                display: flex;
+                align-items: center;
+
+                span {
+                    font-size: var(--paragraph-two);
+                    font-weight: 400;
+                    line-height: 16.94px;
+                    height: min-content;
+                }
+            }
         }
 
     }

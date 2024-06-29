@@ -30,7 +30,7 @@ export default function Cart() {
       <div>
         <GoToBack pathArr={[{ title: "cart", path: "" }]} />
         <PageTitle />
-        {CartMockdata.data.length ? <CartBasketPage /> : <CartBasketNoItems />}
+        {CartMockdata.data.length ? <CartBasketPage data={CartMockdata} /> : <CartBasketNoItems />}
       </div>
     </div>
   );

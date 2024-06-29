@@ -21,7 +21,7 @@ export default function Order() {
   return (
     <div className="container">
       <Head>
-        <title>{t("basket")}</title>
+        <title>{t("order")}</title>
       </Head>
       <div>
         <GoToBack pathArr={[{ title: "order", path: "" }]} />
