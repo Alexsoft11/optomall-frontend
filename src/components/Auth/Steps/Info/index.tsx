@@ -72,7 +72,7 @@ export default function Info() {
                             { validator: (rule, value) => validatePhone(t, rule, value) }
                         ]}
                     >
-                        <Input type='text' placeholder={t('tel')} />
+                        <Input type='text' prefix={'+998'} placeholder={'-- --- -- --'} />
                     </Form.Item>
 
                     <Form.Item className={styles.submitButton}>
