@@ -11,6 +11,8 @@ import { useRouter } from 'next/router';
 import CatalogTab from '../CatalogTab';
 import { useTranslations } from 'next-intl';
 import { useJwt } from '@/utils/useJwt';
+import { UseLogOut } from '@/utils/useLogOut';
+import { Button } from '@/ui';
 
 
 const Navbar = () => {
@@ -49,7 +51,7 @@ const Navbar = () => {
           <div className={styles.navbar__inner}>
             <div className={styles.navbar__top}>
               <div className={styles.navbar__block}>
-                <Button 
+                <Button
                   className='headbtn'
                   iconId='catalog-svg' 
                   iconPosition='top' 
@@ -119,25 +121,26 @@ const Navbar = () => {
 
           </div>
         </div>
-      </div>
-      
-      <div 
-        className={`${styles.wrap} ${(openModal === 'nav' || openModal === 'user') ? styles.open : ''}`} 
-        onClick={handleWrapBtnClick}
-      ></div>
+        </div>
+        
+        <div 
+          className={`${styles.wrap} ${(openModal === 'nav' || openModal === 'user') ? styles.open : ''}`} 
+          onClick={handleWrapBtnClick}
+        ></div>
 
-      <div className={styles.navbar__mobile}>
-        <div className={styles.navbar__mobile_inner}>
-          {NavLinks.map((item, idx) => (
-            <Link
-              className={`${styles.navbar__mobile_item} ${router.pathname === item.link ? styles.activeItem : ''}`}
-              key={idx}
-              href={item.link}
-            >
-              <SvgSelector id={`${item.key}-svg`} />
-              <p>{item.text}</p>
-            </Link>
-          ))}
+        <div className={styles.navbar__mobile}>
+          <div className={styles.navbar__mobile_inner}>
+            {NavLinks.map((item, idx) => (
+              <Link
+                className={`${styles.navbar__mobile_item} ${router.pathname === item.link ? styles.activeItem : ''}`}
+                key={idx}
+                href={item.link}
+              >
+                <SvgSelector id={`${item.key}-svg`} />
+                <p>{item.text}</p>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </>
