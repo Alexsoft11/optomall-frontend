@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from '@/ui/index';
 import { HeadLogo } from '$/assets/images/index';
 import { ModalLinks, NavLinks } from '@/constants/navbar';
 import styles from './Navbar.module.scss';
@@ -12,6 +11,7 @@ import { useRouter } from 'next/router';
 import CatalogTab from '../CatalogTab';
 import { useTranslations } from 'next-intl';
 import { useJwt } from '@/utils/useJwt';
+import { Button } from '@/ui';
 
 
 const Navbar = () => {
@@ -61,7 +61,9 @@ const Navbar = () => {
             </div>
 
             <div className={styles.navbar__logo}>
-              <Image src={HeadLogo} alt='img'/>
+              <Link href="/">
+                <Image src={HeadLogo} alt='img'/>
+              </Link>
             </div>
 
             <div className={styles.navbar__items}>

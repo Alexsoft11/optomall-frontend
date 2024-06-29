@@ -2,13 +2,16 @@ import React, { useState } from 'react'
 import styles from './Search.module.scss'
 import SvgSelector from '$/assets/icons/SvgSelector'
 import Card from '@/components/Card'
-import { CardsMockData } from '@/mockdata/Cards'
 import SearchBtn from '@/components/SearchBtn'
 import { useTranslations } from 'next-intl'
 
-const Search = () => {
+interface Props {
+    data: any;
+}
+
+const Search = ({ data }: Props) => {
     const t = useTranslations("Search")
-    const [activePlatform, setActivePlatform] = useState('alibaba');
+    const [activePlatform, setActivePlatform] = useState('taobao');
 
     const handleButtonClick = (platform: any) => {
         setActivePlatform(platform);
@@ -27,7 +30,7 @@ const Search = () => {
                                 className={`${styles.search__platform_btn} ${activePlatform === 'alibaba' ? styles.active : ''}`}
                                 onClick={() => handleButtonClick('alibaba')}
                             >
-                                <SvgSelector id="alibaba-svg"/>
+                                <SvgSelector id="1688-svg"/>
                                 <span>1688</span>
                             </button>
 
@@ -41,7 +44,7 @@ const Search = () => {
                         </div>
 
                         <div className={styles.search__btn}>
-                            <SearchBtn/>
+                            <SearchBtn />
                         </div>
 
                         <div className={styles.search__top}>
@@ -60,7 +63,7 @@ const Search = () => {
                     </div>
 
                     <div className={styles.search__cards}>
-                        {CardsMockData.map((el: any, idx: number) => (
+                        {data?.map((el: any, idx: number) => (
                             <Card key={el.id} path={el.id} data={el} idx={idx} />
                         ))}
                     </div>

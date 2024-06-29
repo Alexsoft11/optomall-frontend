@@ -2,6 +2,7 @@ import React from "react";
 import { Input as AntdInput } from "antd";
 import { Rule } from "rc-field-form/lib/interface";
 import FormItem from "antd/es/form/FormItem";
+import { StyledInput } from "./style";
 
 const { Password } = AntdInput;
 
@@ -98,7 +99,7 @@ export const Input = ({
           className={className}
         />
       ) : (
-        <AntdInput
+        <StyledInput
           disabled={disabled}
           placeholder={placeholder}
           required={required}
