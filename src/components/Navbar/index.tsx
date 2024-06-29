@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 import CatalogTab from '../CatalogTab';
 import { useTranslations } from 'next-intl';
 import { useJwt } from '@/utils/useJwt';
-import { useLogOut } from '@/utils/useLogOut';
+import { UseLogOut } from '@/utils/useLogOut';
 
 
 const Navbar = () => {
@@ -29,7 +29,7 @@ const Navbar = () => {
   }, []);
 
   const logOut = (textKey: string) => {
-    if (textKey === 'logout') useLogOut()
+    if (textKey === 'logout') UseLogOut()
   }
 
   const handleUserBtnClick = () => {

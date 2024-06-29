@@ -10,10 +10,9 @@ interface Props {
     cost: number;
     itemValue?: number,
     orderId?: string,
-    orderItems: CartOrderItemInterface[]
 }
 
-export default function CartOrderBlock({ cost, itemValue, orderId, orderItems }: Props) {
+export default function CartOrderBlock({ cost, itemValue, orderId }: Props) {
     const t = useTranslations('Cart')
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [responseModal, setResponseModal] = useState(false);

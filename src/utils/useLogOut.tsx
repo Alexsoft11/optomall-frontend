@@ -3,7 +3,7 @@ import Cookies from 'universal-cookie';
 
 
 
-export const useLogOut = () => {
+export const UseLogOut = () => {
     const rout = useRouter();
     const cookies = new Cookies();
     if (!cookies.get('token')) return ''
