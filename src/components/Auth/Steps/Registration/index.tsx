@@ -62,7 +62,7 @@ export default function Registration({setModalIsOpen}: Props) {
                     <Form.Item
                         name="email"
                         rules={[
-                            { validator: (rule, value) => validateEmail(t, rule, value)}
+                            { validator: (rule, value) => validateEmail(t, rule, value, true)}
                         ]}
                         validateTrigger={'onBlur'}
                     >
