@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './SignIn.module.scss';
 import { Form, Input, message } from 'antd';
 import { Button } from '@/ui';
@@ -10,6 +10,7 @@ import useQueryApiClient from '@/utils/useQueryApiClient';
 import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router';
 import GoToBack from '@/components/GoToBack';
+import { LoginErrInterface } from '@/interfaces';
 
 
 export default function SignIn() {
@@ -18,6 +19,8 @@ export default function SignIn() {
     const cookies = new Cookies();
     const expirationDate = new Date();
     const router = useRouter();
+    const [loginErr, setLoginErr] = useState<LoginErrInterface | null>(null)
+
     expirationDate.setDate(expirationDate.getDate() + 3);
 
     const { appendData: createData } = useQueryApiClient({
@@ -30,6 +33,9 @@ export default function SignIn() {
             message.success(res.message)
             setTimeout(() => router.push('/'), 2000)
             cookies.set('token', Buffer.from(res.token).toString('base64'), { expires: expirationDate })
+        },
+        onError(err) {
+            setLoginErr(err);
         }
     })
 
@@ -54,8 +60,10 @@ export default function SignIn() {
                 >
                     <Form.Item
                         name="email"
+                        validateStatus={(loginErr?.message === "email_doesnt_exist"? 'error' : undefined)}
+                        help={loginErr?.message === "email_doesnt_exist"? t(loginErr?.message): null}
                         rules={[
-                            { validator: (rule, value) => validateEmail(t, rule, value) }
+                            { validator: (rule, value) => validateEmail(t, rule, value) },
                         ]}
                     >
                         <Input type="email" placeholder={t("email")} />
@@ -63,8 +71,11 @@ export default function SignIn() {
 
                     <Form.Item
                         name="password"
+                        validateStatus={(loginErr?.message === "wrong_password" ? 'error' : undefined)}
+                        help={loginErr?.message === "wrong_password"? t(loginErr?.message): null}
                         rules={[
-                            { validator: (rule, value) => validatePassword(t, rule, value) }
+                            { validator: (rule, value) => validatePassword(t, rule, value) },
+
                         ]}
                         hasFeedback
                     >

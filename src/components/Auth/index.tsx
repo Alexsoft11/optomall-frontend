@@ -55,12 +55,10 @@ export default function AuthPage() {
               <LanguageSelector />
             </div>
             {rout.query.step === "signin" || !rout.query.step ? <SignIn /> : null}
-            {rout.query.step === "regist" ? <Registration /> : null}
-            {rout.query.step === "info" ? <Info /> : null}
+            {rout.query.step === "regist" ? <Registration setModalIsOpen={setModalIsOpen} /> : null}
+            {rout.query.step === "info" && rout.query.id ? <Info /> : null}
             {rout.query.step === "reset" ? <NewPassword /> : null}
-            {rout.query.step === "forgot-password" ? (
-              <ForgotPassword setModalIsOpen={setModalIsOpen} />
-            ) : null}
+            {rout.query.step === "forgot-password" ? <ForgotPassword setModalIsOpen={setModalIsOpen} /> : null}
           </div>
         </div>
       </div>

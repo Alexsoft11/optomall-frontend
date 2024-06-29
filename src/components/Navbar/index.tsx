@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import CatalogTab from '../CatalogTab';
 import { useTranslations } from 'next-intl';
 import { useJwt } from '@/utils/useJwt';
+import { UseLogOut } from '@/utils/useLogOut';
 
 
 const Navbar = () => {
@@ -26,6 +27,10 @@ const Navbar = () => {
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  const logOut = (textKey: string) => {
+    if (textKey === 'logout') UseLogOut()
+  }
 
   const handleUserBtnClick = () => {
     setOpenModal(openModal === 'user' ? null : 'user');
@@ -82,7 +87,7 @@ const Navbar = () => {
                     <div className={`${styles.navbar__user_modal} ${openModal === 'user' ? styles.open : ''}`}>
                       <div className={styles.navbar__user_inner}>
                         {ModalLinks.map((link: any) => (
-                          <Link href={link.href} className={styles.navbar__user_item} key={link.id}>
+                          <Link href={link.href} onClick={() => logOut(link.textKey)} className={styles.navbar__user_item} key={link.id}>
                             <SvgSelector id={link.id} />
                             <p>{t(link.textKey)}</p>
                           </Link>

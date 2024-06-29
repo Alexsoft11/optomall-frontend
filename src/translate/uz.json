@@ -14,6 +14,16 @@
         "currency": "so'm",
         "loadingData": "Ma'lumotlar yuklanmoqda..."
     },
+    "Error": {
+        "user_registered_successfully": "Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi",
+        "user_already_registrated": "Foydalanuvchi allaqachon ro'yxatdan o'tgan",
+        "incorrect_login_or_password": "Noto'g'ri login yoki parol",
+        "data_added_successfully": "Ma'lumotlar muvaffaqiyatli qo'shildi",
+        "profile_updated_successfully": "Profil muvaffaqiyatli yangilandi",
+        "unauthenticated": "Tasdiqlanmagan",
+        "invalid_data": "Noto'g'ri ma'lumotlar",
+        "order_created_successfully": "Buyurtma muvaffaqiyatli yaratildi"
+    },
     "Navbar": {
         "account": "Mening hisobim",
         "messages": "Mening xabarlarim",
@@ -56,7 +66,10 @@
         "haveAccount": "Hisobingiz bormi?",
         "requiredTelMessage": "Iltimos, haqiqiy telefon raqamini kiriting",
         "requiredNameMessage": "Iltimos, ismingizni kiriting",
-        "requiredSecondNameMessage": "Iltimos, familiyangizni kiriting"
+        "requiredSecondNameMessage": "Iltimos, familiyangizni kiriting",
+        "emailAlredyUsed": "elektron pochta allaqachon band qilingan!",
+        "wrong_password": "noto‘g‘ri parol",
+        "email_doesnt_exist": "elektron pochta ro‘yxatdan o‘tmagan"
     },
     "Cart": {
         "item": "Mahsulotlar",

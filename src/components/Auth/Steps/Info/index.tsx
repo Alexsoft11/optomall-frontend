@@ -6,23 +6,27 @@ import { useTranslations } from 'next-intl';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import { validatePhone } from '../../Functions';
 import GoToBack from '@/components/GoToBack';
+import { useRouter } from 'next/router';
 
 export default function Info() {
     const [form] = Form.useForm();
     const t = useTranslations("Auth");
+    const router = useRouter()
 
     const { appendData: createData } = useQueryApiClient({
         request: {
-            url: 'prsonal-data',
+            url: 'personal-data',
             method: 'POST',
             disableOnMount: true,
         },
         onSuccess(res) {
             message.success(res.message)
+            router.push('/auth')
         }
     })
 
     const onFinish = (values: any) => {
+        values.unique_id = router.query.id
         createData(values)
     }
 
@@ -72,7 +76,7 @@ export default function Info() {
                             { validator: (rule, value) => validatePhone(t, rule, value) }
                         ]}
                     >
-                        <Input type='text' placeholder={t('tel')} />
+                        <Input type='text' prefix={'+998'} placeholder={'-- --- -- --'} />
                     </Form.Item>
 
                     <Form.Item className={styles.submitButton}>
