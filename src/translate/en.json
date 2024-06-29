@@ -3,8 +3,25 @@
         "cart": "Cart",
         "order": "Order",
         "home": "Home",
+        "messages": "My Messages",
+        "catalog": "Catalog",
+        "my-reviews": "My Reviews",
+        "registration": "Register",
+        "signin": "Sign In",
+        "back": "Back",
+        "results": "Search Results",
         "purchases": "My Purchases",
-        "currency": "uzs"
+        "currency": "uzs",
+        "loadingData": "Loading data..."
+    },
+    "Navbar": {
+        "account": "My Account",
+        "messages": "My Messages",
+        "purchases": "My Purchases",
+        "customs": "How Customs Clearance is Calculated",
+        "logout": "Logout",
+        "btn_access": "Access",
+        "btn_regist": "Register"
     },
     "UiModal": {
         "success": "Receipt successfully confirmed",
@@ -35,7 +52,11 @@
         "modalMessage": "We have sent you a confirmation email!",
         "minSymbolPassword": "Password must be at least 8 characters",
         "passwordsIsDifferent": "Passwords do not match",
-        "emailIncorect": "Enter a valid email address"
+        "emailIncorect": "Enter a valid email address",
+        "haveAccount": "Do you have an account?",
+        "requiredTelMessage": "Please enter a valid phone number",
+        "requiredNameMessage": "Please enter your name",
+        "requiredSecondNameMessage": "Please enter your last name"
     },
     "Cart": {
         "item": "Items",
@@ -57,7 +78,8 @@
     "Order": {
         "payCost": "Amount to be paid: ",
         "cardNumber": "Recipient's card number: ",
-        "payTutorialText": "Copy the card number below, then open your bank app and transfer the amount specified below in a single payment. Note! You need to transfer the exact amount specified below!"
+        "payTutorialText": "Copy the card number below, then open your bank app and transfer the amount specified below in a single payment. Note! You need to transfer the exact amount specified below!",
+        "textCopyed": "Text copied!"
     },
     "Purchases": {
         "active": "Active",
@@ -73,5 +95,26 @@
         "moreDetail": "More Detail",
         "orderCost": "Total Cost:",
         "currency": "uzs"
+    },
+    "MyReviews": {
+        "waitForReview": "Waiting for Review",
+        "reviewed": "Reviewed",
+        "review": "Leave a Review",
+        "reviewProduct": "Rate the Product",
+        "enterComment": "Enter Comment",
+        "sendReview": "Publish"
+    },
+    "Products": {
+        "tab_1": "Discount",
+        "tab_2": "Top Products",
+        "tab_3": "Recommended for you"
+    },
+    "Account": {
+      "change": "Change",
+      "mail": "Email",
+      "name":"Name",
+      "phone":"Phone number",
+      "confirm":"Confirm"
+
     }
 }

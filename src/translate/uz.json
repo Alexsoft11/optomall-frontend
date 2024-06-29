@@ -1,10 +1,27 @@
 {
     "GLOBAL": {
         "cart": "Savat",
-        "order": "Buyurtma qilish",
+        "order": "Buyurtma",
         "home": "Bosh sahifa",
+        "messages": "Mening xabarlarim",
+        "catalog": "Katalog",
+        "my-reviews": "Mening sharhlarim",
+        "registration": "Ro'yxatdan o'tish",
+        "signin": "Kirish",
+        "back": "Orqaga",
+        "results": "Qidiruv natijalari",
         "purchases": "Mening xaridlarim",
-        "currency": "so'm"
+        "currency": "so'm",
+        "loadingData": "Ma'lumotlar yuklanmoqda..."
+    },
+    "Navbar": {
+        "account": "Mening hisobim",
+        "messages": "Mening xabarlarim",
+        "purchases": "Mening xaridlarim",
+        "customs": "Bojxona hisoblash qanday amalga oshiriladi",
+        "logout": "Chiqish",
+        "btn_access": "Kirish",
+        "btn_regist": "Ro’yxatdan o’tish"
     },
     "UiModal": {
         "success": "Chek muvaffaqiyatli tasdiqlandi",
@@ -35,7 +52,11 @@
         "modalMessage": "Biz sizga tasdiqlash xatini yubordik!",
         "minSymbolPassword": "Parol kamida 8 ta belgidan iborat bo'lishi kerak",
         "passwordsIsDifferent": "Parollar mos kelmaydi",
-        "emailIncorect": "Yaroqli elektron pochta manzilini kiriting"
+        "emailIncorect": "Yaroqli elektron pochta manzilini kiriting",
+        "haveAccount": "Hisobingiz bormi?",
+        "requiredTelMessage": "Iltimos, haqiqiy telefon raqamini kiriting",
+        "requiredNameMessage": "Iltimos, ismingizni kiriting",
+        "requiredSecondNameMessage": "Iltimos, familiyangizni kiriting"
     },
     "Cart": {
         "item": "Mahsulotlar",
@@ -57,7 +78,8 @@
     "Order": {
         "payCost": "To'lanadigan summa: ",
         "cardNumber": "Oluvchining karta raqami: ",
-        "payTutorialText": "Quyidagi karta raqamini nusxalab oling, so'ngra bank ilovangizni oching va ko'rsatilgan summani bir to'lov bilan ushbu raqamga o'tkazing. Diqqat! Quyida ko'rsatilgan aniq summani o'tkazish kerak!"
+        "payTutorialText": "Quyidagi karta raqamini nusxalab oling, so'ngra bank ilovangizni oching va ko'rsatilgan summani bir to'lov bilan ushbu raqamga o'tkazing. Diqqat! Quyida ko'rsatilgan aniq summani o'tkazish kerak!",
+        "textCopyed": "Matn ko'chirildi!"
     },
     "Purchases": {
         "active": "Faol",
@@ -73,5 +95,25 @@
         "moreDetail": "Batafsil",
         "orderCost": "Umumiy summa:",
         "currency": "so'm"
+    },
+    "MyReviews": {
+        "waitForReview": "Baho berish kutilmoqda",
+        "reviewed": "Baholangan",
+        "review": "Sharh qoldirish",
+        "reviewProduct": "Mahsulotni baholash",
+        "enterComment": "Izoh kiriting",
+        "sendReview": "Nashr qilish"
+    },
+    "Products": {
+        "tab_1": "Chegirma",
+        "tab_2": "Eng yaxshi mahsulotlar",
+        "tab_3": "Siz uchun tavsiya etamiz"
+    },
+    "Account": {
+      "change": "ozgartirish",
+      "mail": "Elektron pochta",
+      "name":"Ism",
+      "phone":"Telefon raqami",
+      "confirm":"Tasdiqlash"
     }
 }

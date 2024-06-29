@@ -16,8 +16,8 @@
         }
         svg {
           transition: 0.5s ease;
-          width: 16px;
-          height: 16px;
+          max-width: 24px;
+          max-height: 24px;
         }
       }
       .flag {

@@ -34,7 +34,7 @@ export default function CartBasketPage({data}:Props) {
     <div className={styles.main}>
       <CartBasketItems setAddOrder={setAddOrder} data={data} />
       <div className={styles.order_side}>
-        <CartOrderBlock orderItems={orderItems} cost={CartOrderMockdata.count} />
+        <CartOrderBlock itemValue={CartOrderMockdata.itemsValue} cost={CartOrderMockdata.count} />
         <CartGetOrder />
       </div>
     </div>

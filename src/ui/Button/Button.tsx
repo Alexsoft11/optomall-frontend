@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Button as AntdButton } from "antd";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import { StyledButton } from './style';
+import { LoadingSpinner } from "../Spin";
+import Link from "next/link";
 
 export interface ButtonProps {
   shape?: "circle" | "round";
@@ -25,6 +27,8 @@ export interface ButtonProps {
   iconPosition?: "left" | "right" | "top" | "bottom";
   style?: React.CSSProperties | undefined;
   icon?: React.ReactNode;
+  isLoading?: boolean;
+  href?: string;
 }
 
 export const Button = ({
@@ -49,6 +53,8 @@ export const Button = ({
   iconPosition,
   style,
   icon,
+  isLoading,
+  href,
 }: ButtonProps) => {
   const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
 
@@ -96,7 +102,20 @@ export const Button = ({
       onMouseMove={handleMouseMove}
     >
       {(isLeftPosition || isTopPosition) && <SvgSelector id={String(iconId)} />}
-      {!!label && <span className="text">{label}</span>}
+      
+      {isLoading ? (
+        <LoadingSpinner className="products_spin" spinning={true} size="large" />
+      ) : (
+        href ? (
+          <Link href={href}>
+            {label && <span className="text">{label}</span>}
+          </Link>
+        ) : (
+          label && <span className="text">{label}</span>
+        )
+      )}
+
+
       {(isRightPosition || isBottomPosition) && <SvgSelector id={String(iconId)} />}
     </StyledButton>
   );

@@ -5,6 +5,14 @@ const nextConfig = {
     locales: ["en", "ru", "uz"],
     defaultLocale: "ru",
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
   compiler: {
     styledComponents: true,
   },

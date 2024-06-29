@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import GoogleButton from '../../GoogleButton';
 import { validateConfirmCode, validateConfirmPassword, validateEmail, validatePassword } from '../../Functions';
 import useQueryApiClient from '@/utils/useQueryApiClient';
+import GoToBack from '@/components/GoToBack';
 
 export default function NewPassword() {
     const [form] = Form.useForm();
@@ -19,10 +20,7 @@ export default function NewPassword() {
         },
         onSuccess(res) {
             message.success(res.message)
-        },
-        onError(err) {
-            message.error(err.error)
-        }  
+        }
     })
 
     const onFinish = (values: any) => {
@@ -31,6 +29,7 @@ export default function NewPassword() {
 
     return (
         <div className={styles.main}>
+            <GoToBack backUrl='/auth?step=forgot-password' />
             <h1>{t('reset')}</h1>
             <p className={styles.desc}>Lorem, ipsum dolor sit amet</p>
             <div className={styles.form}>
