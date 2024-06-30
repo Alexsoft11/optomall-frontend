@@ -49,12 +49,12 @@ const Search = ({ data }: Props) => {
                     </div>
 
                     <div className={styles.search__top}>
-                        <div className={styles.search__nav}>
+                        {/* <div className={styles.search__nav}>
                             <button>Lorem ipsum</button>
                             <button>Lorem ipsum</button>
                             <button>Lorem ipsum</button>
                             <button>Lorem ipsum</button>
-                        </div>
+                        </div> */}
 
                         <div className={styles.search__btns}>
                             <button><span>Lorem, ipsum.</span> <SvgSelector id="sorting-svg"/></button>
