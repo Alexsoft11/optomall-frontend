@@ -27,14 +27,10 @@ const Products = dynamic(
 
 interface HomeProps {
   sliders: SlidersDataInterface[];
-  products: CardInterface[];
+  products: any;
 }
 
-export default function Home({
-  sliders,
-  products,
-}: HomeProps) {
-  console.log(products, 'slidersData')
+export default function Home({ sliders, products }: HomeProps) {
   return (
     <>
       <Head>
@@ -42,25 +38,29 @@ export default function Home({
       </Head>
       <MainSlider data={sliders} />
       <Category />
-      <Products products={products}/>
+      <Products products={products} />
     </>
   );
 }
 
 export const getServerSideProps = async (context: any) => {
-  const slidersResponse = await API.getHomePageSlider().then((res: any) => res.data).catch((error: any) => {
-    return { data: [] };
-  });
+  try {
+    const slidersResponse = await API.getHomePageSlider();
+    const productsResponse = await API.getHomePageProducts();
 
-  const productsResponse = await API.getHomePageProducts().then((res: any) => res.data).catch((error: any) => {
-    return { data: [] };
-  });
-
-
-  return {
+    return {
       props: {
         sliders: slidersResponse.data || [],
         products: productsResponse.data || [],
       },
     };
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+    return {
+      props: {
+        sliders: [],
+        products: [],
+      },
+    };
+  }
 };
