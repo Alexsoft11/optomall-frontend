@@ -12,7 +12,12 @@
     .forms_side {
         display: flex;
         flex-direction: column;
-        
+
+        @media (max-width: 2000px) {
+            max-width: 400px;
+            width: 100%;
+        }
+
         .language_selector__block {
             position: absolute;
             top: 18px;

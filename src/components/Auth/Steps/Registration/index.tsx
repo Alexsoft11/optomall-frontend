@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Registration.module.scss";
-import { Form, Input, message } from "antd";
-import { Button } from "@/ui";
+import { Form, message } from "antd";
+import { Button, Input } from "@/ui";
 import GoogleButton from "../../GoogleButton";
 import {
   validateConfirmPassword,
@@ -21,9 +21,10 @@ interface Props {
 
 export default function Registration({ setModalIsOpen }: Props) {
   const [form] = Form.useForm();
-  const t = useTranslations("Auth");
+  const t = useTranslations("");
   const router = useRouter();
   const [handleError] = useHandleError(form);
+  const [isLoading, setIsLoading] = useState(false)
 
   const { appendData: createData } = useQueryApiClient({
     request: {
@@ -32,24 +33,27 @@ export default function Registration({ setModalIsOpen }: Props) {
       disableOnMount: true,
     },
     onSuccess(res) {
-      message.success(res.message);
+      message.success(t(`Error.${res.message}`));
       setModalIsOpen(true);
       setTimeout(() => router.push("auth/"), 1500);
+      setIsLoading(false)
     },
     onError(res) {
       handleError(res);
+      setIsLoading(false)
     },
   });
 
   const onFinish = (values: any) => {
+    setIsLoading(true)
     createData(values);
   };
 
   return (
     <div className={styles.main}>
       <GoToBack pathArr={[{ title: "registration", path: "" }]} />
-      <h1>{t("regist")}</h1>
-      <p className={styles.desc}>Lorem, ipsum dolor sit amet</p>
+      <h1>{t("Auth.regist")}</h1>
+      <p className={styles.desc}>{t('Auth.regisrtationDescription')}</p>
       <div className={styles.form}>
         <Form
           form={form}
@@ -66,7 +70,8 @@ export default function Registration({ setModalIsOpen }: Props) {
           }}
           autoComplete="off"
         >
-          <Form.Item
+
+          <Input
             name="email"
             rules={[
               {
@@ -74,44 +79,38 @@ export default function Registration({ setModalIsOpen }: Props) {
               },
             ]}
             validateTrigger={"onBlur"}
-          >
-            <Input
-              type="email"
-              className={styles.input}
-              placeholder={t("email")}
-            />
-          </Form.Item>
+            type="email"
+            className={styles.input}
+            placeholder={t("Auth.email")}
+          />
 
-          <Form.Item
+          <Input
             name="password"
             rules={[
-              { validator: (rule, value) => validatePassword(t, rule, value) },
+              {
+                validator: (rule, value) => validatePassword(t, rule, value),
+              },
             ]}
-            hasFeedback
-          >
-            <Input.Password type="password" placeholder={t("yourPassword")} />
-          </Form.Item>
+            type="password"
+            placeholder={t("Auth.yourPassword")}
+          />
 
-          <Form.Item
+          <Input
             name="confirm_password"
-            hasFeedback
             rules={[
               {
                 validator: (rule, value) =>
                   validateConfirmPassword(t, form).validator(rule, value),
               },
             ]}
-          >
-            <Input.Password
-              type="password"
-              placeholder={t("repeatYourPassword")}
-            />
-          </Form.Item>
+            type="password"
+            placeholder={t("Auth.repeatYourPassword")}
+          />
 
           <span className={styles.have_account}>
-            {t("haveAccount")}
+            {t("Auth.haveAccount")}
 
-            <Link href="/auth">{t("signin")}</Link>
+            <Link href="/auth">{t("Auth.signin")}</Link>
           </span>
 
           <Form.Item className={styles.submitButton}>
@@ -119,13 +118,17 @@ export default function Registration({ setModalIsOpen }: Props) {
               type="primary"
               htmlType="submit"
               className="generalbtn"
-              label={t("regist")}
+              label={t("Auth.regist")}
+              isLoading={isLoading}
             />
-          </Form.Item>
-        </Form>
+          </Form.Item >
 
-        <GoogleButton />
-      </div>
-    </div>
+          <GoogleButton />
+
+
+
+        </Form >
+      </div >
+    </div >
   );
 }
