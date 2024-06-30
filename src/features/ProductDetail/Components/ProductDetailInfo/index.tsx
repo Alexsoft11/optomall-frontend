@@ -75,6 +75,7 @@ const ProductDetailInfo = ({
         selectedColor={selectedColor}
         setTotalQuantities={setTotalQuantities}
         selectedColors={selectedColors}
+        setSelectedColors={setSelectedColors}
       />
     </div>
   );

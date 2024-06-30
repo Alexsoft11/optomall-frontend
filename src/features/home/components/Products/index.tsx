@@ -47,7 +47,7 @@ const Products = ({ getProductsData, products, isProductsLoading }: Props) => {
               <LoadingSpinner className="products_spin" spinning={true} tip={t('loadingData')} size="large" />
             ) : (
               products.map((el: CardInterface, idx: number) => (
-                <Card key={el.id} path={el.id} data={el} idx={idx} />
+                <Card key={el.id}  data={el} idx={idx} />
               ))
             )}
           </div>

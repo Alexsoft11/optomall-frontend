@@ -5,6 +5,7 @@
         "img text text"
         "img . change_value";
     grid-template-columns: 98px minmax(100px, auto) 130px;
+    column-gap: 20px;
     justify-self: end;
     grid-template-rows: 30px 60px 40px;
 

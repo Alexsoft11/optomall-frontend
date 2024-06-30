@@ -9,10 +9,17 @@ import { useTranslations } from "next-intl";
 
 interface Props {
   item: CartOrderItemInterface;
+  setAddOrder: React.Dispatch<React.SetStateAction<CartOrderItemInterface | null>>,
 }
 
-export default function CartBasketItem({ item }: Props) {
-  const t = useTranslations('GLOBAL')
+export default function CartBasketItem({ item, setAddOrder }: Props) {
+  const t = useTranslations('GLOBAL');
+
+  const handleChange = () => {
+    setAddOrder(item)
+  }
+
+
   return (
     <div className={styles.main}>
       <div className={styles.item_img}>
@@ -32,7 +39,7 @@ export default function CartBasketItem({ item }: Props) {
 
       <div className={styles.checkbox_block}>
         <div className={styles.Checkbox}>
-          <Checkbox />
+          <Checkbox onChange={handleChange} />
         </div>
       </div>
 

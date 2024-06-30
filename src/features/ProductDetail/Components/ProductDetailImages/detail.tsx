@@ -6,7 +6,7 @@ import Image from "next/image";
 import SliderSection from "../SliderSection";
 import { detailData } from "@/mockdata/detailData";
 
-const isMobile = (windowWidth: number) => windowWidth > 560;
+const isMobile = (windowWidth: number) => windowWidth > 850;
 
 const Detail = ({ selectedImage }: any) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -25,15 +25,10 @@ const Detail = ({ selectedImage }: any) => {
   return (
     <>
       <div className={styles.detail}>
-        {isMobile(windowWidth) ? (
-          <div className={styles.imagePreview}>
+      <div className={styles.imagePreview}>
             <Image src={selectedImage} alt='Selected' fill />
           </div>
-        ) : (
-          <>
-            <SliderSection data={detailData} />
-          </>
-        )}
+
       </div>
     </>
   );

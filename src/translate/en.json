@@ -14,12 +14,24 @@
         "currency": "uzs",
         "loadingData": "Loading data..."
     },
+    "Error": {
+        "user_registered_successfully": "User registered successfully",
+        "user_already_registrated": "User is already registered",
+        "incorrect_login_or_password": "Incorrect login or password",
+        "data_added_successfully": "Data added successfully",
+        "profile_updated_successfully": "Profile updated successfully",
+        "unauthenticated": "Unauthenticated",
+        "invalid_data": "Invalid data",
+        "order_created_successfully": "Order created successfully"
+    },
     "Navbar": {
         "account": "My Account",
         "messages": "My Messages",
         "purchases": "My Purchases",
         "customs": "How Customs Clearance is Calculated",
-        "logout": "Logout"
+        "logout": "Logout",
+        "btn_access": "Access",
+        "btn_regist": "Register"
     },
     "UiModal": {
         "success": "Receipt successfully confirmed",
@@ -54,7 +66,10 @@
         "haveAccount": "Do you have an account?",
         "requiredTelMessage": "Please enter a valid phone number",
         "requiredNameMessage": "Please enter your name",
-        "requiredSecondNameMessage": "Please enter your last name"
+        "requiredSecondNameMessage": "Please enter your last name",
+        "emailAlredyUsed": "email is already in use!",
+        "wrong_password": "incorrect password",
+        "email_doesnt_exist": "email is not registered"
     },
     "Cart": {
         "item": "Items",
@@ -106,5 +121,13 @@
         "tab_1": "Discount",
         "tab_2": "Top Products",
         "tab_3": "Recommended for you"
+    },
+    "Account": {
+      "change": "Change",
+      "mail": "Email",
+      "name":"Name",
+      "phone":"Phone number",
+      "confirm":"Confirm"
+
     }
 }

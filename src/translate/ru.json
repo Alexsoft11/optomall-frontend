@@ -14,6 +14,16 @@
         "currency": "сум",
         "loadingData": "Загрузка данных..."
     },
+    "Error": {
+        "user_registered_successfully": "Пользователь успешно зарегистрирован",
+        "user_already_registrated": "Пользователь уже зарегистрирован",
+        "incorrect_login_or_password": "Неверный логин или пароль",
+        "data_added_successfully": "Данные успешно добавлены",
+        "profile_updated_successfully": "Профиль успешно обновлен",
+        "unauthenticated": "Неавторизован",
+        "invalid_data": "Неверные данные",
+        "order_created_successfully": "Заказ успешно создан"
+    },
     "Navbar": {
         "account": "Мой аккаунт",
         "messages": "Мои сообщения",
@@ -54,7 +64,10 @@
         "haveAccount": "У вас есть аккаунт?",
         "requiredTelMessage": "Введите действительный номер телефона",
         "requiredNameMessage": "Введите имя",
-        "requiredSecondNameMessage": "Введите фамилию"
+        "requiredSecondNameMessage": "Введите фамилию",
+        "emailAlredyUsed": "электронная почта уже занята!",
+        "wrong_password": "неверный пароль",
+        "email_doesnt_exist": "электронная почта не зарегистрирована"
     },
     "Cart": {
         "item": "Товаров",
@@ -94,7 +107,7 @@
         "orderCost": "Общая сумма:",
         "currency": "сум"
     },
-    "MyReviews" : {
+    "MyReviews": {
         "waitForReview": "Ждут оценки",
         "reviewed": "Оставленные",
         "review": "Оставит отзыв",

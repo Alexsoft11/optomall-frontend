@@ -16,16 +16,17 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
     const [CatalogTabsData, setCatalogTabsData] = useState<CategoryCatalogInterface[]>([]);
     const [subCategoryData, setSubCategoryData] = useState<SubCategoryInterface[]>([]);
     const [activeTab, setActiveTab] = useState('1');
-    const textRef = useRef<any>(null);
-    const [isOverflowed, setIsOverflowed] = useState(false);
+    const textRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+    const [overflowStates, setOverflowStates] = useState<boolean[]>([]);
 
     useEffect(() => {
-        const { current } = textRef;
-        if (current) {
-          setIsOverflowed(current?.scrollWidth > current?.clientHeight);
-        }
-    }, [textRef]);
-
+        const newOverflowStates = CatalogTabsData.map((_, index) => {
+            const current = textRefs.current[index];
+            return current && current.textContent ? current.textContent.length >= 25 : false;
+        });
+        setOverflowStates(newOverflowStates);
+    }, [CatalogTabsData]);
+    
     const truncateText = (text: any, maxLength: any) => {
         if (text.length <= maxLength) {
             return text;
@@ -69,16 +70,19 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
                 tabPosition="left"
                 className={`${styles.navigation__tab} navigation_btn`}
             >
-                {CatalogTabsData.map(tab => (
+                {CatalogTabsData.map((tab, idx) => (
                     <TabPane
                         key={tab.id}
                         tab={
                             <Tooltip
                                 overlayClassName="tooltip-white"
-                                title={isOverflowed ? tab.name : ""}
+                                title={overflowStates[idx] ? tab.name : ""}
                             >
                                 <p
-                                    ref={textRef}
+                                    ref={el => {
+                                        textRefs.current[idx] = el;
+                                    }}
+                                    className={styles.navigation__title}
                                 >
                                     {truncateText(tab.name, 25)}
                                 </p>

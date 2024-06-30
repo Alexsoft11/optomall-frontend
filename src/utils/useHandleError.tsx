@@ -1,17 +1,29 @@
+import { message } from "antd";
+import { useTranslations } from "next-intl";
+import { FormInstance } from "antd/lib/form";
 
 interface ErrorProps {
-  data: any;
-  error: string;
-  global?: boolean;
+  data?: any;
+  error?: boolean;
+  message?: string;
+  errors?: any;
 }
 
-function useHandleError() {
-  // const intl = useIntl();
+function useHandleError(form?: FormInstance) {
+  const t = useTranslations("Error");
+
   const handleError = (data: ErrorProps) => {
-    if (data.global && data.error) {
-      // message.error(intl.formatMessage({ id: data.error }));
-    }  
-    // smoothScroll('top', 0);
+    if (data.error && data.message !== "validation_errors") {
+      message.error(t(data.message));
+    } else if (data.message === "validation_errors" && form) {
+      const fields = Object.keys(data.errors).map((field) => ({
+        name: field,
+        errors: data.errors[field].map((error: string) =>
+          t(`${field}.${error}`)
+        ),
+      }));
+      form.setFields(fields);
+    }
   };
 
   return [handleError];

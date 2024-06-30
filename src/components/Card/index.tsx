@@ -11,14 +11,13 @@ import { Tooltip } from "antd";
 interface CardProps {
   data: CardInterface;
   idx: number;
-  path?: string;
 }
 
-const Card = ({ data, idx, path = "#" }: CardProps) => {
+const Card = ({ data, idx }: CardProps) => {
   const t = useTranslations("GLOBAL");
   const textRef = useRef<any>(null);
   const [isOverflowed, setIsOverflowed] = useState(false);
-  
+
   useEffect(() => {
     const { current } = textRef;
     if (current) {
@@ -26,10 +25,9 @@ const Card = ({ data, idx, path = "#" }: CardProps) => {
     }
   }, [textRef]);
 
-  
   return (
     <>
-      <Link href={path} key={idx}>
+      <Link href={`product/${data.id}`} key={idx}>
         <div className={styles.card}>
           <div className={styles.card__image}>
             <Image src={data.image} alt="img" width={1000} height={1000} />

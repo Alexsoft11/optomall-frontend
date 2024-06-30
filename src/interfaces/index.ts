@@ -49,3 +49,9 @@ export interface SlidersDataInterface {
     url: string;
     image: StaticImageData;
 }
+
+
+export interface LoginErrInterface {
+    error: boolean,
+    message: string
+}

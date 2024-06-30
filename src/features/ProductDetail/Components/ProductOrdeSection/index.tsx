@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ProductOrderSection.module.scss";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import { MinusSvg, PlusSvg } from "$/assets/images";
 import Image from "next/image";
 import useQueryApiClient from "@/utils/useQueryApiClient";
@@ -30,6 +30,7 @@ interface ProductOrderSectionProps {
   setTotalQuantities: any;
   selectedColor: any;
   selectedColors: number[];
+  setSelectedColors:any
 }
 
 interface SelectedSizes {
@@ -39,7 +40,7 @@ interface SelectedSizes {
   }[];
 }
 
-const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({ product, selectedColor, selectedColors, setTotalQuantities }) => {
+const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({ product, selectedColor, selectedColors, setTotalQuantities, setSelectedColors }) => {
   const { appendData: createData } = useQueryApiClient({
     request: {
       url: `user-basket`,
@@ -47,7 +48,8 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({ product, sele
       disableOnMount: true,
     },
     onSuccess(res) {
-      console.log(res);
+     message.success(res.message)
+     resetStates();
     },
   });
 
@@ -107,6 +109,11 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({ product, sele
     calculateTotalQuantities();
   }, [selectedSizes, selectedColors]);
 
+  const resetStates = () => {
+    setSelectedSizes(initialSizeState);
+    setSelectedColors([]);
+    setTotalQuantities({});
+  };
   return (
     <div className={styles.product_order}>
       <div className={styles.priceSection}>

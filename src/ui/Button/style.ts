@@ -5,6 +5,12 @@ export const StyledButton = styled(Button)`
     transition: all 0.2s ease-in-out;
     border: none;
 
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     &:hover {
       background: #FF4200 !important;
     }
@@ -135,7 +141,6 @@ export const StyledButton = styled(Button)`
           color: white;
           font-size: var(--paragraph-two);
           letter-spacing: .08em;
-          text-transform: uppercase;
       }
 
 
@@ -166,6 +171,29 @@ export const StyledButton = styled(Button)`
           width: 300px;
           height: 300px;
         }
+      }
+    }
+
+    &.line_btn {
+      min-width: 100%;
+      line-height: 1.25;
+      background: var(--white-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--primary-color);
+      border-radius: 10px;
+
+      span {
+        text-decoration: none;
+        color: var(--primary-color);
+        font-size: var(--paragraph-two);
+        letter-spacing: .08em;
+      }
+
+      &:hover {
+        background: var(--white-color) !important;
+        border: 1px solid var(--primary-color) !important;
       }
     }
 `;

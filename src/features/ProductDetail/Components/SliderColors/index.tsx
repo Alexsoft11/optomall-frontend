@@ -13,7 +13,6 @@ import { Badge } from "antd";
 const SliderColors = ({
   data,
   setSelectedColor,
-  selectedColor,
   totalQuantities,
   selectedColors,
   setSelectedColors
