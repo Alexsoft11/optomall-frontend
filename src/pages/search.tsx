@@ -1,11 +1,11 @@
+import React, { useEffect, useState } from 'react'
 import GoToBack from '@/components/GoToBack'
 import Search from '@/features/Search/components/Search'
 import { CardInterface } from '@/interfaces';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react'
 
-const searchPage = () => {
+const SearchPage = () => {
   const [products, setProducts] = useState<CardInterface[]>([]);
   const router = useRouter();
   const { query } = router.query;
@@ -21,14 +21,12 @@ const searchPage = () => {
     }
   });
 
-useEffect(() => {
-  if (query) {
-    getProductsData()
-  }
-  
-}, [query])
-
-  
+  useEffect(() => {
+    if (query) {
+      getProductsData()
+    }
+    
+  }, [query])
 
   return (
     <>
@@ -40,4 +38,4 @@ useEffect(() => {
   )
 }
 
-export default searchPage
+export default SearchPage

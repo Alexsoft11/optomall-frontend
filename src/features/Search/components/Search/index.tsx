@@ -19,65 +19,56 @@ const Search = ({ data }: Props) => {
 
   return (
     <>
-          <div className={styles.search}>
-            <div className='container'>
-                <div className={styles.search__inner}>
-                    <div className={styles.search__media}>
-                        <div className={styles.search__platform}>
-                          <h2>{t('platform')}:</h2>
-                          <button
-                              className={`${styles.search__platform_btn} ${activePlatform === 'alibaba' ? styles.active : ''}`}
-                              onClick={() => handleButtonClick('alibaba')}
-                          >
-                              <SvgSelector id="1688-svg"/>
-                              <span>1688</span>
-                          </button>
+        <div className={styles.search}>
+          <div className='container'>
+            <div className={styles.search__inner}>
+                <div className={styles.search__media}>
+                    <div className={styles.search__platform}>
+                      <h2>{t('platform')}:</h2>
+                      <button
+                          className={`${styles.search__platform_btn} ${activePlatform === 'alibaba' ? styles.active : ''}`}
+                          onClick={() => handleButtonClick('alibaba')}
+                      >
+                          <SvgSelector id="1688-svg"/>
+                          <span>1688</span>
+                      </button>
 
-                          <button
-                            className={`${styles.search__platform_btn} ${
-                              activePlatform === "taobao" ? styles.active : ""
-                            }`}
-                            onClick={() => handleButtonClick("taobao")}
-                          >
-                            <SvgSelector id="taobao-svg" />
-                            <span>TaoBao</span>
-                          </button>
-                        </div>
-
-                        <div className={styles.search__btn}>
-                            <SearchBtn />
-                        </div>
-
-                        <div className={styles.search__top}>
-                            <div className={styles.search__nav}>
-                                <button>Lorem ipsum</button>
-                                <button>Lorem ipsum</button>
-                                <button>Lorem ipsum</button>
-                                <button>Lorem ipsum</button>
-                            </div>
-
-                            <div className={styles.search__btns}>
-                                <button><span>Lorem, ipsum.</span> <SvgSelector id="sorting-svg"/></button>
-                                <button><span>Lorem, ipsum.</span> <SvgSelector id="settings-svg"/></button>
-                            </div>
-                        </div>
+                      <button
+                        className={`${styles.search__platform_btn} ${
+                          activePlatform === "taobao" ? styles.active : ""
+                        }`}
+                        onClick={() => handleButtonClick("taobao")}
+                      >
+                        <SvgSelector id="taobao-svg" />
+                        <span>TaoBao</span>
+                      </button>
                     </div>
 
-                    <div className={styles.search__cards}>
-                        {data?.map((el: any, idx: number) => (
-                            <Card key={el.id} path={el.id} data={el} idx={idx} />
-                        ))}
+                    <div className={styles.search__btn}>
+                        <SearchBtn />
+                    </div>
+
+                    <div className={styles.search__top}>
+                        <div className={styles.search__nav}>
+                            <button>Lorem ipsum</button>
+                            <button>Lorem ipsum</button>
+                            <button>Lorem ipsum</button>
+                            <button>Lorem ipsum</button>
+                        </div>
+
+                        <div className={styles.search__btns}>
+                            <button><span>Lorem, ipsum.</span> <SvgSelector id="sorting-svg"/></button>
+                            <button><span>Lorem, ipsum.</span> <SvgSelector id="settings-svg"/></button>
+                        </div>
                     </div>
                 </div>
 
-                <div className={styles.search__btns}>
-                  <button>
-                    <span>Lorem, ipsum.</span> <SvgSelector id="sorting-svg" />
-                  </button>
-                  <button>
-                    <span>Lorem, ipsum.</span> <SvgSelector id="settings-svg" />
-                  </button>
+                <div className={styles.search__cards}>
+                    {data?.map((el: any, idx: number) => (
+                        <Card key={el.id} data={el} idx={idx} />
+                    ))}
                 </div>
+            </div>
 
             <div className={styles.search__cards}>
               {data.map((el: any, idx: number) => (
