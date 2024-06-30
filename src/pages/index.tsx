@@ -26,19 +26,19 @@ const Products = dynamic(
 );
 
 interface HomeProps {
-  sliders: SlidersDataInterface[];
-  products: any;
+  slidersData: any;
+  productsData: any;
 }
 
-export default function Home({ sliders, products }: HomeProps) {
+export default function Home({ slidersData, productsData }: HomeProps) {
   return (
     <>
       <Head>
         <title>Home</title>
       </Head>
-      <MainSlider data={sliders} />
+      <MainSlider data={slidersData.sliders} />
       <Category />
-      <Products products={products} />
+      <Products products={productsData.products} />
     </>
   );
 }
@@ -50,8 +50,8 @@ export const getServerSideProps = async (context: any) => {
 
     return {
       props: {
-        sliders: slidersResponse.data || [],
-        products: productsResponse.data || [],
+        slidersData: slidersResponse.data || [],
+        productsData: productsResponse.data || [],
       },
     };
   } catch (error: any) {

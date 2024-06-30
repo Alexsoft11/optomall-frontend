@@ -17,5 +17,5 @@ export const API = {
     axiosInstance.get("sliders"),
 
   getHomePageProducts: () =>
-    axiosInstance.get("products?query=Top"),
+    axiosInstance.get("products?query=Discount"),
 };
