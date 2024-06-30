@@ -42,12 +42,12 @@ const SearchBtn = () => {
               />
             </Form>
             
-            <Button
+            {/* <Button
               className='generalbtn'
               shape='circle'
               iconId='photo-svg'
               iconPosition='left'
-            />
+            /> */}
         </div>
     </>
   )

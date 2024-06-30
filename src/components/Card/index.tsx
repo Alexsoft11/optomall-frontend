@@ -42,9 +42,12 @@ const Card = ({ data, idx }: CardProps) => {
                 </h2>
               </Tooltip>
 
-              <p className={styles.card__price}>
-                {t("currency")} {data.price}
-              </p>
+
+              <div className={styles.card__price}>
+                <p>
+                  {t("currency")} {data.price}
+                </p>
+              </div>
           </Link>
         </div>
     </>

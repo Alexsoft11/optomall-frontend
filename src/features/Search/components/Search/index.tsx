@@ -6,7 +6,7 @@ import SearchBtn from '@/components/SearchBtn'
 import { useTranslations } from 'next-intl'
 
 interface Props {
-    data: any;
+  data: any;
 }
 
 const Search = ({ data }: Props) => {
@@ -68,12 +68,6 @@ const Search = ({ data }: Props) => {
                         <Card key={el.id} data={el} idx={idx} />
                     ))}
                 </div>
-            </div>
-
-            <div className={styles.search__cards}>
-              {data.map((el: any, idx: number) => (
-                <Card key={el.id} data={el} idx={idx} />
-              ))}
             </div>
           </div>
         </div>

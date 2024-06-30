@@ -1,5 +1,11 @@
 .card {
   max-width: 240px;
+  a {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
   &__image {
     border-radius: 20px;
     margin-bottom: 15px;
@@ -47,8 +53,13 @@
   }
 
   &__price {
-    color: var(--primary-color);
-    font-size: var(--heading-six);
-    font-weight: 500;
+    margin-top: auto;
+    
+    p {
+      color: var(--primary-color);
+      font-size: var(--heading-six);
+      font-weight: 500;
+
+    }
   }
 }

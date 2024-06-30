@@ -14,7 +14,7 @@ interface Props {
 }
 
 const Products = ({ products }: Props) => {
-  const t = useTranslations("GLOBAL")
+  const t = useTranslations("Products")
   const [productsChange, setProducts] = useState<CardInterface[]>(products);
 
   const { appendData: getProductsData, isLoading: isProductsLoading } = useQueryApiClient({
@@ -31,11 +31,6 @@ const Products = ({ products }: Props) => {
   const handleTabChange = (key: string) => {
     getProductsData({ tab: key });
   };
-
-
-  useEffect(() => {
-    handleTabChange('top') 
-  }, [])
   
   return (
     <div className={styles.products}>
@@ -46,7 +41,7 @@ const Products = ({ products }: Props) => {
               {ProductTabsData.map((tab) => (
                 <TabPane
                   key={tab.key}
-                  tab={tab.tab}
+                  tab={t(tab.tab)}
                   className={styles.products__item}
                 />
               ))}

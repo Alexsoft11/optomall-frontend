@@ -1,41 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import GoToBack from '@/components/GoToBack'
 import Search from '@/features/Search/components/Search'
-import { CardInterface } from '@/interfaces';
-import useQueryApiClient from '@/utils/useQueryApiClient';
-import { useRouter } from 'next/router';
+import { API } from '@/services/api';
 
-const SearchPage = () => {
-  const [products, setProducts] = useState<CardInterface[]>([]);
-  const router = useRouter();
-  const { query } = router.query;
+interface SearchProps {
+  productsData: any;
+}
 
-  const { appendData: getProductsData } = useQueryApiClient({
-    request: {
-      url: `search-products-from-taobao?searchQuery=${query}`,
-      method: 'GET',
-      disableOnMount:true,
-    },
-    onSuccess(res) {
-      setProducts(res.products);
-    }
-  });
-
-  useEffect(() => {
-    if (query) {
-      getProductsData()
-    }
-    
-  }, [query])
-
+const SearchPage = ({ productsData }: SearchProps) => {
   return (
     <>
         <div className='container'>
             <GoToBack pathArr={[{ title: "results", path: "search" }]} />
         </div>
-        <Search data={products}/>
+        <Search data={productsData.products}/>
     </>
   )
 }
 
 export default SearchPage
+
+export const getServerSideProps = async (context: any) => {
+  try {
+    const searchResponce = await API.getSearchPageProducts(context.query);
+    return {
+      props: {
+        productsData: searchResponce.data || [],
+      },
+    };
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+    return {
+      props: {
+        products: [],
+      },
+    };
+  }
+};

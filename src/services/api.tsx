@@ -13,9 +13,14 @@ export const axiosInstance = Axios.create({
 
 
 export const API = {
+  // HomePage
   getHomePageSlider: () =>
     axiosInstance.get("sliders"),
 
   getHomePageProducts: () =>
     axiosInstance.get("products?query=Discount"),
+
+  //SearchPage
+  getSearchPageProducts: (query: any) =>
+    axiosInstance.get(`search-products-from-taobao?searchQuery=${query}`),
 };
