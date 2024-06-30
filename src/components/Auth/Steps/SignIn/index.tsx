@@ -10,6 +10,7 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import Cookies from "universal-cookie";
 import { useRouter } from "next/router";
 import GoToBack from "@/components/GoToBack";
+import useHandleError from "@/utils/useHandleError";
 
 export default function SignIn() {
   const [form] = Form.useForm();
@@ -17,7 +18,7 @@ export default function SignIn() {
   const cookies = new Cookies();
   const expirationDate = new Date();
   const router = useRouter();
-
+  const [handleError] = useHandleError(form);
   expirationDate.setDate(expirationDate.getDate() + 3);
 
   const { appendData: createData } = useQueryApiClient({
@@ -41,6 +42,7 @@ export default function SignIn() {
             errors: [t(err.message)],
           },
         ]);
+        return;
       }
       if (err.message.includes("password")) {
         form.setFields([
@@ -49,7 +51,9 @@ export default function SignIn() {
             errors: [t(err.message)],
           },
         ]);
+        return;
       }
+      handleError(err);
     },
   });
 

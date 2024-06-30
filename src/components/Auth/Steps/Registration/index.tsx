@@ -13,6 +13,7 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import GoToBack from "@/components/GoToBack";
+import useHandleError from "@/utils/useHandleError";
 
 interface Props {
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,6 +23,7 @@ export default function Registration({ setModalIsOpen }: Props) {
   const [form] = Form.useForm();
   const t = useTranslations("Auth");
   const router = useRouter();
+  const [handleError] = useHandleError(form);
 
   const { appendData: createData } = useQueryApiClient({
     request: {
@@ -33,6 +35,9 @@ export default function Registration({ setModalIsOpen }: Props) {
       message.success(res.message);
       setModalIsOpen(true);
       setTimeout(() => router.push("auth/"), 1500);
+    },
+    onError(res) {
+      handleError(res);
     },
   });
 
