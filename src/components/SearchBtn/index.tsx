@@ -25,6 +25,8 @@ const SearchBtn = () => {
   useEffect(() => {
     if (query) {
      form.setFieldValue('search',query)
+    } else {
+      form.resetFields()
     }
   }, [query]);
   
