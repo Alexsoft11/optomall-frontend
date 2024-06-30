@@ -22,7 +22,13 @@
         "profile_updated_successfully": "Profil muvaffaqiyatli yangilandi",
         "unauthenticated": "Tasdiqlanmagan",
         "invalid_data": "Noto'g'ri ma'lumotlar",
-        "order_created_successfully": "Buyurtma muvaffaqiyatli yaratildi"
+        "order_created_successfully": "Buyurtma muvaffaqiyatli yaratildi",
+        "email": {
+            "validation.unique": "Email allaqachon olingan."
+        },
+        "password": {
+            "validation.min": "Parol kamida 8 ta belgidan iborat bo'lishi kerak."
+        }
     },
     "Navbar": {
         "account": "Mening hisobim",
@@ -69,7 +75,12 @@
         "requiredSecondNameMessage": "Iltimos, familiyangizni kiriting",
         "emailAlredyUsed": "elektron pochta allaqachon band qilingan!",
         "wrong_password": "noto‘g‘ri parol",
-        "email_doesnt_exist": "elektron pochta ro‘yxatdan o‘tmagan"
+        "email_doesnt_exist": "elektron pochta ro‘yxatdan o‘tmagan",
+        "signInDescription": "kirish uchun maydonlarni to'ldiring",
+        "infoDescription": "ma'lumot uchun maydonlarni to'ldiring",
+        "forgotPasswordDescription": "maydonni to'ldiring",
+        "newPasswordDescription": "yangi parolni o‘ylab toping",
+        "regisrtationDescription": "ro‘yxatdan o‘tish uchun maydonlarni to‘ldiring"
     },
     "Cart": {
         "item": "Mahsulotlar",
@@ -123,10 +134,10 @@
         "tab_3": "Siz uchun tavsiya etamiz"
     },
     "Account": {
-      "change": "ozgartirish",
-      "mail": "Elektron pochta",
-      "name":"Ism",
-      "phone":"Telefon raqami",
-      "confirm":"Tasdiqlash"
+        "change": "ozgartirish",
+        "mail": "Elektron pochta",
+        "name": "Ism",
+        "phone": "Telefon raqami",
+        "confirm": "Tasdiqlash"
     }
 }

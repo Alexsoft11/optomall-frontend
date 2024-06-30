@@ -11,7 +11,7 @@ export const validatePassword = (
 ) => {
   const passwordRegex = /^[a-zA-Z0-9_]{8,}$/;
   if (!passwordRegex.test(value)) {
-    return Promise.reject(new Error(t("minSymbolPassword")));
+    return Promise.reject(new Error(t("Auth.minSymbolPassword")));
   }
   return Promise.resolve();
 };
@@ -21,7 +21,7 @@ export const validateConfirmPassword = (t: Function, getFieldValue: any) => ({
     if (!value || getFieldValue.getFieldValue("password") === value) {
       return Promise.resolve();
     }
-    return Promise.reject(new Error(t("passwordsIsDifferent")));
+    return Promise.reject(new Error(t("Auth.passwordsIsDifferent")));
   },
 });
 
@@ -33,7 +33,7 @@ export async function validateEmail(
 ) {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!emailRegex.test(value)) {
-    return Promise.reject(new Error(t("emailIncorect")));
+    return Promise.reject(new Error(t("Auth.emailIncorect")));
   }
 
   return Promise.resolve();
@@ -45,7 +45,7 @@ export const validateConfirmCode = (
   value: string
 ) => {
   if (value.length !== 6) {
-    return Promise.reject(new Error(t("confirmCodeIncorect")));
+    return Promise.reject(new Error(t("Auth.confirmCodeIncorect")));
   }
   return Promise.resolve();
 };
@@ -56,7 +56,7 @@ export const validatePhone = (
   value: string
 ) => {
   if (!/^(\d){9}$/m.test(value)) {
-    return Promise.reject(new Error(t("requiredTelMessage")));
+    return Promise.reject(new Error(t("Auth.requiredTelMessage")));
   }
   return Promise.resolve();
 };

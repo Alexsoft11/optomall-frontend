@@ -14,7 +14,7 @@ import useHandleError from "@/utils/useHandleError";
 
 export default function SignIn() {
   const [form] = Form.useForm();
-  const t = useTranslations("Auth");
+  const t = useTranslations("");
   const cookies = new Cookies();
   const expirationDate = new Date();
   const router = useRouter();
@@ -28,7 +28,7 @@ export default function SignIn() {
       disableOnMount: true,
     },
     onSuccess(res) {
-      message.success(res.message);
+      message.success(t(`Error.${res.message}`));  
       setTimeout(() => router.push("/"), 2000);
       cookies.set("token", Buffer.from(res.token).toString("base64"), {
         expires: expirationDate,
@@ -39,7 +39,7 @@ export default function SignIn() {
         form.setFields([
           {
             name: "email",
-            errors: [t(err.message)],
+            errors: [t(`Auth.${err.message}`)],
           },
         ]);
         return;
@@ -48,7 +48,7 @@ export default function SignIn() {
         form.setFields([
           {
             name: "password",
-            errors: [t(err.message)],
+            errors: [t(`Auth.${err.message}`)],
           },
         ]);
         return;
@@ -64,8 +64,8 @@ export default function SignIn() {
   return (
     <div className={styles.main}>
       <GoToBack pathArr={[{ title: "signin", path: "" }]} />
-      <h1>{t("signin")}</h1>
-      <p className={styles.desc}>Lorem, ipsum dolor sit amet</p>
+      <h1>{t("Auth.signin")}</h1>
+      <p className={styles.desc}>{t('Auth.signInDescription')}</p>
       <div className={styles.form}>
         <Form
           form={form}
@@ -82,7 +82,7 @@ export default function SignIn() {
               { validator: (rule, value) => validateEmail(t, rule, value) },
             ]}
             type="email"
-            placeholder={t("email")}
+            placeholder={t("Auth.email")}
           />
 
           <Input
@@ -93,22 +93,22 @@ export default function SignIn() {
               },
             ]}
             type="password"
-            placeholder={t("yourPassword")}
+            placeholder={t("Auth.yourPassword")}
           />
 
           <span className={styles.forgot_Password}>
-            <Link href="/auth?step=forgot-password">{t("forgotPassword")}</Link>
+            <Link href="/auth?step=forgot-password">{t("Auth.forgotPassword")}</Link>
           </span>
 
           <Form.Item className={styles.submitButton}>
-            <Button type="primary" htmlType="submit" label={t("signin")} />
+            <Button type="primary" htmlType="submit" label={t("Auth.signin")} />
           </Form.Item>
         </Form>
 
         <div className={styles.not_registred}>
-          <p>{t("notRegistred")}</p>
+          <p>{t("Auth.notRegistred")}</p>
           <span>
-            <Link href="/auth?step=regist">{t("registerNow")}</Link>
+            <Link href="/auth?step=regist">{t("Auth.registerNow")}</Link>
           </span>
         </div>
 
