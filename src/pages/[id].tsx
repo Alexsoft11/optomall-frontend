@@ -7,9 +7,9 @@ import React, { useEffect, useState } from "react";
 
 const ProductDetail = () => {
   const params= useParams();
-  const productId = params?.id
+  const productId =4
   const [product, setProduct] = useState<any>(null);
-  console.log(productId) 
+
 
   const { appendData: getProductsData, isLoading: isProductsLoading } = useQueryApiClient({
     request: {
@@ -19,12 +19,10 @@ const ProductDetail = () => {
     },
     onSuccess(res) {
       console.log(res);
-      setProduct(res.detail);
+      setProduct(res);
     },
-    onError(error) {
-      console.error("Error fetching product details:", error);
-    }
   });
+  
 
   useEffect(() => {
     if (productId) {
@@ -35,10 +33,10 @@ const ProductDetail = () => {
   if (isProductsLoading) {
     return <p>Loading...</p>;
   }
- const title = product?.title 
+ const title = product?.detail.title 
   return (
     <PageLayout metaTitle={title}>
-      {product ? <ProductDetailSection product={product} /> : <p>No product found.</p>}
+      {product ? <ProductDetailSection product={product.detail} recommended={product.recommended}/> : <p>No product found.</p>}
     </PageLayout>
   );
 };

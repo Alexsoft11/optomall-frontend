@@ -1,3 +1,5 @@
+/** @format */
+
 .product_order {
   border-radius: 10px;
   background: #fff;
@@ -38,7 +40,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 50px;
+  gap: 70px;
 }
 .size span {
   color: #000;
@@ -73,4 +75,17 @@
   padding: 10px 20px;
   cursor: pointer;
   margin-top: 20px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.total {
+  p {
+    color: #a3a3a3;
+    font-size: 14px;
+  }
+  span {
+    color: #000;
+    font-size: 16px;
+  }
 }

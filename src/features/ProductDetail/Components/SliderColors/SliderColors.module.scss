@@ -34,6 +34,10 @@ position: relative;
   padding: 0px 5px;
 }
 
+.selected{
+  border: 2px solid var(--primary-color);
+ 
+}
 .inactive img {
     opacity: 0.5;
   }

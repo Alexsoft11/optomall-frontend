@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const SliderSection: FC<IProps> = ({ data }) => {
-    const imagePath = data.image ? data.image : ""
+    const imagePath = data.image_url ? data.image_url : ""
   return (
     <>  
 <Swiper pagination={true} modules={[Pagination]} className="Myswiper">

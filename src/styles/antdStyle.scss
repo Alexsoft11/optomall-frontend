@@ -13,12 +13,19 @@
   font-size: var(--heading-four);
 
 }
+:where(.css-dev-only-do-not-override-1okl62o).ant-badge.ant-badge-not-a-wrapper:not(.ant-badge-status) {
+    vertical-align: middle;
+    top: 8px;
+    left: 32px;
+    z-index: 30;
+}
+.anticon{
+  font-size: 18px;
+}
 
 .review-modal {
   display: flex;
   justify-content: center;
-
-  
 
   .ant-modal-content {
     width: 100%;

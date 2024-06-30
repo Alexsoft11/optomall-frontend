@@ -6,8 +6,10 @@ import ProductDetailImages from "../ProductDetailImages";
 import { detailData, productDetails } from "@/mockdata/detailData";
 import ProductDetailInfo from "../ProductDetailInfo";
 import Reviews from "../Reviews";
-const ProductDetailSection = ({product}:any) => {
+import RecomendedProducts from "../RecomendedProducts";
+const ProductDetailSection = ({product, recommended}:any) => {
   // console.log(detailData);
+  console.log(product)
   const [selectedImage, setSelectedImage] = useState(product?.image);
 
   return (
@@ -20,6 +22,7 @@ const ProductDetailSection = ({product}:any) => {
           </div>
         </div>
         <Reviews />
+        <RecomendedProducts recomendedData={recommended}/>
       </div>
     </>
   );
