@@ -45,7 +45,7 @@ const MainLayout = ({ children }: ILayoutsProps) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* <link rel="icon" type="image/png" href="/saray-plast.png" /> */}
       </Head>
-      <Navbar />
+      {/* <Navbar /> */}
       <main className="main_page">{children}</main>
       <Footer />
     </>
