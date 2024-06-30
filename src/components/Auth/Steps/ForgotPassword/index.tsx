@@ -14,7 +14,7 @@ interface Props {
 
 export default function ForgotPassword({ setModalIsOpen }: Props) {
     const [form] = Form.useForm();
-    const t = useTranslations("Auth");
+    const t = useTranslations("");
     const router = useRouter()
 
     const { appendData: createData } = useQueryApiClient({
@@ -24,7 +24,7 @@ export default function ForgotPassword({ setModalIsOpen }: Props) {
             disableOnMount: true,
         },
         onSuccess(res) {
-            message.success(res.message)
+            message.success(`Error.${res.message}`)
             router.push({
                 pathname: '/auth',
                 query: {step: 'reset'}
@@ -40,8 +40,8 @@ export default function ForgotPassword({ setModalIsOpen }: Props) {
         <div>
             <div className={styles.main}>
                 <GoToBack backUrl='/auth' />
-                <h1>{t('resetPassword')}</h1>
-                <p className={styles.desc}>Lorem, ipsum dolor sit amet</p>
+                <h1>{t('Auth.resetPassword')}</h1>
+                <p className={styles.desc}>{t('Auth.forgotPasswordDescription')}</p>
                 <div className={styles.form}>
                     <Form
                         form={form}
@@ -56,7 +56,7 @@ export default function ForgotPassword({ setModalIsOpen }: Props) {
                         <Form.Item
                             name="email"
                             rules={[
-                                { required: true, message: t('requiredEmailMessage') },
+                                { required: true, message: t('Auth.requiredEmailMessage') },
                                 { validator: (rule, value) => validateEmail(t, rule, value) }
                             ]}
                         >
@@ -64,7 +64,7 @@ export default function ForgotPassword({ setModalIsOpen }: Props) {
                         </Form.Item>
 
                         <Form.Item className={styles.submitButton}>
-                            <Button type="primary" htmlType="submit" label={t('save')} />
+                            <Button type="primary" htmlType="submit" label={t('Auth.save')} />
                         </Form.Item>
                     </Form>
                 </div>

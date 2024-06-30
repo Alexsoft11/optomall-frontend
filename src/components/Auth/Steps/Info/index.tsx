@@ -1,19 +1,23 @@
 import React, { ReactEventHandler, useState } from "react";
 import styles from "./Info.module.scss";
-import { Form, Input, message } from "antd";
-import { Button } from "@/ui";
+import { Form, message } from "antd";
+import { Button, Input } from "@/ui";
 import { useTranslations } from "next-intl";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { validatePhone } from "../../Functions";
 import GoToBack from "@/components/GoToBack";
 import { useRouter } from "next/router";
 import useHandleError from "@/utils/useHandleError";
+import Cookies from "universal-cookie";
 
 export default function Info() {
   const [form] = Form.useForm();
-  const t = useTranslations("Auth");
+  const t = useTranslations("");
+  const expirationDate = new Date();
+  const cookies = new Cookies();
   const router = useRouter();
   const [handleError] = useHandleError(form);
+  const [isLoading, setIsLoading] = useState(false)
 
   const { appendData: createData } = useQueryApiClient({
     request: {
@@ -22,11 +26,16 @@ export default function Info() {
       disableOnMount: true,
     },
     onSuccess(res) {
-      message.success(res.message);
-      router.push("/auth");
+      message.success(t(`Error.${res.message}`));
+      router.push("/");
+      cookies.set("token", Buffer.from(res.token).toString("base64"), {
+        expires: expirationDate,
+      });
+      setIsLoading(false)
     },
     onError(res) {
       handleError(res);
+      setIsLoading(false)
     },
   });
 
@@ -38,8 +47,8 @@ export default function Info() {
   return (
     <div className={styles.main}>
       <GoToBack backUrl="/auth?step=regist" />
-      <h1>{t("info")}</h1>
-      <p className={styles.desc}>Lorem, ipsum dolor sit amet</p>
+      <h1>{t("Auth.info")}</h1>
+      <p className={styles.desc}>{t('Auth.infoDescription')}</p>
       <div className={styles.form}>
         <Form
           form={form}
@@ -56,41 +65,46 @@ export default function Info() {
           }}
           autoComplete="off"
         >
-          <Form.Item
-            name="name"
-            rules={[{ required: true, message: t("requiredNameMessage") }]}
-          >
-            <Input
-              type="text"
-              className={styles.input}
-              placeholder={t("name")}
-            />
-          </Form.Item>
 
-          <Form.Item
+
+          <Input
+            name="name"
+            rules={[{ required: true, message: t("Auth.requiredNameMessage") }]}
+            type="text"
+            className={styles.input}
+            placeholder={t("Auth.name")}
+          />
+
+
+
+          <Input
             name="last_name"
             rules={[
               { required: true, message: t("requiredSecondNameMessage") },
             ]}
-          >
-            <Input type="text" placeholder={t("secondName")} />
-          </Form.Item>
+            type="text"
+            placeholder={t("Auth.secondName")}
+          />
 
-          <Form.Item
+
+
+          <Input
             name="phone"
             rules={[
               { validator: (rule, value) => validatePhone(t, rule, value) },
             ]}
-          >
-            <Input type="text" prefix={"+998"} placeholder={"-- --- -- --"} />
-          </Form.Item>
+            type="text"
+            prefix={"+998"}
+            placeholder={"-- --- -- --"}
+          />
 
           <Form.Item className={styles.submitButton}>
             <Button
+              isLoading={isLoading}
               type="primary"
               htmlType="submit"
               className="generalbtn"
-              label={t("save")}
+              label={t("Auth.save")}
             />
           </Form.Item>
         </Form>
