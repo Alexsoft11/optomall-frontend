@@ -32,20 +32,8 @@ export async function validateEmail(
   isRegistPage: boolean = false
 ) {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
   if (!emailRegex.test(value)) {
     return Promise.reject(new Error(t("emailIncorect")));
-  } else {
-    if (value == "regist") {
-      let response = await await axios
-        .post(`${BASE_URL}api/check-email`, { email: value })
-        .then((res) => res.data.message);
-      if (response === "true") {
-        return Promise.reject(new Error(t("emailAlredyUsed")));
-      } else if (response === "false") {
-        return Promise.resolve();
-      }
-    }
   }
 
   return Promise.resolve();

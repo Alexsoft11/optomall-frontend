@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./SignIn.module.scss";
-import { Form, Input, message } from "antd";
-import { Button } from "@/ui";
+import { Form, message } from "antd";
+import { Button, Input } from "@/ui";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import GoogleButton from "../../GoogleButton";
@@ -10,7 +10,6 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import Cookies from "universal-cookie";
 import { useRouter } from "next/router";
 import GoToBack from "@/components/GoToBack";
-import { LoginErrInterface } from "@/interfaces";
 
 export default function SignIn() {
   const [form] = Form.useForm();
@@ -73,25 +72,25 @@ export default function SignIn() {
           style={{ maxWidth: 600 }}
           autoComplete="off"
         >
-          <Form.Item
+          <Input
             name="email"
-        
             rules={[
               { validator: (rule, value) => validateEmail(t, rule, value) },
             ]}
-          >
-            <Input type="email" placeholder={t("email")} />
-          </Form.Item>
+            type="email"
+            placeholder={t("email")}
+          />
 
-          <Form.Item
+          <Input
             name="password"
             rules={[
-              { validator: (rule, value) => validatePassword(t, rule, value) },
+              {
+                validator: (rule, value) => validatePassword(t, rule, value),
+              },
             ]}
-            hasFeedback
-          >
-            <Input.Password type="password" placeholder={t("yourPassword")} />
-          </Form.Item>
+            type="password"
+            placeholder={t("yourPassword")}
+          />
 
           <span className={styles.forgot_Password}>
             <Link href="/auth?step=forgot-password">{t("forgotPassword")}</Link>
