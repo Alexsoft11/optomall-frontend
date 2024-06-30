@@ -3,15 +3,15 @@ import { MainSliderItemInterface } from '@/interfaces';
 
 export const MainSliderImages: MainSliderItemInterface[] = [
     {
-        imageUrl: SliderImg,
+        image: SliderImg,
     },
     {
-        imageUrl: SliderImg,
+        image: SliderImg,
     },
     {
-        imageUrl: SliderImg,
+        image: SliderImg,
     },
     {
-        imageUrl: SliderImg,
+        image: SliderImg,
     },
 ];

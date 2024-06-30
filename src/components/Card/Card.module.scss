@@ -22,6 +22,10 @@
       max-height: 240px;
       object-fit: cover;
       border-radius: 20px;
+
+      @media (max-width: 390px) {
+        min-height: 240px;
+      }
     }
   }
 

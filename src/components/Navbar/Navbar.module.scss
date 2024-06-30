@@ -28,7 +28,7 @@
     }
 
     @media (max-width: 850px) {
-      width: 58%;
+      width: 100%;
     }
   }
 
@@ -123,6 +123,11 @@
       background: none;
       border: none;
       cursor: pointer;
+    }
+
+    @media (max-width:850px) {
+      justify-content: end;
+      width: 100%; 
     }
   }
 
