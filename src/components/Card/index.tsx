@@ -27,26 +27,29 @@ const Card = ({ data, idx }: CardProps) => {
 
   return (
     <>
-      <Link href={`product/${data.id}`} key={idx}>
         <div className={styles.card}>
-          <div className={styles.card__image}>
-            <Image src={data.image} alt="img" width={1000} height={1000} />
-          </div>
+          <Link href={`product/${data.id}`} key={idx}>
+              <div className={styles.card__image}>
+                <Image src={data.image} alt="img" width={1000} height={1000} />
+              </div>
 
-          <Tooltip
-            overlayClassName="tooltip-white"
-            title={isOverflowed ? data.title : ""}
-          >
-            <h2 className={styles.card__title} ref={textRef}>
-              {data.title}
-            </h2>
-          </Tooltip>
+              <Tooltip
+                overlayClassName="tooltip-white"
+                title={isOverflowed ? data.title : ""}
+              >
+                <h2 className={styles.card__title} ref={textRef}>
+                  {data.title}
+                </h2>
+              </Tooltip>
 
-          <p className={styles.card__price}>
-            {t("currency")} {data.price}
-          </p>
+
+              <div className={styles.card__price}>
+                <p>
+                  {t("currency")} {data.price}
+                </p>
+              </div>
+          </Link>
         </div>
-      </Link>
     </>
   );
 };

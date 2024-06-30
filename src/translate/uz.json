@@ -120,6 +120,9 @@
         "orderCost": "Umumiy summa:",
         "currency": "so'm"
     },
+    "Search": {
+        "platform": "Platforma"
+    },
     "MyReviews": {
         "waitForReview": "Baho berish kutilmoqda",
         "reviewed": "Baholangan",
