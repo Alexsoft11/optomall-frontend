@@ -65,9 +65,9 @@ const Navbar = () => {
                 </Link>
               </div>
 
-              <div className={styles.navbar__logo}>
+              <Link href="/" className={styles.navbar__logo}>
                 <Image src={HeadLogo} alt="img" />
-              </div>
+              </Link>
 
               <div className={styles.navbar__items}>
                 <LanguageSelector />
