@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { BASE_URL } from "@/services/api";
 import { useJwt } from "./useJwt";
 
-
 interface InvalidRequestResponse {
   status_code: number;
   message: string;
@@ -31,9 +30,10 @@ interface UseQueryApiClientProps {
 }
 
 interface ErrorProps {
-  data: any;
-  error: string;
-  global?: boolean;
+  data?: any;
+  error?: boolean;
+  message?: string;
+  errors?: any;
 }
 
 type RequestMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
@@ -136,7 +136,7 @@ function useQueryApiClient({
     const requestConfig: AxiosRequestConfig = {
       url: url,
       method: method,
-      baseURL: baseUrl || BASE_URL + 'api/',
+      baseURL: baseUrl || BASE_URL + "api/",
       responseType: multipart ? "blob" : "json",
       paramsSerializer: {
         indexes: true,

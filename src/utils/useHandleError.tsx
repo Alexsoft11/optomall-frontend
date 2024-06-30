@@ -3,10 +3,10 @@ import { useTranslations } from "next-intl";
 import { FormInstance } from "antd/lib/form";
 
 interface ErrorProps {
-  data: any;
-  error: boolean;
-  message: string;
-  errors: any;
+  data?: any;
+  error?: boolean;
+  message?: string;
+  errors?: any;
 }
 
 function useHandleError(form?: FormInstance) {
