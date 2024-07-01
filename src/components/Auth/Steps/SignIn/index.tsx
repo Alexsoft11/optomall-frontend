@@ -28,7 +28,7 @@ export default function SignIn() {
       disableOnMount: true,
     },
     onSuccess(res) {
-      message.success(t(`Error.${res.message}`));  
+      message.success(t(`Auth.${res.message}`));  
       setTimeout(() => router.push("/"), 2000);
       cookies.set("token", Buffer.from(res.token).toString("base64"), {
         expires: expirationDate,

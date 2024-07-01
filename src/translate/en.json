@@ -64,6 +64,7 @@
         "tel": "Phone",
         "save": "Save and continue",
         "info": "Personal information",
+        "verification_email_sent": "verification email sent",
         "resetPassword": "Reset password",
         "modalMessage": "We have sent you a confirmation email!",
         "minSymbolPassword": "Password must be at least 8 characters",

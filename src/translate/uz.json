@@ -64,6 +64,7 @@
         "tel": "Telefon",
         "save": "Saqlash va davom etish",
         "info": "Shaxsiy ma'lumotlar",
+        "verification_email_sent": "tasdiqlash xati yuborildi",
         "resetPassword": "Parolni tiklash",
         "modalMessage": "Biz sizga tasdiqlash xatini yubordik!",
         "minSymbolPassword": "Parol kamida 8 ta belgidan iborat bo'lishi kerak",
