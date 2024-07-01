@@ -164,10 +164,6 @@ a {
   }
 }
 
-.swiper-slide {
-  height: auto !important;
-}
-
 .breadcrumb_icon {
   stroke: black;
   display: flex;

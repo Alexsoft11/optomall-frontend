@@ -121,6 +121,9 @@
         "orderCost": "Total Cost:",
         "currency": "uzs"
     },
+    "Search": {
+        "platform": "Platform"
+    },
     "MyReviews": {
         "waitForReview": "Waiting for Review",
         "reviewed": "Reviewed",

@@ -7,24 +7,30 @@ import { ProductTabsData } from "@/constants/products";
 import { CardInterface } from "@/interfaces";
 import { useTranslations } from "next-intl";
 import { LoadingSpinner } from "@/ui/Spin";
+import useQueryApiClient from "@/utils/useQueryApiClient";
 
 interface Props {
-  getProductsData: (params: { tab: string }) => void;
   products: CardInterface[];
-  isProductsLoading: boolean;
 }
 
-const Products = ({ getProductsData, products, isProductsLoading }: Props) => {
-  const t = useTranslations("GLOBAL")
+const Products = ({ products }: Props) => {
+  const t = useTranslations("Products")
+  const [productsChange, setProducts] = useState<CardInterface[]>(products);
+
+  const { appendData: getProductsData, isLoading: isProductsLoading } = useQueryApiClient({
+    request: {
+      url: `products?query=&tab=:tab`,
+      method: 'GET',
+      disableOnMount: true,
+    },
+    onSuccess(res: any) {
+      setProducts(res.products);
+    }
+  });
 
   const handleTabChange = (key: string) => {
     getProductsData({ tab: key });
   };
-
-
-  useEffect(() => {
-    handleTabChange('top') 
-  }, [])
   
   return (
     <div className={styles.products}>
@@ -35,7 +41,7 @@ const Products = ({ getProductsData, products, isProductsLoading }: Props) => {
               {ProductTabsData.map((tab) => (
                 <TabPane
                   key={tab.key}
-                  tab={tab.tab}
+                  tab={t(tab.tab)}
                   className={styles.products__item}
                 />
               ))}
@@ -46,7 +52,7 @@ const Products = ({ getProductsData, products, isProductsLoading }: Props) => {
             {isProductsLoading ? (
               <LoadingSpinner className="products_spin" spinning={true} tip={t('loadingData')} size="large" />
             ) : (
-              products.map((el: CardInterface, idx: number) => (
+              productsChange.map((el: CardInterface, idx: number) => (
                 <Card key={el.id}  data={el} idx={idx} />
               ))
             )}

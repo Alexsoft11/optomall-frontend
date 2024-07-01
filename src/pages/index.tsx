@@ -1,44 +1,66 @@
 import React, { useEffect, useState } from "react";
-import Products from "@/features/home/components/Products";
 import { CardInterface, SlidersDataInterface } from "@/interfaces";
-import useQueryApiClient from "@/utils/useQueryApiClient";
 import Head from "next/head";
-import MainSlider from "@/features/home/components/MainSlider";
-import Category from "@/features/home/components/Category";
+import dynamic from "next/dynamic";
+import { API } from "@/services/api";
 
-export default function Home() {
-  const [slidersData, setSlidersData] = useState<SlidersDataInterface[]>([]);
-  const [products, setProducts] = useState<CardInterface[]>([]);
+const MainSlider = dynamic(
+  () => import("@/features/home/components/MainSlider")
+  // {
+  //   loading: () => <Loader />,
+  // }
+);
 
-  const { appendData: getSlidersData } = useQueryApiClient({
-    request: {
-      url: 'sliders',
-      method: 'GET',
-    },
-    onSuccess(res) {
-      setSlidersData(res.sliders);
-    }
-  });
+const Category = dynamic(
+  () => import("@/features/home/components/Category")
+  // {
+  //   loading: () => <Loader />,
+  // }
+);
 
-  const { appendData: getProductsData, isLoading: isProductsLoading } = useQueryApiClient({
-    request: {
-      url: `products?query=&tab=:tab`,
-      method: 'GET',
-      disableOnMount: true,
-    },
-    onSuccess(res: any) {
-      setProducts(res.products);
-    }
-  });
+const Products = dynamic(
+  () => import("@/features/home/components/Products")
+  // {
+  //   loading: () => <Loader />,
+  // }
+);
 
+interface HomeProps {
+  slidersData: any;
+  productsData: any;
+}
+
+export default function Home({ slidersData, productsData }: HomeProps) {
   return (
     <>
       <Head>
         <title>Home</title>
       </Head>
-      <MainSlider data={slidersData} />
+      <MainSlider data={slidersData.sliders} />
       <Category />
-      <Products getProductsData={getProductsData} products={products} isProductsLoading={isProductsLoading}/>
+      <Products products={productsData.products} />
     </>
   );
 }
+
+export const getServerSideProps = async (context: any) => {
+  try {
+    const slidersResponse = await API.getHomePageSlider();
+    const productsResponse = await API.getHomePageProducts();
+
+    return {
+      props: {
+        slidersData: slidersResponse.data || [],
+        productsData: productsResponse.data || [],
+      },
+    };
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+    return {
+      props: {
+        sliders: [],
+        products: [],
+      },
+    };
+  }
+};
