@@ -55,7 +55,7 @@ const MainSlider: React.FC<Props> = ({ data }) => {
             modules={[Pagination, Autoplay, Navigation]}
             className={`${styles.my_swiper} main-swiper`}
           >
-            {data.map((el: any, idx) => (
+            {data?.map((el: any, idx) => (
               <SwiperSlide key={idx} className={styles.swiper}>
                 <MainSliderCard el={el} />
               </SwiperSlide>
