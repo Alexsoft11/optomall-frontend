@@ -15,7 +15,11 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
     className,
   }) => {
     return (
-      <StyledSpin className={className} spinning={spinning} tip={tip} size={size}>
+      <StyledSpin 
+       className={className} 
+       spinning={spinning} 
+       tip={tip} 
+       size={size}>
         <div/>
       </StyledSpin>
     );

@@ -22,9 +22,9 @@ export const StyledButton = styled(Button)`
       max-height: 24px;
     }
   
-    div {
+    /* div {
       display: none;
-    }
+    } */
   
     &.circle {
       border-radius: 100%;
@@ -195,5 +195,9 @@ export const StyledButton = styled(Button)`
         background: var(--white-color) !important;
         border: 1px solid var(--primary-color) !important;
       }
+    }
+
+    &.load {
+      max-height: 41px;
     }
 `;
