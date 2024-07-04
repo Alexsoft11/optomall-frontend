@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import GoToBack from "@/components/GoToBack";
 import useHandleError from "@/utils/useHandleError";
+import { LoadingSpinner } from "@/ui/Spin";
 
 interface Props {
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -114,18 +115,16 @@ export default function Registration({ setModalIsOpen }: Props) {
           </span>
 
           <Form.Item className={styles.submitButton}>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="generalbtn"
-              label={t("Auth.regist")}
-              isLoading={isLoading}
-            />
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="generalbtn load"
+                label={t("Auth.regist")}
+                isLoading={isLoading}
+              />
           </Form.Item >
 
           <GoogleButton />
-
-
 
         </Form >
       </div >

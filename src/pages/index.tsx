@@ -26,8 +26,8 @@ const Products = dynamic(
 );
 
 interface HomeProps {
-  slidersData: any;
-  productsData: any;
+  slidersData: { sliders: any[] };
+  productsData: { products: any[] };
 }
 
 export default function Home({ slidersData, productsData }: HomeProps) {
@@ -36,9 +36,9 @@ export default function Home({ slidersData, productsData }: HomeProps) {
       <Head>
         <title>Home</title>
       </Head>
-      <MainSlider data={slidersData.sliders} />
+      <MainSlider data={slidersData?.sliders} />
       <Category />
-      <Products products={productsData.products} />
+      <Products products={productsData?.products} />
     </>
   );
 }
