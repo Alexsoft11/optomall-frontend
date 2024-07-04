@@ -130,7 +130,7 @@
     "Search": {
         "platform": "Платформа"
     },
-    "MyReviews" : {
+    "MyReviews": {
         "waitForReview": "Ждут оценки",
         "reviewed": "Оставленные",
         "review": "Оставит отзыв",
@@ -141,5 +141,9 @@
     "Products": {
         "tab_1": "Распродажа",
         "tab_2": "Топ-товары"
+    },
+    "ChoiseLocation": {
+        "submit": "отправить",
+        "close": "закрыть"
     }
 }

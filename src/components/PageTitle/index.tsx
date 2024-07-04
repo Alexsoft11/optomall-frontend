@@ -12,17 +12,12 @@ export default function PageTitle() {
   function findPathName(step: number = -1) {
     const pathSegment = pathArr.at(step) as string;
     if (!/\[[^\]]+\]/.test(pathSegment)) {
-        title = pathSegment;
+      title = pathSegment;
     } else {
-        findPathName(step - 1);
+      findPathName(step - 1);
     }
-}
-
-
-  useEffect(() => {
-    findPathName();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }
+  findPathName();
 
   return (
     <div className={styles.main}>

@@ -5,14 +5,20 @@ import { Button, Modal } from '@/ui';
 import { useRouter } from 'next/router';
 import { SearchSvg, SuccsessSvg, WarningSvg } from '$/assets/images';
 import { CartOrderItemInterface } from '../../interface';
+import useQueryApiClient from '@/utils/useQueryApiClient';
+import { message } from 'antd';
 
 interface Props {
     cost: number;
     itemValue?: number,
     orderId?: string,
+    personData?: any,
+    location?: number[] | null,
+    items: CartOrderItemInterface[] | [],
+    country: string | null
 }
 
-export default function CartOrderBlock({ cost, itemValue, orderId }: Props) {
+export default function CartOrderBlock({ cost, items, itemValue, orderId, location, personData, country }: Props) {
     const t = useTranslations('Cart')
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [responseModal, setResponseModal] = useState(false);
@@ -27,8 +33,37 @@ export default function CartOrderBlock({ cost, itemValue, orderId }: Props) {
             setResponseModal(true)
         }, 2000)
     }
+
+    const { appendData: createData } = useQueryApiClient({
+        request: {
+          url: "orders",
+          method: "POST",
+          disableOnMount: true,
+        },
+        onSuccess(res) {
+          console.log(res);
+        },
+        onError(res) {
+          console.log(res);
+        },
+      });
+
+
     const toOrder = () => {
-        rout.push(`/order/138715136`)
+        const data = {
+            total_price: cost,
+            location: {
+                name: country,
+                url: location,
+            },
+            userData: personData,
+            items: items,
+        }
+
+        createData(toOrder)
+
+        console.log(data);
+        
     }
 
     return (

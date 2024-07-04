@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./CartBasketItem.module.scss";
 import { CartOrderItemInterface } from "@/features/Cart/interface";
 import Image from "next/image";
-import { MinusSvg, PlusSvg } from "$/assets/images";
+import { CartWearImg, MinusSvg, PlusSvg } from "$/assets/images";
 import { Button } from "antd";
 import { Checkbox } from "@/ui";
 import { useTranslations } from "next-intl";
@@ -23,18 +23,21 @@ export default function CartBasketItem({ item, setAddOrder }: Props) {
   return (
     <div className={styles.main}>
       <div className={styles.item_img}>
-        <Image fill alt="#" src={item.image} />
+        {item.image_url ?
+          <Image fill alt="#" src={item.image_url} /> :
+          "null :("
+        }
       </div>
 
       <div className={styles.item_text}>
         <div className={styles.item_info}>
           <p>{item.title}</p>
           <span>
-            {item.color} · {item.size}
+            {item.color || "null :("} · {item.size || "null :("}
           </span>
         </div>
 
-        <h3>{item.cost} {t('currency')}</h3>
+        <h3>{item.price} {t('currency')}</h3>
       </div>
 
       <div className={styles.checkbox_block}>
@@ -47,7 +50,7 @@ export default function CartBasketItem({ item, setAddOrder }: Props) {
         <Button>
           <Image src={MinusSvg} width={24} height={24} alt="#" />
         </Button>
-        <h4>{item.count}</h4>
+        <h4>{item.quantity}</h4>
         <Button>
           <Image src={PlusSvg} width={24} height={24} alt="#" />
         </Button>

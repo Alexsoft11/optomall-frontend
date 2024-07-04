@@ -6,6 +6,7 @@ import type { DocumentContext } from "next/document";
 const MyDocument = () => (
   <Html lang="en">
     <Head />
+    <script src="https://api-maps.yandex.ru/2.1/?lang=en_RU&apikey=b14d6563-5fe8-4fef-8a47-d4ea235cda5a" type="text/javascript"></script>
     <body>
       <Main />
       <NextScript />
@@ -19,11 +20,11 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   ctx.renderPage = () =>
     originalRenderPage({
       enhanceApp: (App) => (props) =>
-        (
-          <StyleProvider cache={cache}>
-            <App {...props} />
-          </StyleProvider>
-        ),
+      (
+        <StyleProvider cache={cache}>
+          <App {...props} />
+        </StyleProvider>
+      ),
     });
 
   const initialProps = await Document.getInitialProps(ctx);
