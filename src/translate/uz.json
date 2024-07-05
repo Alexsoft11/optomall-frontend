@@ -64,6 +64,7 @@
         "tel": "Telefon",
         "save": "Saqlash va davom etish",
         "info": "Shaxsiy ma'lumotlar",
+        "verification_email_sent": "tasdiqlash xati yuborildi",
         "resetPassword": "Parolni tiklash",
         "modalMessage": "Biz sizga tasdiqlash xatini yubordik!",
         "minSymbolPassword": "Parol kamida 8 ta belgidan iborat bo'lishi kerak",
@@ -96,7 +97,8 @@
         "loadCheque": "To'lov cheki yuklang",
         "basketNoItems": "Savatda hali hech narsa yo'q",
         "goToBuy": "Sotib olishga o'ting",
-        "checkMessage": "To'lov cheki tekshirilmoqda. Bu biroz vaqt olishi mumkin, iltimos, kuting",
+        "checkMessage": "Chek tekshirish uchun yuborildi. Buyurtmangizning joriy holatini buyurtmalar sahifasida kuzatishingiz mumkin.",
+        "inVerification": "Tekshiruvda",
         "checkWarningMessage": "Chek tasdiqlanmadi. Chekni tekshiring va qayta urinib ko'ring."
     },
     "Order": {
@@ -108,6 +110,7 @@
     "Purchases": {
         "active": "Faol",
         "all": "Barchasi",
+        "pending": "Kutilmoqda",
         "goods": "Mahsulotlar",
         "Processing": "Tayyorlanmoqda",
         "Delivered": "Yetkazib berildi",

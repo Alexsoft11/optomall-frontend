@@ -23,6 +23,7 @@
         "unauthenticated": "Неавторизован",
         "invalid_data": "Неверные данные",
         "order_created_successfully": "Заказ успешно создан",
+        "invalid_unique_id": "неверный айди",
         "email": {
             "validation": {
                 "unique": "Эта электронная почта уже используется."
@@ -50,6 +51,7 @@
         "confirm": "Понятно"
     },
     "Auth": {
+        "verify_email": "",
         "confirmCode": "Код подтверждения",
         "confirmCodeIncorect": "неверный код подтверждения",
         "reset": "Новый пароль",
@@ -64,6 +66,7 @@
         "continueGoogle": "Продолжить с Google",
         "regist": "Зарегистрироваться",
         "name": "Имя",
+        "verification_email_sent": "письмо подтверждения отправленно",
         "secondName": "Фамиля",
         "tel": "Телефон",
         "save": "Сохранить и продолжить",
@@ -100,7 +103,7 @@
         "loadCheque": "Загрузите чек оплаты",
         "basketNoItems": "В корзине пока пусто",
         "goToBuy": "Прейти в покупку",
-        "checkMessage": "Проверка чека об оплате. это может занять некоторое время, пожалуйста, подождите",
+        "checkMessage": "Чек отправлен на проверку, текущее состояние заказа можете наблюдать на станице заказов",
         "checkWarningMessage": "Чек не прошел проверку. Проверьте чек и повторите попытку."
     },
     "Order": {
@@ -117,17 +120,19 @@
         "Delivered": "получено",
         "Cancelled": "Отменен",
         "Shipped": "Доставляется",
+        "pending": "В проверке",
         "orderDate": "Дата заказа:",
         "address": "Адресс доставки:",
         "recipient": "Получатель заказа:",
         "moreDetail": "Подробно",
         "orderCost": "Общая сумма:",
-        "currency": "сум"
+        "currency": "сум",
+        "inVerefication": "в проверке"
     },
     "Search": {
         "platform": "Платформа"
     },
-    "MyReviews" : {
+    "MyReviews": {
         "waitForReview": "Ждут оценки",
         "reviewed": "Оставленные",
         "review": "Оставит отзыв",
@@ -139,5 +144,9 @@
         "tab_1": "Распродажа",
         "tab_2": "Топ-товары",
         "tab_3": "Рекомендуем вам"
+    },
+    "ChoiseLocation": {
+        "submit": "отправить",
+        "close": "закрыть"
     }
 }

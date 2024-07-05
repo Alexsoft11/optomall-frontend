@@ -1,13 +1,13 @@
 import { StaticImageData } from "next/image";
 
 export interface CartOrderItemInterface {
-    id: number,
-    image: StaticImageData,
+    product_id: number,
+    image_url: StaticImageData | null,
     title: string,
     color: string,
-    size: string,
-    cost: number,
-    count: number
+    size: string | null,
+    price: number,
+    quantity: number
 }
 
 export interface CartOrderDataInterface {
@@ -20,4 +20,5 @@ export interface CartOrderInterface {
     count: number,
     itemsValue: number,
 }
+
 

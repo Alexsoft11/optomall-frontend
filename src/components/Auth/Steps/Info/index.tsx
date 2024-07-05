@@ -28,9 +28,7 @@ export default function Info() {
     onSuccess(res) {
       message.success(t(`Error.${res.message}`));
       router.push("/");
-      cookies.set("token", Buffer.from(res.token).toString("base64"), {
-        expires: expirationDate,
-      });
+      cookies.set("token", res.token);
       setIsLoading(false)
     },
     onError(res) {
@@ -46,7 +44,7 @@ export default function Info() {
 
   return (
     <div className={styles.main}>
-      <GoToBack backUrl="/auth?step=regist" />
+      <GoToBack backUrl="/auth?step=signUp" />
       <h1>{t("Auth.info")}</h1>
       <p className={styles.desc}>{t('Auth.infoDescription')}</p>
       <div className={styles.form}>
