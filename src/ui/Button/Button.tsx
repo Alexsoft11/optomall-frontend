@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button as AntdButton } from "antd";
 import SvgSelector from "$/assets/icons/SvgSelector";
-import { StyledButton } from './style';
+import { StyledButton } from "./style";
 import { LoadingSpinner } from "../Spin";
 import Link from "next/link";
 
@@ -58,7 +58,9 @@ export const Button = ({
 }: ButtonProps) => {
   const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleMouseMove = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     const { offsetX, offsetY } = e.nativeEvent;
     setMouseCoords({ x: offsetX, y: offsetY });
   };
@@ -76,10 +78,14 @@ export const Button = ({
     ...style,
     "--mouse-x": `${mouseCoords.x}px`,
     "--mouse-y": `${mouseCoords.y}px`,
-    flexDirection: isTopPosition ? "column" : isBottomPosition ? "column-reverse" : undefined,
+    flexDirection: isTopPosition
+      ? "column"
+      : isBottomPosition
+      ? "column-reverse"
+      : undefined,
   } as React.CSSProperties;
 
-  return (
+  const ButtonComponent = (
     <StyledButton
       disabled={disabled}
       className={buttonClassName}
@@ -102,21 +108,23 @@ export const Button = ({
       onMouseMove={handleMouseMove}
     >
       {(isLeftPosition || isTopPosition) && <SvgSelector id={String(iconId)} />}
-      
+
       {isLoading ? (
-        <LoadingSpinner className="btn_spin" spinning={true} size="large" />
+        <LoadingSpinner
+          className="products_spin"
+          spinning={true}
+          size="large"
+        />
       ) : (
-        href ? (
-          <Link href={href}>
-            {label && <span className="text">{label}</span>}
-          </Link>
-        ) : (
-          label && <span className="text">{label}</span>
-        )
+        label && <span className="text">{label}</span>
       )}
-
-
-      {(isRightPosition || isBottomPosition) && <SvgSelector id={String(iconId)} />}
+      {(isRightPosition || isBottomPosition) && (
+        <SvgSelector id={String(iconId)} />
+      )}
     </StyledButton>
+  );
+
+  return (
+    <>{href ? <Link href={href}>{ButtonComponent}</Link> : ButtonComponent}</>
   );
 };
