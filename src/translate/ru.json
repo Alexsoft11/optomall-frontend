@@ -39,7 +39,9 @@
         "messages": "Мои сообщения",
         "purchases": "Мои покупки",
         "customs": "Как считается растаможка",
-        "logout": "Выйти"
+        "logout": "Выйти",
+        "btn_access": "Вход",
+        "btn_regist": "Зарегистрироваться"
     },
     "UiModal": {
         "success": "Чек успешно подвержден",
@@ -122,7 +124,10 @@
         "orderCost": "Общая сумма:",
         "currency": "сум"
     },
-    "MyReviews": {
+    "Search": {
+        "platform": "Платформа"
+    },
+    "MyReviews" : {
         "waitForReview": "Ждут оценки",
         "reviewed": "Оставленные",
         "review": "Оставит отзыв",

@@ -5,6 +5,7 @@ import "aos/dist/aos.css";
 import AOS from "aos";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 interface ILayoutsProps {
   children: ReactNode;
@@ -48,6 +49,7 @@ const MainLayout = ({ children }: ILayoutsProps) => {
       <Navbar />
       <main className="main_page">{children}</main>
       <Footer />
+      <SpeedInsights/>
     </>
   );
 };

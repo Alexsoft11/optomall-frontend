@@ -104,7 +104,7 @@ export const Button = ({
       {(isLeftPosition || isTopPosition) && <SvgSelector id={String(iconId)} />}
       
       {isLoading ? (
-        <LoadingSpinner className="products_spin" spinning={true} size="large" />
+        <LoadingSpinner className="btn_spin" spinning={true} size="large" />
       ) : (
         href ? (
           <Link href={href}>

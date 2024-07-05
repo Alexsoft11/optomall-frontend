@@ -45,7 +45,7 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
         },
     })
 
-    const { appendData: getSubCategoryData } = useQueryApiClient({
+    const { appendData: getSubCategoryData, isLoading: isSubCategoryLoading } = useQueryApiClient({
         request: {
             url: `sub-categories-from-taobao?categoryId=${activeTab}`,
             method: 'GET',
@@ -90,7 +90,7 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
                         }
                         className={styles.navigation__item}
                     >
-                        <NavigationCard data={subCategoryData} setOpenModal={setOpenModal} />
+                        <NavigationCard isSubCategoryLoading={isSubCategoryLoading} data={subCategoryData} setOpenModal={setOpenModal} />
                     </TabPane>
                 ))}
             </CustomTabs>
