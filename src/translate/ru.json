@@ -22,14 +22,26 @@
         "profile_updated_successfully": "Профиль успешно обновлен",
         "unauthenticated": "Неавторизован",
         "invalid_data": "Неверные данные",
-        "order_created_successfully": "Заказ успешно создан"
+        "order_created_successfully": "Заказ успешно создан",
+        "email": {
+            "validation": {
+                "unique": "Эта электронная почта уже используется."
+            }
+        },
+        "password": {
+            "validation": {
+                "min": "Пароль должен содержать не менее 8 символов."
+            }
+        }
     },
     "Navbar": {
         "account": "Мой аккаунт",
         "messages": "Мои сообщения",
         "purchases": "Мои покупки",
         "customs": "Как считается растаможка",
-        "logout": "Выйти"
+        "logout": "Выйти",
+        "btn_access": "Вход",
+        "btn_regist": "Зарегистрироваться"
     },
     "UiModal": {
         "success": "Чек успешно подвержден",
@@ -67,7 +79,12 @@
         "requiredSecondNameMessage": "Введите фамилию",
         "emailAlredyUsed": "электронная почта уже занята!",
         "wrong_password": "неверный пароль",
-        "email_doesnt_exist": "электронная почта не зарегистрирована"
+        "email_doesnt_exist": "электронная почта не зарегистрирована",
+        "signInDescription": "заполните поля для входа",
+        "infoDescription": "заполните поля для информации",
+        "forgotPasswordDescription": "заполните поле",
+        "newPasswordDescription": "придмайте новый пароль",
+        "regisrtationDescription": "заполните поля для регисратрации"
     },
     "Cart": {
         "item": "Товаров",
@@ -107,7 +124,10 @@
         "orderCost": "Общая сумма:",
         "currency": "сум"
     },
-    "MyReviews": {
+    "Search": {
+        "platform": "Платформа"
+    },
+    "MyReviews" : {
         "waitForReview": "Ждут оценки",
         "reviewed": "Оставленные",
         "review": "Оставит отзыв",

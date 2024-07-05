@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './NewPassword.module.scss';
-import { Form, Input, message } from 'antd';
-import { Button } from '@/ui';
+import { Form, message } from 'antd';
+import { Button, Input } from '@/ui';
 import { useTranslations } from 'next-intl';
 import GoogleButton from '../../GoogleButton';
 import { validateConfirmCode, validateConfirmPassword, validateEmail, validatePassword } from '../../Functions';
@@ -10,8 +10,9 @@ import GoToBack from '@/components/GoToBack';
 
 export default function NewPassword() {
     const [form] = Form.useForm();
-    const t = useTranslations("Auth");
-    
+    const t = useTranslations("");
+    const [isLoading, setIsLoading] = useState(false)
+
     const { appendData: createData } = useQueryApiClient({
         request: {
             url: 'password/reset',
@@ -19,19 +20,24 @@ export default function NewPassword() {
             disableOnMount: true,
         },
         onSuccess(res) {
-            message.success(res.message)
-        }
+            message.success(t(`Error.${res.message}`));
+            setIsLoading(false)
+        },
+         onError() {
+            setIsLoading(false)
+         }
     })
 
     const onFinish = (values: any) => {
+        setIsLoading(true)
         createData(values)
     }
 
     return (
         <div className={styles.main}>
             <GoToBack backUrl='/auth?step=forgot-password' />
-            <h1>{t('reset')}</h1>
-            <p className={styles.desc}>Lorem, ipsum dolor sit amet</p>
+            <h1>{t('Auth.reset')}</h1>
+            <p className={styles.desc}>{t('Auth.newPasswordDescription')}</p>
             <div className={styles.form}>
                 <Form
                     form={form}
@@ -48,38 +54,40 @@ export default function NewPassword() {
                     }}
                     autoComplete="off"
                 >
-                    <Form.Item
+
+
+                    <Input
                         name="otp"
                         rules={[
                             { validator: (rule, value) => validateConfirmCode(t, form, value) }
                         ]}
-                    >
-                        <Input type="number" placeholder={t("confirmCode")}/>
-                    </Form.Item>
+                        type="number"
+                        placeholder={t("Auth.confirmCode")}
+                    />
 
-                    <Form.Item
+                    <Input
                         name="password"
                         rules={[
                             { validator: (rule, value) => validatePassword(t, rule, value) }
                         ]}
-                        hasFeedback
-                    >
-                        <Input.Password type="password" placeholder={t("yourPassword")} />
-                    </Form.Item>
+                        type="password"
+                        placeholder={t("Auth.yourPassword")}
+                    />
 
-                    <Form.Item
+
+
+                    <Input
                         name="confirm_password"
-                        hasFeedback
                         rules={[
                             { validator: (rule, value) => validateConfirmPassword(t, form).validator(rule, value) }
                         ]}
-                    >
-                        <Input.Password type="password" placeholder={t("repeatYourPassword")} />
-                    </Form.Item>
+                        type="password"
+                        placeholder={t("Auth.repeatYourPassword")}
+                    />
 
 
                     <Form.Item className={styles.submitButton}>
-                        <Button type="primary" htmlType="submit" className='generalbtn' label={t('signin')} />
+                        <Button type="primary" htmlType="submit" isLoading={isLoading} className='generalbtn' label={t('Auth.signin')} />
                     </Form.Item>
 
                 </Form>

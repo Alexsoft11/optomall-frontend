@@ -1,5 +1,4 @@
 export { Button } from "./Button";
-export { Input } from "./Input";
 export * from "./Radio";
 export * from "./Select";
 export * from "./Table";
@@ -9,3 +8,4 @@ export * from "./Pagination";
 export * from "./Upload";
 export * from "./Checkbox";
 export * from "./Modal";
+export * from "./Input";

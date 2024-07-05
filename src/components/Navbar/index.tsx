@@ -65,9 +65,9 @@ const Navbar = () => {
                 </Link>
               </div>
 
-              <div className={styles.navbar__logo}>
+              <Link href="/" className={styles.navbar__logo}>
                 <Image src={HeadLogo} alt="img" />
-              </div>
+              </Link>
 
               <div className={styles.navbar__items}>
                 <LanguageSelector />
@@ -111,7 +111,7 @@ const Navbar = () => {
                   </>
                 ) : (
                   <>
-                    <div className={styles.navbar__btn_access}>
+                    <div  className={styles.navbar__btn_access}>
                       <Button
                         className="generalbtn"
                         label={t("btn_access")}
@@ -120,7 +120,7 @@ const Navbar = () => {
                       />
                     </div>
 
-                    <div className={styles.navbar__btn_regist}>
+                    <div  className={styles.navbar__btn_regist}>
                       <Button
                         className="line_btn"
                         label={t("btn_regist")}

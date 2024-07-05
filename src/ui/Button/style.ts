@@ -22,9 +22,9 @@ export const StyledButton = styled(Button)`
       max-height: 24px;
     }
   
-    div {
+    /* div {
       display: none;
-    }
+    } */
   
     &.circle {
       border-radius: 100%;
@@ -137,12 +137,11 @@ export const StyledButton = styled(Button)`
       justify-content: center;
 
       span {
-          text-decoration: none;
-          color: white;
-          font-size: var(--paragraph-two);
-          letter-spacing: .08em;
+        text-decoration: none;
+        color: white;
+        font-size: var(--paragraph-two);
+        letter-spacing: .08em;
       }
-
 
       position: relative;
       transition: background-color .6s ease;
@@ -195,5 +194,9 @@ export const StyledButton = styled(Button)`
         background: var(--white-color) !important;
         border: 1px solid var(--primary-color) !important;
       }
+    }
+
+    &.load {
+      max-height: 41px;
     }
 `;

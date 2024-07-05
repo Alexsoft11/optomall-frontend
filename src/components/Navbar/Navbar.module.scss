@@ -28,7 +28,7 @@
     }
 
     @media (max-width: 850px) {
-      width: 58%;
+      width: 100%;
     }
   }
 
@@ -51,6 +51,7 @@
     height: 36px;
     min-width: 89px;
     min-height: 36px;
+    cursor: pointer;
     @media (max-width: 768px) {
       width: 64px;
       height: 25px;
@@ -122,6 +123,11 @@
       background: none;
       border: none;
       cursor: pointer;
+    }
+
+    @media (max-width:850px) {
+      justify-content: end;
+      width: 100%; 
     }
   }
 
@@ -206,7 +212,7 @@
 
   &__user_inner {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     flex-direction: column;
     gap: 20px;
   }
