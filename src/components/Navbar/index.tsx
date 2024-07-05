@@ -125,7 +125,7 @@ const Navbar = () => {
                         className="line_btn"
                         label={t("btn_regist")}
                         size="large"
-                        href="/auth?step=regist"
+                        href="/auth?step=signUp"
                       />
                     </div>
                   </>

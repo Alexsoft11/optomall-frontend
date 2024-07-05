@@ -23,26 +23,26 @@ export default function PurchasesItem({ item }: Props) {
     return (
         <div className={`${styles.main} ${isRotatedUp ? styles.detailOpen : (firstLoad? styles.firsLoadAnimation : styles.detailClose)}`}>
             <div className={styles.order_info}>
-                <p>{t('goods')}: {item.itemsCount}</p>
+                <p>{t('goods')}: {item.items.length}</p>
                 <div className={styles["status_" + item.status]}>{t(`${item.status}`)}</div>
             </div>
             <div className={styles.order_detail}>
                 <div className={styles.detail_item}>
                     <h3>{t('orderDate')}</h3>
-                    <p>{item.date}</p>
+                    <p>{item.created_at}</p>
                 </div>
                 <div className={styles.detail_item}>
                     <h3>{t('orderCost')}</h3>
-                    <p>{item.cost} сум</p>
+                    <p>{item.total_price} сум</p>
                 </div>
                 <div className={styles.detail_item}>
                     <h3>{t('address')}</h3>
-                    <p>{item.address}</p>
+                    <p>{item.location_name}</p>
                 </div>
                 <div className={styles.detail_item}>
                     <h3>{t('recipient')}</h3>
-                    <p>{item.recipient.name}</p>
-                    <p>{item.recipient.number}</p>
+                    <p>{item.user_name}</p>
+                    <p>{item.user_phone}</p>
                 </div>
             </div>
             <div className={`${styles.more_datail} ${isRotatedUp ? styles.rotateUp : styles.rotateDown}`} onClick={handleClick}>
@@ -50,7 +50,7 @@ export default function PurchasesItem({ item }: Props) {
                 <SvgSelector className={"breadcrumb_icon"} id={"chevron-svg"} />
             </div>
             <div className={styles.order_items}>
-                {item.data.map(el => (
+                {item.items.map(el => (
                     <Fragment key={el.id}>
                         <PurchasesOrderItem item={el} />
                     </Fragment>

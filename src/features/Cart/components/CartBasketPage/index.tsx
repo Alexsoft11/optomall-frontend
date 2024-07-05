@@ -13,7 +13,7 @@ interface Props {
 
 export default function CartBasketPage({ data }: Props) {
   const [orderItems, setOrderItems] = useState<CartOrderItemInterface[]>([])
-  const [addOrder, setAddOrder] = useState<CartOrderItemInterface | null>(null)
+  const [addOrder, setAddOrder] = useState<{ item: CartOrderItemInterface, chacked: boolean } | null>(null)
   const [location, setLocation] = useState<number[] | null>(null);
   const [country, setCountry] = useState<string | null>(null);
   const [personData, setPersonData] = useState<any>(null);
@@ -22,21 +22,17 @@ export default function CartBasketPage({ data }: Props) {
   const getTotlaPrice = () => {
     let total = 0;
     if (orderItems.length) {
-      total =  +orderItems.reduce((acum, current) => acum + +current.price, total).toFixed(2)
+      total = +orderItems.reduce((acum, current) => acum + +current.price, total).toFixed(2)
     }
     return total
   }
 
   useEffect(() => {
-    let findFlag = false
     const copy = Object.assign(orderItems, [])
-    copy.forEach((el, idx) => {
-      if (el.id === addOrder?.id) {
-        findFlag = true
-        copy.splice(idx, 1)
-      } else return
-    })
-    if (!findFlag && addOrder !== null) copy.push(addOrder)
+    if (!addOrder?.chacked && addOrder?.item) {
+      copy.splice(copy.indexOf(addOrder.item), 1)
+    }
+    if (addOrder?.chacked && addOrder !== null) copy.push(addOrder.item)
 
     setOrderItems(copy)
     setAddOrder(null)
@@ -46,10 +42,10 @@ export default function CartBasketPage({ data }: Props) {
     <div className={styles.main}>
       <CartBasketItems setAddOrder={setAddOrder} data={data} />
       <div className={styles.order_side}>
-        <CartOrderBlock itemValue={orderItems.length} country={country} items={orderItems} location={location} personData={personData}  cost={getTotlaPrice()} />
+        <CartOrderBlock itemValue={orderItems.length} country={country} items={orderItems} location={location} personData={personData} cost={getTotlaPrice()} />
         <div className={styles.order_info}>
           <CartGetOrderLocations setCountry={setCountry} setLocation={setLocation} />
-          <CartGetOrderPerson setPersonData={setPersonData}/>
+          <CartGetOrderPerson setPersonData={setPersonData} />
         </div>
       </div>
     </div>

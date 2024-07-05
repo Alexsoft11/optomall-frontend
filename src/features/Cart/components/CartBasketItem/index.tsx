@@ -9,14 +9,14 @@ import { useTranslations } from "next-intl";
 
 interface Props {
   item: CartOrderItemInterface;
-  setAddOrder: React.Dispatch<React.SetStateAction<CartOrderItemInterface | null>>,
+  setAddOrder: React.Dispatch<React.SetStateAction<{ item: CartOrderItemInterface, chacked: boolean } | null>>,
 }
 
 export default function CartBasketItem({ item, setAddOrder }: Props) {
   const t = useTranslations('GLOBAL');
 
-  const handleChange = () => {
-    setAddOrder(item)
+  const handleChange = (chacked: boolean) => {
+    setAddOrder({item: item, chacked: chacked})
   }
 
 
@@ -42,7 +42,7 @@ export default function CartBasketItem({ item, setAddOrder }: Props) {
 
       <div className={styles.checkbox_block}>
         <div className={styles.Checkbox}>
-          <Checkbox onChange={handleChange} />
+          <Checkbox onChange={(e) => handleChange(e.target.checked)} />
         </div>
       </div>
 

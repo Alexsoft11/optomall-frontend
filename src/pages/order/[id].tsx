@@ -5,6 +5,8 @@ import GoToBack from "@/components/GoToBack";
 import { useTranslations } from "next-intl";
 import PageTitle from "@/components/PageTitle";
 import dynamic from "next/dynamic";
+import { API } from "@/services/api";
+import { OrderDataInterface } from "@/features/Order/interfaces";
 
 const OrderPage = dynamic(
   () => import("@/features/Order/components/OrderPage")
@@ -13,10 +15,13 @@ const OrderPage = dynamic(
   // }
 );
 
-export default function Order() {
+interface Props {
+  orderData: OrderDataInterface
+}
+
+export default function Order({ orderData }: Props) {  
   const router = useRouter();
   const t = useTranslations("GLOBAL");
-  const { id } = router.query;
 
   return (
     <div className="container">
@@ -26,8 +31,31 @@ export default function Order() {
       <div>
         <GoToBack pathArr={[{ title: "order", path: "" }]} />
         <PageTitle />
-        <OrderPage orderId={id as string} />
+        <OrderPage orderData={orderData} />
       </div>
     </div>
   );
 }
+
+export const getServerSideProps = async (context: any) => {
+
+  try {
+    const token = decodeURIComponent(context.req.headers.cookie.match(/ token=([^;]+)/)[1])
+    const { id } = context.query
+
+    const orderResponse = await API.getOrder(token, id)
+
+    return {
+      props: {
+        orderData: orderResponse.order || [],
+      },
+    };
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+    return {
+      props: {
+        basketData: [],
+      },
+    };
+  }
+};

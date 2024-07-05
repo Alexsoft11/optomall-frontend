@@ -5,6 +5,7 @@ import { API } from "@/services/api";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import Head from "next/head";
+import { cookies } from "next/headers";
 import React from "react";
 
 const CartBasketPage = dynamic(
@@ -44,9 +45,12 @@ export default function Cart({ basketData }: Props) {
 
 
 export const getServerSideProps = async (context: any) => {
-  try {
-    const basketResponse = await API.getUserBasket();
+
+  try {    
+    const token = decodeURIComponent(context.req.headers.cookie.match(/ token=([^;]+)/)[1])
     
+    const basketResponse = await API.getUserBasket(token);
+
     return {
       props: {
         basketData: basketResponse || [],

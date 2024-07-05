@@ -35,8 +35,6 @@ export default function ReviewModal({ modalIsOpen, onCancel }: Props) {
     };
 
     const handleChange = (info: any) => {
-        console.log(info);
-        
         if (info.file.status === 'done') {
             // Get this url from response in real world.
             setImageUrl(info.file.response.url);

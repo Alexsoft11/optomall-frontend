@@ -36,7 +36,14 @@
         }
     }
 
-
+    .upload_btn {
+        div {
+            width: 100%;
+            button {
+                width: 100% !important;
+            }
+        }
+    }
 
     .total {
         display: flex;
@@ -44,7 +51,7 @@
 
         h1,
         p {
-            font-size: var(--heading-five);
+            font-size: var(--heading-seven);
             font-weight: 500;
             line-height: 29.05px;
         }

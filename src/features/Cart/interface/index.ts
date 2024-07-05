@@ -1,7 +1,7 @@
 import { StaticImageData } from "next/image";
 
 export interface CartOrderItemInterface {
-    id: number,
+    product_id: number,
     image_url: StaticImageData | null,
     title: string,
     color: string,
