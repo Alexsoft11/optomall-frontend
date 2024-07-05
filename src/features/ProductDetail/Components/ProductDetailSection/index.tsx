@@ -9,7 +9,7 @@ import Reviews from "../Reviews";
 import RecomendedProducts from "../RecomendedProducts";
 const ProductDetailSection = ({product, recommended}:any) => {
   // console.log(detailData);
-  console.log(product)
+
   const [selectedImage, setSelectedImage] = useState(product?.image);
 
   return (

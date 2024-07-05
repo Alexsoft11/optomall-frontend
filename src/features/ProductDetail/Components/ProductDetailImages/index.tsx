@@ -5,8 +5,9 @@ import styles from "./ProductDetailImages.module.scss";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { detailData } from "@/mockdata/detailData";
+import Detail from "./detail";
 
-const Detail = dynamic(() => import("./detail"),{ssr:false})
+// const Detail = dynamic(() => import("./detail"),{ssr:false})
 
 const ProductDetailImages = ({ selectedImage, setSelectedImage,product }: any) => {
   return (  

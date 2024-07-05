@@ -30,7 +30,8 @@ interface ProductOrderSectionProps {
   setTotalQuantities: any;
   selectedColor: any;
   selectedColors: number[];
-  setSelectedColors:any
+  setSelectedColors:any,
+  totalQuantities:any
 }
 
 interface SelectedSizes {
@@ -40,7 +41,7 @@ interface SelectedSizes {
   }[];
 }
 
-const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({ product, selectedColor, selectedColors, setTotalQuantities, setSelectedColors }) => {
+const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({ product, selectedColor, selectedColors, setTotalQuantities, setSelectedColors ,totalQuantities}) => {
   const { appendData: createData } = useQueryApiClient({
     request: {
       url: `user-basket`,
@@ -92,17 +93,19 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({ product, sele
       alert("Please select at least one color.");
       return;
     }
-
     const sizes = selectedColors.flatMap(colorId => 
       selectedSizes[colorId].filter((size: any) => size.quantity > 0)
-    );
+      );
+      const productColors = sizes.map(el => el.id);
+      const data = {
+        product_id: product.id,
+        sizes: sizes,
+        colors: productColors,
+      };
 
-    const data = {
-      product_id: product.id,
-      sizes: sizes,
-      colors: selectedColors,
-    };
-    createData(data);
+      console.log(data);
+      
+    // createData(data);
   };
 
   useEffect(() => {
@@ -114,6 +117,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({ product, sele
     setSelectedColors([]);
     setTotalQuantities({});
   };
+  console.log(product.sizes)
   return (
     <div className={styles.product_order}>
       <div className={styles.priceSection}>

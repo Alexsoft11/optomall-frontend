@@ -15,17 +15,19 @@ const SliderColors = ({
   setSelectedColor,
   totalQuantities,
   selectedColors,
-  setSelectedColors
+  setSelectedColors,
 }: any) => {
+  const [activeItem, setActiveItem] = useState<number>();
+  const [filterdData, setFiltredColors] = useState([]);
   const handleColorClick = (colorId: number) => {
-    if (selectedColors.includes(colorId)) {
-      setSelectedColors((prev: number[]) => prev.filter(id => id !== colorId));
-    } else {
-      setSelectedColors((prev: number[]) => [...prev, colorId]);
-    }
+    console.log(colorId)
+    setActiveItem(colorId);
+  setSelectedColors((prev: number[]) => [...prev, colorId]);
     setSelectedColor(colorId);
   };
-  console.log(selectedColors)
+
+  console.log(totalQuantities);
+
   return (
     <div className={styles.swiper_colors}>
       <Swiper
@@ -54,17 +56,19 @@ const SliderColors = ({
         className='slider_colors'>
         {data?.map((el: any, idx: number) => (
           <SwiperSlide key={idx}>
-            <Badge count={totalQuantities[el.id] || 0}>
-              </Badge>
-              <div
-                className={`${styles.slide_color} ${selectedColors.includes(el.id)? styles.selected : ""}`}
-                onClick={() => handleColorClick(el.id)}>
-                <Image src={el.image_url} alt={el.name} fill />
-              </div>
+            <Badge count={totalQuantities[el.id] || 0}></Badge>
+            <div
+              className={`${styles.slide_color} ${
+                activeItem === el.id ? styles.selected : ""
+              }`}
+              onClick={() => handleColorClick(el.id)}>
+              <Image src={el.image_url} alt={el.name} fill />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
-      <button className={`next_btn ${styles.next_btn} ${styles.swiper_btns}`}>к
+      <button className={`next_btn ${styles.next_btn} ${styles.swiper_btns}`}>
+        к
         <SvgSelector id='next-svg' />
       </button>
       <button className={`prev_btn ${styles.prev_btn} ${styles.swiper_btns}`}>

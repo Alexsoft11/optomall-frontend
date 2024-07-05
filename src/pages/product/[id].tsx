@@ -18,7 +18,7 @@ const ProductDetail = () => {
       disableOnMount: true,
     },
     onSuccess(res) {
-      console.log(res);
+  
       setProduct(res);
     },
   });
@@ -29,10 +29,16 @@ const ProductDetail = () => {
       getProductsData();
     }
   }, [productId]);
+ const router = useRouter()
 
-  if (isProductsLoading) {
-    return <p>Loading...</p>;
+ const  user = true
+
+ useEffect(() => {
+  if (!user) {
+
+    router.push('/en');
   }
+}, [user, router]);
  const title = product?.detail.title 
   return (
     <PageLayout metaTitle={title}>

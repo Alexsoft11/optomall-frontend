@@ -5,6 +5,7 @@ import styles from "./ProductDetailImages.module.scss";
 import Image from "next/image";
 import SliderSection from "../SliderSection";
 import { detailData } from "@/mockdata/detailData";
+import CustomImage from "@/components/CustomImage";
 
 const isMobile = (windowWidth: number) => windowWidth > 850;
 
@@ -25,10 +26,15 @@ const Detail = ({ selectedImage }: any) => {
   return (
     <>
       <div className={styles.detail}>
-      <div className={styles.imagePreview}>
-            <Image src={selectedImage} alt='Selected' fill />
-          </div>
-
+        {isMobile(windowWidth) ? (
+         <CustomImage src={selectedImage} alt="" className={styles.detail_image} imgClass={styles.img} isLink={false}/>
+        ) : (
+          <>
+            <div className={styles.imagePreview}>
+              <SliderSection data={detailData} />
+            </div>
+          </>
+        )}
       </div>
     </>
   );

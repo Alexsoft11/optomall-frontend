@@ -8,6 +8,14 @@
   }
 }
 
+.ant-carousel .slick-dots li button {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50%;
+}
+.ant-carousel .slick-dots li.slick-active{
+  width: 16px !important;
+}
 :where(.css-dev-only-do-not-override-1okl62o).ant-rate .ant-rate-star-first, :where(.css-dev-only-do-not-override-1okl62o).ant-rate .ant-rate-star-second {
   color: var(--light-grey);
   font-size: var(--heading-four);
