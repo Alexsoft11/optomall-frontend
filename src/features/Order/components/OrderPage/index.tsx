@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./OrderPage.module.scss";
-import { OrderMockdata } from "@/mockdata/Order";
 import OrderCheque from "../OrderCheque";
 import { CartOrderBlock } from "@/features/Cart";
 import { OrderDataInterface } from "../../interfaces";

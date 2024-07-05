@@ -1,7 +1,6 @@
 import GoToBack from '@/components/GoToBack';
 import PageTitle from '@/components/PageTitle';
 import { PurchasesOrderInterface } from '@/features/Purchases/interfaces';
-import { PurchasesMockdata } from '@/mockdata/Purchases';
 import { API } from '@/services/api';
 import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
