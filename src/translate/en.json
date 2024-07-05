@@ -36,7 +36,7 @@
         "purchases": "My Purchases",
         "customs": "How Customs Clearance is Calculated",
         "logout": "Logout",
-        "btn_access": "Access",
+        "btn_access": "Login",
         "btn_regist": "Register"
     },
     "UiModal": {

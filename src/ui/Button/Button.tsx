@@ -28,7 +28,6 @@ export interface ButtonProps {
   style?: React.CSSProperties | undefined;
   icon?: React.ReactNode;
   isLoading?: boolean;
-  href?: string;
 }
 
 export const Button = ({
@@ -54,7 +53,6 @@ export const Button = ({
   style,
   icon,
   isLoading,
-  href,
 }: ButtonProps) => {
   const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
 
@@ -106,13 +104,7 @@ export const Button = ({
       {isLoading ? (
         <LoadingSpinner className="btn_spin" spinning={true} size="large" />
       ) : (
-        href ? (
-          <Link href={href}>
-            {label && <span className="text">{label}</span>}
-          </Link>
-        ) : (
-          label && <span className="text">{label}</span>
-        )
+        label && <span className="text">{label}</span>
       )}
 
 

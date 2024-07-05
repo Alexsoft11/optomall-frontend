@@ -111,23 +111,21 @@ const Navbar = () => {
                   </>
                 ) : (
                   <>
-                    <div className={styles.navbar__btn_access}>
+                    <Link href="/auth" className={styles.navbar__btn_access}>
                       <Button
                         className="generalbtn"
                         label={t("btn_access")}
                         size="large"
-                        href="/auth"
                       />
-                    </div>
+                    </Link>
 
-                    <div className={styles.navbar__btn_regist}>
+                    <Link href="/auth?step=regist" className={styles.navbar__btn_regist}>
                       <Button
                         className="line_btn"
                         label={t("btn_regist")}
                         size="large"
-                        href="/auth?step=regist"
                       />
-                    </div>
+                    </Link>
                   </>
                 )}
               </div>

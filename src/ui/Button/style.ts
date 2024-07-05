@@ -137,12 +137,11 @@ export const StyledButton = styled(Button)`
       justify-content: center;
 
       span {
-          text-decoration: none;
-          color: white;
-          font-size: var(--paragraph-two);
-          letter-spacing: .08em;
+        text-decoration: none;
+        color: white;
+        font-size: var(--paragraph-two);
+        letter-spacing: .08em;
       }
-
 
       position: relative;
       transition: background-color .6s ease;
