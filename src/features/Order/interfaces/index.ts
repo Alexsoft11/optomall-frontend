@@ -1,4 +1,5 @@
 export interface OrderDataInterface {
-    cost: number,
-    cardId: string
+    total_price: number,
+    card_number: string,
+    id: number
 }

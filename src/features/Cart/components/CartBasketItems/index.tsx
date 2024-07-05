@@ -5,8 +5,8 @@ import CartBasketItem from "../CartBasketItem";
 import { CartOrderDataInterface, CartOrderItemInterface } from "../../interface";
 
 interface Props {
-  setAddOrder: React.Dispatch<React.SetStateAction<CartOrderItemInterface | null>>,
-  data: CartOrderDataInterface
+  setAddOrder: React.Dispatch<React.SetStateAction<{ item: CartOrderItemInterface, chacked: boolean } | null>>,
+  data: CartOrderItemInterface[]
 }
 
 
@@ -16,11 +16,11 @@ export default function CartBasketItems({data, setAddOrder}: Props) {
   return (
     <div className={styles.main}>
       <p className={styles.items_count}>
-        {t("item")} {data.data.length}
+        {t("item")} {data.length}
       </p>
       <div className={styles.swiper}>
-        {data.data.map((el) => (
-          <Fragment key={el.id}>
+        {data.map((el) => (
+          <Fragment key={el.product_id}>
             <CartBasketItem item={el} setAddOrder={setAddOrder} />
           </Fragment>
         ))}

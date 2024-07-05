@@ -28,11 +28,9 @@ export default function SignIn() {
       disableOnMount: true,
     },
     onSuccess(res) {
-      message.success(t(`Error.${res.message}`));  
+      message.success(t(`Auth.${res.message}`));  
       setTimeout(() => router.push("/"), 2000);
-      cookies.set("token", Buffer.from(res.token).toString("base64"), {
-        expires: expirationDate,
-      });
+      cookies.set("token", res.token);
     },
     onError(err) {
       if (err.message.includes("email")) {
@@ -108,7 +106,7 @@ export default function SignIn() {
         <div className={styles.not_registred}>
           <p>{t("Auth.notRegistred")}</p>
           <span>
-            <Link href="/auth?step=regist">{t("Auth.registerNow")}</Link>
+            <Link href="/auth?step=signUp">{t("Auth.registerNow")}</Link>
           </span>
         </div>
 

@@ -8,5 +8,5 @@ export const UseLogOut = () => {
     const cookies = new Cookies();
     if (!cookies.get('token')) return ''
     cookies.remove('token')
-    rout.push('/')
+    rout.push('/auth')
 }

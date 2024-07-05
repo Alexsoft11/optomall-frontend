@@ -10,7 +10,7 @@
 
         .items {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(auto,310px));
+            grid-template-columns: repeat(auto-fit, minmax(auto, 310px));
             gap: 20px;
         }
     }
@@ -29,7 +29,24 @@
             }
         }
 
-        .active_switch {
+    }
+
+    .activeChild_all {
+        button:nth-child(2) {
+            span {
+                color: var(--primary-color) !important;
+            }
+        }
+    }
+    .activeChild_active {
+        button:nth-child(1) {
+            span {
+                color: var(--primary-color);
+            }
+        }
+    }
+    .activeChild_in_ve_refication {
+        button:nth-child(3) {
             span {
                 color: var(--primary-color);
             }
