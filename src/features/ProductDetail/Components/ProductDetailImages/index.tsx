@@ -28,6 +28,9 @@ const ProductDetailImages = ({ selectedImage, setSelectedImage,product }: any) =
       </div>
   
       <Detail selectedImage={selectedImage}/>
+      <div className={styles.productDetail__inner_image}>
+
+      </div>
     </div>
   );
 };

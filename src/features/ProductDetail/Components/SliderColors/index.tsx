@@ -68,7 +68,6 @@ const SliderColors = ({
         ))}
       </Swiper>
       <button className={`next_btn ${styles.next_btn} ${styles.swiper_btns}`}>
-        к
         <SvgSelector id='next-svg' />
       </button>
       <button className={`prev_btn ${styles.prev_btn} ${styles.swiper_btns}`}>
