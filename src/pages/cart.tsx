@@ -5,7 +5,6 @@ import { API } from "@/services/api";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import { cookies } from "next/headers";
 import React from "react";
 import cookie from "cookie";
 
@@ -53,8 +52,6 @@ export const getServerSideProps = async (context: any) => {
 
     // Extract the token from the parsed cookies
     const token = decodeURIComponent(cookies.token);
-    console.log(cookies);
-
     const basketResponse = await API.getUserBasket(token);
 
     return {

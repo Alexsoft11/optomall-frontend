@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import React from 'react';
+import cookie from "cookie";
 
 const PurchasesPage = dynamic(
     () => import("@/features/Purchases/components/PurchasesPage")
@@ -18,7 +19,7 @@ interface Props {
     purchasesData: PurchasesOrderInterface[] | []
 }
 
-export default function Purchases({ purchasesData}: Props) {
+export default function Purchases({ purchasesData }: Props) {
     const t = useTranslations("GLOBAL");
     return (
         <div className="container">
@@ -38,7 +39,10 @@ export default function Purchases({ purchasesData}: Props) {
 export const getServerSideProps = async (context: any) => {
 
     try {
-        const token = decodeURIComponent(context.req.headers.cookie.match(/ token=([^;]+)/)[1])
+        const cookies = cookie.parse(context.req.headers.cookie || "");
+
+        // Extract the token from the parsed cookies
+        const token = decodeURIComponent(cookies.token);
         const { filter } = context.query
 
         const purchasesResponse = await API.getPurchases(token, filter);
