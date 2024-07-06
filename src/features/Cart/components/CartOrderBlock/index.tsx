@@ -18,7 +18,7 @@ interface Props {
     country?: string | null
 }
 
-export default function CartOrderBlock({ cost, items, itemValue, orderId = -1, location, personData, country }: Props) {
+export default function CartOrderBlock({ cost, items, itemValue, orderId, location, personData, country }: Props) {
     const t = useTranslations('Cart')
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const router = useRouter();
@@ -62,10 +62,11 @@ export default function CartOrderBlock({ cost, items, itemValue, orderId = -1, l
                 delete image.uid
 
                 const formData = new FormData();
-                formData.append('image', image);
-                formData.append('order_id', orderId.toString());
-
-                createChequeData(formData)
+                if (orderId) {
+                    formData.append('image', image);
+                    formData.append('order_id', orderId.toString());
+                    createChequeData(formData)
+                }
             }
         },
     };
