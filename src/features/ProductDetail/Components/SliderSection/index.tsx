@@ -24,18 +24,19 @@ const SliderSection: FC<IProps> = ({ data }) => {
 
   return (
     <>
-        <Carousel
-          autoplay
-          swipeToSlide={true}
-          draggable
-          dots={true}
-          dotPosition={"bottom"}>
-            {data.map((el:any, idx:number)=>(
-              <div className={styles.img_content}>
-                <Image src={el.image} alt='Selected' fill />
-              </div>
-            ))}
-        </Carousel>
+      <Carousel
+        autoplay
+        swipeToSlide={true}
+        draggable
+        dots={true}
+        dotPosition={"bottom"}
+      >
+        {data.map((el: any, idx: number) => (
+          <div key={idx} className={styles.img_content}>
+            <Image src={el.image} alt="Selected" fill />
+          </div>
+        ))}
+      </Carousel>
     </>
   );
 };
