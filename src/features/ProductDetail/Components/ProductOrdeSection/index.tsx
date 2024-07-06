@@ -127,8 +127,8 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({ product, sele
       </div>
       {selectedColor !== null && (
         <div className={styles.sizeSelector}>
-          {product.sizes.map(size => (
-            <div key={size.id} className={styles.size}>
+          {product.sizes.map((size, idx) => (
+            <div key={idx} className={styles.size}>
               <span>{size.value}</span>
               <div className={styles.change_value}>
                 <Button onClick={() => handleSizeChange(selectedColor, size.id, -1)}>
