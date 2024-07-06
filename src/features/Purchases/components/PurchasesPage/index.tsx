@@ -4,27 +4,30 @@ import { PurchasesOrderInterface } from '../../interfaces';
 import PurchasesItem from '../PurchasesItem';
 import { Button } from 'antd';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/router';
 
 interface Props {
-    data: PurchasesOrderInterface[]
+    data: PurchasesOrderInterface[] | []
 }
 
-export default function PurchasesPage({ data }: Props) {
-    const t = useTranslations('Purchases')
-    const [defautlSwitch, setDefautlSwitch] = useState(true)
-
-    const setSwitch = () => {
-        setDefautlSwitch(!defautlSwitch)
+export default function PurchasesPage({ data = [] }: Props) {
+    const t = useTranslations('Purchases');
+    const router = useRouter();
+    
+    const changeRour = (filter:string) => {
+        router.push(`/purchases?filter=${filter}`)
     }
-
     return (
         <div className={styles.main}>
-            <div className={styles.switch_buttons}>
-                <Button onClick={() => setSwitch()} className={`${defautlSwitch? styles.active_switch : null}`}>
+            <div className={`${styles.switch_buttons} ${styles["activeChild_" + router.query.filter]}`}>
+                <Button onClick={() => changeRour('active')}>
                     {t('active')}
                 </Button>
-                <Button onClick={() => setSwitch()} className={`${!defautlSwitch? styles.active_switch : null}`}>
+                <Button onClick={() => changeRour('all')}>
                     {t('all')}
+                </Button>
+                <Button onClick={() => changeRour('in verefication')}>
+                    {t('inVerefication')}
                 </Button>
             </div>
             <div className={styles.items_block}>

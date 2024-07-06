@@ -1,6 +1,7 @@
 import GoToBack from '@/components/GoToBack';
 import PageTitle from '@/components/PageTitle';
-import { PurchasesMockdata } from '@/mockdata/Purchases';
+import { PurchasesOrderInterface } from '@/features/Purchases/interfaces';
+import { API } from '@/services/api';
 import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -11,9 +12,13 @@ const PurchasesPage = dynamic(
     // {
     //   loading: () => <Loader />,
     // }
-  );
+);
 
-export default function Purchases() {
+interface Props {
+    purchasesData: PurchasesOrderInterface[] | []
+}
+
+export default function Purchases({ purchasesData}: Props) {
     const t = useTranslations("GLOBAL");
     return (
         <div className="container">
@@ -23,8 +28,32 @@ export default function Purchases() {
             <div>
                 <GoToBack pathArr={[{ title: "purchases", path: "" }]} />
                 <PageTitle />
-                <PurchasesPage data={PurchasesMockdata} />
+                <PurchasesPage data={purchasesData} />
             </div>
         </div>
     );
 }
+
+
+export const getServerSideProps = async (context: any) => {
+
+    try {
+        const token = decodeURIComponent(context.req.headers.cookie.match(/ token=([^;]+)/)[1])
+        const { filter } = context.query
+
+        const purchasesResponse = await API.getPurchases(token, filter);
+
+        return {
+            props: {
+                purchasesData: purchasesResponse || [],
+            },
+        };
+    } catch (error: any) {
+        console.error("Error fetching data:", error.message);
+        return {
+            props: {
+                purchasesData: [],
+            },
+        };
+    }
+};

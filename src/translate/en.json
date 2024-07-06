@@ -64,6 +64,7 @@
         "tel": "Phone",
         "save": "Save and continue",
         "info": "Personal information",
+        "verification_email_sent": "verification email sent",
         "resetPassword": "Reset password",
         "modalMessage": "We have sent you a confirmation email!",
         "minSymbolPassword": "Password must be at least 8 characters",
@@ -85,6 +86,8 @@
     "Cart": {
         "item": "Items",
         "total": "Total",
+        "checkMessage": "The receipt has been sent for verification. You can track the current status of your order on the orders page.",
+        "inVerification": "In verification",
         "complite": "CHECKOUT",
         "address": "Delivery address",
         "addressInMap": "Specify delivery address on the map",
@@ -96,7 +99,6 @@
         "loadCheque": "Upload payment receipt",
         "basketNoItems": "Your cart is empty",
         "goToBuy": "Go to purchase",
-        "checkMessage": "Checking the payment receipt. This may take some time, please wait",
         "checkWarningMessage": "Receipt failed verification. Check the receipt and try again."
     },
     "Order": {
@@ -108,6 +110,7 @@
     "Purchases": {
         "active": "Active",
         "all": "All",
+        "pending": "Pending",
         "goods": "Goods",
         "Processing": "Processing",
         "Delivered": "Delivered",

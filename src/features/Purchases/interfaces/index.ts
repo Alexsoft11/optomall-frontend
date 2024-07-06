@@ -1,24 +1,21 @@
-import { StaticImageData } from "next/image"
 
 export interface PurchasesItemInterface {
     id: number,
-    image: StaticImageData,
+    order_id: number,
+    image_url: string,
     price: number,
     title: string
-}
-
-export interface PurchasesUserInterface {
-    name: string,
-    number: string
 }
 
 export interface PurchasesOrderInterface {
     id: number,
     itemsCount: number,
-    cost: number,
-    date: string,
-    address: string,
-    recipient: PurchasesUserInterface,
+    total_price: number,
+    user_name: string,
+    user_phone: string,
+    created_at: string,
+    location_url: string,
+    location_name: string,
     status: string,
-    data: PurchasesItemInterface[]
+    items: PurchasesItemInterface[]
 }
