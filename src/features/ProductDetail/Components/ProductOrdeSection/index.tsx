@@ -31,7 +31,7 @@ interface ProductOrderSectionProps {
   selectedColor: any;
   selectedColors: number[];
   setSelectedColors:any,
-  totalQuantities:any
+  totalQuantities?:any
 }
 
 interface SelectedSizes {

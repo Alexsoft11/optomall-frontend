@@ -9,14 +9,18 @@ import Detail from "./detail";
 
 // const Detail = dynamic(() => import("./detail"),{ssr:false})
 
-const ProductDetailImages = ({ selectedImage, setSelectedImage,product }: any) => {
-  return (  
-  <div className={styles.productDetail}>
+const ProductDetailImages = ({
+  selectedImage,
+  setSelectedImage,
+  product,
+}: any) => {
+  return (
+    <div className={styles.productDetail}>
       <div className={styles.imageThumbnails}>
-        {product.pictures.map((item: any) => (
-          <div className={styles.imageThumbnails_card}>
+        {product.pictures.map((item: any, idx: number) => (
+          <div key={idx} className={styles.imageThumbnails_card}>
             <Image
-            fill
+              fill
               key={item.id}
               src={item.image_url}
               alt={`Thumbnail ${item.id}`}
@@ -26,11 +30,9 @@ const ProductDetailImages = ({ selectedImage, setSelectedImage,product }: any) =
           </div>
         ))}
       </div>
-  
-      <Detail selectedImage={selectedImage}/>
-      <div className={styles.productDetail__inner_image}>
 
-      </div>
+      <Detail selectedImage={selectedImage} />
+      <div className={styles.productDetail__inner_image}></div>
     </div>
   );
 };
