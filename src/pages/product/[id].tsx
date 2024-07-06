@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 
 const ProductDetail = () => {
   const params= useParams();
-  const productId =4
+  const productId =101
   const [product, setProduct] = useState<any>(null);
 
 
@@ -35,10 +35,10 @@ const ProductDetail = () => {
 
  useEffect(() => {
   if (!user) {
-
     router.push('/en');
   }
 }, [user, router]);
+console.log(product)
  const title = product?.detail.title 
   return (
     <PageLayout metaTitle={title}>

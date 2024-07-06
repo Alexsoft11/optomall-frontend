@@ -78,3 +78,8 @@
     flex-direction: column;
   }
 }
+@media(max-width:480px){
+  .productSpecs_name{
+      width: 100%;
+  }
+}

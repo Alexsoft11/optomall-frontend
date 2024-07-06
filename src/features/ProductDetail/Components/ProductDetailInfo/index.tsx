@@ -14,7 +14,7 @@ const ProductDetailInfo = ({
   const [selectedColor, setSelectedColor] = useState<number | null>(null);
   const [selectedColors, setSelectedColors] = useState<number[]>([]);
   const [totalQuantities, setTotalQuantities] = useState<{ [key: number]: number }>({});
-
+console.log(product.colors)
   return (
     <div className={styles.product_info_detail}>
       <div className={styles.productInfo}>
@@ -24,6 +24,7 @@ const ProductDetailInfo = ({
           <span>{productDetails.rating}</span>
           <span>({productDetails.reviews} купили)</span>
         </div>
+
         <SliderColors
           data={product.colors}
           setSelectedColor={setSelectedColor}
@@ -32,6 +33,7 @@ const ProductDetailInfo = ({
           selectedColors={selectedColors}
           setSelectedColors={setSelectedColors}
         />
+
         <div className={styles.productSpecs}>
           <li>
             <div className={styles.productSpecs_name}>
@@ -70,7 +72,9 @@ const ProductDetailInfo = ({
           </li>
         </div>
       </div>
+
       <ProductOrderSection
+        totalQuantities={totalQuantities}
         product={product}
         selectedColor={selectedColor}
         setTotalQuantities={setTotalQuantities}

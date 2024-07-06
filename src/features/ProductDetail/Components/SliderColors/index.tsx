@@ -22,12 +22,9 @@ const SliderColors = ({
   const handleColorClick = (colorId: number) => {
     console.log(colorId)
     setActiveItem(colorId);
-  setSelectedColors((prev: number[]) => [...prev, colorId]);
+    setSelectedColors((prev: number[]) => [...prev, colorId]);
     setSelectedColor(colorId);
   };
-
-  console.log(totalQuantities);
-
   return (
     <div className={styles.swiper_colors}>
       <Swiper

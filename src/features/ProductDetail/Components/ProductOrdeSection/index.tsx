@@ -117,7 +117,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({ product, sele
     setSelectedColors([]);
     setTotalQuantities({});
   };
-  console.log(product.sizes)
+  console.log(selectedColor)
   return (
     <div className={styles.product_order}>
       <div className={styles.priceSection}>
