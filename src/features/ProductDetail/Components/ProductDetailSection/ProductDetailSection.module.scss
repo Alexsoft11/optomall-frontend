@@ -1,0 +1,16 @@
+.product{
+    &__inner {
+        display: flex;
+        gap: 40px;
+
+        @media (max-width:450px) {
+            flex-direction: column;
+          }
+    }
+}
+@media(max-width:460px){
+    .product{
+        display: flex;
+        flex-direction: column;
+    }
+}

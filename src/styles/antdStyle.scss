@@ -8,16 +8,41 @@
   }
 }
 
+.ant-carousel {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.ant-carousel .slick-list .slick-track .slick-slide {
+  min-height: 400px;
+}
+
+.ant-carousel .slick-dots li button {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50%;
+}
+.ant-carousel .slick-dots li.slick-active{
+  width: 16px !important;
+}
 :where(.css-dev-only-do-not-override-1okl62o).ant-rate .ant-rate-star-first, :where(.css-dev-only-do-not-override-1okl62o).ant-rate .ant-rate-star-second {
   color: var(--light-grey);
   font-size: var(--heading-four);
 
 }
+:where(.css-dev-only-do-not-override-1okl62o).ant-badge.ant-badge-not-a-wrapper:not(.ant-badge-status) {
+    vertical-align: middle;
+    top: 8px;
+    left: 32px;
+    z-index: 30;
+}
+.anticon{
+  font-size: 18px;
+}
+
 .review-modal {
   display: flex;
   justify-content: center;
-
-  
 
   .ant-modal-content {
     width: 100%;
