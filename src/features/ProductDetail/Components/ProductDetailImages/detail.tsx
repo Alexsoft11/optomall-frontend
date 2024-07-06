@@ -10,12 +10,16 @@ import CustomImage from "@/components/CustomImage";
 const isMobile = (windowWidth: number) => windowWidth > 850;
 
 const Detail = ({ selectedImage }: any) => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState<number | null>(null);
 
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
+
+    // Set initial window width
+    setWindowWidth(window.innerWidth);
+
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -26,14 +30,18 @@ const Detail = ({ selectedImage }: any) => {
   return (
     <>
       <div className={styles.detail}>
-        {isMobile(windowWidth) ? (
-         <CustomImage src={selectedImage} alt="" className={styles.detail_image} imgClass={styles.img} isLink={false}/>
+        {windowWidth !== null && isMobile(windowWidth) ? (
+          <CustomImage
+            src={selectedImage}
+            alt=""
+            className={styles.detail_image}
+            imgClass={styles.img}
+            isLink={false}
+          />
         ) : (
-          <>
-            <div className={styles.imagePreview}>
-              <SliderSection data={detailData} />
-            </div>
-          </>
+          <div className={styles.imagePreview}>
+            <SliderSection data={detailData} />
+          </div>
         )}
       </div>
     </>
