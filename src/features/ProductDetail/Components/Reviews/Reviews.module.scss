@@ -1,0 +1,50 @@
+.title {
+  color: #000;
+  font-weight: 500;
+  font-size: 16px;
+  margin: 20px 0px;
+}
+.review_card {
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid #f0f0f0;
+  margin-top: 40px;
+  padding: 20px;
+  .card_info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    div {
+      .card_info_title {
+        font-weight: 500;
+        font-size: 13px;
+      }
+      .card_info_date {
+        font-weight: 400;
+        font-size: 13px;
+        color: #808080;
+      }
+    }
+  }
+}
+.reviews {
+  margin-top: 7px;
+}
+.stars {
+  font-size: 10px !important;
+}
+
+.review_card p {
+  margin: 5px 0;
+  font-size: 13px;
+  color: #000;
+}
+.navigators {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+}

@@ -42,7 +42,7 @@
     gap: 50px;
 
     @media (max-width: 768px) {
-      padding: 45px 0px 15px 0px;
+      padding: 25px 0px 15px 0px;
     }
   }
 
@@ -125,9 +125,9 @@
       cursor: pointer;
     }
 
-    @media (max-width:850px) {
+    @media (max-width: 850px) {
       justify-content: end;
-      width: 100%; 
+      width: 100%;
     }
   }
 
@@ -272,7 +272,7 @@
   }
 
   &__mobile_inner {
-    padding: 15px 40px 30px 40px;
+    padding: 15px 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -280,7 +280,7 @@
 
     @media (max-width: 370px) {
       gap: 30px;
-      padding: 15px 30px 30px 30px;
+      padding: 15px 30px;
     }
   }
 

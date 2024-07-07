@@ -31,12 +31,7 @@ const Card = ({ data, idx }: CardProps) => {
       <div className={styles.card}>
         <Link href={`product/${data.id}`} key={idx}>
           <div className={styles.card__image}>
-            <Image
-              src={BASE_URL + "storage/" + data.image}
-              alt="img"
-              width={1000}
-              height={1000}
-            />
+            <Image src={data.image} alt="img" width={1000} height={1000} />
           </div>
 
           <Tooltip
