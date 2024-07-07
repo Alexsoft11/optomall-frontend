@@ -3,7 +3,7 @@ import AuthPage from "@/components/Auth";
 
 export default function Auth() {
   return (
-    <div>
+    <div className="container">
       <AuthPage />
     </div>
   );

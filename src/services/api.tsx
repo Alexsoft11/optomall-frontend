@@ -41,8 +41,8 @@ export const API = {
     .then(res => res.data),
 
   //Auth Page
-  postLogin: (accessToken: string) => axiosInstance.post('check-email', { access_token: accessToken })
-    .then(res => res.data),
+  postLogin: (accessToken: string) => axiosInstance.post('google-login', { token: accessToken })
+  .then(res => res.data),
 
   //PurchasesPage
   getPurchases: (token: string, filter: string) => axiosInstance.get(`get-orders?filter=${filter}`, {

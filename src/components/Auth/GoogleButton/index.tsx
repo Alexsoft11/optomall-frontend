@@ -1,23 +1,26 @@
 import React from 'react';
-import styles from './GoogleButton.module.css';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { GoogleLogo } from '$/assets/images';
-import { signIn } from "next-auth/react"
+import { useRouter } from 'next/router';
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
 
 export default function GoogleButton() {
     const t = useTranslations("Auth")
-    const signInWithGoogle = () => {        
-        signIn('google', {callbackUrl: 'http://localhost:3000'})
-    }
+    const router = useRouter()
+
     return (
         <>
-            <button className={styles.button} onClick={() => signInWithGoogle()}>
-                <div className={styles.img}>
-                    <Image fill src={GoogleLogo} alt='#' />
-                </div>
-                {t('continueGoogle')}
-            </button>
+            <GoogleLogin
+                onSuccess={credentialResponse => {
+                    console.log(credentialResponse);
+
+                    const token = jwtDecode(credentialResponse?.credential as string)
+                    console.log(token)
+                }}
+                onError={() => {
+                    console.log('Login Failed');
+                }}
+            />
         </>
     );
 }
