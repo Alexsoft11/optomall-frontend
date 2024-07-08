@@ -10,7 +10,7 @@ import CustomImage from "@/components/CustomImage";
 const isMobile = (windowWidth: number) => windowWidth > 850;
 
 const Detail = ({ selectedImage, product }: any) => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {

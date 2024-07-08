@@ -20,7 +20,6 @@ const SliderColors = ({
   const [activeItem, setActiveItem] = useState<number>();
 
   const handleColorClick = (colorId: number) => {
-    console.log(colorId);
     setActiveItem(colorId);
     setSelectedColors((prev: number[]) => {
       if (!prev.includes(colorId)) {
@@ -31,7 +30,6 @@ const SliderColors = ({
     setSelectedColor(colorId);
   };
 
-  console.log(totalQuantities);
 
   return (
     <div className={styles.swiper_colors}>
@@ -58,7 +56,8 @@ const SliderColors = ({
           },
         }}
         modules={[Navigation]}
-        className='slider_colors'>
+        className="slider_colors"
+      >
         {data?.map((el: any, idx: number) => (
           <SwiperSlide key={idx}>
             <div className={styles.card_item}>
@@ -67,18 +66,19 @@ const SliderColors = ({
                 className={`${styles.slide_color} ${
                   activeItem === el.id ? styles.selected : ""
                 }`}
-                onClick={() => handleColorClick(el.id)}>
-                <Image src={el.image_url} alt={el.name} fill />
+                onClick={() => handleColorClick(el.id)}
+              >
+                <Image src={el.imageUrl} alt={el.name} fill />
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
       <button className={`next_btn ${styles.next_btn} ${styles.swiper_btns}`}>
-        <SvgSelector id='next-svg' />
+        <SvgSelector id="next-svg" />
       </button>
       <button className={`prev_btn ${styles.prev_btn} ${styles.swiper_btns}`}>
-        <SvgSelector id='prev-svg' />
+        <SvgSelector id="prev-svg" />
       </button>
     </div>
   );

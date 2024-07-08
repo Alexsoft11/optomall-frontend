@@ -17,7 +17,7 @@ interface Product {
   discounted_price: number;
   discount_percentage: number;
   price: number;
-  sizes: Size[];
+  sizes: Size[] | null; // Adjusted to allow null
   colors: Color[];
 }
 
@@ -59,22 +59,65 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     },
     onSuccess(res) {
       message.success(res.message);
-      console.log(res)
+      console.log(res);
       resetStates();
     },
   });
 
-  const initialSizeState = product.colors.reduce((acc: SelectedSizes, color: Color) => {
-    acc[color.id] = product.sizes.map((size) => ({ value: size.value, quantity: 0 }));
-    return acc;
-  }, {});
+  const defaultSizes = [{ id: 1, value: "default" }];
+  const sizesToUse = [
+    {
+      id: 1,
+      value: "S",
+      propertyName: "o'lcham",
+    },
+    {
+      id: 2,
+      value: "M ",
+      propertyName: "o'lcham",
+    },
+    {
+      id: 3,
+      value: "L ",
+      propertyName: "o'lcham",
+    },
+    {
+      id: 4,
+      value: "XL",
+      propertyName: "o'lcham",
+    },
+    {
+      id: 5,
+      value: "2XL ",
+      propertyName: "o'lcham",
+    },
+  ];
+  // product.sizes && product.sizes.length > 0 ? product.sizes : defaultSizes;
 
-  const [selectedSizes, setSelectedSizes] = useState<SelectedSizes>(initialSizeState);
+  const initialSizeState = product.colors.reduce(
+    (acc: SelectedSizes, color: Color) => {
+      acc[color.id] = sizesToUse.map((size) => ({
+        value: size.value,
+        quantity: 0,
+      }));
+      return acc;
+    },
+    {}
+  );
 
-  const handleSizeChange = (colorId: number, sizeValue: string, increment: number) => {
+  const [selectedSizes, setSelectedSizes] =
+    useState<SelectedSizes>(initialSizeState);
+
+  const handleSizeChange = (
+    colorId: number,
+    sizeValue: string,
+    increment: number
+  ) => {
     setSelectedSizes((prev: SelectedSizes) => {
       const newSizes = { ...prev };
-      const sizeIndex = newSizes[colorId].findIndex((size) => size.value === sizeValue);
+      const sizeIndex = newSizes[colorId].findIndex(
+        (size) => size.value === sizeValue
+      );
       if (sizeIndex !== -1) {
         newSizes[colorId][sizeIndex].quantity += increment;
         if (newSizes[colorId][sizeIndex].quantity < 0) {
@@ -99,8 +142,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
       }
     }
     setTotalQuantities(totals);
-    console.log(totals)
-    // setTotalProductQuantity(tsotalQuantity);
+    // setTotalProductQuantity(totalQuantity);
   };
 
   const onFinish = () => {
@@ -116,7 +158,6 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
       product_id: product.id,
       sizes,
     };
-    console.log(data);
     createData(data);
   };
 
@@ -133,24 +174,33 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
   return (
     <div className={styles.product_order}>
       <div className={styles.priceSection}>
-        <span className={styles.currentPrice}>{product.discounted_price} uzs</span>
+        <span className={styles.currentPrice}>
+          {product.discounted_price} uzs
+        </span>
         <span className={styles.discount}>-{product.discount_percentage}%</span>
         <span className={styles.originalPrice}>{product.price} uzs</span>
       </div>
       {selectedColor !== null && (
         <div className={styles.sizeSelector}>
-          {product.sizes.map((size, idx) => (
+          {sizesToUse.map((size, idx) => (
             <div key={idx} className={styles.size}>
               <span>{size.value}</span>
               <div className={styles.change_value}>
-                <Button onClick={() => handleSizeChange(selectedColor, size.value, -1)}>
+                <Button
+                  onClick={() =>
+                    handleSizeChange(selectedColor, size.value, -1)
+                  }
+                >
                   <Image src={MinusSvg} width={24} height={24} alt="#" />
                 </Button>
                 <h4>
-                  {selectedSizes[selectedColor].find((s: any) => s.value === size.value)
-                    ?.quantity || 0}
+                  {selectedSizes[selectedColor].find(
+                    (s: any) => s.value === size.value
+                  )?.quantity || 0}
                 </h4>
-                <Button onClick={() => handleSizeChange(selectedColor, size.value, 1)}>
+                <Button
+                  onClick={() => handleSizeChange(selectedColor, size.value, 1)}
+                >
                   <Image src={PlusSvg} width={24} height={24} alt="#" />
                 </Button>
               </div>
