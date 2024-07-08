@@ -18,10 +18,20 @@ interface Props {
     country?: string | null
 }
 
-export default function CartOrderBlock({ cost, items, itemValue, orderId, location, personData, country }: Props) {
+export default function CartOrderBlock({ cost, items, itemValue, orderId = 2, location, personData, country }: Props) {
     const t = useTranslations('Cart')
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const router = useRouter();
+    const [buttonStatus, setButtonStatus] = useState<'idle' | 'pending' | 'success' | 'fail'>('idle');
+
+    const buttonClass = `${styles['loading-btn']} ${buttonStatus === 'pending'
+        ? styles['loading-btn--pending']
+        : buttonStatus === 'success'
+            ? styles['loading-btn--success']
+            : buttonStatus === 'fail'
+                ? styles['loading-btn--fail']
+                : ''
+        }`;
 
     const modalClose = () => {
         router.push('/purchases')
@@ -48,7 +58,13 @@ export default function CartOrderBlock({ cost, items, itemValue, orderId, locati
         },
         onSuccess(res) {
             setModalIsOpen(true)
+            setButtonStatus('success');
+            setTimeout(() => setButtonStatus('idle'), 1000);
         },
+        onError(err) {
+            setButtonStatus('fail');
+            setTimeout(() => setButtonStatus('idle'), 1000);
+        }
     });
 
     const props = {
@@ -66,6 +82,7 @@ export default function CartOrderBlock({ cost, items, itemValue, orderId, locati
                     formData.append('image', image);
                     formData.append('order_id', orderId.toString());
                     createChequeData(formData)
+                    setButtonStatus('pending')
                 }
             }
         },
@@ -98,7 +115,15 @@ export default function CartOrderBlock({ cost, items, itemValue, orderId, locati
             </div>
             {orderId ?
                 <Upload {...props}>
-                    <Button className={styles.complite_btn} label={t("loadCheque")} />
+                    <div className={styles.response_button__block}>
+                        <span className={styles['loading-btn-wrapper']}>
+                            <button className={buttonClass} disabled={buttonStatus === 'pending'}>
+                                <span className={styles['loading-btn__text']}>
+                                    {buttonStatus === 'idle' && t('loadCheque')}
+                                </span>
+                            </button>
+                        </span>
+                    </div>
                 </Upload> :
                 <Button onClick={() => toOrder()} className={styles.complite_btn} label={t("complite")} />
             }
