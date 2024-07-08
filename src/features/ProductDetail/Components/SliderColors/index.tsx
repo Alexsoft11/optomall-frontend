@@ -18,13 +18,21 @@ const SliderColors = ({
   setSelectedColors,
 }: any) => {
   const [activeItem, setActiveItem] = useState<number>();
-  const [filterdData, setFiltredColors] = useState([]);
+
   const handleColorClick = (colorId: number) => {
-    console.log(colorId)
+    console.log(colorId);
     setActiveItem(colorId);
-    setSelectedColors((prev: number[]) => [...prev, colorId]);
+    setSelectedColors((prev: number[]) => {
+      if (!prev.includes(colorId)) {
+        return [...prev, colorId];
+      }
+      return prev;
+    });
     setSelectedColor(colorId);
   };
+
+  console.log(totalQuantities);
+
   return (
     <div className={styles.swiper_colors}>
       <Swiper
@@ -53,13 +61,15 @@ const SliderColors = ({
         className='slider_colors'>
         {data?.map((el: any, idx: number) => (
           <SwiperSlide key={idx}>
-            <Badge count={totalQuantities[el.id] || 0}></Badge>
-            <div
-              className={`${styles.slide_color} ${
-                activeItem === el.id ? styles.selected : ""
-              }`}
-              onClick={() => handleColorClick(el.id)}>
-              <Image src={el.image_url} alt={el.name} fill />
+            <div className={styles.card_item}>
+              <Badge count={totalQuantities[el.id] || 0}></Badge>
+              <div
+                className={`${styles.slide_color} ${
+                  activeItem === el.id ? styles.selected : ""
+                }`}
+                onClick={() => handleColorClick(el.id)}>
+                <Image src={el.miniImageUrl} alt={el.name} fill />
+              </div>
             </div>
           </SwiperSlide>
         ))}
