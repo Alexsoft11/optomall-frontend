@@ -46,7 +46,7 @@ export default function GoogleButton() {
 
     return (
         <div className={styles.main}>
-            <button className={styles.button} onClick={() => login()}>
+            <button className={styles.button} type='button' onClick={() => login()}>
                 <div className={styles.img}>
                     <Image fill src={GoogleLogo} alt='#' />
                 </div>

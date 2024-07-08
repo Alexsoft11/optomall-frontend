@@ -29,6 +29,8 @@ export default function NewPassword() {
     })
 
     const onFinish = (values: any) => {
+        console.log(values);
+        
         setIsLoading(true)
         createData(values)
     }
