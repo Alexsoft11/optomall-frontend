@@ -50,7 +50,6 @@ export default function Registration({ setModalIsOpen }: Props) {
 
   const onFinish = (values: any) => {
     createData(values);
-    console.log('onFinish')
   };
 
   return (
