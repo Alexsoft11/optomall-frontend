@@ -16,6 +16,10 @@ const Detail = ({ selectedImage, product }: any) => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
+
+    // Set initial window width
+    setWindowWidth(window.innerWidth);
+
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -26,10 +30,10 @@ const Detail = ({ selectedImage, product }: any) => {
   return (
     <>
       <div className={styles.detail}>
-        {isMobile(windowWidth) ? (
+        {windowWidth !== null && isMobile(windowWidth) ? (
           <CustomImage
             src={selectedImage}
-            alt=''
+            alt=""
             className={styles.detail_image}
             imgClass={styles.img}
             isLink={false}

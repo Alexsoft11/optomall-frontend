@@ -7,46 +7,42 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 const ProductDetail = () => {
-  const params= useParams();
-  const productId =params?.id
+  const params = useParams();
   const [product, setProduct] = useState<any>(null);
-
-
-  const { appendData: getProductsData, isLoading: isProductsLoading } = useQueryApiClient({
-    request: {
-      url: `product-detail-from-taobao?productId=${productId}`,
-      method: 'GET',
-      disableOnMount: true,
-    },
-    onSuccess(res) {
-  
-      setProduct(res);
-    },
-  });
-  
+  const productId = params?.id;
+  const { appendData: getProductsData, isLoading: isProductsLoading } =
+    useQueryApiClient({
+      request: {
+        url: `product-detail-from-taobao?productId=${params.id}`,
+        method: "GET",
+        disableOnMount: true,
+      },
+      onSuccess(res) {
+        setProduct(res);
+      },
+    });
 
   useEffect(() => {
     if (productId) {
       getProductsData();
     }
   }, [productId]);
- const router = useRouter()
+  const router = useRouter();
 
- const  user = true
-console.log(product)
- useEffect(() => {
-  if (!user) {
-    router.push('/en');
+  const title = product?.detail.title;
+  if (isProductsLoading) {
+    return <LoadingSpinner />;
   }
-}, [user, router]);
-console.log(isProductsLoading)
- const title = product?.detail.title 
- if(isProductsLoading){
- return <LoadingSpinner/>
- }
   return (
     <PageLayout metaTitle={title}>
-      {product ? <ProductDetailSection product={product.detail} recommended={product.recommended}/> : <p>No product found.</p>}
+      {product ? (
+        <ProductDetailSection
+          product={product.detail}
+          recommended={product.recommended}
+        />
+      ) : (
+        <h2>No product found.</h2>
+      )}
     </PageLayout>
   );
 };
