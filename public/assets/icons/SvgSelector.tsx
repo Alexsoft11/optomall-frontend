@@ -247,6 +247,18 @@ const SvgSelector = ({ id, className = "" }: SvgSelectorProps) => {
           </defs>
         </svg>
       );
+    case "submit-svg":
+      return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="26" viewBox="0 0 34 26" fill="none">
+          <path d="M31.5752 0.872559L33.584 2.86475L11.3379 25.1274L0.414062 14.2036L2.42285 12.1948L11.3379 21.1099L31.5752 0.872559Z" fill="white"/>
+        </svg>
+      );
+    case "submit-error":
+      return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="white"/>
+        </svg>
+      );
   }
 };
 

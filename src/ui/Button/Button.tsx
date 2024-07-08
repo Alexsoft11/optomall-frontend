@@ -111,7 +111,7 @@ export const Button = ({
 
       {isLoading ? (
         <LoadingSpinner
-          className="products_spin"
+          className="btn_spin"
           spinning={true}
           size="large"
         />
