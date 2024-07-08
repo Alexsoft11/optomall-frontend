@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './SubmitBtn.module.scss'
-import { useTranslations } from 'next-intl';
 import SvgSelector from '$/assets/icons/SvgSelector';
 import anime from 'animejs';
 
