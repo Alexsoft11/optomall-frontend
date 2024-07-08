@@ -59,6 +59,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     },
     onSuccess(res) {
       message.success(res.message);
+      console.log(res)
       resetStates();
     },
   });
@@ -103,24 +104,18 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
   };
 
   const onFinish = () => {
-    if (selectedColors.length === 0) {
-      alert("Please select at least one color.");
-      return;
-    }
     const sizes = selectedColors.flatMap((colorId) =>
       selectedSizes[colorId]
         .filter((size: any) => size.quantity > 0)
         .map((size) => ({
           ...size,
-          color_id: colorId,
+          color_id: colorId.toString(),
         }))
     );
-
     const data = {
       product_id: product.id,
       sizes,
     };
-
     console.log(data);
     createData(data);
   };

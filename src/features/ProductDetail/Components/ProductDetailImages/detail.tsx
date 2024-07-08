@@ -9,7 +9,7 @@ import CustomImage from "@/components/CustomImage";
 
 const isMobile = (windowWidth: number) => windowWidth > 850;
 
-const Detail = ({ selectedImage }: any) => {
+const Detail = ({ selectedImage, product }: any) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -27,11 +27,17 @@ const Detail = ({ selectedImage }: any) => {
     <>
       <div className={styles.detail}>
         {isMobile(windowWidth) ? (
-         <CustomImage src={selectedImage} alt="" className={styles.detail_image} imgClass={styles.img} isLink={false}/>
+          <CustomImage
+            src={selectedImage}
+            alt=''
+            className={styles.detail_image}
+            imgClass={styles.img}
+            isLink={false}
+          />
         ) : (
           <>
             <div className={styles.imagePreview}>
-              <SliderSection data={detailData} />
+              <SliderSection data={product.pictures} />
             </div>
           </>
         )}

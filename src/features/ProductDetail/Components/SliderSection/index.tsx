@@ -33,7 +33,7 @@ const SliderSection: FC<IProps> = ({ data }) => {
       >
         {data.map((el: any, idx: number) => (
           <div key={idx} className={styles.img_content}>
-            <Image src={el.image} alt="Selected" fill />
+            <Image src={el.image_url} alt="Selected" fill />
           </div>
         ))}
       </Carousel>

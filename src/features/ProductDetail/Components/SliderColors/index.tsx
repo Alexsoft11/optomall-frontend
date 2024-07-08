@@ -68,7 +68,7 @@ const SliderColors = ({
                   activeItem === el.id ? styles.selected : ""
                 }`}
                 onClick={() => handleColorClick(el.id)}>
-                <Image src={el.miniImageUrl} alt={el.name} fill />
+                <Image src={el.image_url} alt={el.name} fill />
               </div>
             </div>
           </SwiperSlide>
