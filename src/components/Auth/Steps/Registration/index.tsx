@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Registration.module.scss";
 import { Form, message } from "antd";
 import { Button, Input } from "@/ui";
@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import GoToBack from "@/components/GoToBack";
 import useHandleError from "@/utils/useHandleError";
-import { LoadingSpinner } from "@/ui/Spin";
+import SubmitBtn from "@/components/SubmitBtn";
 
 interface Props {
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,11 +23,11 @@ interface Props {
 export default function Registration({ setModalIsOpen }: Props) {
   const [form] = Form.useForm();
   const t = useTranslations("");
-  const router = useRouter();
   const [handleError] = useHandleError(form);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isDisable, setIsDisable] = useState(false)
+  const router = useRouter();
 
-  const { appendData: createData } = useQueryApiClient({
+  const { appendData: createData, isLoading, isSuccess } = useQueryApiClient({
     request: {
       url: "register",
       method: "POST",
@@ -35,18 +35,20 @@ export default function Registration({ setModalIsOpen }: Props) {
     },
     onSuccess(res) {
       message.success(t(`Auth.${res.message}`));
-      setModalIsOpen(true);
-      setTimeout(() => router.push("auth/"), 1500);
-      setIsLoading(false)
+      setIsDisable(true)
+      
+      setTimeout(() => {
+        setModalIsOpen(true);
+        router.push("/auth");
+      }, 2000);      
     },
     onError(res) {
       handleError(res);
-      setIsLoading(false)
+      setIsDisable(true)
     },
   });
 
   const onFinish = (values: any) => {
-    setIsLoading(true)
     createData(values);
   };
 
@@ -115,14 +117,13 @@ export default function Registration({ setModalIsOpen }: Props) {
           </span>
 
           <Form.Item className={styles.submitButton}>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="generalbtn load"
-                label={t("Auth.regist")}
-                isLoading={isLoading}
-              />
-          </Form.Item >
+            <SubmitBtn
+              isLoading={isLoading}
+              isDisable={isDisable}
+              isSuccess={isSuccess}
+              btnText={t("Auth.regist")}
+            />
+          </Form.Item>
 
           <GoogleButton />
 
