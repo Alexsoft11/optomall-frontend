@@ -1,8 +1,3 @@
-import { BASE_URL } from "@/services/api";
-import useQueryApiClient from "@/utils/useQueryApiClient";
-import axios from "axios";
-import { useRouter } from "next/router";
-
 // utils/validation.ts
 export const validatePassword = (
   t: Function,
@@ -57,6 +52,14 @@ export const validatePhone = (
 ) => {
   if (!/^(\d){9}$/m.test(value)) {
     return Promise.reject(new Error(t("Auth.requiredTelMessage")));
+  }
+  return Promise.resolve();
+};
+
+export const validateName = (t: Function, currentValue: any, value: string) => {
+  const regex = /^[A-Za-z\s]+$/; // Regular expression to match letters and spaces
+  if (!regex.test(value)) {
+    return Promise.reject(new Error(t("Auth.nameValidateError")));
   }
   return Promise.resolve();
 };

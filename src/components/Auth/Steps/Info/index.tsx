@@ -4,7 +4,7 @@ import { Form, message } from "antd";
 import { Button, Input } from "@/ui";
 import { useTranslations } from "next-intl";
 import useQueryApiClient from "@/utils/useQueryApiClient";
-import { validatePhone } from "../../Functions";
+import { validateName, validatePhone } from "../../Functions";
 import GoToBack from "@/components/GoToBack";
 import { useRouter } from "next/router";
 import useHandleError from "@/utils/useHandleError";
@@ -13,7 +13,6 @@ import Cookies from "universal-cookie";
 export default function Info() {
   const [form] = Form.useForm();
   const t = useTranslations("");
-  const expirationDate = new Date();
   const cookies = new Cookies();
   const router = useRouter();
   const [handleError] = useHandleError(form);
@@ -67,7 +66,9 @@ export default function Info() {
 
           <Input
             name="name"
-            rules={[{ required: true, message: t("Auth.requiredNameMessage") }]}
+            rules={[
+              { validator: (rule, value) => validateName(t, rule, value) }
+            ]}
             type="text"
             className={styles.input}
             placeholder={t("Auth.name")}

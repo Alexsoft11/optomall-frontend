@@ -81,7 +81,8 @@
         "infoDescription": "fill in the fields for information",
         "forgotPasswordDescription": "fill in the field",
         "newPasswordDescription": "create a new password",
-        "regisrtationDescription": "fill in the fields to register"
+        "regisrtationDescription": "fill in the fields to register",
+        "nameValidateError": "Please enter a valid name"
     },
     "Cart": {
         "item": "Items",
@@ -145,5 +146,9 @@
         "name": "Name",
         "phone": "Phone number",
         "confirm": "Confirm"
+    },
+    "ChooseLocation": {
+        "submit": "submit",
+        "close": "close"
     }
 }
