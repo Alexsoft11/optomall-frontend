@@ -31,7 +31,7 @@ const ProductDetailImages = ({
         ))}
       </div>
 
-      <Detail selectedImage={selectedImage} />
+      <Detail selectedImage={selectedImage} product={product}/>
       <div className={styles.productDetail__inner_image}></div>
     </div>
   );

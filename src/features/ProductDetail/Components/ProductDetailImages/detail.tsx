@@ -9,8 +9,8 @@ import CustomImage from "@/components/CustomImage";
 
 const isMobile = (windowWidth: number) => windowWidth > 850;
 
-const Detail = ({ selectedImage }: any) => {
-  const [windowWidth, setWindowWidth] = useState<number | null>(null);
+const Detail = ({ selectedImage, product }: any) => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => {
@@ -39,9 +39,11 @@ const Detail = ({ selectedImage }: any) => {
             isLink={false}
           />
         ) : (
-          <div className={styles.imagePreview}>
-            <SliderSection data={detailData} />
-          </div>
+          <>
+            <div className={styles.imagePreview}>
+              <SliderSection data={product.pictures} />
+            </div>
+          </>
         )}
       </div>
     </>

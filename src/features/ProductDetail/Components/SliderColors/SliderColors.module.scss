@@ -41,7 +41,10 @@ position: relative;
 .inactive img {
     opacity: 0.5;
   }
-  
+  .card_item{
+    position: relative;
+    padding-top: 15px;
+  }
   .stick {
     position: absolute;
     top: 0;
@@ -61,11 +64,7 @@ position: relative;
     background-color: black;
     transform: rotate(45deg);
   }
-.swiper_btns {
-  @media (max-width: 960px) {
-    display: none !important;
-  }
-}
+
 
 .next_btn {
   position: absolute;
@@ -83,10 +82,14 @@ position: relative;
 
   @media (max-width: 1480px) {
     right: -10px;
+    top: 35px;
+
   }
 
   @media (max-width: 1435px) {
     right: -20px;
+    top: 35px;
+
   }
 
   svg {
@@ -111,10 +114,12 @@ position: relative;
 
   @media (max-width: 1480px) {
     left: -10px;
+    top: 35px;
   }
 
   @media (max-width: 1435px) {
     left: -20px;
+    top: 35px;
   }
 
   svg {

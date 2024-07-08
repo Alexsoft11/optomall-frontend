@@ -8,9 +8,9 @@ import ProductDetailInfo from "../ProductDetailInfo";
 import Reviews from "../Reviews";
 import RecomendedProducts from "../RecomendedProducts";
 const ProductDetailSection = ({product, recommended}:any) => {
-  // console.log(detailData);
 
-  const [selectedImage, setSelectedImage] = useState(product?.image);
+  
+const [selectedImage, setSelectedImage] = useState(product?.image);
 
   return (
     <>
