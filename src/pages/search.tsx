@@ -13,7 +13,7 @@ const SearchPage = ({ productsData }: SearchProps) => {
         <div className='container'>
             <GoToBack pathArr={[{ title: "results", path: "search" }]} />
         </div>
-        <Search data={productsData.products}/>
+        <Search data={productsData?.products}/>
     </>
   )
 }
@@ -22,7 +22,11 @@ export default SearchPage
 
 export const getServerSideProps = async (context: any) => {
   try {
-    const searchResponce = await API.getSearchPageProducts(context.query);
+    
+    console.log(context.query);
+    const searchResponce = await API.getSearchPageProducts(context.query.query);
+    console.log(searchResponce);
+    
     return {
       props: {
         productsData: searchResponce.data || [],
