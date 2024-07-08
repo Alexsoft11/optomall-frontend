@@ -14,7 +14,7 @@ interface Props {
 }
 
 const Products = ({ products }: Props) => {
-  const t = useTranslations("Products")
+  const t = useTranslations()
   const [productsChange, setProducts] = useState<CardInterface[]>(products);
 
   const { appendData: getProductsData, isLoading: isProductsLoading } = useQueryApiClient({
@@ -41,7 +41,7 @@ const Products = ({ products }: Props) => {
               {ProductTabsData.map((tab) => (
                 <TabPane
                   key={tab.key}
-                  tab={t(tab.tab)}
+                  tab={t(`Products.${tab.tab}`)}
                   className={styles.products__item}
                 />
               ))}
@@ -50,7 +50,7 @@ const Products = ({ products }: Props) => {
 
           <div className={styles.products__cards}>
             {isProductsLoading ? (
-              <LoadingSpinner className="products_spin" spinning={true} tip={t('loadingData')} size="large" />
+              <LoadingSpinner className="products_spin" spinning={true} tip={t('GLOBAL.loadingData')} size="large" />
             ) : (
               productsChange?.map((el: CardInterface, idx: number) => (
                 <Card key={el.id}  data={el} idx={idx} />
