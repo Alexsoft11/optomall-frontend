@@ -13,7 +13,7 @@ const ProductDetail = () => {
   const { appendData: getProductsData, isLoading: isProductsLoading } =
     useQueryApiClient({
       request: {
-        url: `product-detail-from-taobao?productId=${params.id}`,
+        url: `product-detail-from-taobao?productId=${productId}`,
         method: "GET",
         disableOnMount: true,
       },
