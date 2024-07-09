@@ -66,7 +66,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     },
     onSuccess(res) {
       message.success(res.message);
-      setLoading(false)
+      setLoading(false);
       resetStates();
     },
   });
@@ -121,7 +121,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     }
     setTotalQuantities(totals);
   };
-console.log(totalQuantities[1])
+  console.log(totalQuantities[1]);
   const onFinish = () => {
     setLoading(true);
     try {
@@ -155,9 +155,10 @@ console.log(totalQuantities[1])
       if (user) {
         createData(data);
       } else {
-        localStorage.setItem("basket-data", JSON.stringify(localeData))
-        message.success("Added to Basket")
-        setLoading(false)
+        localStorage.setItem("basket-data", JSON.stringify(localeData));
+        message.success("Added to Basket");
+        resetStates();
+        setLoading(false);
       }
     } catch (err) {
       setLoading(false);
@@ -221,7 +222,11 @@ console.log(totalQuantities[1])
       <div className={styles.total}>
         <p>Итого</p>
       </div>
-      <Button loading={loading} disabled={totalQuantities[1]>0?false:true} className={styles.addToCart} onClick={onFinish}>
+      <Button
+        loading={loading}
+        disabled={totalQuantities[1] > 0 ? false : true}
+        className={styles.addToCart}
+        onClick={onFinish}>
         В корзину
       </Button>
     </div>
