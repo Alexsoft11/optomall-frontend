@@ -14,7 +14,6 @@ const ProductDetailInfo = ({
   const [selectedColor, setSelectedColor] = useState<number | null>(product.colors[0].id);
   const [selectedColors, setSelectedColors] = useState<number[]>([product.colors[0].id]);
   const [totalQuantities, setTotalQuantities] = useState<{ [key: number]: number }>({});
-console.log(selectedColor)
   return (
     <div className={styles.product_info_detail}>
       <div className={styles.productInfo}>
