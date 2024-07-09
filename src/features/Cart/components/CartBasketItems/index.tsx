@@ -2,16 +2,19 @@ import React, { Fragment, useState } from "react";
 import styles from "./CartBasketItems.module.scss";
 import { useTranslations } from "next-intl";
 import CartBasketItem from "../CartBasketItem";
-import { CartOrderDataInterface, CartOrderItemInterface } from "../../interface";
+import { CartItemInterface, CartOrderItemInterface } from "../../interface";
 
 interface Props {
   setAddOrder: React.Dispatch<React.SetStateAction<{ item: CartOrderItemInterface, chacked: boolean } | null>>,
-  data: CartOrderItemInterface[]
+  data: CartItemInterface[],
+  changeQuantity: (number: number, id: string) => void
 }
 
 
-export default function CartBasketItems({data, setAddOrder}: Props) {
+export default function CartBasketItems({changeQuantity, data, setAddOrder }: Props) {
   const t = useTranslations("Cart");
+
+  
 
   return (
     <div className={styles.main}>
@@ -21,7 +24,7 @@ export default function CartBasketItems({data, setAddOrder}: Props) {
       <div className={styles.swiper}>
         {data.map((el) => (
           <Fragment key={el.product_id}>
-            <CartBasketItem item={el} setAddOrder={setAddOrder} />
+            <CartBasketItem changeQuantity={changeQuantity} item={el} setAddOrder={setAddOrder} />
           </Fragment>
         ))}
       </div>

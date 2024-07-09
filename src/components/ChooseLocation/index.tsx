@@ -29,8 +29,8 @@ const ChooseLocation = ({ onLocationSelect, setMapIsOpen, setCountry }: Props) =
                 window.ymaps.geocode(coords).then((res: any) => {
                     const geoObject = res.geoObjects.get(0);
                     const country = geoObject.getCountry();
-                    resolve(country);
                     setCountry(country);
+                    resolve(country);
                 }).catch((error: any) => {
                     reject(error);
                 });
@@ -44,7 +44,7 @@ const ChooseLocation = ({ onLocationSelect, setMapIsOpen, setCountry }: Props) =
         const coords = e.get('coords');
         setPosition(coords);
         createYandexMapsUrl(coords[1], coords[0]);
-        getCountryName(coords);
+        getCountryName([coords[0], coords[1]]);
     };
 
     const handleGeolocationClick = () => {
@@ -52,7 +52,7 @@ const ChooseLocation = ({ onLocationSelect, setMapIsOpen, setCountry }: Props) =
             (position) => {
                 const { latitude, longitude } = position.coords;
                 setPosition([longitude, latitude]);
-                getCountryName([longitude, latitude]);
+                getCountryName([latitude, longitude]);
                 createYandexMapsUrl(longitude, latitude);
             },
             (error) => {
