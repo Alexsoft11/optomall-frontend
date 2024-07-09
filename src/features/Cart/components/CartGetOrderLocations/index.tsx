@@ -12,8 +12,8 @@ export default function CartGetOrderLocations({setLocation, setCountry}: Props) 
     const t = useTranslations('Cart')
     const [mapIsOpen, setMapIsOpen] = useState(false);
 
-    const handleLocationSelect = (latlng: string) => {
-        setLocation(latlng);
+    const handleLocationSelect = (url: string) => {
+        setLocation(url);
     };
 
     return (

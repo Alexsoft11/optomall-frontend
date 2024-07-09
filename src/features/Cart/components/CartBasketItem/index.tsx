@@ -1,27 +1,40 @@
 import React from "react";
 import styles from "./CartBasketItem.module.scss";
-import { CartOrderItemInterface } from "@/features/Cart/interface";
+import { CartItemInterface, CartOrderItemInterface } from "@/features/Cart/interface";
 import Image from "next/image";
-import { CartWearImg, MinusSvg, PlusSvg } from "$/assets/images";
+import { MinusSvg, PlusSvg } from "$/assets/images";
 import { Button } from "antd";
 import { Checkbox } from "@/ui";
 import { useTranslations } from "next-intl";
 
 interface Props {
-  item: CartOrderItemInterface;
+  item: CartItemInterface;
   setAddOrder: React.Dispatch<
     React.SetStateAction<{
       item: CartOrderItemInterface;
       chacked: boolean;
     } | null>
   >;
+  changeQuantity: (number: number, id: string) => void
 }
 
-export default function CartBasketItem({ item, setAddOrder }: Props) {
+export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Props) {
   const t = useTranslations("GLOBAL");
 
   const handleChange = (chacked: boolean) => {
-    setAddOrder({ item: item, chacked: chacked });
+    
+    const data = {
+      product_id: item.product_id.toString(),
+      image_url: item.image_url,
+      title: item.title,
+      color: item.color,
+      size: item.size,
+      price: +item.price,
+      quantity: item.quantity,
+    }
+
+    
+    setAddOrder({ item: data, chacked: chacked });
   };
 
   return (
@@ -54,11 +67,11 @@ export default function CartBasketItem({ item, setAddOrder }: Props) {
       </div>
 
       <div className={styles.change_value}>
-        <Button>
+        <Button onClick={() => changeQuantity(item.quantity - 1, item.product_id)}>
           <Image src={MinusSvg} width={24} height={24} alt="#" />
         </Button>
         <h4>{item.quantity}</h4>
-        <Button>
+        <Button onClick={() => changeQuantity(item.quantity + 1, item.product_id)}>
           <Image src={PlusSvg} width={24} height={24} alt="#" />
         </Button>
       </div>
