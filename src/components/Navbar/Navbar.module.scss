@@ -42,7 +42,7 @@
     gap: 50px;
 
     @media (max-width: 768px) {
-      padding: 45px 0px 15px 0px;
+      padding: 15px 0px 15px 0px;
     }
   }
 
@@ -125,9 +125,9 @@
       cursor: pointer;
     }
 
-    @media (max-width:850px) {
-      justify-content: end;
-      width: 100%; 
+    @media (max-width: 850px) {
+      justify-content: flex-end;
+      width: 100%;
     }
   }
 
@@ -163,25 +163,6 @@
         }
       }
     }
-  }
-
-  // navbar__search-mobile
-
-  &__search_mobile {
-    display: none;
-    margin-top: 20px;
-
-    width: 100%;
-
-    @media (max-width: 768px) {
-      display: block;
-    }
-  }
-
-  &__search_inner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   // user-modal styles
@@ -272,7 +253,7 @@
   }
 
   &__mobile_inner {
-    padding: 15px 40px 30px 40px;
+    padding: 10px 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -280,7 +261,7 @@
 
     @media (max-width: 370px) {
       gap: 30px;
-      padding: 15px 30px 30px 30px;
+      padding: 10px 30px;
     }
   }
 

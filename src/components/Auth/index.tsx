@@ -50,7 +50,7 @@ export default function AuthPage() {
           <div className={styles.img}>
             <Image src={AuAuthBackground} alt="#" fill={true} />
           </div>
-          <div className={styles.forms_side}>
+          <div className={`${styles.forms_side} container`}>
             <div className={styles.language_selector__block}>
               <LanguageSelector />
             </div>

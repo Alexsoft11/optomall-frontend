@@ -5,8 +5,8 @@ import { API } from "@/services/api";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import { cookies } from "next/headers";
 import React from "react";
+import cookie from "cookie";
 
 const CartBasketPage = dynamic(
   () => import("@/features/Cart/components/CartBasketPage")
@@ -23,7 +23,7 @@ const CartBasketNoItems = dynamic(
 );
 
 interface Props {
-  basketData: CartOrderItemInterface[] | []
+  basketData: CartOrderItemInterface[] | [];
 }
 
 export default function Cart({ basketData }: Props) {
@@ -36,19 +36,22 @@ export default function Cart({ basketData }: Props) {
       <div>
         <GoToBack pathArr={[{ title: "cart", path: "" }]} />
         <PageTitle />
-        {basketData.length ? <CartBasketPage data={basketData} /> : <CartBasketNoItems />}
+        {basketData.length ? (
+          <CartBasketPage data={basketData} />
+        ) : (
+          <CartBasketNoItems />
+        )}
       </div>
     </div>
   );
 }
 
-
-
 export const getServerSideProps = async (context: any) => {
+  try {
+    const cookies = cookie.parse(context.req.headers.cookie || "");
 
-  try {    
-    const token = decodeURIComponent(context.req.headers.cookie.match(/ token=([^;]+)/)[1])
-    
+    // Extract the token from the parsed cookies
+    const token = decodeURIComponent(cookies.token);
     const basketResponse = await API.getUserBasket(token);
 
     return {

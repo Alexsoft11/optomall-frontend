@@ -81,7 +81,8 @@
         "infoDescription": "ma'lumot uchun maydonlarni to'ldiring",
         "forgotPasswordDescription": "maydonni to'ldiring",
         "newPasswordDescription": "yangi parolni o‘ylab toping",
-        "regisrtationDescription": "ro‘yxatdan o‘tish uchun maydonlarni to‘ldiring"
+        "regisrtationDescription": "ro‘yxatdan o‘tish uchun maydonlarni to‘ldiring",
+        "nameValidateError": "Iltimos, haqiqiy ism kiriting"
     },
     "Cart": {
         "item": "Mahsulotlar",
@@ -145,5 +146,9 @@
         "name": "Ism",
         "phone": "Telefon raqami",
         "confirm": "Tasdiqlash"
+    },
+    "ChooseLocation": {
+        "submit": "yuborish",
+        "close": "yopish"
     }
 }

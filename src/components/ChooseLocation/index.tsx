@@ -5,25 +5,38 @@ import { Button } from 'antd';
 import { useTranslations } from 'next-intl';
 
 interface Props {
-    onLocationSelect: any,
+    onLocationSelect: (url: string) => void,
     setMapIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    setCountry:  React.Dispatch<React.SetStateAction<string | null>>,
+    setCountry: React.Dispatch<React.SetStateAction<string | null>>,
 }
 
 const ChooseLocation = ({ onLocationSelect, setMapIsOpen, setCountry }: Props) => {
-    const [position, setPosition] = useState<any>([55.751574, 37.573856]); // Default position (Moscow)
-    const t = useTranslations('ChoiseLocation');
+    const [position, setPosition] = useState<[number, number]>([55.751574, 37.573856]); // Default position (Moscow)
+    const t = useTranslations('ChooseLocation');
+    const [ymapsLoaded, setYmapsLoaded] = useState<boolean>(false);
 
-    const getCountryName = async (coords: number[]) => {
-        return new Promise<string>((resolve, reject) => {
-            window.ymaps.geocode(coords).then((res: any) => {
-                const geoObject = res.geoObjects.get(0);
-                const country = geoObject.getCountry();
-                resolve(country);
-                setCountry(country)
-            }).catch((error: any) => {
-                reject(error);
+    useEffect(() => {
+        if (typeof window !== 'undefined' && window.ymaps) {
+            window.ymaps.ready(() => {
+                setYmapsLoaded(true);
             });
+        }
+    }, []);
+
+    const getCountryName = async (coords: [number, number]) => {
+        return new Promise<string>((resolve, reject) => {
+            if (ymapsLoaded) {
+                window.ymaps.geocode(coords).then((res: any) => {
+                    const geoObject = res.geoObjects.get(0);
+                    const country = geoObject.getCountry();
+                    resolve(country);
+                    setCountry(country);
+                }).catch((error: any) => {
+                    reject(error);
+                });
+            } else {
+                reject('YMaps is not loaded');
+            }
         });
     };
 
@@ -31,17 +44,16 @@ const ChooseLocation = ({ onLocationSelect, setMapIsOpen, setCountry }: Props) =
         const coords = e.get('coords');
         setPosition(coords);
         createYandexMapsUrl(coords[1], coords[0]);
-        getCountryName(coords)
+        getCountryName(coords);
     };
 
-    const handleGeolocationClick = (e: any) => {
+    const handleGeolocationClick = () => {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const { latitude, longitude } = position.coords;
-                const coords = [latitude, longitude];
-                setPosition(coords);
-                getCountryName(coords);
-                createYandexMapsUrl(longitude, latitude)
+                setPosition([longitude, latitude]);
+                getCountryName([longitude, latitude]);
+                createYandexMapsUrl(longitude, latitude);
             },
             (error) => {
                 console.error('Error getting geolocation:', error);
@@ -49,9 +61,9 @@ const ChooseLocation = ({ onLocationSelect, setMapIsOpen, setCountry }: Props) =
         );
     };
 
-    function createYandexMapsUrl(lon: number, lat: number) {
+    const createYandexMapsUrl = (lon: number, lat: number) => {
         onLocationSelect(`https://yandex.com/maps?ll=${lon},${lat}&rtext=${lat},${lon}&rtt=mt&z=18`);
-    }
+    };
 
     return (
         <div className={style.mapBlock}>

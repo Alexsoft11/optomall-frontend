@@ -1,7 +1,7 @@
-import React from 'react'
-import GoToBack from '@/components/GoToBack'
-import Search from '@/features/Search/components/Search'
-import { API } from '@/services/api';
+import React from "react";
+import GoToBack from "@/components/GoToBack";
+import Search from "@/features/Search/components/Search";
+import { API } from "@/services/api";
 
 interface SearchProps {
   productsData: any;
@@ -10,19 +10,22 @@ interface SearchProps {
 const SearchPage = ({ productsData }: SearchProps) => {
   return (
     <>
-        <div className='container'>
-            <GoToBack pathArr={[{ title: "results", path: "search" }]} />
-        </div>
-        <Search data={productsData.products}/>
+      <div className="container">
+        <GoToBack pathArr={[{ title: "results", path: "search" }]} />
+      </div>
+      <Search data={productsData?.products} />
     </>
-  )
-}
+  );
+};
 
-export default SearchPage
+export default SearchPage;
 
 export const getServerSideProps = async (context: any) => {
   try {
-    const searchResponce = await API.getSearchPageProducts(context.query);
+    console.log(context.query);
+    const searchResponce = await API.getSearchPageProducts(context.query.query);
+    console.log(searchResponce);
+
     return {
       props: {
         productsData: searchResponce.data || [],

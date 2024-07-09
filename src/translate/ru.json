@@ -87,7 +87,8 @@
         "infoDescription": "заполните поля для информации",
         "forgotPasswordDescription": "заполните поле",
         "newPasswordDescription": "придмайте новый пароль",
-        "regisrtationDescription": "заполните поля для регисратрации"
+        "regisrtationDescription": "заполните поля для регисратрации",
+        "nameValidateError": "Введите действительное имя"
     },
     "Cart": {
         "item": "Товаров",
@@ -145,7 +146,7 @@
         "tab_2": "Топ-товары",
         "tab_3": "Рекомендуем вам"
     },
-    "ChoiseLocation": {
+    "ChooseLocation": {
         "submit": "отправить",
         "close": "закрыть"
     }

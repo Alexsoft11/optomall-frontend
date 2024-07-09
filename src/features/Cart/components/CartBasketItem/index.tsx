@@ -9,24 +9,29 @@ import { useTranslations } from "next-intl";
 
 interface Props {
   item: CartOrderItemInterface;
-  setAddOrder: React.Dispatch<React.SetStateAction<{ item: CartOrderItemInterface, chacked: boolean } | null>>,
+  setAddOrder: React.Dispatch<
+    React.SetStateAction<{
+      item: CartOrderItemInterface;
+      chacked: boolean;
+    } | null>
+  >;
 }
 
 export default function CartBasketItem({ item, setAddOrder }: Props) {
-  const t = useTranslations('GLOBAL');
+  const t = useTranslations("GLOBAL");
 
   const handleChange = (chacked: boolean) => {
-    setAddOrder({item: item, chacked: chacked})
-  }
-
+    setAddOrder({ item: item, chacked: chacked });
+  };
 
   return (
     <div className={styles.main}>
       <div className={styles.item_img}>
-        {item.image_url ?
-          <Image fill alt="#" src={item.image_url} /> :
+        {item.image_url ? (
+          <Image fill alt="#" src={item.image_url} />
+        ) : (
           "null :("
-        }
+        )}
       </div>
 
       <div className={styles.item_text}>
@@ -37,7 +42,9 @@ export default function CartBasketItem({ item, setAddOrder }: Props) {
           </span>
         </div>
 
-        <h3>{item.price} {t('currency')}</h3>
+        <h3>
+          {item.price} {t("currency")}
+        </h3>
       </div>
 
       <div className={styles.checkbox_block}>

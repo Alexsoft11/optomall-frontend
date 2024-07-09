@@ -12,20 +12,21 @@ const CatalogProductPage = () => {
 
   const { appendData: getProductData } = useQueryApiClient({
     request: {
-        url: `products-from-taobao?subCategoryId=${id}&productsCount=15`,
-        method: 'GET',
+      url: `products-from-taobao?subCategoryId=${id}&productsCount=15`,
+      method: "GET",
     },
     onSuccess(res) {
-      setProductData(res.products)
+      setProductData(res.products);
     },
-  })
+  });
 
   useEffect(() => {
     if (id) {
       getProductData();
     }
-  }, [getProductData, id]);
-  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
   return (
     <>
       <div className="container">
