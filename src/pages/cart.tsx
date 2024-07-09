@@ -1,6 +1,6 @@
 import GoToBack from "@/components/GoToBack";
 import PageTitle from "@/components/PageTitle";
-import { CartOrderItemInterface } from "@/features/Cart/interface";
+import { CartItemInterface, CartOrderItemInterface } from "@/features/Cart/interface";
 import { API } from "@/services/api";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
@@ -23,7 +23,7 @@ const CartBasketNoItems = dynamic(
 );
 
 interface Props {
-  basketData: CartOrderItemInterface[] | [];
+  basketData: CartItemInterface[] | [];
 }
 
 export default function Cart({ basketData }: Props) {
@@ -52,7 +52,7 @@ export const getServerSideProps = async (context: any) => {
 
     // Extract the token from the parsed cookies
     const token = decodeURIComponent(cookies.token);
-    const basketResponse = await API.getUserBasket(token);
+    const basketResponse : CartItemInterface[] = await API.getUserBasket(token);
 
     return {
       props: {
