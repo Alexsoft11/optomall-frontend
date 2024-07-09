@@ -6,6 +6,7 @@ import { Button, message } from "antd";
 import { MinusSvg, PlusSvg } from "$/assets/images";
 import Image from "next/image";
 import useQueryApiClient from "@/utils/useQueryApiClient";
+import { useJwt } from "@/utils/useJwt";
 
 interface Size {
   id: number;
@@ -13,11 +14,12 @@ interface Size {
 }
 
 interface Product {
+  title: string;
   id: number;
   discounted_price: number;
   discount_percentage: number;
   price: number;
-  sizes: Size[] | null; // Adjusted to allow null
+  sizes: Size[]; // Adjusted to allow null
   colors: Color[];
 }
 
@@ -25,6 +27,7 @@ interface Color {
   id: number;
   image_url: string;
   name: string;
+  value: string;
 }
 
 interface ProductOrderSectionProps {
@@ -51,6 +54,10 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
   setSelectedColors,
   totalQuantities,
 }) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const defaultSizes = [{ id: 1, value: "default" }];
+  const user = useJwt();
+
   const { appendData: createData } = useQueryApiClient({
     request: {
       url: `user-basket`,
@@ -59,44 +66,16 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     },
     onSuccess(res) {
       message.success(res.message);
-      console.log(res);
+      setLoading(false)
       resetStates();
     },
   });
 
-  const defaultSizes = [{ id: 1, value: "default" }];
-  const sizesToUse = [
-    {
-      id: 1,
-      value: "S",
-      propertyName: "o'lcham",
-    },
-    {
-      id: 2,
-      value: "M ",
-      propertyName: "o'lcham",
-    },
-    {
-      id: 3,
-      value: "L ",
-      propertyName: "o'lcham",
-    },
-    {
-      id: 4,
-      value: "XL",
-      propertyName: "o'lcham",
-    },
-    {
-      id: 5,
-      value: "2XL ",
-      propertyName: "o'lcham",
-    },
-  ];
-  // product.sizes && product.sizes.length > 0 ? product.sizes : defaultSizes;
-
   const initialSizeState = product.colors.reduce(
     (acc: SelectedSizes, color: Color) => {
-      acc[color.id] = sizesToUse.map((size) => ({
+      acc[color.id] = (
+        product.sizes.length > 0 ? product.sizes : defaultSizes
+      ).map((size) => ({
         value: size.value,
         quantity: 0,
       }));
@@ -104,7 +83,6 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     },
     {}
   );
-
   const [selectedSizes, setSelectedSizes] =
     useState<SelectedSizes>(initialSizeState);
 
@@ -142,28 +120,52 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
       }
     }
     setTotalQuantities(totals);
-    // setTotalProductQuantity(totalQuantity);
   };
-
+console.log(totalQuantities[1])
   const onFinish = () => {
-    const sizes = selectedColors.flatMap((colorId) =>
-      selectedSizes[colorId]
-        .filter((size: any) => size.quantity > 0)
-        .map((size) => ({
-          ...size,
-          color_id: colorId.toString(),
-        }))
-    );
-    const data = {
-      product_id: product.id,
-      sizes,
-    };
-    createData(data);
+    setLoading(true);
+    try {
+      const sizes = selectedColors.flatMap((colorId) =>
+        selectedSizes[colorId]
+          .filter((size: any) => size.quantity > 0)
+          .map((size) => ({
+            ...size,
+            color_id: colorId.toString(),
+          }))
+      );
+      const data = {
+        product_id: product.id.toString(),
+        sizes,
+      };
+      const localeData = selectedColors.flatMap((colorId) =>
+        selectedSizes[colorId]
+          .filter((size: any) => size.quantity > 0)
+          .map((size) => ({
+            product_id: product.id,
+            price: product.price,
+            title: product.title,
+            image_url:
+              product.colors.find((img) => img.id === colorId)?.image_url || "",
+            size: size.value,
+            quantity: size.quantity,
+            color:
+              product.colors.find((color) => color.id === colorId)?.value || "",
+          }))
+      );
+      if (user) {
+        createData(data);
+      } else {
+        localStorage.setItem("basket-data", JSON.stringify(localeData))
+        message.success("Added to Basket")
+        setLoading(false)
+      }
+    } catch (err) {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     calculateTotalQuantities();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSizes, selectedColors]);
 
   const resetStates = () => {
@@ -183,39 +185,45 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
       </div>
       {selectedColor !== null && (
         <div className={styles.sizeSelector}>
-          {sizesToUse.map((size, idx) => (
-            <div key={idx} className={styles.size}>
-              <span>{size.value}</span>
-              <div className={styles.change_value}>
-                <Button
-                  onClick={() =>
-                    handleSizeChange(selectedColor, size.value, -1)
-                  }
-                >
-                  <Image src={MinusSvg} width={24} height={24} alt="#" />
-                </Button>
-                <h4>
-                  {selectedSizes[selectedColor].find(
-                    (s: any) => s.value === size.value
-                  )?.quantity || 0}
-                </h4>
-                <Button
-                  onClick={() => handleSizeChange(selectedColor, size.value, 1)}
-                >
-                  <Image src={PlusSvg} width={24} height={24} alt="#" />
-                </Button>
+          {(product.sizes.length > 0 ? product.sizes : defaultSizes).map(
+            (size, idx) => (
+              <div key={idx} className={styles.size}>
+                <span
+                  className={`${
+                    size.value === "default" ? styles.text_hidden : ""
+                  }`}>
+                  {size.value}
+                </span>
+                <div className={styles.change_value}>
+                  <Button
+                    onClick={() =>
+                      handleSizeChange(selectedColor, size.value, -1)
+                    }>
+                    <Image src={MinusSvg} width={24} height={24} alt='#' />
+                  </Button>
+                  <h4>
+                    {selectedSizes[selectedColor].find(
+                      (s: any) => s.value === size.value
+                    )?.quantity || 0}
+                  </h4>
+                  <Button
+                    onClick={() =>
+                      handleSizeChange(selectedColor, size.value, 1)
+                    }>
+                    <Image src={PlusSvg} width={24} height={24} alt='#' />
+                  </Button>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
       )}
       <div className={styles.total}>
         <p>Итого</p>
-        {/* <span>{Object.values(totalQuantities).reduce((sum, qty) => sum + qty, 0)} uzs</span> */}
       </div>
-      <button className={styles.addToCart} onClick={onFinish}>
+      <Button loading={loading} disabled={totalQuantities[1]>0?false:true} className={styles.addToCart} onClick={onFinish}>
         В корзину
-      </button>
+      </Button>
     </div>
   );
 };

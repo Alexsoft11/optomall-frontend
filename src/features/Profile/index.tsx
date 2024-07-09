@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 
 const Profile = () => {
   const t = useTranslations("Navbar")
+  if (typeof window == 'undefined') return null
   return (
     <div className={styles.navbar__user_inner}>
       <Link href='/account' className={styles.navbar__user_item}>
