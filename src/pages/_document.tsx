@@ -9,11 +9,12 @@ class MyDocument extends Document {
     const originalRenderPage = ctx.renderPage;
     ctx.renderPage = () =>
       originalRenderPage({
-        enhanceApp: (App) => (props) => (
-          <StyleProvider cache={cache}>
-            <App {...props} />
-          </StyleProvider>
-        ),
+        enhanceApp: (App) => (props) =>
+          (
+            <StyleProvider cache={cache}>
+              <App {...props} />
+            </StyleProvider>
+          ),
       });
 
     const initialProps = await Document.getInitialProps(ctx);
@@ -38,6 +39,7 @@ class MyDocument extends Document {
             type="text/javascript"
             async
           />
+          <script src="//code.jivo.ru/widget/DIDzI069GB" async></script>
         </Head>
         <body>
           <Main />

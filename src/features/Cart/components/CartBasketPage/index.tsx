@@ -65,6 +65,7 @@ export default function CartBasketPage({ data }: Props) {
 
     setAddOrder(null)
     setOrderItems(copy)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addOrder])
 
   return (
