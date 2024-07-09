@@ -177,6 +177,12 @@ a {
   min-height: 60vh;
 }
 
+@media screen and (max-width: 850px) {
+  ._orientationRight_eb64.wrap_d3bd {
+    margin-bottom: 50px;
+  }
+}
+
 .go_to_back svg {
   transform: rotate(-90deg);
   height: 100%;
