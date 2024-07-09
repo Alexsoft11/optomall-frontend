@@ -16,10 +16,10 @@ const OrderPage = dynamic(
 );
 
 interface Props {
-  orderData: OrderDataInterface
+  orderData: OrderDataInterface;
 }
 
-export default function Order({ orderData }: Props) {  
+export default function Order({ orderData }: Props) {
   const router = useRouter();
   const t = useTranslations("GLOBAL");
 
@@ -38,12 +38,13 @@ export default function Order({ orderData }: Props) {
 }
 
 export const getServerSideProps = async (context: any) => {
-
   try {
-    const token = decodeURIComponent(context.req.headers.cookie.match(/ token=([^;]+)/)[1])
-    const { id } = context.query
+    const token = decodeURIComponent(
+      context.req.headers.cookie.match(/ token=([^;]+)/)[1]
+    );
+    const { id } = context.query;
 
-    const orderResponse = await API.getOrder(token, id)
+    const orderResponse = await API.getOrder(token, id);
 
     return {
       props: {

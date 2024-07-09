@@ -163,6 +163,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
 
   useEffect(() => {
     calculateTotalQuantities();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSizes, selectedColors]);
 
   const resetStates = () => {
