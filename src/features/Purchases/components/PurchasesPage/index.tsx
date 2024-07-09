@@ -26,7 +26,7 @@ export default function PurchasesPage({ data = [] }: Props) {
                 <Button onClick={() => changeRour('all')}>
                     {t('all')}
                 </Button>
-                <Button onClick={() => changeRour('in verefication')}>
+                <Button onClick={() => changeRour('in_verification')}>
                     {t('inVerefication')}
                 </Button>
             </div>

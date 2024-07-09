@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { Button, Modal } from '@/ui';
 import { useRouter } from 'next/router';
 import { SearchSvg, SuccsessSvg, WarningSvg } from '$/assets/images';
-import { CartOrderItemInterface } from '../../interface';
+import { CartOrderItemInterface, CreateOrderDataInterface } from '../../interface';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import { message, Upload } from 'antd';
 
@@ -12,13 +12,10 @@ interface Props {
     cost: number;
     itemValue?: number,
     orderId?: number,
-    personData?: any,
-    location?: number[] | null,
-    items?: CartOrderItemInterface[] | [],
-    country?: string | null
+    createOrderData?: CreateOrderDataInterface 
 }
 
-export default function CartOrderBlock({ cost, items, itemValue, orderId = 2, location, personData, country }: Props) {
+export default function CartOrderBlock({ cost, itemValue, orderId, createOrderData }: Props) {
     const t = useTranslations('Cart')
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const router = useRouter();
@@ -34,7 +31,7 @@ export default function CartOrderBlock({ cost, items, itemValue, orderId = 2, lo
         }`;
 
     const modalClose = () => {
-        router.push('/purchases')
+        router.push('/purchases?filter=active')
         setModalIsOpen(false)
     }
 
@@ -90,17 +87,7 @@ export default function CartOrderBlock({ cost, items, itemValue, orderId = 2, lo
 
 
     const toOrder = () => {
-        const data = {
-            total_price: cost,
-            location: {
-                name: country,
-                url: location,
-            },
-            userData: personData,
-            items: items,
-        }
-
-        createData(data)
+        createData(createOrderData)
     }
 
     return (
