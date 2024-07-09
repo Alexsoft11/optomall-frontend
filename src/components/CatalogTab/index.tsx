@@ -48,7 +48,7 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
     },
     onSuccess(res) {
       setCatalogTabsData(res.categories);
-      getSubCategoryData(null, { key: res?.categories[0]?.id });
+      // getSubCategoryData(null, { key: res?.categories[0]?.id });
     },
   });
 
