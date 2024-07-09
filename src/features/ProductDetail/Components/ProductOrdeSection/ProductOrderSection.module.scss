@@ -12,7 +12,9 @@
   gap: 10px;
   margin: 10px 0;
 }
-
+.text_hidden{
+  display: none;
+}
 .currentPrice {
   font-size: 24px;
   font-weight: bold;
@@ -45,6 +47,11 @@
 .size span {
   color: #000;
   font-size: 14px;
+  width: 100%;
+}
+.size div {
+  justify-content: space-evenly;
+  width: 100%;
 }
 .change_value {
   height: min-content;
@@ -87,5 +94,11 @@
   span {
     color: #000;
     font-size: 16px;
+  }
+}
+
+@media (max-width:450px) {
+  .product_order {
+    box-shadow: nonex3;
   }
 }

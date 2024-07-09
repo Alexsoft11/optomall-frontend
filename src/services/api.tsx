@@ -24,7 +24,7 @@ export const API = {
     axiosInstance.get(`search-products-from-taobao?searchQuery=${query}`),
 
   getProductDetail: (query: any) =>
-    axiosInstance.get(`product-detail-from-taobao?productId=${query}`),
+    axiosInstance.get(`product-detail-from-taobao?productId=${query}`).then(res=>res.data),
 
   // CartPage
   getUserBasket: (token: string) =>

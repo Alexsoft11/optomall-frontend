@@ -17,7 +17,7 @@ const SliderColors = ({
   selectedColors,
   setSelectedColors,
 }: any) => {
-  const [activeItem, setActiveItem] = useState<number>();
+  const [activeItem, setActiveItem] = useState<number>(data[0].id);
 
   const handleColorClick = (colorId: number) => {
     setActiveItem(colorId);
@@ -29,7 +29,6 @@ const SliderColors = ({
     });
     setSelectedColor(colorId);
   };
-
 
   return (
     <div className={styles.swiper_colors}>
@@ -68,7 +67,7 @@ const SliderColors = ({
                 }`}
                 onClick={() => handleColorClick(el.id)}
               >
-                <Image src={el.imageUrl} alt={el.name} fill />
+                <Image src={el.image_url} alt={el.name} fill />
               </div>
             </div>
           </SwiperSlide>
