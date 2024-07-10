@@ -88,7 +88,8 @@
         "newPasswordDescription": "придмайте новый пароль",
         "regisrtationDescription": "заполните поля для регисратрации",
         "nameValidateError": "Введите действительное имя",
-        "verify_email": "Подтвердите почту!"
+        "verify_email": "Подтвердите почту!",
+        "something_wrong": "Что-то пошло не так! Попробуйте еще раз позже."
     },
     "Cart": {
         "item": "Товаров",

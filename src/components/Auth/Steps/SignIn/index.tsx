@@ -30,6 +30,10 @@ export default function SignIn() {
     },
     onSuccess(res) {
       setIsLoading(false)
+      if (!res.token) {
+        message.error('something_wrong')
+        return
+      }
       setTimeout(() => router.push("/"), 2000);
       cookies.set("token", res.token);
     },

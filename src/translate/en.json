@@ -83,7 +83,8 @@
         "newPasswordDescription": "create a new password",
         "regisrtationDescription": "fill in the fields to register",
         "nameValidateError": "Please enter a valid name",
-        "verify_email": "Verify your email!"
+        "verify_email": "Verify your email!",
+        "something_wrong": "Something went wrong! Please try again later."
     },
     "Cart": {
         "item": "Items",

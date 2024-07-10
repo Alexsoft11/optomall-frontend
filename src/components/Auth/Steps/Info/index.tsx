@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Info.module.scss";
-import { Form } from "antd";
+import { Form, message } from "antd";
 import { Button, Input } from "@/ui";
 import { useTranslations } from "next-intl";
 import useQueryApiClient from "@/utils/useQueryApiClient";
@@ -25,6 +25,10 @@ export default function Info() {
       disableOnMount: true,
     },
     onSuccess(res) {
+      if (!res.token) {
+        message.error('something_wrong')
+        return
+      }
       router.push("/");
       cookies.set("token", res.token);
       setIsLoading(false)
