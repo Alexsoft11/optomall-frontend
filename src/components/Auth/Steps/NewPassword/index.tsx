@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import styles from './NewPassword.module.scss';
-import { Form, message } from 'antd';
+import { Form } from 'antd';
 import { Button, Input } from '@/ui';
 import { useTranslations } from 'next-intl';
-import GoogleButton from '../../GoogleButton';
-import { validateConfirmCode, validateConfirmPassword, validateEmail, validatePassword } from '../../Functions';
+import { validateConfirmCode, validateConfirmPassword, validatePassword } from '../../Functions';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import GoToBack from '@/components/GoToBack';
+import Cookies from 'universal-cookie';
+import { useRouter } from 'next/router';
 
 export default function NewPassword() {
     const [form] = Form.useForm();
     const t = useTranslations("");
     const [isLoading, setIsLoading] = useState(false)
+    const cookie = new Cookies()
+    const router = useRouter()
 
     const { appendData: createData } = useQueryApiClient({
         request: {
@@ -20,15 +23,16 @@ export default function NewPassword() {
             disableOnMount: true,
         },
         onSuccess(res) {
-            message.success(t(`Error.${res.message}`));
             setIsLoading(false)
+            router.push('/auth')
         },
-         onError() {
+        onError() {
             setIsLoading(false)
-         }
+        }
     })
 
-    const onFinish = (values: any) => {       
+    const onFinish = (values: any) => {
+        values.email = cookie.get('forgot-email')
         setIsLoading(true)
         createData(values)
     }
@@ -74,8 +78,6 @@ export default function NewPassword() {
                         placeholder={t("Auth.yourPassword")}
                     />
 
-
-
                     <Input
                         name="confirm_password"
                         rules={[
@@ -85,14 +87,11 @@ export default function NewPassword() {
                         placeholder={t("Auth.repeatYourPassword")}
                     />
 
-
                     <Form.Item className={styles.submitButton}>
                         <Button type="primary" htmlType="submit" isLoading={isLoading} className='generalbtn' label={t('Auth.signin')} />
                     </Form.Item>
 
                 </Form>
-
-                <GoogleButton />
             </div>
         </div>
     );

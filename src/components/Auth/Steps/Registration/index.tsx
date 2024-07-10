@@ -35,8 +35,7 @@ export default function Registration({ setModalIsOpen }: Props) {
     },
     onSuccess(res) {
       message.success(t(`Auth.${res.message}`));
-      setIsDisable(true)
-      
+      setIsDisable(true) 
       setTimeout(() => {
         setModalIsOpen(true);
         router.push("/auth");

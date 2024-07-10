@@ -14,11 +14,12 @@ import useHandleError from "@/utils/useHandleError";
 
 export default function SignIn() {
   const [form] = Form.useForm();
-  const t = useTranslations("");
+  const t = useTranslations("Auth");
   const cookies = new Cookies();
   const expirationDate = new Date();
   const router = useRouter();
   const [handleError] = useHandleError(form);
+  const [isLoading, setIsLoading] = useState(false)
   expirationDate.setDate(expirationDate.getDate() + 3);
 
   const { appendData: createData } = useQueryApiClient({
@@ -28,16 +29,21 @@ export default function SignIn() {
       disableOnMount: true,
     },
     onSuccess(res) {
-      message.success(t(`Auth.${res.message}`));  
+      setIsLoading(false)
+      if (!res.token) {
+        message.error('something_wrong')
+        return
+      }
       setTimeout(() => router.push("/"), 2000);
       cookies.set("token", res.token);
     },
     onError(err) {
+      setIsLoading(false)
       if (err.message.includes("email")) {
         form.setFields([
           {
             name: "email",
-            errors: [t(`Auth.${err.message}`)],
+            errors: [t(`${err.message}`)],
           },
         ]);
         return;
@@ -46,7 +52,16 @@ export default function SignIn() {
         form.setFields([
           {
             name: "password",
-            errors: [t(`Auth.${err.message}`)],
+            errors: [t(`${err.message}`)],
+          },
+        ]);
+        return;
+      }
+      if (err.message.includes('verify_email')) {
+        form.setFields([
+          {
+            name: "email",
+            errors: [t(`${err.message}`)],
           },
         ]);
         return;
@@ -56,14 +71,15 @@ export default function SignIn() {
   });
 
   const onFinish = (values: any) => {
+    setIsLoading(true)
     createData(values);
   };
 
   return (
     <div className={styles.main}>
       <GoToBack pathArr={[{ title: "signin", path: "" }]} />
-      <h1>{t("Auth.signin")}</h1>
-      <p className={styles.desc}>{t('Auth.signInDescription')}</p>
+      <h1>{t("signin")}</h1>
+      <p className={styles.desc}>{t('signInDescription')}</p>
       <div className={styles.form}>
         <Form
           form={form}
@@ -80,7 +96,7 @@ export default function SignIn() {
               { validator: (rule, value) => validateEmail(t, rule, value) },
             ]}
             type="email"
-            placeholder={t("Auth.email")}
+            placeholder={t("email")}
           />
 
           <Input
@@ -91,22 +107,22 @@ export default function SignIn() {
               },
             ]}
             type="password"
-            placeholder={t("Auth.yourPassword")}
+            placeholder={t("yourPassword")}
           />
 
           <span className={styles.forgot_Password}>
-            <Link href="/auth?step=forgot-password">{t("Auth.forgotPassword")}</Link>
+            <Link href="/auth?step=forgot-password">{t("forgotPassword")}</Link>
           </span>
 
           <Form.Item className={styles.submitButton}>
-            <Button type="primary" htmlType="submit" label={t("Auth.signin")} />
+            <Button isLoading={isLoading} type="primary" htmlType="submit" label={t("signin")} />
           </Form.Item>
         </Form>
 
         <div className={styles.not_registred}>
-          <p>{t("Auth.notRegistred")}</p>
+          <p>{t("notRegistred")}</p>
           <span>
-            <Link href="/auth?step=signUp">{t("Auth.registerNow")}</Link>
+            <Link href="/auth?step=signUp">{t("registerNow")}</Link>
           </span>
         </div>
 
