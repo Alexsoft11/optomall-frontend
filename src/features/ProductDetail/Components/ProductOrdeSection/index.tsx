@@ -153,7 +153,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
           }))
       );
       if (user) {
-        createData(data);
+        createData([data]);
       } else {
         localStorage.setItem("basket-data", JSON.stringify(localeData));
         message.success("Added to Basket");

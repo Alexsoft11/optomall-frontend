@@ -5,22 +5,35 @@ import { Button, Input } from "@/ui";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import GoogleButton from "../../GoogleButton";
-import { validateEmail, validatePassword } from "../../Functions";
+import { cookieBasket, validateEmail, validatePassword } from "../../Functions";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import Cookies from "universal-cookie";
 import { useRouter } from "next/router";
 import GoToBack from "@/components/GoToBack";
 import useHandleError from "@/utils/useHandleError";
+import { CartItemInterface } from "@/features/Cart/interface";
+import { API } from "@/services/api";
+import { UserBasketPostInterface } from "@/interfaces";
 
 export default function SignIn() {
   const [form] = Form.useForm();
-  const t = useTranslations("Auth");
+  const t = useTranslations("");
   const cookies = new Cookies();
   const expirationDate = new Date();
   const router = useRouter();
   const [handleError] = useHandleError(form);
   const [isLoading, setIsLoading] = useState(false)
   expirationDate.setDate(expirationDate.getDate() + 3);
+
+
+
+  const { appendData: createBascetData } = useQueryApiClient({
+    request: {
+      url: "user-basket",
+      method: "POST",
+      disableOnMount: true,
+    },
+  });
 
   const { appendData: createData } = useQueryApiClient({
     request: {
@@ -31,8 +44,11 @@ export default function SignIn() {
     onSuccess(res) {
       setIsLoading(false)
       if (!res.token) {
-        message.error('something_wrong')
+        message.error('Auth.something_wrong')
         return
+      }
+      if (localStorage.getItem('basket-data')) {
+        API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
       }
       setTimeout(() => router.push("/"), 2000);
       cookies.set("token", res.token);
@@ -43,7 +59,7 @@ export default function SignIn() {
         form.setFields([
           {
             name: "email",
-            errors: [t(`${err.message}`)],
+            errors: [t(`Auth.${err.message}`)],
           },
         ]);
         return;
@@ -52,7 +68,7 @@ export default function SignIn() {
         form.setFields([
           {
             name: "password",
-            errors: [t(`${err.message}`)],
+            errors: [t(`Auth.${err.message}`)],
           },
         ]);
         return;
@@ -61,7 +77,7 @@ export default function SignIn() {
         form.setFields([
           {
             name: "email",
-            errors: [t(`${err.message}`)],
+            errors: [t(`Auth.${err.message}`)],
           },
         ]);
         return;
@@ -78,8 +94,8 @@ export default function SignIn() {
   return (
     <div className={styles.main}>
       <GoToBack pathArr={[{ title: "signin", path: "" }]} />
-      <h1>{t("signin")}</h1>
-      <p className={styles.desc}>{t('signInDescription')}</p>
+      <h1>{t("Auth.signin")}</h1>
+      <p className={styles.desc}>{t('Auth.signInDescription')}</p>
       <div className={styles.form}>
         <Form
           form={form}
@@ -96,7 +112,7 @@ export default function SignIn() {
               { validator: (rule, value) => validateEmail(t, rule, value) },
             ]}
             type="email"
-            placeholder={t("email")}
+            placeholder={t("Auth.email")}
           />
 
           <Input
@@ -107,22 +123,22 @@ export default function SignIn() {
               },
             ]}
             type="password"
-            placeholder={t("yourPassword")}
+            placeholder={t("Auth.yourPassword")}
           />
 
           <span className={styles.forgot_Password}>
-            <Link href="/auth?step=forgot-password">{t("forgotPassword")}</Link>
+            <Link href="/auth?step=forgot-password">{t("Auth.forgotPassword")}</Link>
           </span>
 
           <Form.Item className={styles.submitButton}>
-            <Button isLoading={isLoading} type="primary" htmlType="submit" label={t("signin")} />
+            <Button isLoading={isLoading} type="primary" htmlType="submit" label={t("Auth.signin")} />
           </Form.Item>
         </Form>
 
         <div className={styles.not_registred}>
-          <p>{t("notRegistred")}</p>
+          <p>{t("Auth.notRegistred")}</p>
           <span>
-            <Link href="/auth?step=signUp">{t("registerNow")}</Link>
+            <Link href="/auth?step=signUp">{t("Auth.registerNow")}</Link>
           </span>
         </div>
 
