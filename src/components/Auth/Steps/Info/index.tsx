@@ -1,4 +1,4 @@
-import React, { ReactEventHandler, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Info.module.scss";
 import { Form, message } from "antd";
 import { Button, Input } from "@/ui";
@@ -12,7 +12,7 @@ import Cookies from "universal-cookie";
 
 export default function Info() {
   const [form] = Form.useForm();
-  const t = useTranslations("");
+  const t = useTranslations("Auth");
   const cookies = new Cookies();
   const router = useRouter();
   const [handleError] = useHandleError(form);
@@ -25,7 +25,10 @@ export default function Info() {
       disableOnMount: true,
     },
     onSuccess(res) {
-      message.success(t(`Error.${res.message}`));
+      if (!res.token) {
+        message.error('something_wrong')
+        return
+      }
       router.push("/");
       cookies.set("token", res.token);
       setIsLoading(false)
@@ -38,14 +41,15 @@ export default function Info() {
 
   const onFinish = (values: any) => {
     values.unique_id = router.query.id;
+    values.phone = '+998' + values.phone
     createData(values);
   };
 
   return (
     <div className={styles.main}>
       <GoToBack backUrl="/auth?step=signUp" />
-      <h1>{t("Auth.info")}</h1>
-      <p className={styles.desc}>{t('Auth.infoDescription')}</p>
+      <h1>{t("info")}</h1>
+      <p className={styles.desc}>{t('infoDescription')}</p>
       <div className={styles.form}>
         <Form
           form={form}
@@ -71,7 +75,7 @@ export default function Info() {
             ]}
             type="text"
             className={styles.input}
-            placeholder={t("Auth.name")}
+            placeholder={t("name")}
           />
 
 
@@ -82,7 +86,7 @@ export default function Info() {
               { required: true, message: t("requiredSecondNameMessage") },
             ]}
             type="text"
-            placeholder={t("Auth.secondName")}
+            placeholder={t("secondName")}
           />
 
 
@@ -103,7 +107,7 @@ export default function Info() {
               type="primary"
               htmlType="submit"
               className="generalbtn"
-              label={t("Auth.save")}
+              label={t("save")}
             />
           </Form.Item>
         </Form>
