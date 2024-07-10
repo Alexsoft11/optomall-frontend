@@ -51,7 +51,6 @@
         "confirm": "Понятно"
     },
     "Auth": {
-        "verify_email": "",
         "confirmCode": "Код подтверждения",
         "confirmCodeIncorect": "неверный код подтверждения",
         "reset": "Новый пароль",
@@ -88,7 +87,8 @@
         "forgotPasswordDescription": "заполните поле",
         "newPasswordDescription": "придмайте новый пароль",
         "regisrtationDescription": "заполните поля для регисратрации",
-        "nameValidateError": "Введите действительное имя"
+        "nameValidateError": "Введите действительное имя",
+        "verify_email": "Подтвердите почту!"
     },
     "Cart": {
         "item": "Товаров",

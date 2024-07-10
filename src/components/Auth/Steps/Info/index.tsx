@@ -1,6 +1,6 @@
-import React, { ReactEventHandler, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Info.module.scss";
-import { Form, message } from "antd";
+import { Form } from "antd";
 import { Button, Input } from "@/ui";
 import { useTranslations } from "next-intl";
 import useQueryApiClient from "@/utils/useQueryApiClient";
@@ -25,7 +25,6 @@ export default function Info() {
       disableOnMount: true,
     },
     onSuccess(res) {
-      message.success(t(`Error.${res.message}`));
       router.push("/");
       cookies.set("token", res.token);
       setIsLoading(false)
@@ -38,6 +37,7 @@ export default function Info() {
 
   const onFinish = (values: any) => {
     values.unique_id = router.query.id;
+    values.phone = '+998' + values.phone
     createData(values);
   };
 

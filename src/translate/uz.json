@@ -82,7 +82,8 @@
         "forgotPasswordDescription": "maydonni to'ldiring",
         "newPasswordDescription": "yangi parolni o‘ylab toping",
         "regisrtationDescription": "ro‘yxatdan o‘tish uchun maydonlarni to‘ldiring",
-        "nameValidateError": "Iltimos, haqiqiy ism kiriting"
+        "nameValidateError": "Iltimos, haqiqiy ism kiriting",
+        "verify_email": "Elektron pochtangizni tasdiqlang!"
     },
     "Cart": {
         "item": "Mahsulotlar",

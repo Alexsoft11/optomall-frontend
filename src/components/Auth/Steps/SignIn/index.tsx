@@ -19,6 +19,7 @@ export default function SignIn() {
   const expirationDate = new Date();
   const router = useRouter();
   const [handleError] = useHandleError(form);
+  const [isLoading, setIsLoading] = useState(false)
   expirationDate.setDate(expirationDate.getDate() + 3);
 
   const { appendData: createData } = useQueryApiClient({
@@ -28,11 +29,12 @@ export default function SignIn() {
       disableOnMount: true,
     },
     onSuccess(res) {
-      message.success(t(`Auth.${res.message}`));  
+      setIsLoading(false)
       setTimeout(() => router.push("/"), 2000);
       cookies.set("token", res.token);
     },
     onError(err) {
+      setIsLoading(false)
       if (err.message.includes("email")) {
         form.setFields([
           {
@@ -51,11 +53,21 @@ export default function SignIn() {
         ]);
         return;
       }
+      if (err.message.includes('verify_email')) {
+        form.setFields([
+          {
+            name: "email",
+            errors: [t(`Auth.${err.message}`)],
+          },
+        ]);
+        return;
+      }
       handleError(err);
     },
   });
 
   const onFinish = (values: any) => {
+    setIsLoading(true)
     createData(values);
   };
 
@@ -99,7 +111,7 @@ export default function SignIn() {
           </span>
 
           <Form.Item className={styles.submitButton}>
-            <Button type="primary" htmlType="submit" label={t("Auth.signin")} />
+            <Button isLoading={isLoading} type="primary" htmlType="submit" label={t("Auth.signin")} />
           </Form.Item>
         </Form>
 
