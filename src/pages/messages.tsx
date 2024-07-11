@@ -1,16 +1,17 @@
 import GoToBack from "@/components/GoToBack";
 import PageTitle from "@/components/PageTitle";
 import { MessagesMocdata } from "@/mockdata/Messages";
+import { LoadingSpinner } from "@/ui/Spin";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import React from "react";
 
 const MessagesPage = dynamic(
-  () => import("@/features/Messages/MessagesPage")
-  // {
-  //   loading: () => <Loader />,
-  // }
+  () => import("@/features/Messages/MessagesPage"),
+  {
+    loading: () => <LoadingSpinner className="global_page_loader" />,
+  }
 );
 
 export default function Messages() {

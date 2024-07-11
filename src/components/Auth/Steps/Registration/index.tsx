@@ -15,6 +15,7 @@ import Link from "next/link";
 import GoToBack from "@/components/GoToBack";
 import useHandleError from "@/utils/useHandleError";
 import SubmitBtn from "@/components/SubmitBtn";
+import Cookies from "universal-cookie";
 
 interface Props {
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,10 +25,9 @@ export default function Registration({ setModalIsOpen }: Props) {
   const [form] = Form.useForm();
   const t = useTranslations("");
   const [handleError] = useHandleError(form);
-  const [isDisable, setIsDisable] = useState(false)
   const router = useRouter();
 
-  const { appendData: createData, isLoading, isSuccess } = useQueryApiClient({
+  const { appendData: createData, isLoading, isSuccess ,isError} = useQueryApiClient({
     request: {
       url: "register",
       method: "POST",
@@ -35,16 +35,13 @@ export default function Registration({ setModalIsOpen }: Props) {
     },
     onSuccess(res) {
       message.success(t(`Auth.${res.message}`));
-      setIsDisable(true)
-      
       setTimeout(() => {
         setModalIsOpen(true);
         router.push("/auth");
-      }, 2000);      
+      }, 2000);
     },
     onError(res) {
       handleError(res);
-      setIsDisable(true)
     },
   });
 
@@ -116,14 +113,9 @@ export default function Registration({ setModalIsOpen }: Props) {
             <Link href="/auth">{t("Auth.signin")}</Link>
           </span>
 
-          <Form.Item className={styles.submitButton}>
-            <SubmitBtn
-              isLoading={isLoading}
-              isDisable={isDisable}
-              isSuccess={isSuccess}
-              btnText={t("Auth.regist")}
-            />
-          </Form.Item>
+          <div className={styles.submitButton}>
+            <Button type="primary" htmlType="submit" isLoading={isLoading} className='generalbtn' label={t('Auth.regist')} />
+          </div>
 
           <GoogleButton />
 

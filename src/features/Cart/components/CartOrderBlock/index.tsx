@@ -7,19 +7,22 @@ import { SearchSvg, SuccsessSvg, WarningSvg } from '$/assets/images';
 import { CartOrderItemInterface, CreateOrderDataInterface } from '../../interface';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import { message, Upload } from 'antd';
+import Cookies from 'universal-cookie';
 
 interface Props {
     cost: number;
     itemValue?: number,
     orderId?: number,
-    createOrderData?: CreateOrderDataInterface 
+    createOrderData?: CreateOrderDataInterface
 }
 
 export default function CartOrderBlock({ cost, itemValue, orderId, createOrderData }: Props) {
     const t = useTranslations('Cart')
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [checkModalIsOpen, setCheckModalIsOpen] = useState(false);
+    const [authModalIsOpen, setAuthModalIsOpen] = useState(false);
     const router = useRouter();
     const [buttonStatus, setButtonStatus] = useState<'idle' | 'pending' | 'success' | 'fail'>('idle');
+    const cookie = new Cookies()
 
     const buttonClass = `${styles['loading-btn']} ${buttonStatus === 'pending'
         ? styles['loading-btn--pending']
@@ -30,9 +33,9 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
                 : ''
         }`;
 
-    const modalClose = () => {
+    const checkModalClose = () => {
         router.push('/purchases?filter=active')
-        setModalIsOpen(false)
+        setCheckModalIsOpen(false)
     }
 
     const { appendData: createData } = useQueryApiClient({
@@ -54,7 +57,7 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
             multipart: true
         },
         onSuccess(res) {
-            setModalIsOpen(true)
+            setCheckModalIsOpen(true)
             setButtonStatus('success');
             setTimeout(() => setButtonStatus('idle'), 1000);
         },
@@ -87,6 +90,10 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
 
 
     const toOrder = () => {
+        if (!cookie.get('token')) {
+            setAuthModalIsOpen(true)
+            return
+        }
         createData(createOrderData)
     }
 
@@ -115,11 +122,18 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
                 <Button onClick={() => toOrder()} className={styles.complite_btn} label={t("complite")} />
             }
             <Modal
-                onCancel={modalClose}
+                onCancel={checkModalClose}
                 className='bg_white'
                 img={SearchSvg}
                 description={t("checkMessage")}
-                open={modalIsOpen}
+                open={checkModalIsOpen}
+            />
+            <Modal
+                onCancel={() => setAuthModalIsOpen(false)}
+                className='bg_white'
+                img={SearchSvg}
+                description={t("authMessage")}
+                open={authModalIsOpen}
             />
         </div>
     );

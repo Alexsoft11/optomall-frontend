@@ -160,7 +160,6 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
           }))
       );
       if (user) {
-        console.log([data])
         createData([data]);
       } else {
         localStorage.setItem("basket-data", JSON.stringify(localeData));

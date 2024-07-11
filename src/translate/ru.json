@@ -51,7 +51,6 @@
         "confirm": "Понятно"
     },
     "Auth": {
-        "verify_email": "",
         "confirmCode": "Код подтверждения",
         "confirmCodeIncorect": "неверный код подтверждения",
         "reset": "Новый пароль",
@@ -88,7 +87,9 @@
         "forgotPasswordDescription": "заполните поле",
         "newPasswordDescription": "придмайте новый пароль",
         "regisrtationDescription": "заполните поля для регисратрации",
-        "nameValidateError": "Введите действительное имя"
+        "nameValidateError": "Введите действительное имя",
+        "verify_email": "Подтвердите почту!",
+        "something_wrong": "Что-то пошло не так! Попробуйте еще раз позже."
     },
     "Cart": {
         "item": "Товаров",
@@ -105,6 +106,7 @@
         "basketNoItems": "В корзине пока пусто",
         "goToBuy": "Прейти в покупку",
         "checkMessage": "Чек отправлен на проверку, текущее состояние заказа можете наблюдать на станице заказов",
+        "authMessage": "Зарегистрируйтесь на сайте чтобы оформить заказ!",
         "checkWarningMessage": "Чек не прошел проверку. Проверьте чек и повторите попытку."
     },
     "Order": {
@@ -117,10 +119,10 @@
         "active": "Активные",
         "all": "Все",
         "goods": "Товаров",
-        "Processing": "Собирается",
-        "Delivered": "получено",
-        "Cancelled": "Отменен",
-        "Shipped": "Доставляется",
+        "processing": "Собирается",
+        "delivered": "получено",
+        "cancelled": "Отменен",
+        "shipped": "Доставляется",
         "pending": "В проверке",
         "orderDate": "Дата заказа:",
         "address": "Адресс доставки:",
@@ -128,7 +130,7 @@
         "moreDetail": "Подробно",
         "orderCost": "Общая сумма:",
         "currency": "сум",
-        "inVerefication": "в проверке"
+        "inVerification": "в проверке"
     },
     "Search": {
         "platform": "Платформа"

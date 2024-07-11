@@ -7,6 +7,7 @@ import { validateEmail } from '../../Functions';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import GoToBack from '@/components/GoToBack';
 import { useRouter } from 'next/router';
+import Cookies from 'universal-cookie';
 
 interface Props {
     setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
@@ -15,7 +16,8 @@ interface Props {
 export default function ForgotPassword({ setModalIsOpen }: Props) {
     const [form] = Form.useForm();
     const t = useTranslations("");
-    const router = useRouter()
+    const router = useRouter();
+    const cookie = new Cookies()
 
     const { appendData: createData } = useQueryApiClient({
         request: {
@@ -24,16 +26,16 @@ export default function ForgotPassword({ setModalIsOpen }: Props) {
             disableOnMount: true,
         },
         onSuccess(res) {
-            message.success(`Error.${res.message}`)
             router.push({
                 pathname: '/auth',
-                query: {step: 'reset'}
+                query: { step: 'reset' }
             })
         }
     })
 
     const onFinish = (values: any) => {
         createData(values)
+        cookie.set('forgot-email', values.email)
     }
 
     return (

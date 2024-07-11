@@ -7,6 +7,10 @@ import { useRouter } from 'next/router';
 import { useGoogleLogin } from '@react-oauth/google';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import Cookies from 'universal-cookie';
+import { message } from 'antd';
+import { API } from '@/services/api';
+import { cookieBasket } from '../Functions';
+import { CartItemInterface } from '@/features/Cart/interface';
 
 export default function GoogleButton() {
     const router = useRouter();
@@ -23,6 +27,13 @@ export default function GoogleButton() {
             if (router.query.step === 'signUp') {
                 router.push(`/auth?step=info&id=${res.unique_id}`)
             } else {
+                if (!res.token) {
+                    message.error('something_wrong')
+                    return
+                }
+                if (localStorage.getItem('basket-data')) {
+                    API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
+                }
                 cookie.set('token', res.token)
                 router.push(`/`)
             }
@@ -31,7 +42,7 @@ export default function GoogleButton() {
 
     const handleLoginSuccess = (response: any) => {
         const accessToken = response.access_token;
-        createData({token: accessToken})
+        createData({ token: accessToken })
     };
 
     const handleLoginError = (error: any) => {
@@ -41,7 +52,7 @@ export default function GoogleButton() {
     const login = useGoogleLogin({
         onSuccess: handleLoginSuccess,
         onError: handleLoginError,
-        flow: 'implicit', 
+        flow: 'implicit',
     });
 
     return (

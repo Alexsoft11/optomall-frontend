@@ -1,24 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./SignIn.module.scss";
 import { Form, message } from "antd";
 import { Button, Input } from "@/ui";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import GoogleButton from "../../GoogleButton";
-import { validateEmail, validatePassword } from "../../Functions";
+import { cookieBasket, validateEmail, validatePassword } from "../../Functions";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import Cookies from "universal-cookie";
 import { useRouter } from "next/router";
 import GoToBack from "@/components/GoToBack";
 import useHandleError from "@/utils/useHandleError";
+import { CartItemInterface } from "@/features/Cart/interface";
+import { API } from "@/services/api";
 
 export default function SignIn() {
   const [form] = Form.useForm();
   const t = useTranslations("");
-  const cookies = new Cookies();
+  const cookie = new Cookies();
   const expirationDate = new Date();
   const router = useRouter();
   const [handleError] = useHandleError(form);
+  const [isLoading, setIsLoading] = useState(false)
   expirationDate.setDate(expirationDate.getDate() + 3);
 
   const { appendData: createData } = useQueryApiClient({
@@ -28,11 +31,19 @@ export default function SignIn() {
       disableOnMount: true,
     },
     onSuccess(res) {
-      message.success(t(`Auth.${res.message}`));  
+      setIsLoading(false)
+      if (!res.token) {
+        message.error('Auth.something_wrong')
+        return
+      }
+      if (localStorage.getItem('basket-data')) {
+        API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
+      }
       setTimeout(() => router.push("/"), 2000);
-      cookies.set("token", res.token);
+      cookie.set("token", res.token);
     },
     onError(err) {
+      setIsLoading(false)
       if (err.message.includes("email")) {
         form.setFields([
           {
@@ -51,11 +62,21 @@ export default function SignIn() {
         ]);
         return;
       }
+      if (err.message.includes('verify_email')) {
+        form.setFields([
+          {
+            name: "email",
+            errors: [t(`Auth.${err.message}`)],
+          },
+        ]);
+        return;
+      }
       handleError(err);
     },
   });
 
   const onFinish = (values: any) => {
+    setIsLoading(true)
     createData(values);
   };
 
@@ -99,7 +120,7 @@ export default function SignIn() {
           </span>
 
           <Form.Item className={styles.submitButton}>
-            <Button type="primary" htmlType="submit" label={t("Auth.signin")} />
+            <Button isLoading={isLoading} type="primary" htmlType="submit" label={t("Auth.signin")} />
           </Form.Item>
         </Form>
 
