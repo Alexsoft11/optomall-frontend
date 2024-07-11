@@ -36,6 +36,21 @@
   height: 270px;
   overflow-y: scroll;
   overflow-x: hidden;
+  ::-webkit-scrollbar-thumb  {
+    // width: 100px;
+    background: #ff6a00 !important;
+    border-radius: 10px;
+  
+  }
+}
+.sizeSelector::-webkit-scrollbar-thumb  {
+  // width: 100px;
+  background: #ff6a00 !important;
+  border-radius: 10px;
+
+}
+.sizeSelector ::-webkit-scrollbar-track {
+  background: #ff6a00 !important;
 }
 
 .size {
@@ -48,7 +63,7 @@
   color: #000;
   font-size: 14px;
   width: 100%;
-  min-width: 200px;
+  min-width: 115px;
 }
 .size div {
   justify-content: space-evenly;
@@ -77,14 +92,14 @@
 }
 
 .addToCart {
-  background-color: #ff6a00;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  margin-top: 20px;
-  width: 100%;
-  border-radius: 10px;
+  background-color: #ff6a00 !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 20px !important;
+  cursor: pointer ;
+  margin-top: 20px !important;
+  width: 100% !important;
+  border-radius: 10px !important;
 }
 
 .total {
