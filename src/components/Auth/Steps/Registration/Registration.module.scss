@@ -5,6 +5,9 @@
     width: 352px;
 
     .form {
+        .submitButton{
+            position: relative;
+        }
         input {
             font-size: var(--paragraph-two);
             font-weight: 400;
