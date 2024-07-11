@@ -8,35 +8,36 @@ import { Modal } from "@/ui";
 import dynamic from "next/dynamic";
 import LanguageSelector from "../LanguageSelector";
 import Cookies from "universal-cookie";
+import { LoadingSpinner } from "@/ui/Spin";
 
 const ForgotPassword = dynamic(() => import("./Steps/ForgotPassword"),
-  // {
-  //   loading: () => <Loader />,
-  // }
+  {
+    loading: () => <LoadingSpinner className="global_page_loader" />
+  }
 );
 
 const Info = dynamic(() => import("./Steps/Info"),
-  // {
-  //   loading: () => <Loader />,
-  // }
+  {
+    loading: () => <LoadingSpinner className="global_page_loader" />
+  }
 );
 
 const NewPassword = dynamic(() => import("./Steps/NewPassword"),
-  // {
-  //   loading: () => <Loader />,
-  // }
+  {
+    loading: () => <LoadingSpinner className="global_page_loader" />
+  }
 );
 
 const Registration = dynamic(() => import("./Steps/Registration"),
-  // {
-  //   loading: () => <Loader />,
-  // }
+  {
+    loading: () => <LoadingSpinner className="global_page_loader" />
+  }
 );
 
 const SignIn = dynamic(() => import("./Steps/SignIn"),
-  // {
-  //   loading: () => <Loader />,
-  // }
+  {
+    loading: () => <LoadingSpinner className="global_page_loader" />
+  }
 );
 
 export default function AuthPage() {
