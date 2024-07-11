@@ -11,13 +11,13 @@ const CatalogDetailPage = () => {
 
   const { appendData: getCatalogItemsData } = useQueryApiClient({
     request: {
-        url: `sub-categories-from-taobao?categoryId=${id}`,
-        method: 'GET',
+      url: `sub-categories-from-taobao?categoryId=${id}`,
+      method: "GET",
     },
     onSuccess(res) {
-      setCatalogItemsData(res.sub_categories)
+      setCatalogItemsData(res.sub_categories);
     },
-  })
+  });
 
   useEffect(() => {
     if (id) {

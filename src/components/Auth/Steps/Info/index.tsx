@@ -1,10 +1,10 @@
-import React, { ReactEventHandler, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Info.module.scss";
 import { Form, message } from "antd";
 import { Button, Input } from "@/ui";
 import { useTranslations } from "next-intl";
 import useQueryApiClient from "@/utils/useQueryApiClient";
-import { validatePhone } from "../../Functions";
+import { validateName, validatePhone } from "../../Functions";
 import GoToBack from "@/components/GoToBack";
 import { useRouter } from "next/router";
 import useHandleError from "@/utils/useHandleError";
@@ -13,7 +13,6 @@ import Cookies from "universal-cookie";
 export default function Info() {
   const [form] = Form.useForm();
   const t = useTranslations("");
-  const expirationDate = new Date();
   const cookies = new Cookies();
   const router = useRouter();
   const [handleError] = useHandleError(form);
@@ -26,7 +25,10 @@ export default function Info() {
       disableOnMount: true,
     },
     onSuccess(res) {
-      message.success(t(`Error.${res.message}`));
+      if (!res.token) {
+        message.error('something_wrong')
+        return
+      }
       router.push("/");
       cookies.set("token", res.token);
       setIsLoading(false)
@@ -39,6 +41,7 @@ export default function Info() {
 
   const onFinish = (values: any) => {
     values.unique_id = router.query.id;
+    values.phone = '+998' + values.phone
     createData(values);
   };
 
@@ -67,7 +70,9 @@ export default function Info() {
 
           <Input
             name="name"
-            rules={[{ required: true, message: t("Auth.requiredNameMessage") }]}
+            rules={[
+              { validator: (rule, value) => validateName(t, rule, value) }
+            ]}
             type="text"
             className={styles.input}
             placeholder={t("Auth.name")}

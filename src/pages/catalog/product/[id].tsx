@@ -24,7 +24,7 @@ const CatalogProductPage = () => {
     if (id) {
       getProductData();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (

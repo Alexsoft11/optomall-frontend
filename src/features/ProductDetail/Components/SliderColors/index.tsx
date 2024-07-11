@@ -17,14 +17,19 @@ const SliderColors = ({
   selectedColors,
   setSelectedColors,
 }: any) => {
-  const [activeItem, setActiveItem] = useState<number>();
-  const [filterdData, setFiltredColors] = useState([]);
+  const [activeItem, setActiveItem] = useState<number>(data[0].id);
+
   const handleColorClick = (colorId: number) => {
-    console.log(colorId)
     setActiveItem(colorId);
-    setSelectedColors((prev: number[]) => [...prev, colorId]);
+    setSelectedColors((prev: number[]) => {
+      if (!prev.includes(colorId)) {
+        return [...prev, colorId];
+      }
+      return prev;
+    });
     setSelectedColor(colorId);
   };
+
   return (
     <div className={styles.swiper_colors}>
       <Swiper
@@ -50,25 +55,29 @@ const SliderColors = ({
           },
         }}
         modules={[Navigation]}
-        className='slider_colors'>
+        className="slider_colors"
+      >
         {data?.map((el: any, idx: number) => (
           <SwiperSlide key={idx}>
-            <Badge count={totalQuantities[el.id] || 0}></Badge>
-            <div
-              className={`${styles.slide_color} ${
-                activeItem === el.id ? styles.selected : ""
-              }`}
-              onClick={() => handleColorClick(el.id)}>
-              <Image src={el.image_url} alt={el.name} fill />
+            <div className={styles.card_item}>
+              <Badge count={totalQuantities[el.id] || 0}></Badge>
+              <div
+                className={`${styles.slide_color} ${
+                  activeItem === el.id ? styles.selected : ""
+                }`}
+                onClick={() => handleColorClick(el.id)}
+              >
+                <Image src={el.image_url} alt={el.name} fill />
+              </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
       <button className={`next_btn ${styles.next_btn} ${styles.swiper_btns}`}>
-        <SvgSelector id='next-svg' />
+        <SvgSelector id="next-svg" />
       </button>
       <button className={`prev_btn ${styles.prev_btn} ${styles.swiper_btns}`}>
-        <SvgSelector id='prev-svg' />
+        <SvgSelector id="prev-svg" />
       </button>
     </div>
   );

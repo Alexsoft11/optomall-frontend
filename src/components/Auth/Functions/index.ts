@@ -1,7 +1,5 @@
-import { BASE_URL } from "@/services/api";
-import useQueryApiClient from "@/utils/useQueryApiClient";
-import axios from "axios";
-import { useRouter } from "next/router";
+import { CartItemInterface } from "@/features/Cart/interface";
+import { UserBasketPostInterface } from "@/interfaces";
 
 // utils/validation.ts
 export const validatePassword = (
@@ -59,4 +57,30 @@ export const validatePhone = (
     return Promise.reject(new Error(t("Auth.requiredTelMessage")));
   }
   return Promise.resolve();
+};
+
+export const validateName = (t: Function, currentValue: any, value: string) => {
+  const regex = /^[A-Za-z\s]+$/; // Regular expression to match letters and spaces
+  if (!regex.test(value)) {
+    return Promise.reject(new Error(t("Auth.nameValidateError")));
+  }
+  return Promise.resolve();
+};
+
+export const cookieBasket = (arr: CartItemInterface[]) => {
+  const corectData: UserBasketPostInterface[] = [];
+  arr.map((el) => {
+    corectData.push({
+      product_id: el.product_id,
+      sizes: [
+        {
+          value: el.size as string,
+          quantity: el.quantity,
+          color_id: "0",
+        },
+      ],
+    });
+  });
+
+  return corectData;
 };

@@ -55,3 +55,14 @@ export interface LoginErrInterface {
     error: boolean,
     message: string
 }
+
+export interface UserBasketPostInterface {
+    product_id: string,
+    sizes: UserBasketSizesInterface[]
+}
+
+export interface UserBasketSizesInterface {
+    value: string,
+    quantity: number,
+    color_id: string
+}

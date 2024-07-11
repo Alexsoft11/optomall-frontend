@@ -1,71 +1,46 @@
 import PageLayout from "@/components/Layout/PageLayout";
 import { ProductDetailSection } from "@/features/ProductDetail";
 import { API } from "@/services/api";
-import useQueryApiClient from "@/utils/useQueryApiClient";
-import { useParams } from "next/navigation";
+import { LoadingSpinner } from "@/ui/Spin";
+import axios from "axios";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 interface ProductDetailProps {
   product: any;
 }
 
 const ProductDetail = ({ product }: ProductDetailProps) => {
-  const params = useParams();
-  // const [product, setProduct] = useState<any>(null);
-
-  // const { appendData: getProductsData, isLoading: isProductsLoading } =
-  //   useQueryApiClient({
-  //     request: {
-  //       url: `product-detail-from-taobao?productId=${params.id}`,
-  //       method: "GET",
-  //       disableOnMount: true,
-  //     },
-  //     onSuccess(res) {
-  //       setProduct(res);
-  //     },
-  //   });
-
-  // useEffect(() => {
-  //   if (productId) {
-  //     getProductsData();
-  //   }
-  // }, [productId]);
   const router = useRouter();
-
-  const user = true;
-
-  useEffect(() => {
-    if (!user) {
-      router.push("/en");
-    }
-  }, [user, router]);
+  if (!product) {
+    return <h2>No product found.</h2>;
+  }
 
   const title = product?.detail.title;
+
   return (
     <PageLayout metaTitle={title}>
-      {product ? (
-        <ProductDetailSection
-          product={product.detail}
-          recommended={product.recommended}
-        />
-      ) : (
-        <h2>No product found.</h2>
-      )}
+      <ProductDetailSection
+        product={product.detail}
+        recommended={product.recommended}
+      />
     </PageLayout>
   );
 };
-export const getServerSideProps = async (context: any) => {
-  try {
-    const response = await API.getProductDetail(context.query.id);
 
+export const getServerSideProps: GetServerSideProps = async (context:any) => {
+  const { id: productId } = context.params;
+
+  try {
+    const product = (await API.getProductDetail(productId))
     return {
       props: {
-        product: response.data || null,
+        product,
       },
     };
-  } catch (error: any) {
-    console.error("Error fetching product data:", error.message);
+  } catch (error) {
+    console.error("Error fetching product data:", error);
     return {
       props: {
         product: null,
@@ -73,4 +48,5 @@ export const getServerSideProps = async (context: any) => {
     };
   }
 };
+
 export default ProductDetail;

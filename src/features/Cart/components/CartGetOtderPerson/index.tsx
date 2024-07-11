@@ -1,43 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import styles from './CartGetOtderPerson.module.scss';
 import { useTranslations } from 'next-intl';
-import { Form, Input } from 'antd';
+import { Form } from 'antd';
+import { validateName, validatePhone } from '@/components/Auth/Functions';
+import { Input } from '@/ui';
 
 interface Props {
     setPersonData: any
 }
 
-export default function CartGetOrderPerson({setPersonData}: Props) {
-    const t = useTranslations('Cart')
+export default function CartGetOrderPerson({ setPersonData }: Props) {
+    const t = useTranslations('')
     const [form] = Form.useForm();
 
-    const hendleChange = () => {        
+    const hendleChange = () => {
         setPersonData(form.getFieldsValue())
     };
-    
+
     return (
         <div className={styles.main}>
-            <h2>{t('person')}</h2>
+            <h2>{t('Cart.person')}</h2>
             <div className={styles.form_block}>
                 <Form form={form} name="horizontal_login" layout="inline">
-                    <Form.Item name="name"
-                        rules={
-                            [
-                                {
-                                    required: true,
-                                    message: t('enterYourName'),
-                                },
-                                {
-                                    pattern: /^[A-Za-z\s]+$/,
-                                    message: t("nameValidation"),
-                                },
-                            ]
-                        }>
-                        <Input onChange={hendleChange} type='text' placeholder={t("name")} />
-                    </Form.Item>
-                    <Form.Item name="phone">
-                        <Input onChange={hendleChange} type="phone" placeholder={t("phone")} />
-                    </Form.Item>
+                    <Input
+                        name="name"
+                        rules={[
+                            { validator: (rule, value) => validateName(t, rule, value) }
+                        ]}
+                        onChange={hendleChange}
+                        type='text'
+                        placeholder={t("name")}
+                    />
+                    <Input
+                        onChange={hendleChange}
+                        name="phone"
+                        rules={[
+                            { validator: (rule, value) => validatePhone(t, rule, value) },
+                        ]}
+                        type="text"
+                        prefix={"+998"}
+                        placeholder={"-- --- -- --"}
+                    />
                 </Form>
             </div>
         </div>

@@ -26,8 +26,8 @@ export default function PurchasesPage({ data = [] }: Props) {
                 <Button onClick={() => changeRour('all')}>
                     {t('all')}
                 </Button>
-                <Button onClick={() => changeRour('in verefication')}>
-                    {t('inVerefication')}
+                <Button onClick={() => changeRour('in_verification')}>
+                    {t('inVerification')}
                 </Button>
             </div>
             <div className={styles.items_block}>

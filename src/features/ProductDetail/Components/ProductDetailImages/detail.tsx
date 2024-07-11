@@ -9,8 +9,8 @@ import CustomImage from "@/components/CustomImage";
 
 const isMobile = (windowWidth: number) => windowWidth > 850;
 
-const Detail = ({ selectedImage }: any) => {
-  const [windowWidth, setWindowWidth] = useState<number | null>(null);
+const Detail = ({ selectedImage, product }: any) => {
+  const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
@@ -32,16 +32,19 @@ const Detail = ({ selectedImage }: any) => {
       <div className={styles.detail}>
         {windowWidth !== null && isMobile(windowWidth) ? (
           <CustomImage
-            src={selectedImage}
+          src={selectedImage}
+            // src={"https://img.alicdn.com/imgextra/i3/35601dede9688/O1CN01UJzjNU2LA2dizPr8_!!356019688.jpg"}
             alt=""
             className={styles.detail_image}
             imgClass={styles.img}
             isLink={false}
           />
         ) : (
-          <div className={styles.imagePreview}>
-            <SliderSection data={detailData} />
-          </div>
+          <>
+            <div className={styles.imagePreview}>
+              <SliderSection data={product.pictures} />
+            </div>
+          </>
         )}
       </div>
     </>

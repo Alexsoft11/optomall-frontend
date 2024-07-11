@@ -81,7 +81,10 @@
         "infoDescription": "ma'lumot uchun maydonlarni to'ldiring",
         "forgotPasswordDescription": "maydonni to'ldiring",
         "newPasswordDescription": "yangi parolni o‘ylab toping",
-        "regisrtationDescription": "ro‘yxatdan o‘tish uchun maydonlarni to‘ldiring"
+        "regisrtationDescription": "ro‘yxatdan o‘tish uchun maydonlarni to‘ldiring",
+        "nameValidateError": "Iltimos, haqiqiy ism kiriting",
+        "verify_email": "Elektron pochtangizni tasdiqlang!",
+        "something_wrong": "Nimadir noto'g'ri ketdi! Iltimos, keyinroq yana urinib ko'ring."
     },
     "Cart": {
         "item": "Mahsulotlar",
@@ -99,7 +102,8 @@
         "goToBuy": "Sotib olishga o'ting",
         "checkMessage": "Chek tekshirish uchun yuborildi. Buyurtmangizning joriy holatini buyurtmalar sahifasida kuzatishingiz mumkin.",
         "inVerification": "Tekshiruvda",
-        "checkWarningMessage": "Chek tasdiqlanmadi. Chekni tekshiring va qayta urinib ko'ring."
+        "checkWarningMessage": "Chek tasdiqlanmadi. Chekni tekshiring va qayta urinib ko'ring.",
+        "authMessage": "Buyurtma berish uchun saytda ro'yxatdan o'ting!"
     },
     "Order": {
         "payCost": "To'lanadigan summa: ",
@@ -112,16 +116,17 @@
         "all": "Barchasi",
         "pending": "Kutilmoqda",
         "goods": "Mahsulotlar",
-        "Processing": "Tayyorlanmoqda",
-        "Delivered": "Yetkazib berildi",
-        "Cancelled": "Bekor qilindi",
-        "Shipped": "Jo'natildi",
+        "processing": "Tayyorlanmoqda",
+        "delivered": "Yetkazib berildi",
+        "cancelled": "Bekor qilindi",
+        "shipped": "Jo'natildi",
         "orderDate": "Buyurtma sanasi:",
         "address": "Yetkazib berish manzili:",
         "recipient": "Buyurtma oluvchisi:",
         "moreDetail": "Batafsil",
         "orderCost": "Umumiy summa:",
-        "currency": "so'm"
+        "currency": "so'm",
+        "inVerification": "tekshirilmoqda"
     },
     "Search": {
         "platform": "Platforma"
@@ -145,5 +150,9 @@
         "name": "Ism",
         "phone": "Telefon raqami",
         "confirm": "Tasdiqlash"
+    },
+    "ChooseLocation": {
+        "submit": "yuborish",
+        "close": "yopish"
     }
 }

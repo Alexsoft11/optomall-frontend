@@ -34,7 +34,6 @@ export default function Registration({ setModalIsOpen }: Props) {
     },
     onSuccess(res) {
       message.success(t(`Auth.${res.message}`));
-      
       setTimeout(() => {
         setModalIsOpen(true);
         router.push("/auth");
@@ -47,7 +46,6 @@ export default function Registration({ setModalIsOpen }: Props) {
 
   const onFinish = (values: any) => {
     createData(values);
-    console.log('onFinish')
   };
 
   return (

@@ -81,7 +81,10 @@
         "infoDescription": "fill in the fields for information",
         "forgotPasswordDescription": "fill in the field",
         "newPasswordDescription": "create a new password",
-        "regisrtationDescription": "fill in the fields to register"
+        "regisrtationDescription": "fill in the fields to register",
+        "nameValidateError": "Please enter a valid name",
+        "verify_email": "Verify your email!",
+        "something_wrong": "Something went wrong! Please try again later."
     },
     "Cart": {
         "item": "Items",
@@ -99,7 +102,8 @@
         "loadCheque": "Upload payment receipt",
         "basketNoItems": "Your cart is empty",
         "goToBuy": "Go to purchase",
-        "checkWarningMessage": "Receipt failed verification. Check the receipt and try again."
+        "checkWarningMessage": "Receipt failed verification. Check the receipt and try again.",
+        "authMessage": "Register on the website to place an order!"
     },
     "Order": {
         "payCost": "Amount to be paid: ",
@@ -112,16 +116,17 @@
         "all": "All",
         "pending": "Pending",
         "goods": "Goods",
-        "Processing": "Processing",
-        "Delivered": "Delivered",
-        "Cancelled": "Cancelled",
-        "Shipped": "Shipped",
+        "processing": "Processing",
+        "delivered": "Delivered",
+        "cancelled": "Cancelled",
+        "shipped": "Shipped",
         "orderDate": "Order Date:",
         "address": "Delivery Address:",
         "recipient": "Order Recipient:",
         "moreDetail": "More Detail",
         "orderCost": "Total Cost:",
-        "currency": "uzs"
+        "currency": "uzs",
+        "inVerification": "in verification"
     },
     "Search": {
         "platform": "Platform"
@@ -145,5 +150,9 @@
         "name": "Name",
         "phone": "Phone number",
         "confirm": "Confirm"
+    },
+    "ChooseLocation": {
+        "submit": "submit",
+        "close": "close"
     }
 }

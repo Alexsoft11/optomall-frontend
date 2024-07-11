@@ -11,7 +11,10 @@ interface Props {
 export default function OrderPage({ orderData }: Props) {
   return (
     <div className={styles.main}>
-      <OrderCheque cardId={orderData?.card_number} cost={orderData?.total_price} />
+      <OrderCheque
+        cardId={orderData?.card_number}
+        cost={orderData?.total_price}
+      />
       <CartOrderBlock orderId={orderData?.id} cost={orderData?.total_price} />
     </div>
   );

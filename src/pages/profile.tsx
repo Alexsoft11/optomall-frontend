@@ -5,23 +5,21 @@ import React, { useEffect } from "react";
 
 const ProfilePage = () => {
   const user = useJwt();
-  const router = useRouter()
-  useEffect(()=>{
-    if(!user){
-      router.push("/auth")
+  const router = useRouter();
+  useEffect(() => {
+    if (!user) {
+      router.push("/auth");
     }
-  },[user])
-  console.log(user);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
   return (
-    <div className='containerd'>
+    <div className="containerd">
       {user ? (
         <>
           <Profile />
         </>
       ) : (
-        <div>
-          login
-        </div>
+        <div>login</div>
       )}
     </div>
   );

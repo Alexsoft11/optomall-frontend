@@ -4,28 +4,38 @@ import { useTranslations } from 'next-intl';
 import { Button, Modal } from '@/ui';
 import { useRouter } from 'next/router';
 import { SearchSvg, SuccsessSvg, WarningSvg } from '$/assets/images';
-import { CartOrderItemInterface } from '../../interface';
+import { CartOrderItemInterface, CreateOrderDataInterface } from '../../interface';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import { message, Upload } from 'antd';
+import Cookies from 'universal-cookie';
 
 interface Props {
     cost: number;
     itemValue?: number,
     orderId?: number,
-    personData?: any,
-    location?: number[] | null,
-    items?: CartOrderItemInterface[] | [],
-    country?: string | null
+    createOrderData?: CreateOrderDataInterface
 }
 
-export default function CartOrderBlock({ cost, items, itemValue, orderId, location, personData, country }: Props) {
+export default function CartOrderBlock({ cost, itemValue, orderId, createOrderData }: Props) {
     const t = useTranslations('Cart')
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [checkModalIsOpen, setCheckModalIsOpen] = useState(false);
+    const [authModalIsOpen, setAuthModalIsOpen] = useState(false);
     const router = useRouter();
+    const [buttonStatus, setButtonStatus] = useState<'idle' | 'pending' | 'success' | 'fail'>('idle');
+    const cookie = new Cookies()
 
-    const modalClose = () => {
-        router.push('/purchases')
-        setModalIsOpen(false)
+    const buttonClass = `${styles['loading-btn']} ${buttonStatus === 'pending'
+        ? styles['loading-btn--pending']
+        : buttonStatus === 'success'
+            ? styles['loading-btn--success']
+            : buttonStatus === 'fail'
+                ? styles['loading-btn--fail']
+                : ''
+        }`;
+
+    const checkModalClose = () => {
+        router.push('/purchases?filter=active')
+        setCheckModalIsOpen(false)
     }
 
     const { appendData: createData } = useQueryApiClient({
@@ -47,8 +57,14 @@ export default function CartOrderBlock({ cost, items, itemValue, orderId, locati
             multipart: true
         },
         onSuccess(res) {
-            setModalIsOpen(true)
+            setCheckModalIsOpen(true)
+            setButtonStatus('success');
+            setTimeout(() => setButtonStatus('idle'), 1000);
         },
+        onError(err) {
+            setButtonStatus('fail');
+            setTimeout(() => setButtonStatus('idle'), 1000);
+        }
     });
 
     const props = {
@@ -66,6 +82,7 @@ export default function CartOrderBlock({ cost, items, itemValue, orderId, locati
                     formData.append('image', image);
                     formData.append('order_id', orderId.toString());
                     createChequeData(formData)
+                    setButtonStatus('pending')
                 }
             }
         },
@@ -73,17 +90,11 @@ export default function CartOrderBlock({ cost, items, itemValue, orderId, locati
 
 
     const toOrder = () => {
-        const data = {
-            total_price: cost,
-            location: {
-                name: country,
-                url: location,
-            },
-            userData: personData,
-            items: items,
+        if (!cookie.get('token')) {
+            setAuthModalIsOpen(true)
+            return
         }
-
-        createData(data)
+        createData(createOrderData)
     }
 
     return (
@@ -98,16 +109,31 @@ export default function CartOrderBlock({ cost, items, itemValue, orderId, locati
             </div>
             {orderId ?
                 <Upload {...props}>
-                    <Button className={styles.complite_btn} label={t("loadCheque")} />
+                    <div className={styles.response_button__block}>
+                        <span className={styles['loading-btn-wrapper']}>
+                            <button className={buttonClass} disabled={buttonStatus === 'pending'}>
+                                <span className={styles['loading-btn__text']}>
+                                    {buttonStatus === 'idle' && t('loadCheque')}
+                                </span>
+                            </button>
+                        </span>
+                    </div>
                 </Upload> :
                 <Button onClick={() => toOrder()} className={styles.complite_btn} label={t("complite")} />
             }
             <Modal
-                onCancel={modalClose}
+                onCancel={checkModalClose}
                 className='bg_white'
                 img={SearchSvg}
                 description={t("checkMessage")}
-                open={modalIsOpen}
+                open={checkModalIsOpen}
+            />
+            <Modal
+                onCancel={() => setAuthModalIsOpen(false)}
+                className='bg_white'
+                img={SearchSvg}
+                description={t("authMessage")}
+                open={authModalIsOpen}
             />
         </div>
     );

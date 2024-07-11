@@ -4,15 +4,13 @@ import IntlWrapperProvider from "@/utils/intlWrapperProvider";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import MainLayout from "@/components/Layout";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
-
-// Create a client
-
-const queryClient = new QueryClient();
 export default function App({ Component, pageProps }: AppProps) {
+  const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+
   return (
-    <QueryClientProvider client={queryClient}>
+    <GoogleOAuthProvider clientId={`${clientId}`}>
       <IntlWrapperProvider>
         <MainLayout>
           <Head>
@@ -26,6 +24,6 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </MainLayout>
       </IntlWrapperProvider>
-    </QueryClientProvider>
+    </GoogleOAuthProvider>
   );
 }
