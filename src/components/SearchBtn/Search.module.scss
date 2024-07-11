@@ -16,3 +16,38 @@
         width: 100%;
     }
 }
+
+.search_stick {
+    display: none;
+}
+
+.sticky_start {
+    position: fixed;
+    z-index: 999;
+    transform: translateY(-300%);
+    width: 80%;
+    .search_stick {
+        display: block;
+        display: flex;
+        align-items: center;
+        padding: 3px 3px 3px 10px;
+        background: #F0F0F0;
+        border-radius: 39px;
+        width: 288px;
+        max-width: 288px;
+
+        @media (max-width:1020px) {
+            max-width: 200px;
+        }
+
+        @media (max-width:768px) {
+            max-width: 100%;
+            width: 100%;
+        }
+    }
+    &.sticky {
+      transition: 0.4s ease;
+      top: 15px;
+      transform: translateY(0);
+    }
+}
