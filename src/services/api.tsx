@@ -56,6 +56,9 @@ export const API = {
     }
   }),
 
+  authCheckEmail: (email: string) => axiosInstance.post('check-email', {email: email})
+  .then(res => res.data),
+
   //PurchasesPage
   getPurchases: (token: string, filter: string) =>
     axiosInstance

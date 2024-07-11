@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Info.module.scss";
 import { Form, message } from "antd";
 import { Button, Input } from "@/ui";
 import { useTranslations } from "next-intl";
 import useQueryApiClient from "@/utils/useQueryApiClient";
-import { validateName, validatePhone } from "../../Functions";
+import { cookieBasket, validateName, validatePhone } from "../../Functions";
 import GoToBack from "@/components/GoToBack";
 import { useRouter } from "next/router";
 import useHandleError from "@/utils/useHandleError";
 import Cookies from "universal-cookie";
+import { API } from "@/services/api";
+import { CartItemInterface } from "@/features/Cart/interface";
 
 export default function Info() {
   const [form] = Form.useForm();
   const t = useTranslations("");
-  const cookies = new Cookies();
+  const cookie = new Cookies();
   const router = useRouter();
   const [handleError] = useHandleError(form);
   const [isLoading, setIsLoading] = useState(false)
@@ -29,8 +31,11 @@ export default function Info() {
         message.error('something_wrong')
         return
       }
+      if (localStorage.getItem('basket-data')) {
+        API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
+      }
       router.push("/");
-      cookies.set("token", res.token);
+      cookie.set("token", res.token);
       setIsLoading(false)
     },
     onError(res) {

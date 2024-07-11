@@ -8,19 +8,20 @@ import Head from "next/head";
 import React from "react";
 import cookie from "cookie";
 import Cookies from "universal-cookie";
+import { LoadingSpinner } from "@/ui/Spin";
 
 const CartBasketPage = dynamic(
-  () => import("@/features/Cart/components/CartBasketPage")
-  // {
-  //   loading: () => <Loader />,
-  // }
+  () => import("@/features/Cart/components/CartBasketPage"),
+  {
+    loading: () => <LoadingSpinner className="global_page_loader" />,
+  }
 );
 
 const CartBasketNoItems = dynamic(
-  () => import("@/features/Cart/components/CartBasketNoItems")
-  // {
-  //   loading: () => <Loader />,
-  // }
+  () => import("@/features/Cart/components/CartBasketNoItems"),
+  {
+    loading: () => <LoadingSpinner className="global_page_loader" />,
+  }
 );
 
 interface Props {

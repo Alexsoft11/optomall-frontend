@@ -29,7 +29,7 @@
         max-height: 80px;
         width: 80px;
         height: 80px;
-        padding-top: 7px;
+        padding: 7px 10px 0px 10px;
 
         border-radius: 10px;
         background-color: var(--white-color);
@@ -85,11 +85,27 @@
 
         border-radius: 10px;
         border: 1px solid var(--black-color);
+        color: var(--black-color);
 
         @media (max-width:390px) {
             min-width: 105px;
             width: 100%;
             padding: 7px;
+        }
+    }
+
+    &__text {
+        color: var(--black-color);
+        font-size: var(--paragraph-two);
+        font-weight: 400;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    
+        -webkit-box-orient: vertical;
+        @media (max-width: 768px) {
+          margin-bottom: 5px;
         }
     }
 }
