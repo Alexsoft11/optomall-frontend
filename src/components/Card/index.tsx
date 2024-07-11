@@ -45,7 +45,7 @@ const Card = ({ data, idx }: CardProps) => {
 
           <div className={styles.card__price}>
             <p>
-              {t("currency")} {data.price}
+              {data.price} {t("currency")} 
             </p>
           </div>
         </Link>

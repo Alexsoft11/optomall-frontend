@@ -32,8 +32,8 @@ export interface CatalogCategoriesInterface {
 export interface CategoryCatalogInterface {
   id: string;
   name: string;
-  provider: string;
-  externalId: string;
+  image: string;
+  is_active: string;
 }
 
 export interface SubCategoryInterface {

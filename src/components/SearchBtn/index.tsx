@@ -8,6 +8,8 @@ import { Form } from 'antd';
 const SearchBtn = () => {
   const router = useRouter();
   const { query } = router.query;
+  const [scrolled, setScrolled] = useState(false);
+  const [startScrool, setStartScrool] = useState(false);
   const [form] = Form.useForm()
 
   const handleSearch = (values:any) => {
@@ -30,9 +32,49 @@ const SearchBtn = () => {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
+
+  const handleScroll = () => {
+    const offset = window.scrollY;
+    if (offset >= 400) {
+      setStartScrool(true);
+    } else {
+      setStartScrool(false);
+    }
+
+    if (location.pathname === "/" && offset > 600) {
+      setScrolled(true);
+    } else if (location.pathname !== "/" && offset > 280) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+  };
+  useEffect(() => {
+    if (window.innerWidth <= 850) {
+      window.addEventListener("scroll", handleScroll);
+    }
+  });
   
   return (
     <>
+        <div className={`${scrolled ? styles.sticky : ""} 
+            ${startScrool ? styles.sticky_start : ""}
+            `}>
+            <div className={styles.search_stick}>
+              <SvgSelector id='search-svg'/>
+
+              <Form onFinish={handleSearch} form={form}>
+                <Input
+                  type="text"
+                  onKeyDown={handleKeyPress}
+                  className="search_input"
+                  name={'search'}
+                />
+              </Form>
+
+            </div>
+        </div>
+
         <div className={styles.search}>
             <SvgSelector id='search-svg'/>
 
