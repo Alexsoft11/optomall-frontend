@@ -149,7 +149,13 @@ const Navbar = () => {
           {NavLinks.map((item, idx) => (
             <Link
               className={`${styles.navbar__mobile_item} ${
-                router.pathname === item.link ? styles.activeItem : ""
+                item.link === '/'
+                  ? router.pathname === item.link
+                    ? styles.activeItem
+                    : ''
+                  : router.pathname.startsWith(item.link)
+                  ? styles.activeItem
+                  : ''
               }`}
               key={idx}
               href={item.link}

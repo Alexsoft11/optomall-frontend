@@ -8,6 +8,7 @@ interface Props {
 }
 
 const CatalogDetail = ({ data }: Props) => {
+  
   return (
     <>
       <div className={styles.catalog_detail}>
