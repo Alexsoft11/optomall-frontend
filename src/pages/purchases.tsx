@@ -7,12 +7,13 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import React from "react";
 import cookie from "cookie";
+import { LoadingSpinner } from "@/ui/Spin";
 
 const PurchasesPage = dynamic(
-  () => import("@/features/Purchases/components/PurchasesPage")
-  // {
-  //   loading: () => <Loader />,
-  // }
+  () => import("@/features/Purchases/components/PurchasesPage"),
+  {
+    loading: () => <LoadingSpinner className="global_page_loader" />,
+  }
 );
 
 interface Props {

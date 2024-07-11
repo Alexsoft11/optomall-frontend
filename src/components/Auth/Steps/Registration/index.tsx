@@ -15,6 +15,7 @@ import Link from "next/link";
 import GoToBack from "@/components/GoToBack";
 import useHandleError from "@/utils/useHandleError";
 import SubmitBtn from "@/components/SubmitBtn";
+import Cookies from "universal-cookie";
 
 interface Props {
   setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -37,7 +38,7 @@ export default function Registration({ setModalIsOpen }: Props) {
       setTimeout(() => {
         setModalIsOpen(true);
         router.push("/auth");
-      }, 2000);      
+      }, 2000);
     },
     onError(res) {
       handleError(res);

@@ -8,6 +8,9 @@ import { useGoogleLogin } from '@react-oauth/google';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import Cookies from 'universal-cookie';
 import { message } from 'antd';
+import { API } from '@/services/api';
+import { cookieBasket } from '../Functions';
+import { CartItemInterface } from '@/features/Cart/interface';
 
 export default function GoogleButton() {
     const router = useRouter();
@@ -27,6 +30,9 @@ export default function GoogleButton() {
                 if (!res.token) {
                     message.error('something_wrong')
                     return
+                }
+                if (localStorage.getItem('basket-data')) {
+                    API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
                 }
                 cookie.set('token', res.token)
                 router.push(`/`)
