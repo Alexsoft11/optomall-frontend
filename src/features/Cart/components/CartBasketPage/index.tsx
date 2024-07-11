@@ -5,6 +5,7 @@ import CartOrderBlock from "../CartOrderBlock";
 import { CartItemInterface, CartOrderItemInterface, CreateOrderDataInterface, PersonalDataInterface } from "../../interface";
 import CartGetOrderLocations from "../CartGetOrderLocations";
 import CartGetOrderPerson from "../CartGetOtderPerson";
+import Cookies from "universal-cookie";
 
 interface Props {
   data: CartItemInterface[]
@@ -21,6 +22,8 @@ export default function CartBasketPage({ data }: Props) {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [country, setCountry] = useState<string | null>(null);
   const [personData, setPersonData] = useState<PersonalDataInterface | null>(null);
+
+  const cookie = new Cookies();
 
   const createOrderData: CreateOrderDataInterface = {
     total_price: totalPrice,
@@ -40,6 +43,12 @@ export default function CartBasketPage({ data }: Props) {
     setTotalPrice(total)
   }, [orderItems])
 
+  useEffect(() => {
+    if (!cookie.get('token') && localStorage.getItem("basket-data")) {
+      setDataClone(JSON.parse(localStorage.getItem("basket-data")!))  
+    }
+  }, [])
+
   const changeQuantity = (number: number, id: string) => {
     if (number === 0) return;
 
@@ -51,7 +60,7 @@ export default function CartBasketPage({ data }: Props) {
       el.product_id === id ? { ...el, quantity: number } : el
     );
 
-    setDataClone(updatedDataClone);
+    setDataClone(updatedDataClone as CartItemInterface[]);
     setOrderItems(updatedOrderItems);
   }
 
@@ -65,7 +74,7 @@ export default function CartBasketPage({ data }: Props) {
 
     setAddOrder(null)
     setOrderItems(copy)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addOrder])
 
   return (

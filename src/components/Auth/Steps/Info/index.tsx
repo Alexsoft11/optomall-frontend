@@ -12,7 +12,7 @@ import Cookies from "universal-cookie";
 
 export default function Info() {
   const [form] = Form.useForm();
-  const t = useTranslations("Auth");
+  const t = useTranslations("");
   const cookies = new Cookies();
   const router = useRouter();
   const [handleError] = useHandleError(form);
@@ -48,8 +48,8 @@ export default function Info() {
   return (
     <div className={styles.main}>
       <GoToBack backUrl="/auth?step=signUp" />
-      <h1>{t("info")}</h1>
-      <p className={styles.desc}>{t('infoDescription')}</p>
+      <h1>{t("Auth.info")}</h1>
+      <p className={styles.desc}>{t('Auth.infoDescription')}</p>
       <div className={styles.form}>
         <Form
           form={form}
@@ -75,7 +75,7 @@ export default function Info() {
             ]}
             type="text"
             className={styles.input}
-            placeholder={t("name")}
+            placeholder={t("Auth.name")}
           />
 
 
@@ -86,7 +86,7 @@ export default function Info() {
               { required: true, message: t("requiredSecondNameMessage") },
             ]}
             type="text"
-            placeholder={t("secondName")}
+            placeholder={t("Auth.secondName")}
           />
 
 
@@ -107,7 +107,7 @@ export default function Info() {
               type="primary"
               htmlType="submit"
               className="generalbtn"
-              label={t("save")}
+              label={t("Auth.save")}
             />
           </Form.Item>
         </Form>
