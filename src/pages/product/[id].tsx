@@ -16,9 +16,8 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
   if (!product) {
     return <h2>No product found.</h2>;
   }
-console.log(product)
   const title = product?.detail.title;
-console.log(product)
+
   return (
     <PageLayout metaTitle={title}>
       <ProductDetailSection
