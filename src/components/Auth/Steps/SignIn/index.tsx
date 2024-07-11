@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./SignIn.module.scss";
 import { Form, message } from "antd";
 import { Button, Input } from "@/ui";
@@ -13,27 +13,16 @@ import GoToBack from "@/components/GoToBack";
 import useHandleError from "@/utils/useHandleError";
 import { CartItemInterface } from "@/features/Cart/interface";
 import { API } from "@/services/api";
-import { UserBasketPostInterface } from "@/interfaces";
 
 export default function SignIn() {
   const [form] = Form.useForm();
   const t = useTranslations("");
-  const cookies = new Cookies();
+  const cookie = new Cookies();
   const expirationDate = new Date();
   const router = useRouter();
   const [handleError] = useHandleError(form);
   const [isLoading, setIsLoading] = useState(false)
   expirationDate.setDate(expirationDate.getDate() + 3);
-
-
-
-  const { appendData: createBascetData } = useQueryApiClient({
-    request: {
-      url: "user-basket",
-      method: "POST",
-      disableOnMount: true,
-    },
-  });
 
   const { appendData: createData } = useQueryApiClient({
     request: {
@@ -51,7 +40,7 @@ export default function SignIn() {
         API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
       }
       setTimeout(() => router.push("/"), 2000);
-      cookies.set("token", res.token);
+      cookie.set("token", res.token);
     },
     onError(err) {
       setIsLoading(false)
