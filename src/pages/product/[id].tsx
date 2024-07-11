@@ -16,7 +16,6 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
   if (!product) {
     return <h2>No product found.</h2>;
   }
-
   const title = product?.detail.title;
 
   return (

@@ -83,7 +83,7 @@ const AccountInfo = ({ user }: any) => {
     setLoading((prev) => ({ ...prev, [key]: true }));
     try {
       console.log(values);
-      // await mutateFunction(values);
+      await mutateFunction(values);
     } finally {
       setLoading((prev) => ({ ...prev, [key]: false }));
     }
@@ -99,7 +99,9 @@ const AccountInfo = ({ user }: any) => {
             <p>{t("Account.mail")}</p>
             <div>
               <span>{user?.email}</span>
-              <button>{t("Account.change")}</button>
+              <button onClick={() => setOpen({ ...open, isEmail: true })}>
+                {t("Account.change")}
+              </button>
               <Image
                 src={editAccountIcon}
                 alt='#'
@@ -112,7 +114,9 @@ const AccountInfo = ({ user }: any) => {
             <p>{t("Account.name")}</p>
             <div>
               <span>{user?.name}</span>
-              <button>{t("Account.change")}</button>
+              <button onClick={() => setOpen({ ...open, isUserName: true })}>
+                {t("Account.change")}
+              </button>
               <Image
                 src={editAccountIcon}
                 alt='#'
@@ -125,7 +129,9 @@ const AccountInfo = ({ user }: any) => {
             <p>{t("Account.phone")}</p>
             <div>
               <span>{user?.phone}</span>
-              <button>{t("Account.change")}</button>
+              <button onClick={() => setOpen({ ...open, isPhoneNumber: true })}>
+                {t("Account.change")}
+              </button>
               <Image
                 src={editAccountIcon}
                 alt='#'
@@ -138,7 +144,10 @@ const AccountInfo = ({ user }: any) => {
             <p>{t("Auth.password")}</p>
             <div>
               <span>********</span>
-              <button>{t("Account.change")}</button>
+              <button
+                onClick={() => setOpen({ ...open, isResetPassword: true })}>
+                {t("Account.change")}
+              </button>
               <Image
                 src={editAccountIcon}
                 alt='#'

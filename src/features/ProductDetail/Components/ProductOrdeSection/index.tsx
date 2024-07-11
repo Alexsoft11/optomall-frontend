@@ -121,7 +121,13 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     }
     setTotalQuantities(totals);
   };
-  console.log(totalQuantities[1]);
+
+  const isProductSelected = () => {
+    return selectedColors.some(colorId =>
+      selectedSizes[colorId].some(size => size.quantity > 0)
+    );
+  };
+
   const onFinish = () => {
     setLoading(true);
     try {
@@ -150,6 +156,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
             quantity: size.quantity,
             color:
               product.colors.find((color) => color.id === colorId)?.value || "",
+            color_id: colorId,
           }))
       );
       if (user) {
@@ -178,11 +185,17 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
   return (
     <div className={styles.product_order}>
       <div className={styles.priceSection}>
-        <span className={styles.currentPrice}>
-          {product.discounted_price} uzs
-        </span>
-        <span className={styles.discount}>-{product.discount_percentage}%</span>
-        <span className={styles.originalPrice}>{product.price} uzs</span>
+        <span className={styles.currentPrice}>{product.price} uzs</span>
+        {product.discounted_price ? (
+          <>
+            <span className={styles.discount}>
+              -{product.discount_percentage}%
+            </span>
+            <span className={styles.originalPrice}>
+              {product.discounted_price} uzs
+            </span>
+          </>
+        ) : null}
       </div>
       {selectedColor !== null && (
         <div className={styles.sizeSelector}>
@@ -224,9 +237,10 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
       </div>
       <Button
         loading={loading}
-        disabled={totalQuantities[1] > 0 ? false : true}
         className={styles.addToCart}
-        onClick={onFinish}>
+        onClick={onFinish}
+        disabled={!isProductSelected()}
+      >
         В корзину
       </Button>
     </div>
