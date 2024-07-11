@@ -32,8 +32,8 @@ export interface CatalogCategoriesInterface {
 export interface CategoryCatalogInterface {
   id: string;
   name: string;
-  provider: string;
-  externalId: string;
+  image: string;
+  is_active: string;
 }
 
 export interface SubCategoryInterface {
@@ -54,4 +54,15 @@ export interface SlidersDataInterface {
 export interface LoginErrInterface {
     error: boolean,
     message: string
+}
+
+export interface UserBasketPostInterface {
+    product_id: string,
+    sizes: UserBasketSizesInterface[]
+}
+
+export interface UserBasketSizesInterface {
+    value: string,
+    quantity: number,
+    color_id: string
 }

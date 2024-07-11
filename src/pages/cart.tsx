@@ -1,12 +1,13 @@
 import GoToBack from "@/components/GoToBack";
 import PageTitle from "@/components/PageTitle";
-import { CartItemInterface, CartOrderItemInterface } from "@/features/Cart/interface";
+import { CartItemInterface } from "@/features/Cart/interface";
 import { API } from "@/services/api";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import React from "react";
 import cookie from "cookie";
+import Cookies from "universal-cookie";
 
 const CartBasketPage = dynamic(
   () => import("@/features/Cart/components/CartBasketPage")
@@ -28,6 +29,7 @@ interface Props {
 
 export default function Cart({ basketData }: Props) {
   const t = useTranslations("GLOBAL");
+  const cookie = new Cookies()
   return (
     <div className="container">
       <Head>
@@ -36,11 +38,9 @@ export default function Cart({ basketData }: Props) {
       <div>
         <GoToBack pathArr={[{ title: "cart", path: "" }]} />
         <PageTitle />
-        {basketData.length ? (
-          <CartBasketPage data={basketData} />
-        ) : (
-          <CartBasketNoItems />
-        )}
+        {basketData.length ? <CartBasketPage data={basketData} /> : null}
+        {!basketData.length && !cookie.get('token') ? <CartBasketPage data={basketData} /> : null}
+        {!basketData.length && cookie.get('token') ? <CartBasketNoItems /> : null}
       </div>
     </div>
   );
@@ -52,7 +52,7 @@ export const getServerSideProps = async (context: any) => {
 
     // Extract the token from the parsed cookies
     const token = decodeURIComponent(cookies.token);
-    const basketResponse : CartItemInterface[] = await API.getUserBasket(token);
+    const basketResponse: CartItemInterface[] = await API.getUserBasket(token);
 
     return {
       props: {

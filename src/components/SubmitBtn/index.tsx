@@ -5,17 +5,44 @@ import anime from 'animejs';
 
 interface Props {
     isLoading: boolean;
-    isDisable: boolean;
     isSuccess: boolean;
+    isError?:boolean
     btnText: any;
+    onSubmit?:any
 }
 
-const SubmitBtn = ({ isLoading, isDisable, isSuccess, btnText}: Props) => {
+const SubmitBtn = ({ isLoading, isSuccess,isError, btnText,onSubmit}: Props) => {
     const btnRef = useRef<HTMLButtonElement>(null);
     const animationRef = useRef<anime.AnimeInstance | null>(null);
 
+    const resetButtonStyles = () => {
+        const button = btnRef.current;
+        if (button && animationRef.current) {
+            button.style.backgroundColor = '';
+            button.style.borderRadius = '';
+            button.style.height = '';
+            button.style.width = '';
+            const progressBar = button.querySelector(`.${styles.progress_bar}`) as HTMLElement;
+            if (progressBar) {
+                progressBar.style.width = '';
+                progressBar.style.height = '';
+                progressBar.style.borderRadius = '';
+                progressBar.style.backgroundColor = '';
+            }
+            const btnSvg = button.querySelector(`.${styles.btn_svg}`) as HTMLElement;
+            if (btnSvg) {
+                btnSvg.style.opacity = '';
+            }
+            const text = button.querySelector(`.${styles.text}`) as HTMLElement;
+            if (text) {
+                text.style.opacity = '';
+            }
+            animationRef.current.pause()
+        }
+    }
+
     useEffect(() => {
-        if (isLoading) {
+        if (isLoading &&!isSuccess && !isError ) {
             const button = btnRef.current;
             if (button) {
                 animationRef.current = anime({
@@ -28,7 +55,7 @@ const SubmitBtn = ({ isLoading, isDisable, isSuccess, btnText}: Props) => {
                     complete: () => {
                         animationRef.current = anime({
                             targets: button,
-                            height: 10,
+                            height: 11,
                             duration: 2000,
                         });
                         animationRef.current = anime({
@@ -73,13 +100,19 @@ const SubmitBtn = ({ isLoading, isDisable, isSuccess, btnText}: Props) => {
         }
     }, [isLoading])
 
-  return (  
+    const handleClick = () => {
+        if (!isSuccess) {
+            resetButtonStyles();
+        }
+    };
+
+  return (
     <div>
-        <button className={styles.btn} type="submit" ref={btnRef} disabled={isDisable}>
-            <div className={styles.text}>{btnText}</div>
+        <button className={styles.btn}  ref={btnRef} disabled={isSuccess} onClick={handleClick}>
+            <div className={styles.text} onClick={onSubmit}>{btnText}</div>
             <div className={styles.progress_bar}></div>
             <div className={styles.btn_svg} >
-                <SvgSelector id={isSuccess  ? "submit-svg" : "submit-error"}/>
+                <SvgSelector id={isSuccess ? "submit-svg" : "submit-error"}/>
             </div>
         </button>
     </div>
