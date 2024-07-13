@@ -173,7 +173,7 @@ const Navbar = () => {
               href={item.link}
             >
               <SvgSelector id={`${item.key}-svg`} />
-              <p>{item.text}</p>
+              <p>{t(item.key)}</p>
             </Link>
           ))}
         </div>

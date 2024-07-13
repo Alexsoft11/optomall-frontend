@@ -43,7 +43,12 @@
         "logout": "Выйти",
         "btn_access": "Вход",
         "btn_regist": "Зарегистрироваться",
-        "modalMessage": "Контактный номер телефона"
+        "modalMessage": "Контактный номер телефона",
+        "home": "Главная",
+        "catalog": "Каталог",
+        "saved": "Liked",
+        "shop": "Корзина",
+        "user": "Профиль"
     },
     "UiModal": {
         "success": "Чек успешно подвержден",
@@ -134,7 +139,11 @@
         "inVerification": "в проверке"
     },
     "Search": {
-        "platform": "Платформа"
+        "platform": "Платформа",
+        "sales": "Продажи",
+        "reputation": "Репутация",
+        "longPrice": "Длинная цена",
+        "downPrice": "Снижение цены"
     },
     "MyReviews": {
         "waitForReview": "Ждут оценки",

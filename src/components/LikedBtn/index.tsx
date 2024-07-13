@@ -15,7 +15,7 @@ const LikedBtn = ({ onLikeChange, data }:LikedProps) => {
     if (onLikeChange) {
       onLikeChange(+data.id, !data.is_liked);
     }
-    dislikeCard({ product_id: data.product_id.toString() });
+    dislikeCard([data.product_id]);
   };
 
   const { appendData: dislikeCard } = useQueryApiClient({

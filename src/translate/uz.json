@@ -38,7 +38,12 @@
         "logout": "Chiqish",
         "btn_access": "Kirish",
         "btn_regist": "Ro’yxatdan o’tish",
-        "modalMessage": "Murojat uchun telefon raqam"
+        "modalMessage": "Murojat uchun telefon raqam",
+        "home": "Bosh sahifa",
+        "catalog": "Katalog",
+        "saved": "Yoqtirganlar",
+        "shop": "Savat",
+        "user": "Profil"
     },
     "UiModal": {
         "success": "Chek muvaffaqiyatli tasdiqlandi",
@@ -130,7 +135,11 @@
         "inVerification": "tekshirilmoqda"
     },
     "Search": {
-        "platform": "Platforma"
+        "platform": "Platforma",
+        "sales": "Sotish",
+        "reputation": "Reputatsiya",
+        "longPrice": "Uzoq narx",
+        "downPrice": "Past narx"
     },
     "MyReviews": {
         "waitForReview": "Baho berish kutilmoqda",
