@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "@/ui/index";
-import { HeadLogo } from "$/assets/images/index";
+import { Button, Modal } from "@/ui/index";
+import { AuthModalSvg, HeadLogo, HeadPhone } from "$/assets/images/index";
 import { ModalLinks, NavLinks } from "@/constants/navbar";
 import styles from "./Navbar.module.scss";
 import Image from "next/image";
@@ -18,6 +18,7 @@ const Navbar = () => {
   const token = useJwt();
   const router = useRouter();
   const t = useTranslations("Navbar");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   type ModalState = "user" | "nav" | null;
 
   const [openModal, setOpenModal] = useState<ModalState>(null);
@@ -43,6 +44,10 @@ const Navbar = () => {
     setOpenModal(null);
   };
 
+  const handleModalIsOpen = () => {
+    setModalIsOpen(true)
+  }
+
   return (
     <>
       <div className={styles.navbar}>
@@ -60,9 +65,16 @@ const Navbar = () => {
                 />
                 <SearchBtn />
 
-                <Link href="/">
+                <button className={styles.navbar__support} onClick={handleModalIsOpen}>
                   <SvgSelector id="support-svg" />
-                </Link>
+                </button>
+                <Modal
+                  onCancel={setModalIsOpen}
+                  className='bg_white'
+                  img={HeadPhone}
+                  description={`${t("modalMessage")}\n+998 71 234 56 78`}
+                  open={modalIsOpen}
+                />
               </div>
 
               <Link href="/" className={styles.navbar__logo}>
@@ -161,7 +173,7 @@ const Navbar = () => {
               href={item.link}
             >
               <SvgSelector id={`${item.key}-svg`} />
-              <p>{item.text}</p>
+              <p>{t(item.key)}</p>
             </Link>
           ))}
         </div>

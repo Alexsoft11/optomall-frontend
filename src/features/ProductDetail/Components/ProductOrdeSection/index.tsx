@@ -55,6 +55,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
   totalQuantities,
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [totalPrice, setTotalPrice] = useState<number>(0); // New state for total price
   const defaultSizes = [{ id: 1, value: "default" }];
   const user = useJwt();
 
@@ -122,6 +123,19 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     setTotalQuantities(totals);
   };
 
+  const calculateTotalPrice = () => {
+    let total = 0;
+    for (const colorId in selectedSizes) {
+      if (selectedColors.includes(Number(colorId))) {
+        total += selectedSizes[colorId].reduce(
+          (sum: number, size: any) => sum + size.quantity * product.price,
+          0
+        );
+      }
+    }
+    setTotalPrice(total);
+  };
+
   const isProductSelected = () => {
     return selectedColors.some(colorId =>
       selectedSizes[colorId].some(size => size.quantity > 0)
@@ -174,6 +188,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
 
   useEffect(() => {
     calculateTotalQuantities();
+    calculateTotalPrice(); // Calculate total price whenever quantities change
   }, [selectedSizes, selectedColors]);
 
   const resetStates = () => {
@@ -215,7 +230,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
                     }>
                     <Image src={MinusSvg} width={24} height={24} alt='#' />
                   </Button>
-                  <h4>
+                  <h4 className={styles.selected_quantity}>
                     {selectedSizes[selectedColor].find(
                       (s: any) => s.value === size.value
                     )?.quantity || 0}
@@ -234,6 +249,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
       )}
       <div className={styles.total}>
         <p>Итого</p>
+        <span className={styles.total_quantity}>{totalPrice} uzs</span>
       </div>
       <Button
         loading={loading}

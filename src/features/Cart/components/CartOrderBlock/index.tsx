@@ -3,8 +3,8 @@ import styles from './CartOrder.module.scss';
 import { useTranslations } from 'next-intl';
 import { Button, Modal } from '@/ui';
 import { useRouter } from 'next/router';
-import { SearchSvg, SuccsessSvg, WarningSvg } from '$/assets/images';
-import { CartOrderItemInterface, CreateOrderDataInterface } from '../../interface';
+import { SearchSvg,} from '$/assets/images';
+import { CreateOrderDataInterface } from '../../interface';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import { message, Upload } from 'antd';
 import Cookies from 'universal-cookie';
@@ -90,8 +90,6 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
             }
         },
         onChange(info: any) {
-            if (isUploadErr) return
-
             if (info.file.status === 'done' && !isUploadErr) {
 
                 const image = info.file.originFileObj;

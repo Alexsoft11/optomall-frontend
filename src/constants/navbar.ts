@@ -1,8 +1,9 @@
 export const NavLinks = [
-  { key: "home", link: "/", text: "Главная" },
-  { key: "catalog", link: "/catalog", text: "Каталог" },
-  { key: "shop", link: "/cart", text: "Корзина" },
-  { key: "user", link: "/profile", text: "Профиль" },
+  { key: "home", link: "/", },
+  { key: "catalog", link: "/catalog", },
+  { key: "saved", link: "/wishes", },
+  { key: "shop", link: "/cart", },
+  { key: "user", link: "/profile", },
 ];
 
 export const ModalLinks = [

@@ -1,47 +1,6 @@
 import { ProductImage, CategoryImg1, CategoryImg2, CategoryImg3 } from "$/assets/images";
 import { CardCategoryInterface, CardInterface } from "@/interfaces";
 
-
-
-export const CardsMockData: CardInterface[] = [
-    {
-        id:"1",
-        title: 'Lorem ipsum is dolor set amet',
-        price: 'UZS 1650',
-        image: ProductImage,
-    },
-    {
-        id:"2",
-        title: 'Lorem ipsum is dolor set amet',
-        price: 'UZS 1650',
-        image: ProductImage,
-    },
-    {
-        id:"3",
-        title: 'Lorem ipsum is dolor set amet',
-        price: 'UZS 1650',
-        image: ProductImage,
-    },
-    {
-        id:"4",
-        title: 'Lorem ipsum is dolor set amet',
-        price: 'UZS 1650',
-        image: ProductImage,
-    },
-    {
-        id:"5",
-        title: 'Lorem ipsum is dolor set amet',
-        price: 'UZS 1650',
-        image: ProductImage,
-    },
-    {
-        id:"6",
-        title: 'Lorem ipsum is dolor set amet',
-        price: 'UZS 1650',
-        image: ProductImage,
-    },
-]
-
 export const CardsCategory: CardCategoryInterface[] = [
     {
         id: 1,

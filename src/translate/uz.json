@@ -37,7 +37,13 @@
         "customs": "Bojxona hisoblash qanday amalga oshiriladi",
         "logout": "Chiqish",
         "btn_access": "Kirish",
-        "btn_regist": "Ro’yxatdan o’tish"
+        "btn_regist": "Ro’yxatdan o’tish",
+        "modalMessage": "Murojat uchun telefon raqam",
+        "home": "Bosh sahifa",
+        "catalog": "Katalog",
+        "saved": "Yoqtirganlar",
+        "shop": "Savat",
+        "user": "Profil"
     },
     "UiModal": {
         "success": "Chek muvaffaqiyatli tasdiqlandi",
@@ -105,7 +111,7 @@
         "checkWarningMessage": "Chek tasdiqlanmadi. Chekni tekshiring va qayta urinib ko'ring.",
         "authMessage": "Buyurtma berish uchun saytda ro'yxatdan o'ting!",
         "imgTypeValidation": "Faqat rasm yuklashingiz mumkin!",
-        "imgSizeValidation": "Rasm hajmi 3 MB dan kichik bo'lishi kerak!"
+        "imgSizeValidation": "Rasm hajmi 5 MB dan kichik bo'lishi kerak!"
     },
     "Order": {
         "payCost": "To'lanadigan summa: ",
@@ -131,7 +137,11 @@
         "inVerification": "tekshirilmoqda"
     },
     "Search": {
-        "platform": "Platforma"
+        "platform": "Platforma",
+        "sales": "Sotish",
+        "reputation": "Reputatsiya",
+        "longPrice": "Uzoq narx",
+        "downPrice": "Past narx"
     },
     "MyReviews": {
         "waitForReview": "Baho berish kutilmoqda",
