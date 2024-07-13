@@ -8,6 +8,7 @@ import { CartOrderItemInterface, CreateOrderDataInterface } from '../../interfac
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import { message, Upload } from 'antd';
 import Cookies from 'universal-cookie';
+import { RcFile } from 'antd/es/upload';
 
 interface Props {
     cost: number;
@@ -20,6 +21,8 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
     const t = useTranslations('Cart')
     const [checkModalIsOpen, setCheckModalIsOpen] = useState(false);
     const [authModalIsOpen, setAuthModalIsOpen] = useState(false);
+    const [isUploadErr, setIsUploadErr] = useState(false);
+
     const router = useRouter();
     const [buttonStatus, setButtonStatus] = useState<'idle' | 'pending' | 'success' | 'fail'>('idle');
     const cookie = new Cookies()
@@ -72,21 +75,39 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
         className: styles.upload_btn,
         showUploadList: false,
         multiple: false,
+        beforeUpload: (file: RcFile) => {
+            const isImage = file.type === 'image/jpeg' || file.type === 'image/png';
+            if (!isImage) {
+                setIsUploadErr(true)
+                message.error(t('imgTypeValidation'));
+                return
+            }
+            const isLt3M = file.size / 1024 / 1024 < 3;
+            if (!isLt3M) {
+                setIsUploadErr(true)
+                message.error(t('imgSizeValidation'));
+                return
+            }
+        },
         onChange(info: any) {
-            if (info.file.status === 'done') {
+            if (isUploadErr) return
+
+            if (info.file.status === 'done' && !isUploadErr) {
+
                 const image = info.file.originFileObj;
-                delete image.uid
+                delete image.uid;
 
                 const formData = new FormData();
                 if (orderId) {
                     formData.append('image', image);
                     formData.append('order_id', orderId.toString());
-                    createChequeData(formData)
-                    setButtonStatus('pending')
+                    createChequeData(formData);
+                    setButtonStatus('pending');
                 }
             }
         },
     };
+
 
 
     const toOrder = () => {
