@@ -105,7 +105,7 @@
         "checkWarningMessage": "Chek tasdiqlanmadi. Chekni tekshiring va qayta urinib ko'ring.",
         "authMessage": "Buyurtma berish uchun saytda ro'yxatdan o'ting!",
         "imgTypeValidation": "Faqat rasm yuklashingiz mumkin!",
-        "imgSizeValidation": "Rasm hajmi 3 MB dan kichik bo'lishi kerak!"
+        "imgSizeValidation": "Rasm hajmi 5 MB dan kichik bo'lishi kerak!"
     },
     "Order": {
         "payCost": "To'lanadigan summa: ",
