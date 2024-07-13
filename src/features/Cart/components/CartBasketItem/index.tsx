@@ -15,16 +15,16 @@ interface Props {
       chacked: boolean;
     } | null>
   >;
-  changeQuantity: (number: number, id: string) => void
+  changeQuantity: (number: number, item: CartItemInterface) => void
 }
 
 export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Props) {
   const t = useTranslations("GLOBAL");
 
   const handleChange = (chacked: boolean) => {
-    
+
     const data = {
-      product_id: item.product_id.toString(),
+      product_id: item.product_id,
       image_url: item.image_url,
       title: item.title,
       color: item.color,
@@ -33,7 +33,7 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
       quantity: item.quantity,
     }
 
-    
+
     setAddOrder({ item: data, chacked: chacked });
   };
 
@@ -67,11 +67,11 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
       </div>
 
       <div className={styles.change_value}>
-        <Button onClick={() => changeQuantity(item.quantity - 1, item.product_id)}>
+        <Button onClick={() => changeQuantity(item.quantity - 1, item)}>
           <Image src={MinusSvg} width={24} height={24} alt="#" />
         </Button>
         <h4>{item.quantity}</h4>
-        <Button onClick={() => changeQuantity(item.quantity + 1, item.product_id)}>
+        <Button onClick={() => changeQuantity(item.quantity + 1, item)}>
           <Image src={PlusSvg} width={24} height={24} alt="#" />
         </Button>
       </div>

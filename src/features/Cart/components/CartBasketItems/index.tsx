@@ -7,7 +7,7 @@ import { CartItemInterface, CartOrderItemInterface } from "../../interface";
 interface Props {
   setAddOrder: React.Dispatch<React.SetStateAction<{ item: CartOrderItemInterface, chacked: boolean } | null>>,
   data: CartItemInterface[],
-  changeQuantity: (number: number, id: string) => void
+  changeQuantity: (number: number, item: CartItemInterface) => void
 }
 
 
