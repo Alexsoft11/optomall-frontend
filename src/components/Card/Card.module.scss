@@ -1,5 +1,6 @@
 .card {
   max-width: 240px;
+  position: relative;
   @media (max-width:700px) {
     max-width: 200px;
   }
@@ -93,5 +94,82 @@
       font-weight: 500;
 
     }
+  }
+}
+.wish input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+  bottom: 0;
+}
+
+.ant-form-item {
+  display: none;
+}
+
+.wish {
+  display: block;
+  position: absolute;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+  transition: 100ms;
+  max-width: 30px;
+  max-height: 30px;
+  right: 10px;
+  top: 10px;
+}
+
+.checkmark {
+  top: 0px;
+  left: 0;
+  height: 2em;
+  width: 2em;
+  transition: 100ms;
+  animation: dislike_effect 400ms ease;
+  max-width: 30px;
+  max-height: 30px;
+}
+
+.wish input:checked ~ .checkmark path {
+  fill: #FF5353;
+  stroke-width: 0;
+}
+
+.wish input:checked ~ .checkmark {
+  animation: like_effect 400ms ease;
+}
+
+.wish:hover {
+  transform: scale(1.1);
+}
+
+@keyframes like_effect {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dislike_effect {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }

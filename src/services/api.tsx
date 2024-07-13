@@ -68,4 +68,7 @@ export const API = {
         },
       })
       .then((res) => res.data.orders),
+
+  // LikedProducts 
+  getWishesPageProducts: () => axiosInstance.get("liked-products"),
 };
