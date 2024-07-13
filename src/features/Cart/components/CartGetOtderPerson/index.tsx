@@ -14,7 +14,9 @@ export default function CartGetOrderPerson({ setPersonData }: Props) {
     const [form] = Form.useForm();
 
     const hendleChange = () => {
-        setPersonData(form.getFieldsValue())
+        const data = form.getFieldsValue()
+        data.phone = `+998${data.phone}`
+        setPersonData(data)
     };
 
     return (

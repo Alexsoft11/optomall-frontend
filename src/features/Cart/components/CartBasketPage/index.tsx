@@ -45,20 +45,24 @@ export default function CartBasketPage({ data }: Props) {
 
   useEffect(() => {
     if (!cookie.get('token') && localStorage.getItem("basket-data")) {
-      setDataClone(JSON.parse(localStorage.getItem("basket-data")!))  
+      setDataClone(JSON.parse(localStorage.getItem("basket-data")!))
     }
   }, [])
 
-  const changeQuantity = (number: number, id: string) => {
+  const changeQuantity = (number: number, item: CartItemInterface) => {
     if (number === 0) return;
 
-    const updatedDataClone = dataClone.map(el =>
-      el.product_id === id ? { ...el, quantity: number } : el
-    );
+    const updatedDataClone = dataClone.map(el => {
+      if (el.product_id === item.product_id && el.color_id === item.color_id && el.size_id === item.size_id) {
+        return { ...el, quantity: number }
+      } else return el
+    });
 
-    const updatedOrderItems = orderItems.map(el =>
-      el.product_id === id ? { ...el, quantity: number } : el
-    );
+    const updatedOrderItems = orderItems.map(el => {
+      if (el.product_id === item.product_id && el.color === item.color && el.size === item.size) {
+        return { ...el, quantity: number }
+      } else return el
+    });
 
     setDataClone(updatedDataClone as CartItemInterface[]);
     setOrderItems(updatedOrderItems);
