@@ -37,7 +37,13 @@
         "customs": "How Customs Clearance is Calculated",
         "logout": "Logout",
         "btn_access": "Login",
-        "btn_regist": "Register"
+        "btn_regist": "Register",
+        "modalMessage": "Contact phone number",
+        "home": "Home",
+        "catalog": "Catalog",
+        "saved": "Liked",
+        "shop": "Shop",
+        "user": "Profile"
     },
     "UiModal": {
         "success": "Receipt successfully confirmed",
@@ -131,7 +137,11 @@
         "inVerification": "in verification"
     },
     "Search": {
-        "platform": "Platform"
+        "platform": "Platform",
+        "sales": "Sales",
+        "reputation": "Reputation",
+        "longPrice": "Long price",
+        "downPrice": "Down price"
     },
     "MyReviews": {
         "waitForReview": "Waiting for Review",

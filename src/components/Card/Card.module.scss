@@ -1,5 +1,6 @@
 .card {
   max-width: 240px;
+  position: relative;
   @media (max-width:700px) {
     max-width: 200px;
   }

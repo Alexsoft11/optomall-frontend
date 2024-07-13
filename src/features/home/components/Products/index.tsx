@@ -53,7 +53,7 @@ const Products = ({ products }: Props) => {
               <LoadingSpinner className="products_spin" spinning={true} tip={t('GLOBAL.loadingData')} size="large" />
             ) : (
               productsChange?.map((el: CardInterface, idx: number) => (
-                <Card key={el.id}  data={el} idx={idx} />
+                <Card key={el.id}  data={el} />
               ))
             )}
           </div>
