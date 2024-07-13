@@ -36,7 +36,7 @@ export async function validateEmail(
 
   if (isRegistPage) {
     const response = await API.authCheckEmail(value);
-    if (response) {
+    if (response.message === 'true') {
       return Promise.reject(new Error(t("Auth.emailAlredyUsed")));
     }
   }
