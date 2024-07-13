@@ -1,15 +1,16 @@
 import React from "react";
 import styles from "./CatalogProduct.module.scss";
 import SearchBtn from "@/components/SearchBtn";
-import { CardsMockData } from "@/mockdata/Cards";
 import Card from "@/components/Card";
 import SvgSelector from "$/assets/icons/SvgSelector";
+import { useTranslations } from "next-intl";
 
 interface Props {
   data: any;
 }
 
 const CatalogProduct = ({ data }: Props) => {
+  const t = useTranslations("Search")
   return (
     <>
       <div className={styles.catalog_product}>
@@ -20,18 +21,16 @@ const CatalogProduct = ({ data }: Props) => {
                 <SearchBtn />
               </div>
               <div className={styles.catalog_product__btns}>
-                <button>
-                  <span>Lorem, ipsum.</span> <SvgSelector id="sorting-svg" />
-                </button>
-                <button>
-                  <span>Lorem, ipsum.</span> <SvgSelector id="settings-svg" />
-                </button>
+                <button><span>{t("sales")}</span> <SvgSelector id="sorting-svg"/></button>
+                <button><span>{t("reputation")}</span> <SvgSelector id="settings-svg"/></button>
+                <button><span>{t("longPrice")}</span> <SvgSelector id="sorting-svg"/></button>
+                <button><span>{t("downPrice")}</span> <SvgSelector id="settings-svg"/></button>
               </div>
             </div>
 
             <div className={styles.catalog_product__cards}>
               {data?.map((el: any, idx: number) => (
-                <Card key={el.id} data={el} idx={idx} />
+                <Card key={el.id} data={el}/>
               ))}
             </div>
           </div>

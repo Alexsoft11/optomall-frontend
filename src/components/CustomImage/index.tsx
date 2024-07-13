@@ -9,6 +9,8 @@ interface IProps {
   src: string | StaticImageData;
   alt: string;
   fill?: boolean;
+  width?: number;
+  height?: number;
   link?: string;
   isLink: boolean;
   loading?: "lazy" | "eager";
@@ -21,6 +23,8 @@ const CustomImage: FC<IProps> = ({
   src,
   alt,
   fill = true,
+  width,
+  height,
   link,
   isLink = true,
   loading = "lazy",
@@ -35,7 +39,7 @@ const CustomImage: FC<IProps> = ({
         <Skeleton.Button
           active
           className={className}
-          style={{ display: "bloc", width: "100%", height: "100%" }}
+          style={{ display: "block", width: "100%", height: "100%" }}
         />
       )}
       {isLink ? (
@@ -46,6 +50,8 @@ const CustomImage: FC<IProps> = ({
             alt={alt}
             loading={loading}
             fill={fill}
+            width={width}
+            height={height}
             onLoad={() => setIsLoad(false)}
           />
         </Link>
@@ -55,6 +61,8 @@ const CustomImage: FC<IProps> = ({
           src={imgSrc}
           alt={alt}
           fill={fill}
+          width={width}
+          height={height}
           loading={loading}
           onLoad={() => setIsLoad(false)}
         />

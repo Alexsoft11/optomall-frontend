@@ -2,9 +2,11 @@ import { StaticImageData } from "next/image";
 
 export interface CardInterface {
     id: string,
+    product_id: string;
     title?: string;
     price?: string; 
     image: StaticImageData;
+    is_liked: boolean;
 }
 
 export interface CardCategoryInterface {

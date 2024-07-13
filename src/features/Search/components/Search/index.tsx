@@ -57,15 +57,17 @@ const Search = ({ data }: Props) => {
                         </div> */}
 
                         <div className={styles.search__btns}>
-                            <button><span>Lorem, ipsum.</span> <SvgSelector id="sorting-svg"/></button>
-                            <button><span>Lorem, ipsum.</span> <SvgSelector id="settings-svg"/></button>
+                            <button><span>{t("sales")}</span> <SvgSelector id="sorting-svg"/></button>
+                            <button><span>{t("reputation")}</span> <SvgSelector id="settings-svg"/></button>
+                            <button><span>{t("longPrice")}</span> <SvgSelector id="sorting-svg"/></button>
+                            <button><span>{t("downPrice")}</span> <SvgSelector id="settings-svg"/></button>
                         </div>
                     </div>
                 </div>
 
                 <div className={styles.search__cards}>
                     {data?.map((el: any, idx: number) => (
-                        <Card key={el.id} data={el} idx={idx} />
+                        <Card key={el.id} data={el} />
                     ))}
                 </div>
             </div>

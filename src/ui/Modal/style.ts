@@ -37,6 +37,7 @@ export const StyledModal = styled(AntdModal)`
             font-size: var(--paragraph);
             font-weight: 400;
             line-height: 19.36px;
+            white-space: pre-line;
         }
 
         .message-modal-success {

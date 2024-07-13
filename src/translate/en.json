@@ -37,7 +37,13 @@
         "customs": "How Customs Clearance is Calculated",
         "logout": "Logout",
         "btn_access": "Login",
-        "btn_regist": "Register"
+        "btn_regist": "Register",
+        "modalMessage": "Contact phone number",
+        "home": "Home",
+        "catalog": "Catalog",
+        "saved": "Liked",
+        "shop": "Shop",
+        "user": "Profile"
     },
     "UiModal": {
         "success": "Receipt successfully confirmed",
@@ -103,7 +109,9 @@
         "basketNoItems": "Your cart is empty",
         "goToBuy": "Go to purchase",
         "checkWarningMessage": "Receipt failed verification. Check the receipt and try again.",
-        "authMessage": "Register on the website to place an order!"
+        "authMessage": "Register on the website to place an order!",
+        "imgTypeValidation": "You can only upload an image!",
+        "imgSizeValidation": "Image size must be smaller than 3 MB!"
     },
     "Order": {
         "payCost": "Amount to be paid: ",
@@ -129,7 +137,11 @@
         "inVerification": "in verification"
     },
     "Search": {
-        "platform": "Platform"
+        "platform": "Platform",
+        "sales": "Sales",
+        "reputation": "Reputation",
+        "longPrice": "Long price",
+        "downPrice": "Down price"
     },
     "MyReviews": {
         "waitForReview": "Waiting for Review",

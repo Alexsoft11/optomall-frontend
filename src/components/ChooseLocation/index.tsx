@@ -11,7 +11,7 @@ interface Props {
 }
 
 const ChooseLocation = ({ onLocationSelect, setMapIsOpen, setCountry }: Props) => {
-    const [position, setPosition] = useState<[number, number]>([55.751574, 37.573856]); // Default position (Moscow)
+    const [position, setPosition] = useState<[number, number]>([41.2995, 69.2401]); // Default position (Tashkent)
     const t = useTranslations('ChooseLocation');
     const [ymapsLoaded, setYmapsLoaded] = useState<boolean>(false);
 
@@ -70,7 +70,7 @@ const ChooseLocation = ({ onLocationSelect, setMapIsOpen, setCountry }: Props) =
             <div className={style.map_block}>
                 <YMaps query={{ apikey: "b14d6563-5fe8-4fef-8a47-d4ea235cda5a" }}>
                     <Map
-                        defaultState={{ center: [55.751574, 37.573856], zoom: 6 }}
+                        defaultState={{ center: [41.2995, 69.2401], zoom: 6 }}
                         width="100%"
                         height="400px"
                         onClick={handleMapClick}
