@@ -10,35 +10,15 @@ import LanguageSelector from "../LanguageSelector";
 import Cookies from "universal-cookie";
 import { LoadingSpinner } from "@/ui/Spin";
 
-const ForgotPassword = dynamic(() => import("./Steps/ForgotPassword"),
-  {
-    loading: () => <LoadingSpinner className="global_page_loader" />
-  }
-);
+const ForgotPassword = dynamic(() => import("./Steps/ForgotPassword"));
 
-const Info = dynamic(() => import("./Steps/Info"),
-  {
-    loading: () => <LoadingSpinner className="global_page_loader" />
-  }
-);
+const Info = dynamic(() => import("./Steps/Info"));
 
-const NewPassword = dynamic(() => import("./Steps/NewPassword"),
-  {
-    loading: () => <LoadingSpinner className="global_page_loader" />
-  }
-);
+const NewPassword = dynamic(() => import("./Steps/NewPassword"));
 
-const Registration = dynamic(() => import("./Steps/Registration"),
-  {
-    loading: () => <LoadingSpinner className="global_page_loader" />
-  }
-);
+const Registration = dynamic(() => import("./Steps/Registration"));
 
-const SignIn = dynamic(() => import("./Steps/SignIn"),
-  {
-    loading: () => <LoadingSpinner className="global_page_loader" />
-  }
-);
+const SignIn = dynamic(() => import("./Steps/SignIn"));
 
 export default function AuthPage() {
   const router = useRouter();
