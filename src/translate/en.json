@@ -111,7 +111,7 @@
         "checkWarningMessage": "Receipt failed verification. Check the receipt and try again.",
         "authMessage": "Register on the website to place an order!",
         "imgTypeValidation": "You can only upload an image!",
-        "imgSizeValidation": "Image size must be smaller than 3 MB!"
+        "imgSizeValidation": "Image size must be smaller than 5 MB!"
     },
     "Order": {
         "payCost": "Amount to be paid: ",
