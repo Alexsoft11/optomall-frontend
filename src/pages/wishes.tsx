@@ -1,45 +1,48 @@
-import { API } from '@/services/api';
-import dynamic from 'next/dynamic';
-import React from 'react'
+import { API } from "@/services/api";
+import dynamic from "next/dynamic";
+import React from "react";
+import cookie from "cookie";
+import { CardInterface } from "@/interfaces";
 
 interface WishesProps {
-    wishesData: { wishes: any[] };
+  wishesData: CardInterface[];
 }
 
 const Wishes = dynamic(
-    () => import("@/features/Wishes/components/Wishes")
-    // {
-    //   loading: () => <Loader />,
-    // }
+  () => import("@/features/Wishes/components/Wishes")
+  // {
+  //   loading: () => <Loader />,
+  // }
 );
 
 const WishesPage = ({ wishesData }: WishesProps) => {
-    console.log(wishesData)
+  console.log(wishesData, "dd");
   return (
     <>
-        <Wishes wishesData={wishesData}/>
+      <Wishes wishesData={wishesData}/>
     </>
-  )
-}
+  );
+};
 
-export default WishesPage
+export default WishesPage;
 
 export const getServerSideProps = async (context: any) => {
-    try {
-      const wishesResponse = await API.getWishesPageProducts();
-        console.log(wishesResponse)
-      return {
-        props: {
-            wishesData: wishesResponse.data || [],
-        },
-      };
-    } catch (error: any) {
-      console.error("Error fetching data:", error.message);
-      return {
-        props: {
-            wishesData: [],
-        },
-      };
-    }
-  };
-  
+  try {
+    const cookies = cookie.parse(context.req.headers.cookie || "");
+
+    const token = decodeURIComponent(cookies.token);
+    const wishesResponse = await API.getWishesPageProducts(token);
+    return {
+      props: {
+        wishesData: wishesResponse.data || [],
+      },
+    };
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+    return {
+      props: {
+        wishes: [],
+      },
+    };
+  }
+};

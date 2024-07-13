@@ -37,7 +37,8 @@
         "customs": "Bojxona hisoblash qanday amalga oshiriladi",
         "logout": "Chiqish",
         "btn_access": "Kirish",
-        "btn_regist": "Ro’yxatdan o’tish"
+        "btn_regist": "Ro’yxatdan o’tish",
+        "modalMessage": "Murojat uchun telefon raqam"
     },
     "UiModal": {
         "success": "Chek muvaffaqiyatli tasdiqlandi",

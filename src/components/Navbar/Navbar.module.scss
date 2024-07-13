@@ -74,7 +74,7 @@
       width: 100%;
     }
 
-    button {
+    button:nth-child(1) {
       @media (max-width: 850px) {
         display: none !important;
       }
@@ -85,12 +85,15 @@
         display: none;
       }
     }
+  }
 
-    a {
-      display: none;
-      @media (max-width: 850px) {
-        display: block;
-      }
+  &__support {
+    cursor: pointer;
+    display: none;
+    border: none;
+    background: none;
+    @media (max-width: 850px) {
+      display: block !important;
     }
   }
 

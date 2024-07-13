@@ -37,7 +37,8 @@
         "customs": "How Customs Clearance is Calculated",
         "logout": "Logout",
         "btn_access": "Login",
-        "btn_regist": "Register"
+        "btn_regist": "Register",
+        "modalMessage": "Contact phone number"
     },
     "UiModal": {
         "success": "Receipt successfully confirmed",
