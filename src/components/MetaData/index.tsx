@@ -14,6 +14,10 @@ const MetaData = ({ title, description, keywords }: MetaDataProps) => (
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:type" content="website" />
+    <meta
+      name="google-site-verification"
+      content="fiFvmehWhm-G_I_ES4gmzIJRtAtF6qMOpg-3pnjtv38"
+    />
   </Head>
 );
 
