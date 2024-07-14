@@ -1,6 +1,7 @@
 import { message } from "antd";
 import { useTranslations } from "next-intl";
 import { FormInstance } from "antd/lib/form";
+import { UseLogOut } from "./useLogOut";
 
 interface ErrorProps {
   data?: any;
@@ -13,6 +14,8 @@ function useHandleError(form?: FormInstance) {
   const t = useTranslations("Error");
 
   const handleError = (data: ErrorProps) => {
+    console.log(data.message);
+
     if (data.error && data.message && data.message !== "validation_errors") {
       message.error(t(data.message));
     } else if (data.error === "invalid_unique_id") {
@@ -25,7 +28,9 @@ function useHandleError(form?: FormInstance) {
         ),
       }));
       form.setFields(fields);
-    } 
+    } else if (data.message?.includes("Unauthenticated")) {
+      UseLogOut();
+    }
   };
 
   return [handleError];

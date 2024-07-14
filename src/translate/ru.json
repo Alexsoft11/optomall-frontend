@@ -146,6 +146,13 @@
         "tab_2": "Топ-товары",
         "tab_3": "Рекомендуем вам"
     },
+    "Account": {
+        "change": "O'zgartirish",
+        "mail": "Elektron pochta",
+        "name": "Ism",
+        "phone": "Telefon raqami",
+        "confirm": "Tasdiqlash"
+    },
     "ChooseLocation": {
         "submit": "отправить",
         "close": "закрыть"
