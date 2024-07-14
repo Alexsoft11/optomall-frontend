@@ -57,7 +57,7 @@ export const getServerSideProps = async (context: any) => {
       props: {
         slidersData: [],
         productsData: [],
-        messages: (await import(`../messages/${context.locale}.json`)).default,
+        messages: (await import(`../translate/${context.locale}.json`)).default,
       },
     };
   }
