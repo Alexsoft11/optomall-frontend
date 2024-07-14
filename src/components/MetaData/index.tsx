@@ -1,21 +1,20 @@
 import Head from "next/head";
-import { FC } from "react";
 
-interface IProps {
+interface MetaDataProps {
   title: string;
   description?: string;
+  keywords?: string;
 }
 
-const MetaData: FC<IProps> = ({
-  title = "TaoBao",
-  description = "TaoBao",
-}) => {
-  return (
-    <Head>
-      <title>{title}</title>
-      <meta name="description" content={description} />
-    </Head>
-  );
-};
+const MetaData = ({ title, description, keywords }: MetaDataProps) => (
+  <Head>
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {keywords && <meta name="keywords" content={keywords} />}
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:type" content="website" />
+  </Head>
+);
 
 export default MetaData;

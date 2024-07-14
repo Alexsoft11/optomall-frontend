@@ -2,7 +2,7 @@ import { Spin } from "antd";
 import styled from "styled-components";
 
 export const StyledSpin = styled(Spin)`
-  &.products_spin {
+  &.global {
     height: 100px !important;
     position: relative !important;
 
@@ -12,7 +12,7 @@ export const StyledSpin = styled(Spin)`
       }
     }
 
-    div {
+    .ant-spin-text {
       color: var(--primary-color);
     }
   }
@@ -32,13 +32,13 @@ export const StyledSpin = styled(Spin)`
     }
 
     .ant-spin-dot {
-        margin-top: -15px !important;
-        width: 28px;
-        height: 28px;
+      margin-top: -15px !important;
+      width: 28px;
+      height: 28px;
     }
 
     .ant-spin-text {
-        display: none;
+      display: none;
     }
   }
 `;

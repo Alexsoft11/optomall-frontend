@@ -1,18 +1,23 @@
 import PageLayout from "@/components/Layout/PageLayout";
-import { ProductDetailSection } from "@/features/ProductDetail";
 import { API } from "@/services/api";
 import { LoadingSpinner } from "@/ui/Spin";
-import axios from "axios";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React from "react";
+import dynamic from "next/dynamic";
 
 interface ProductDetailProps {
   product: any;
 }
 
+const ProductDetailSection = dynamic(
+  () => import("@/features/ProductDetail/Components/ProductDetailSection"),
+  {
+    loading: () => <LoadingSpinner fullscreen={true} size="large" />,
+  }
+);
+
 const ProductDetail = ({ product }: ProductDetailProps) => {
-  const router = useRouter();
   if (!product) {
     return <h2>No product found.</h2>;
   }
@@ -28,11 +33,11 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context:any) => {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { id: productId } = context.params;
 
   try {
-    const product = (await API.getProductDetail(productId))
+    const product = await API.getProductDetail(productId);
     return {
       props: {
         product,

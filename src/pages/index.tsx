@@ -1,29 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { CardInterface, SlidersDataInterface } from "@/interfaces";
-import Head from "next/head";
+import React from "react";
 import dynamic from "next/dynamic";
 import { API } from "@/services/api";
+import { LoadingSpinner } from "@/ui/Spin";
+import { useTranslations } from "next-intl";
+import PageLayout from "@/components/Layout/PageLayout";
 
 const MainSlider = dynamic(
-  () => import("@/features/home/components/MainSlider")
-  // {
-  //   loading: () => <Loader />,
-  // }
+  () => import("@/features/home/components/MainSlider"),
+  {
+    loading: () => <LoadingSpinner fullscreen={true} size="large" />,
+  }
 );
 
-const Category = dynamic(
-  () => import("@/features/home/components/Category")
-  // {
-  //   loading: () => <Loader />,
-  // }
-);
+const Category = dynamic(() => import("@/features/home/components/Category"));
 
-const Products = dynamic(
-  () => import("@/features/home/components/Products")
-  // {
-  //   loading: () => <Loader />,
-  // }
-);
+const Products = dynamic(() => import("@/features/home/components/Products"), {
+  loading: () => <LoadingSpinner fullscreen={true} size="large" />,
+});
 
 interface HomeProps {
   slidersData: { sliders: any[] };
@@ -31,15 +24,18 @@ interface HomeProps {
 }
 
 export default function Home({ slidersData, productsData }: HomeProps) {
+  const t = useTranslations("Home");
+
   return (
-    <>
-      <Head>
-        <title>Home</title>
-      </Head>
+    <PageLayout
+      metaTitle={t("metaTitle")}
+      metaDescription={t("metaDescription")}
+      metaKeywords={t("metaKeywords")}
+    >
       <MainSlider data={slidersData?.sliders} />
       <Category />
       <Products products={productsData?.products} />
-    </>
+    </PageLayout>
   );
 }
 
@@ -52,14 +48,16 @@ export const getServerSideProps = async (context: any) => {
       props: {
         slidersData: slidersResponse.data || [],
         productsData: productsResponse.data || [],
+        messages: (await import(`../translate/${context.locale}.json`)).default,
       },
     };
   } catch (error: any) {
     console.error("Error fetching data:", error.message);
     return {
       props: {
-        sliders: [],
-        products: [],
+        slidersData: [],
+        productsData: [],
+        messages: (await import(`../messages/${context.locale}.json`)).default,
       },
     };
   }
