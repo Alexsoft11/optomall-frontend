@@ -4,14 +4,21 @@ import MetaData from "../MetaData";
 interface IPageLayoutProps {
   children: ReactNode;
   metaTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: string;
 }
-const PageLayout = ({ metaTitle, children }: IPageLayoutProps) => {
+
+const PageLayout = ({ metaTitle, metaDescription, metaKeywords, children }: IPageLayoutProps) => {
   return (
     <div>
-      <MetaData title={metaTitle ?? "TaoBao"} />
+      <MetaData 
+        title={metaTitle ?? "Onway"} 
+        description={metaDescription} 
+        keywords={metaKeywords} 
+      />
       <div className="container">
         <div className="page_inner">
-         {children}
+          {children}
         </div>
       </div>    
     </div>

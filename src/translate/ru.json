@@ -1,174 +1,179 @@
 {
-    "GLOBAL": {
-        "cart": "Корзина",
-        "order": "Оформление заказа",
-        "home": "Главная",
-        "messages": "Мои сообщения",
-        "catalog": "Каталог",
-        "my-reviews": "Мои отзывы",
-        "registration": "Зарегистрироваться",
-        "signin": "Войти",
-        "back": "Назад",
-        "results": "Результаты поиска",
-        "purchases": "Мои покупки",
-        "currency": "сум",
-        "loadingData": "Загрузка данных..."
+  "GLOBAL": {
+    "cart": "Корзина",
+    "order": "Оформление заказа",
+    "home": "Главная",
+    "messages": "Мои сообщения",
+    "catalog": "Каталог",
+    "my-reviews": "Мои отзывы",
+    "registration": "Зарегистрироваться",
+    "signin": "Войти",
+    "back": "Назад",
+    "results": "Результаты поиска",
+    "purchases": "Мои покупки",
+    "currency": "сум",
+    "loadingData": "Загрузка данных..."
+  },
+  "Home": {
+    "metaTitle": "Главная | Onway",
+    "metaDescription": "Добро пожаловать в Onway - ваш универсальный магазин для всех ваших нужд. Исследуйте наш широкий ассортимент продукции и наслаждайтесь лучшим онлайн-шопингом.",
+    "metaKeywords": "электронная коммерция, покупки, onway, продукты, интернет-магазин"
+  },
+  "Error": {
+    "user_registered_successfully": "Пользователь успешно зарегистрирован",
+    "user_already_registrated": "Пользователь уже зарегистрирован",
+    "incorrect_login_or_password": "Неверный логин или пароль",
+    "data_added_successfully": "Данные успешно добавлены",
+    "profile_updated_successfully": "Профиль успешно обновлен",
+    "unauthenticated": "Неавторизован",
+    "invalid_data": "Неверные данные",
+    "order_created_successfully": "Заказ успешно создан",
+    "invalid_unique_id": "неверный айди",
+    "email": {
+      "validation": {
+        "unique": "Эта электронная почта уже используется."
+      }
     },
-    "Error": {
-        "user_registered_successfully": "Пользователь успешно зарегистрирован",
-        "user_already_registrated": "Пользователь уже зарегистрирован",
-        "incorrect_login_or_password": "Неверный логин или пароль",
-        "data_added_successfully": "Данные успешно добавлены",
-        "profile_updated_successfully": "Профиль успешно обновлен",
-        "unauthenticated": "Неавторизован",
-        "invalid_data": "Неверные данные",
-        "order_created_successfully": "Заказ успешно создан",
-        "invalid_unique_id": "неверный айди",
-        "email": {
-            "validation": {
-                "unique": "Эта электронная почта уже используется."
-            }
-        },
-        "password": {
-            "validation": {
-                "min": "Пароль должен содержать не менее 8 символов."
-            }
-        }
-    },
-    "Navbar": {
-        "account": "Мой аккаунт",
-        "messages": "Мои сообщения",
-        "purchases": "Мои покупки",
-        "customs": "Как считается растаможка",
-        "logout": "Выйти",
-        "btn_access": "Вход",
-        "btn_regist": "Зарегистрироваться",
-        "modalMessage": "Контактный номер телефона",
-        "home": "Главная",
-        "catalog": "Каталог",
-        "saved": "Liked",
-        "shop": "Корзина",
-        "user": "Профиль"
-    },
-    "UiModal": {
-        "success": "Чек успешно подвержден",
-        "address": "Адресс доставки",
-        "date": "Дата и время доставки",
-        "confirm": "Понятно"
-    },
-    "Auth": {
-        "confirmCode": "Код подтверждения",
-        "confirmCodeIncorect": "неверный код подтверждения",
-        "reset": "Новый пароль",
-        "signin": "Войти",
-        "forgotPassword": "Забыли пароль?",
-        "password": "Пароль",
-        "yourPassword": "Ваш пароль",
-        "repeatYourPassword": "Повторите свой пароль",
-        "email": "Э-почта",
-        "notRegistred": "Вы не зарегистрированы?",
-        "registerNow": "Зарегстрироваться сейчас",
-        "continueGoogle": "Продолжить с Google",
-        "regist": "Зарегистрироваться",
-        "name": "Имя",
-        "verification_email_sent": "письмо подтверждения отправленно",
-        "secondName": "Фамиля",
-        "tel": "Телефон",
-        "save": "Сохранить и продолжить",
-        "info": "Личная информация",
-        "resetPassword": "Сбросить пароль",
-        "modalMessage": "Мы отправили вам письмо с подтверждением на вашу почту!",
-        "minSymbolPassword": "Пароль должен содержать минимум 8 символов",
-        "passwordsIsDifferent": "Пароли не совпадают",
-        "emailIncorect": "Введите действительный адрес электронной почты",
-        "haveAccount": "У вас есть аккаунт?",
-        "requiredTelMessage": "Введите действительный номер телефона",
-        "requiredNameMessage": "Введите имя",
-        "requiredSecondNameMessage": "Введите фамилию",
-        "emailAlredyUsed": "электронная почта уже занята!",
-        "wrong_password": "неверный пароль",
-        "email_doesnt_exist": "электронная почта не зарегистрирована",
-        "signInDescription": "заполните поля для входа",
-        "infoDescription": "заполните поля для информации",
-        "forgotPasswordDescription": "заполните поле",
-        "newPasswordDescription": "придмайте новый пароль",
-        "regisrtationDescription": "заполните поля для регисратрации",
-        "nameValidateError": "Введите действительное имя",
-        "verify_email": "Подтвердите почту!",
-        "something_wrong": "Что-то пошло не так! Попробуйте еще раз позже."
-    },
-    "Cart": {
-        "item": "Товаров",
-        "total": "Итого",
-        "complite": "ОФОРМИТЬ",
-        "address": "Адрес доставки",
-        "addressInMap": "Укажите адрес доставки на кате",
-        "enterAddres": "Укажите адрес",
-        "person": "Получатель заказа",
-        "name": "Имя",
-        "phone": "Номер телефона",
-        "payment": "Подвердите оплату",
-        "loadCheque": "Загрузите чек оплаты",
-        "basketNoItems": "В корзине пока пусто",
-        "goToBuy": "Прейти в покупку",
-        "checkMessage": "Чек отправлен на проверку, текущее состояние заказа можете наблюдать на станице заказов",
-        "authMessage": "Зарегистрируйтесь на сайте чтобы оформить заказ!",
-        "checkWarningMessage": "Чек не прошел проверку. Проверьте чек и повторите попытку.",
-        "imgTypeValidation": "Вы можете отправить только картинку!",
-        "imgSizeValidation": "Размар изображения должен быть меньше чем 5 мб"
-    },
-    "Order": {
-        "payCost": "Сумма к оплате: ",
-        "cardNumber": "Номер карты получателя: ",
-        "payTutorialText": "Скопируйте номер карты, указанный ниже, затем откройте приложение вашего банка и одним платежом переведите на этот номер сумму для оплата, указанную Вами ранее Обратите внимание! Переводить нужно именно ту сумму, которая указана ниже!",
-        "textCopyed": "Текст скопирован!"
-    },
-    "Purchases": {
-        "active": "Активные",
-        "all": "Все",
-        "goods": "Товаров",
-        "processing": "Собирается",
-        "delivered": "получено",
-        "cancelled": "Отменен",
-        "shipped": "Доставляется",
-        "pending": "В проверке",
-        "orderDate": "Дата заказа:",
-        "address": "Адресс доставки:",
-        "recipient": "Получатель заказа:",
-        "moreDetail": "Подробно",
-        "orderCost": "Общая сумма:",
-        "currency": "сум",
-        "inVerification": "в проверке"
-    },
-    "Search": {
-        "platform": "Платформа",
-        "sales": "Продажи",
-        "reputation": "Репутация",
-        "longPrice": "Длинная цена",
-        "downPrice": "Снижение цены"
-    },
-    "MyReviews": {
-        "waitForReview": "Ждут оценки",
-        "reviewed": "Оставленные",
-        "review": "Оставит отзыв",
-        "reviewProduct": "Оцените товар",
-        "enterComment": "Введите коментарий",
-        "sendReview": "Опубликовать"
-    },
-    "Products": {
-        "tab_1": "Распродажа",
-        "tab_2": "Топ-товары",
-        "tab_3": "Рекомендуем вам"
-    },
-    "Account": {
-        "change": "Изменить",
-        "mail": "Электронный почта",
-        "name": "Имя",
-        "phone": "Номер телефона",
-        "confirm": "Подвердить"
-    },
-    "ChooseLocation": {
-        "submit": "отправить",
-        "close": "закрыть"
+    "password": {
+      "validation": {
+        "min": "Пароль должен содержать не менее 8 символов."
+      }
     }
+  },
+  "Navbar": {
+    "account": "Мой аккаунт",
+    "messages": "Мои сообщения",
+    "purchases": "Мои покупки",
+    "customs": "Как считается растаможка",
+    "logout": "Выйти",
+    "btn_access": "Вход",
+    "btn_regist": "Зарегистрироваться",
+    "modalMessage": "Контактный номер телефона",
+    "home": "Главная",
+    "catalog": "Каталог",
+    "saved": "Liked",
+    "shop": "Корзина",
+    "user": "Профиль"
+  },
+  "UiModal": {
+    "success": "Чек успешно подвержден",
+    "address": "Адресс доставки",
+    "date": "Дата и время доставки",
+    "confirm": "Понятно"
+  },
+  "Auth": {
+    "confirmCode": "Код подтверждения",
+    "confirmCodeIncorect": "неверный код подтверждения",
+    "reset": "Новый пароль",
+    "signin": "Войти",
+    "forgotPassword": "Забыли пароль?",
+    "password": "Пароль",
+    "yourPassword": "Ваш пароль",
+    "repeatYourPassword": "Повторите свой пароль",
+    "email": "Э-почта",
+    "notRegistred": "Вы не зарегистрированы?",
+    "registerNow": "Зарегстрироваться сейчас",
+    "continueGoogle": "Продолжить с Google",
+    "regist": "Зарегистрироваться",
+    "name": "Имя",
+    "verification_email_sent": "письмо подтверждения отправленно",
+    "secondName": "Фамиля",
+    "tel": "Телефон",
+    "save": "Сохранить и продолжить",
+    "info": "Личная информация",
+    "resetPassword": "Сбросить пароль",
+    "modalMessage": "Мы отправили вам письмо с подтверждением на вашу почту!",
+    "minSymbolPassword": "Пароль должен содержать минимум 8 символов",
+    "passwordsIsDifferent": "Пароли не совпадают",
+    "emailIncorect": "Введите действительный адрес электронной почты",
+    "haveAccount": "У вас есть аккаунт?",
+    "requiredTelMessage": "Введите действительный номер телефона",
+    "requiredNameMessage": "Введите имя",
+    "requiredSecondNameMessage": "Введите фамилию",
+    "emailAlredyUsed": "электронная почта уже занята!",
+    "wrong_password": "неверный пароль",
+    "email_doesnt_exist": "электронная почта не зарегистрирована",
+    "signInDescription": "заполните поля для входа",
+    "infoDescription": "заполните поля для информации",
+    "forgotPasswordDescription": "заполните поле",
+    "newPasswordDescription": "придмайте новый пароль",
+    "regisrtationDescription": "заполните поля для регисратрации",
+    "nameValidateError": "Введите действительное имя",
+    "verify_email": "Подтвердите почту!",
+    "something_wrong": "Что-то пошло не так! Попробуйте еще раз позже."
+  },
+  "Cart": {
+    "item": "Товаров",
+    "total": "Итого",
+    "complite": "ОФОРМИТЬ",
+    "address": "Адрес доставки",
+    "addressInMap": "Укажите адрес доставки на кате",
+    "enterAddres": "Укажите адрес",
+    "person": "Получатель заказа",
+    "name": "Имя",
+    "phone": "Номер телефона",
+    "payment": "Подвердите оплату",
+    "loadCheque": "Загрузите чек оплаты",
+    "basketNoItems": "В корзине пока пусто",
+    "goToBuy": "Прейти в покупку",
+    "checkMessage": "Чек отправлен на проверку, текущее состояние заказа можете наблюдать на станице заказов",
+    "authMessage": "Зарегистрируйтесь на сайте чтобы оформить заказ!",
+    "checkWarningMessage": "Чек не прошел проверку. Проверьте чек и повторите попытку.",
+    "imgTypeValidation": "Вы можете отправить только картинку!",
+    "imgSizeValidation": "Размар изображения должен быть меньше чем 5 мб"
+  },
+  "Order": {
+    "payCost": "Сумма к оплате: ",
+    "cardNumber": "Номер карты получателя: ",
+    "payTutorialText": "Скопируйте номер карты, указанный ниже, затем откройте приложение вашего банка и одним платежом переведите на этот номер сумму для оплата, указанную Вами ранее Обратите внимание! Переводить нужно именно ту сумму, которая указана ниже!",
+    "textCopyed": "Текст скопирован!"
+  },
+  "Purchases": {
+    "active": "Активные",
+    "all": "Все",
+    "goods": "Товаров",
+    "processing": "Собирается",
+    "delivered": "получено",
+    "cancelled": "Отменен",
+    "shipped": "Доставляется",
+    "pending": "В проверке",
+    "orderDate": "Дата заказа:",
+    "address": "Адресс доставки:",
+    "recipient": "Получатель заказа:",
+    "moreDetail": "Подробно",
+    "orderCost": "Общая сумма:",
+    "currency": "сум",
+    "inVerification": "в проверке"
+  },
+  "Search": {
+    "platform": "Платформа",
+    "sales": "Продажи",
+    "reputation": "Репутация",
+    "longPrice": "Длинная цена",
+    "downPrice": "Снижение цены"
+  },
+  "MyReviews": {
+    "waitForReview": "Ждут оценки",
+    "reviewed": "Оставленные",
+    "review": "Оставит отзыв",
+    "reviewProduct": "Оцените товар",
+    "enterComment": "Введите коментарий",
+    "sendReview": "Опубликовать"
+  },
+  "Products": {
+    "tab_1": "Распродажа",
+    "tab_2": "Топ-товары",
+    "tab_3": "Рекомендуем вам"
+  },
+  "Account": {
+    "change": "Изменить",
+    "mail": "Электронный почта",
+    "name": "Имя",
+    "phone": "Номер телефона",
+    "confirm": "Подвердить"
+  },
+  "ChooseLocation": {
+    "submit": "отправить",
+    "close": "закрыть"
+  }
 }
