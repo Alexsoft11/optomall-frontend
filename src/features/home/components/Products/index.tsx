@@ -50,7 +50,7 @@ const Products = ({ products }: Props) => {
 
           <div className={styles.products__cards}>
             {isProductsLoading ? (
-              <LoadingSpinner className="products_spin" spinning={true} tip={t('GLOBAL.loadingData')} size="large" />
+              <LoadingSpinner  spinning={true} tip={'loadingData'} size="large" />
             ) : (
               productsChange?.map((el: CardInterface, idx: number) => (
                 <Card key={el.id}  data={el} />
