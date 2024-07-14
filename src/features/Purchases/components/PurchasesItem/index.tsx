@@ -3,7 +3,6 @@ import styles from './PurchasesItem.module.scss';
 import { PurchasesOrderInterface } from '../../interfaces';
 import { useTranslations } from 'next-intl';
 import SvgSelector from '$/assets/icons/SvgSelector';
-import { Swiper, SwiperSlide } from "swiper/react";
 import PurchasesOrderItem from '../PurchasesOrderItem';
 
 interface Props {

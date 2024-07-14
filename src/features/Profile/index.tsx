@@ -4,10 +4,16 @@ import Link from "next/link";
 import styles from "./Profile.module.scss"
 import React from "react";
 import { useTranslations } from "next-intl";
+import { UseLogOut } from "@/utils/useLogOut";
 
 const Profile = () => {
   const t = useTranslations("Navbar")
   if (typeof window == 'undefined') return null
+
+  const logOut = () => {
+    UseLogOut();
+  };
+
   return (
     <div className={styles.navbar__user_inner}>
       <Link href='/account' className={styles.navbar__user_item}>
@@ -30,7 +36,7 @@ const Profile = () => {
         <p>{t("customs")}</p>
       </Link>
 
-      <Link href='/' className={styles.navbar__user_item}>
+      <Link href='/' onClick={() => logOut()} className={styles.navbar__user_item}>
         <SvgSelector id='exit-modal-svg' />
         <p className={styles.loggout}>{t("logout")}</p>
       </Link>

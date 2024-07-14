@@ -37,7 +37,13 @@
         "customs": "Bojxona hisoblash qanday amalga oshiriladi",
         "logout": "Chiqish",
         "btn_access": "Kirish",
-        "btn_regist": "Ro’yxatdan o’tish"
+        "btn_regist": "Ro’yxatdan o’tish",
+        "modalMessage": "Murojat uchun telefon raqam",
+        "home": "Bosh sahifa",
+        "catalog": "Katalog",
+        "saved": "Yoqtirganlar",
+        "shop": "Savat",
+        "user": "Profil"
     },
     "UiModal": {
         "success": "Chek muvaffaqiyatli tasdiqlandi",
@@ -82,7 +88,9 @@
         "forgotPasswordDescription": "maydonni to'ldiring",
         "newPasswordDescription": "yangi parolni o‘ylab toping",
         "regisrtationDescription": "ro‘yxatdan o‘tish uchun maydonlarni to‘ldiring",
-        "nameValidateError": "Iltimos, haqiqiy ism kiriting"
+        "nameValidateError": "Iltimos, haqiqiy ism kiriting",
+        "verify_email": "Elektron pochtangizni tasdiqlang!",
+        "something_wrong": "Nimadir noto'g'ri ketdi! Iltimos, keyinroq yana urinib ko'ring."
     },
     "Cart": {
         "item": "Mahsulotlar",
@@ -100,7 +108,10 @@
         "goToBuy": "Sotib olishga o'ting",
         "checkMessage": "Chek tekshirish uchun yuborildi. Buyurtmangizning joriy holatini buyurtmalar sahifasida kuzatishingiz mumkin.",
         "inVerification": "Tekshiruvda",
-        "checkWarningMessage": "Chek tasdiqlanmadi. Chekni tekshiring va qayta urinib ko'ring."
+        "checkWarningMessage": "Chek tasdiqlanmadi. Chekni tekshiring va qayta urinib ko'ring.",
+        "authMessage": "Buyurtma berish uchun saytda ro'yxatdan o'ting!",
+        "imgTypeValidation": "Faqat rasm yuklashingiz mumkin!",
+        "imgSizeValidation": "Rasm hajmi 5 MB dan kichik bo'lishi kerak!"
     },
     "Order": {
         "payCost": "To'lanadigan summa: ",
@@ -113,19 +124,24 @@
         "all": "Barchasi",
         "pending": "Kutilmoqda",
         "goods": "Mahsulotlar",
-        "Processing": "Tayyorlanmoqda",
-        "Delivered": "Yetkazib berildi",
-        "Cancelled": "Bekor qilindi",
-        "Shipped": "Jo'natildi",
+        "processing": "Tayyorlanmoqda",
+        "delivered": "Yetkazib berildi",
+        "cancelled": "Bekor qilindi",
+        "shipped": "Jo'natildi",
         "orderDate": "Buyurtma sanasi:",
         "address": "Yetkazib berish manzili:",
         "recipient": "Buyurtma oluvchisi:",
         "moreDetail": "Batafsil",
         "orderCost": "Umumiy summa:",
-        "currency": "so'm"
+        "currency": "so'm",
+        "inVerification": "tekshirilmoqda"
     },
     "Search": {
-        "platform": "Platforma"
+        "platform": "Platforma",
+        "sales": "Sotish",
+        "reputation": "Reputatsiya",
+        "longPrice": "Uzoq narx",
+        "downPrice": "Past narx"
     },
     "MyReviews": {
         "waitForReview": "Baho berish kutilmoqda",

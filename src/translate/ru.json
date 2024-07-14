@@ -42,7 +42,13 @@
         "customs": "Как считается растаможка",
         "logout": "Выйти",
         "btn_access": "Вход",
-        "btn_regist": "Зарегистрироваться"
+        "btn_regist": "Зарегистрироваться",
+        "modalMessage": "Контактный номер телефона",
+        "home": "Главная",
+        "catalog": "Каталог",
+        "saved": "Liked",
+        "shop": "Корзина",
+        "user": "Профиль"
     },
     "UiModal": {
         "success": "Чек успешно подвержден",
@@ -51,7 +57,6 @@
         "confirm": "Понятно"
     },
     "Auth": {
-        "verify_email": "",
         "confirmCode": "Код подтверждения",
         "confirmCodeIncorect": "неверный код подтверждения",
         "reset": "Новый пароль",
@@ -88,7 +93,9 @@
         "forgotPasswordDescription": "заполните поле",
         "newPasswordDescription": "придмайте новый пароль",
         "regisrtationDescription": "заполните поля для регисратрации",
-        "nameValidateError": "Введите действительное имя"
+        "nameValidateError": "Введите действительное имя",
+        "verify_email": "Подтвердите почту!",
+        "something_wrong": "Что-то пошло не так! Попробуйте еще раз позже."
     },
     "Cart": {
         "item": "Товаров",
@@ -105,7 +112,10 @@
         "basketNoItems": "В корзине пока пусто",
         "goToBuy": "Прейти в покупку",
         "checkMessage": "Чек отправлен на проверку, текущее состояние заказа можете наблюдать на станице заказов",
-        "checkWarningMessage": "Чек не прошел проверку. Проверьте чек и повторите попытку."
+        "authMessage": "Зарегистрируйтесь на сайте чтобы оформить заказ!",
+        "checkWarningMessage": "Чек не прошел проверку. Проверьте чек и повторите попытку.",
+        "imgTypeValidation": "Вы можете отправить только картинку!",
+        "imgSizeValidation": "Размар изображения должен быть меньше чем 5 мб"
     },
     "Order": {
         "payCost": "Сумма к оплате: ",
@@ -117,10 +127,10 @@
         "active": "Активные",
         "all": "Все",
         "goods": "Товаров",
-        "Processing": "Собирается",
-        "Delivered": "получено",
-        "Cancelled": "Отменен",
-        "Shipped": "Доставляется",
+        "processing": "Собирается",
+        "delivered": "получено",
+        "cancelled": "Отменен",
+        "shipped": "Доставляется",
         "pending": "В проверке",
         "orderDate": "Дата заказа:",
         "address": "Адресс доставки:",
@@ -128,10 +138,14 @@
         "moreDetail": "Подробно",
         "orderCost": "Общая сумма:",
         "currency": "сум",
-        "inVerefication": "в проверке"
+        "inVerification": "в проверке"
     },
     "Search": {
-        "platform": "Платформа"
+        "platform": "Платформа",
+        "sales": "Продажи",
+        "reputation": "Репутация",
+        "longPrice": "Длинная цена",
+        "downPrice": "Снижение цены"
     },
     "MyReviews": {
         "waitForReview": "Ждут оценки",
@@ -147,11 +161,11 @@
         "tab_3": "Рекомендуем вам"
     },
     "Account": {
-        "change": "O'zgartirish",
-        "mail": "Elektron pochta",
-        "name": "Ism",
-        "phone": "Telefon raqami",
-        "confirm": "Tasdiqlash"
+        "change": "Изменить",
+        "mail": "Электронный почта",
+        "name": "Имя",
+        "phone": "Номер телефона",
+        "confirm": "Подвердить"
     },
     "ChooseLocation": {
         "submit": "отправить",

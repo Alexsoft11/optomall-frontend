@@ -1,4 +1,4 @@
-import { useJwt } from "@/utils/useJwt";
+import { UserBasketPostInterface } from "@/interfaces";
 import Axios from "axios";
 
 export const BASE_URL = process.env.NEXT_PUBLIC_BACK_URL;
@@ -24,7 +24,9 @@ export const API = {
     axiosInstance.get(`search-products-from-taobao?searchQuery=${query}`),
 
   getProductDetail: (query: any) =>
-    axiosInstance.get(`product-detail-from-taobao?productId=${query}`).then(res=>res.data),
+    axiosInstance
+      .get(`product-detail-from-taobao?productId=${query}`)
+      .then((res) => res.data),
 
   // CartPage
   getUserBasket: (token: string) =>
@@ -47,8 +49,20 @@ export const API = {
       .then((res) => res.data),
 
   //Auth Page
-  postLogin: (accessToken: string) => axiosInstance.post('google-login', { token: accessToken })
-  .then(res => res.data),
+  postLogin: (accessToken: string) =>
+    axiosInstance
+      .post("google-login", { token: accessToken })
+      .then((res) => res.data),
+
+  userBasketFromStorage: (token: string, data: UserBasketPostInterface[]) =>
+    axiosInstance.post("user-basket", data, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }),
+
+  authCheckEmail: (email: string) =>
+    axiosInstance.post("check-email", { email: email }).then((res) => res.data),
 
   //PurchasesPage
   getPurchases: (token: string, filter: string) =>
@@ -59,4 +73,12 @@ export const API = {
         },
       })
       .then((res) => res.data.orders),
+
+  // LikedProducts
+  getWishesPageProducts: (token: string) =>
+    axiosInstance.get("liked-products", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }),
 };

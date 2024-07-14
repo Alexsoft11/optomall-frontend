@@ -11,7 +11,7 @@ const RecomendedProducts: FC<IProps> = ({ recomendedData }) => {
       <h3 className={styles.title}>Похожие товары</h3>
       <div className={styles.cards}>
         {recomendedData.map((el: any, idx: number) => (
-          <Card key={idx} idx={idx} data={el} />
+          <Card key={idx} data={el} />
         ))}
       </div>
     </div>

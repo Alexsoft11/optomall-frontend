@@ -55,6 +55,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
   totalQuantities,
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [totalPrice, setTotalPrice] = useState<number>(0); // New state for total price
   const defaultSizes = [{ id: 1, value: "default" }];
   const user = useJwt();
 
@@ -66,7 +67,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     },
     onSuccess(res) {
       message.success(res.message);
-      setLoading(false)
+      setLoading(false);
       resetStates();
     },
   });
@@ -121,7 +122,26 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     }
     setTotalQuantities(totals);
   };
-console.log(totalQuantities[1])
+
+  const calculateTotalPrice = () => {
+    let total = 0;
+    for (const colorId in selectedSizes) {
+      if (selectedColors.includes(Number(colorId))) {
+        total += selectedSizes[colorId].reduce(
+          (sum: number, size: any) => sum + size.quantity * product.price,
+          0
+        );
+      }
+    }
+    setTotalPrice(total);
+  };
+
+  const isProductSelected = () => {
+    return selectedColors.some(colorId =>
+      selectedSizes[colorId].some(size => size.quantity > 0)
+    );
+  };
+
   const onFinish = () => {
     setLoading(true);
     try {
@@ -150,14 +170,16 @@ console.log(totalQuantities[1])
             quantity: size.quantity,
             color:
               product.colors.find((color) => color.id === colorId)?.value || "",
+            color_id: colorId,
           }))
       );
       if (user) {
-        createData(data);
+        createData([data]);
       } else {
-        localStorage.setItem("basket-data", JSON.stringify(localeData))
-        message.success("Added to Basket")
-        setLoading(false)
+        localStorage.setItem("basket-data", JSON.stringify(localeData));
+        message.success("Added to Basket");
+        resetStates();
+        setLoading(false);
       }
     } catch (err) {
       setLoading(false);
@@ -166,6 +188,7 @@ console.log(totalQuantities[1])
 
   useEffect(() => {
     calculateTotalQuantities();
+    calculateTotalPrice(); // Calculate total price whenever quantities change
   }, [selectedSizes, selectedColors]);
 
   const resetStates = () => {
@@ -177,11 +200,17 @@ console.log(totalQuantities[1])
   return (
     <div className={styles.product_order}>
       <div className={styles.priceSection}>
-        <span className={styles.currentPrice}>
-          {product.discounted_price} uzs
-        </span>
-        <span className={styles.discount}>-{product.discount_percentage}%</span>
-        <span className={styles.originalPrice}>{product.price} uzs</span>
+        <span className={styles.currentPrice}>{product.price} uzs</span>
+        {product.discounted_price ? (
+          <>
+            <span className={styles.discount}>
+              -{product.discount_percentage}%
+            </span>
+            <span className={styles.originalPrice}>
+              {product.discounted_price} uzs
+            </span>
+          </>
+        ) : null}
       </div>
       {selectedColor !== null && (
         <div className={styles.sizeSelector}>
@@ -201,7 +230,7 @@ console.log(totalQuantities[1])
                     }>
                     <Image src={MinusSvg} width={24} height={24} alt='#' />
                   </Button>
-                  <h4>
+                  <h4 className={styles.selected_quantity}>
                     {selectedSizes[selectedColor].find(
                       (s: any) => s.value === size.value
                     )?.quantity || 0}
@@ -220,8 +249,14 @@ console.log(totalQuantities[1])
       )}
       <div className={styles.total}>
         <p>Итого</p>
+        <span className={styles.total_quantity}>{totalPrice} uzs</span>
       </div>
-      <Button loading={loading} disabled={totalQuantities[1]>0?false:true} className={styles.addToCart} onClick={onFinish}>
+      <Button
+        loading={loading}
+        className={styles.addToCart}
+        onClick={onFinish}
+        disabled={!isProductSelected()}
+      >
         В корзину
       </Button>
     </div>

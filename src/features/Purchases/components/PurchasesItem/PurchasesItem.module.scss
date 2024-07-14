@@ -27,21 +27,21 @@
       padding: 4px 10px;
     }
 
-    .status_Processing {
+    .status_processing {
       background: var(--mint-cream);
       color: var(--emerald-green);
     }
 
-    .status_Delivered {
+    .status_delivered {
       background: var(--light-grey-2);
     }
 
-    .status_Cancelled {
+    .status_cancelled {
       background: var(--light-red);
       color: var(--red);
     }
 
-    .status_Shipped {
+    .status_shipped {
       background: var(--papaya-whip);
       color: var(--carrot-orange);
     }

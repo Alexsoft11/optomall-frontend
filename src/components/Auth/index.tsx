@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AuthPage.module.scss";
 import { AuAuthBackground, AuthModalSvg } from "$/assets/images";
 import Image from "next/image";
@@ -7,41 +7,34 @@ import { useTranslations } from "next-intl";
 import { Modal } from "@/ui";
 import dynamic from "next/dynamic";
 import LanguageSelector from "../LanguageSelector";
+import Cookies from "universal-cookie";
+import { LoadingSpinner } from "@/ui/Spin";
 
-const ForgotPassword = dynamic(() => import("./Steps/ForgotPassword"),
-  // {
-  //   loading: () => <Loader />,
-  // }
-);
+const ForgotPassword = dynamic(() => import("./Steps/ForgotPassword"));
 
-const Info = dynamic(() => import("./Steps/Info"),
-  // {
-  //   loading: () => <Loader />,
-  // }
-);
+const Info = dynamic(() => import("./Steps/Info"));
 
-const NewPassword = dynamic(() => import("./Steps/NewPassword"),
-  // {
-  //   loading: () => <Loader />,
-  // }
-);
+const NewPassword = dynamic(() => import("./Steps/NewPassword"));
 
-const Registration = dynamic(() => import("./Steps/Registration"),
-  // {
-  //   loading: () => <Loader />,
-  // }
-);
+const Registration = dynamic(() => import("./Steps/Registration"));
 
-const SignIn = dynamic(() => import("./Steps/SignIn"),
-  // {
-  //   loading: () => <Loader />,
-  // }
-);
+const SignIn = dynamic(() => import("./Steps/SignIn"));
 
 export default function AuthPage() {
-  let rout = useRouter();
+  const router = useRouter();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const t = useTranslations("Auth");
+  const cookies = new Cookies();
+  const token = cookies.get('token');
+  const currentStep = router.query.step;
+
+  useEffect(() => {
+    if (router.asPath === '/auth') router.push('/auth?step=signin')
+    if (!currentStep) return;
+    if (token && currentStep !== "reset" && currentStep !== "forgot-password") {
+      router.push('/');
+    }
+  }, [token, currentStep]);
 
   return (
     <div>
@@ -54,11 +47,11 @@ export default function AuthPage() {
             <div className={styles.language_selector__block}>
               <LanguageSelector />
             </div>
-            {rout.query.step === "signin" || !rout.query.step ? <SignIn /> : null}
-            {rout.query.step === "signUp" ? <Registration setModalIsOpen={setModalIsOpen} /> : null}
-            {rout.query.step === "info" && rout.query.id ? <Info /> : null}
-            {rout.query.step === "reset" ? <NewPassword /> : null}
-            {rout.query.step === "forgot-password" ? <ForgotPassword setModalIsOpen={setModalIsOpen} /> : null}
+            {router.query.step === "signin" ? <SignIn /> : null}
+            {router.query.step === "signUp" ? <Registration setModalIsOpen={setModalIsOpen} /> : null}
+            {router.query.step === "info" && router.query.id ? <Info /> : null}
+            {router.query.step === "reset" ? <NewPassword /> : null}
+            {router.query.step === "forgot-password" ? <ForgotPassword setModalIsOpen={setModalIsOpen} /> : null}
           </div>
         </div>
       </div>

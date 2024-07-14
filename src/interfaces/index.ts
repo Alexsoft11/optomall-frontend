@@ -2,9 +2,11 @@ import { StaticImageData } from "next/image";
 
 export interface CardInterface {
     id: string,
+    product_id: string;
     title?: string;
     price?: string; 
     image: StaticImageData;
+    is_liked: boolean;
 }
 
 export interface CardCategoryInterface {
@@ -32,8 +34,8 @@ export interface CatalogCategoriesInterface {
 export interface CategoryCatalogInterface {
   id: string;
   name: string;
-  provider: string;
-  externalId: string;
+  image: string;
+  is_active: string;
 }
 
 export interface SubCategoryInterface {
@@ -54,4 +56,15 @@ export interface SlidersDataInterface {
 export interface LoginErrInterface {
     error: boolean,
     message: string
+}
+
+export interface UserBasketPostInterface {
+    product_id: string,
+    sizes: UserBasketSizesInterface[]
+}
+
+export interface UserBasketSizesInterface {
+    value: string,
+    quantity: number,
+    color_id: string
 }

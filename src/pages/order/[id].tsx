@@ -21,8 +21,6 @@ interface Props {
 }
 
 export default function Order({ orderData }: Props) {
-  console.log(orderData);
-
   const router = useRouter();
   const t = useTranslations("GLOBAL");
 

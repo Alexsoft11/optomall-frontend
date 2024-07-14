@@ -5,6 +5,7 @@ import CartOrderBlock from "../CartOrderBlock";
 import { CartItemInterface, CartOrderItemInterface, CreateOrderDataInterface, PersonalDataInterface } from "../../interface";
 import CartGetOrderLocations from "../CartGetOrderLocations";
 import CartGetOrderPerson from "../CartGetOtderPerson";
+import Cookies from "universal-cookie";
 
 interface Props {
   data: CartItemInterface[]
@@ -21,6 +22,8 @@ export default function CartBasketPage({ data }: Props) {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [country, setCountry] = useState<string | null>(null);
   const [personData, setPersonData] = useState<PersonalDataInterface | null>(null);
+
+  const cookie = new Cookies();
 
   const createOrderData: CreateOrderDataInterface = {
     total_price: totalPrice,
@@ -40,18 +43,28 @@ export default function CartBasketPage({ data }: Props) {
     setTotalPrice(total)
   }, [orderItems])
 
-  const changeQuantity = (number: number, id: string) => {
+  useEffect(() => {
+    if (!cookie.get('token') && localStorage.getItem("basket-data")) {
+      setDataClone(JSON.parse(localStorage.getItem("basket-data")!))
+    }
+  }, [])
+
+  const changeQuantity = (number: number, item: CartItemInterface) => {
     if (number === 0) return;
 
-    const updatedDataClone = dataClone.map(el =>
-      el.product_id === id ? { ...el, quantity: number } : el
-    );
+    const updatedDataClone = dataClone.map(el => {
+      if (el.product_id === item.product_id && el.color_id === item.color_id && el.size_id === item.size_id) {
+        return { ...el, quantity: number }
+      } else return el
+    });
 
-    const updatedOrderItems = orderItems.map(el =>
-      el.product_id === id ? { ...el, quantity: number } : el
-    );
+    const updatedOrderItems = orderItems.map(el => {
+      if (el.product_id === item.product_id && el.color === item.color && el.size === item.size) {
+        return { ...el, quantity: number }
+      } else return el
+    });
 
-    setDataClone(updatedDataClone);
+    setDataClone(updatedDataClone as CartItemInterface[]);
     setOrderItems(updatedOrderItems);
   }
 
@@ -65,7 +78,7 @@ export default function CartBasketPage({ data }: Props) {
 
     setAddOrder(null)
     setOrderItems(copy)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addOrder])
 
   return (

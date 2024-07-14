@@ -5,12 +5,13 @@ import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { MyReviewsMockdata } from "@/mockdata/MyReviews";
+import { LoadingSpinner } from "@/ui/Spin";
 
 const MyReviewsPage = dynamic(
-  () => import("@/features/MyReviews/components/MyReviewsPage")
-  // {
-  //   loading: () => <Loader />,
-  // }
+  () => import("@/features/MyReviews/components/MyReviewsPage"),
+  {
+    loading: () => <LoadingSpinner className="global_page_loader" />,
+  }
 );
 
 export default function MyReviews() {

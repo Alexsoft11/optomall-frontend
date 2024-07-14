@@ -6,6 +6,11 @@
   }
 }
 
+.info_head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .rating {
   display: flex;
   align-items: center;
@@ -77,6 +82,11 @@
 @media (max-width: 1560px) {
   .productInfo {
     max-width: 400px;
+  }
+}
+@media(max-width:820px){
+  .productInfo{
+    max-width: 100%;
   }
 }
 @media (max-width: 1150px) {
