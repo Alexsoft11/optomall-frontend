@@ -25,12 +25,7 @@ export default function NavigationCard({
         {/* <h1 className={styles.navigationcard__title}>{data.title}</h1> */}
 
         {isSubCategoryLoading ? (
-          <LoadingSpinner
-            className="products_spin"
-            spinning={true}
-            tip={"loadingData"}
-            size="large"
-          />
+          <LoadingSpinner spinning={true} tip={"loadingData"} size="large" />
         ) : (
           <div className={styles.navigationcard__list}>
             {data?.sub_categories?.map((item: any, idx: number) => (
