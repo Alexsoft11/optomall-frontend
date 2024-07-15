@@ -46,7 +46,8 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
         ) : (
           "null :("
         )}
-      </div>
+      </div> 
+      
 
       <div className={styles.item_text}>
         <div className={styles.item_info}>
