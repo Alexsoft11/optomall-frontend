@@ -15,12 +15,10 @@ const PageLayout = ({ metaTitle, metaDescription, metaKeywords, children }: IPag
         title={metaTitle ?? "Onway"} 
         description={metaDescription} 
         keywords={metaKeywords} 
-      />
-      <div className="container">
+      />   
         <div className="page_inner">
           {children}
         </div>
-      </div>    
     </div>
   );
 };
