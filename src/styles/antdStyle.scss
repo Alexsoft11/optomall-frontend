@@ -136,7 +136,13 @@
 .ant-badge {
   position: absolute !important; 
   z-index: 9 !important;
-  right: 3px !important;
+  right: -10px !important;
   top: 4px !important;
-
+}
+.ant-modal .ant-modal-close {
+  // margin-top: 20px !important;
+  position: none;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: end !important;
 }
