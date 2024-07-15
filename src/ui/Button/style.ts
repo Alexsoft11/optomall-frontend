@@ -85,18 +85,15 @@ export const StyledButton = styled(Button)`
       border-radius: 10px;
       line-height: 1.25;
       background: #FF4200;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: auto;
+      height: 100%;
       width: 66px;
+      gap: 3px !important;
 
       span {
         color: #FFF;
         font-size: var(--paragraph-three);
         font-weight: 300;
       }
-
 
       position: relative;
       transition: background-color .6s ease;
