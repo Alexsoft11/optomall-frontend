@@ -22,8 +22,8 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
   const t = useTranslations("GLOBAL");
 
   const handleChange = (chacked: boolean) => {
-
-    const data = {
+    if (!item.size_id) return
+    const data: CartOrderItemInterface = {
       product_id: item.product_id,
       image_url: item.image_url,
       title: item.title,
