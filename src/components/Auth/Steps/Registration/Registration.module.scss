@@ -5,8 +5,18 @@
     width: 352px;
 
     .form {
-        .submitButton{
+        .submitButton {
             position: relative;
+            button {
+                width: 100%;
+                font-size: var(--paragraph-two);
+                font-weight: 400;
+                line-height: 16.94px;
+                padding: 12px;
+                height: auto;
+                background: rgba(255, 66, 0, 1);
+                border-radius: 5px;
+            }
         }
         input {
             font-size: var(--paragraph-two);
