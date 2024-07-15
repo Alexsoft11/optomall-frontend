@@ -14,8 +14,6 @@ interface Props {
 export default function CartBasketItems({changeQuantity, data, setAddOrder }: Props) {
   const t = useTranslations("Cart");
 
-  
-
   return (
     <div className={styles.main}>
       <p className={styles.items_count}>

@@ -66,10 +66,10 @@ export const validatePhone = (
   return Promise.resolve();
 };
 
-export const validateName = (t: Function, currentValue: any, value: string) => {
+export const validateName = (text: string, currentValue: any, value: string) => {
   const regex = /^[A-Za-z\s]+$/; // Regular expression to match letters and spaces
   if (!regex.test(value)) {
-    return Promise.reject(new Error(t("Auth.nameValidateError")));
+    return Promise.reject(new Error(text));
   }
   return Promise.resolve();
 };
