@@ -144,6 +144,13 @@
     margin-left: 22px;
     display: flex;
     align-items: center;
+    justify-content: end;
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+    }
 
     @media (max-width: 768px) {
       display: none;
