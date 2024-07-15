@@ -5,9 +5,19 @@
     width: 352px;
 
     .form {
-        .submitButton{
-            position: relative;
+        .submitButton {
+            button {
+                width: 100%;
+                font-size: var(--paragraph-two);
+                font-weight: 400;
+                line-height: 16.94px;
+                padding: 12px;
+                height: auto;
+                background: rgba(255, 66, 0, 1);
+                border-radius: 5px;
+            }
         }
+
         input {
             font-size: var(--paragraph-two);
             font-weight: 400;
@@ -38,7 +48,7 @@
                 padding: 12px;
                 margin: 0px;
                 height: 100%;
-    
+
                 &::placeholder {
                     color: var(--davys-grey);
                 }
@@ -54,14 +64,14 @@
         form {
             display: flex;
             flex-direction: column;
-            gap: 20px;   
+            gap: 20px;
         }
-         
+
         div {
             max-width: 100% !important;
             margin: 0px;
         }
-        
+
     }
 
     .desc {

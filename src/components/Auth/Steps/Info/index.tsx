@@ -35,7 +35,15 @@ export default function Info() {
         API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
       }
       router.push("/");
-      cookie.set("token", res.token);
+      const maxAge = 60; // 3 days in seconds
+
+      // Set the cookie
+      cookie.set('token', res.token, {
+        path: '/',
+        maxAge: maxAge,
+        httpOnly: true,
+        secure: process.env.NODE_ENV !== 'development',
+      });
       setIsLoading(false)
     },
     onError(res) {

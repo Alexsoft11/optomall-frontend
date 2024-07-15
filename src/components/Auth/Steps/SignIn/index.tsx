@@ -40,7 +40,13 @@ export default function SignIn() {
         API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
       }
       setTimeout(() => router.push("/"), 2000);
-      cookie.set("token", res.token);
+      const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
+
+      // Set the cookie
+      cookie.set('token', res.token, {
+        path: '/',
+        maxAge: maxAge,
+      });
     },
     onError(err) {
       setIsLoading(false)

@@ -49,6 +49,19 @@ export default function CartBasketPage({ data }: Props) {
     }
   }, [])
 
+  useEffect(() => {
+    const copy = orderItems.map((el => el));
+
+    if (!addOrder?.chacked && addOrder?.item) {
+      copy.splice(copy.indexOf(addOrder.item), 1)
+    }
+    if (addOrder?.chacked && addOrder !== null) copy.push(addOrder.item)
+
+    setAddOrder(null)
+    setOrderItems(copy)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [addOrder])
+
   const changeQuantity = (number: number, item: CartItemInterface) => {
     if (number === 0) return;
 
@@ -68,24 +81,17 @@ export default function CartBasketPage({ data }: Props) {
     setOrderItems(updatedOrderItems);
   }
 
-  useEffect(() => {
-    const copy = orderItems.map((el => el));
-
-    if (!addOrder?.chacked && addOrder?.item) {
-      copy.splice(copy.indexOf(addOrder.item), 1)
-    }
-    if (addOrder?.chacked && addOrder !== null) copy.push(addOrder.item)
-
-    setAddOrder(null)
-    setOrderItems(copy)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [addOrder])
+  const itemsValue = () => {
+    let total = 0
+    total = +orderItems.reduce((acum, current) => acum + current.quantity , total)
+    return total 
+  }
 
   return (
     <div className={styles.main}>
       <CartBasketItems changeQuantity={changeQuantity} setAddOrder={setAddOrder} data={dataClone} />
       <div className={styles.order_side}>
-        <CartOrderBlock itemValue={orderItems.length} createOrderData={createOrderData} cost={totalPrice} />
+        <CartOrderBlock itemValue={itemsValue()} createOrderData={createOrderData} cost={totalPrice} />
         <div className={styles.order_info}>
           <CartGetOrderLocations setCountry={setCountry} setLocation={setLocation} />
           <CartGetOrderPerson setPersonData={setPersonData} />

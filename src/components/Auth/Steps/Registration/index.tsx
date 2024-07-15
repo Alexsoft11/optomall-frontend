@@ -27,7 +27,7 @@ export default function Registration({ setModalIsOpen }: Props) {
   const [handleError] = useHandleError(form);
   const router = useRouter();
 
-  const { appendData: createData, isLoading, isSuccess ,isError} = useQueryApiClient({
+  const { appendData: createData, isLoading, isSuccess, isError } = useQueryApiClient({
     request: {
       url: "register",
       method: "POST",
@@ -117,9 +117,9 @@ export default function Registration({ setModalIsOpen }: Props) {
             <Button type="primary" htmlType="submit" isLoading={isLoading} className='generalbtn' label={t('Auth.regist')} />
           </div>
 
-          <GoogleButton />
 
         </Form >
+        <GoogleButton />
       </div >
     </div >
   );
