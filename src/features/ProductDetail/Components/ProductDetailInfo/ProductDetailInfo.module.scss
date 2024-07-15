@@ -17,7 +17,13 @@
   gap: 5px;
   margin: 20px 0px;
 }
-
+.product_actions{
+  display: flex;
+  gap: 5px;
+  button{
+    position: unset !important;
+  }
+}
 .productSpecs {
   margin-top: 20px;
   li {

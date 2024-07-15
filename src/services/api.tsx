@@ -1,3 +1,5 @@
+/** @format */
+
 import { UserBasketPostInterface } from "@/interfaces";
 import Axios from "axios";
 
@@ -28,6 +30,10 @@ export const API = {
       .get(`product-detail-from-taobao?productId=${query}`)
       .then((res) => res.data),
 
+  getProductDetailToken: (query: any) =>
+    axiosInstance
+      .get(`product-detail-from-taobao-token?productId=${query}`)
+      .then((res) => res.data),
   // CartPage
   getUserBasket: (token: string) =>
     axiosInstance

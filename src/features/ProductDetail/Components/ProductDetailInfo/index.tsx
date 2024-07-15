@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState } from "react";
 import styles from "./ProductDetailInfo.module.scss";
 import { Dropdown, Rate } from "antd";
@@ -9,6 +7,7 @@ import { MenuProps } from "antd/lib";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import Link from "next/link";
 import { shareUrl } from "@/constants";
+import LikedBtn from "@/components/LikedBtn";
 
 const ProductDetailInfo = ({
   productDetails,
@@ -39,6 +38,7 @@ const ProductDetailInfo = ({
       key: "2",
     },
   ];
+console.log(product)
 
   return (
     <div className={styles.product_info_detail}>
@@ -47,9 +47,10 @@ const ProductDetailInfo = ({
           <div className={styles.rating}>
             <Rate disabled defaultValue={productDetails.rating} />
             <span>{productDetails.rating}</span>
-            <span>({productDetails.reviews} купили)</span>
+            <span>({productDetails.sold} купили)</span>
           </div>
-          <div>
+          <div className={styles.product_actions}>
+          <LikedBtn isLike={product.is_liked} product_id={product.id.toString()}/>
             <Dropdown menu={{ items }} trigger={["click"]} placement="bottomRight">
               <a onClick={(e) => e.preventDefault()}><SvgSelector id="share-icon"/></a>
             </Dropdown>
@@ -72,7 +73,7 @@ const ProductDetailInfo = ({
               <span>Url</span>
               <div></div>
             </div>
-            <p>{productDetails.productId}</p>
+            <Link href={product.product_url}>{product.id}</Link>
           </li>
           <li>
             <div className={styles.productSpecs_name}>
@@ -80,13 +81,6 @@ const ProductDetailInfo = ({
               <div></div>
             </div>
             <p>{productDetails.composition}</p>
-          </li>
-          <li>
-            <div className={styles.productSpecs_name}>
-              <span>Размер на модели</span>
-              <div></div>
-            </div>
-            <p>{productDetails.modelSize}</p>
           </li>
           <li>
             <div className={styles.productSpecs_name}>
