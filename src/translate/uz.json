@@ -179,5 +179,8 @@
   "ChooseLocation": {
     "submit": "yuborish",
     "close": "yopish"
+  },
+  "Wishes": {
+    "title": "Mening tilaklarim"
   }
 }

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import styles from "./Wishes.module.scss";
 import Card from "@/components/Card";
 import { CardInterface } from "@/interfaces";
+import { useTranslations } from "next-intl";
 
 interface Props {
   wishesData?: CardInterface[];
 }
 
 const Wishes = ({ wishesData }: Props) => {
+  const t = useTranslations("Wishes")
   const [data, setData] = useState<any>(wishesData);
 
   const handleLikeChange = (cardId: number, isLiked: boolean) => { 
@@ -21,7 +23,7 @@ const Wishes = ({ wishesData }: Props) => {
       <div className="container">
         <div className={styles.wishes__inner}>
           <div className={styles.wishes__top}>
-            <h2>Yoqkanlar</h2>
+            <h2>{t('title')}</h2>
           </div>
 
           <div className={styles.wishes__cards}>
