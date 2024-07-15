@@ -84,14 +84,14 @@ const Navbar = () => {
               <div className={styles.navbar__items}>
                 <LanguageSelector />
 
+                <button className={styles.navbar__shop_btn}>
+                  <Link href="/cart">
+                    <SvgSelector id="shop-svg" />
+                  </Link>
+                </button>
+
                 {isMounted && token ? (
                   <>
-                    <button className={styles.navbar__shop_btn}>
-                      <Link href="/cart">
-                        <SvgSelector id="shop-svg" />
-                      </Link>
-                    </button>
-
                     <button
                       className={`${styles.navbar__user_btn} ${
                         openModal === "user" ? styles.open : ""
@@ -110,7 +110,8 @@ const Navbar = () => {
                         {ModalLinks.map((link: any) => (
                           <Link
                             href={link.href}
-                            onClick={() => logOut(link.textKey)}
+                            onClick={() => {logOut(link.textKey)
+                              setOpenModal(null);}}
                             className={styles.navbar__user_item}
                             key={link.id}
                           >

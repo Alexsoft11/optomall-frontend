@@ -18,7 +18,7 @@ export const StyledSpin = styled(Spin)`
   }
 
   &.btn_spin {
-    height: 50px !important;
+    height: 18px !important;
     position: relative !important;
 
     span {

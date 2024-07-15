@@ -14,6 +14,7 @@ const [selectedImage, setSelectedImage] = useState(product?.image);
 
   return (
     <>
+    <div className="container">
       <div className='containers'>
         <div className={styles.product}>
           <div className={styles.product__inner}>
@@ -24,6 +25,7 @@ const [selectedImage, setSelectedImage] = useState(product?.image);
         <Reviews />
         <RecomendedProducts recomendedData={recommended}/>
       </div>
+    </div>
     </>
   );
 };
