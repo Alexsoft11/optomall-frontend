@@ -62,7 +62,7 @@ const Card = ({ data, isShowLiked, onLikeChange }: CardProps) => {
           </p>
         </div>
       {isShowLiked && (
-        <LikedBtn data={data} onLikeChange={onLikeChange}/>
+        <LikedBtn isLike={data.is_liked} id_filter={+data.id || undefined} product_id={data.product_id.toString()} onLikeChange={onLikeChange}/>
       )}
     </div>
   );

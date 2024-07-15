@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState } from "react";
 import styles from "./ProductDetailInfo.module.scss";
 import { Dropdown, Rate } from "antd";
@@ -9,6 +7,9 @@ import { MenuProps } from "antd/lib";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import Link from "next/link";
 import { shareUrl } from "@/constants";
+import LikedBtn from "@/components/LikedBtn";
+import ProductIsLike from "../ProductIsLike/ProductIsLike";
+import { productDetailsData } from "@/mockdata/detailData";
 
 const ProductDetailInfo = ({
   productDetails,
@@ -27,18 +28,19 @@ const ProductDetailInfo = ({
   }>({});
   const items: MenuProps["items"] = [
     {
-      label: <Link href={path}><SvgSelector id="tg-icon"/>Telegram</Link>,
+      label: <Link href={`https://t.me/share/url?url=${path}`} className={styles.link}><SvgSelector id="telegram-svg" />Telegram</Link>,
       key: "0",
     },
     {
-      label: <Link href={path}><SvgSelector id="tg-icon"/>Facebook </Link>,
+      label: <Link href={path}  className={styles.link}><SvgSelector id="facebook-svg"/>Facebook </Link>,
       key: "1",
     },
     {
-      label: <Link href={path}><SvgSelector id="tg-icon"/>Instagram</Link>,
+      label: <Link href={path}  className={styles.link}><SvgSelector id="instagram-svg"/>Instagram</Link>,
       key: "2",
     },
   ];
+console.log(product)
 
   return (
     <div className={styles.product_info_detail}>
@@ -47,9 +49,10 @@ const ProductDetailInfo = ({
           <div className={styles.rating}>
             <Rate disabled defaultValue={productDetails.rating} />
             <span>{productDetails.rating}</span>
-            <span>({productDetails.reviews} купили)</span>
+            <span>({productDetails.sold} купили)</span>
           </div>
-          <div>
+          <div className={styles.product_actions}>
+          <ProductIsLike product={product}/>
             <Dropdown menu={{ items }} trigger={["click"]} placement="bottomRight">
               <a onClick={(e) => e.preventDefault()}><SvgSelector id="share-icon"/></a>
             </Dropdown>
@@ -72,21 +75,14 @@ const ProductDetailInfo = ({
               <span>Url</span>
               <div></div>
             </div>
-            <p>{productDetails.productId}</p>
+            <Link href={product.product_url}>{product.id}</Link>
           </li>
           <li>
             <div className={styles.productSpecs_name}>
               <span>Состав</span>
               <div></div>
             </div>
-            <p>{productDetails.composition}</p>
-          </li>
-          <li>
-            <div className={styles.productSpecs_name}>
-              <span>Размер на модели</span>
-              <div></div>
-            </div>
-            <p>{productDetails.modelSize}</p>
+            <p>{productDetailsData.composition}</p>
           </li>
           <li>
             <div className={styles.productSpecs_name}>
@@ -100,7 +96,7 @@ const ProductDetailInfo = ({
               <span>Особенности модели</span>
               <div></div>
             </div>
-            <p>{productDetails.features}</p>
+            <p>{productDetailsData.features}</p>
           </li>
         </div>
       </div>

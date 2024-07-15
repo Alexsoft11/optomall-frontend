@@ -2,7 +2,7 @@ import { StaticImageData } from "next/image";
 
 export interface CardInterface {
     id: string,
-    product_id: string;
+    product_id: string |number;
     title?: string;
     price?: string; 
     image: StaticImageData;

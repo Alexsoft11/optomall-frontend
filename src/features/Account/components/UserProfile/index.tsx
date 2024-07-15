@@ -18,7 +18,7 @@ const UserProfile = ({ user }: any) => {
     }
   };
   return (
-    <div className={styles.profile} style={{ display: "flex", alignItems: "center" }}>
+    <div className={styles.profile}>
       {imageUrl ? (
         <>
           <Avatar size={64} src={imageUrl} />
@@ -27,7 +27,7 @@ const UserProfile = ({ user }: any) => {
               name='profile'
               showUploadList={false}
               onChange={handleChange}>
-              <Image className={styles.icon} src={UploadIcon} alt='#' />
+              {/* <Image className={styles.icon} src={UploadIcon} alt='#' /> */}
             </Upload>
           </div>
         </>
@@ -37,7 +37,7 @@ const UserProfile = ({ user }: any) => {
             {user?.name.charAt(0)}
           </Avatar>
           <div className={styles.uploadIcon}>
-            <Image className={styles.icon} src={UploadIcon} alt='#' />
+            {/* <Image className={styles.icon} src={UploadIcon} alt='#' /> */}
           </div>
         </>
       )}
