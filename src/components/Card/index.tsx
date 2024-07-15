@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { Tooltip } from "antd";
 import CustomImage from "../CustomImage";
 import LikedBtn from "../LikedBtn";
+import { useRouter } from "next/router";
 
 interface CardProps {
   data: CardInterface;
@@ -17,7 +18,7 @@ const Card = ({ data, isShowLiked, onLikeChange }: CardProps) => {
   const t = useTranslations("GLOBAL");
   const textRef = useRef<any>(null);
   const [isOverflowed, setIsOverflowed] = useState(false);
-
+  const router = useRouter();
 
   useEffect(() => {
     const { current } = textRef;
@@ -25,10 +26,15 @@ const Card = ({ data, isShowLiked, onLikeChange }: CardProps) => {
       setIsOverflowed(current?.scrollHeight > current?.clientHeight);
     }
   }, [textRef]);
+  
+  const handleLinkClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    router.push(`/product/${data.id}`);
+  };
 
   return (
     <div className={styles.card}>
-      <Link href={`product/${data.id}`}>
+      <div onClick={handleLinkClick}>
         <div className={styles.card__image}>
           <CustomImage
             className={styles.card__image}
@@ -56,9 +62,9 @@ const Card = ({ data, isShowLiked, onLikeChange }: CardProps) => {
             {data.price} {t("currency")}
           </p>
         </div>
-      </Link>
+      </div>
       {isShowLiked && (
-        <LikedBtn isLike={data.is_liked} id_filter={+data.id || undefined} product_id={data.product_id.toString()} onLikeChange={onLikeChange}/>
+        <LikedBtn isLike={data.is_liked} id_filter={+data.id || undefined} product_id={data.product_id} onLikeChange={onLikeChange}/>
       )}
     </div>
   );

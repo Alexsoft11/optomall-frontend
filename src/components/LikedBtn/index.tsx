@@ -5,7 +5,7 @@ import { CardInterface } from '@/interfaces';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 
 interface LikedProps {
-    product_id:string;
+    product_id: string;
     id_filter?: number;
     isLike:boolean;
     onLikeChange?: (cardId: number, isLiked: boolean) => void;
