@@ -39,6 +39,8 @@ export default function Home({ slidersData, productsData }: HomeProps) {
   );
 }
 
+
+
 export const getServerSideProps = async (context: any) => {
   try {
     const slidersResponse = await API.getHomePageSlider();

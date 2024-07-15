@@ -1,7 +1,7 @@
 .card {
   max-width: 240px;
   position: relative;
-  @media (max-width:700px) {
+  @media (max-width: 700px) {
     max-width: 200px;
   }
   @media (max-width: 350px) {
@@ -21,22 +21,25 @@
     max-height: 240px;
     height: 240px;
 
-    @media (max-width:1220px) {
+    @media (max-width: 1220px) {
       height: 220px;
     }
 
-    @media (max-width:768px) {
+    @media (max-width: 768px) {
       margin-bottom: 10px;
       height: 200px;
     }
 
-    @media (max-width:700px) {
+    @media (max-width: 700px) {
       height: 180px;
       max-width: 200px;
     }
 
-    @media (max-width:390px) {
+    @media (max-width: 490px) {
       height: 160px;
+    }
+    @media (max-width: 390px) {
+      height: 140px;
     }
 
     @media (max-width: 350px) {
@@ -52,7 +55,7 @@
       position: unset !important;
       border-radius: 20px;
 
-      @media (max-width:768px) {
+      @media (max-width: 768px) {
         border-radius: 10px;
       }
 
@@ -87,12 +90,11 @@
 
   &__price {
     margin-top: auto;
-    
+
     p {
       color: var(--primary-color);
       font-size: var(--heading-six);
       font-weight: 500;
-
     }
   }
 }
