@@ -171,5 +171,8 @@
   "ChooseLocation": {
     "submit": "submit",
     "close": "close"
+  },
+  "Wishes": {
+    "title": "My wishes"
   }
 }
