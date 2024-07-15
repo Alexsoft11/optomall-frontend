@@ -84,7 +84,7 @@ export default function Info() {
           <Input
             name="name"
             rules={[
-              { validator: (rule, value) => validateName(t, rule, value) }
+              { validator: (rule, value) => validateName(t("Auth.nameValidateError"), rule, value) }
             ]}
             type="text"
             className={styles.input}
@@ -96,7 +96,7 @@ export default function Info() {
           <Input
             name="last_name"
             rules={[
-              { required: true, message: t("requiredSecondNameMessage") },
+              { validator: (rule, value) => validateName(t("Auth.nameValidateError"), rule, value) }
             ]}
             type="text"
             placeholder={t("Auth.secondName")}

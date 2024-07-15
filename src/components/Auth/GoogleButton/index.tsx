@@ -28,6 +28,11 @@ export default function GoogleButton() {
             if (router.query.step === 'signUp') {
                 router.push(`/auth?step=info&id=${res.unique_id}`)
             } else {
+                if (res.message === "add_personal_data") {
+                    message.error(t(`${res.error}`));
+                    router.push(`/auth?step=info&id=${res.unique_id}`)
+                    return
+                }
                 if (!res.token) {
                     message.error('something_wrong')
                     return

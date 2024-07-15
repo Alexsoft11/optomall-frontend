@@ -12,9 +12,7 @@ interface ErrorProps {
 
 function useHandleError(form?: FormInstance) {
   const t = useTranslations("Error");
-
   const handleError = (data: ErrorProps) => {
-    console.log(data.message);
 
     if (data.error && data.message && data.message !== "validation_errors") {
       message.error(t(data.message));

@@ -29,6 +29,7 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
       title: item.title,
       color: item.color,
       size: item.size,
+      size_id: item.size_id,
       price: +item.price,
       quantity: item.quantity,
     }
