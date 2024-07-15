@@ -90,6 +90,12 @@ const Navbar = () => {
                   </Link>
                 </button>
 
+                <button className={styles.navbar__saved_btn}>
+                  <Link href="/wishes">
+                    <SvgSelector id="saved-svg" />
+                  </Link>
+                </button>
+
                 {isMounted && token ? (
                   <>
                     <button
