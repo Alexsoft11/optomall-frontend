@@ -79,7 +79,7 @@ export const detailData = [
         status:true
     },
 ]
-export const productDetails = {
+export const productDetailsData = {
     title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
     rating: 4.9,
     reviews: 554718,

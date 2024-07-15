@@ -44,7 +44,6 @@ export const getServerSideProps = async (context: any) => {
 
     // Extract the token from the parsed cookies
     const token = decodeURIComponent(cookies.token);
-    console.log(token)
     const { id } = context.query;
 
     const orderResponse = await API.getOrder(token, id);

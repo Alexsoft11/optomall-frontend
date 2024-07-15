@@ -30,9 +30,13 @@ export const API = {
       .get(`product-detail-from-taobao?productId=${query}`)
       .then((res) => res.data),
 
-  getProductDetailToken: (query: any) =>
+  getProductDetailToken: (query: any, token?:string) =>
     axiosInstance
-      .get(`product-detail-from-taobao-token?productId=${query}`)
+      .get(`product-detail-from-taobao${token && token !== "undefined" ? "-token" : ""}?productId=${query}`,{
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
       .then((res) => res.data),
   // CartPage
   getUserBasket: (token: string) =>

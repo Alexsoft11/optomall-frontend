@@ -24,6 +24,15 @@
     position: unset !important;
   }
 }
+.link{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  svg{
+    width: 20px;
+    height: 20px;
+  }
+}
 .productSpecs {
   margin-top: 20px;
   li {

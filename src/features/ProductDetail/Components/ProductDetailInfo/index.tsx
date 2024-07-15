@@ -8,6 +8,8 @@ import SvgSelector from "$/assets/icons/SvgSelector";
 import Link from "next/link";
 import { shareUrl } from "@/constants";
 import LikedBtn from "@/components/LikedBtn";
+import ProductIsLike from "../ProductIsLike/ProductIsLike";
+import { productDetailsData } from "@/mockdata/detailData";
 
 const ProductDetailInfo = ({
   productDetails,
@@ -26,15 +28,15 @@ const ProductDetailInfo = ({
   }>({});
   const items: MenuProps["items"] = [
     {
-      label: <Link href={path}><SvgSelector id="tg-icon"/>Telegram</Link>,
+      label: <Link href={`https://t.me/share/url?url=${path}`} className={styles.link}><SvgSelector id="telegram-svg" />Telegram</Link>,
       key: "0",
     },
     {
-      label: <Link href={path}><SvgSelector id="tg-icon"/>Facebook </Link>,
+      label: <Link href={path}  className={styles.link}><SvgSelector id="facebook-svg"/>Facebook </Link>,
       key: "1",
     },
     {
-      label: <Link href={path}><SvgSelector id="tg-icon"/>Instagram</Link>,
+      label: <Link href={path}  className={styles.link}><SvgSelector id="instagram-svg"/>Instagram</Link>,
       key: "2",
     },
   ];
@@ -50,7 +52,7 @@ console.log(product)
             <span>({productDetails.sold} купили)</span>
           </div>
           <div className={styles.product_actions}>
-          <LikedBtn isLike={product.is_liked} product_id={product.id.toString()}/>
+          <ProductIsLike product={product}/>
             <Dropdown menu={{ items }} trigger={["click"]} placement="bottomRight">
               <a onClick={(e) => e.preventDefault()}><SvgSelector id="share-icon"/></a>
             </Dropdown>
@@ -80,7 +82,7 @@ console.log(product)
               <span>Состав</span>
               <div></div>
             </div>
-            <p>{productDetails.composition}</p>
+            <p>{productDetailsData.composition}</p>
           </li>
           <li>
             <div className={styles.productSpecs_name}>
@@ -94,7 +96,7 @@ console.log(product)
               <span>Особенности модели</span>
               <div></div>
             </div>
-            <p>{productDetails.features}</p>
+            <p>{productDetailsData.features}</p>
           </li>
         </div>
       </div>
