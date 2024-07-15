@@ -33,7 +33,8 @@ const Card = ({ data, isShowLiked, onLikeChange }: CardProps) => {
   };
 
   return (
-    <div onClick={handleLinkClick} className={styles.card}>
+    <div className={styles.card}>
+      <div onClick={handleLinkClick}>
         <div className={styles.card__image}>
           <CustomImage
             className={styles.card__image}
@@ -61,8 +62,9 @@ const Card = ({ data, isShowLiked, onLikeChange }: CardProps) => {
             {data.price} {t("currency")}
           </p>
         </div>
+      </div>
       {isShowLiked && (
-        <LikedBtn isLike={data.is_liked} id_filter={+data.id || undefined} product_id={data.product_id.toString()} onLikeChange={onLikeChange}/>
+        <LikedBtn isLike={data.is_liked} id_filter={+data.id || undefined} product_id={data.product_id} onLikeChange={onLikeChange}/>
       )}
     </div>
   );
