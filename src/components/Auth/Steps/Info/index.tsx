@@ -35,7 +35,15 @@ export default function Info() {
         API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
       }
       router.push("/");
-      cookie.set("token", res.token);
+      const maxAge = 60; // 3 days in seconds
+
+      // Set the cookie
+      cookie.set('token', res.token, {
+        path: '/',
+        maxAge: maxAge,
+        httpOnly: true,
+        secure: process.env.NODE_ENV !== 'development',
+      });
       setIsLoading(false)
     },
     onError(res) {
@@ -76,7 +84,7 @@ export default function Info() {
           <Input
             name="name"
             rules={[
-              { validator: (rule, value) => validateName(t, rule, value) }
+              { validator: (rule, value) => validateName(t("Auth.nameValidateError"), rule, value) }
             ]}
             type="text"
             className={styles.input}
@@ -88,7 +96,7 @@ export default function Info() {
           <Input
             name="last_name"
             rules={[
-              { required: true, message: t("requiredSecondNameMessage") },
+              { validator: (rule, value) => validateName(t("Auth.nameValidateError"), rule, value) }
             ]}
             type="text"
             placeholder={t("Auth.secondName")}

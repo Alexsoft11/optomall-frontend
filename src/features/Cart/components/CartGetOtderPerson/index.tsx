@@ -27,7 +27,7 @@ export default function CartGetOrderPerson({ setPersonData }: Props) {
                     <Input
                         name="name"
                         rules={[
-                            { validator: (rule, value) => validateName(t, rule, value) }
+                            { validator: (rule, value) => validateName(t("Auth.lastNameValidateError"), rule, value) }
                         ]}
                         onChange={hendleChange}
                         type='text'

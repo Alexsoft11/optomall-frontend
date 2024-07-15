@@ -74,9 +74,11 @@
     "regist": "Ro'yxatdan o'tish",
     "name": "Ism",
     "secondName": "Familiya",
+    "lastNameValidateError": "Yaroqli familiyani kiriting",
     "tel": "Telefon",
     "save": "Saqlash va davom etish",
     "info": "Shaxsiy ma'lumotlar",
+    "add_personal_data": "Shaxsiy ma'lumotlarni to'ldiring",
     "verification_email_sent": "tasdiqlash xati yuborildi",
     "resetPassword": "Parolni tiklash",
     "modalMessage": "Biz sizga tasdiqlash xatini yubordik!",
@@ -118,6 +120,7 @@
     "checkWarningMessage": "Chek tasdiqlanmadi. Chekni tekshiring va qayta urinib ko'ring.",
     "authMessage": "Buyurtma berish uchun saytda ro'yxatdan o'ting!",
     "imgTypeValidation": "Faqat rasm yuklashingiz mumkin!",
+    "chooseItem": "Savatdan kamida bitta mahsulot tanlang",
     "imgSizeValidation": "Rasm hajmi 5 MB dan kichik bo'lishi kerak!"
   },
   "Order": {
@@ -150,7 +153,6 @@
     "longPrice": "Uzoq narx",
     "downPrice": "Past narx"
   },
-
   "MyReviews": {
     "waitForReview": "Baho berish kutilmoqda",
     "reviewed": "Baholangan",

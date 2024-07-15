@@ -22,6 +22,7 @@ export default function CartBasketPage({ data }: Props) {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [country, setCountry] = useState<string | null>(null);
   const [personData, setPersonData] = useState<PersonalDataInterface | null>(null);
+  const [itemsValue, setItemsValue] = useState<number>(0);
 
   const cookie = new Cookies();
 
@@ -41,6 +42,7 @@ export default function CartBasketPage({ data }: Props) {
       total = +orderItems.reduce((acum, current) => acum + (+current.price * current.quantity), total).toFixed(2)
     }
     setTotalPrice(total)
+    ChangeitemsValue()
   }, [orderItems])
 
   useEffect(() => {
@@ -48,6 +50,25 @@ export default function CartBasketPage({ data }: Props) {
       setDataClone(JSON.parse(localStorage.getItem("basket-data")!))
     }
   }, [])
+
+  useEffect(() => {
+    let copy = orderItems.map((el => el));
+
+    console.log(copy);
+
+
+    if (!addOrder?.chacked && addOrder?.item) {
+      copy = copy.filter(el => {
+        if (addOrder.item.size_id !== el.size_id) return true
+        else false
+      })
+    }
+    if (addOrder?.chacked && addOrder !== null) copy.push(addOrder.item)
+
+    setAddOrder(null)
+    setOrderItems(copy)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [addOrder])
 
   const changeQuantity = (number: number, item: CartItemInterface) => {
     if (number === 0) return;
@@ -68,24 +89,18 @@ export default function CartBasketPage({ data }: Props) {
     setOrderItems(updatedOrderItems);
   }
 
-  useEffect(() => {
-    const copy = orderItems.map((el => el));
+  const ChangeitemsValue = () => {
+    let total = 0
+    total = +orderItems.reduce((acum, current) => acum + current.quantity, total);
 
-    if (!addOrder?.chacked && addOrder?.item) {
-      copy.splice(copy.indexOf(addOrder.item), 1)
-    }
-    if (addOrder?.chacked && addOrder !== null) copy.push(addOrder.item)
-
-    setAddOrder(null)
-    setOrderItems(copy)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [addOrder])
+    setItemsValue(total)
+  }
 
   return (
     <div className={styles.main}>
       <CartBasketItems changeQuantity={changeQuantity} setAddOrder={setAddOrder} data={dataClone} />
       <div className={styles.order_side}>
-        <CartOrderBlock itemValue={orderItems.length} createOrderData={createOrderData} cost={totalPrice} />
+        <CartOrderBlock itemValue={itemsValue} createOrderData={createOrderData} cost={totalPrice} />
         <div className={styles.order_info}>
           <CartGetOrderLocations setCountry={setCountry} setLocation={setLocation} />
           <CartGetOrderPerson setPersonData={setPersonData} />
