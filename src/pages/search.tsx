@@ -24,7 +24,6 @@ export const getServerSideProps = async (context: any) => {
   try {
     console.log(context.query);
     const searchResponce = await API.getSearchPageProducts(context.query.query);
-    console.log(searchResponce);
 
     return {
       props: {

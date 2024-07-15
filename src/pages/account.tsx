@@ -2,6 +2,8 @@ import { LoadingSpinner } from "@/ui/Spin";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
+import GoToBack from "@/components/GoToBack";
+import { useTranslations } from "next-intl";
 
 const AccountInfo = dynamic(
   () => import("@/features/Account/components/AccountInfo"),
@@ -21,9 +23,10 @@ const AccountPage = () => {
       setUser(res);
     },
   });
-
+const t = useTranslations("")
   return (
     <div className="container">
+        <GoToBack pathArr={[{ title: "my_account", path: "/" }]} />
       <AccountInfo user={user} />
     </div>
   );
