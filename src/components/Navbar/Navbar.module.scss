@@ -144,6 +144,35 @@
     margin-left: 22px;
     display: flex;
     align-items: center;
+    justify-content: end;
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  &__saved_btn {
+    margin-left: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
 
     @media (max-width: 768px) {
       display: none;

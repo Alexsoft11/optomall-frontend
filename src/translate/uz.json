@@ -12,7 +12,9 @@
     "results": "Qidiruv natijalari",
     "purchases": "Mening xaridlarim",
     "currency": "so'm",
-    "loadingData": "Ma'lumotlar yuklanmoqda..."
+    "loadingData": "Ma'lumotlar yuklanmoqda...",
+    "my_account":"Mening Akountim"
+
   },
   "Home": {
     "metaTitle": "Bosh sahifa | Onway",
@@ -169,10 +171,18 @@
     "mail": "Elektron pochta",
     "name": "Ism",
     "phone": "Telefon raqami",
-    "confirm": "Tasdiqlash"
+    "confirm": "Tasdiqlash",
+    "password":"Parol",
+    "old_password":"Eski Parol",
+    "new_password":"Yangi Parol",
+    "confirm_password":"Parolni Tasdiqlash"
+
   },
   "ChooseLocation": {
     "submit": "yuborish",
     "close": "yopish"
+  },
+  "Wishes": {
+    "title": "Mening tilaklarim"
   }
 }

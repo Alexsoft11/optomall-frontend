@@ -12,7 +12,9 @@
     "results": "Результаты поиска",
     "purchases": "Мои покупки",
     "currency": "сум",
-    "loadingData": "Загрузка данных..."
+    "loadingData": "Загрузка данных...",
+    "my_account":"Мой Аккаунт"
+
   },
   "Home": {
     "metaTitle": "Главная | Onway",
@@ -51,7 +53,7 @@
     "modalMessage": "Контактный номер телефона",
     "home": "Главная",
     "catalog": "Каталог",
-    "saved": "Liked",
+    "saved": "Избранное",
     "shop": "Корзина",
     "user": "Профиль"
   },
@@ -173,10 +175,17 @@
     "mail": "Электронный почта",
     "name": "Имя",
     "phone": "Номер телефона",
-    "confirm": "Подвердить"
+    "confirm": "Подвердить",
+    "password":"Пароль",
+    "old_password":"Старый Пароль",
+    "new_password":"Новый Пароль",
+    "confirm_password":"Подвердит Пароль"
   },
   "ChooseLocation": {
     "submit": "отправить",
     "close": "закрыть"
+  },
+  "Wishes": {
+    "title": "Мои желания"
   }
 }

@@ -1,19 +1,23 @@
+/** @format */
+
 import PageLayout from "@/components/Layout/PageLayout";
 import { API } from "@/services/api";
 import { LoadingSpinner } from "@/ui/Spin";
-import { GetServerSideProps } from "next";
+
 import { useRouter } from "next/router";
 import React from "react";
 import dynamic from "next/dynamic";
+import cookie from "cookie";
 
 interface ProductDetailProps {
   product: any;
+  score: any;
 }
 
 const ProductDetailSection = dynamic(
   () => import("@/features/ProductDetail/Components/ProductDetailSection"),
   {
-    loading: () => <LoadingSpinner fullscreen={true} size="large" />,
+    loading: () => <LoadingSpinner fullscreen={true} size='large' />,
   }
 );
 
@@ -28,16 +32,20 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
       <ProductDetailSection
         product={product.detail}
         recommended={product.recommended}
+        score={product.score}
       />
     </PageLayout>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const { id: productId } = context.params;
-
-  try {
-    const product = await API.getProductDetail(productId);
+export const getServerSideProps = async (context: any) => {
+  try { 
+    const { id: productId } = context.params;
+    const cookies = cookie.parse(context.req.headers.cookie || "");
+    const token = decodeURIComponent(cookies.token);
+    console.log(token)
+  const product = await API.getProductDetailToken(productId, token)
+  
     return {
       props: {
         product,

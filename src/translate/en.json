@@ -12,7 +12,8 @@
     "results": "Search Results",
     "purchases": "My Purchases",
     "currency": "uzs",
-    "loadingData": "Loading data..."
+    "loadingData": "Loading data...",
+    "my_account":"My Account"
   },
   "Home": {
     "metaTitle": "Home | Onway",
@@ -169,10 +170,18 @@
     "mail": "Email",
     "name": "Name",
     "phone": "Phone number",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "password":"Password",
+      "old_password":"Old Password",
+      "new_password":"New Password",
+      "confirm_password":"Confirm Password"
+
   },
   "ChooseLocation": {
     "submit": "submit",
     "close": "close"
+  },
+  "Wishes": {
+    "title": "My wishes"
   }
 }
