@@ -69,7 +69,8 @@ export const API = {
       headers: {
         Authorization: "Bearer " + token,
       },
-    }),
+    })
+    .then(res => localStorage.removeItem('basket-data')),
 
   authCheckEmail: (email: string) =>
     axiosInstance.post("check-email", { email: email }).then((res) => res.data),
