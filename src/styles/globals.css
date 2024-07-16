@@ -170,15 +170,6 @@ a {
   }
 }
 
-:where(.css-dev-only-do-not-override-98ntnt).ant-checkbox-wrapper:not(.ant-checkbox-wrapper-disabled):hover .ant-checkbox-checked:not(.ant-checkbox-disabled) .ant-checkbox-inner {
-  background: var(--primary-color) !important;
-}
-
-.gnAwLI .ant-checkbox-checked .ant-checkbox-inner {
-  background: var(--primary-color) !important;
-  border: none;
-}
-
 .breadcrumb_icon {
   stroke: black;
   display: flex;
@@ -235,10 +226,15 @@ a {
   .main_page {
     padding: 20px 0px 0px 0px;
   }
+
+  .go_to_back li {
+    display: flex;
+    align-items: center;
+  }
 }
 
 @media (max-width: 400px) {
-  .go_to_back .ant-breadcrumb-link a {
+  .go_to_back .ant-breadcrumb-link {
     font-size: var(--paragraph-three);
     line-height: 14.52px;
   }
@@ -254,9 +250,10 @@ a {
   }
 }
 
+
 @media (max-width:850px) {
   jdiv {
-    margin-bottom: 60px !important;
+    margin-bottom: 50px !important;
   }
 }
 

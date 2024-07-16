@@ -219,14 +219,14 @@
 
     @media (max-width: 769px) {
         position: fixed;
-        bottom: 60px;
+        bottom: 55px;
         max-width: none;
         display: grid;
         gap: 0px;
-        grid-template-columns: 70% 30%;
+        grid-template-columns: 40% 30%;
         grid-template-areas:
-            'total upload_btn'
-            'count upload_btn';
+            'total upload_btn .'
+            'count upload_btn .';
         width: 100%;
         left: 0px;
         border-radius: 0px;
@@ -234,17 +234,18 @@
         background: var(--white-color);
 
         .order_title {
+            width: fit-content;
             font-size: var(--paragraph-two);
             font-weight: 400;
             line-height: 16.94px;
             color: var(--silver-grey)
         }
-
+        
         .total {
             h1 {
                 display: none;
             }
-
+            
             p {
                 font-size: var(--heading-six);
                 font-weight: 500;
