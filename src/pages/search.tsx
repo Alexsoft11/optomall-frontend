@@ -22,7 +22,6 @@ export default SearchPage;
 
 export const getServerSideProps = async (context: any) => {
   try {
-    console.log(context.query);
     const searchResponce = await API.getSearchPageProducts(context.query.query);
 
     return {

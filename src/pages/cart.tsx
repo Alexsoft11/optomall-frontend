@@ -7,18 +7,10 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import React from "react";
 import cookie from "cookie";
-import Cookies from "universal-cookie";
 import { LoadingSpinner } from "@/ui/Spin";
 
 const CartBasketPage = dynamic(
   () => import("@/features/Cart/components/CartBasketPage"),
-  {
-    loading: () => <LoadingSpinner className="global_page_loader" />,
-  }
-);
-
-const CartBasketNoItems = dynamic(
-  () => import("@/features/Cart/components/CartBasketNoItems"),
   {
     loading: () => <LoadingSpinner className="global_page_loader" />,
   }
@@ -30,7 +22,6 @@ interface Props {
 
 export default function Cart({ basketData }: Props) {
   const t = useTranslations("GLOBAL");
-  const cookie = new Cookies()
   return (
     <div className="container">
       <Head>
@@ -39,9 +30,7 @@ export default function Cart({ basketData }: Props) {
       <div>
         <GoToBack pathArr={[{ title: "cart", path: "" }]} />
         <PageTitle />
-        {basketData.length ? <CartBasketPage data={basketData} /> : null}
-        {!basketData.length && !cookie.get('token') ? <CartBasketPage data={basketData} /> : null}
-        {!basketData.length && cookie.get('token') ? <CartBasketNoItems /> : null}
+        <CartBasketPage data={basketData} />
       </div>
     </div>
   );

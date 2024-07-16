@@ -21,7 +21,7 @@ export default function CartBasketItems({changeQuantity, data, setAddOrder }: Pr
       </p>
       <div className={styles.swiper}>
         {data.map((el) => (
-          <Fragment key={el.product_id}>
+          <Fragment key={el.size_id}>
             <CartBasketItem changeQuantity={changeQuantity} item={el} setAddOrder={setAddOrder} />
           </Fragment>
         ))}

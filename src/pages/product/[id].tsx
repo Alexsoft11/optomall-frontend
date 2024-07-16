@@ -39,13 +39,12 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
 };
 
 export const getServerSideProps = async (context: any) => {
-  try { 
+  try {
     const { id: productId } = context.params;
     const cookies = cookie.parse(context.req.headers.cookie || "");
     const token = decodeURIComponent(cookies.token);
-    console.log(token)
-  const product = await API.getProductDetailToken(productId, token)
-  
+    const product = await API.getProductDetailToken(productId, token)
+
     return {
       props: {
         product,
