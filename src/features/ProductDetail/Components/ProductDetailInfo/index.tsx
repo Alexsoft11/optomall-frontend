@@ -40,7 +40,6 @@ const ProductDetailInfo = ({
       key: "2",
     },
   ];
-console.log(product)
 
   return (
     <div className={styles.product_info_detail}>

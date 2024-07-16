@@ -11,6 +11,7 @@ import { useJwt } from "@/utils/useJwt";
 interface Size {
   id: number;
   value: string;
+  size_id?: number;
 }
 
 interface Product {
@@ -164,19 +165,19 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
             product_id: product.id,
             price: product.price,
             title: product.title,
-            image_url:
-              product.colors.find((img) => img.id === colorId)?.image_url || "",
+            image_url: product.colors.find((img) => img.id === colorId)?.image_url || "",
             size: size.value,
+            size_id: product.sizes.find(el => el.value === size.value)?.size_id || "",
             quantity: size.quantity,
-            color:
-              product.colors.find((color) => color.id === colorId)?.value || "",
+            color: product.colors.find((color) => color.id === colorId)?.value || "",
             color_id: colorId,
           }))
       );
       if (user) {
         createData([data]);
       } else {
-        localStorage.setItem("basket-data", JSON.stringify(localeData));
+        const newBasketData = (JSON.parse(localStorage.getItem("basket-data") as string) || []).concat(localeData)
+        localStorage.setItem("basket-data", JSON.stringify(newBasketData));
         message.success("Added to Basket");
         resetStates();
         setLoading(false);
