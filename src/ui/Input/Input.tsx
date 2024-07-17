@@ -30,6 +30,7 @@ export interface InputProps {
   dependencies?: any[] | undefined;
   name?: (string | number)[] | string | number;
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement> | undefined;
+  addonBefore?: any;
 }
 
 export const Input = ({
@@ -55,6 +56,7 @@ export const Input = ({
   hasFeedback,
   dependencies,
   onKeyDown,
+  addonBefore,
 }: InputProps) => {
   // const intl = useIntl();
   // Custom validator function
@@ -114,6 +116,7 @@ export const Input = ({
           allowClear={allowClear}
           className={className}
           onKeyDown={onKeyDown}
+          addonBefore={addonBefore}
         />
       )}
     </FormItem>

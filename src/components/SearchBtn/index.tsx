@@ -1,36 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import styles from './Search.module.scss'
-import { useRouter } from 'next/router'
-import { Button, Input } from '@/ui';
-import SvgSelector from '$/assets/icons/SvgSelector';
-import { Form } from 'antd';
+import React, { useEffect, useState } from "react";
+import styles from "./Search.module.scss";
+import { useRouter } from "next/router";
+import { Button, Input } from "@/ui";
+import SvgSelector from "$/assets/icons/SvgSelector";
+import { Form } from "antd";
 
 const SearchBtn = () => {
   const router = useRouter();
   const { query } = router.query;
   const [scrolled, setScrolled] = useState(false);
   const [startScrool, setStartScrool] = useState(false);
-  const [form] = Form.useForm()
+  const [form] = Form.useForm();
 
-  const handleSearch = (values:any) => {
+  const handleSearch = (values: any) => {
     if (values.search) {
       router.push(`/search?query=${values.search}`);
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      form.submit()
+    if (e.key === "Enter") {
+      form.submit();
     }
   };
 
   useEffect(() => {
     if (query) {
-     form.setFieldValue('search',query)
+      form.setFieldValue("search", query);
     } else {
-      form.resetFields()
+      form.resetFields();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   const handleScroll = () => {
@@ -54,48 +54,47 @@ const SearchBtn = () => {
       window.addEventListener("scroll", handleScroll);
     }
   });
-  
+
   return (
     <>
-        <div className={`${scrolled ? styles.sticky : ""} 
+      <div
+        className={`${scrolled ? styles.sticky : ""} 
             ${startScrool ? styles.sticky_start : ""}
-            `}>
-            <div className={styles.search_stick}>
-              <SvgSelector id='search-svg'/>
-
-              <Form onFinish={handleSearch} form={form}>
-                <Input
-                  type="text"
-                  onKeyDown={handleKeyPress}
-                  className={styles.search_input}
-                  name={'search'}
-                />
-              </Form>
-
-            </div>
+            `}
+      >
+        <div className={styles.search_stick}>
+          <Form onFinish={handleSearch} form={form}>
+            <Input
+              type="text"
+              onKeyDown={handleKeyPress}
+              className={styles.search_input}
+              name={"search"}
+              suffix={<SvgSelector id="search-svg" />}
+            />
+          </Form>
         </div>
+      </div>
 
-        <div className={styles.search}>
-            <SvgSelector id='search-svg'/>
+      <div className={styles.search}>
+        <Form onFinish={handleSearch} form={form}>
+          <Input
+            type="text"
+            onKeyDown={handleKeyPress}
+            className={styles.search_input}
+            name={"search"}
+            suffix={<SvgSelector id="search-svg" />}
+          />
+        </Form>
 
-            <Form onFinish={handleSearch} form={form}>
-              <Input
-                type="text"
-                onKeyDown={handleKeyPress}
-                className="search_input"
-                name={'search'}
-              />
-            </Form>
-            
-            {/* <Button
+        {/* <Button
               className='generalbtn'
               shape='circle'
               iconId='photo-svg'
               iconPosition='left'
             /> */}
-        </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default SearchBtn
+export default SearchBtn;
