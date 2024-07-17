@@ -21,15 +21,20 @@ const Products = dynamic(() => import("@/features/home/components/Products"), {
 interface HomeProps {
   slidersData: { sliders: any[] };
   productsData: { products: any[] };
+  messages: any;
 }
 
-export default function Home({ slidersData, productsData }: HomeProps) {
+export default function Home({
+  slidersData,
+  productsData,
+  messages,
+}: HomeProps) {
   const t = useTranslations("Home");
 
   return (
     <PageLayout
       metaTitle={t("metaTitle")}
-      metaDescription={t("metaDescription")}
+      metaDescription={messages.Home.metaDescription}
       metaKeywords={t("metaKeywords")}
     >
       <MainSlider data={slidersData?.sliders} />
@@ -38,8 +43,6 @@ export default function Home({ slidersData, productsData }: HomeProps) {
     </PageLayout>
   );
 }
-
-
 
 export const getServerSideProps = async (context: any) => {
   try {
