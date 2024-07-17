@@ -4,8 +4,7 @@ import styled from "styled-components";
 export const StyledInput = styled(AntdInput)`
   &.ant-input-affix-wrapper {
     flex-direction: row-reverse;
-    .ant-input-affix-wrapper-lg {
-    }
+   
     &:hover {
       border: var(--primary-color) 1px solid;
       background: var(--white-smoke);
