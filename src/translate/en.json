@@ -188,5 +188,11 @@
   },
   "Wishes": {
     "title": "My wishes"
+  },
+  "Footer": {
+    "about_us": "About Us",
+    "faq": "Frequently Asked Questions",
+    "shipping_costs": "Shipping Costs",
+    "how_to_use": "How to Use"
   }
 }

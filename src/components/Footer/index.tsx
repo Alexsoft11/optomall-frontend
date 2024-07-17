@@ -5,9 +5,11 @@ import styles from './Footer.module.scss'
 import Link from 'next/link'
 import useQueryApiClient from '@/utils/useQueryApiClient'
 import { FooterInterface } from '../Types'
+import { useTranslations } from 'next-intl'
 
 const Footer = () => {
   const [footerData, setFooterData] = useState<FooterInterface[]>([])
+  const t = useTranslations("Footer")
 
   const { appendData: getFooterData } = useQueryApiClient({
     request: {
@@ -23,10 +25,6 @@ const Footer = () => {
     },
   });
 
-  // useEffect(() => {
-  //   getFooterData();
-  // }, [getFooterData]);
-
   return (
     <>
       <div className={styles.footer}>
@@ -35,16 +33,16 @@ const Footer = () => {
             <Image src={HeadLogo} alt="Taobao.com" className={styles.logo} />
             <ul className={styles.footer_links}>
               <li>
-                <Link href="#">О нас</Link>
+                <Link href="#">{t("about_us")}</Link>
               </li>
               <li>
-                <Link href="#">Часто задаваемые вопросы</Link>
+                <Link href="#">{t("faq")}</Link>
               </li>
               <li>
-                <Link href="#">Транспортные расходы</Link>
+                <Link href="#">{t("shipping_costs")}</Link>
               </li>
               <li>
-                <Link href="#">Как использовать</Link>
+                <Link href="#">{t("how_to_use")}</Link>
               </li>
             </ul>
             <div className={styles.social_icons}>

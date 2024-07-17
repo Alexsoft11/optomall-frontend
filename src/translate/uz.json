@@ -188,5 +188,11 @@
   },
   "Wishes": {
     "title": "Mening tilaklarim"
+  },
+  "Footer": {
+    "about_us": "Biz haqimizda",
+    "faq": "Ko'p beriladigan savollar",
+    "shipping_costs": "Yuk tashish xarajatlari",
+    "how_to_use": "Qanday foydalaniladi"
   }
 }
