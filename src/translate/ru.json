@@ -12,7 +12,9 @@
     "results": "Результаты поиска",
     "purchases": "Мои покупки",
     "currency": "сум",
-    "loadingData": "Загрузка данных..."
+    "loadingData": "Загрузка данных...",
+    "my_account":"Мой Аккаунт"
+
   },
   "Home": {
     "metaTitle": "Главная | Onway",
@@ -51,7 +53,7 @@
     "modalMessage": "Контактный номер телефона",
     "home": "Главная",
     "catalog": "Каталог",
-    "saved": "Liked",
+    "saved": "Избранное",
     "shop": "Корзина",
     "user": "Профиль"
   },
@@ -92,6 +94,7 @@
     "requiredSecondNameMessage": "Введите фамилию",
     "emailAlredyUsed": "электронная почта уже занята!",
     "wrong_password": "неверный пароль",
+    "add_personal_data": "Заполните личную информацию",
     "email_doesnt_exist": "электронная почта не зарегистрирована",
     "signInDescription": "заполните поля для входа",
     "infoDescription": "заполните поля для информации",
@@ -99,6 +102,7 @@
     "newPasswordDescription": "придмайте новый пароль",
     "regisrtationDescription": "заполните поля для регисратрации",
     "nameValidateError": "Введите действительное имя",
+    "lastNameValidateError": "Введите действительную фамилию",
     "verify_email": "Подтвердите почту!",
     "something_wrong": "Что-то пошло не так! Попробуйте еще раз позже."
   },
@@ -120,6 +124,7 @@
     "authMessage": "Зарегистрируйтесь на сайте чтобы оформить заказ!",
     "checkWarningMessage": "Чек не прошел проверку. Проверьте чек и повторите попытку.",
     "imgTypeValidation": "Вы можете отправить только картинку!",
+    "chooseItem": "Выберете минимум один товар из корзины",
     "imgSizeValidation": "Размар изображения должен быть меньше чем 5 мб"
   },
   "Order": {
@@ -170,10 +175,17 @@
     "mail": "Электронный почта",
     "name": "Имя",
     "phone": "Номер телефона",
-    "confirm": "Подвердить"
+    "confirm": "Подвердить",
+    "password":"Пароль",
+    "old_password":"Старый Пароль",
+    "new_password":"Новый Пароль",
+    "confirm_password":"Подвердит Пароль"
   },
   "ChooseLocation": {
     "submit": "отправить",
     "close": "закрыть"
+  },
+  "Wishes": {
+    "title": "Мои желания"
   }
 }

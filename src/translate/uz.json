@@ -12,7 +12,9 @@
     "results": "Qidiruv natijalari",
     "purchases": "Mening xaridlarim",
     "currency": "so'm",
-    "loadingData": "Ma'lumotlar yuklanmoqda..."
+    "loadingData": "Ma'lumotlar yuklanmoqda...",
+    "my_account":"Mening Akountim"
+
   },
   "Home": {
     "metaTitle": "Bosh sahifa | Onway",
@@ -72,9 +74,11 @@
     "regist": "Ro'yxatdan o'tish",
     "name": "Ism",
     "secondName": "Familiya",
+    "lastNameValidateError": "Yaroqli familiyani kiriting",
     "tel": "Telefon",
     "save": "Saqlash va davom etish",
     "info": "Shaxsiy ma'lumotlar",
+    "add_personal_data": "Shaxsiy ma'lumotlarni to'ldiring",
     "verification_email_sent": "tasdiqlash xati yuborildi",
     "resetPassword": "Parolni tiklash",
     "modalMessage": "Biz sizga tasdiqlash xatini yubordik!",
@@ -116,6 +120,7 @@
     "checkWarningMessage": "Chek tasdiqlanmadi. Chekni tekshiring va qayta urinib ko'ring.",
     "authMessage": "Buyurtma berish uchun saytda ro'yxatdan o'ting!",
     "imgTypeValidation": "Faqat rasm yuklashingiz mumkin!",
+    "chooseItem": "Savatdan kamida bitta mahsulot tanlang",
     "imgSizeValidation": "Rasm hajmi 5 MB dan kichik bo'lishi kerak!"
   },
   "Order": {
@@ -148,7 +153,6 @@
     "longPrice": "Uzoq narx",
     "downPrice": "Past narx"
   },
-
   "MyReviews": {
     "waitForReview": "Baho berish kutilmoqda",
     "reviewed": "Baholangan",
@@ -167,10 +171,18 @@
     "mail": "Elektron pochta",
     "name": "Ism",
     "phone": "Telefon raqami",
-    "confirm": "Tasdiqlash"
+    "confirm": "Tasdiqlash",
+    "password":"Parol",
+    "old_password":"Eski Parol",
+    "new_password":"Yangi Parol",
+    "confirm_password":"Parolni Tasdiqlash"
+
   },
   "ChooseLocation": {
     "submit": "yuborish",
     "close": "yopish"
+  },
+  "Wishes": {
+    "title": "Mening tilaklarim"
   }
 }

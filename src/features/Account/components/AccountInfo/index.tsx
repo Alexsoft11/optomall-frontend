@@ -82,7 +82,6 @@ const AccountInfo = ({ user }: any) => {
   ) => {
     setLoading((prev) => ({ ...prev, [key]: true }));
     try {
-      console.log(values);
       await mutateFunction(values);
     } finally {
       setLoading((prev) => ({ ...prev, [key]: false }));
@@ -221,8 +220,10 @@ const AccountInfo = ({ user }: any) => {
             handleFormSubmit(updatePassword, values, "password")
           }
           className={styles.form}>
-          <Input name='password' type='password' placeholder='New password' />
-          <Input name='confirm_password' placeholder='Confirm password' />
+          <Input name='old_password' type='password' placeholder={t("Account.old_password")} />
+          <Input name='password' placeholder={t("Account.new_password")} />
+          <Input name='confirm_password' placeholder={t("Account.confirm_password")} />
+
           <Button
             htmlType='submit'
             loading={loading.password}

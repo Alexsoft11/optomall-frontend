@@ -3,7 +3,7 @@ import styles from './CartOrder.module.scss';
 import { useTranslations } from 'next-intl';
 import { Button, Modal } from '@/ui';
 import { useRouter } from 'next/router';
-import { SearchSvg,} from '$/assets/images';
+import { SearchSvg, } from '$/assets/images';
 import { CreateOrderDataInterface } from '../../interface';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import { message, Upload } from 'antd';
@@ -22,6 +22,7 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
     const [checkModalIsOpen, setCheckModalIsOpen] = useState(false);
     const [authModalIsOpen, setAuthModalIsOpen] = useState(false);
     const [isUploadErr, setIsUploadErr] = useState(false);
+    const [messageVisible, setMessageVisible] = useState(false);
 
     const router = useRouter();
     const [buttonStatus, setButtonStatus] = useState<'idle' | 'pending' | 'success' | 'fail'>('idle');
@@ -111,6 +112,14 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
     const toOrder = () => {
         if (!cookie.get('token')) {
             setAuthModalIsOpen(true)
+            return
+        }
+        if (itemValue === 0) {
+            if (!messageVisible) {
+                setMessageVisible(true);
+                message.error(t('chooseItem'), 1)
+                setTimeout(() => setMessageVisible(false), 1000)
+            }
             return
         }
         createData(createOrderData)

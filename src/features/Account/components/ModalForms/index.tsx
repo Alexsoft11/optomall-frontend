@@ -8,10 +8,6 @@ interface IProps {
 
 const ModalForms:FC<IProps> = ({children,isOpen,onClick}) => {
 
-  const onCancel =()=>{
-    
-  }
-
   return (
     <Modal footer open={isOpen} onCancel={onClick}>
       {children}

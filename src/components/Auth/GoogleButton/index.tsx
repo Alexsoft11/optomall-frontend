@@ -11,13 +11,14 @@ import { message } from 'antd';
 import { API } from '@/services/api';
 import { cookieBasket } from '../Functions';
 import { CartItemInterface } from '@/features/Cart/interface';
+import { LoadingSpinner } from '@/ui/Spin';
 
 export default function GoogleButton() {
     const router = useRouter();
     const t = useTranslations("Auth")
     const cookie = new Cookies()
 
-    const { appendData: createData } = useQueryApiClient({
+    const { appendData: createData, isLoading } = useQueryApiClient({
         request: {
             url: "google-login",
             method: "POST",
@@ -27,6 +28,11 @@ export default function GoogleButton() {
             if (router.query.step === 'signUp') {
                 router.push(`/auth?step=info&id=${res.unique_id}`)
             } else {
+                if (res.message === "add_personal_data") {
+                    message.error(t(`${res.error}`));
+                    router.push(`/auth?step=info&id=${res.unique_id}`)
+                    return
+                }
                 if (!res.token) {
                     message.error('something_wrong')
                     return
@@ -57,6 +63,7 @@ export default function GoogleButton() {
 
     return (
         <div className={styles.main}>
+            <LoadingSpinner spinning={isLoading} fullscreen={true} size="large" />
             <button className={styles.button} type='button' onClick={() => login()}>
                 <div className={styles.img}>
                     <Image fill src={GoogleLogo} alt='#' />

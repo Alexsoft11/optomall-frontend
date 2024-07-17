@@ -5,17 +5,19 @@ import { CardInterface } from '@/interfaces';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 
 interface LikedProps {
-    data: CardInterface;
+    product_id: string;
+    id_filter?: number;
+    isLike:boolean;
     onLikeChange?: (cardId: number, isLiked: boolean) => void;
 }
 
-const LikedBtn = ({ onLikeChange, data }:LikedProps) => {
+const LikedBtn = ({ onLikeChange, product_id, isLike, id_filter }:LikedProps) => {
     
   const handleClickLiked = () => {
-    if (onLikeChange) {
-      onLikeChange(+data.id, !data.is_liked);
+    if (onLikeChange && id_filter !== undefined) {
+      onLikeChange(id_filter, !isLike);
     }
-    dislikeCard([data.product_id]);
+    dislikeCard([product_id]);
   };
 
   const { appendData: dislikeCard } = useQueryApiClient({
@@ -31,7 +33,7 @@ const LikedBtn = ({ onLikeChange, data }:LikedProps) => {
     <div>
         <button
             className={`${styles.liked} ${
-                data.is_liked ? styles.active : ""
+              isLike ? styles.active : ""
             }`}
             type="submit"
             onClick={() => handleClickLiked()}
