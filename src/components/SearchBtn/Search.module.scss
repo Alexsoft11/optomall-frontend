@@ -47,6 +47,18 @@
       width: 288px;
       max-width: 288px;
 
+      .search_input {
+        height: 40px;
+        border-radius: 39px;
+        border: none;
+        background: #f0f0f0;
+        padding: 3px 3px 3px 10px;
+        outline: none;
+        padding-left: 5px;
+        padding-right: 10px;
+        flex-direction: row-reverse;
+      }
+
       @media (max-width: 1020px) {
         max-width: 200px;
       }

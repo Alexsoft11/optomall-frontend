@@ -4,9 +4,15 @@ export interface IGoToBack {
     backUrl?: string
 }
 
-
 export interface IGoToBackObject {
     title?: string,
     path?: string,
     titleNotr?: string
+}
+
+export interface FooterInterface {
+    id: number;
+    name: string;
+    path: string;
+    icon: string;
 }
