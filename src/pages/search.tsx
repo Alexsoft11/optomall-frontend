@@ -2,6 +2,7 @@ import React from "react";
 import GoToBack from "@/components/GoToBack";
 import Search from "@/features/Search/components/Search";
 import { API } from "@/services/api";
+import Head from "next/head";
 
 interface SearchProps {
   productsData: any;
@@ -10,6 +11,9 @@ interface SearchProps {
 const SearchPage = ({ productsData }: SearchProps) => {
   return (
     <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <div className="container">
         <GoToBack pathArr={[{ title: "results", path: "search" }]} />
       </div>

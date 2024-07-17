@@ -67,7 +67,7 @@ const SearchBtn = () => {
                 <Input
                   type="text"
                   onKeyDown={handleKeyPress}
-                  className="search_input"
+                  className={styles.search_input}
                   name={'search'}
                 />
               </Form>

@@ -26,6 +26,7 @@ export default function Purchases({ purchasesData }: Props) {
     <div className="container">
       <Head>
         <title>{t("purchases")}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div>
         <GoToBack pathArr={[{ title: "purchases", path: "" }]} />

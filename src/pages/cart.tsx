@@ -26,6 +26,7 @@ export default function Cart({ basketData }: Props) {
     <div className="container">
       <Head>
         <title>{t("cart")}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div>
         <GoToBack pathArr={[{ title: "cart", path: "" }]} />

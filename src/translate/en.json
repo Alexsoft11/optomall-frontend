@@ -13,12 +13,12 @@
     "purchases": "My Purchases",
     "currency": "uzs",
     "loadingData": "Loading data...",
-    "my_account":"My Account"
+    "my_account": "My Account"
   },
   "Home": {
-    "metaTitle": "Home | Onway",
+    "metaTitle": "Home | ON-WAY",
     "metaDescription": "Welcome to Onway - Your one-stop shop for all your needs. Explore our wide range of products and enjoy the best online shopping experience.",
-    "metaKeywords": "e-commerce, shopping, onway, products, online store"
+    "metaKeywords": "e-commerce, shopping uz, onway,ON WAY, products, online store uz, taobao uz"
   },
   "Error": {
     "user_registered_successfully": "User registered successfully",
@@ -98,7 +98,10 @@
     "regisrtationDescription": "fill in the fields to register",
     "nameValidateError": "Please enter a valid name",
     "verify_email": "Verify your email!",
-    "something_wrong": "Something went wrong! Please try again later."
+    "something_wrong": "Something went wrong! Please try again later.",
+    "metaTitle": "Login | ON-WAY",
+    "metaDescription": "Securely log in to your ON-WAY account to access exclusive features and manage your orders.",
+    "metaKeywords": "ON-WAY, login, sign in, account access, secure login"
   },
   "Cart": {
     "item": "Items",
@@ -166,16 +169,18 @@
     "tab_3": "Recommended for you"
   },
   "Account": {
+    "metaTitle": "Account | ON-WAY",
+    "metaDescription": "Manage your ON-WAY account, view order history, update your profile, and more. Secure and easy access to all your account features on ONWAY.UZ.",
+    "metaKeywords": "ON-WAY, account, manage account, order history, update profile, secure access",
     "change": "Change",
     "mail": "Email",
     "name": "Name",
     "phone": "Phone number",
     "confirm": "Confirm",
-    "password":"Password",
-      "old_password":"Old Password",
-      "new_password":"New Password",
-      "confirm_password":"Confirm Password"
-
+    "password": "Password",
+    "old_password": "Old Password",
+    "new_password": "New Password",
+    "confirm_password": "Confirm Password"
   },
   "ChooseLocation": {
     "submit": "submit",

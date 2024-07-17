@@ -19,7 +19,7 @@ const ProfilePage = () => {
           <Profile />
         </>
       ) : (
-        <div>login</div>
+        <div></div>
       )}
     </div>
   );

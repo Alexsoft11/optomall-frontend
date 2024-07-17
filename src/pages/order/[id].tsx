@@ -1,5 +1,4 @@
 import React from "react";
-import { useRouter } from "next/router";
 import Head from "next/head";
 import GoToBack from "@/components/GoToBack";
 import { useTranslations } from "next-intl";
@@ -7,13 +6,14 @@ import PageTitle from "@/components/PageTitle";
 import dynamic from "next/dynamic";
 import { API } from "@/services/api";
 import { OrderDataInterface } from "@/features/Order/interfaces";
-import cookie from "cookie"
+import cookie from "cookie";
+import { LoadingSpinner } from "@/ui/Spin";
 
 const OrderPage = dynamic(
-  () => import("@/features/Order/components/OrderPage")
-  // {
-  //   loading: () => <Loader />,
-  // }
+  () => import("@/features/Order/components/OrderPage"),
+  {
+    loading: () => <LoadingSpinner fullscreen={true} size="large" />,
+  }
 );
 
 interface Props {
@@ -21,7 +21,6 @@ interface Props {
 }
 
 export default function Order({ orderData }: Props) {
-  const router = useRouter();
   const t = useTranslations("GLOBAL");
 
   return (

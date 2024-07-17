@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import GoToBack from "@/components/GoToBack";
 import { useTranslations } from "next-intl";
+import PageLayout from "@/components/Layout/PageLayout";
 
 const AccountInfo = dynamic(
   () => import("@/features/Account/components/AccountInfo"),
@@ -12,9 +13,10 @@ const AccountInfo = dynamic(
   }
 );
 
-const AccountPage = () => {
+const AccountPage =  () => {
   const [user, setUser] = useState();
-  const { appendData: getSlidersData } = useQueryApiClient({
+
+  const { } = useQueryApiClient({
     request: {
       url: "user-get-data",
       method: "GET",
@@ -23,13 +25,27 @@ const AccountPage = () => {
       setUser(res);
     },
   });
-const t = useTranslations("")
+  const t =  useTranslations("Account");
   return (
     <div className="container">
+      <PageLayout
+        metaTitle={t("metaTitle")}
+        metaDescription={t("metaDescription")}
+        metaKeywords={t("metaKeywords")}
+      >
         <GoToBack pathArr={[{ title: "my_account", path: "/" }]} />
-      <AccountInfo user={user} />
+        <AccountInfo user={user} />
+      </PageLayout>
     </div>
   );
 };
 
 export default AccountPage;
+
+export const getServerSideProps = async (context: any) => {
+  return {
+    props: {
+      messages: (await import(`../translate/${context.locale}.json`)).default,
+    },
+  };
+};

@@ -20,6 +20,7 @@ export default function MyReviews() {
     <div className="container">
       <Head>
         <title>{t("my-reviews")}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div>
         <GoToBack pathArr={[{ title: "my-reviews", path: "" }]} />

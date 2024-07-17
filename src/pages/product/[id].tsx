@@ -17,7 +17,7 @@ interface ProductDetailProps {
 const ProductDetailSection = dynamic(
   () => import("@/features/ProductDetail/Components/ProductDetailSection"),
   {
-    loading: () => <LoadingSpinner fullscreen={true} size='large' />,
+    loading: () => <LoadingSpinner fullscreen={true} size="large" />,
   }
 );
 
@@ -43,7 +43,7 @@ export const getServerSideProps = async (context: any) => {
     const { id: productId } = context.params;
     const cookies = cookie.parse(context.req.headers.cookie || "");
     const token = decodeURIComponent(cookies.token);
-    const product = await API.getProductDetailToken(productId, token)
+    const product = await API.getProductDetailToken(productId, token);
 
     return {
       props: {

@@ -13,13 +13,12 @@
     "purchases": "Mening xaridlarim",
     "currency": "so'm",
     "loadingData": "Ma'lumotlar yuklanmoqda...",
-    "my_account":"Mening Akountim"
-
+    "my_account": "Mening Akountim"
   },
   "Home": {
     "metaTitle": "Bosh sahifa | Onway",
     "metaDescription": "Onwayga xush kelibsiz - barcha ehtiyojlaringiz uchun yagona do'kon. Mahsulotlarimizning keng doirasini o'rganing va eng yaxshi onlayn xarid qilish tajribasidan rohatlaning.",
-    "metaKeywords": "elektron tijorat, xarid qilish, onway, mahsulotlar, onlayn do'kon"
+    "metaKeywords": "elektron tijorat, xarid qilish, onway, mahsulotlar, onlayn do'kon,magazin,taobao uz"
   },
   "Error": {
     "user_registered_successfully": "Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi",
@@ -99,7 +98,10 @@
     "regisrtationDescription": "ro‘yxatdan o‘tish uchun maydonlarni to‘ldiring",
     "nameValidateError": "Iltimos, haqiqiy ism kiriting",
     "verify_email": "Elektron pochtangizni tasdiqlang!",
-    "something_wrong": "Nimadir noto'g'ri ketdi! Iltimos, keyinroq yana urinib ko'ring."
+    "something_wrong": "Nimadir noto'g'ri ketdi! Iltimos, keyinroq yana urinib ko'ring.",
+    "metaTitle": "Kirish | ON-WAY",
+    "metaDescription": "ON-WAY hisobingizga xavfsiz kiring va maxsus funksiyalardan foydalaning hamda buyurtmalaringizni boshqaring.",
+    "metaKeywords": "ON-WAY, kirish, hisobga kirish, xavfsiz kirish"
   },
   "Cart": {
     "item": "Mahsulotlar",
@@ -167,16 +169,18 @@
     "tab_3": "Siz uchun tavsiya etamiz"
   },
   "Account": {
+    "metaTitle": "Hisob | ON-WAY",
+    "metaDescription": "ON-WAY hisobingizni boshqaring, buyurtma tarixini ko'ring, profilingizni yangilang va boshqalar. ONWAY.UZ da barcha hisob funksiyalariga xavfsiz va oson kirish.",
+    "metaKeywords": "ON-WAY, hisob, hisobni boshqarish, buyurtma tarixi, profilni yangilash, xavfsiz kirish",
     "change": "O'zgartirish",
     "mail": "Elektron pochta",
     "name": "Ism",
     "phone": "Telefon raqami",
     "confirm": "Tasdiqlash",
-    "password":"Parol",
-    "old_password":"Eski Parol",
-    "new_password":"Yangi Parol",
-    "confirm_password":"Parolni Tasdiqlash"
-
+    "password": "Parol",
+    "old_password": "Eski Parol",
+    "new_password": "Yangi Parol",
+    "confirm_password": "Parolni Tasdiqlash"
   },
   "ChooseLocation": {
     "submit": "yuborish",
