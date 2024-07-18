@@ -59,7 +59,7 @@ const Navbar = () => {
                   className="headbtn"
                   iconId="catalog-svg"
                   iconPosition="top"
-                  label="Каталог"
+                  label={t("catalog")}
                   size="middle"
                   onClick={handleNavBtnClick}
                 />
