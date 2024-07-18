@@ -58,6 +58,7 @@ export const Input = ({
   onKeyDown,
   addonBefore,
 }: InputProps) => {
+
   // const intl = useIntl();
   // Custom validator function
   // const validateInput = (rule: Rule, value: string, callback: (error?: string) => void) => {

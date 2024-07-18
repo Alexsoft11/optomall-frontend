@@ -13,7 +13,8 @@
     "purchases": "Mening xaridlarim",
     "currency": "so'm",
     "loadingData": "Ma'lumotlar yuklanmoqda...",
-    "my_account": "Mening Akountim"
+    "my_account": "Mening Akountim",
+    "cargo": "Karqo uchun to'lov"
   },
   "Home": {
     "metaTitle": "Bosh sahifa | Onway",
@@ -123,7 +124,9 @@
     "authMessage": "Buyurtma berish uchun saytda ro'yxatdan o'ting!",
     "imgTypeValidation": "Faqat rasm yuklashingiz mumkin!",
     "chooseItem": "Savatdan kamida bitta mahsulot tanlang",
-    "imgSizeValidation": "Rasm hajmi 5 MB dan kichik bo'lishi kerak!"
+    "imgSizeValidation": "Rasm hajmi 5 MB dan kichik bo'lishi kerak!",
+    "cargo": "Karqo",
+    "forKg": "kg uchun"
   },
   "Order": {
     "payCost": "To'lanadigan summa: ",
@@ -188,5 +191,21 @@
   },
   "Wishes": {
     "title": "Mening tilaklarim"
+  },
+  "LocationModal": {
+    "title": "Yetkazib berish manzili",
+    "area": "Hudud",
+    "street": "Ko'cha",
+    "house": "Uy",
+    "postcode": "Pochta indeksi",
+    "region": "Hudud",
+    "submit": "Tasdiqlash",
+    "chooseLocation": "Xaritadan tanlash"
+  },
+  "Cargo": {
+    "payTutorialText": "Yetkazib berish narxi buyurtma berishda avtomatik ravishda hisoblanadi va vaznga bog'liq, 1 kg uchun $5.5. Quyida buyurtmangizning vazniga qarab yetkazib berish narxi ko'rsatilgan. Diqqat! Siz quyida ko'rsatilgan miqdorni aniq o'tkazishingiz kerak!",
+    "payCost": "Sizning yetkazib berish narxingiz: ",
+    "textCopyed": "Matn ko'chirildi!",
+    "cardNumber": "Qabul qiluvchining kartasi raqami: "
   }
 }

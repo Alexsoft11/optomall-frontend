@@ -9,6 +9,18 @@
     height: min-content;
     width: 310px;
 
+    .cargo_title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+            font-size: var(--paragraph-two) !important;
+            font-weight: 400 !important;
+            line-height: 16.94px !important;
+        }
+    }
+
 
     .order_title {
         grid-area: count;
@@ -205,15 +217,18 @@
     }
 
     .total {
-        grid-area: total;
-        display: flex;
-        justify-content: space-between;
+        
+        div {
+            grid-area: total;
+            display: flex;
+            justify-content: space-between;
 
-        h1,
-        p {
-            font-size: var(--heading-seven);
-            font-weight: 500;
-            line-height: 29.05px;
+            h1,
+            p {
+                font-size: var(--heading-seven);
+                font-weight: 500;
+                line-height: 29.05px;
+            }
         }
     }
 
@@ -240,12 +255,12 @@
             line-height: 16.94px;
             color: var(--silver-grey)
         }
-        
+
         .total {
             h1 {
                 display: none;
             }
-            
+
             p {
                 font-size: var(--heading-six);
                 font-weight: 500;

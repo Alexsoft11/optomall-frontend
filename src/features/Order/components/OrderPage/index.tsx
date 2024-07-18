@@ -15,7 +15,7 @@ export default function OrderPage({ orderData }: Props) {
         cardId={orderData?.card_number}
         cost={orderData?.total_price}
       />
-      <CartOrderBlock orderId={orderData?.id} cost={orderData?.total_price} />
+      <CartOrderBlock orderId={orderData?.id} cost={`${orderData?.total_price} uzs`} />
     </div>
   );
 }

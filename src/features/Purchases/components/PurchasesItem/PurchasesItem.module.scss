@@ -13,6 +13,22 @@
     width: 100%;
     justify-content: space-between;
 
+    .order_status {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      .flag_img {
+        position: relative;
+        width: 24px;
+        height: 24px;
+
+        img {
+          border-radius: 50%;
+        }
+      }
+    }
+
     p {
       font-size: var(--paragraph);
       font-weight: 400;
@@ -69,6 +85,12 @@
         font-weight: 400;
         line-height: 14.52px;
       }
+    }
+
+    .sub_state {
+      font-size: var(--paragraph-two);
+      font-weight: 400;
+      line-height: 16.94px;
     }
   }
 
