@@ -10,7 +10,7 @@ export interface IGoToBackObject {
   titleNotr?: string;
 }
 
-export interface LocationINfoInterface {
+export interface LocationInfoInterface {
   country: string | undefined;
   addressDetails: string | undefined;
   area: string | undefined;

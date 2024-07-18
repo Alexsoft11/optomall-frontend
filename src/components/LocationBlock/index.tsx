@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './LocationBlock.module.scss';
 import { useTranslations } from 'next-intl';
 import ChooseLocation from '@/components/ChooseLocation';
-import { LocationINfoInterface } from '../Types';
 import LocationModal from '@/features/Cart/components/LocationModal';
+import { LocationInfoInterface } from '../Types';
 
 interface Props {
     setLocation: React.Dispatch<any>,
@@ -14,7 +14,7 @@ export default function LocationBlock({ setLocation, setCountry }: Props) {
     const t = useTranslations('Cart')
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [mapIsOpen, setMapIsOpen] = useState(false);
-    const [locationInfo, setLocationInfo] = useState<LocationINfoInterface | null>(null)
+    const [locationInfo, setLocationInfo] = useState<LocationInfoInterface | null>(null)
 
     const handleLocationSelect = (url: string) => {
         setLocation(url);

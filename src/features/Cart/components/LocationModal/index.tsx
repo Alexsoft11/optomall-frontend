@@ -4,13 +4,13 @@ import { Form } from 'antd';
 import { useTranslations } from 'next-intl';
 import { Button, Input, Modal, Select, } from '@/ui';
 import SvgSelector from '$/assets/icons/SvgSelector';
-import { LocationINfoInterface } from '../Types';
+import { LocationInfoInterface } from '@/components/Types';
 
 interface Props {
     orderModalOpen: boolean,
     setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
     setMapIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-    locationInfo: LocationINfoInterface | null
+    locationInfo: LocationInfoInterface | null
 }
 
 export default function LocationModal({ orderModalOpen, setModalIsOpen, setMapIsOpen, locationInfo }: Props) {
@@ -99,7 +99,7 @@ export default function LocationModal({ orderModalOpen, setModalIsOpen, setMapIs
     }
 
     if (locationInfo) {
-        (Object.keys(locationInfo) as (keyof LocationINfoInterface)[]).forEach((key) => {
+        (Object.keys(locationInfo) as (keyof LocationInfoInterface)[]).forEach((key) => {
             const value = locationInfo[key] || '';
             form.setFieldValue(key, value);
         });
