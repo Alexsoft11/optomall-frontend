@@ -13,7 +13,8 @@
     "purchases": "My Purchases",
     "currency": "uzs",
     "loadingData": "Loading data...",
-    "my_account": "My Account"
+    "my_account": "My Account",
+    "cargo": "Cargo payment"
   },
   "Home": {
     "metaTitle": "Home | ON-WAY",
@@ -123,7 +124,9 @@
     "authMessage": "Register on the website to place an order!",
     "imgTypeValidation": "You can only upload an image!",
     "chooseItem": "Choose at least one item from the basket",
-    "imgSizeValidation": "Image size must be smaller than 5 MB!"
+    "imgSizeValidation": "Image size must be smaller than 5 MB!",
+    "cargo": "Cargo",
+    "forKg": "per Kg"
   },
   "Order": {
     "payCost": "Amount to be paid: ",
@@ -188,6 +191,22 @@
   },
   "Wishes": {
     "title": "My wishes"
+  },
+  "LocationModal": {
+    "title": "Delivery Address",
+    "area": "Area",
+    "street": "Street",
+    "house": "House",
+    "postcode": "Postal Code",
+    "region": "Region",
+    "submit": "Submit",
+    "chooseLocation": "Choose on map"
+  },
+  "Cargo": {
+    "payTutorialText": "The delivery cost is calculated automatically when placing an order and depends on the weight, $5.5 per kg. Below is the delivery cost depending on the weight of your order. Please note! You need to transfer exactly the amount indicated below!",
+    "payCost": "Your delivery cost is: ",
+    "cardNumber": "Recipient's card number: ",
+    "textCopyed": "Text copied!"
   },
   "Footer": {
     "about_us": "About Us",

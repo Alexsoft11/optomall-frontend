@@ -3,12 +3,12 @@ import styles from "./CartBasketPage.module.scss";
 import CartBasketItems from "../CartBasketItems";
 import CartOrderBlock from "../CartOrderBlock";
 import { CartItemInterface, CartOrderItemInterface, CreateOrderDataInterface, PersonalDataInterface } from "../../interface";
-import CartGetOrderLocations from "../CartGetOrderLocations";
 import CartGetOrderPerson from "../CartGetOtderPerson";
 import Cookies from "universal-cookie";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { LoadingSpinner } from "@/ui/Spin";
 import CartBasketNoItems from "../CartBasketNoItems";
+import LocationBlock from "@/components/LocationBlock";
 
 interface Props {
   data: CartItemInterface[]
@@ -126,9 +126,9 @@ export default function CartBasketPage({ data }: Props) {
         <>
           <CartBasketItems changeQuantity={changeQuantity} setAddOrder={setAddOrder} data={dataClone} />
           <div className={styles.order_side}>
-            <CartOrderBlock itemValue={itemsValue} createOrderData={createOrderData} cost={totalPrice} />
+            <CartOrderBlock uploadUrl="add-check" itemValue={itemsValue} createOrderData={createOrderData} cost={`${totalPrice} uzs`} />
             <div className={styles.order_info}>
-              <CartGetOrderLocations setCountry={setCountry} setLocation={setLocation} />
+              <LocationBlock setCountry={setCountry} setLocation={setLocation} />
               <CartGetOrderPerson setPersonData={setPersonData} />
             </div>
           </div>

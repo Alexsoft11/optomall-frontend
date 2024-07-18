@@ -4,6 +4,8 @@ import { PurchasesOrderInterface } from '../../interfaces';
 import { useTranslations } from 'next-intl';
 import SvgSelector from '$/assets/icons/SvgSelector';
 import PurchasesOrderItem from '../PurchasesOrderItem';
+import Image from 'next/image';
+
 
 interface Props {
     item: PurchasesOrderInterface
@@ -20,10 +22,17 @@ export default function PurchasesItem({ item }: Props) {
     };
 
     return (
-        <div className={`${styles.main} ${isRotatedUp ? styles.detailOpen : (firstLoad? styles.firsLoadAnimation : styles.detailClose)}`}>
+        <div className={`${styles.main} ${isRotatedUp ? styles.detailOpen : (firstLoad ? styles.firsLoadAnimation : styles.detailClose)}`}>
             <div className={styles.order_info}>
                 <p>{t('goods')}: {item.items.length}</p>
-                <div className={styles["status_" + item.status]}>{t(`${item.status}`)}</div>
+                <div className={styles.order_status}>
+                    <div className={styles.flag_img}>
+                        <Image src={'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/1024px-Flag_of_the_People%27s_Republic_of_China.svg.png'} alt='#' fill />
+                    </div>
+                    <div className={styles["status_" + item.status]}>
+                        {t(`${item.status}`)}
+                    </div>
+                </div>
             </div>
             <div className={styles.order_detail}>
                 <div className={styles.detail_item}>
@@ -43,6 +52,7 @@ export default function PurchasesItem({ item }: Props) {
                     <p>{item.user_name}</p>
                     <p>{item.user_phone}</p>
                 </div>
+                <div className={styles.sub_state} style={{color:"#00AC26"}}>Оплата за доставку оплачен</div>
             </div>
             <div className={`${styles.more_datail} ${isRotatedUp ? styles.rotateUp : styles.rotateDown}`} onClick={handleClick}>
                 <p>{t('moreDetail')}</p>
