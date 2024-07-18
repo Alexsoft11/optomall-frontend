@@ -4,6 +4,7 @@ import SvgSelector from '$/assets/icons/SvgSelector'
 import Card from '@/components/Card'
 import SearchBtn from '@/components/SearchBtn'
 import { useTranslations } from 'next-intl'
+import Products from '@/components/Products'
 
 interface Props {
   data: any;
@@ -64,12 +65,7 @@ const Search = ({ data }: Props) => {
                         </div>
                     </div>
                 </div>
-
-                <div className={styles.search__cards}>
-                    {data?.map((el: any, idx: number) => (
-                        <Card key={el.id} data={el} />
-                    ))}
-                </div>
+                <Products data={data}/>
             </div>
           </div>
         </div>

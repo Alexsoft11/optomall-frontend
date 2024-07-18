@@ -40,6 +40,17 @@ const Wishes = ({ wishesData }: Props) => {
       }
     } else {
       setData(wishesData || []);
+      if (savedData && savedData.length > 0) {
+        const parsedData = JSON.parse(savedData);
+
+        if (Array.isArray(parsedData)) {
+          const productIds = parsedData.map(item => item.id);
+
+          if (productIds.length > 0) {
+            dislikeCard([ productIds.toString() ]);
+          }
+        }
+      }
     }
   }, [token, wishesData]);
 

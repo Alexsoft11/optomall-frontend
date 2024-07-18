@@ -1,11 +1,27 @@
 .card {
   max-width: 240px;
   position: relative;
+  transition: .3s;
+  cursor: pointer;
+  border-radius: 10px;
+  border-top-left-radius: 23px;
+  border-top-right-radius: 23px;
+  padding: 5px;
+
   @media (max-width: 700px) {
     max-width: 200px;
   }
   @media (max-width: 350px) {
     max-width: 240px;
+  }
+  &:hover {
+    box-shadow: 1px 1px 15px 0 rgba(0,0,0,.1);
+
+    .card__image {
+      img {
+        transform: scale(1.04);
+      }
+    }
   }
   a {
     height: 100%;
@@ -54,6 +70,7 @@
       object-fit: cover;
       position: unset !important;
       border-radius: 20px;
+      transition: .4s;
 
       @media (max-width: 768px) {
         border-radius: 10px;
@@ -86,11 +103,12 @@
     @media (max-width: 768px) {
       margin-bottom: 5px;
     }
+    margin: 2px;
   }
 
   &__price {
     margin-top: auto;
-
+    margin: 2px;
     p {
       color: var(--primary-color);
       font-size: var(--heading-six);

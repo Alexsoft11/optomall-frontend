@@ -184,7 +184,7 @@ a {
   min-height: 60vh;
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 970px) {
   ._orientationRight_eb64.wrap_d3bd {
     margin-bottom: 50px;
   }
@@ -251,7 +251,7 @@ a {
 }
 
 
-@media (max-width:850px) {
+@media (max-width:970px) {
   jdiv {
     margin-bottom: 50px !important;
   }

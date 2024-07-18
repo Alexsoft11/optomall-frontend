@@ -207,5 +207,11 @@
     "payCost": "Sizning yetkazib berish narxingiz: ",
     "textCopyed": "Matn ko'chirildi!",
     "cardNumber": "Qabul qiluvchining kartasi raqami: "
+  },
+  "Footer": {
+    "about_us": "Biz haqimizda",
+    "faq": "Ko'p beriladigan savollar",
+    "shipping_costs": "Yuk tashish xarajatlari",
+    "how_to_use": "Qanday foydalaniladi"
   }
 }

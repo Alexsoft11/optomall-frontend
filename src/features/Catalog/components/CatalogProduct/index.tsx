@@ -4,6 +4,7 @@ import SearchBtn from "@/components/SearchBtn";
 import Card from "@/components/Card";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import { useTranslations } from "next-intl";
+import Products from "@/components/Products";
 
 interface Props {
   data: any;
@@ -28,11 +29,7 @@ const CatalogProduct = ({ data }: Props) => {
               </div>
             </div>
 
-            <div className={styles.catalog_product__cards}>
-              {data?.map((el: any, idx: number) => (
-                <Card key={el.id} data={el}/>
-              ))}
-            </div>
+            <Products data={data}/>
           </div>
         </div>
       </div>

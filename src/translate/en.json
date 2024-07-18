@@ -207,5 +207,11 @@
     "payCost": "Your delivery cost is: ",
     "cardNumber": "Recipient's card number: ",
     "textCopyed": "Text copied!"
+  },
+  "Footer": {
+    "about_us": "About Us",
+    "faq": "Frequently Asked Questions",
+    "shipping_costs": "Shipping Costs",
+    "how_to_use": "How to Use"
   }
 }
