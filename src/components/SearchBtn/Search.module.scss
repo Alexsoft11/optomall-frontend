@@ -17,7 +17,6 @@
     outline: none;
     padding-left: 5px;
     padding-right: 10px;
-    flex-direction: row-reverse;
   }
 }
 
@@ -26,7 +25,7 @@
 }
 
 .sticky_start {
-  @media (max-width: 850px) {
+  @media (max-width: 970px) {
     box-shadow: 0px 4px 35px 0px rgba(0, 0, 0, 0.1);
     position: fixed;
     z-index: 999;
@@ -56,7 +55,6 @@
         outline: none;
         padding-left: 5px;
         padding-right: 10px;
-        flex-direction: row-reverse;
       }
 
       @media (max-width: 1020px) {
