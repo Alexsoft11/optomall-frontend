@@ -58,7 +58,7 @@ const SearchBtn = () => {
   return (
     <>
       <div
-        className={`${scrolled ? styles.sticky : ""} 
+        className={`${scrolled ? styles.sticky : ""}
             ${startScrool ? styles.sticky_start : ""}
             `}
       >
