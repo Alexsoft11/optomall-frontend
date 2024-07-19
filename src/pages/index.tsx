@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { API } from "@/services/api";
 import { LoadingSpinner } from "@/ui/Spin";
@@ -25,6 +25,21 @@ interface HomeProps {
 
 export default function Home({ slidersData, productsData }: HomeProps) {
   const t = useTranslations("Home");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner fullscreen={true} size="large" />;
+  }
 
   return (
     <PageLayout
