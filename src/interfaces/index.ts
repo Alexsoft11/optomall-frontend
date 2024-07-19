@@ -68,3 +68,10 @@ export interface UserBasketSizesInterface {
     quantity: number,
     color_id: string
 }
+
+
+export interface LanguageStringIntergace {
+    en: string,
+    uz: string,
+    ru: string,
+}

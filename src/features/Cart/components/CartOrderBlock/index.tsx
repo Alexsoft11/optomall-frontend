@@ -18,10 +18,10 @@ interface Props {
     cargoCost?: number,
     createOrderData?: CreateOrderDataInterface,
     uploadUrl?: string,
-    isOrder?: boolean
+    isCart?: boolean
 }
 
-export default function CartOrderBlock({ cost, itemValue, orderId, createOrderData, uploadUrl = '', isOrder = false, cargoId, cargoCost }: Props) {
+export default function CartOrderBlock({ cost, itemValue, orderId, createOrderData, uploadUrl = '', isCart = false, cargoId, cargoCost }: Props) {
     const t = useTranslations('Cart')
     const [checkModalIsOpen, setCheckModalIsOpen] = useState(false);
     const [authModalIsOpen, setAuthModalIsOpen] = useState(false);
@@ -106,7 +106,7 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
                     formData.append('order_id', orderId.toString());
                     createChequeData(formData);
                     setButtonStatus('pending');
-                } else if (cargoId) {
+                } else if (cargoId !== undefined) {
                     formData.append('image', image);
                     formData.append('cargoId', cargoId.toString());
                     createChequeData(formData);
@@ -136,7 +136,7 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
 
     return (
         <div className={styles.main}>
-            {orderId || !isOrder ?
+            {orderId || cargoId !== undefined ?
                 <p className={styles.order_title}>{t('payment')}</p> :
                 <p className={styles.order_title}>{t('item')}, {itemValue}</p>
             }
@@ -164,7 +164,7 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
                         </span>
                     </div>
                 </Upload> : null}
-            {isOrder ? <Button onClick={() => toOrder()} className={styles.complite_btn} label={t("complite")} /> : null}
+            {isCart ? <Button onClick={() => toOrder()} className={styles.complite_btn} label={t("complite")} /> : null}
 
 
             <Modal

@@ -126,7 +126,7 @@ export default function CartBasketPage({ data }: Props) {
         <>
           <CartBasketItems changeQuantity={changeQuantity} setAddOrder={setAddOrder} data={dataClone} />
           <div className={styles.order_side}>
-            <CartOrderBlock uploadUrl="add-check" itemValue={itemsValue} createOrderData={createOrderData} cost={`${totalPrice} uzs`} />
+            <CartOrderBlock uploadUrl="add-check" itemValue={itemsValue} isCart={true} createOrderData={createOrderData} cost={`${totalPrice} uzs`} />
             <div className={styles.order_info}>
               <LocationBlock setCountry={setCountry} setLocation={setLocation} />
               <CartGetOrderPerson setPersonData={setPersonData} />
