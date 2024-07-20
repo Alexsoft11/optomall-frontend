@@ -132,7 +132,9 @@
     "payCost": "To'lanadigan summa: ",
     "cardNumber": "Oluvchining karta raqami: ",
     "payTutorialText": "Quyidagi karta raqamini nusxalab oling, so'ngra bank ilovangizni oching va ko'rsatilgan summani bir to'lov bilan ushbu raqamga o'tkazing. Diqqat! Quyida ko'rsatilgan aniq summani o'tkazish kerak!",
-    "textCopyed": "Matn ko'chirildi!"
+    "textCopyed": "Matn ko'chirildi!",
+    "importantMessage": "Sizning buyurtmangiz kelganidan so'ng yukni to'lashingiz kerak. Yetkazib berish narxi buyurtma kelganda avtomatik ravishda hisoblanadi va og'irlikka bog'liq, har Kg uchun {{costPerKg}}.",
+    "importantTitle": "Muhim!"
   },
   "Purchases": {
     "active": "Faol",
@@ -149,7 +151,8 @@
     "moreDetail": "Batafsil",
     "orderCost": "Umumiy summa:",
     "currency": "so'm",
-    "inVerification": "tekshirilmoqda"
+    "inVerification": "tekshirilmoqda",
+    "cargo": "Karqo"
   },
   "Search": {
     "platform": "Platforma",

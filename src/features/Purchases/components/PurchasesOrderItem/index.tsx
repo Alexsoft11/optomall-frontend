@@ -13,7 +13,7 @@ export default function PurchasesOrderItem({ item }: Props) {
     return (
         <div className={styles.main}>
             <div className={styles.item_img}>
-                <Image height={80} width={80} alt="#" src={item.image_url} />
+                <Image height={80} width={80} alt="#" src={item.image_url} />   
             </div>
 
             <div className={styles.item_text}>

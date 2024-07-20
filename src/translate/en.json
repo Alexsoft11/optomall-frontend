@@ -132,7 +132,9 @@
     "payCost": "Amount to be paid: ",
     "cardNumber": "Recipient's card number: ",
     "payTutorialText": "Copy the card number below, then open your bank app and transfer the amount specified below in a single payment. Note! You need to transfer the exact amount specified below!",
-    "textCopyed": "Text copied!"
+    "textCopyed": "Text copied!",
+    "importantMessage": "You need to pay for the cargo upon arrival of your order. The delivery cost is automatically calculated upon arrival and depends on the weight, {{costPerKg}} per Kg.",
+    "importantTitle": "Important!"
   },
   "Purchases": {
     "active": "Active",
@@ -149,7 +151,8 @@
     "moreDetail": "More Detail",
     "orderCost": "Total Cost:",
     "currency": "uzs",
-    "inVerification": "in verification"
+    "inVerification": "in verification",
+    "cargo": "Cargo"
   },
   "Search": {
     "platform": "Platform",

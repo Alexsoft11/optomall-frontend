@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styles from './LocationBlock.module.scss';
 import { useTranslations } from 'next-intl';
 import ChooseLocation from '@/components/ChooseLocation';
-import LocationModal from '@/features/Cart/components/LocationModal';
 import { LocationInfoInterface } from '../Types';
+import LocationModal from '../LocationModal';
 
 interface Props {
     setLocation: React.Dispatch<any>,

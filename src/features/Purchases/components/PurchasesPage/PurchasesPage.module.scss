@@ -3,6 +3,20 @@
     flex-direction: column;
     gap: 20px;
 
+    .empty_data {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        div {
+            padding: 15dvh 0px 0px 0px;
+            font-size: var(--heading-five);
+            font-weight: 500;
+            line-height: 29.05px;
+        }
+
+    }
+
     .items_block {
         display: flex;
         flex-direction: column;
@@ -14,7 +28,6 @@
             gap: 20px;
         }
     }
-
 
     .switch_buttons {
         display: flex;
@@ -38,6 +51,7 @@
             }
         }
     }
+
     .activeChild_active {
         button:nth-child(1) {
             span {
@@ -45,6 +59,7 @@
             }
         }
     }
+
     .activeChild_in_verification {
         button:nth-child(3) {
             span {

@@ -13,8 +13,8 @@ interface Props {
 export default function PurchasesPage({ data = [] }: Props) {
     const t = useTranslations('Purchases');
     const router = useRouter();
-    
-    const changeRour = (filter:string) => {
+
+    const changeRour = (filter: string) => {
         router.push(`/purchases?filter=${filter}`)
     }
     return (
@@ -30,15 +30,21 @@ export default function PurchasesPage({ data = [] }: Props) {
                     {t('inVerification')}
                 </Button>
             </div>
-            <div className={styles.items_block}>
-                <div className={styles.items}>
-                    {data?.map(el => (
-                        <Fragment key={el.id}>
-                            <PurchasesItem item={el} />
-                        </Fragment>
-                    ))}
+            {data.length ? (
+                <div className={styles.items_block}>
+                    <div className={styles.items}>
+                        {data?.map(el => (
+                            <Fragment key={el.id}>
+                                <PurchasesItem item={el} />
+                            </Fragment>
+                        ))}
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <div className={styles.empty_data}>
+                    <div>{t('emptyData')}</div>
+                </div>
+            )}
         </div>
     );
 }
