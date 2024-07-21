@@ -3,7 +3,11 @@ import { StaticImageData } from "next/image";
 export interface CardInterface {
     id: string,
     product_id: string;
-    title?: string;
+    title?: string | {
+        uz: string;
+        ru: string;
+        en: string;
+    };
     price?: string; 
     image: StaticImageData;
     is_liked: boolean;
