@@ -23,6 +23,15 @@ export const API = {
 
   getHomePageCategoryProducts: () => axiosInstance.get("additional-categories"),
 
+  getHomePageCategoryProductsToken: (token?:string) =>
+    axiosInstance
+      .get(`additional-categories${token && token !== "undefined" ? "-token" : ""}`,{
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => res.data),
+
   // SearchPage
   getSearchPageProducts: (query: any) =>
     axiosInstance.get(`search-products-from-taobao?searchQuery=${query}`),

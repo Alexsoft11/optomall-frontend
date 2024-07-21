@@ -4,6 +4,7 @@ import { API } from "@/services/api";
 import { LoadingSpinner } from "@/ui/Spin";
 import { useTranslations } from "next-intl";
 import PageLayout from "@/components/Layout/PageLayout";
+import cookie from "cookie";
 
 const MainSlider = dynamic(
   () => import("@/features/home/components/MainSlider"),
@@ -59,12 +60,21 @@ export const getServerSideProps = async (context: any) => {
   try {
     const slidersResponse = await API.getHomePageSlider();
     const productsResponse = await API.getHomePageProducts();
-    const productsCategoryResponse = await API.getHomePageCategoryProducts();
+    const cookies = cookie.parse(context.req.headers.cookie || "");
+    const token = cookies.token ? decodeURIComponent(cookies.token) : null;
+
+    let categoryProductsResponse;
+
+    if (token) {
+      categoryProductsResponse = await API.getHomePageCategoryProductsToken(token);
+    } else {
+      categoryProductsResponse = await API.getHomePageCategoryProducts();
+    }
 
     return {
       props: {
         slidersData: slidersResponse.data || [],
-        categoryProductsData: productsCategoryResponse.data || [],
+        categoryProductsData: categoryProductsResponse.data || [],
         productsData: productsResponse.data || [],
         messages: (await import(`../translate/${context.locale}.json`)).default,
       },

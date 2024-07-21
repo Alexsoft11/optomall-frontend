@@ -18,28 +18,28 @@ interface Props {
 
 const Products = ({ products, categoryData }: Props) => {
   const t = useTranslations()
-  const [productsChange, setProducts] = useState<CardInterface[]>(products);
+  // const [productsChange, setProducts] = useState<CardInterface[]>(products);
 
-  const { appendData: getProductsData, isLoading: isProductsLoading } = useQueryApiClient({
-    request: {
-      url: `products?query=&tab=:tab`,
-      method: 'GET',
-      disableOnMount: true,
-    },
-    onSuccess(res: any) {
-      setProducts(res.products);
-    }
-  });
+  // const { appendData: getProductsData, isLoading: isProductsLoading } = useQueryApiClient({
+  //   request: {
+  //     url: `products?query=&tab=:tab`,
+  //     method: 'GET',
+  //     disableOnMount: true,
+  //   },
+  //   onSuccess(res: any) {
+  //     setProducts(res.products);
+  //   }
+  // });
 
-  const handleTabChange = (key: string) => {
-    getProductsData({ tab: key });
-  };
+  // const handleTabChange = (key: string) => {
+  //   getProductsData({ tab: key });
+  // };
   
   return (
     <div className={styles.products}>
       <div className="container">
         <div className={styles.products__inner}>
-          <div className={styles.products__top}>
+          {/* <div className={styles.products__top}>
             <CustomTabs className="products_tab" onChange={handleTabChange}>
               {ProductTabsData.map((tab) => (
                 <TabPane
@@ -49,7 +49,7 @@ const Products = ({ products, categoryData }: Props) => {
                 />
               ))}
             </CustomTabs>
-          </div>
+          </div> */}
 
           <div className={styles.products__cards}>
             {/* {isProductsLoading ? (
@@ -65,7 +65,7 @@ const Products = ({ products, categoryData }: Props) => {
               categoryData?.map((item: any, idx: number) => (
                 <div className={styles.products__categories_inner}>
                     <div className={styles.products__banner}>
-                      <Image src="" alt="banner img"/>
+                      <Image src={item?.image} width={1000} height={1000} alt="banner img"/>
                     </div>
 
                     <div className={styles.products__cards}>

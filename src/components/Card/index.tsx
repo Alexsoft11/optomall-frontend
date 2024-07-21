@@ -33,7 +33,6 @@ const Card = ({ data, isShowLiked, onLikeChange }: CardProps) => {
     router.push(`/product/${data.id}`);
   };
 
-  // Extract title based on locale
   const getTitle = (
     title: any | { uz: string; ru: string; en: string } | undefined
   ) => {
