@@ -162,7 +162,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
         selectedSizes[colorId]
           .filter((size: any) => size.quantity > 0)
           .map((size) => ({
-            product_id: product.id,
+            product_id: product.id.toString(),
             price: product.price,
             title: product.title,
             image_url: product.colors.find((img) => img.id === colorId)?.image_url || "",

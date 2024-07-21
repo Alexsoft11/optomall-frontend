@@ -11,13 +11,17 @@ import Cookies from 'universal-cookie';
 import { RcFile } from 'antd/es/upload';
 
 interface Props {
-    cost: number;
+    cost: string;
     itemValue?: number,
     orderId?: number,
-    createOrderData?: CreateOrderDataInterface
+    cargoId?: number,
+    cargoCost?: number,
+    createOrderData?: CreateOrderDataInterface,
+    uploadUrl?: string,
+    isCart?: boolean
 }
 
-export default function CartOrderBlock({ cost, itemValue, orderId, createOrderData }: Props) {
+export default function CartOrderBlock({ cost, itemValue, orderId, createOrderData, uploadUrl = '', isCart = false, cargoId, cargoCost }: Props) {
     const t = useTranslations('Cart')
     const [checkModalIsOpen, setCheckModalIsOpen] = useState(false);
     const [authModalIsOpen, setAuthModalIsOpen] = useState(false);
@@ -38,7 +42,7 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
         }`;
 
     const checkModalClose = () => {
-        router.push('/purchases?filter=active')
+        router.push('/purchases?filter=in_verification')
         setCheckModalIsOpen(false)
     }
 
@@ -55,7 +59,7 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
 
     const { appendData: createChequeData } = useQueryApiClient({
         request: {
-            url: "add-check",
+            url: uploadUrl,
             method: "POST",
             disableOnMount: true,
             multipart: true
@@ -102,6 +106,11 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
                     formData.append('order_id', orderId.toString());
                     createChequeData(formData);
                     setButtonStatus('pending');
+                } else if (cargoId !== undefined) {
+                    formData.append('image', image);
+                    formData.append('cargoId', cargoId.toString());
+                    createChequeData(formData);
+                    setButtonStatus('pending');
                 }
             }
         },
@@ -127,15 +136,23 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
 
     return (
         <div className={styles.main}>
-            {orderId ?
+            {orderId || cargoId !== undefined ?
                 <p className={styles.order_title}>{t('payment')}</p> :
                 <p className={styles.order_title}>{t('item')}, {itemValue}</p>
             }
             <div className={styles.total}>
-                <h1>{t('total')}:</h1>
-                <p>{cost} uzs</p>
+                {cargoCost ? (
+                    <div className={styles.cargo_title}>
+                        <p>{t('cargo')}</p>
+                        <p>{cargoCost}$ {t("forKg")}</p>
+                    </div>
+                ) : null}
+                <div >
+                    <h1>{t('total')}:</h1>
+                    <p>{cost}</p>
+                </div>
             </div>
-            {orderId ?
+            {orderId || cargoId !== undefined ?
                 <Upload {...props}>
                     <div className={styles.response_button__block}>
                         <span className={styles['loading-btn-wrapper']}>
@@ -146,9 +163,10 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
                             </button>
                         </span>
                     </div>
-                </Upload> :
-                <Button onClick={() => toOrder()} className={styles.complite_btn} label={t("complite")} />
-            }
+                </Upload> : null}
+            {isCart ? <Button onClick={() => toOrder()} className={styles.complite_btn} label={t("complite")} /> : null}
+
+
             <Modal
                 onCancel={checkModalClose}
                 className='bg_white'

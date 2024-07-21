@@ -72,7 +72,7 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
           <Image src={MinusSvg} width={24} height={24} alt="#" />
         </Button>
         <h4>{item.quantity}</h4>
-        <Button onClick={() => changeQuantity(item.quantity++, item)}>
+        <Button onClick={() => changeQuantity(++item.quantity, item)}>
           <Image src={PlusSvg} width={24} height={24} alt="#" />
         </Button>
       </div>
