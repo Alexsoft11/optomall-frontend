@@ -8,12 +8,15 @@ import { CardInterface } from "@/interfaces";
 import { useTranslations } from "next-intl";
 import { LoadingSpinner } from "@/ui/Spin";
 import useQueryApiClient from "@/utils/useQueryApiClient";
+import { CategoryInterface } from "../../interfaces";
+import Image from "next/image";
 
 interface Props {
   products: CardInterface[];
+  categoryData: CategoryInterface[]
 }
 
-const Products = ({ products }: Props) => {
+const Products = ({ products, categoryData }: Props) => {
   const t = useTranslations()
   const [productsChange, setProducts] = useState<CardInterface[]>(products);
 
@@ -49,13 +52,32 @@ const Products = ({ products }: Props) => {
           </div>
 
           <div className={styles.products__cards}>
-            {isProductsLoading ? (
+            {/* {isProductsLoading ? (
               <LoadingSpinner  spinning={true} tip={'loadingData'} size="large" />
             ) : (
               productsChange?.map((el: CardInterface, idx: number) => (
                 <Card key={el.id}  data={el} />
               ))
-            )}
+            )} */}
+          </div>
+          <div className={styles.products__categories}>
+            {
+              categoryData.map((item: any, idx: number) => (
+                <div className={styles.products__categories_inner}>
+                    <div className={styles.products__banner}>
+                      <Image src="" alt="banner img"/>
+                    </div>
+
+                    <div className={styles.products__cards}>
+                      {
+                        item?.products.map((el: any, idx: number) => (
+                          <Card key={idx}  data={el} />
+                        ))
+                      }
+                    </div>
+                </div>
+              ))
+            }
           </div>
         </div>
       </div>

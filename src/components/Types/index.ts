@@ -16,3 +16,10 @@ export interface FooterInterface {
     path: string;
     icon: string;
 }
+
+export interface LocaleStringsInterface {
+    uz: string;
+    ru: string;
+    en: string;
+}
+  

@@ -21,9 +21,10 @@ const Products = dynamic(() => import("@/features/home/components/Products"), {
 interface HomeProps {
   slidersData: { sliders: any[] };
   productsData: { products: any[] };
+  categoryProductsData: { categories: any[] };
 }
 
-export default function Home({ slidersData, productsData }: HomeProps) {
+export default function Home({ slidersData, productsData, categoryProductsData }: HomeProps) {
   const t = useTranslations("Home");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -48,8 +49,8 @@ export default function Home({ slidersData, productsData }: HomeProps) {
       metaKeywords={t("metaKeywords")}
     >
       <MainSlider data={slidersData?.sliders} />
-      <Category />
-      <Products products={productsData?.products} />
+      {/* <Category /> */}
+      <Products products={productsData?.products} categoryData={categoryProductsData?.categories}/>
     </PageLayout>
   );
 }
@@ -58,10 +59,12 @@ export const getServerSideProps = async (context: any) => {
   try {
     const slidersResponse = await API.getHomePageSlider();
     const productsResponse = await API.getHomePageProducts();
+    const productsCategoryResponse = await API.getHomePageCategoryProducts();
 
     return {
       props: {
         slidersData: slidersResponse.data || [],
+        categoryProductsData: productsCategoryResponse.data || [],
         productsData: productsResponse.data || [],
         messages: (await import(`../translate/${context.locale}.json`)).default,
       },
@@ -72,6 +75,7 @@ export const getServerSideProps = async (context: any) => {
       props: {
         slidersData: [],
         productsData: [],
+        categoryProductsData: [],
         messages: (await import(`../translate/${context.locale}.json`)).default,
       },
     };

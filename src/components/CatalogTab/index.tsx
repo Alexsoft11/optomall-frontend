@@ -34,10 +34,10 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
   }, [CatalogTabsData]);
 
   const truncateText = (text: any, maxLength: any) => {
-    if (text.length <= maxLength) {
+    if (text?.length <= maxLength) {
       return text;
     } else {
-      return text.slice(0, maxLength) + "...";
+      return text?.slice(0, maxLength) + "...";
     }
   };
 
@@ -96,7 +96,7 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
                     }}
                     className={styles.navigation__title}
                   >
-                    {truncateText(tab.name, 25)}
+                    {truncateText(tab?.name, 25)}
                   </p>
                 </Tooltip>
               }

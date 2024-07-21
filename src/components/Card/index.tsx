@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Card.module.scss";
-import Link from "next/link";
 import { CardInterface } from "@/interfaces";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Tooltip } from "antd";
 import CustomImage from "../CustomImage";
 import LikedBtn from "../LikedBtn";
 import { useRouter } from "next/router";
+import { useJwt } from "@/utils/useJwt";
 
 interface CardProps {
   data: CardInterface;
@@ -19,18 +19,31 @@ const Card = ({ data, isShowLiked, onLikeChange }: CardProps) => {
   const textRef = useRef<any>(null);
   const [isOverflowed, setIsOverflowed] = useState(false);
   const router = useRouter();
-
+  const locale = useLocale();
+  const token = useJwt();
   useEffect(() => {
     const { current } = textRef;
     if (current) {
       setIsOverflowed(current?.scrollHeight > current?.clientHeight);
     }
   }, [textRef]);
-  
+
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
     router.push(`/product/${data.id}`);
   };
+
+  // Extract title based on locale
+  const getTitle = (
+    title: any | { uz: string; ru: string; en: string } | undefined
+  ) => {
+    if (typeof title === "object" && title !== null) {
+      return title[locale] || title["ru"] || title["uz"] || title["en"] || "";
+    }
+    return title || "";
+  };
+
+  const title = getTitle(data.title);
 
   return (
     <div className={styles.card}>
@@ -50,10 +63,10 @@ const Card = ({ data, isShowLiked, onLikeChange }: CardProps) => {
 
         <Tooltip
           overlayClassName="tooltip-white"
-          title={isOverflowed ? data.title : ""}
+          title={isOverflowed ? title : ""}
         >
           <h2 className={styles.card__title} ref={textRef}>
-            {data.title}
+            {title}
           </h2>
         </Tooltip>
 
@@ -63,9 +76,13 @@ const Card = ({ data, isShowLiked, onLikeChange }: CardProps) => {
           </p>
         </div>
       </div>
-      {isShowLiked && (
-        <LikedBtn isLike={data.is_liked} id_filter={+data.id || undefined} product_id={data.product_id} onLikeChange={onLikeChange}/>
-      )}
+      <LikedBtn
+        isLike={data.is_liked}
+        id_filter={+data.id || undefined}
+        product_id={data.product_id}
+        onLikeChange={onLikeChange}
+        card={data}
+      />
     </div>
   );
 };

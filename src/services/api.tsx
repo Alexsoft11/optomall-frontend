@@ -21,6 +21,8 @@ export const API = {
 
   getHomePageProducts: () => axiosInstance.get("products?query=Discount"),
 
+  getHomePageCategoryProducts: () => axiosInstance.get("additional-categories"),
+
   // SearchPage
   getSearchPageProducts: (query: any) =>
     axiosInstance.get(`search-products-from-taobao?searchQuery=${query}`),
