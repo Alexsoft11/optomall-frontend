@@ -63,7 +63,7 @@ const Products = ({ products, categoryData }: Props) => {
           <div className={styles.products__categories}>
             {
               categoryData?.map((item: any, idx: number) => (
-                <div className={styles.products__categories_inner}>
+                <div key={idx} className={styles.products__categories_inner}>
                     <div className={styles.products__banner}>
                       <Image src={item?.image} width={1000} height={1000} alt="banner img"/>
                     </div>
