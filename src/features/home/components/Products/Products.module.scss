@@ -11,12 +11,12 @@
 
   &__cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     column-gap: 25px;
     row-gap: 30px;
 
     @media (max-width: 1220px) {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 
     @media (max-width: 768px) {
@@ -38,6 +38,7 @@
 
   &__banner {
     aspect-ratio: 3 / 1;
+    margin-bottom: 20px;
 
     @media (max-width:1000px) {
       aspect-ratio: 3 / 1.5;
@@ -51,7 +52,6 @@
       border-radius: 15px;
       width: 100% !important;
       height: 100% !important;
-      // object-fit: cover;
 
       @media (max-width:768px) {
         border-radius: 10px;

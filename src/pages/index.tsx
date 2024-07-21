@@ -29,6 +29,8 @@ export default function Home({ slidersData, productsData, categoryProductsData }
   const t = useTranslations("Home");
   const [isLoading, setIsLoading] = useState(true);
 
+  console.log(categoryProductsData)
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -70,6 +72,9 @@ export const getServerSideProps = async (context: any) => {
     } else {
       categoryProductsResponse = await API.getHomePageCategoryProducts();
     }
+
+    console.log(categoryProductsResponse)
+    console.log(token, 'tekoooo')
 
     return {
       props: {
