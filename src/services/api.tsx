@@ -30,7 +30,7 @@ export const API = {
           Authorization: "Bearer " + token,
         },
       })
-      .then((res) => res.data),
+      .then((res) => res),
 
   // SearchPage
   getSearchPageProducts: (query: any) =>
