@@ -189,7 +189,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
 
   useEffect(() => {
     calculateTotalQuantities();
-    calculateTotalPrice(); // Calculate total price whenever quantities change
+    calculateTotalPrice(); 
   }, [selectedSizes, selectedColors]);
 
   const resetStates = () => {
