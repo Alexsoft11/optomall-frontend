@@ -1,5 +1,4 @@
 .products {
-  margin-top: 40px;
   @media (max-width: 500px) {
     margin-top: 0px;
   }
@@ -12,12 +11,12 @@
 
   &__cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     column-gap: 25px;
     row-gap: 30px;
 
     @media (max-width: 1220px) {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 
     @media (max-width: 768px) {
@@ -34,6 +33,29 @@
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
+    }
+  }
+
+  &__banner {
+    aspect-ratio: 3 / 1;
+    margin-bottom: 20px;
+
+    @media (max-width:1000px) {
+      aspect-ratio: 3 / 1.5;
+    }
+
+    @media (max-width:620px) {
+      aspect-ratio: 1.8 / 1;
+    }
+    img {
+      max-height: 450px;
+      border-radius: 15px;
+      width: 100% !important;
+      height: 100% !important;
+
+      @media (max-width:768px) {
+        border-radius: 10px;
+      }
     }
   }
 }

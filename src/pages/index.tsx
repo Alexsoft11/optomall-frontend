@@ -4,6 +4,7 @@ import { API } from "@/services/api";
 import { LoadingSpinner } from "@/ui/Spin";
 import { useTranslations } from "next-intl";
 import PageLayout from "@/components/Layout/PageLayout";
+import cookie from "cookie";
 
 const MainSlider = dynamic(
   () => import("@/features/home/components/MainSlider"),
@@ -21,9 +22,10 @@ const Products = dynamic(() => import("@/features/home/components/Products"), {
 interface HomeProps {
   slidersData: { sliders: any[] };
   productsData: { products: any[] };
+  categoryProductsData: { categories: any[] };
 }
 
-export default function Home({ slidersData, productsData }: HomeProps) {
+export default function Home({ slidersData, productsData, categoryProductsData }: HomeProps) {
   const t = useTranslations("Home");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -48,8 +50,8 @@ export default function Home({ slidersData, productsData }: HomeProps) {
       metaKeywords={t("metaKeywords")}
     >
       <MainSlider data={slidersData?.sliders} />
-      <Category />
-      <Products products={productsData?.products} />
+      {/* <Category /> */}
+      <Products products={productsData?.products} categoryData={categoryProductsData?.categories}/>
     </PageLayout>
   );
 }
@@ -58,10 +60,21 @@ export const getServerSideProps = async (context: any) => {
   try {
     const slidersResponse = await API.getHomePageSlider();
     const productsResponse = await API.getHomePageProducts();
+    const cookies = cookie.parse(context.req.headers.cookie || "");
+    const token = cookies.token ? decodeURIComponent(cookies.token) : null;
+
+    let categoryProductsResponse;
+
+    if (token) {
+      categoryProductsResponse = await API.getHomePageCategoryProductsToken(token);
+    } else {
+      categoryProductsResponse = await API.getHomePageCategoryProducts();
+    }
 
     return {
       props: {
         slidersData: slidersResponse.data || [],
+        categoryProductsData: categoryProductsResponse.data || [],
         productsData: productsResponse.data || [],
         messages: (await import(`../translate/${context.locale}.json`)).default,
       },
@@ -72,6 +85,7 @@ export const getServerSideProps = async (context: any) => {
       props: {
         slidersData: [],
         productsData: [],
+        categoryProductsData: [],
         messages: (await import(`../translate/${context.locale}.json`)).default,
       },
     };

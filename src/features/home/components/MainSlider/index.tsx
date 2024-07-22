@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './MainSlider.module.scss'
+import { MainSliderImages } from '@/mockdata/Sliders';
 import SearchBtn from '@/components/SearchBtn';
 import MainSliderCard from '../MainSliderCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -44,7 +45,7 @@ const MainSlider: React.FC<Props> = ({ data }) => {
             }}
             autoplay={{
               delay: 4500,
-              disableOnInteraction: false,
+              disableOnInteraction: true,
             }}
             loop={true}
             navigation={{
@@ -52,7 +53,7 @@ const MainSlider: React.FC<Props> = ({ data }) => {
               prevEl: `.prev-btn`,
             }}
             modules={[Pagination, Autoplay, Navigation]}
-            className={`${styles.my_swiper} main-swiper`}
+            className={styles.my_swiper}
           >
             {data?.map((el: any, idx) => (
               <SwiperSlide key={idx} className={styles.swiper}>

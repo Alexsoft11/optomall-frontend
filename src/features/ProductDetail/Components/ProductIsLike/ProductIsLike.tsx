@@ -86,7 +86,7 @@ const ProductIsLike: FC<IProps> = ({ product }) => {
         type="button"
         onClick={handleClickLiked}
       >
-        <SvgSelector id="saved-svg" />
+        <SvgSelector id="save-svg" />
       </button>
     </div>
   );
