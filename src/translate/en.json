@@ -123,8 +123,8 @@
     "checkWarningMessage": "Receipt failed verification. Check the receipt and try again.",
     "authMessage": "Register on the website to place an order!",
     "imgTypeValidation": "You can only upload an image!",
-    "chooseItem": "Choose at least one item from the basket",
     "imgSizeValidation": "Image size must be smaller than 5 MB!",
+    "chooseItem": "Choose at least one item from the basket",
     "cargo": "Cargo",
     "forKg": "per Kg"
   },
@@ -152,7 +152,8 @@
     "orderCost": "Total Cost:",
     "currency": "uzs",
     "inVerification": "in verification",
-    "cargo": "Cargo"
+    "cargo": "Cargo",
+    "calculated": "Calculated"
   },
   "Search": {
     "platform": "Platform",
@@ -167,6 +168,8 @@
     "review": "Leave a Review",
     "reviewProduct": "Rate the Product",
     "enterComment": "Enter Comment",
+    "imgTypeValidation": "You can only upload an image!",
+    "imgSizeValidation": "Image size must be smaller than 5 MB!",
     "sendReview": "Publish"
   },
   "Products": {

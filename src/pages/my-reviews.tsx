@@ -5,7 +5,9 @@ import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { MyReviewsMockdata } from "@/mockdata/MyReviews";
+import cookie from "cookie";
 import { LoadingSpinner } from "@/ui/Spin";
+import { API } from "@/services/api";
 
 const MyReviewsPage = dynamic(
   () => import("@/features/MyReviews/components/MyReviewsPage"),
@@ -13,6 +15,10 @@ const MyReviewsPage = dynamic(
     loading: () => <LoadingSpinner className="global_page_loader" />,
   }
 );
+
+interface Props {
+  purchasesData: [] | [];
+}
 
 export default function MyReviews() {
   const t = useTranslations("GLOBAL");
@@ -30,3 +36,28 @@ export default function MyReviews() {
     </div>
   );
 }
+
+// export const getServerSideProps = async (context: any) => {
+//   try {
+//     const cookies = cookie.parse(context.req.headers.cookie || "");
+
+//     // Extract the token from the parsed cookies
+//     const token = decodeURIComponent(cookies.token);
+//     const { filter } = context.query;
+
+//     const purchasesResponse = await API.getPurchases(token, filter);
+
+//     return {
+//       props: {
+//         purchasesData: purchasesResponse || [],
+//       },
+//     };
+//   } catch (error: any) {
+//     console.error("Error fetching data:", error.message);
+//     return {
+//       props: {
+//         purchasesData: [],
+//       },
+//     };
+//   }
+// };

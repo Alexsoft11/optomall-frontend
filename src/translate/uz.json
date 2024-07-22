@@ -123,8 +123,8 @@
     "checkWarningMessage": "Chek tasdiqlanmadi. Chekni tekshiring va qayta urinib ko'ring.",
     "authMessage": "Buyurtma berish uchun saytda ro'yxatdan o'ting!",
     "imgTypeValidation": "Faqat rasm yuklashingiz mumkin!",
-    "chooseItem": "Savatdan kamida bitta mahsulot tanlang",
     "imgSizeValidation": "Rasm hajmi 5 MB dan kichik bo'lishi kerak!",
+    "chooseItem": "Savatdan kamida bitta mahsulot tanlang",
     "cargo": "Karqo",
     "forKg": "kg uchun"
   },
@@ -152,7 +152,8 @@
     "orderCost": "Umumiy summa:",
     "currency": "so'm",
     "inVerification": "tekshirilmoqda",
-    "cargo": "Karqo"
+    "cargo": "Karqo",
+    "calculated": "Hisoblangan"
   },
   "Search": {
     "platform": "Platforma",
@@ -164,6 +165,8 @@
   "MyReviews": {
     "waitForReview": "Baho berish kutilmoqda",
     "reviewed": "Baholangan",
+    "imgTypeValidation": "Faqat rasm yuklashingiz mumkin!",
+    "imgSizeValidation": "Rasm hajmi 5 MB dan kichik bo'lishi kerak!",
     "review": "Sharh qoldirish",
     "reviewProduct": "Mahsulotni baholash",
     "enterComment": "Izoh kiriting",

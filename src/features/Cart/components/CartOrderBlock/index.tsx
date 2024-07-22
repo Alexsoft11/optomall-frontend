@@ -21,7 +21,7 @@ interface Props {
     isCart?: boolean
 }
 
-export default function CartOrderBlock({ cost, itemValue, orderId, createOrderData, uploadUrl = '', isCart = false, cargoId, cargoCost }: Props) {
+export default function CartOrderBlock({ cost, itemValue, orderId, createOrderData, uploadUrl = '', isCart = false, cargoId = undefined, cargoCost }: Props) {
     const t = useTranslations('Cart')
     const [checkModalIsOpen, setCheckModalIsOpen] = useState(false);
     const [authModalIsOpen, setAuthModalIsOpen] = useState(false);
@@ -101,14 +101,17 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
                 delete image.uid;
 
                 const formData = new FormData();
+
                 if (orderId) {
                     formData.append('image', image);
+                    formData.append('type', "order");
                     formData.append('order_id', orderId.toString());
                     createChequeData(formData);
                     setButtonStatus('pending');
                 } else if (cargoId !== undefined) {
                     formData.append('image', image);
                     formData.append('cargoId', cargoId.toString());
+                    formData.append('type', "cargo");
                     createChequeData(formData);
                     setButtonStatus('pending');
                 }

@@ -31,20 +31,20 @@ export default function Info() {
         message.error('something_wrong')
         return
       }
+      console.log(res.token);
+      
       if (localStorage.getItem('basket-data')) {
         API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
       }
-      router.push("/");
-      const maxAge = 60; // 3 days in seconds
-
+      const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
+      
       // Set the cookie
       cookie.set('token', res.token, {
         path: '/',
         maxAge: maxAge,
-        httpOnly: true,
-        secure: process.env.NODE_ENV !== 'development',
       });
       setIsLoading(false)
+      router.push("/");
     },
     onError(res) {
       handleError(res);

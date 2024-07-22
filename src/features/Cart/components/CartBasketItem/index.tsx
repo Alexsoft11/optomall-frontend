@@ -5,7 +5,8 @@ import Image from "next/image";
 import { MinusSvg, PlusSvg } from "$/assets/images";
 import { Button } from "antd";
 import { Checkbox } from "@/ui";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { LanguageStringIntergace } from "@/interfaces";
 
 interface Props {
   item: CartItemInterface;
@@ -20,6 +21,7 @@ interface Props {
 
 export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Props) {
   const t = useTranslations("GLOBAL");
+  const locale = useLocale()
 
   const handleChange = (chacked: boolean) => {
 
@@ -27,7 +29,7 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
     const data: CartOrderItemInterface = {
       product_id: item.product_id,
       image_url: item.image_url,
-      title: item.title,
+      title: item.title[locale as keyof LanguageStringIntergace],
       color: item.color,
       size: item.size,
       size_id: item.size_id,
@@ -50,7 +52,7 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
 
       <div className={styles.item_text}>
         <div className={styles.item_info}>
-          <p>{item.title}</p>
+          <p>{item.title[locale as keyof LanguageStringIntergace]}</p>
           <span>
             {item.color} · {item.size}
           </span>

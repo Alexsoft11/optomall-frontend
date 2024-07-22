@@ -66,8 +66,8 @@
   .order_detail {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 30px 0px 30px;
+    gap: 10px;
+    padding: 20px 0px ;
 
     .detail_item {
       display: flex;
@@ -78,6 +78,7 @@
         font-size: var(--paragraph);
         font-weight: 400;
         line-height: 19.36px;
+        
       }
 
       p {

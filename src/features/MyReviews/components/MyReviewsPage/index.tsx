@@ -5,6 +5,7 @@ import { Button } from 'antd';
 import { MyReviewsDataInterface } from '../../interfaces';
 import ReviewsItem from '../ReviewsItem';
 import ReviewModal from '../ReviewModal/Index';
+import { useRouter } from 'next/router';
 
 interface Props {
     data: MyReviewsDataInterface
@@ -12,28 +13,28 @@ interface Props {
 
 export default function MyReviewsPage({ data }: Props) {
     const t = useTranslations('MyReviews')
-    const [defautlSwitch, setDefautlSwitch] = useState(true)
     const [modalIsOpen, setModalIsOpen] = useState(false)
+    const router = useRouter();
 
-    const setSwitch = () => {
-        setDefautlSwitch(!defautlSwitch)
+    const changeRout = (filter: string) => {
+        router.push(`/my-reviews?filter=${filter}`)
     }
 
     return (
         <>
             <div className={styles.main}>
-                <div className={styles.switch_buttons}>
-                    <Button onClick={() => setSwitch()} className={`${defautlSwitch ? styles.active_switch : null}`}>
+                <div className={`${styles.switch_buttons} ${styles["activeChild_" + router.query.filter]}`}>
+                    <Button onClick={() => changeRout('commented')} >
                         {t('waitForReview')}
                     </Button>
-                    <Button onClick={() => setSwitch()} className={`${!defautlSwitch ? styles.active_switch : null}`}>
+                    <Button onClick={() => changeRout('non_commented')}>
                         {t('reviewed')}
                     </Button>
                 </div>
                 <div className={styles.items_block}>
                     <div className={styles.items}>
                         {
-                            data[defautlSwitch ? "waitForReview" : "reviewed"].map(el => (
+                            data.waitForReview.map(el => (
                                 <Fragment key={el.id}>
                                     <ReviewsItem item={el} setModalIsOpen={setModalIsOpen} />
                                 </Fragment>

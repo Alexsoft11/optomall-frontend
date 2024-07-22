@@ -19,6 +19,7 @@ export default function LocationModal({ orderModalOpen, setModalIsOpen, setMapIs
     const [buttonIsLoading, setButtonIsLoading] = useState(false)
     const onFinish = (values: any) => {
         console.log(values);
+        setModalIsOpen(false)
     };
     const regions = [
         {
@@ -104,7 +105,7 @@ export default function LocationModal({ orderModalOpen, setModalIsOpen, setMapIs
             form.setFieldValue(key, value);
         });
     }
-    
+
 
 
     const modalProps = {
