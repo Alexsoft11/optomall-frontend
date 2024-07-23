@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 export const StyledInput = styled(AntdInput)`
   &.ant-input-affix-wrapper {
-    flex-direction: row-reverse;
    
     &:hover {
       border: var(--primary-color) 1px solid;

@@ -14,14 +14,14 @@ interface Props {
     cost: string;
     itemValue?: number,
     orderId?: number,
-    cargoId?: number,
     cargoCost?: number,
     createOrderData?: CreateOrderDataInterface,
-    uploadUrl?: string,
     isCart?: boolean
+    uploadUrl?: string,
+    type?: string,
 }
 
-export default function CartOrderBlock({ cost, itemValue, orderId, createOrderData, uploadUrl = '', isCart = false, cargoId, cargoCost }: Props) {
+export default function CartOrderBlock({ cost, itemValue, orderId, createOrderData, type, isCart = false, cargoCost }: Props) {
     const t = useTranslations('Cart')
     const [checkModalIsOpen, setCheckModalIsOpen] = useState(false);
     const [authModalIsOpen, setAuthModalIsOpen] = useState(false);
@@ -59,7 +59,7 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
 
     const { appendData: createChequeData } = useQueryApiClient({
         request: {
-            url: uploadUrl,
+            url: 'add-check',
             method: "POST",
             disableOnMount: true,
             multipart: true
@@ -101,17 +101,12 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
                 delete image.uid;
 
                 const formData = new FormData();
-                if (orderId) {
-                    formData.append('image', image);
-                    formData.append('order_id', orderId.toString());
-                    createChequeData(formData);
-                    setButtonStatus('pending');
-                } else if (cargoId !== undefined) {
-                    formData.append('image', image);
-                    formData.append('cargoId', cargoId.toString());
-                    createChequeData(formData);
-                    setButtonStatus('pending');
-                }
+
+                formData.append('type', type as string);
+                formData.append('image', image);
+                formData.append('order_id', orderId!.toString());
+                createChequeData(formData);
+                setButtonStatus('pending');
             }
         },
     };
@@ -136,7 +131,7 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
 
     return (
         <div className={styles.main}>
-            {orderId || cargoId !== undefined ?
+            {orderId ?
                 <p className={styles.order_title}>{t('payment')}</p> :
                 <p className={styles.order_title}>{t('item')}, {itemValue}</p>
             }
@@ -152,7 +147,7 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
                     <p>{cost}</p>
                 </div>
             </div>
-            {orderId || cargoId !== undefined ?
+            {orderId ?
                 <Upload {...props}>
                     <div className={styles.response_button__block}>
                         <span className={styles['loading-btn-wrapper']}>

@@ -21,12 +21,12 @@ const Profile = () => {
         <p>{t("account")}</p>
       </Link>
 
-      <Link href='/' className={styles.navbar__user_item}>
+      <Link href='/messages' className={styles.navbar__user_item}>
         <SvgSelector id='message-modal-svg' />
         <p>{t("messages")}</p>
       </Link>
 
-      <Link href='/' className={styles.navbar__user_item}>
+      <Link href='/purchases?filter=all' className={styles.navbar__user_item}>
         <SvgSelector id='shop-modal-svg' />
         <p>{t("purchases")}</p>
       </Link>

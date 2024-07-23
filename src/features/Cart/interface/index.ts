@@ -1,10 +1,11 @@
+import { LanguageStringIntergace } from "@/interfaces";
 import { StaticImageData } from "next/image";
 
 export interface CartItemInterface {
   id?: number;
   product_id: string;
   image_url: StaticImageData | null;
-  title: string;
+  title: LanguageStringIntergace;
   color: string;
   size: string | null;
   size_id?: number;
