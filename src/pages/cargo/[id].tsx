@@ -5,9 +5,9 @@ import { useTranslations } from "next-intl";
 import PageTitle from "@/components/PageTitle";
 import dynamic from "next/dynamic";
 import { API } from "@/services/api";
-import { OrderDataInterface } from "@/features/Order/interfaces";
 import cookie from "cookie";
 import { LoadingSpinner } from "@/ui/Spin";
+import { CargoDataInterface } from "@/features/Cargo/interfaces";
 
 const CargoPage = dynamic(
   () => import("@/features/Cargo/Components/CargoPage"),
@@ -16,11 +16,11 @@ const CargoPage = dynamic(
   }
 );
 
-// interface Props {
-//   orderData: OrderDataInterface;
-// }
+interface Props {
+  cargoData: CargoDataInterface;
+}
 
-export default function Cargo(orderData = 0 ) {
+export default function Cargo({ cargoData }: Props) {
   const t = useTranslations("GLOBAL");
 
   return (
@@ -31,33 +31,33 @@ export default function Cargo(orderData = 0 ) {
       <div>
         <GoToBack pathArr={[{ title: "cargo", path: "" }]} />
         <PageTitle />
-        <CargoPage orderData={123456} />
+        <CargoPage cargoData={cargoData} />
       </div>
     </div>
   );
 }
 
-// export const getServerSideProps = async (context: any) => {
-//   try {
-//     const cookies = cookie.parse(context.req.headers.cookie || "");
+export const getServerSideProps = async (context: any) => {
+  try {
+    const cookies = cookie.parse(context.req.headers.cookie || "");
 
-//     // Extract the token from the parsed cookies
-//     const token = decodeURIComponent(cookies.token);
-//     const { id } = context.query;
+    // Extract the token from the parsed cookies
+    const token = decodeURIComponent(cookies.token);
+    const { id } = context.query;
 
-//     const orderResponse = await API.getOrder(token, id);
+    const cargoResponse = await API.getCargo(token, id);
 
-//     return {
-//       props: {
-//         orderData: orderResponse.order || [],
-//       },
-//     };
-//   } catch (error: any) {
-//     console.error("Error fetching data:", error.message);
-//     return {
-//       props: {
-//         basketData: [],
-//       },
-//     };
-//   }
-// };
+    return {
+      props: {
+        cargoData: cargoResponse.order as CargoDataInterface || [],
+      },
+    };
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+    return {
+      props: {
+        cargoData: [],
+      },
+    };
+  }
+};

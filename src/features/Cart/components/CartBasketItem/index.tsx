@@ -29,7 +29,7 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
     const data: CartOrderItemInterface = {
       product_id: item.product_id,
       image_url: item.image_url,
-      title: item.title[locale as keyof LanguageStringIntergace],
+      title: item.title ? item.title[locale as keyof LanguageStringIntergace] : 'null',
       color: item.color,
       size: item.size,
       size_id: item.size_id,
@@ -52,7 +52,7 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
 
       <div className={styles.item_text}>
         <div className={styles.item_info}>
-          <p>{item.title[locale as keyof LanguageStringIntergace]}</p>
+          <p>{item.title ? item.title[locale as keyof LanguageStringIntergace] : 'null'}</p>
           <span>
             {item.color} · {item.size}
           </span>

@@ -8,6 +8,7 @@ import { MyReviewsMockdata } from "@/mockdata/MyReviews";
 import cookie from "cookie";
 import { LoadingSpinner } from "@/ui/Spin";
 import { API } from "@/services/api";
+import { MyReviewsReviewedInterface } from "@/features/MyReviews/interfaces";
 
 const MyReviewsPage = dynamic(
   () => import("@/features/MyReviews/components/MyReviewsPage"),
@@ -17,10 +18,10 @@ const MyReviewsPage = dynamic(
 );
 
 interface Props {
-  purchasesData: [] | [];
+  reviewsData: MyReviewsReviewedInterface[]
 }
 
-export default function MyReviews() {
+export default function MyReviews({ reviewsData }: Props) {
   const t = useTranslations("GLOBAL");
   return (
     <div className="container">
@@ -31,33 +32,33 @@ export default function MyReviews() {
       <div>
         <GoToBack pathArr={[{ title: "my-reviews", path: "" }]} />
         <PageTitle />
-        <MyReviewsPage data={MyReviewsMockdata} />
+        <MyReviewsPage data={reviewsData} />
       </div>
     </div>
   );
 }
 
-// export const getServerSideProps = async (context: any) => {
-//   try {
-//     const cookies = cookie.parse(context.req.headers.cookie || "");
+export const getServerSideProps = async (context: any) => {
+  try {
+    const cookies = cookie.parse(context.req.headers.cookie || "");
 
-//     // Extract the token from the parsed cookies
-//     const token = decodeURIComponent(cookies.token);
-//     const { filter } = context.query;
+    // Extract the token from the parsed cookies
+    const token = decodeURIComponent(cookies.token);
+    const { filter } = context.query;
 
-//     const purchasesResponse = await API.getPurchases(token, filter);
+    const reviewsResponse = await API.getReviews(token, filter);
 
-//     return {
-//       props: {
-//         purchasesData: purchasesResponse || [],
-//       },
-//     };
-//   } catch (error: any) {
-//     console.error("Error fetching data:", error.message);
-//     return {
-//       props: {
-//         purchasesData: [],
-//       },
-//     };
-//   }
-// };
+    return {
+      props: {
+        reviewsData: reviewsResponse as MyReviewsReviewedInterface || [],
+      },
+    };
+  } catch (error: any) {
+    console.error("Error fetching data:", error.message);
+    return {
+      props: {
+        reviewsData: [],
+      },
+    };
+  }
+};

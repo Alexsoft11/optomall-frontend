@@ -31,7 +31,6 @@ export default function Info() {
         message.error('something_wrong')
         return
       }
-      console.log(res.token);
       
       if (localStorage.getItem('basket-data')) {
         API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))

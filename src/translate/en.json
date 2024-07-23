@@ -170,7 +170,8 @@
     "enterComment": "Enter Comment",
     "imgTypeValidation": "You can only upload an image!",
     "imgSizeValidation": "Image size must be smaller than 5 MB!",
-    "sendReview": "Publish"
+    "sendReview": "Publish",
+    "commentAdded": "Comment added successfully!"
   },
   "Products": {
     "tab_1": "Discount",

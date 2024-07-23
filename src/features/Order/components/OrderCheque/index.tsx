@@ -7,15 +7,15 @@ import { message } from 'antd';
 
 interface Props {
     cost: number,
-    cardId: string
+    cardId: string,
+    costPerKg: string
 }
 
-export default function OrderCheque({ cardId, cost }: Props) {
+export default function OrderCheque({ cardId, cost, costPerKg }: Props) {
 
     const t = useTranslations('Order')
     const [messageApi, contextHolder] = message.useMessage();
     const [messageVisible, setMessageVisible] = useState(false);
-    const costPerKg = 5.5;
     const copyText = () => {
         navigator.clipboard.writeText(cardId);
         if (!messageVisible) {

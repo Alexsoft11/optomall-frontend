@@ -6,10 +6,12 @@ import { Button, Input, Modal } from '@/ui';
 import Image from 'next/image';
 import { AddSvg } from '$/assets/images';
 import { RcFile, UploadFile } from 'antd/es/upload';
+import useQueryApiClient from '@/utils/useQueryApiClient';
 
 interface Props {
     modalIsOpen: boolean,
-    onCancel: React.Dispatch<React.SetStateAction<boolean>>
+    onCancel: React.Dispatch<React.SetStateAction<boolean>>;
+    productId: number
 }
 
 const initailFileList = [
@@ -35,7 +37,7 @@ const initailFileList = [
     },
 ]
 
-export default function ReviewModal({ modalIsOpen, onCancel }: Props) {
+export default function ReviewModal({ modalIsOpen, onCancel, productId }: Props) {
     const [form] = Form.useForm();
     const t = useTranslations('MyReviews')
     const [fileList, setFileList] = useState<any[]>(initailFileList);
@@ -77,6 +79,13 @@ export default function ReviewModal({ modalIsOpen, onCancel }: Props) {
         setStarsVale(number)
     }
 
+    const returnToInitialValue = () => {
+        setFileList(initailFileList)
+        form.setFieldValue('comment', '')
+        setStarsVale(0)
+        onCancel(false)
+    }
+
     const uploadProps = {
         className: 'upload_block',
         name: 'file',
@@ -98,12 +107,35 @@ export default function ReviewModal({ modalIsOpen, onCancel }: Props) {
         }
     };
 
+    const { appendData: createData } = useQueryApiClient({
+        request: {
+            url: "post-comment",
+            method: "POST",
+            disableOnMount: true,
+        },
+        onSuccess(res) {
+            message.success(t('commentAdded'), 2)
+        },
+    });
+
+
+    const onFinish = (values: any) => {
+        const formData = new FormData()
+        const newFileList = fileList.filter(el => !el.initialUrl)
+        formData.append('name', values.comment)
+        formData.append('rating', starsValue.toString())
+        formData.append('images', JSON.stringify(newFileList))
+        formData.append('product_id', productId.toString())
+        createData(formData)
+        returnToInitialValue()
+    }
+
     const modalProps = {
         children: (
             <div className='review_modal'>
                 <Form
                     form={form}
-                    onFinish={(data) => onFinish(data)}
+                    onFinish={onFinish}
                 >
                     <div className='review-modal__rate'>
                         <p>{t('reviewProduct')}</p>
@@ -128,19 +160,10 @@ export default function ReviewModal({ modalIsOpen, onCancel }: Props) {
         ),
         title: t('review'),
         open: modalIsOpen,
-        onCancel: () => {
-            setFileList(initailFileList)
-            onCancel(false)
-        },
-        onClose: () => {
-            setFileList(initailFileList)
-            onCancel(false)
-        }
+        onCancel: () => returnToInitialValue(),
+        onClose: () => returnToInitialValue()
     }
 
-    const onFinish = (values: any) => {
-        onCancel(false)
-    }
 
     return (
         <Modal {...modalProps} />

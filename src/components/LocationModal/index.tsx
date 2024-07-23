@@ -18,7 +18,6 @@ export default function LocationModal({ orderModalOpen, setModalIsOpen, setMapIs
     const t = useTranslations("LocationModal");
     const [buttonIsLoading, setButtonIsLoading] = useState(false)
     const onFinish = (values: any) => {
-        console.log(values);
         setModalIsOpen(false)
     };
     const regions = [

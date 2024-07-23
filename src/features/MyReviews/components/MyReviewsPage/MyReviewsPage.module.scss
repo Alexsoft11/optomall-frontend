@@ -33,7 +33,7 @@
     }
 
     .activeChild_non_commented {
-        button:nth-child(2) {
+        button:nth-child(1) {
             span {
                 color: var(--primary-color) !important;
             }
@@ -41,7 +41,7 @@
     }
 
     .activeChild_commented {
-        button:nth-child(1) {
+        button:nth-child(2) {
             span {
                 color: var(--primary-color);
             }

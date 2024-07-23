@@ -1,21 +1,24 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import styles from './ReviewsItem.module.scss';
 import { MyReviewsReviewedInterface } from '../../interfaces';
 import Image from 'next/image';
 import { Button } from '@/ui';
 import { useTranslations } from 'next-intl';
 import { Rate } from 'antd';
+import ReviewModal from '../ReviewModal/Index';
 
 interface Pros {
     item: MyReviewsReviewedInterface,
-    setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function ReviewsItem({ item, setModalIsOpen }: Pros) {
+export default function ReviewsItem({ item }: Pros) {
     const t = useTranslations('MyReviews')
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
     const handleClick = () => {
         setModalIsOpen(true)
     }
+    
 
 
     return (
@@ -26,7 +29,8 @@ export default function ReviewsItem({ item, setModalIsOpen }: Pros) {
                 </div>
                 <div className={styles.item_text}>
                     <p>{item.name}</p>
-                    <span>{item.company}</span>
+                    {/* <span>{item.company}</span> */}
+                    <span>null</span>
                     <span>{item.date}</span>
                 </div>
             </div>
@@ -50,6 +54,7 @@ export default function ReviewsItem({ item, setModalIsOpen }: Pros) {
                     </div>
                 )}
             </div>
+            <ReviewModal productId={item.id} modalIsOpen={modalIsOpen} onCancel={setModalIsOpen} />
         </div>
     );
 }

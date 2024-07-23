@@ -170,7 +170,8 @@
     "review": "Sharh qoldirish",
     "reviewProduct": "Mahsulotni baholash",
     "enterComment": "Izoh kiriting",
-    "sendReview": "Nashr qilish"
+    "sendReview": "Nashr qilish",
+     "commentAdded": "Izoh muvaffaqiyatli qo'shildi!"
   },
   "Products": {
     "tab_1": "Chegirma",

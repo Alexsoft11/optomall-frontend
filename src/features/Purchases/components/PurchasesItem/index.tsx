@@ -6,6 +6,11 @@ import SvgSelector from '$/assets/icons/SvgSelector';
 import PurchasesOrderItem from '../PurchasesOrderItem';
 import Image from 'next/image';
 import { LanguageStringIntergace } from '@/interfaces';
+import useQueryApiClient from '@/utils/useQueryApiClient';
+import { message } from 'antd';
+import { RcFile } from 'antd/es/upload';
+import { Upload } from 'antd/lib';
+import { useRouter } from 'next/router';
 
 
 interface Props {
@@ -15,6 +20,8 @@ interface Props {
 export default function PurchasesItem({ item }: Props) {
     const t = useTranslations('Purchases')
     const locale = useLocale();
+    const router = useRouter()
+    const [isUploadErr, setIsUploadErr] = useState(false);
 
     function hexToRgba(hex: string, opacity: number) {
         if (!hex) return
@@ -29,10 +36,59 @@ export default function PurchasesItem({ item }: Props) {
 
     const [isRotatedUp, setIsRotatedUp] = useState(false);
     const [firstLoad, setFirstLoad] = useState(true)
+
     const handleClick = () => {
         setIsRotatedUp(!isRotatedUp);
         setFirstLoad(false)
     };
+
+    const { appendData: createChequeData } = useQueryApiClient({
+        request: {
+            url: 'add-check',
+            method: "POST",
+            disableOnMount: true,
+            multipart: true
+        },
+        onSuccess(res) {
+            message.success('success add check', 2)
+        },
+        onError(err) {
+            console.log(err);
+        }
+    });
+
+    const uploadProps = {
+        name: 'file',
+        showUploadList: false,
+        multiple: false,
+        beforeUpload: (file: RcFile) => {
+            const isImage = file.type === 'image/jpeg' || file.type === 'image/png';
+            if (!isImage) {
+                setIsUploadErr(true)
+                message.error(t('imgTypeValidation'));
+                return
+            }
+            const isLt3M = file.size / 1024 / 1024 < 3;
+            if (!isLt3M) {
+                setIsUploadErr(true)
+                message.error(t('imgSizeValidation'));
+                return
+            }
+        },
+        onChange(info: any) {
+            if (info.file.status === 'done' && !isUploadErr) {
+
+                const image = info.file.originFileObj;
+                delete image.uid;
+
+                const formData = new FormData();
+                formData.append('image', image);
+                formData.append('type', "order");
+                formData.append('order_id', item.id.toString());
+                createChequeData(formData);
+            }
+        }
+    }
 
     return (
         <div className={`${styles.main} ${isRotatedUp ? styles.detailOpen : (firstLoad ? styles.firsLoadAnimation : styles.detailClose)}`}>
@@ -67,7 +123,7 @@ export default function PurchasesItem({ item }: Props) {
                 </div>
                 <div className={styles.detail_item}>
                     <h3>{t('cargo')}</h3>
-                    <p>{`${item.kg} ${t('currency')}` || t('calculated') }</p>
+                    <p>{`${item.kg} ${t('currency')}` || t('calculated')}</p>
                 </div>
                 <div className={styles.sub_status} style={{ color: item.substatus_color }}>{item.substatus[locale as keyof LanguageStringIntergace] || 'sub ststus undefiened :('}</div>
             </div>
@@ -76,6 +132,21 @@ export default function PurchasesItem({ item }: Props) {
                 <SvgSelector className={"breadcrumb_icon"} id={"chevron-svg"} />
             </div>
             <div className={styles.order_items}>
+                {true ? (
+                    <div className={styles.sub_status_slug} >
+                        <h4>Оплата за доставку ожидается</h4>
+                        <button onClick={() => router.push(`cargo/${item.id}`)}>Оплатить</button>
+                    </div>
+                ) : (
+                    <div className={styles.sub_status_slug} >
+                        <h4>Чек не прошел проверку</h4>
+                        <Upload {...uploadProps}>
+                            <button>Загрузить еще</button>
+                        </Upload>
+                    </div>
+                )
+
+                }
                 {item.items.map(el => (
                     <Fragment key={el.id}>
                         <PurchasesOrderItem item={el} />
