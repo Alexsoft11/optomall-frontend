@@ -4,7 +4,6 @@ import PageTitle from "@/components/PageTitle";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import { MyReviewsMockdata } from "@/mockdata/MyReviews";
 import cookie from "cookie";
 import { LoadingSpinner } from "@/ui/Spin";
 import { API } from "@/services/api";
