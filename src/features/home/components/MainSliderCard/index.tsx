@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import styles from './MainSliderCard.module.scss'
+import styles from "./MainSliderCard.module.scss";
 import { SlidersDataInterface } from "@/interfaces";
 import Link from "next/link";
 
@@ -21,6 +21,6 @@ const MainSliderCard = ({ el }: Props) => {
       </div>
     </Link>
   );
-}
+};
 
 export default MainSliderCard;

@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from './MainSlider.module.scss'
-import { MainSliderImages } from '@/mockdata/Sliders';
 import SearchBtn from '@/components/SearchBtn';
 import MainSliderCard from '../MainSliderCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -43,16 +42,16 @@ const MainSlider: React.FC<Props> = ({ data }) => {
                 centeredSlides: true
               }
             }}
-            autoplay={{
-              delay: 4500,
-              disableOnInteraction: true,
-            }}
+            // autoplay={{
+            //   delay: 4500,
+            //   disableOnInteraction: true,
+            // }}
             loop={true}
             navigation={{
               nextEl: `.next-btn`,
               prevEl: `.prev-btn`,
             }}
-            modules={[Pagination, Autoplay, Navigation]}
+            modules={[Pagination,  Navigation]}
             className={styles.my_swiper}
           >
             {data?.map((el: any, idx) => (
