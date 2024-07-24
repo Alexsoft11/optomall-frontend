@@ -2,6 +2,7 @@ import Card from "@/components/Card";
 import { CardInterface } from "@/interfaces";
 import React, { FC } from "react";
 import styles from "./RecomendedProducts.module.scss";
+import Products from "@/components/Products";
 interface IProps {
   recomendedData: CardInterface[];
 }
@@ -10,9 +11,7 @@ const RecomendedProducts: FC<IProps> = ({ recomendedData }) => {
     <div>
       <h3 className={styles.title}>Похожие товары</h3>
       <div className={styles.cards}>
-        {recomendedData.map((el: any, idx: number) => (
-          <Card key={idx} data={el} />
-        ))}
+        <Products data={recomendedData}/>
       </div>
     </div>
   );
