@@ -133,7 +133,7 @@
     "cardNumber": "Recipient's card number: ",
     "payTutorialText": "Copy the card number below, then open your bank app and transfer the amount specified below in a single payment. Note! You need to transfer the exact amount specified below!",
     "textCopyed": "Text copied!",
-    "importantMessage": "You need to pay for the cargo upon arrival of your order. The delivery cost is automatically calculated upon arrival and depends on the weight, {{costPerKg}} per Kg.",
+    "impotantMessage": "You need to pay for the cargo upon arrival of your order. The delivery cost is automatically calculated upon arrival and depends on the weight, ${costPerKg} per Kg.",
     "importantTitle": "Important!"
   },
   "Purchases": {
@@ -153,7 +153,8 @@
     "currency": "uzs",
     "inVerification": "in verification",
     "cargo": "Cargo",
-    "calculated": "Calculated"
+    "calculated": "Calculated",
+    "emptyData": "It's empty here"
   },
   "Search": {
     "platform": "Platform",
@@ -207,7 +208,7 @@
     "postcode": "Postal Code",
     "region": "Region",
     "submit": "Submit",
-    "chooseLocation": "Choose on map"
+    "cooseLocation": "Specify on map"
   },
   "Cargo": {
     "payTutorialText": "The delivery cost is calculated automatically when placing an order and depends on the weight, $5.5 per kg. Below is the delivery cost depending on the weight of your order. Please note! You need to transfer exactly the amount indicated below!",

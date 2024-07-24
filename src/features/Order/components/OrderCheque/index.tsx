@@ -12,7 +12,6 @@ interface Props {
 }
 
 export default function OrderCheque({ cardId, cost, costPerKg }: Props) {
-
     const t = useTranslations('Order')
     const [messageApi, contextHolder] = message.useMessage();
     const [messageVisible, setMessageVisible] = useState(false);
@@ -54,7 +53,7 @@ export default function OrderCheque({ cardId, cost, costPerKg }: Props) {
             <div className={styles.important_message}>
                 <h4>{t('importantTitle')}</h4>
                 <p>
-                    <b>{t("impotantMessage", { costPerKg })}</b>
+                    <b>{t("impotantMessage", { costPerKg: costPerKg })}</b>
                 </p>
             </div>
         </div>

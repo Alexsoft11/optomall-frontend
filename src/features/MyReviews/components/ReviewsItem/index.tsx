@@ -9,23 +9,25 @@ import ReviewModal from '../ReviewModal/Index';
 
 interface Pros {
     item: MyReviewsReviewedInterface,
+    setCommentData: React.Dispatch<React.SetStateAction<FormData | undefined>>
 }
 
-export default function ReviewsItem({ item }: Pros) {
+export default function ReviewsItem({ item, setCommentData }: Pros) {
     const t = useTranslations('MyReviews')
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    
 
     const handleClick = () => {
         setModalIsOpen(true)
     }
-    
+
 
 
     return (
         <div className={styles.main}>
             <div className={styles.item_info}>
                 <div className={styles.img}>
-                    <Image width={98} height={98} alt='#' src={item.image} />
+                    <Image width={98} height={98} alt='#' src={item.image_url} />
                 </div>
                 <div className={styles.item_text}>
                     <p>{item.name}</p>
@@ -37,24 +39,23 @@ export default function ReviewsItem({ item }: Pros) {
             <div className={styles.bottom_block}>
                 {!item.stars ? <Button onClick={handleClick} label={t('review')} /> : (
                     <div className={styles.reviewed_block}>
-                        {item.stars ? <Rate value={item.stars} disabled /> : null}
-                        {item.review ? <p>{item.review}</p> : null}
+                        {item.stars ? <Rate className={styles.rate} value={item.stars} disabled /> : null}
+                        {item.comment ? <p>{item.comment}</p> : null}
                         {!item.photos?.length ? null : (
                             <div className={styles.review_photos}>
-                                {
-                                    item.photos.map((el, index) => (
-                                        <Fragment key={index}>
-                                            <div className={styles.review_photos__img}>
-                                                <Image width={60} height={60} alt='#' src={el} />
-                                            </div>
-                                        </Fragment>
-                                    ))
+                                {item.photos.map((el, index) => (
+                                    <Fragment key={index}>
+                                        <div className={styles.review_photos__img}>
+                                            <Image alt='#' fill src={el} />
+                                        </div>
+                                    </Fragment>
+                                ))
                                 }
                             </div>)}
                     </div>
                 )}
             </div>
-            <ReviewModal productId={item.id} modalIsOpen={modalIsOpen} onCancel={setModalIsOpen} />
+            <ReviewModal setCommentData={setCommentData} productId={item.id} modalIsOpen={modalIsOpen} onCancel={setModalIsOpen} />
         </div>
     );
 }

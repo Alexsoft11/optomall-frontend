@@ -133,7 +133,7 @@
     "cardNumber": "Oluvchining karta raqami: ",
     "payTutorialText": "Quyidagi karta raqamini nusxalab oling, so'ngra bank ilovangizni oching va ko'rsatilgan summani bir to'lov bilan ushbu raqamga o'tkazing. Diqqat! Quyida ko'rsatilgan aniq summani o'tkazish kerak!",
     "textCopyed": "Matn ko'chirildi!",
-    "importantMessage": "Sizning buyurtmangiz kelganidan so'ng yukni to'lashingiz kerak. Yetkazib berish narxi buyurtma kelganda avtomatik ravishda hisoblanadi va og'irlikka bog'liq, har Kg uchun {{costPerKg}}.",
+    "impotantMessage": "Sizning buyurtmangiz kelganidan so'ng yukni to'lashingiz kerak. Yetkazib berish narxi buyurtma kelganda avtomatik ravishda hisoblanadi va og'irlikka bog'liq, har Kg uchun ${costPerKg}.",
     "importantTitle": "Muhim!"
   },
   "Purchases": {
@@ -153,7 +153,8 @@
     "currency": "so'm",
     "inVerification": "tekshirilmoqda",
     "cargo": "Karqo",
-    "calculated": "Hisoblangan"
+    "calculated": "Hisoblangan",
+    "emptyData": "Bu yer bo'sh"
   },
   "Search": {
     "platform": "Platforma",
@@ -171,7 +172,7 @@
     "reviewProduct": "Mahsulotni baholash",
     "enterComment": "Izoh kiriting",
     "sendReview": "Nashr qilish",
-     "commentAdded": "Izoh muvaffaqiyatli qo'shildi!"
+    "commentAdded": "Izoh muvaffaqiyatli qo'shildi!"
   },
   "Products": {
     "tab_1": "Chegirma",
@@ -207,7 +208,7 @@
     "postcode": "Pochta indeksi",
     "region": "Hudud",
     "submit": "Tasdiqlash",
-    "chooseLocation": "Xaritadan tanlash"
+    "cooseLocation": "Xaritada ko'rsatish"
   },
   "Cargo": {
     "payTutorialText": "Yetkazib berish narxi buyurtma berishda avtomatik ravishda hisoblanadi va vaznga bog'liq, 1 kg uchun $5.5. Quyida buyurtmangizning vazniga qarab yetkazib berish narxi ko'rsatilgan. Diqqat! Siz quyida ko'rsatilgan miqdorni aniq o'tkazishingiz kerak!",

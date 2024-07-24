@@ -1,3 +1,4 @@
+import { LocationInfoInterface } from "@/components/Types";
 import { LanguageStringIntergace } from "@/interfaces";
 import { StaticImageData } from "next/image";
 
@@ -27,10 +28,7 @@ export interface CartOrderItemInterface {
 
 export interface CreateOrderDataInterface {
   total_price: number;
-  location: {
-    name: string | null;
-    url: string | null;
-  };
+  location: LocationInfoInterface,
   userData: PersonalDataInterface | null;
   items: CartOrderItemInterface[];
 }

@@ -5,43 +5,47 @@ import { useTranslations } from 'next-intl';
 import { Button, Input, Modal } from '@/ui';
 import Image from 'next/image';
 import { AddSvg } from '$/assets/images';
-import { RcFile, UploadFile } from 'antd/es/upload';
-import useQueryApiClient from '@/utils/useQueryApiClient';
+import { RcFile } from 'antd/es/upload';
 
 interface Props {
     modalIsOpen: boolean,
     onCancel: React.Dispatch<React.SetStateAction<boolean>>;
-    productId: number
+    productId: number,
+    setCommentData: React.Dispatch<React.SetStateAction<FormData | undefined>>
 }
 
 const initailFileList = [
     {
+        id: 0,
+        url: AddSvg,
+        initialUrl: true,
+        data: null
+    },
+    {
         id: 1,
         url: AddSvg,
-        initialUrl: true
+        initialUrl: true,
+        data: null
     },
     {
         id: 2,
         url: AddSvg,
-        initialUrl: true
+        initialUrl: true,
+        data: null
     },
     {
         id: 3,
         url: AddSvg,
-        initialUrl: true
-    },
-    {
-        id: 4,
-        url: AddSvg,
-        initialUrl: true
+        initialUrl: true,
+        data: null
     },
 ]
 
-export default function ReviewModal({ modalIsOpen, onCancel, productId }: Props) {
+export default function ReviewModal({ modalIsOpen, onCancel, productId, setCommentData }: Props) {
     const [form] = Form.useForm();
     const t = useTranslations('MyReviews')
     const [fileList, setFileList] = useState<any[]>(initailFileList);
-    const [fileError, setFileError] = useState(null);
+    const [fileError, setFileError] = useState(null)
     const [starsValue, setStarsVale] = useState(0)
     const [isUploadErr, setIsUploadErr] = useState(false);
 
@@ -66,9 +70,11 @@ export default function ReviewModal({ modalIsOpen, onCancel, productId }: Props)
 
             const image = info.file.originFileObj;
 
+            delete image.uid;
+
             if (image) {
                 getBase64(image, (url) => {
-                    const copy = fileList.map(el => el.id === id ? { ...el, initialUrl: false, url: url } : { ...el })
+                    const copy = fileList.map(el => el.id === id ? { ...el, initialUrl: false, url: url, data: image } : { ...el })
                     setFileList(copy)
                 });
             }
@@ -107,27 +113,18 @@ export default function ReviewModal({ modalIsOpen, onCancel, productId }: Props)
         }
     };
 
-    const { appendData: createData } = useQueryApiClient({
-        request: {
-            url: "post-comment",
-            method: "POST",
-            disableOnMount: true,
-        },
-        onSuccess(res) {
-            message.success(t('commentAdded'), 2)
-        },
-    });
-
 
     const onFinish = (values: any) => {
         const formData = new FormData()
-        const newFileList = fileList.filter(el => !el.initialUrl)
+        const newFileList: File[] = fileList.map(el => el.data !== null ? el.data : null).filter(el => el !== null)
+        for (let file of newFileList) {
+            formData.append('images[]', file);
+        }
         formData.append('name', values.comment)
         formData.append('rating', starsValue.toString())
-        formData.append('images', JSON.stringify(newFileList))
-        formData.append('product_id', productId.toString())
-        createData(formData)
-        returnToInitialValue()
+        formData.append('order_id', productId.toString())
+        setCommentData(formData)
+        // returnToInitialValue()
     }
 
     const modalProps = {
