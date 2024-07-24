@@ -32,7 +32,7 @@ const Detail = ({ selectedImage, product }: any) => {
       <div className={styles.detail}>
         {windowWidth !== null && isMobile(windowWidth) ? (
           <CustomImage
-          src={selectedImage}
+            src={selectedImage}
             // src={"https://img.alicdn.com/imgextra/i3/35601dede9688/O1CN01UJzjNU2LA2dizPr8_!!356019688.jpg"}
             alt=""
             className={styles.detail_image}
@@ -41,7 +41,7 @@ const Detail = ({ selectedImage, product }: any) => {
           />
         ) : (
           <>
-            <div className={styles.imagePreview}>
+            <div className={styles.imagePreviews}>
               <SliderSection data={product.pictures} />
             </div>
           </>

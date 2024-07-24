@@ -22,6 +22,7 @@ const ProductDetailSection = dynamic(
 );
 
 const ProductDetail = ({ product }: ProductDetailProps) => {
+  console.log(product)
   if (!product) {
     return <h2>No product found.</h2>;
   }
@@ -41,9 +42,10 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
 export const getServerSideProps = async (context: any) => {
   try {
     const { id: productId } = context.params;
+    const lang = context.locale
     const cookies = cookie.parse(context.req.headers.cookie || "");
     const token = decodeURIComponent(cookies.token);
-    const product = await API.getProductDetailToken(productId, token);
+    const product = await API.getProductDetailToken(productId,lang, token);
 
     return {
       props: {

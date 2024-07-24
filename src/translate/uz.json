@@ -224,5 +224,11 @@
     "faq": "Ko'p beriladigan savollar",
     "shipping_costs": "Yuk tashish xarajatlari",
     "how_to_use": "Qanday foydalaniladi"
+  },
+  "Product-detail":{
+    "bought":"Sotib olganlar",
+    "compound":"Tarkibi",
+    "made_country":"Ishlab chiqarilgan davlati",
+    "model_features":"Modelning xususiyatlari"
   }
 }

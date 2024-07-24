@@ -1,5 +1,3 @@
-/** @format */
-
 import { Button, Rate } from "antd";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -26,7 +24,7 @@ const Reviews = () => {
 
       <Swiper
         spaceBetween={20}
-        slidesPerView={1.3}
+        slidesPerView={1.1}
         loop={true}
         navigation={{
           nextEl: `.next_btn_reviews`,
@@ -36,9 +34,13 @@ const Reviews = () => {
           960: {
             slidesPerView: 3,
           },
-          390: {
-            slidesPerView: 2,
+          480:{
+            slidesPerView:2,
           },
+          380: {
+            slidesPerView: 1.3,
+          },
+
         }}
         pagination={{ clickable: true }}
         modules={[Navigation]}>

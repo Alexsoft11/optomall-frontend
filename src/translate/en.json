@@ -224,5 +224,11 @@
     "faq": "Frequently Asked Questions",
     "shipping_costs": "Shipping Costs",
     "how_to_use": "How to Use"
+  },
+  "Product-detail":{
+    "bought":"Bought",
+    "compound":"Compound",
+    "made_country":"Country of Origin",
+    "model_features":"Features of the model"
   }
 }
