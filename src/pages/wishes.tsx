@@ -16,7 +16,6 @@ const Wishes = dynamic(
 );
 
 const WishesPage = ({ wishesData }: WishesProps) => {
-  console.log(wishesData, "dd");
   return (
     <>
       <Wishes wishesData={wishesData}/>

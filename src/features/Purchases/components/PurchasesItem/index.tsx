@@ -51,10 +51,7 @@ export default function PurchasesItem({ item }: Props) {
         },
         onSuccess(res) {
             message.success('success add check', 2)
-        },
-        onError(err) {
-            console.log(err);
-        }
+        },       
     });
 
     const uploadProps = {

@@ -22,7 +22,6 @@ const ProductDetailSection = dynamic(
 );
 
 const ProductDetail = ({ product }: ProductDetailProps) => {
-  console.log(product)
   if (!product) {
     return <h2>No product found.</h2>;
   }
