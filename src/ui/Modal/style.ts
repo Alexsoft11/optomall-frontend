@@ -12,7 +12,7 @@ export const StyledModal = styled(AntdModal)`
   }
 
   .ant-modal-content {
-    width: auto;
+    width: max-content;
     border-radius: 20px;
     padding: 20px;
 
@@ -93,7 +93,7 @@ export const StyledModal = styled(AntdModal)`
         gap: 20px;
 
         .form__cooseLocation {
-          cursor: pointer;  
+          cursor: pointer;
           display: flex;
           align-items: end;
           gap: 2px;
@@ -159,6 +159,95 @@ export const StyledModal = styled(AntdModal)`
           height: auto;
           background: rgba(255, 66, 0, 1);
           border-radius: 5px;
+        }
+      }
+
+      .review_modal {
+        display: flex;
+        flex-direction: column;
+
+        form {
+          max-width: 350px;
+          width: 100% !important;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+          .review-modal__rate {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+
+            .ant-rate-star {
+              div {
+                div {
+                  span {
+                    font-size: var(--heading-four);
+                  }
+                }
+              }
+            }
+
+            p {
+              font-size: var(--paragraph-three);
+              color: var(--davys-grey);
+              font-weight: 400;
+              line-height: 14.52px;
+            }
+          }
+
+          .review-modal__comment {
+            div {
+              margin: 0px;
+            }
+          }
+
+          .review-modal__submitButton {
+            width: 100%;
+            font-size: var(--paragraph-two);
+            font-weight: 400;
+            line-height: 16.94px;
+            padding: 12px;
+            height: auto;
+            background: rgba(255, 66, 0, 1);
+            border-radius: 5px;
+          }
+        }
+
+        .review-modal__upload {
+          display: flex;
+          gap: 10px;
+
+          .upload_block {
+            
+            .ant-upload-select {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background-color: var(--light-grey);
+              border-radius: 10px;
+              
+              .ant-upload {
+                border-radius: 10px;
+                position: relative;
+                overflow: hidden;
+                cursor: pointer;
+                width: 80px;
+                height: 80px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+            }
+
+            .avatar-uploader {
+              span {
+                background: var(--light-grey);
+                border-radius: 10px;
+              }
+            }
+          }
         }
       }
     }

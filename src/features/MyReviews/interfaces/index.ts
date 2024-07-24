@@ -1,14 +1,9 @@
 import { StaticImageData } from "next/image";
 
-export interface MyReviewsDataInterface {
-    reviewed: MyReviewsReviewedInterface[],
-    waitForReview: MyReviewsReviewedInterface[],
-}
-
 export interface MyReviewsReviewedInterface {
     id: number,
-    image: StaticImageData,
-    company: string,
+    image: string,
+    // company: string,
     name: string,
     date: string,
     stars?: number,

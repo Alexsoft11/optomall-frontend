@@ -2,47 +2,47 @@ import React, { Fragment, useState } from 'react';
 import styles from './MyReviewsPage.module.scss';
 import { useTranslations } from 'next-intl';
 import { Button } from 'antd';
-import { MyReviewsDataInterface } from '../../interfaces';
 import ReviewsItem from '../ReviewsItem';
 import ReviewModal from '../ReviewModal/Index';
+import { useRouter } from 'next/router';
+import { MyReviewsReviewedInterface } from '../../interfaces';
 
 interface Props {
-    data: MyReviewsDataInterface
+    data: MyReviewsReviewedInterface[]
 }
 
 export default function MyReviewsPage({ data }: Props) {
+    
     const t = useTranslations('MyReviews')
-    const [defautlSwitch, setDefautlSwitch] = useState(true)
-    const [modalIsOpen, setModalIsOpen] = useState(false)
+    const router = useRouter();
 
-    const setSwitch = () => {
-        setDefautlSwitch(!defautlSwitch)
+    const changeRout = (filter: string) => {
+        router.push(`/my-reviews?filter=${filter}`)
     }
 
     return (
         <>
             <div className={styles.main}>
-                <div className={styles.switch_buttons}>
-                    <Button onClick={() => setSwitch()} className={`${defautlSwitch ? styles.active_switch : null}`}>
+                <div className={`${styles.switch_buttons} ${styles["activeChild_" + router.query.filter]}`}>
+                    <Button onClick={() => changeRout('non_commented')} >
                         {t('waitForReview')}
                     </Button>
-                    <Button onClick={() => setSwitch()} className={`${!defautlSwitch ? styles.active_switch : null}`}>
+                    <Button onClick={() => changeRout('commented')}>
                         {t('reviewed')}
                     </Button>
                 </div>
                 <div className={styles.items_block}>
                     <div className={styles.items}>
                         {
-                            data[defautlSwitch ? "waitForReview" : "reviewed"].map(el => (
+                            data.map(el => (
                                 <Fragment key={el.id}>
-                                    <ReviewsItem item={el} setModalIsOpen={setModalIsOpen} />
+                                    <ReviewsItem item={el} />
                                 </Fragment>
                             ))
                         }
                     </div>
                 </div>
             </div>
-            <ReviewModal modalIsOpen={modalIsOpen} onCancel={setModalIsOpen} />
         </>
     );
 }

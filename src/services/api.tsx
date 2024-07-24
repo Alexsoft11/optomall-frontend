@@ -50,6 +50,7 @@ export const API = {
         },
       })
       .then((res) => res.data),
+
   // CartPage
   getUserBasket: (token: string) =>
     axiosInstance
@@ -64,6 +65,26 @@ export const API = {
   getOrder: (token: string, id: string) =>
     axiosInstance
       .get(`get-order?order_id=${id}`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => res.data),
+
+  // MyReviewsPage
+  getReviews: (token: string, filter: string) =>
+    axiosInstance
+      .get(`user-products?filter=${filter}`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => res.data[filter === 'reviewed'? "reviewed" : "waitForReview"]),
+
+  // CargoPage
+  getCargo: (token: string, id: string) =>
+    axiosInstance
+      .get(`get-cargo?order_id=${id}`, {
         headers: {
           Authorization: "Bearer " + token,
         },

@@ -34,7 +34,8 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
   }, [CatalogTabsData]);
 
   const truncateText = (text: any, maxLength: any) => {
-    if (text?.length <= maxLength) {
+    if (!text) return
+    if (text.length <= maxLength) {
       return text;
     } else {
       return text?.slice(0, maxLength) + "...";
