@@ -3,7 +3,7 @@ import styles from './Products.module.scss'
 import Card from '../Card';
 
 interface Props {
-    data: any;
+  data: any;
 }
 
 const Products = ({ data }: Props) => {
