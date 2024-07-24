@@ -138,8 +138,8 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
   };
 
   const isProductSelected = () => {
-    return selectedColors.some(colorId =>
-      selectedSizes[colorId].some(size => size.quantity > 0)
+    return selectedColors.some((colorId) =>
+      selectedSizes[colorId].some((size) => size.quantity > 0)
     );
   };
 
@@ -165,18 +165,24 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
             product_id: product.id.toString(),
             price: product.price,
             title: product.title,
-            image_url: product.colors.find((img) => img.id === colorId)?.image_url || "",
+            image_url:
+              product.colors.find((img) => img.id === colorId)?.image_url || "",
             size: size.value,
-            size_id: product.sizes.find(el => el.value === size.value)?.size_id || "",
+            size_id:
+              product.sizes.find((el) => el.value === size.value)?.size_id ||
+              "",
             quantity: size.quantity,
-            color: product.colors.find((color) => color.id === colorId)?.value || "",
+            color:
+              product.colors.find((color) => color.id === colorId)?.value || "",
             color_id: colorId,
           }))
       );
       if (user) {
         createData([data]);
       } else {
-        const newBasketData = (JSON.parse(localStorage.getItem("basket-data") as string) || []).concat(localeData)
+        const newBasketData = (
+          JSON.parse(localStorage.getItem("basket-data") as string) || []
+        ).concat(localeData);
         localStorage.setItem("basket-data", JSON.stringify(newBasketData));
         message.success("Added to Basket");
         resetStates();
@@ -189,7 +195,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
 
   useEffect(() => {
     calculateTotalQuantities();
-    calculateTotalPrice(); 
+    calculateTotalPrice();
   }, [selectedSizes, selectedColors]);
 
   const resetStates = () => {
@@ -214,7 +220,10 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
         ) : null}
       </div>
       {selectedColor !== null && (
-        <div className={styles.sizeSelector}>
+        <div
+          className={`${styles.sizeSelector} ${
+            product.sizes.length > 5 ? styles.default_height : ""
+          }`}>
           {(product.sizes.length > 0 ? product.sizes : defaultSizes).map(
             (size, idx) => (
               <div key={idx} className={styles.size}>
@@ -248,18 +257,19 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
           )}
         </div>
       )}
-      <div className={styles.total}>
-        <p>Итого</p>
-        <span className={styles.total_quantity}>{totalPrice} uzs</span>
+      <div className={styles.add_basket}>
+        <div className={styles.total}>
+          <p>Итого</p>
+          <span className={styles.total_quantity}>{totalPrice} uzs</span>
+        </div>
+        <Button
+          loading={loading}
+          className={styles.addToCart}
+          onClick={onFinish}
+          disabled={!isProductSelected()}>
+          В корзину
+        </Button>
       </div>
-      <Button
-        loading={loading}
-        className={styles.addToCart}
-        onClick={onFinish}
-        disabled={!isProductSelected()}
-      >
-        В корзину
-      </Button>
     </div>
   );
 };

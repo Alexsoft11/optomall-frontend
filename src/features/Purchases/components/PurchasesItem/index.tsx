@@ -1,9 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import styles from './PurchasesItem.module.scss';
 import { PurchasesOrderInterface } from '../../interfaces';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import SvgSelector from '$/assets/icons/SvgSelector';
 import PurchasesOrderItem from '../PurchasesOrderItem';
+import Image from 'next/image';
+import { LanguageStringIntergace } from '@/interfaces';
+
 
 interface Props {
     item: PurchasesOrderInterface
@@ -11,6 +14,18 @@ interface Props {
 
 export default function PurchasesItem({ item }: Props) {
     const t = useTranslations('Purchases')
+    const locale = useLocale();
+
+    function hexToRgba(hex: string, opacity: number) {
+        if (!hex) return
+        hex = hex.replace('#', '');
+        hex.toLocaleLowerCase();
+        let r = parseInt(hex.substring(0, 2), 16);
+        let g = parseInt(hex.substring(2, 4), 16);
+        let b = parseInt(hex.substring(4, 6), 16);
+
+        return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+    }
 
     const [isRotatedUp, setIsRotatedUp] = useState(false);
     const [firstLoad, setFirstLoad] = useState(true)
@@ -20,10 +35,17 @@ export default function PurchasesItem({ item }: Props) {
     };
 
     return (
-        <div className={`${styles.main} ${isRotatedUp ? styles.detailOpen : (firstLoad? styles.firsLoadAnimation : styles.detailClose)}`}>
+        <div className={`${styles.main} ${isRotatedUp ? styles.detailOpen : (firstLoad ? styles.firsLoadAnimation : styles.detailClose)}`}>
             <div className={styles.order_info}>
                 <p>{t('goods')}: {item.items.length}</p>
-                <div className={styles["status_" + item.status]}>{t(`${item.status}`)}</div>
+                <div className={styles.order_status}>
+                    <div className={styles.flag_img}>
+                        <Image src={item.country} alt='flag' fill />
+                    </div>
+                    <div className={styles["status_" + item.status]} style={{ color: item.status_color, backgroundColor: hexToRgba(item.status_color, 0.2) }}>
+                        {t(`${item.status}`)}
+                    </div>
+                </div>
             </div>
             <div className={styles.order_detail}>
                 <div className={styles.detail_item}>
@@ -43,6 +65,11 @@ export default function PurchasesItem({ item }: Props) {
                     <p>{item.user_name}</p>
                     <p>{item.user_phone}</p>
                 </div>
+                <div className={styles.detail_item}>
+                    <h3>{t('cargo')}</h3>
+                    <p>{item.kg|| 'undefiened'}</p>
+                </div>
+                <div className={styles.sub_status} style={{ color: item.substatus_color }}>{item.substatus[locale as keyof LanguageStringIntergace] || 'sub ststus undefiened :('}</div>
             </div>
             <div className={`${styles.more_datail} ${isRotatedUp ? styles.rotateUp : styles.rotateDown}`} onClick={handleClick}>
                 <p>{t('moreDetail')}</p>

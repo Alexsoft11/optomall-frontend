@@ -21,6 +21,17 @@ export const API = {
 
   getHomePageProducts: () => axiosInstance.get("products?query=Discount"),
 
+  getHomePageCategoryProducts: () => axiosInstance.get("additional-categories"),
+
+  getHomePageCategoryProductsToken: (token?:string) =>
+    axiosInstance
+      .get(`additional-categories${token && token !== "undefined" ? "-token" : ""}`,{
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => res),
+
   // SearchPage
   getSearchPageProducts: (query: any) =>
     axiosInstance.get(`search-products-from-taobao?searchQuery=${query}`),
@@ -30,11 +41,12 @@ export const API = {
       .get(`product-detail-from-taobao?productId=${query}`)
       .then((res) => res.data),
 
-  getProductDetailToken: (query: any, token?:string) =>
+  getProductDetailToken: (query: any,lang:string, token?:string) =>
     axiosInstance
-      .get(`product-detail-from-taobao${token && token !== "undefined" ? "-token" : ""}?productId=${query}`,{
+      .get(`product-detail-from-taobao${token && token !== "undefined" ? "-token" : ""}?productId=${query}&lang=${lang}`,{
         headers: {
           Authorization: "Bearer " + token,
+          
         },
       })
       .then((res) => res.data),

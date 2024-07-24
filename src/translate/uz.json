@@ -13,7 +13,8 @@
     "purchases": "Mening xaridlarim",
     "currency": "so'm",
     "loadingData": "Ma'lumotlar yuklanmoqda...",
-    "my_account": "Mening Akountim"
+    "my_account": "Mening Akountim",
+    "cargo": "Karqo uchun to'lov"
   },
   "Home": {
     "metaTitle": "Bosh sahifa | Onway",
@@ -123,13 +124,17 @@
     "authMessage": "Buyurtma berish uchun saytda ro'yxatdan o'ting!",
     "imgTypeValidation": "Faqat rasm yuklashingiz mumkin!",
     "chooseItem": "Savatdan kamida bitta mahsulot tanlang",
-    "imgSizeValidation": "Rasm hajmi 5 MB dan kichik bo'lishi kerak!"
+    "imgSizeValidation": "Rasm hajmi 5 MB dan kichik bo'lishi kerak!",
+    "cargo": "Karqo",
+    "forKg": "kg uchun"
   },
   "Order": {
     "payCost": "To'lanadigan summa: ",
     "cardNumber": "Oluvchining karta raqami: ",
     "payTutorialText": "Quyidagi karta raqamini nusxalab oling, so'ngra bank ilovangizni oching va ko'rsatilgan summani bir to'lov bilan ushbu raqamga o'tkazing. Diqqat! Quyida ko'rsatilgan aniq summani o'tkazish kerak!",
-    "textCopyed": "Matn ko'chirildi!"
+    "textCopyed": "Matn ko'chirildi!",
+    "importantMessage": "Sizning buyurtmangiz kelganidan so'ng yukni to'lashingiz kerak. Yetkazib berish narxi buyurtma kelganda avtomatik ravishda hisoblanadi va og'irlikka bog'liq, har Kg uchun {{costPerKg}}.",
+    "importantTitle": "Muhim!"
   },
   "Purchases": {
     "active": "Faol",
@@ -146,7 +151,8 @@
     "moreDetail": "Batafsil",
     "orderCost": "Umumiy summa:",
     "currency": "so'm",
-    "inVerification": "tekshirilmoqda"
+    "inVerification": "tekshirilmoqda",
+    "cargo": "Karqo"
   },
   "Search": {
     "platform": "Platforma",
@@ -189,10 +195,32 @@
   "Wishes": {
     "title": "Mening tilaklarim"
   },
+  "LocationModal": {
+    "title": "Yetkazib berish manzili",
+    "area": "Hudud",
+    "street": "Ko'cha",
+    "house": "Uy",
+    "postcode": "Pochta indeksi",
+    "region": "Hudud",
+    "submit": "Tasdiqlash",
+    "chooseLocation": "Xaritadan tanlash"
+  },
+  "Cargo": {
+    "payTutorialText": "Yetkazib berish narxi buyurtma berishda avtomatik ravishda hisoblanadi va vaznga bog'liq, 1 kg uchun $5.5. Quyida buyurtmangizning vazniga qarab yetkazib berish narxi ko'rsatilgan. Diqqat! Siz quyida ko'rsatilgan miqdorni aniq o'tkazishingiz kerak!",
+    "payCost": "Sizning yetkazib berish narxingiz: ",
+    "textCopyed": "Matn ko'chirildi!",
+    "cardNumber": "Qabul qiluvchining kartasi raqami: "
+  },
   "Footer": {
     "about_us": "Biz haqimizda",
     "faq": "Ko'p beriladigan savollar",
     "shipping_costs": "Yuk tashish xarajatlari",
     "how_to_use": "Qanday foydalaniladi"
+  },
+  "Product-detail":{
+    "bought":"Sotib olganlar",
+    "compound":"Tarkibi",
+    "made_country":"Ishlab chiqarilgan davlati",
+    "model_features":"Modelning xususiyatlari"
   }
 }

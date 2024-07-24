@@ -13,7 +13,8 @@
     "purchases": "My Purchases",
     "currency": "uzs",
     "loadingData": "Loading data...",
-    "my_account": "My Account"
+    "my_account": "My Account",
+    "cargo": "Cargo payment"
   },
   "Home": {
     "metaTitle": "Home | ON-WAY",
@@ -123,13 +124,17 @@
     "authMessage": "Register on the website to place an order!",
     "imgTypeValidation": "You can only upload an image!",
     "chooseItem": "Choose at least one item from the basket",
-    "imgSizeValidation": "Image size must be smaller than 5 MB!"
+    "imgSizeValidation": "Image size must be smaller than 5 MB!",
+    "cargo": "Cargo",
+    "forKg": "per Kg"
   },
   "Order": {
     "payCost": "Amount to be paid: ",
     "cardNumber": "Recipient's card number: ",
     "payTutorialText": "Copy the card number below, then open your bank app and transfer the amount specified below in a single payment. Note! You need to transfer the exact amount specified below!",
-    "textCopyed": "Text copied!"
+    "textCopyed": "Text copied!",
+    "importantMessage": "You need to pay for the cargo upon arrival of your order. The delivery cost is automatically calculated upon arrival and depends on the weight, {{costPerKg}} per Kg.",
+    "importantTitle": "Important!"
   },
   "Purchases": {
     "active": "Active",
@@ -146,7 +151,8 @@
     "moreDetail": "More Detail",
     "orderCost": "Total Cost:",
     "currency": "uzs",
-    "inVerification": "in verification"
+    "inVerification": "in verification",
+    "cargo": "Cargo"
   },
   "Search": {
     "platform": "Platform",
@@ -189,10 +195,32 @@
   "Wishes": {
     "title": "My wishes"
   },
+  "LocationModal": {
+    "title": "Delivery Address",
+    "area": "Area",
+    "street": "Street",
+    "house": "House",
+    "postcode": "Postal Code",
+    "region": "Region",
+    "submit": "Submit",
+    "chooseLocation": "Choose on map"
+  },
+  "Cargo": {
+    "payTutorialText": "The delivery cost is calculated automatically when placing an order and depends on the weight, $5.5 per kg. Below is the delivery cost depending on the weight of your order. Please note! You need to transfer exactly the amount indicated below!",
+    "payCost": "Your delivery cost is: ",
+    "cardNumber": "Recipient's card number: ",
+    "textCopyed": "Text copied!"
+  },
   "Footer": {
     "about_us": "About Us",
     "faq": "Frequently Asked Questions",
     "shipping_costs": "Shipping Costs",
     "how_to_use": "How to Use"
+  },
+  "Product-detail":{
+    "bought":"Bought",
+    "compound":"Compound",
+    "made_country":"Country of Origin",
+    "model_features":"Features of the model"
   }
 }
