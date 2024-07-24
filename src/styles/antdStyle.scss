@@ -6,7 +6,11 @@
       display: block;
     }
   }
+  .swiper-pagination-bullet-active {
+    background-color: var(--primary-color);
+  }
 }
+
 
 .ant-carousel {
   width: 100% !important;
