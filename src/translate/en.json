@@ -50,7 +50,11 @@
     "catalog": "Catalog",
     "saved": "Liked",
     "shop": "Shop",
-    "user": "Profile"
+    "user": "Profile",
+    "views": "My reviews",
+    "questions": "Frequently asked questions",
+    "transport": "Transport costs",
+    "use": "How to use"
   },
   "UiModal": {
     "success": "Receipt successfully confirmed",
@@ -221,5 +225,11 @@
     "faq": "Frequently Asked Questions",
     "shipping_costs": "Shipping Costs",
     "how_to_use": "How to Use"
+  },
+  "Product-detail":{
+    "bought":"Bought",
+    "compound":"Compound",
+    "made_country":"Country of Origin",
+    "model_features":"Features of the model"
   }
 }

@@ -50,7 +50,11 @@
     "catalog": "Katalog",
     "saved": "Yoqtirganlar",
     "shop": "Savat",
-    "user": "Profil"
+    "user": "Profil",
+    "views": "Mening sharhlarim",
+    "questions": "Ko'p beriladigan savollar",
+    "transport": "Transport xarajatlari",
+    "use": "Qanday foydalanish kerak"
   },
   "UiModal": {
     "success": "Chek muvaffaqiyatli tasdiqlandi",
@@ -221,5 +225,11 @@
     "faq": "Ko'p beriladigan savollar",
     "shipping_costs": "Yuk tashish xarajatlari",
     "how_to_use": "Qanday foydalaniladi"
+  },
+  "Product-detail":{
+    "bought":"Sotib olganlar",
+    "compound":"Tarkibi",
+    "made_country":"Ishlab chiqarilgan davlati",
+    "model_features":"Modelning xususiyatlari"
   }
 }

@@ -41,11 +41,12 @@ export const API = {
       .get(`product-detail-from-taobao?productId=${query}`)
       .then((res) => res.data),
 
-  getProductDetailToken: (query: any, token?:string) =>
+  getProductDetailToken: (query: any,lang:string, token?:string) =>
     axiosInstance
-      .get(`product-detail-from-taobao${token && token !== "undefined" ? "-token" : ""}?productId=${query}`,{
+      .get(`product-detail-from-taobao${token && token !== "undefined" ? "-token" : ""}?productId=${query}&lang=${lang}`,{
         headers: {
           Authorization: "Bearer " + token,
+          
         },
       })
       .then((res) => res.data),

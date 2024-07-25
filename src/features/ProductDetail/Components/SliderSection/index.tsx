@@ -25,7 +25,6 @@ const SliderSection: FC<IProps> = ({ data }) => {
   return (
     <>
       <Carousel
-        autoplay
         swipeToSlide={true}
         draggable
         dots={true}

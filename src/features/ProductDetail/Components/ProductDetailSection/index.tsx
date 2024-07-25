@@ -16,7 +16,7 @@ const [selectedImage, setSelectedImage] = useState(product?.image);
         <div className={styles.product}>
           <div className={styles.product__inner}>
             <ProductDetailImages selectedImage={selectedImage} setSelectedImage={setSelectedImage} product={product}/>
-            <ProductDetailInfo productDetails={score} setSelectedImage={setSelectedImage} product={product}/>
+            <ProductDetailInfo productDetails={score} setSelectedImage={setSelectedImage} product={product} />
           </div>
         </div>
         <Reviews />

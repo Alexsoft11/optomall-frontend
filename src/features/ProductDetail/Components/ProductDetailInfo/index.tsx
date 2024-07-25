@@ -7,16 +7,16 @@ import { MenuProps } from "antd/lib";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import Link from "next/link";
 import { shareUrl } from "@/constants";
-import LikedBtn from "@/components/LikedBtn";
 import ProductIsLike from "../ProductIsLike/ProductIsLike";
 import { productDetailsData } from "@/mockdata/detailData";
+import { useTranslations } from "next-intl";
 
 const ProductDetailInfo = ({
   productDetails,
-  setSelectedImage,
   product,
   path=shareUrl()
 }: any) => {
+  const t = useTranslations("Product-detail")
   const [selectedColor, setSelectedColor] = useState<number | null>(
     product.colors[0].id
   );
@@ -40,7 +40,7 @@ const ProductDetailInfo = ({
       key: "2",
     },
   ];
-
+ const productUrl =  product.product_url?product.product_url:""
   return (
     <div className={styles.product_info_detail}>
       <div className={styles.productInfo}>
@@ -48,7 +48,7 @@ const ProductDetailInfo = ({
           <div className={styles.rating}>
             <Rate disabled defaultValue={productDetails.rating} />
             <span>{productDetails.rating}</span>
-            <span>({productDetails.sold} купили)</span>
+            <span>({productDetails.sold}){t("bought")}</span>
           </div>
           <div className={styles.product_actions}>
           <ProductIsLike product={product}/>
@@ -74,25 +74,25 @@ const ProductDetailInfo = ({
               <span>Url</span>
               <div></div>
             </div>
-            <Link href={product.product_url}>{product.id}</Link>
+            <Link href={productUrl}>{product.id}</Link>
           </li>
           <li>
             <div className={styles.productSpecs_name}>
-              <span>Состав</span>
+              <span>{t("compound")}</span>
               <div></div>
             </div>
             <p>{productDetailsData.composition}</p>
           </li>
           <li>
             <div className={styles.productSpecs_name}>
-              <span>Страна производства</span>
+              <span>{t("made_country")}</span>
               <div></div>
             </div>
             <p>{product.location}</p>
           </li>
           <li>
             <div className={styles.productSpecs_name}>
-              <span>Особенности модели</span>
+              <span>{t("model_features")}</span>
               <div></div>
             </div>
             <p>{productDetailsData.features}</p>
