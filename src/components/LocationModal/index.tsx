@@ -2,101 +2,36 @@ import React, { Fragment, useState } from 'react';
 import styles from './LocationModal.module.scss';
 import { Form } from 'antd';
 import { useTranslations } from 'next-intl';
-import { Button, Input, Modal, Select, } from '@/ui';
+import { Button, Input, Modal, Select, SelectOption, } from '@/ui';
 import SvgSelector from '$/assets/icons/SvgSelector';
 import { LocationInfoInterface } from '@/components/Types';
+import { regions } from '@/constants/location';
 
 interface Props {
     orderModalOpen: boolean,
     setModalIsOpen: React.Dispatch<React.SetStateAction<boolean>>
     setMapIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-    locationInfo: LocationInfoInterface | null
+    locationInfo: LocationInfoInterface,
+    setLocationInfo: React.Dispatch<React.SetStateAction<LocationInfoInterface>>
 }
 
-export default function LocationModal({ orderModalOpen, setModalIsOpen, setMapIsOpen, locationInfo }: Props) {
+export default function LocationModal({ orderModalOpen, setModalIsOpen, setMapIsOpen, locationInfo, setLocationInfo }: Props) {
     const [form] = Form.useForm();
     const t = useTranslations("LocationModal");
     const [buttonIsLoading, setButtonIsLoading] = useState(false)
+    const [region, setRegion] = useState(locationInfo.name)
+
     const onFinish = (values: any) => {
+        const clone = Object.assign(locationInfo, {})
+        clone.district = values.district
+        clone.house = values.house
+        clone.post_index = +values.post_index
+        clone.region = region
+        clone.street = values.street
+        setLocationInfo(clone)
         setModalIsOpen(false)
     };
-    const regions = [
-        {
-            id: 0,
-            name: "Tashkent",
-            value: "tashkent",
-        },
-        {
-            id: 1,
-            name: "Andijan",
-            value: "andijan",
-        },
-        {
-            id: 2,
-            name: "Bukhara",
-            value: "bukhara",
-        },
-        {
-            id: 3,
-            name: "Fergana",
-            value: "fergana",
-        },
-        {
-            id: 4,
-            name: "Jizzakh",
-            value: "jizzakh",
-        },
-        {
-            id: 5,
-            name: "Karakalpakstan",
-            value: "karakalpakstan",
-        },
-        {
-            id: 6,
-            name: "Kashkadarya",
-            value: "kashkadarya",
-        },
-        {
-            id: 7,
-            name: "Khorezm",
-            value: "khorezm",
-        },
-        {
-            id: 8,
-            name: "Namangan",
-            value: "namangan",
-        },
-        {
-            id: 9,
-            name: "Navoi",
-            value: "navoi",
-        },
-        {
-            id: 10,
-            name: "Samarkand",
-            value: "samarkand",
-        },
-        {
-            id: 11,
-            name: "Surkhandarya",
-            value: "surkhandarya",
-        },
-        {
-            id: 12,
-            name: "Syrdarya",
-            value: "syrdarya",
-        },
-    ];
 
-    const selectProps = {
-        placeholder: t('region'),
-        initialValue: "Tashkent",
-        children: (regions.map(el => (
-            <Fragment key={el.id}>
-                <div>{el.name}</div>
-            </Fragment>
-        ))),
-    }
 
     if (locationInfo) {
         (Object.keys(locationInfo) as (keyof LocationInfoInterface)[]).forEach((key) => {
@@ -110,10 +45,10 @@ export default function LocationModal({ orderModalOpen, setModalIsOpen, setMapIs
     const modalProps = {
         children: (
             <div className='cart_order_modal__form'>
-                <div className='form__cooseLocation' onClick={() => setMapIsOpen(true)}>
-                    <p>{t('cooseLocation')}</p>
+                <span className='form__cooseLocation' onClick={() => setMapIsOpen(true)}>
+                    <span>{t('cooseLocation')}</span>
                     <SvgSelector id={"chevron-svg"} />
-                </div>
+                </span>
                 <Form
                     form={form}
                     onFinish={(data) => onFinish(data)}
@@ -123,9 +58,15 @@ export default function LocationModal({ orderModalOpen, setModalIsOpen, setMapIs
                     style={{ maxWidth: 600 }}
                     autoComplete="off"
                 >
-                    <Select name='rerion' {...selectProps} className='cart_order_modal__select' />
+                    <Select onChange={(e: any) => setRegion(e)} value={locationInfo.name || "Tashkent"} placeholder={t('region')} className='cart_order_modal__select'>
+                        {regions.map(el => (
+                            <Fragment key={el.id}>
+                                <SelectOption value={el.name}>{el.name}</SelectOption>
+                            </Fragment>
+                        ))}
+                    </Select>
                     <Input
-                        name="area"
+                        name="district"
                         required
                         type="text"
                         placeholder={t("area")}
@@ -146,15 +87,15 @@ export default function LocationModal({ orderModalOpen, setModalIsOpen, setMapIs
                     />
 
                     <Input
-                        name="postcode"
+                        name="post_index"
                         required
-                        type="text"
+                        type="number"
                         placeholder={t("postcode")}
                     />
 
                     <Button className='cart_order_modal__submitButton' isLoading={buttonIsLoading} type="primary" htmlType="submit" label={t("submit")} />
                 </Form>
-            </div>
+            </div >
         ),
         title: t('title'),
         open: orderModalOpen,

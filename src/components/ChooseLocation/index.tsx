@@ -3,16 +3,16 @@ import style from './ChooseLocation.module.scss';
 import { YMaps, Map, GeolocationControl, Placemark } from '@pbe/react-yandex-maps';
 import { Button } from 'antd';
 import { useTranslations } from 'next-intl';
+import { LocationInfoInterface } from '../Types';
 
 interface Props {
-    onLocationSelect: (url: string) => void,
     setMapIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    setCountry: React.Dispatch<React.SetStateAction<string | null>>,
-    setLocationInfo: React.Dispatch<any>,
+    setLocationInfo: React.Dispatch<LocationInfoInterface>,
+    locationInfo: LocationInfoInterface,
     mapIsOpen: boolean
 }
 
-const ChooseLocation = ({ onLocationSelect, setMapIsOpen, setCountry, setLocationInfo, mapIsOpen }: Props) => {
+const ChooseLocation = ({ setMapIsOpen, setLocationInfo, locationInfo }: Props) => {
     const [position, setPosition] = useState<[number, number]>([41.2995, 69.2401]); // Default position (Tashkent)
     const t = useTranslations('ChooseLocation');
     const [ymapsLoaded, setYmapsLoaded] = useState<boolean>(false);
@@ -31,20 +31,20 @@ const ChooseLocation = ({ onLocationSelect, setMapIsOpen, setCountry, setLocatio
                 window.ymaps.geocode(coords).then((res: any) => {
                     const geoObject = res.geoObjects.get(0);
                     const country = geoObject.getCountry();
-                    const addressDetails = geoObject.getAddressLine();
                     const area = geoObject.getLocalities().join(', ');
                     const street = geoObject.getThoroughfare();
                     const house = geoObject.getPremiseNumber();
                     const region = geoObject.getAdministrativeAreas().join(', ');
-                    setCountry(country);
+
                     setLocationInfo({
-                        country: country,
-                        addressDetails: addressDetails,
-                        area: area,
+                        name: country,
+                        url: createYandexMapsUrl(coords[1], coords[0]),
+                        region: region, 
+                        district: area,
                         street: street,
                         house: house,
-                        region: region,
                     })
+                    
                     resolve(country);
                 }).catch((error: any) => {
                     reject(error);
@@ -77,7 +77,7 @@ const ChooseLocation = ({ onLocationSelect, setMapIsOpen, setCountry, setLocatio
     };
 
     const createYandexMapsUrl = (lon: number, lat: number) => {
-        onLocationSelect(`https://yandex.com/maps?ll=${lon},${lat}&rtext=${lat},${lon}&rtt=mt&z=18`);
+        return `https://yandex.com/maps?ll=${lon},${lat}&rtext=${lat},${lon}&rtt=mt&z=18`
     };
 
     return (

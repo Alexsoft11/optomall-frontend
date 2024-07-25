@@ -23,6 +23,9 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
   const t = useTranslations("GLOBAL");
   const locale = useLocale()
 
+  console.log(item.image_url);
+  
+
   const handleChange = (chacked: boolean) => {
 
     if (!item.size_id) return

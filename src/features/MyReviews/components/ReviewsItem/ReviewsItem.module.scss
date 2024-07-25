@@ -10,9 +10,9 @@
         border-bottom: 1px solid var(--light-grey);
 
         .img {
-            width: 98px;
-            height: 98px;
-            border-radius: 10px;
+            img {
+                border-radius: 10px;
+            }
         }
 
         .item_text {
@@ -36,6 +36,13 @@
     }
 
     .bottom_block {
+        .rate {
+            svg {
+                width: 20px !important;
+                height: 20px !important; 
+            }
+        }
+
         button {
             width: 100%;
             background: var(--primary-color);
@@ -48,10 +55,12 @@
 
             &:hover {
                 background: var(--primary-color);
+
                 span {
                     color: white;
                 }
             }
+
         }
 
         .reviewed_block {
@@ -64,11 +73,17 @@
                 gap: 10px;
 
                 .review_photos__img {
+                    position: relative;
                     width: 60px;
                     height: 60px;
-                    border-radius: 10px;
+
+                    img {
+                        overflow: hidden;
+                        border-radius: 10px !important;
+                    }
                 }
             }
         }
+
     }
 }

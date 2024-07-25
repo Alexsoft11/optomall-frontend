@@ -79,7 +79,7 @@ export const API = {
           Authorization: "Bearer " + token,
         },
       })
-      .then((res) => res.data[filter === 'reviewed'? "reviewed" : "waitForReview"]),
+      .then((res) => res.data.data),
 
   // CargoPage
   getCargo: (token: string, id: string) =>

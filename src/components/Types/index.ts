@@ -11,10 +11,11 @@ export interface IGoToBackObject {
 }
 
 export interface LocationInfoInterface {
-  country: string | undefined;
-  addressDetails: string | undefined;
-  area: string | undefined;
-  street: string | undefined;
-  house: string | undefined;
-  region: string | undefined;
+  name: string ;
+  url: string,
+  region: string;
+  district: string;
+  street: string;
+  house: string;
+  post_index?: number | null;
 }

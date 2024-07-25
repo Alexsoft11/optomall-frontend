@@ -9,11 +9,22 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import { LoadingSpinner } from "@/ui/Spin";
 import CartBasketNoItems from "../CartBasketNoItems";
 import LocationBlock from "@/components/LocationBlock";
+import { LocationInfoInterface } from "@/components/Types";
+
+
+const initialValue = {
+  url: '',
+  name: '',
+  district: '',
+  region: '',
+  street: '',
+  house: '',
+  post_index: null,
+}
 
 interface Props {
   data: CartItemInterface[]
 }
-
 
 export default function CartBasketPage({ data }: Props) {
   const [orderItems, setOrderItems] = useState<CartOrderItemInterface[]>([])
@@ -21,9 +32,10 @@ export default function CartBasketPage({ data }: Props) {
 
   const [addOrder, setAddOrder] = useState<{ item: CartOrderItemInterface, chacked: boolean } | null>(null)
 
-  const [location, setLocation] = useState<string | null>(null);
+  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>(initialValue)
+
+
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [country, setCountry] = useState<string | null>(null);
   const [personData, setPersonData] = useState<PersonalDataInterface | null>(null);
   const [itemsValue, setItemsValue] = useState<number>(0);
 
@@ -31,10 +43,7 @@ export default function CartBasketPage({ data }: Props) {
 
   const createOrderData: CreateOrderDataInterface = {
     total_price: totalPrice,
-    location: {
-      name: country,
-      url: location,
-    },
+    location: locationInfo,
     userData: personData,
     items: orderItems,
   }
@@ -126,9 +135,9 @@ export default function CartBasketPage({ data }: Props) {
         <>
           <CartBasketItems changeQuantity={changeQuantity} setAddOrder={setAddOrder} data={dataClone} />
           <div className={styles.order_side}>
-            <CartOrderBlock itemValue={itemsValue} type="order" isCart={true} createOrderData={createOrderData} cost={`${totalPrice} uzs`} />
+            <CartOrderBlock itemValue={itemsValue} isCart={true} createOrderData={createOrderData} cost={`${totalPrice} uzs`} />
             <div className={styles.order_info}>
-              <LocationBlock setCountry={setCountry} setLocation={setLocation} />
+              <LocationBlock setLocationInfo={setLocationInfo} locationInfo={locationInfo} />
               <CartGetOrderPerson setPersonData={setPersonData} />
             </div>
           </div>
