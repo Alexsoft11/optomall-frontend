@@ -118,7 +118,7 @@ export default function ReviewModal({ modalIsOpen, onCancel, productId, setComme
         const formData = new FormData()
         const newFileList: File[] = fileList.map(el => el.data !== null ? el.data : null).filter(el => el !== null)
         for (let file of newFileList) {
-            formData.append('images[]', file);
+            formData.append('images', file);
         }
         formData.append('name', values.comment)
         formData.append('rating', starsValue.toString())

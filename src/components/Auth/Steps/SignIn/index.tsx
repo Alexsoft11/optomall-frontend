@@ -33,7 +33,7 @@ export default function SignIn() {
     },
     onSuccess(res) {
       setButtonIsLoading(false)
-      if (res.message === "add_personal_data") {
+      if (res.message === "add_personal_data" || !res.info_filled) {
         message.error(t(`Auth.${res.error}`));
         router.push(`/auth?step=info&id=${res.unique_id}`)
       }

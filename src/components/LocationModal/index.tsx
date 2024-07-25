@@ -58,7 +58,7 @@ export default function LocationModal({ orderModalOpen, setModalIsOpen, setMapIs
                     style={{ maxWidth: 600 }}
                     autoComplete="off"
                 >
-                    <Select onChange={(e: any) => setRegion(e)} value={locationInfo.name} placeholder={t('region')} className='cart_order_modal__select'>
+                    <Select onChange={(e: any) => setRegion(e)} value={locationInfo.name || "Tashkent"} placeholder={t('region')} className='cart_order_modal__select'>
                         {regions.map(el => (
                             <Fragment key={el.id}>
                                 <SelectOption value={el.name}>{el.name}</SelectOption>

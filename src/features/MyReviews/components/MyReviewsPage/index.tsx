@@ -25,8 +25,8 @@ export default function MyReviewsPage({ data }: Props) {
     }
 
     useEffect(() => {
-        if (!commentData) return
-        createData(commentData)
+        if (!commentData) return        
+        // createData(commentData)
     }, [commentData])
 
     useEffect(() => setDataClone(data), [data])
