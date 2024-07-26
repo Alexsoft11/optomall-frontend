@@ -158,7 +158,11 @@
     "inVerification": "tekshirilmoqda",
     "cargo": "Karqo",
     "calculated": "Hisoblangan",
-    "emptyData": "Bu yer bo'sh"
+    "emptyData": "Bu yer bo'sh",
+    "wait_for_pay_cargo": "Yetkazib berish uchun to'lov kutilyapti",
+    "pay": "To'lash",
+    "send_check_again": "Chek tasdiqlanmadi",
+    "upload": "Yana yuklash"
   },
   "Search": {
     "platform": "Platforma",
@@ -226,10 +230,10 @@
     "shipping_costs": "Yuk tashish xarajatlari",
     "how_to_use": "Qanday foydalaniladi"
   },
-  "Product-detail":{
-    "bought":"Sotib olganlar",
-    "compound":"Tarkibi",
-    "made_country":"Ishlab chiqarilgan davlati",
-    "model_features":"Modelning xususiyatlari"
+  "Product-detail": {
+    "bought": "Sotib olganlar",
+    "compound": "Tarkibi",
+    "made_country": "Ishlab chiqarilgan davlati",
+    "model_features": "Modelning xususiyatlari"
   }
 }
