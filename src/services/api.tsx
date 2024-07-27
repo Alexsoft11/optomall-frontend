@@ -21,11 +21,11 @@ export const API = {
 
   getHomePageProducts: () => axiosInstance.get("products?query=Discount"),
 
-  getHomePageCategoryProducts: () => axiosInstance.get("additional-categories"),
+  getHomePageCategoryProducts: () => axiosInstance.get("additional-categories?limit=12"),
 
   getHomePageCategoryProductsToken: (token?:string) =>
     axiosInstance
-      .get(`additional-categories${token && token !== "undefined" ? "-token" : ""}`,{
+      .get(`additional-categories${token && token !== "undefined" ? "-token" : ""}?limit=12`,{
         headers: {
           Authorization: "Bearer " + token,
         },

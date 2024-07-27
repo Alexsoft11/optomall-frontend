@@ -10,12 +10,11 @@ interface LikedProps {
   product_id: string;
   id_filter?: number;
   isLike: boolean;
-  onLikeChange?: (cardId: number, isLiked: boolean) => void;
+  onLikeChange?: (cardId: number) => void;
 }
 
 const LikedBtn = ({ onLikeChange, product_id, isLike, id_filter, card }:LikedProps) => {
-  const token = useJwt()
-  let likedProducts = [];
+  const token = useJwt();
   const [changeLike, setChangeLike] = useState(isLike);
 
   useEffect(() => {
@@ -27,27 +26,32 @@ const LikedBtn = ({ onLikeChange, product_id, isLike, id_filter, card }:LikedPro
   }, [card]);
 
   const handleClickLiked = () => {
+    const likedProductsString = localStorage.getItem('likedProducts');
+    const likedProducts = likedProductsString ? JSON.parse(likedProductsString) : [];
+
     if (changeLike) {
       if (onLikeChange && id_filter !== undefined) {
-        onLikeChange(id_filter, !isLike);
+        onLikeChange(id_filter);
       }
       if (!token && !onLikeChange) {
-        let localClone: any[] = [];
-        localClone = localClone.filter((el: any) => el.id !== id_filter);
-        localStorage.setItem('likedProducts', JSON.stringify(localClone));
+        const updatedLikedProducts = likedProducts.filter((el: any) => el.id !== card.id);
+        localStorage.setItem('likedProducts', JSON.stringify(updatedLikedProducts));
       }
-      setChangeLike(false)
-    } else {
-      setChangeLike(!isLike)
       if (token) {
-        dislikeCard([card.id.toString()])
+        if (onLikeChange) {
+          dislikeCard([card.product_id.toString()])
+        } else {
+          dislikeCard([card.id.toString()])
+        }
+      }
+      setChangeLike(false);
+    } else {
+      setChangeLike(true);
+      if (token) {
+        dislikeCard([card.id.toString()]);
       } else {
         likedProducts.push(card);
-        if (token) {
-  
-        } else {
-          localStorage.setItem('likedProducts', JSON.stringify(likedProducts));
-        }
+        localStorage.setItem('likedProducts', JSON.stringify(likedProducts));
       }
     }
   };
