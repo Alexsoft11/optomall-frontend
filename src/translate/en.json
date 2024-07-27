@@ -30,6 +30,7 @@
     "unauthenticated": "Unauthenticated",
     "invalid_data": "Invalid data",
     "order_created_successfully": "Order created successfully",
+    "datanot":"Data Not Found",
     "email": {
       "validation.unique": "The email has already been taken."
     },
@@ -238,6 +239,7 @@
     "bought": "Bought",
     "compound": "Compound",
     "made_country": "Country of Origin",
-    "model_features": "Features of the model"
+    "model_features": "Features of the model",
+    "copy-link":"Copy Link"
   }
 }

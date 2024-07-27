@@ -30,6 +30,7 @@
     "unauthenticated": "Tasdiqlanmagan",
     "invalid_data": "Noto'g'ri ma'lumotlar",
     "order_created_successfully": "Buyurtma muvaffaqiyatli yaratildi",
+    "datanot":"Maʼlumot topilmadi",
     "email": {
       "validation.unique": "Email allaqachon olingan."
     },
@@ -238,6 +239,7 @@
     "bought": "Sotib olganlar",
     "compound": "Tarkibi",
     "made_country": "Ishlab chiqarilgan davlati",
-    "model_features": "Modelning xususiyatlari"
+    "model_features": "Modelning xususiyatlari",
+    "copy-link":"Havolani kochirish"
   }
 }

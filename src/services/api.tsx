@@ -41,15 +41,23 @@ export const API = {
       .get(`product-detail-from-taobao?productId=${query}`)
       .then((res) => res.data),
 
-  getProductDetailToken: (query: any,lang:string, token?:string) =>
+  getProductDetailToken: (query: any, lang: string, token?: string) =>
     axiosInstance
-      .get(`product-detail-from-taobao${token && token !== "undefined" ? "-token" : ""}?productId=${query}&lang=${lang}`,{
-        headers: {
-          Authorization: "Bearer " + token,
-          
-        },
-      })
+      .get(
+        `product-detail-from-taobao${
+          token && token !== "undefined" ? "-token" : ""
+        }?productId=${query}&lang=${lang}`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
       .then((res) => res.data),
+
+    getProductComments: (query: any) =>
+    axiosInstance
+      .get(`get-comments?product_id=${query}`),
 
   // CartPage
   getUserBasket: (token: string, locale: string) =>
@@ -98,12 +106,13 @@ export const API = {
       .then((res) => res.data),
 
   userBasketFromStorage: (token: string, data: UserBasketPostInterface[]) =>
-    axiosInstance.post("user-basket", data, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    })
-    .then(res => localStorage.removeItem('basket-data')),
+    axiosInstance
+      .post("user-basket", data, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => localStorage.removeItem("basket-data")),
 
   authCheckEmail: (email: string) =>
     axiosInstance.post("check-email", { email: email }).then((res) => res.data),
