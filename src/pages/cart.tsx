@@ -40,10 +40,11 @@ export default function Cart({ basketData }: Props) {
 export const getServerSideProps = async (context: any) => {
   try {
     const cookies = cookie.parse(context.req.headers.cookie || "");
-
     // Extract the token from the parsed cookies
     const token = decodeURIComponent(cookies.token);
-    const basketResponse: CartItemInterface[] = await API.getUserBasket(token);
+    const { locale } = context;
+
+    const basketResponse: CartItemInterface[] = await API.getUserBasket(token, locale);
 
     return {
       props: {

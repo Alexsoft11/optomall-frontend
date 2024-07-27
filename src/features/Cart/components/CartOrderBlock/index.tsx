@@ -9,6 +9,7 @@ import useQueryApiClient from '@/utils/useQueryApiClient';
 import { message, Upload } from 'antd';
 import Cookies from 'universal-cookie';
 import { RcFile } from 'antd/es/upload';
+import { LocationInfoInterface } from '@/components/Types';
 
 interface Props {
     cost: string;
@@ -111,8 +112,6 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
         },
     };
 
-
-
     const toOrder = () => {
         if (!cookie.get('token')) {
             setAuthModalIsOpen(true)
@@ -125,6 +124,19 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
                 setTimeout(() => setMessageVisible(false), 1000)
             }
             return
+        }
+        if (createOrderData) {
+            const userData = createOrderData.userData
+            for (let value in createOrderData.location) {
+                if (!createOrderData.location[value as keyof LocationInfoInterface]) {
+                    return message.error(t(`locationRequired`), 2)
+                }
+            }
+            if (!userData || !userData.name || !userData.phone) {
+
+                return message.error(t(`userDataRequired`), 2)
+            }
+
         }
         createData(createOrderData)
     }
@@ -174,6 +186,9 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
                 className='bg_white'
                 img={SearchSvg}
                 description={t("authMessage")}
+                children={(
+                    <Button onClick={() => router.push('auth?step=signin')} className='signIn_btn' label={t('signin')} />
+                )}
                 open={authModalIsOpen}
             />
         </div>
