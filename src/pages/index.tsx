@@ -91,6 +91,28 @@ export default function Home({
     };
   }, []);
 
+  useEffect(() => {
+    const handleResize = async () => {
+      let limit = 15;
+      if (window.innerWidth <= 650) {
+        limit = 6;
+      } else if (window.innerWidth <= 768) {
+        limit = 9;
+      } else if (window.innerWidth > 768) {
+        limit = 15;
+      }
+      const categoryProductsResponse = await API.getHomePageCategoryProducts(limit);
+      setCategories(categoryProductsResponse.data.categories);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Initial call
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   if (isLoading) {
     return <LoadingSpinner fullscreen={true} size="large" />;
   }
@@ -114,14 +136,20 @@ export const getServerSideProps = async (context: any) => {
     const cookies = cookie.parse(context.req.headers.cookie || "");
     const token = cookies.token ? decodeURIComponent(cookies.token) : null;
 
+    let limit = 15;
+    const userAgent = context.req.headers['user-agent'];
+    if (userAgent) {
+      if (userAgent.includes("Mobile") || userAgent.includes("Android") || userAgent.includes("iPhone")) {
+        limit = 5;
+      }
+    }
+
     let categoryProductsResponse;
 
     if (token) {
-      categoryProductsResponse = await API.getHomePageCategoryProductsToken(
-        token
-      );
+      categoryProductsResponse = await API.getHomePageCategoryProductsToken(limit, token);
     } else {
-      categoryProductsResponse = await API.getHomePageCategoryProducts();
+      categoryProductsResponse = await API.getHomePageCategoryProducts(limit);
     }
 
     return {
