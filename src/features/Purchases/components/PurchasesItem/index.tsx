@@ -18,7 +18,6 @@ interface Props {
 }
 
 export default function PurchasesItem({ item }: Props) {
-    console.log(item);
 
     const t = useTranslations('Purchases')
     const locale = useLocale();
@@ -28,9 +27,6 @@ export default function PurchasesItem({ item }: Props) {
     function hexToRgba(hex: string, alpha: number = 1): string {
         // Remove the hash at the start if it's there
         hex = hex.replace('#', '');
-
-        // Check for shorthand hex notation and expand it
-        console.log(hex);
         
         if (hex.length === 3) {
             hex = hex.split('').map(char => char + char).join('');
