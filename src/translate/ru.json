@@ -163,7 +163,11 @@
     "inVerification": "в проверке",
     "emptyData": "Здес пусто",
     "cargo": "Карго",
-    "calculated": "Рассчитывается"
+    "calculated": "Рассчитывается",
+    "wait_for_pay_cargo": "Оплата за доставку ожидается",
+    "pay": "Оплатить",
+    "send_check_again": "Чек не прошел проверку",
+    "upload": "Загрузить еще"
   },
   "Search": {
     "platform": "Платформа",
@@ -235,6 +239,7 @@
     "bought":"Купили",
     "compound":"Состав",
     "made_country":"Страна производство",
-    "model_features":"Особенности модели"
+    "model_features":"Особенности модели",
+    "copy-link":"Скопировать ссылку"
   }
 }

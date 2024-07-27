@@ -51,7 +51,7 @@ export default function PurchasesItem({ item }: Props) {
         },
         onSuccess(res) {
             message.success('success add check', 2)
-        },       
+        },
     });
 
     const uploadProps = {
@@ -129,21 +129,21 @@ export default function PurchasesItem({ item }: Props) {
                 <SvgSelector className={"breadcrumb_icon"} id={"chevron-svg"} />
             </div>
             <div className={styles.order_items}>
-                {true ? (
+                {item.substatus_slug === "wait_for_pay_cargo" ? (
                     <div className={styles.sub_status_slug} >
-                        <h4>Оплата за доставку ожидается</h4>
-                        <button onClick={() => router.push(`cargo/${item.id}`)}>Оплатить</button>
+                        <h4>{t('wait_for_pay_cargo')}</h4>
+                        <button onClick={() => router.push(`cargo/${item.id}`)}>{t('pay')}</button>
                     </div>
-                ) : (
+                ) : null}
+
+                {item.substatus_slug === 'send_check_again' ? (
                     <div className={styles.sub_status_slug} >
-                        <h4>Чек не прошел проверку</h4>
+                        <h4>{t('send_check_again')}</h4>
                         <Upload {...uploadProps}>
-                            <button>Загрузить еще</button>
+                            <button>{t('upload')}</button>
                         </Upload>
                     </div>
-                )
-
-                }
+                ) : null}
                 {item.items.map(el => (
                     <Fragment key={el.id}>
                         <PurchasesOrderItem item={el} />

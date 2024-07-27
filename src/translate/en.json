@@ -159,7 +159,11 @@
     "inVerification": "in verification",
     "cargo": "Cargo",
     "calculated": "Calculated",
-    "emptyData": "It's empty here"
+    "emptyData": "It's empty here",
+    "wait_for_pay_cargo": "Payment for delivery is pending",
+    "pay": "Pay",
+    "send_check_again": "Check did not pass verification",
+    "upload": "Upload more"
   },
   "Search": {
     "platform": "Platform",
@@ -227,10 +231,11 @@
     "shipping_costs": "Shipping Costs",
     "how_to_use": "How to Use"
   },
-  "Product-detail":{
-    "bought":"Bought",
-    "compound":"Compound",
-    "made_country":"Country of Origin",
-    "model_features":"Features of the model"
+  "Product-detail": {
+    "bought": "Bought",
+    "compound": "Compound",
+    "made_country": "Country of Origin",
+    "model_features": "Features of the model",
+    "copy-link":"Copy Link"
   }
 }

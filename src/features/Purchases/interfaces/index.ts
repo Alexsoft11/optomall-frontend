@@ -18,9 +18,10 @@ export interface PurchasesOrderInterface {
   country: string;
   location_url: string;
   location_name: string;
-  substatus: LanguageStringIntergace,
-  substatus_color: string,
-  kg: string | null,
+  substatus: LanguageStringIntergace;
+  substatus_slug: string;
+  substatus_color: string;
+  kg: string | null;
   created_at: string;
   items: PurchasesItemInterface[];
 }

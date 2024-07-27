@@ -23,10 +23,11 @@ export default function MyReviewsPage({ data }: Props) {
     const changeRout = (filter: string) => {
         router.push(`/my-reviews?filter=${filter}`)
     }
+    
 
     useEffect(() => {
         if (!commentData) return        
-        // createData(commentData)
+        createData(commentData)
     }, [commentData])
 
     useEffect(() => setDataClone(data), [data])
@@ -36,6 +37,7 @@ export default function MyReviewsPage({ data }: Props) {
             url: "post-comment",
             method: "POST",
             disableOnMount: true,
+            multipart: true
         },
         onSuccess(res) {
             setDataClone(res.data)
@@ -57,7 +59,7 @@ export default function MyReviewsPage({ data }: Props) {
                 <div className={styles.items_block}>
                     <div className={styles.items}>
                         {
-                            dataClone.map(el => (
+                            dataClone?.map(el => (
                                 <Fragment key={el.id}>
                                     <ReviewsItem item={el} setCommentData={setCommentData} />
                                 </Fragment>

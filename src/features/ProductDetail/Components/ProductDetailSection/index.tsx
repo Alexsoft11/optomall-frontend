@@ -4,9 +4,8 @@ import ProductDetailImages from "../ProductDetailImages";
 import ProductDetailInfo from "../ProductDetailInfo";
 import Reviews from "../Reviews";
 import RecomendedProducts from "../RecomendedProducts";
-const ProductDetailSection = ({product, recommended, score}:any) => {
+const ProductDetailSection = ({product, recommended, score, productComments}:any) => {
 
-  
 const [selectedImage, setSelectedImage] = useState(product?.image);
 
   return (
@@ -19,7 +18,7 @@ const [selectedImage, setSelectedImage] = useState(product?.image);
             <ProductDetailInfo productDetails={score} setSelectedImage={setSelectedImage} product={product} />
           </div>
         </div>
-        <Reviews />
+        <Reviews comments={productComments}/>
         <RecomendedProducts recomendedData={recommended}/>
       </div>
     </div>
