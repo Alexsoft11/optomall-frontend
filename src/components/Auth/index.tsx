@@ -21,20 +21,28 @@ const Registration = dynamic(() => import("./Steps/Registration"));
 const SignIn = dynamic(() => import("./Steps/SignIn"));
 
 export default function AuthPage() {
-  const router = useRouter();
+  const { asPath, push, query, } = useRouter();
+  const [step, setStep] = useState<string | string[]>('')
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const t = useTranslations("Auth");
   const cookies = new Cookies();
   const token = cookies.get('token');
-  const currentStep = router.query.step;
+  const currentStep = query.step;
 
   useEffect(() => {
-    if (router.asPath === '/auth') router.push('/auth?step=signin')
+    if (asPath === '/auth') push('/auth?step=signin')
     if (!currentStep) return;
     if (token && currentStep !== "reset" && currentStep !== "forgot-password") {
-      router.push('/');
+      push('/');
     }
   }, [token, currentStep]);
+
+
+  useEffect(() => {
+    if (currentStep) {
+      setStep(currentStep)
+    }
+  }, [currentStep,])
 
   return (
     <div>
@@ -47,11 +55,11 @@ export default function AuthPage() {
             <div className={styles.language_selector__block}>
               <LanguageSelector />
             </div>
-            {router.query.step === "signin" ? <SignIn /> : null}
-            {router.query.step === "signUp" ? <Registration setModalIsOpen={setModalIsOpen} /> : null}
-            {router.query.step === "info" && router.query.id ? <Info /> : null}
-            {router.query.step === "reset" ? <NewPassword /> : null}
-            {router.query.step === "forgot-password" ? <ForgotPassword setModalIsOpen={setModalIsOpen} /> : null}
+            {step === "signin" ? <SignIn /> : null}
+            {step === "signUp" ? <Registration setModalIsOpen={setModalIsOpen} /> : null}
+            {step === "info" && query.id ? <Info /> : null}
+            {step === "reset" ? <NewPassword /> : null}
+            {step === "forgot-password" ? <ForgotPassword setModalIsOpen={setModalIsOpen} /> : null}
           </div>
         </div>
       </div>

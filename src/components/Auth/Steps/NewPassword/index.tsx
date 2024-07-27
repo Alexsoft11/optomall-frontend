@@ -12,28 +12,22 @@ import { useRouter } from 'next/router';
 export default function NewPassword() {
     const [form] = Form.useForm();
     const t = useTranslations("");
-    const [isLoading, setIsLoading] = useState(false)
     const cookie = new Cookies()
     const router = useRouter()
 
-    const { appendData: createData } = useQueryApiClient({
+    const { appendData: createData, isLoading } = useQueryApiClient({
         request: {
             url: 'password/reset',
             method: 'POST',
             disableOnMount: true,
         },
         onSuccess(res) {
-            setIsLoading(false)
             router.push('/auth')
         },
-        onError() {
-            setIsLoading(false)
-        }
     })
 
     const onFinish = (values: any) => {
         values.email = cookie.get('forgot-email')
-        setIsLoading(true)
         createData(values)
     }
 
