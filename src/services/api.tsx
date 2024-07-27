@@ -52,9 +52,9 @@ export const API = {
       .then((res) => res.data),
 
   // CartPage
-  getUserBasket: (token: string) =>
+  getUserBasket: (token: string, locale: string) =>
     axiosInstance
-      .get(`get-user-basket`, {
+      .get(`get-user-basket?locale=${locale}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -62,9 +62,9 @@ export const API = {
       .then((res) => res.data),
 
   // OrderPage
-  getOrder: (token: string, id: string) =>
+  getOrder: (token: string, id: string, locale: string) =>
     axiosInstance
-      .get(`get-order?order_id=${id}`, {
+      .get(`get-order?order_id=${id}&locale=${locale}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -72,9 +72,9 @@ export const API = {
       .then((res) => res.data),
 
   // MyReviewsPage
-  getReviews: (token: string, filter: string) =>
+  getReviews: (token: string, filter: string, locale: string) =>
     axiosInstance
-      .get(`user-products?filter=${filter}`, {
+      .get(`user-products?filter=${filter}&locale=${locale}`, {
         headers: {
           Authorization: "Bearer " + token,
         },

@@ -103,7 +103,7 @@ export default function Info() {
           <Input
             name="phone"
             rules={[
-              { validator: (rule, value) => validatePhone(t, rule, value) },
+              { validator: (rule, value) => validatePhone(t, value) },
             ]}
             type="text"
             prefix={"+998"}

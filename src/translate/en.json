@@ -106,7 +106,8 @@
     "something_wrong": "Something went wrong! Please try again later.",
     "metaTitle": "Login | ON-WAY",
     "metaDescription": "Securely log in to your ON-WAY account to access exclusive features and manage your orders.",
-    "metaKeywords": "ON-WAY, login, sign in, account access, secure login"
+    "metaKeywords": "ON-WAY, login, sign in, account access, secure login",
+    "passwordHasEmpty": "Password cannot contain spaces!"
   },
   "Cart": {
     "item": "Items",
@@ -130,7 +131,10 @@
     "imgSizeValidation": "Image size must be smaller than 5 MB!",
     "chooseItem": "Choose at least one item from the basket",
     "cargo": "Cargo",
-    "forKg": "per Kg"
+    "forKg": "per Kg",
+    "locationRequired": "Please provide a delivery address and specify the location on the map.",
+    "userDataRequired": "Please fill in the recipient's personal details!",
+    "signin": "Sign in"
   },
   "Order": {
     "payCost": "Amount to be paid: ",
