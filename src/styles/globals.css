@@ -250,6 +250,9 @@ a {
   }
 }
 
+jdiv {
+  z-index: 999 !important;
+}
 
 @media (max-width:970px) {
   jdiv {
