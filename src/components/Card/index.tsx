@@ -10,17 +10,16 @@ import { useJwt } from "@/utils/useJwt";
 
 interface CardProps {
   data: CardInterface;
-  isShowLiked?: boolean;
-  onLikeChange?: (cardId: number, isLiked: boolean) => void;
+  onLikeChange?: (cardId: number) => void;
 }
 
-const Card = ({ data, isShowLiked, onLikeChange }: CardProps) => {
+const Card = ({ data, onLikeChange }: CardProps) => {
   const t = useTranslations("GLOBAL");
   const textRef = useRef<any>(null);
   const [isOverflowed, setIsOverflowed] = useState(false);
   const router = useRouter();
   const locale = useLocale();
-  const token = useJwt();
+  
   useEffect(() => {
     const { current } = textRef;
     if (current) {
