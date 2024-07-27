@@ -55,8 +55,7 @@ const SliderColors = ({
           },
         }}
         modules={[Navigation]}
-        className="slider_colors"
-      >
+        className='slider_colors'>
         {data?.map((el: any, idx: number) => (
           <SwiperSlide key={idx}>
             <div className={styles.card_item}>
@@ -65,20 +64,25 @@ const SliderColors = ({
                 className={`${styles.slide_color} ${
                   activeItem === el.id ? styles.selected : ""
                 }`}
-                onClick={() => handleColorClick(el.id)}
-              >
+                onClick={() => handleColorClick(el.id)}>
                 <Image src={el.image_url} alt={el.name} fill />
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-      <button className={`next_btn ${styles.next_btn} ${styles.swiper_btns}`}>
-        <SvgSelector id="next-svg" />
-      </button>
-      <button className={`prev_btn ${styles.prev_btn} ${styles.swiper_btns}`}>
-        <SvgSelector id="prev-svg" />
-      </button>
+      {data.length > 2 ? (
+        <>
+          <button
+            className={`next_btn ${styles.next_btn} ${styles.swiper_btns}`}>
+            <SvgSelector id='next-svg' />
+          </button>
+          <button
+            className={`prev_btn ${styles.prev_btn} ${styles.swiper_btns}`}>
+            <SvgSelector id='prev-svg' />
+          </button>
+        </>
+      ) : null}
     </div>
   );
 };

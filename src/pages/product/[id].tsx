@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import dynamic from "next/dynamic";
 import cookie from "cookie";
+import DataNotFound from "@/ui/DataNotFound";
 
 interface ProductDetailProps {
   product: any;
@@ -23,7 +24,7 @@ const ProductDetailSection = dynamic(
 
 const ProductDetail = ({ product }: ProductDetailProps) => {
   if (!product) {
-    return <h2>No product found.</h2>;
+    return <DataNotFound/>;
   }
   const title = product?.detail.title;
 

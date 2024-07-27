@@ -31,6 +31,7 @@
     "invalid_data": "Неверные данные",
     "order_created_successfully": "Заказ успешно создан",
     "invalid_unique_id": "неверный айди",
+    "datanot":"Данные не найдены",
     "email": {
       "validation": {
         "unique": "Эта электронная почта уже используется."

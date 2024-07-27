@@ -74,7 +74,7 @@ const ProductDetailInfo = ({
               <span>Url</span>
               <div></div>
             </div>
-            <Link href={productUrl}>{product.id}</Link>
+            <Link className={styles.product_link} href={productUrl}>{product.id}</Link>
           </li>
           <li>
             <div className={styles.productSpecs_name}>

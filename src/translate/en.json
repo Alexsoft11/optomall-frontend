@@ -30,6 +30,7 @@
     "unauthenticated": "Unauthenticated",
     "invalid_data": "Invalid data",
     "order_created_successfully": "Order created successfully",
+    "datanot":"Data Not Found",
     "email": {
       "validation.unique": "The email has already been taken."
     },
