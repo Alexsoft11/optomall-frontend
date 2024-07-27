@@ -112,6 +112,15 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
         },
     };
 
+    const modalProps = {
+        onCancel: () => setAuthModalIsOpen(false),
+        className: 'bg_white',
+        img: SearchSvg,
+        description: t("authMessage"),
+        children: (<Button onClick={() => router.push('auth?step=signin')} className='signIn_btn' label={t('signin')} />),
+        open: authModalIsOpen
+    }
+
     const toOrder = () => {
         if (!cookie.get('token')) {
             setAuthModalIsOpen(true)
@@ -181,16 +190,7 @@ export default function CartOrderBlock({ cost, itemValue, orderId, createOrderDa
                 description={t("checkMessage")}
                 open={checkModalIsOpen}
             />
-            <Modal
-                onCancel={() => setAuthModalIsOpen(false)}
-                className='bg_white'
-                img={SearchSvg}
-                description={t("authMessage")}
-                children={(
-                    <Button onClick={() => router.push('auth?step=signin')} className='signIn_btn' label={t('signin')} />
-                )}
-                open={authModalIsOpen}
-            />
+            <Modal {...modalProps} />
         </div>
     );
 }
