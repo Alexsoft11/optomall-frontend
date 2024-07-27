@@ -15,6 +15,7 @@
 
     .order_status {
       display: flex;
+      
       gap: 10px;
       align-items: center;
 
@@ -27,39 +28,20 @@
           border-radius: 50%;
         }
       }
+
+      .order_status__status {
+        font-size: var(--paragraph-two);
+        font-weight: 400;
+        line-height: 15.73px;
+        border-radius: 10px;
+        padding: 4px 10px;
+      }
     }
 
     p {
       font-size: var(--paragraph);
       font-weight: 400;
       line-height: 19.36px;
-    }
-
-    div {
-      font-size: var(--paragraph-two);
-      font-weight: 400;
-      line-height: 15.73px;
-      border-radius: 10px;
-      padding: 4px 10px;
-    }
-
-    .status_processing {
-      background: var(--mint-cream);
-      color: var(--emerald-green);
-    }
-
-    .status_delivered {
-      background: var(--light-grey-2);
-    }
-
-    .status_cancelled {
-      background: var(--light-red);
-      color: var(--red);
-    }
-
-    .status_shipped {
-      background: var(--papaya-whip);
-      color: var(--carrot-orange);
     }
   }
 
@@ -147,7 +129,7 @@
       flex-direction: column;
       align-items: start;
       gap: 10px;
-     padding: 0px 0px 20px 0px;
+      padding: 0px 0px 20px 0px;
 
       h4 {
         font-size: var(--paragraph);

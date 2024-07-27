@@ -158,6 +158,8 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
         product_id: product.id.toString(),
         sizes,
       };
+      console.log(product);
+      
       const localeData = selectedColors.flatMap((colorId) =>
         selectedSizes[colorId]
           .filter((size: any) => size.quantity > 0)
@@ -169,7 +171,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
               product.colors.find((img) => img.id === colorId)?.image_url || "",
             size: size.value,
             size_id:
-              product.sizes.find((el) => el.value === size.value)?.size_id ||
+              product.sizes.find((el) => el.value === size.value)?.id ||
               "",
             quantity: size.quantity,
             color:

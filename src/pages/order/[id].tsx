@@ -42,10 +42,12 @@ export const getServerSideProps = async (context: any) => {
     const cookies = cookie.parse(context.req.headers.cookie || "");
 
     // Extract the token from the parsed cookies
+    
     const token = decodeURIComponent(cookies.token);
     const { id } = context.query;
+    const { locale } = context;
 
-    const orderResponse = await API.getOrder(token, id);
+    const orderResponse = await API.getOrder(token, id, locale);
 
     return {
       props: {

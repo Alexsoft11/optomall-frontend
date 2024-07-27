@@ -24,6 +24,7 @@ const Wishes = ({ wishesData }: Props) => {
       method: 'POST',
     },
     onSuccess(res) {
+      localStorage.removeItem('likedProducts');
     },
   })
   
@@ -38,31 +39,18 @@ const Wishes = ({ wishesData }: Props) => {
         }));
         setData(updatedData);
       }
-    } else {
-      setData(wishesData || []);
-      if (savedData && savedData.length > 0) {
-        const parsedData = JSON.parse(savedData);
-
-        if (Array.isArray(parsedData)) {
-          const productIds = parsedData.map(item => item.id);
-
-          if (productIds.length > 0) {
-            dislikeCard([ productIds.toString() ]);
-          }
-        }
-      }
     }
   }, [token, wishesData]);
 
-  const handleLikeChange = (cardId: number, isLiked: boolean) => {
+  const handleLikeChange = (cardId: number) => {
     if (token) {
       let clone = [...data];
-      clone = clone.filter((el: any) => el.id !== cardId && !isLiked);
+      clone = clone.filter((el: any) => el.id !== cardId);
       setData(clone);
 
     } else {
       let localClone = [...initialData];
-      localClone = localClone.filter((el: any) => el.id !== cardId && !isLiked);
+      localClone = localClone.filter((el: any) => el.id !== cardId);
       localStorage.setItem('likedProducts', JSON.stringify(localClone));
       setData(localClone);
     }
@@ -82,7 +70,6 @@ const Wishes = ({ wishesData }: Props) => {
                 <Card
                   key={idx}
                   data={item}
-                  isShowLiked={true}
                   onLikeChange={handleLikeChange}
                 />
               ))}

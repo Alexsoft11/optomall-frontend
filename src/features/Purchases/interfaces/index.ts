@@ -10,7 +10,7 @@ export interface PurchasesItemInterface {
 
 export interface PurchasesOrderInterface {
   id: number;
-  status: string;
+  status: LanguageStringIntergace;
   status_color: string;
   total_price: number;
   user_name: string;

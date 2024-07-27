@@ -31,6 +31,18 @@ export const StyledModal = styled(AntdModal)`
       padding: 20px 0px;
       flex-direction: column;
 
+      .signIn_btn {
+        color: var(--white-color);
+        width: 100%;
+        font-size: var(--paragraph-two);
+        font-weight: 400;
+        line-height: 16.94px;
+        padding: 12px;
+        height: auto;
+        background: var(--primary-color);
+        border-radius: 5px;
+      }
+
       .modal-descripion {
         width: 226px;
         text-align: center;
@@ -220,14 +232,13 @@ export const StyledModal = styled(AntdModal)`
           gap: 10px;
 
           .upload_block {
-            
             .ant-upload-select {
               display: flex;
               justify-content: center;
               align-items: center;
               background-color: var(--light-grey);
               border-radius: 10px;
-              
+
               .ant-upload {
                 border-radius: 10px;
                 position: relative;

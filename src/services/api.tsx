@@ -21,20 +21,15 @@ export const API = {
 
   getHomePageProducts: () => axiosInstance.get("products?query=Discount"),
 
-  getHomePageCategoryProducts: () => axiosInstance.get("additional-categories"),
+  getHomePageCategoryProducts: (limit: number) => axiosInstance.get(`additional-categories?limit=${limit}`),
 
-  getHomePageCategoryProductsToken: (token?: string) =>
+  getHomePageCategoryProductsToken: (limit: number, token?: string) =>
     axiosInstance
-      .get(
-        `additional-categories${
-          token && token !== "undefined" ? "-token" : ""
-        }`,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      )
+    .get(`additional-categories${token && token !== "undefined" ? "-token" : ""}?limit=${limit}`,{
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
       .then((res) => res),
 
   // SearchPage
@@ -65,9 +60,9 @@ export const API = {
       .get(`get-comments?product_id=${query}`),
 
   // CartPage
-  getUserBasket: (token: string) =>
+  getUserBasket: (token: string, locale: string) =>
     axiosInstance
-      .get(`get-user-basket`, {
+      .get(`get-user-basket?locale=${locale}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -75,9 +70,9 @@ export const API = {
       .then((res) => res.data),
 
   // OrderPage
-  getOrder: (token: string, id: string) =>
+  getOrder: (token: string, id: string, locale: string) =>
     axiosInstance
-      .get(`get-order?order_id=${id}`, {
+      .get(`get-order?order_id=${id}&locale=${locale}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -85,9 +80,9 @@ export const API = {
       .then((res) => res.data),
 
   // MyReviewsPage
-  getReviews: (token: string, filter: string) =>
+  getReviews: (token: string, filter: string, locale: string) =>
     axiosInstance
-      .get(`user-products?filter=${filter}`, {
+      .get(`user-products?filter=${filter}&locale=${locale}`, {
         headers: {
           Authorization: "Bearer " + token,
         },

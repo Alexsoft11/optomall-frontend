@@ -107,7 +107,8 @@
     "something_wrong": "Nimadir noto'g'ri ketdi! Iltimos, keyinroq yana urinib ko'ring.",
     "metaTitle": "Kirish | ON-WAY",
     "metaDescription": "ON-WAY hisobingizga xavfsiz kiring va maxsus funksiyalardan foydalaning hamda buyurtmalaringizni boshqaring.",
-    "metaKeywords": "ON-WAY, kirish, hisobga kirish, xavfsiz kirish"
+    "metaKeywords": "ON-WAY, kirish, hisobga kirish, xavfsiz kirish",
+    "passwordHasEmpty": "Parolda bo'sh joy bo'lmasligi kerak!"
   },
   "Cart": {
     "item": "Mahsulotlar",
@@ -131,7 +132,10 @@
     "imgSizeValidation": "Rasm hajmi 5 MB dan kichik bo'lishi kerak!",
     "chooseItem": "Savatdan kamida bitta mahsulot tanlang",
     "cargo": "Karqo",
-    "forKg": "kg uchun"
+    "forKg": "kg uchun",
+    "locationRequired": "Tovarni yetkazib berish manzilini to'ldiring va xaritada joylashuvni",
+    "userDataRequired": "Qabul qiluvchining shaxsiy ma'lumotlarini to'ldiring!",
+    "signin": "Kirish"
   },
   "Order": {
     "payCost": "To'lanadigan summa: ",

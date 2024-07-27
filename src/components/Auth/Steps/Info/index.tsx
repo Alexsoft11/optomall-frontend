@@ -18,9 +18,8 @@ export default function Info() {
   const cookie = new Cookies();
   const router = useRouter();
   const [handleError] = useHandleError(form);
-  const [isLoading, setIsLoading] = useState(false)
 
-  const { appendData: createData } = useQueryApiClient({
+  const { appendData: createData, isLoading } = useQueryApiClient({
     request: {
       url: "personal-data",
       method: "POST",
@@ -31,23 +30,21 @@ export default function Info() {
         message.error('something_wrong')
         return
       }
-      
+
       if (localStorage.getItem('basket-data')) {
         API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
       }
       const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
-      
+
       // Set the cookie
       cookie.set('token', res.token, {
         path: '/',
         maxAge: maxAge,
       });
-      setIsLoading(false)
       router.push("/");
     },
     onError(res) {
       handleError(res);
-      setIsLoading(false)
     },
   });
 
@@ -106,7 +103,7 @@ export default function Info() {
           <Input
             name="phone"
             rules={[
-              { validator: (rule, value) => validatePhone(t, rule, value) },
+              { validator: (rule, value) => validatePhone(t, value) },
             ]}
             type="text"
             prefix={"+998"}

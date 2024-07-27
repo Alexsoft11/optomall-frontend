@@ -19,7 +19,7 @@ export default function ForgotPassword({ setModalIsOpen }: Props) {
     const router = useRouter();
     const cookie = new Cookies()
 
-    const { appendData: createData } = useQueryApiClient({
+    const { appendData: createData, isLoading } = useQueryApiClient({
         request: {
             url: 'password/forgot',
             method: 'POST',
@@ -66,7 +66,7 @@ export default function ForgotPassword({ setModalIsOpen }: Props) {
                         </Form.Item>
 
                         <Form.Item className={styles.submitButton}>
-                            <Button type="primary" htmlType="submit" label={t('Auth.save')} />
+                            <Button type="primary" htmlType="submit" isLoading={isLoading} label={t('Auth.save')} />
                         </Form.Item>
                     </Form>
                 </div>
