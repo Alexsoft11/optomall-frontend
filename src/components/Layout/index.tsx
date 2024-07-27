@@ -41,7 +41,14 @@ const MainLayout = ({ children }: ILayoutsProps) => {
   }
   return (
     <>
-      {loading && <LoadingSpinner fullscreen={true} size="large" />}     
+      <Head>
+        {!router.pathname.includes("product") &&
+        !router.pathname.includes("cart") &&
+        !router.pathname.includes("order") ? (
+          <script src="//code.jivo.ru/widget/DIDzI069GB" async></script>
+        ) : null}
+      </Head>
+      {loading && <LoadingSpinner fullscreen={true} size="large" />}
       <Navbar />
       <main className="main_page">{children}</main>
       <Footer />
