@@ -42,16 +42,15 @@ const MainSlider: React.FC<Props> = ({ data }) => {
                 centeredSlides: true
               }
             }}
-            // autoplay={{
-            //   delay: 4500,
-            //   disableOnInteraction: true,
-            // }}
+            autoplay={{
+              delay: 4500,
+            }}
             loop={true}
             navigation={{
               nextEl: `.next-btn`,
               prevEl: `.prev-btn`,
             }}
-            modules={[Pagination,  Navigation]}
+            modules={[Pagination,  Navigation, Autoplay]}
             className={styles.my_swiper}
           >
             {data?.map((el: any, idx) => (
