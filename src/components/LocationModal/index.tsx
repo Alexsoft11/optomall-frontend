@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import styles from './LocationModal.module.scss';
 import { Form } from 'antd';
 import { useTranslations } from 'next-intl';
@@ -31,6 +31,10 @@ export default function LocationModal({ orderModalOpen, setModalIsOpen, setMapIs
         setLocationInfo(clone)
         setModalIsOpen(false)
     };
+
+    useEffect(() => {
+        form.setFieldValue('post_index', '')
+    }, [])
 
 
     if (locationInfo) {

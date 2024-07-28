@@ -42,7 +42,7 @@ const Card = ({ data, onLikeChange }: CardProps) => {
   };
 
   const title = getTitle(data.title);
-
+  
   return (
     <div className={styles.card}>
       <div onClick={handleLinkClick}>

@@ -13,7 +13,6 @@ import GoToBack from "@/components/GoToBack";
 import useHandleError from "@/utils/useHandleError";
 import { CartItemInterface } from "@/features/Cart/interface";
 import { API } from "@/services/api";
-import { LoadingSpinner } from "@/ui/Spin";
 
 export default function SignIn() {
   const [form] = Form.useForm();
@@ -22,17 +21,15 @@ export default function SignIn() {
   const expirationDate = new Date();
   const router = useRouter();
   const [handleError] = useHandleError(form);
-  const [buttonIsLoading, setButtonIsLoading] = useState(false)
   expirationDate.setDate(expirationDate.getDate() + 3);
 
-  const { appendData: createData, isLoading } = useQueryApiClient({
+  const { appendData: createData, isLoading} = useQueryApiClient({
     request: {
       url: "login",
       method: "POST",
       disableOnMount: true,
     },
     onSuccess(res) {
-      setButtonIsLoading(false)
       if (res.message === "add_personal_data" || !res.info_filled) {
         message.error(t(`Auth.${res.error}`));
         router.push(`/auth?step=info&id=${res.unique_id}`)
@@ -54,7 +51,6 @@ export default function SignIn() {
       });
     },
     onError(err) {
-      setButtonIsLoading(false)
       if (err.message.includes("email")) {
         form.setFields([
           {
@@ -87,7 +83,6 @@ export default function SignIn() {
   });
 
   const onFinish = (values: any) => {
-    setButtonIsLoading(true)
     createData(values);
   };
 
@@ -131,7 +126,7 @@ export default function SignIn() {
           </span>
 
           <Form.Item className={styles.submitButton}>
-            <Button isLoading={buttonIsLoading} type="primary" htmlType="submit" label={t("Auth.signin")} />
+            <Button isLoading={isLoading} type="primary" htmlType="submit" label={t("Auth.signin")} />
           </Form.Item>
         </Form>
 
@@ -143,7 +138,7 @@ export default function SignIn() {
         </div>
 
         <GoogleButton />
-        <LoadingSpinner spinning={isLoading} fullscreen={true} size="large" />
+
       </div>
     </div>
   );

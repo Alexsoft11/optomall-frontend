@@ -64,7 +64,7 @@ export default function Home({
       ? localStorage.getItem("likedProducts")
       : null;
 
-  useEffect(() => {
+   useEffect(() => {
     if (token && !hasPosted.current) {
       if (savedData) {
         const parsedData = JSON.parse(savedData);
@@ -145,9 +145,13 @@ export const getServerSideProps = async (context: any) => {
     const token = cookies.token ? decodeURIComponent(cookies.token) : null;
 
     let limit = 15;
-    const userAgent = context.req.headers['user-agent'];
+    const userAgent = context.req.headers["user-agent"];
     if (userAgent) {
-      if (userAgent.includes("Mobile") || userAgent.includes("Android") || userAgent.includes("iPhone")) {
+      if (
+        userAgent.includes("Mobile") ||
+        userAgent.includes("Android") ||
+        userAgent.includes("iPhone")
+      ) {
         limit = 5;
       }
     }

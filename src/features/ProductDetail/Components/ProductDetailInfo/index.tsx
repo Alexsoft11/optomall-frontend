@@ -1,6 +1,8 @@
+/** @format */
+
 import React, { useState } from "react";
 import styles from "./ProductDetailInfo.module.scss";
-import { Dropdown, Rate } from "antd";
+import { Button, Dropdown, Rate } from "antd";
 import SliderColors from "../SliderColors";
 import ProductOrderSection from "../ProductOrdeSection";
 import { MenuProps } from "antd/lib";
@@ -10,37 +12,65 @@ import { shareUrl } from "@/constants";
 import ProductIsLike from "../ProductIsLike/ProductIsLike";
 import { productDetailsData } from "@/mockdata/detailData";
 import { useTranslations } from "next-intl";
+import { copyLinkToClipboard } from "@/utils/useCopyLink";
 
 const ProductDetailInfo = ({
   productDetails,
   product,
-  path=shareUrl()
+  path = shareUrl(),
 }: any) => {
-  const t = useTranslations("Product-detail")
+  const t = useTranslations("Product-detail");
   const [selectedColor, setSelectedColor] = useState<number | null>(
-    product.colors[0].id
+    product.colors[0]?.id
   );
   const [selectedColors, setSelectedColors] = useState<number[]>([
-    product.colors[0].id,
+    product.colors[0]?.id,
   ]);
   const [totalQuantities, setTotalQuantities] = useState<{
     [key: number]: number;
   }>({});
+
   const items: MenuProps["items"] = [
     {
-      label: <Link href={`https://t.me/share/url?url=${path}`} className={styles.link}><SvgSelector id="telegram-svg" />Telegram</Link>,
-      key: "0",
-    },
-    {
-      label: <Link href={path}  className={styles.link}><SvgSelector id="facebook-svg"/>Facebook </Link>,
+      label: (
+        <Button href={path} className={styles.link} onClick={copyLinkToClipboard}>
+          <SvgSelector id='copylink-svg' />
+            {t("copy-link")}
+        </Button>
+      ),
       key: "1",
     },
     {
-      label: <Link href={path}  className={styles.link}><SvgSelector id="instagram-svg"/>Instagram</Link>,
+      label: (
+        <Link
+          href={`https://t.me/share/url?url=${path}`}
+          className={styles.link}>
+          <SvgSelector id='telegram-svg' />
+          Telegram
+        </Link>
+      ),
       key: "2",
     },
+    {
+      label: (
+        <Link href={path} className={styles.link}>
+          <SvgSelector id='facebook-svg' />
+          Facebook{" "}
+        </Link>
+      ),
+      key: "3",
+    },
+    {
+      label: (
+        <Link href={path} className={styles.link}>
+          <SvgSelector id='instagram-svg' />
+          Instagram
+        </Link>
+      ),
+      key: "4",
+    },
   ];
- const productUrl =  product.product_url?product.product_url:""
+  const productUrl = product.product_url ? product.product_url : "";
   return (
     <div className={styles.product_info_detail}>
       <div className={styles.productInfo}>
@@ -48,12 +78,19 @@ const ProductDetailInfo = ({
           <div className={styles.rating}>
             <Rate disabled defaultValue={productDetails.rating} />
             <span>{productDetails.rating}</span>
-            <span>({productDetails.sold}){t("bought")}</span>
+            <span>
+              ({productDetails.sold}){t("bought")}
+            </span>
           </div>
           <div className={styles.product_actions}>
-          <ProductIsLike product={product}/>
-            <Dropdown menu={{ items }} trigger={["click"]} placement="bottomRight">
-              <a onClick={(e) => e.preventDefault()}><SvgSelector id="share-icon"/></a>
+            <ProductIsLike product={product} />
+            <Dropdown
+              menu={{ items }}
+              trigger={["click"]}
+              placement='bottomRight'>
+              <a onClick={(e) => e.preventDefault()}>
+                <SvgSelector id='share-icon' />
+              </a>
             </Dropdown>
           </div>
         </div>
@@ -74,7 +111,9 @@ const ProductDetailInfo = ({
               <span>Url</span>
               <div></div>
             </div>
-            <Link href={productUrl}>{product.id}</Link>
+            <Link className={styles.product_link} href={productUrl}>
+              {product.id}
+            </Link>
           </li>
           <li>
             <div className={styles.productSpecs_name}>

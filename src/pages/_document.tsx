@@ -39,7 +39,6 @@ class MyDocument extends Document {
             type="text/javascript"
             async
           />
-          <script src="//code.jivo.ru/widget/DIDzI069GB" async></script>
         </Head>
         <body>
           <Main />

@@ -44,8 +44,9 @@ export const getServerSideProps = async (context: any) => {
     // Extract the token from the parsed cookies
     const token = decodeURIComponent(cookies.token);
     const { filter } = context.query;
+    const { locale } = context;
 
-    const reviewsResponse = await API.getReviews(token, filter);
+    const reviewsResponse = await API.getReviews(token, filter, locale);
 
     return {
       props: {

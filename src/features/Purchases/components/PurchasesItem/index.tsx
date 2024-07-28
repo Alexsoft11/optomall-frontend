@@ -18,20 +18,26 @@ interface Props {
 }
 
 export default function PurchasesItem({ item }: Props) {
+
     const t = useTranslations('Purchases')
     const locale = useLocale();
     const router = useRouter()
     const [isUploadErr, setIsUploadErr] = useState(false);
 
-    function hexToRgba(hex: string, opacity: number) {
-        if (!hex) return
+    function hexToRgba(hex: string, alpha: number = 1): string {
+        // Remove the hash at the start if it's there
         hex = hex.replace('#', '');
-        hex.toLocaleLowerCase();
-        let r = parseInt(hex.substring(0, 2), 16);
-        let g = parseInt(hex.substring(2, 4), 16);
-        let b = parseInt(hex.substring(4, 6), 16);
+        
+        if (hex.length === 3) {
+            hex = hex.split('').map(char => char + char).join('');
+        }
 
-        return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+        // Parse the r, g, b values
+        const g = parseInt(hex.substring(0, 2), 16);
+        const r = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     }
 
     const [isRotatedUp, setIsRotatedUp] = useState(false);
@@ -51,7 +57,7 @@ export default function PurchasesItem({ item }: Props) {
         },
         onSuccess(res) {
             message.success('success add check', 2)
-        },       
+        },
     });
 
     const uploadProps = {
@@ -95,8 +101,8 @@ export default function PurchasesItem({ item }: Props) {
                     <div className={styles.flag_img}>
                         <Image src={item.country} alt='flag' fill />
                     </div>
-                    <div className={styles["status_" + item.status]} style={{ color: item.status_color, backgroundColor: hexToRgba(item.status_color, 0.2) }}>
-                        {t(`${item.status}`)}
+                    <div className={styles.order_status__status} style={{ color: item.status_color, backgroundColor: hexToRgba(item.status_color, 0.3) }}>
+                        {item.status[locale as keyof LanguageStringIntergace]}
                     </div>
                 </div>
             </div>
@@ -122,28 +128,28 @@ export default function PurchasesItem({ item }: Props) {
                     <h3>{t('cargo')}</h3>
                     <p>{`${item.kg} ${t('currency')}` || t('calculated')}</p>
                 </div>
-                <div className={styles.sub_status} style={{ color: item.substatus_color }}>{item.substatus[locale as keyof LanguageStringIntergace] || 'sub ststus undefiened :('}</div>
+                {/* <div className={styles.sub_status} style={{ color: item.substatus_color }}>{item.substatus[locale as keyof LanguageStringIntergace] || 'sub ststus undefiened :('}</div> */}
             </div>
             <div className={`${styles.more_datail} ${isRotatedUp ? styles.rotateUp : styles.rotateDown}`} onClick={handleClick}>
                 <p>{t('moreDetail')}</p>
                 <SvgSelector className={"breadcrumb_icon"} id={"chevron-svg"} />
             </div>
             <div className={styles.order_items}>
-                {true ? (
+                {item.substatus_slug === "wait_for_pay_cargo" ? (
                     <div className={styles.sub_status_slug} >
-                        <h4>Оплата за доставку ожидается</h4>
-                        <button onClick={() => router.push(`cargo/${item.id}`)}>Оплатить</button>
+                        <h4>{item.substatus[locale as keyof LanguageStringIntergace]}</h4>
+                        <button onClick={() => router.push(`cargo/${item.id}`)}>{t('pay')}</button>
                     </div>
-                ) : (
+                ) : null}
+
+                {item.substatus_slug === 'send_check_again' ? (
                     <div className={styles.sub_status_slug} >
-                        <h4>Чек не прошел проверку</h4>
+                        <h4>{item.substatus[locale as keyof LanguageStringIntergace]}</h4>
                         <Upload {...uploadProps}>
-                            <button>Загрузить еще</button>
+                            <button>{t('upload')}</button>
                         </Upload>
                     </div>
-                )
-
-                }
+                ) : null}
                 {item.items.map(el => (
                     <Fragment key={el.id}>
                         <PurchasesOrderItem item={el} />

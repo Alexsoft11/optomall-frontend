@@ -30,20 +30,28 @@ export const API = {
       .get(`product-detail-from-taobao?productId=${query}`)
       .then((res) => res.data),
 
-  getProductDetailToken: (query: any,lang:string, token?:string) =>
+  getProductDetailToken: (query: any, lang: string, token?: string) =>
     axiosInstance
-      .get(`product-detail-from-taobao${token && token !== "undefined" ? "-token" : ""}?productId=${query}&lang=${lang}`,{
-        headers: {
-          Authorization: "Bearer " + token,
-          
-        },
-      })
+      .get(
+        `product-detail-from-taobao${
+          token && token !== "undefined" ? "-token" : ""
+        }?productId=${query}&lang=${lang}`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
       .then((res) => res.data),
 
-  // CartPage
-  getUserBasket: (token: string) =>
+    getProductComments: (query: any) =>
     axiosInstance
-      .get(`get-user-basket`, {
+      .get(`get-comments?product_id=${query}`),
+
+  // CartPage
+  getUserBasket: (token: string, locale: string) =>
+    axiosInstance
+      .get(`get-user-basket?lang=${locale}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -51,9 +59,9 @@ export const API = {
       .then((res) => res.data),
 
   // OrderPage
-  getOrder: (token: string, id: string) =>
+  getOrder: (token: string, id: string, locale: string) =>
     axiosInstance
-      .get(`get-order?order_id=${id}`, {
+      .get(`get-order?order_id=${id}&locale=${locale}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -61,9 +69,9 @@ export const API = {
       .then((res) => res.data),
 
   // MyReviewsPage
-  getReviews: (token: string, filter: string) =>
+  getReviews: (token: string, filter: string, locale: string) =>
     axiosInstance
-      .get(`user-products?filter=${filter}`, {
+      .get(`user-products?filter=${filter}&locale=${locale}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -87,12 +95,13 @@ export const API = {
       .then((res) => res.data),
 
   userBasketFromStorage: (token: string, data: UserBasketPostInterface[]) =>
-    axiosInstance.post("user-basket", data, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    })
-    .then(res => localStorage.removeItem('basket-data')),
+    axiosInstance
+      .post("user-basket", data, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => localStorage.removeItem("basket-data")),
 
   authCheckEmail: (email: string) =>
     axiosInstance.post("check-email", { email: email }).then((res) => res.data),
