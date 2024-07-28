@@ -21,15 +21,21 @@ export const API = {
 
   getHomePageProducts: () => axiosInstance.get("products?query=Discount"),
 
-  getHomePageCategoryProducts: (limit: number) => axiosInstance.get(`additional-categories?limit=${limit}`),
+  getHomePageCategoryProducts: (limit: number) =>
+    axiosInstance.get(`additional-categories?limit=${limit}`),
 
   getHomePageCategoryProductsToken: (limit: number, token?: string) =>
     axiosInstance
-    .get(`additional-categories${token && token !== "undefined" ? "-token" : ""}?limit=${limit}`,{
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
+      .get(
+        `additional-categories${
+          token && token !== "undefined" ? "-token" : ""
+        }?limit=${limit}`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
       .then((res) => res),
 
   // SearchPage
@@ -55,9 +61,8 @@ export const API = {
       )
       .then((res) => res.data),
 
-    getProductComments: (query: any) =>
-    axiosInstance
-      .get(`get-comments?product_id=${query}`),
+  getProductComments: (query: any) =>
+    axiosInstance.get(`get-comments?product_id=${query}`),
 
   // CartPage
   getUserBasket: (token: string, locale: string) =>
@@ -82,7 +87,7 @@ export const API = {
   // MyReviewsPage
   getReviews: (token: string, filter: string, locale: string) =>
     axiosInstance
-      .get(`user-products?filter=${filter}&locale=${locale}`, {
+      .get(`user-products?filter=${filter}&lang=${locale}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -118,9 +123,9 @@ export const API = {
     axiosInstance.post("check-email", { email: email }).then((res) => res.data),
 
   //PurchasesPage
-  getPurchases: (token: string, filter: string) =>
+  getPurchases: (token: string, filter: string, locale: string) =>
     axiosInstance
-      .get(`get-orders?filter=${filter}`, {
+      .get(`get-orders?filter=${filter}&lang=${locale}`, {
         headers: {
           Authorization: "Bearer " + token,
         },

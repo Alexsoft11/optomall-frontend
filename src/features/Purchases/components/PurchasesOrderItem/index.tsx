@@ -10,6 +10,7 @@ interface Props {
 
 export default function PurchasesOrderItem({ item }: Props) {
     const t = useTranslations('Purchases')
+    
     return (
         <div className={styles.main}>
             <div className={styles.item_img}>
