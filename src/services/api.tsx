@@ -21,17 +21,6 @@ export const API = {
 
   getHomePageProducts: () => axiosInstance.get("products?query=Discount"),
 
-  getHomePageCategoryProducts: (limit: number) => axiosInstance.get(`additional-categories?limit=${limit}`),
-
-  getHomePageCategoryProductsToken: (limit: number, token?: string) =>
-    axiosInstance
-    .get(`additional-categories${token && token !== "undefined" ? "-token" : ""}?limit=${limit}`,{
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((res) => res),
-
   // SearchPage
   getSearchPageProducts: (query: any) =>
     axiosInstance.get(`search-products-from-taobao?searchQuery=${query}`),

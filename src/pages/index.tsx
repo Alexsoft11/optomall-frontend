@@ -7,6 +7,7 @@ import PageLayout from "@/components/Layout/PageLayout";
 import cookie from "cookie";
 import { useJwt } from "@/utils/useJwt";
 import useQueryApiClient from "@/utils/useQueryApiClient";
+import { CardInterface } from "@/interfaces";
 
 const MainSlider = dynamic(
   () => import("@/features/home/components/MainSlider"),
@@ -22,20 +23,30 @@ const Products = dynamic(() => import("@/features/home/components/Products"), {
 interface HomeProps {
   slidersData: { sliders: any[] };
   productsData: { products: any[] };
-  categoryProductsData: { categories: any[] };
 }
 
 export default function Home({
   slidersData,
   productsData,
-  categoryProductsData,
+  // categoryProductsData,
 }: HomeProps) {
   const t = useTranslations("Home");
   const [isLoading, setIsLoading] = useState(true);
   const token = useJwt();
   const hasPosted = useRef(false);
   const [products, setProducts] = useState(productsData.products);
-  const [categories, setCategories] = useState(categoryProductsData.categories);
+  const [categories, setCategories] = useState<any>([]);
+  let limit = 15;
+
+  const { appendData: getCategories, isLoading: isCategoriesLoading } = useQueryApiClient({
+    request: {
+      url: `additional-categories${token && token !== "undefined" ? "-token" : ""}?limit=${limit}`,
+      method: 'GET',
+    },
+    onSuccess(res: any) {
+      setCategories(res.categories);
+    }
+  });
 
   const { appendData: dislikeCard } = useQueryApiClient({
     request: {
@@ -53,34 +64,30 @@ export default function Home({
       ? localStorage.getItem("likedProducts")
       : null;
 
-  useEffect(() => {
+   useEffect(() => {
     if (token && !hasPosted.current) {
       if (savedData) {
         const parsedData = JSON.parse(savedData);
+        const updatedData = parsedData.map((item: CardInterface) => ({
+          ...item,
+          is_liked: true
+        }));
 
-        if (Array.isArray(parsedData)) {
-          const likedProductIds = categories.flatMap((category) =>
-            category.products
-              .filter((product: any) => product.is_liked)
-              .map((product: any) => product.id.toString())
-          );
+        if (Array.isArray(updatedData)) {
 
-          const filteredCards = parsedData.filter((item: any) => {
-            return !likedProductIds.includes(item.id.toString());
-          });
+          if (updatedData.length) {
 
-          const likedProductsFilter = filteredCards.map((item: any) =>
-            item.id.toString()
-          );
-
-          if (likedProductsFilter.length > 0) {
-            dislikeCard(likedProductsFilter);
-            hasPosted.current = true;
+            const likedProductsFilter = updatedData.map((item: CardInterface) => item.id.toString());
+  
+            if (likedProductsFilter.length > 0) {
+              dislikeCard(likedProductsFilter);
+              hasPosted.current = true;
+            }
           }
         }
+
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, dislikeCard, savedData]);
 
   useEffect(() => {
@@ -95,7 +102,6 @@ export default function Home({
 
   useEffect(() => {
     const handleResize = async () => {
-      let limit = 15;
       if (window.innerWidth <= 650) {
         limit = 6;
       } else if (window.innerWidth <= 768) {
@@ -103,10 +109,6 @@ export default function Home({
       } else if (window.innerWidth > 768) {
         limit = 15;
       }
-      const categoryProductsResponse = await API.getHomePageCategoryProducts(
-        limit
-      );
-      setCategories(categoryProductsResponse.data.categories);
     };
 
     window.addEventListener("resize", handleResize);
@@ -133,6 +135,8 @@ export default function Home({
   );
 }
 
+
+
 export const getServerSideProps = async (context: any) => {
   try {
     const slidersResponse = await API.getHomePageSlider();
@@ -152,23 +156,9 @@ export const getServerSideProps = async (context: any) => {
       }
     }
 
-    let categoryProductsResponse;
-
-    if (token) {
-      categoryProductsResponse = await API.getHomePageCategoryProductsToken(
-        limit,
-        token
-      );
-    } else {
-      categoryProductsResponse = await API.getHomePageCategoryProducts(limit);
-    }
-
     return {
       props: {
         slidersData: slidersResponse.data || { sliders: [] },
-        categoryProductsData: categoryProductsResponse.data || {
-          categories: [],
-        },
         productsData: productsResponse.data || { products: [] },
         messages: (await import(`../translate/${context.locale}.json`)).default,
       },
