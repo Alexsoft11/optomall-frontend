@@ -33,8 +33,7 @@ const Detail = ({ selectedImage, product }: any) => {
         {windowWidth !== null && isMobile(windowWidth) ? (
           <CustomImage
             src={selectedImage}
-            // src={"https://img.alicdn.com/imgextra/i3/35601dede9688/O1CN01UJzjNU2LA2dizPr8_!!356019688.jpg"}
-            alt=""
+            alt="Product Image"
             className={styles.detail_image}
             imgClass={styles.img}
             isLink={false}

@@ -21,10 +21,10 @@ const ProductDetailInfo = ({
 }: any) => {
   const t = useTranslations("Product-detail");
   const [selectedColor, setSelectedColor] = useState<number | null>(
-    product.colors[0].id
+    product.colors[0]?.id
   );
   const [selectedColors, setSelectedColors] = useState<number[]>([
-    product.colors[0].id,
+    product.colors[0]?.id,
   ]);
   const [totalQuantities, setTotalQuantities] = useState<{
     [key: number]: number;

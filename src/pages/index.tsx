@@ -59,8 +59,7 @@ export default function Home({
         const parsedData = JSON.parse(savedData);
 
         if (Array.isArray(parsedData)) {
-          const likedProductIds = categories
-          .flatMap((category) => 
+          const likedProductIds = categories.flatMap((category) =>
             category.products
               .filter((product: any) => product.is_liked)
               .map((product: any) => product.id.toString())
@@ -70,7 +69,9 @@ export default function Home({
             return !likedProductIds.includes(item.id.toString());
           });
 
-          const likedProductsFilter = filteredCards.map((item: any) => item.id.toString());
+          const likedProductsFilter = filteredCards.map((item: any) =>
+            item.id.toString()
+          );
 
           if (likedProductsFilter.length > 0) {
             dislikeCard(likedProductsFilter);
@@ -79,6 +80,7 @@ export default function Home({
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, dislikeCard, savedData]);
 
   useEffect(() => {
@@ -101,12 +103,14 @@ export default function Home({
       } else if (window.innerWidth > 768) {
         limit = 15;
       }
-      const categoryProductsResponse = await API.getHomePageCategoryProducts(limit);
+      const categoryProductsResponse = await API.getHomePageCategoryProducts(
+        limit
+      );
       setCategories(categoryProductsResponse.data.categories);
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize(); // Initial call
+    handleResize();
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -137,9 +141,13 @@ export const getServerSideProps = async (context: any) => {
     const token = cookies.token ? decodeURIComponent(cookies.token) : null;
 
     let limit = 15;
-    const userAgent = context.req.headers['user-agent'];
+    const userAgent = context.req.headers["user-agent"];
     if (userAgent) {
-      if (userAgent.includes("Mobile") || userAgent.includes("Android") || userAgent.includes("iPhone")) {
+      if (
+        userAgent.includes("Mobile") ||
+        userAgent.includes("Android") ||
+        userAgent.includes("iPhone")
+      ) {
         limit = 5;
       }
     }
@@ -147,7 +155,10 @@ export const getServerSideProps = async (context: any) => {
     let categoryProductsResponse;
 
     if (token) {
-      categoryProductsResponse = await API.getHomePageCategoryProductsToken(limit, token);
+      categoryProductsResponse = await API.getHomePageCategoryProductsToken(
+        limit,
+        token
+      );
     } else {
       categoryProductsResponse = await API.getHomePageCategoryProducts(limit);
     }

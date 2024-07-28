@@ -95,7 +95,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
   ) => {
     setSelectedSizes((prev: SelectedSizes) => {
       const newSizes = { ...prev };
-      const sizeIndex = newSizes[colorId].findIndex(
+      const sizeIndex = newSizes[colorId]?.findIndex(
         (size) => size.value === sizeValue
       );
       if (sizeIndex !== -1) {
@@ -113,7 +113,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     let totalQuantity = 0;
     for (const colorId in selectedSizes) {
       if (selectedColors.includes(Number(colorId))) {
-        const colorTotal = selectedSizes[colorId].reduce(
+        const colorTotal = selectedSizes[colorId]?.reduce(
           (sum: number, size: any) => sum + size.quantity,
           0
         );
@@ -128,7 +128,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     let total = 0;
     for (const colorId in selectedSizes) {
       if (selectedColors.includes(Number(colorId))) {
-        total += selectedSizes[colorId].reduce(
+        total += selectedSizes[colorId]?.reduce(
           (sum: number, size: any) => sum + size.quantity * product.price,
           0
         );
@@ -139,7 +139,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
 
   const isProductSelected = () => {
     return selectedColors.some((colorId) =>
-      selectedSizes[colorId].some((size) => size.quantity > 0)
+      selectedSizes[colorId]?.some((size) => size.quantity > 0)
     );
   };
 
@@ -148,8 +148,8 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     try {
       const sizes = selectedColors.flatMap((colorId) =>
         selectedSizes[colorId]
-          .filter((size: any) => size.quantity > 0)
-          .map((size) => ({
+          ?.filter((size: any) => size.quantity > 0)
+          .map((size: any) => ({
             ...size,
             color_id: colorId.toString(),
           }))
@@ -158,12 +158,10 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
         product_id: product.id.toString(),
         sizes,
       };
-      console.log(product);
-      
       const localeData = selectedColors.flatMap((colorId) =>
         selectedSizes[colorId]
-          .filter((size: any) => size.quantity > 0)
-          .map((size) => ({
+          ?.filter((size: any) => size.quantity > 0)
+          .map((size: any) => ({
             product_id: product.id.toString(),
             price: product.price,
             title: product.title,
@@ -171,8 +169,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
               product.colors.find((img) => img.id === colorId)?.image_url || "",
             size: size.value,
             size_id:
-              product.sizes.find((el) => el.value === size.value)?.id ||
-              "",
+              product.sizes.find((el) => el.value === size.value)?.id || "",
             quantity: size.quantity,
             color:
               product.colors.find((color) => color.id === colorId)?.value || "",
@@ -222,41 +219,42 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
         ) : null}
       </div>
       {selectedColor !== null && (
-        <div
-          className={`${styles.sizeSelector} ${
-            product.sizes.length > 5 ? styles.default_height : ""
-          }`}>
+        <div className={`${styles.sizeSelector}`}>
           {(product.sizes.length > 0 ? product.sizes : defaultSizes).map(
             (size, idx) => (
               <div key={idx} className={styles.size}>
                 <span
                   className={`${
                     size.value === "default" ? styles.text_hidden : ""
-                  }`}>
+                  }`}
+                >
                   {size.value}
                 </span>
                 <div className={styles.change_value}>
                   <Button
                     onClick={() =>
                       handleSizeChange(selectedColor, size.value, -1)
-                    }>
-                    <Image src={MinusSvg} width={24} height={24} alt='#' />
+                    }
+                  >
+                    <Image src={MinusSvg} width={24} height={24} alt="#" />
                   </Button>
                   <h4 className={styles.selected_quantity}>
-                    {selectedSizes[selectedColor].find(
+                    {selectedSizes[selectedColor]?.find(
                       (s: any) => s.value === size.value
                     )?.quantity || 0}
                   </h4>
                   <Button
                     onClick={() =>
                       handleSizeChange(selectedColor, size.value, 1)
-                    }>
-                    <Image src={PlusSvg} width={24} height={24} alt='#' />
+                    }
+                  >
+                    <Image src={PlusSvg} width={24} height={24} alt="#" />
                   </Button>
                 </div>
               </div>
             )
           )}
+          
         </div>
       )}
       <div className={styles.add_basket}>
@@ -268,7 +266,8 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
           loading={loading}
           className={styles.addToCart}
           onClick={onFinish}
-          disabled={!isProductSelected()}>
+          disabled={!isProductSelected()}
+        >
           В корзину
         </Button>
       </div>

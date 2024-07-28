@@ -17,7 +17,7 @@ const SliderColors = ({
   selectedColors,
   setSelectedColors,
 }: any) => {
-  const [activeItem, setActiveItem] = useState<number>(data[0].id);
+  const [activeItem, setActiveItem] = useState<number>(data[0]?.id);
 
   const handleColorClick = (colorId: number) => {
     setActiveItem(colorId);

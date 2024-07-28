@@ -6,7 +6,7 @@
   }
 }
 
-.info_head{
+.info_head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17,21 +17,21 @@
   gap: 5px;
   margin: 20px 0px;
 }
-.product_link{
+.product_link {
   width: 46%;
 }
-.product_actions{
+.product_actions {
   display: flex;
-  gap: 5px;
-  button{
+  gap: 10px;
+  button {
     position: unset !important;
   }
 }
-.link{
+.link {
   display: flex;
   align-items: center;
   gap: 10px;
-  svg{
+  svg {
     width: 20px;
     height: 20px;
   }
@@ -102,8 +102,8 @@
     max-width: 400px;
   }
 }
-@media(max-width:820px){
-  .productInfo{
+@media (max-width: 820px) {
+  .productInfo {
     max-width: 100%;
   }
 }

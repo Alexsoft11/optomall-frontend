@@ -62,7 +62,7 @@ export const API = {
   // CartPage
   getUserBasket: (token: string, locale: string) =>
     axiosInstance
-      .get(`get-user-basket?locale=${locale}`, {
+      .get(`get-user-basket?lang=${locale}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
