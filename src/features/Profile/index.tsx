@@ -1,14 +1,14 @@
 /** @format */
 import SvgSelector from "$/assets/icons/SvgSelector";
 import Link from "next/link";
-import styles from "./Profile.module.scss"
+import styles from "./Profile.module.scss";
 import React from "react";
 import { useTranslations } from "next-intl";
 import { UseLogOut } from "@/utils/useLogOut";
 
 const Profile = () => {
-  const t = useTranslations("Navbar")
-  if (typeof window == 'undefined') return null
+  const t = useTranslations("Navbar");
+  if (typeof window == "undefined") return null;
 
   const logOut = () => {
     UseLogOut();
@@ -31,12 +31,30 @@ const Profile = () => {
         <p>{t("purchases")}</p>
       </Link>
 
+      <Link href='/my-reviews?filter=commented' className={styles.navbar__user_item}>
+        <SvgSelector id='search-modal-svg' />
+        <p>{t("views")}</p>
+      </Link>
       <Link href='/' className={styles.navbar__user_item}>
         <SvgSelector id='search-modal-svg' />
         <p>{t("customs")}</p>
       </Link>
-
-      <Link href='/' onClick={() => logOut()} className={styles.navbar__user_item}>
+      <Link href='/messages' className={styles.navbar__user_item}>
+        <SvgSelector id='search-modal-svg' />
+        <p>{t("questions")}</p>
+      </Link>
+      <Link href='/cart' className={styles.navbar__user_item}>
+        <SvgSelector id='search-modal-svg' />
+        <p>{t("transport")}</p>
+      </Link>
+      <Link href='/' className={styles.navbar__user_item}>
+        <SvgSelector id='search-modal-svg' />
+        <p>{t("use")}</p>
+      </Link>
+      <Link
+        href='/'
+        onClick={() => logOut()}
+        className={styles.navbar__user_item}>
         <SvgSelector id='exit-modal-svg' />
         <p className={styles.loggout}>{t("logout")}</p>
       </Link>

@@ -18,10 +18,12 @@ const LikedBtn = ({ onLikeChange, product_id, isLike, id_filter, card }:LikedPro
   const [changeLike, setChangeLike] = useState(isLike);
 
   useEffect(() => {
-    const likedProductsString = localStorage.getItem('likedProducts');
-    if (likedProductsString) {
-      const likedProducts = JSON.parse(likedProductsString);
-      setChangeLike(likedProducts.some((p: any) => p.id === card.id));
+    if (!token) {
+      const likedProductsString = localStorage.getItem('likedProducts');
+      if (likedProductsString) {
+        const likedProducts = JSON.parse(likedProductsString);
+        setChangeLike(likedProducts.some((p: any) => p.id === card.id));
+      }
     }
   }, [card]);
 

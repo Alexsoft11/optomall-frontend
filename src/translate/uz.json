@@ -30,6 +30,7 @@
     "unauthenticated": "Tasdiqlanmagan",
     "invalid_data": "Noto'g'ri ma'lumotlar",
     "order_created_successfully": "Buyurtma muvaffaqiyatli yaratildi",
+    "datanot":"Maʼlumot topilmadi",
     "email": {
       "validation.unique": "Email allaqachon olingan."
     },
@@ -106,7 +107,8 @@
     "something_wrong": "Nimadir noto'g'ri ketdi! Iltimos, keyinroq yana urinib ko'ring.",
     "metaTitle": "Kirish | ON-WAY",
     "metaDescription": "ON-WAY hisobingizga xavfsiz kiring va maxsus funksiyalardan foydalaning hamda buyurtmalaringizni boshqaring.",
-    "metaKeywords": "ON-WAY, kirish, hisobga kirish, xavfsiz kirish"
+    "metaKeywords": "ON-WAY, kirish, hisobga kirish, xavfsiz kirish",
+    "passwordHasEmpty": "Parolda bo'sh joy bo'lmasligi kerak!"
   },
   "Cart": {
     "item": "Mahsulotlar",
@@ -130,7 +132,10 @@
     "imgSizeValidation": "Rasm hajmi 5 MB dan kichik bo'lishi kerak!",
     "chooseItem": "Savatdan kamida bitta mahsulot tanlang",
     "cargo": "Karqo",
-    "forKg": "kg uchun"
+    "forKg": "kg uchun",
+    "locationRequired": "Tovarni yetkazib berish manzilini to'ldiring va xaritada joylashuvni",
+    "userDataRequired": "Qabul qiluvchining shaxsiy ma'lumotlarini to'ldiring!",
+    "signin": "Kirish"
   },
   "Order": {
     "payCost": "To'lanadigan summa: ",
@@ -158,7 +163,11 @@
     "inVerification": "tekshirilmoqda",
     "cargo": "Karqo",
     "calculated": "Hisoblangan",
-    "emptyData": "Bu yer bo'sh"
+    "emptyData": "Bu yer bo'sh",
+    "wait_for_pay_cargo": "Yetkazib berish uchun to'lov kutilyapti",
+    "pay": "To'lash",
+    "send_check_again": "Chek tasdiqlanmadi",
+    "upload": "Yana yuklash"
   },
   "Search": {
     "platform": "Platforma",
@@ -226,10 +235,11 @@
     "shipping_costs": "Yuk tashish xarajatlari",
     "how_to_use": "Qanday foydalaniladi"
   },
-  "Product-detail":{
-    "bought":"Sotib olganlar",
-    "compound":"Tarkibi",
-    "made_country":"Ishlab chiqarilgan davlati",
-    "model_features":"Modelning xususiyatlari"
+  "Product-detail": {
+    "bought": "Sotib olganlar",
+    "compound": "Tarkibi",
+    "made_country": "Ishlab chiqarilgan davlati",
+    "model_features": "Modelning xususiyatlari",
+    "copy-link":"Havolani kochirish"
   }
 }

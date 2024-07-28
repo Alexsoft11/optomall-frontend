@@ -117,14 +117,14 @@ export default function ReviewModal({ modalIsOpen, onCancel, productId, setComme
     const onFinish = (values: any) => {
         const formData = new FormData()
         const newFileList: File[] = fileList.map(el => el.data !== null ? el.data : null).filter(el => el !== null)
-        for (let file of newFileList) {
-            formData.append('images', file);
-        }
+        newFileList.forEach((file) => {
+            formData.append('images[]', file);
+        });
         formData.append('name', values.comment)
         formData.append('rating', starsValue.toString())
         formData.append('order_id', productId.toString())
         setCommentData(formData)
-        // returnToInitialValue()
+        returnToInitialValue()
     }
 
     const modalProps = {

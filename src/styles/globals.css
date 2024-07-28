@@ -9,7 +9,8 @@
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 200;
-  src: url("/assets/fonts/Montserrat/Montserrat-ExtraLight.ttf") format("truetype");
+  src: url("/assets/fonts/Montserrat/Montserrat-ExtraLight.ttf")
+    format("truetype");
 }
 
 @font-face {
@@ -37,7 +38,8 @@
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 600;
-  src: url("/assets/fonts/Montserrat/Montserrat-SemiBold.ttf") format("truetype");
+  src: url("/assets/fonts/Montserrat/Montserrat-SemiBold.ttf")
+    format("truetype");
 }
 
 @font-face {
@@ -51,7 +53,8 @@
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 800;
-  src: url("/assets/fonts/Montserrat/Montserrat-ExtraBold.ttf") format("truetype");
+  src: url("/assets/fonts/Montserrat/Montserrat-ExtraBold.ttf")
+    format("truetype");
 }
 
 @font-face {
@@ -73,6 +76,26 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: var(--primary-color);
+
+    box-shadow: 0px 0px 35px 0px rgba(0, 0, 0, 0.05);
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(217, 217, 217, 0.15);
+    width: 8px;
+    backdrop-filter: blur(80px);
+  }
 }
 
 :root {
@@ -220,8 +243,6 @@ a {
   letter-spacing: 0em;
 }
 
-
-
 @media (max-width: 768px) {
   .main_page {
     padding: 20px 0px 0px 0px;
@@ -249,12 +270,17 @@ a {
     display: none;
   }
 }
-
+.ant-spin-fullscreen {
+  z-index: 9999;
+}
+.global.ant-spin .ant-spin-dot-item {
+  background-color: var(--primary-color) !important;
+}
 jdiv {
-  z-index: 999 !important;
+  z-index: 995 !important;
 }
 
-@media (max-width:970px) {
+@media (max-width: 970px) {
   jdiv {
     margin-bottom: 50px !important;
   }

@@ -21,18 +21,14 @@ interface Props {
 
 export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Props) {
   const t = useTranslations("GLOBAL");
-  const locale = useLocale()
-
-  console.log(item.image_url);
   
-
   const handleChange = (chacked: boolean) => {
 
     if (!item.size_id) return
     const data: CartOrderItemInterface = {
       product_id: item.product_id,
       image_url: item.image_url,
-      title: item.title ? item.title[locale as keyof LanguageStringIntergace] : 'null',
+      title: item.title,
       color: item.color,
       size: item.size,
       size_id: item.size_id,
@@ -55,7 +51,7 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
 
       <div className={styles.item_text}>
         <div className={styles.item_info}>
-          <p>{item.title ? item.title[locale as keyof LanguageStringIntergace] : 'null'}</p>
+          <p>{item.title}</p>
           <span>
             {item.color} · {item.size}
           </span>

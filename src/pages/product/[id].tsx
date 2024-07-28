@@ -8,22 +8,25 @@ import { useRouter } from "next/router";
 import React from "react";
 import dynamic from "next/dynamic";
 import cookie from "cookie";
+import DataNotFound from "@/ui/DataNotFound";
+import { IProductComments } from "@/features/ProductDetail/interface";
 
 interface ProductDetailProps {
   product: any;
+  productComments: IProductComments[];
   score: any;
 }
 
 const ProductDetailSection = dynamic(
   () => import("@/features/ProductDetail/Components/ProductDetailSection"),
   {
-    loading: () => <LoadingSpinner fullscreen={true} size="large" />,
+    loading: () => <LoadingSpinner fullscreen={true} size='large' />,
   }
 );
 
-const ProductDetail = ({ product }: ProductDetailProps) => {
+const ProductDetail = ({ product, productComments }: ProductDetailProps) => {
   if (!product) {
-    return <h2>No product found.</h2>;
+    return <DataNotFound />;
   }
   const title = product?.detail.title;
 
@@ -31,6 +34,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
     <PageLayout metaTitle={title}>
       <ProductDetailSection
         product={product.detail}
+        productComments={productComments}
         recommended={product.recommended}
         score={product.score}
       />
@@ -41,14 +45,19 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
 export const getServerSideProps = async (context: any) => {
   try {
     const { id: productId } = context.params;
-    const lang = context.locale
+    const lang = context.locale;
     const cookies = cookie.parse(context.req.headers.cookie || "");
     const token = decodeURIComponent(cookies.token);
-    const product = await API.getProductDetailToken(productId,lang, token);
-
+    const product = await API.getProductDetailToken(productId, lang, token);
+    const productComments = await API.getProductComments(productId)
+      .then((res: any) => res.data)
+      .catch((error: any) => {
+        return null;
+      });
     return {
       props: {
         product,
+        productComments:productComments
       },
     };
   } catch (error) {
@@ -56,6 +65,7 @@ export const getServerSideProps = async (context: any) => {
     return {
       props: {
         product: null,
+        productComments:null
       },
     };
   }

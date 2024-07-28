@@ -30,6 +30,7 @@
     "unauthenticated": "Unauthenticated",
     "invalid_data": "Invalid data",
     "order_created_successfully": "Order created successfully",
+    "datanot":"Data Not Found",
     "email": {
       "validation.unique": "The email has already been taken."
     },
@@ -106,7 +107,8 @@
     "something_wrong": "Something went wrong! Please try again later.",
     "metaTitle": "Login | ON-WAY",
     "metaDescription": "Securely log in to your ON-WAY account to access exclusive features and manage your orders.",
-    "metaKeywords": "ON-WAY, login, sign in, account access, secure login"
+    "metaKeywords": "ON-WAY, login, sign in, account access, secure login",
+    "passwordHasEmpty": "Password cannot contain spaces!"
   },
   "Cart": {
     "item": "Items",
@@ -130,7 +132,10 @@
     "imgSizeValidation": "Image size must be smaller than 5 MB!",
     "chooseItem": "Choose at least one item from the basket",
     "cargo": "Cargo",
-    "forKg": "per Kg"
+    "forKg": "per Kg",
+    "locationRequired": "Please provide a delivery address and specify the location on the map.",
+    "userDataRequired": "Please fill in the recipient's personal details!",
+    "signin": "Sign in"
   },
   "Order": {
     "payCost": "Amount to be paid: ",
@@ -158,7 +163,11 @@
     "inVerification": "in verification",
     "cargo": "Cargo",
     "calculated": "Calculated",
-    "emptyData": "It's empty here"
+    "emptyData": "It's empty here",
+    "wait_for_pay_cargo": "Payment for delivery is pending",
+    "pay": "Pay",
+    "send_check_again": "Check did not pass verification",
+    "upload": "Upload more"
   },
   "Search": {
     "platform": "Platform",
@@ -226,10 +235,11 @@
     "shipping_costs": "Shipping Costs",
     "how_to_use": "How to Use"
   },
-  "Product-detail":{
-    "bought":"Bought",
-    "compound":"Compound",
-    "made_country":"Country of Origin",
-    "model_features":"Features of the model"
+  "Product-detail": {
+    "bought": "Bought",
+    "compound": "Compound",
+    "made_country": "Country of Origin",
+    "model_features": "Features of the model",
+    "copy-link":"Copy Link"
   }
 }

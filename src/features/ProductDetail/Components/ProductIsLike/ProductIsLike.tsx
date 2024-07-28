@@ -25,8 +25,7 @@ const ProductIsLike: FC<IProps> = ({ product }) => {
       url: 'liked-product',
       method: 'POST',
     },
-    onSuccess(res) {
-    },
+   
   })
 
   useEffect(() => {

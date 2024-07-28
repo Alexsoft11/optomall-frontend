@@ -10,7 +10,7 @@ export interface PurchasesItemInterface {
 
 export interface PurchasesOrderInterface {
   id: number;
-  status: string;
+  status: LanguageStringIntergace;
   status_color: string;
   total_price: number;
   user_name: string;
@@ -18,9 +18,10 @@ export interface PurchasesOrderInterface {
   country: string;
   location_url: string;
   location_name: string;
-  substatus: LanguageStringIntergace,
-  substatus_color: string,
-  kg: string | null,
+  substatus: LanguageStringIntergace;
+  substatus_slug: string;
+  substatus_color: string;
+  kg: string | null;
   created_at: string;
   items: PurchasesItemInterface[];
 }

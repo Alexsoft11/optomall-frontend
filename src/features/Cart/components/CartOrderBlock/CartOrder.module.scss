@@ -44,6 +44,10 @@
             line-height: 16.94px;
         }
 
+        @media (max-width: 769px) {
+            z-index: 1000 !important;
+        }
+
         &:hover {
             background: var(--primary-color) !important;
             color: white !important;
@@ -61,7 +65,8 @@
             // Unfortunately, we need a wrapper element containing the fixed width for centering the button within the animation (you could also apply the width as an inline style).
             .loading-btn-wrapper {
                 display: inline-block;
-                width: 240px;
+                max-width: 240px;
+                width: 50dvw;
                 height: $circle-size;
 
                 text-align: center;
@@ -239,16 +244,16 @@
         max-width: none;
         display: grid;
         gap: 0px;
-        grid-template-columns: 40% 30%;
+        grid-template-columns: 40% 60%;
         grid-template-areas:
-            'total upload_btn .'
-            'count upload_btn .';
+        'total upload_btn .'
+        'count upload_btn .';
         width: 100%;
         left: 0px;
         border-radius: 0px;
         z-index: 998;
         background: var(--white-color);
-
+        
         .order_title {
             width: fit-content;
             font-size: var(--paragraph-two);
@@ -256,6 +261,7 @@
             line-height: 16.94px;
             color: var(--silver-grey)
         }
+
 
         .total {
             h1 {

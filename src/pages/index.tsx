@@ -64,31 +64,31 @@ export default function Home({
       ? localStorage.getItem("likedProducts")
       : null;
 
-  useEffect(() => {
-    if (token && !hasPosted.current) {
-      if (savedData) {
-        const parsedData = JSON.parse(savedData);
-        const updatedData = parsedData.map((item: CardInterface) => ({
-          ...item,
-          is_liked: true
-        }));
-
-        if (Array.isArray(updatedData)) {
-
-          if (updatedData.length) {
-
-            const likedProductsFilter = updatedData.map((item: CardInterface) => item.id.toString());
-  
-            if (likedProductsFilter.length > 0) {
-              dislikeCard(likedProductsFilter);
-              hasPosted.current = true;
+      useEffect(() => {
+        if (token && !hasPosted.current) {
+          if (savedData) {
+            const parsedData = JSON.parse(savedData);
+            const updatedData = parsedData.map((item: CardInterface) => ({
+              ...item,
+              is_liked: true
+            }));
+    
+            if (Array.isArray(updatedData)) {
+    
+              if (updatedData.length) {
+    
+                const likedProductsFilter = updatedData.map((item: CardInterface) => item.id.toString());
+      
+                if (likedProductsFilter.length > 0) {
+                  dislikeCard(likedProductsFilter);
+                  hasPosted.current = true;
+                }
+              }
             }
+    
           }
         }
-
-      }
-    }
-  }, [token, dislikeCard, savedData]);
+      }, [token, dislikeCard, savedData]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -145,9 +145,13 @@ export const getServerSideProps = async (context: any) => {
     const token = cookies.token ? decodeURIComponent(cookies.token) : null;
 
     let limit = 15;
-    const userAgent = context.req.headers['user-agent'];
+    const userAgent = context.req.headers["user-agent"];
     if (userAgent) {
-      if (userAgent.includes("Mobile") || userAgent.includes("Android") || userAgent.includes("iPhone")) {
+      if (
+        userAgent.includes("Mobile") ||
+        userAgent.includes("Android") ||
+        userAgent.includes("iPhone")
+      ) {
         limit = 5;
       }
     }

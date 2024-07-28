@@ -6,7 +6,7 @@ export interface CartItemInterface {
   id?: number;
   product_id: string;
   image_url: StaticImageData | null;
-  title: LanguageStringIntergace;
+  title: string;
   color: string;
   size: string | null;
   size_id?: number;
