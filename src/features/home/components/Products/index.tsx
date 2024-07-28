@@ -18,22 +18,6 @@ interface Props {
 
 const Products = ({ products, categoryData }: Props) => {
   const t = useTranslations()
-  // const [productsChange, setProducts] = useState<CardInterface[]>(products);
-
-  // const { appendData: getProductsData, isLoading: isProductsLoading } = useQueryApiClient({
-  //   request: {
-  //     url: `products?query=&tab=:tab`,
-  //     method: 'GET',
-  //     disableOnMount: true,
-  //   },
-  //   onSuccess(res: any) {
-  //     setProducts(res.products);
-  //   }
-  // });
-
-  // const handleTabChange = (key: string) => {
-  //   getProductsData({ tab: key });
-  // };
   
   return (
     <div className={styles.products}>
@@ -65,7 +49,7 @@ const Products = ({ products, categoryData }: Props) => {
               categoryData?.map((item: any, idx: number) => (
                 <div key={idx} className={styles.products__categories_inner}>
                     <div className={styles.products__banner}>
-                      <Image src={item?.image} width={1000} height={1000} alt="banner img"/>
+                      <Image src={window.innerWidth <= 600 ? item?.image_mobile : item?.image} width={10000} height={10000} alt="banner img"/>
                     </div>
 
                     <div className={styles.products__cards}>

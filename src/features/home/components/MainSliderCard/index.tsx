@@ -13,9 +13,9 @@ const MainSliderCard = ({ el }: Props) => {
       <div className={styles.main_card__inner}>
         <Image
           className={styles.main_card__image}
-          src={el.image}
-          width={1000}
-          height={1000}
+          src={window.innerWidth <= 600 ? el?.image_mobile : el?.image}
+          width={10000}
+          height={10000}
           alt="#"
         />
       </div>

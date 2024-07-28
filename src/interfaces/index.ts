@@ -54,6 +54,7 @@ export interface SlidersDataInterface {
     id: number;
     url: string;
     image: StaticImageData;
+    image_mobile: StaticImageData;
 }
 
 

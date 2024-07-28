@@ -17,16 +17,6 @@ const Wishes = ({ wishesData }: Props) => {
   const initialData: CardInterface[] = savedData ? JSON.parse(savedData) : [];
   
   const token = useJwt();
-
-  const { appendData: dislikeCard } = useQueryApiClient({
-    request: {
-      url: 'liked-product',
-      method: 'POST',
-    },
-    onSuccess(res) {
-      localStorage.removeItem('likedProducts');
-    },
-  })
   
   useEffect(() => {
     if (!token) {
