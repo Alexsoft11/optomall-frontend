@@ -63,7 +63,7 @@ export default function Home({
       ? localStorage.getItem("likedProducts")
       : null;
 
-  useEffect(() => {
+   useEffect(() => {
     if (token && !hasPosted.current) {
       if (savedData) {
         const parsedData = JSON.parse(savedData);
@@ -145,7 +145,7 @@ export const getServerSideProps = async (context: any) => {
   try {
     const slidersResponse = await API.getHomePageSlider();
     const productsResponse = await API.getHomePageProducts();
-
+    
     return {
       props: {
         slidersData: slidersResponse.data || { sliders: [] },
