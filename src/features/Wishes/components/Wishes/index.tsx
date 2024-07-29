@@ -37,6 +37,7 @@ const Wishes = ({ wishesData }: Props) => {
       let clone = [...data];
       clone = clone.filter((el: any) => el.id !== cardId);
       setData(clone);
+      console.log(data, 'testData')
 
     } else {
       let localClone = [...initialData];
