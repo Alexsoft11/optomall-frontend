@@ -143,7 +143,7 @@ export default function PurchasesItem({ item }: Props) {
         </div>
         <div className={styles.detail_item}>
           <h3>{t("cargo")}</h3>
-          <p>{item.kg ? item.kg + " " + t("currency") : t("calculated")}</p>
+          <p>{item.cargo_price ? item.cargo_price + " " + t("currency") : t("calculated")}</p>
         </div>
         {/* <div className={styles.sub_status} style={{ color: item.substatus_color }}>{item.substatus[locale as keyof LanguageStringIntergace] || 'sub ststus undefiened :('}</div> */}
       </div>

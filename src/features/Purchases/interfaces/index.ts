@@ -24,4 +24,5 @@ export interface PurchasesOrderInterface {
   kg: string | null;
   created_at: string;
   items: PurchasesItemInterface[];
+  cargo_price?: number;
 }
