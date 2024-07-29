@@ -28,7 +28,6 @@ interface HomeProps {
 export default function Home({
   slidersData,
   productsData,
-  // categoryProductsData,
 }: HomeProps) {
   const t = useTranslations("Home");
   const [isLoading, setIsLoading] = useState(true);
@@ -36,7 +35,7 @@ export default function Home({
   const hasPosted = useRef(false);
   const [products, setProducts] = useState(productsData.products);
   const [categories, setCategories] = useState<any>([]);
-  let limit = 15;
+  const [limit, setLimit] = useState(15);
 
   const { appendData: getCategories, isLoading: isCategoriesLoading } = useQueryApiClient({
     request: {
@@ -64,31 +63,31 @@ export default function Home({
       ? localStorage.getItem("likedProducts")
       : null;
 
-      useEffect(() => {
-        if (token && !hasPosted.current) {
-          if (savedData) {
-            const parsedData = JSON.parse(savedData);
-            const updatedData = parsedData.map((item: CardInterface) => ({
-              ...item,
-              is_liked: true
-            }));
-    
-            if (Array.isArray(updatedData)) {
-    
-              if (updatedData.length) {
-    
-                const likedProductsFilter = updatedData.map((item: CardInterface) => item.id.toString());
-      
-                if (likedProductsFilter.length > 0) {
-                  dislikeCard(likedProductsFilter);
-                  hasPosted.current = true;
-                }
-              }
+  useEffect(() => {
+    if (token && !hasPosted.current) {
+      if (savedData) {
+        const parsedData = JSON.parse(savedData);
+        const updatedData = parsedData.map((item: CardInterface) => ({
+          ...item,
+          is_liked: true
+        }));
+
+        if (Array.isArray(updatedData)) {
+
+          if (updatedData.length) {
+
+            const likedProductsFilter = updatedData.map((item: CardInterface) => item.id.toString());
+  
+            if (likedProductsFilter.length > 0) {
+              dislikeCard(likedProductsFilter);
+              hasPosted.current = true;
             }
-    
           }
         }
-      }, [token, dislikeCard, savedData]);
+
+      }
+    }
+  }, [token, dislikeCard, savedData]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -101,13 +100,13 @@ export default function Home({
   }, []);
 
   useEffect(() => {
-    const handleResize = async () => {
+    const handleResize = () => {
       if (window.innerWidth <= 650) {
-        limit = 6;
+        setLimit(3);
       } else if (window.innerWidth <= 768) {
-        limit = 9;
+        setLimit(3);
       } else if (window.innerWidth > 768) {
-        limit = 15;
+        setLimit(15);
       }
     };
 
@@ -118,6 +117,11 @@ export default function Home({
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  // Следим за изменением limit и вызываем getCategories при каждом изменении
+  useEffect(() => {
+    getCategories();
+  }, [limit]);
 
   if (isLoading) {
     return <LoadingSpinner fullscreen={true} size="large" />;
@@ -141,20 +145,6 @@ export const getServerSideProps = async (context: any) => {
   try {
     const slidersResponse = await API.getHomePageSlider();
     const productsResponse = await API.getHomePageProducts();
-    const cookies = cookie.parse(context.req.headers.cookie || "");
-    const token = cookies.token ? decodeURIComponent(cookies.token) : null;
-
-    let limit = 15;
-    const userAgent = context.req.headers["user-agent"];
-    if (userAgent) {
-      if (
-        userAgent.includes("Mobile") ||
-        userAgent.includes("Android") ||
-        userAgent.includes("iPhone")
-      ) {
-        limit = 5;
-      }
-    }
 
     return {
       props: {
