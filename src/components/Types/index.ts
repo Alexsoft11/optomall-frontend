@@ -17,5 +17,5 @@ export interface LocationInfoInterface {
   district: string;
   street: string;
   house: string;
-  post_index?: number | null;
+  post_index?: number;
 }

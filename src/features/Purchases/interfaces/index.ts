@@ -6,6 +6,7 @@ export interface PurchasesItemInterface {
   image_url: string;
   price: number;
   title: string;
+  product_id?: number
 }
 
 export interface PurchasesOrderInterface {

@@ -19,7 +19,6 @@ const initialValue = {
   region: '',
   street: '',
   house: '',
-  post_index: null,
 }
 
 interface Props {
