@@ -144,4 +144,9 @@
   .size span {
     min-width: 80px;
   }
+};
+@media (max-width: 340px) {
+  .size span {
+    min-width: 20px;
+  }
 }

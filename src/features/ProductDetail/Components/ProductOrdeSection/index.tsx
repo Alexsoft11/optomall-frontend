@@ -20,7 +20,7 @@ interface Product {
   discounted_price: number;
   discount_percentage: number;
   price: number;
-  sizes: Size[]; // Adjusted to allow null
+  sizes: Size[];
   colors: Color[];
 }
 
@@ -38,6 +38,7 @@ interface ProductOrderSectionProps {
   selectedColors: number[];
   setSelectedColors: any;
   totalQuantities?: any;
+  setSelectedColor: any;
 }
 
 interface SelectedSizes {
@@ -54,9 +55,10 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
   setTotalQuantities,
   setSelectedColors,
   totalQuantities,
+  setSelectedColor,
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [totalPrice, setTotalPrice] = useState<number>(0); // New state for total price
+  const [totalPrice, setTotalPrice] = useState<number>(0);
   const defaultSizes = [{ id: 1, value: "default" }];
   const user = useJwt();
 
@@ -99,10 +101,13 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
         (size) => size.value === sizeValue
       );
       if (sizeIndex !== -1) {
-        newSizes[colorId][sizeIndex].quantity += increment;
-        if (newSizes[colorId][sizeIndex].quantity < 0) {
-          newSizes[colorId][sizeIndex].quantity = 0;
-        }
+        newSizes[colorId][sizeIndex] = {
+          ...newSizes[colorId][sizeIndex],
+          quantity: Math.max(
+            0,
+            newSizes[colorId][sizeIndex].quantity + increment
+          ),
+        };
       }
       return newSizes;
     });
@@ -111,6 +116,11 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
   const calculateTotalQuantities = () => {
     const totals: { [key: number]: number } = {};
     let totalQuantity = 0;
+  
+    // Отладочные логи для проверки значений selectedSizes и selectedColors
+    console.log("selectedSizes:", selectedSizes);
+    console.log("selectedColors:", selectedColors);
+  
     for (const colorId in selectedSizes) {
       if (selectedColors.includes(Number(colorId))) {
         const colorTotal = selectedSizes[colorId]?.reduce(
@@ -121,9 +131,12 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
         totalQuantity += colorTotal;
       }
     }
+  
+    console.log("totals:", totals);
+    console.log("totalQuantity:", totalQuantity);
+  
     setTotalQuantities(totals);
   };
-
   const calculateTotalPrice = () => {
     let total = 0;
     for (const colorId in selectedSizes) {
@@ -193,14 +206,17 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
   };
 
   useEffect(() => {
+    console.log("useEffect triggered");
     calculateTotalQuantities();
     calculateTotalPrice();
   }, [selectedSizes, selectedColors]);
-
   const resetStates = () => {
+    let firstElement = product.colors[0]?.id;
+    console.log(firstElement)
     setSelectedSizes(initialSizeState);
-    setSelectedColors([]);
-    setTotalQuantities({});
+    setSelectedColors([product.colors[0]?.id]);
+    setTotalQuantities({10:0});
+    setSelectedColor(product.colors[0]?.id);
   };
 
   return (
@@ -226,8 +242,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
                 <span
                   className={`${
                     size.value === "default" ? styles.text_hidden : ""
-                  }`}
-                >
+                  }`}>
                   {size.value}
                 </span>
                 <div className={styles.change_value}>
@@ -235,8 +250,8 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
                     onClick={() =>
                       handleSizeChange(selectedColor, size.value, -1)
                     }
-                  >
-                    <Image src={MinusSvg} width={24} height={24} alt="#" />
+                   >
+                    <Image src={MinusSvg} width={24} height={24} alt='#' />
                   </Button>
                   <h4 className={styles.selected_quantity}>
                     {selectedSizes[selectedColor]?.find(
@@ -248,13 +263,12 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
                       handleSizeChange(selectedColor, size.value, 1)
                     }
                   >
-                    <Image src={PlusSvg} width={24} height={24} alt="#" />
+                    <Image src={PlusSvg} width={24} height={24} alt='#' />
                   </Button>
                 </div>
               </div>
             )
           )}
-          
         </div>
       )}
       <div className={styles.add_basket}>
@@ -266,8 +280,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
           loading={loading}
           className={styles.addToCart}
           onClick={onFinish}
-          disabled={!isProductSelected()}
-        >
+          disabled={!isProductSelected()}>
           В корзину
         </Button>
       </div>

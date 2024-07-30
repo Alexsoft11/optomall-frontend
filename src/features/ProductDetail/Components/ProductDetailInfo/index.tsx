@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState } from "react";
 import styles from "./ProductDetailInfo.module.scss";
 import { Button, Dropdown, Rate } from "antd";
@@ -30,6 +28,7 @@ const ProductDetailInfo = ({
     [key: number]: number;
   }>({});
 
+  
   const items: MenuProps["items"] = [
     {
       label: (
@@ -146,6 +145,7 @@ const ProductDetailInfo = ({
         setTotalQuantities={setTotalQuantities}
         selectedColors={selectedColors}
         setSelectedColors={setSelectedColors}
+        setSelectedColor={setSelectedColor}
       />
     </div>
   );

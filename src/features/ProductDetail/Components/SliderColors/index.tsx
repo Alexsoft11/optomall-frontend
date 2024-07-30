@@ -29,6 +29,7 @@ const SliderColors = ({
     });
     setSelectedColor(colorId);
   };
+  console.log(totalQuantities)
 
   return (
     <div className={styles.swiper_colors}>
