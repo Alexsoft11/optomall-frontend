@@ -6,10 +6,12 @@ import Link from 'next/link';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import { CategoryCatalogInterface } from '@/interfaces';
 import { Tooltip } from 'antd';
+import { useTranslations } from 'next-intl';
 
 const CatalogCategory = () => {
   const [CatalogTabsData, setCatalogTabsData] = useState<CategoryCatalogInterface[]>([]);
   const [overflowedItems, setOverflowedItems] = useState<{ [key: string]: boolean }>({});
+  const t = useTranslations("Navbar");
 
   useEffect(() => {
     getCategoryData();
@@ -37,7 +39,7 @@ const CatalogCategory = () => {
     <div className={styles.categories}>
       <div className='container'>
         <div className={styles.categories__inner}>
-          <h1 className={styles.categories__title}>Catalog</h1>
+          <h1 className={styles.categories__title}>{t("catalog")}</h1>
           <div className={styles.categories__search}>
             <SearchBtn />
           </div>

@@ -47,11 +47,11 @@ export default function CartOrderBlock({
     buttonStatus === "pending"
       ? styles["loading-btn--pending"]
       : buttonStatus === "success"
-      ? styles["loading-btn--success"]
-      : buttonStatus === "fail"
-      ? styles["loading-btn--fail"]
-      : ""
-  }`;
+        ? styles["loading-btn--success"]
+        : buttonStatus === "fail"
+          ? styles["loading-btn--fail"]
+          : ""
+    }`;
 
   const checkModalClose = () => {
     router.push("/purchases?filter=in_verification");
@@ -153,12 +153,12 @@ export default function CartOrderBlock({
     if (createOrderData) {
       const userData = createOrderData.userData;
       for (let value in createOrderData.location) {
-        if (!createOrderData.location[value as keyof LocationInfoInterface]) {
-          return message.error(t(`locationRequired`), 2);
+        if (!createOrderData.location[value as keyof LocationInfoInterface] && value !== 'post_index') {
+          return message.error(t(`Cart.locationRequired`), 2);
         }
       }
       if (!userData || !userData.name || !userData.phone) {
-        return message.error(t(`userDataRequired`), 2);
+        return message.error(t(`Cart.userDataRequired`), 2);
       }
     }
     createData(createOrderData);
