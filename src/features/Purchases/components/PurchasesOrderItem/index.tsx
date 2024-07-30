@@ -10,9 +10,9 @@ interface Props {
 
 export default function PurchasesOrderItem({ item }: Props) {
     const t = useTranslations('Purchases')
-    
+
     return (
-        <div className={styles.main}>
+        <div className={styles.main} onClick={() =>  window.open(`/product/${item.product_id}`, '_blank', 'noopener,noreferrer')}>
             <div className={styles.item_img}>
                 <Image height={80} width={80} alt="#" src={item.image_url} />   
             </div>

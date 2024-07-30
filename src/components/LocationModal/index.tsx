@@ -92,7 +92,6 @@ export default function LocationModal({ orderModalOpen, setModalIsOpen, setMapIs
 
                     <Input
                         name="post_index"
-                        required
                         type="number"
                         placeholder={t("postcode")}
                     />
