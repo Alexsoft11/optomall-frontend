@@ -8,11 +8,10 @@ import { LocationInfoInterface } from '../Types';
 interface Props {
     setMapIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
     setLocationInfo: React.Dispatch<LocationInfoInterface>,
-    locationInfo: LocationInfoInterface,
     mapIsOpen: boolean
 }
 
-const ChooseLocation = ({ setMapIsOpen, setLocationInfo, locationInfo }: Props) => {
+const ChooseLocation = ({ setMapIsOpen, setLocationInfo }: Props) => {
     const [position, setPosition] = useState<[number, number]>([41.2995, 69.2401]); // Default position (Tashkent)
     const t = useTranslations('ChooseLocation');
     const [ymapsLoaded, setYmapsLoaded] = useState<boolean>(false);
@@ -30,22 +29,25 @@ const ChooseLocation = ({ setMapIsOpen, setLocationInfo, locationInfo }: Props) 
             if (ymapsLoaded) {
                 window.ymaps.geocode(coords).then((res: any) => {
                     const geoObject = res.geoObjects.get(0);
-                    const country = geoObject.getCountry();
-                    const area = geoObject.getLocalities().join(', ');
-                    const street = geoObject.getThoroughfare();
-                    const house = geoObject.getPremiseNumber();
-                    const region = geoObject.getAdministrativeAreas().join(', ');
+                    let adressText = ''
+                    const locationInfo = [
+                        geoObject.getCountry(),
+                        geoObject.getLocalities().join(', '),
+                        geoObject.getThoroughfare(),
+                        geoObject.getPremiseNumber(),
+                        geoObject.getAdministrativeAreas().join(', '),
+                    ]
+
+                    locationInfo.map(el => {
+                        if (el) {
+                            adressText += `${el}, `
+                        }
+                    })
 
                     setLocationInfo({
-                        name: country,
                         url: createYandexMapsUrl(coords[1], coords[0]),
-                        region: region, 
-                        district: area,
-                        street: street,
-                        house: house,
+                        adressText: adressText
                     })
-                    
-                    resolve(country);
                 }).catch((error: any) => {
                     reject(error);
                 });

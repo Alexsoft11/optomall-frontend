@@ -3,7 +3,8 @@ import styles from './LocationBlock.module.scss';
 import { useTranslations } from 'next-intl';
 import ChooseLocation from '@/components/ChooseLocation';
 import { LocationInfoInterface } from '../Types';
-import LocationModal from '../LocationModal';
+import { Input } from '@/ui';
+import { Form } from 'antd';
 
 interface Props {
     setLocationInfo: React.Dispatch<React.SetStateAction<LocationInfoInterface>>
@@ -11,22 +12,30 @@ interface Props {
 }
 
 export default function LocationBlock({ setLocationInfo, locationInfo }: Props) {
+    const [form] = Form.useForm();
     const t = useTranslations('Cart')
-    const [modalIsOpen, setModalIsOpen] = useState(false);
     const [mapIsOpen, setMapIsOpen] = useState(false);
 
-    return (
-        <div className={styles.main}>
-            {modalIsOpen ? <LocationModal locationInfo={locationInfo} setLocationInfo={setLocationInfo} orderModalOpen={modalIsOpen} setMapIsOpen={setMapIsOpen} setModalIsOpen={setModalIsOpen} /> : null}
+    useEffect(() => {
+        form.setFieldValue('adressText', locationInfo.adressText)
+    }, [locationInfo])
+    
 
-            {mapIsOpen ?
-                <ChooseLocation setLocationInfo={setLocationInfo} locationInfo={locationInfo} mapIsOpen={mapIsOpen} setMapIsOpen={setMapIsOpen} /> : null
-            }
-            <div className={styles.text_block}>
-                <h2>{t('address')}</h2>
-                <p>{t('addressInMap')}</p>
+    return (
+        <Form form={form}>
+            <div className={styles.main}>
+
+                {mapIsOpen ?
+                    <ChooseLocation setLocationInfo={setLocationInfo} mapIsOpen={mapIsOpen} setMapIsOpen={setMapIsOpen} /> : null
+                }
+                <div className={styles.text_block}>
+                    <h2>{t('address')}</h2>
+                </div>
+                <div className={styles.enter_addres}>
+                    <span onClick={() => setMapIsOpen(true)}>{t('addressInMap')}</span>
+                    <Input onBlur={() => setLocationInfo({adressText: form.getFieldValue('adressText')})} required name='adressText' placeholder={t('enterAddres')} />
+                </div>
             </div>
-            <span onClick={() => setModalIsOpen(true)}>{t('enterAddres')}</span>
-        </div>
+        </Form>
     );
 }

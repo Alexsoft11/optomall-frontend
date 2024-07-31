@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef } from 'react';
 import styles from './CartGetOtderPerson.module.scss';
 import { useTranslations } from 'next-intl';
-import { Form } from 'antd';
+import { Form, InputRef } from 'antd';
 import { validateName, validatePhone } from '@/components/Auth/Functions';
-import { Input } from '@/ui';
+import { Input, } from '@/ui';
+import { MaskedInput } from "antd-mask-input";
 
 interface Props {
     setPersonData: any
@@ -12,10 +13,12 @@ interface Props {
 export default function CartGetOrderPerson({ setPersonData }: Props) {
     const t = useTranslations('')
     const [form] = Form.useForm();
+    const inputRef = useRef<InputRef>(null);
 
     const onFinifh = () => {
         const data = form.getFieldsValue()
-        data.phone = `+998${data.phone}`
+        console.log('data is:', data);
+        data.phone = `+998${inputRef.current?.input?.value.match(/\d/g)?.join('')}`;
         setPersonData(data)
     };
 
@@ -33,16 +36,24 @@ export default function CartGetOrderPerson({ setPersonData }: Props) {
                         type='text'
                         placeholder={t("name")}
                     />
-                    <Input
+
+                    <Form.Item
                         name="phone"
                         rules={[
-                            { validator: (rule, value) => validatePhone(t, value) },
+                            { validator: (rule, value) => validatePhone(t, value) }
                         ]}
-                        onBlur={() => form.submit()}
-                        type="text"
-                        prefix={"+998"}
-                        placeholder={"-- --- -- --"}
-                    />
+                        required
+                    >
+                        <MaskedInput
+                            className={styles.maskedInput}
+                            ref={inputRef}
+                            onBlur={() => form.submit()}
+                            type="text"
+                            prefix={"+998"}
+                            mask={'(00) 000-00-00'}
+                        />
+                    </Form.Item>
+
                 </Form>
             </div>
         </div>

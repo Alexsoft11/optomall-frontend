@@ -5,6 +5,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import MainLayout from "@/components/Layout";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import '../../node_modules/animate.css/animate.min.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
