@@ -166,12 +166,13 @@
     "currency": "сум",
     "inVerification": "в проверке",
     "emptyData": "Здес пусто",
-    "cargo": "Карго",
+    "cargo": "Карго:",
     "calculated": "Рассчитывается",
     "wait_for_pay_cargo": "Оплата за доставку ожидается",
     "pay": "Оплатить",
     "send_check_again": "Чек не прошел проверку",
-    "upload": "Загрузить еще"
+    "upload": "Загрузить еще",
+    "orderId": "ID заказа:"
   },
   "Search": {
     "platform": "Платформа",

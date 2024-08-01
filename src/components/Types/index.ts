@@ -12,5 +12,5 @@ export interface IGoToBackObject {
 
 export interface LocationInfoInterface {
   url?: string,
-  adressText: string
+  addressText: string
 }

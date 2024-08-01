@@ -17,7 +17,6 @@ export default function CartGetOrderPerson({ setPersonData }: Props) {
 
     const onFinifh = () => {
         const data = form.getFieldsValue()
-        console.log('data is:', data);
         data.phone = `+998${inputRef.current?.input?.value.match(/\d/g)?.join('')}`;
         setPersonData(data)
     };

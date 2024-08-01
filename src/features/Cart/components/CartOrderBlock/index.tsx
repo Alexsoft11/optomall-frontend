@@ -155,9 +155,7 @@ export default function CartOrderBlock({
     }
     if (createOrderData && setLocationFailed && setPersonalDataFailed) {
       const userData = createOrderData.userData;
-      if (!createOrderData.location.adressText) {
-        console.log('foo:', createOrderData.location.adressText);
-        
+      if (!createOrderData.location.addressText) {
         setLocationFailed(true)
         setTimeout(() => setLocationFailed(false), 1000)
         return message.error(t(`Cart.locationRequired`), 3);
@@ -168,6 +166,7 @@ export default function CartOrderBlock({
         return message.error(t(`Cart.userDataRequired`), 3);
       }
     }
+
     createData(createOrderData);
   };
 

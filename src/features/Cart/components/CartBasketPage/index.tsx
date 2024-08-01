@@ -12,10 +12,6 @@ import LocationBlock from "@/components/LocationBlock";
 import { LocationInfoInterface } from "@/components/Types";
 import 'animate.css'
 
-const initialValue = {
-  url: '',
-  adressText: ''
-}
 
 interface Props {
   data: CartItemInterface[]
@@ -28,7 +24,7 @@ export default function CartBasketPage({ data }: Props) {
   const [addOrder, setAddOrder] = useState<{ item: CartOrderItemInterface, chacked: boolean } | null>(null)
   const [locationFailed, setLocationFailed] = useState(false)
   const [personalDataFailed, setPersonalDataFailed] = useState(false)
-  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>(initialValue)
+  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>({ addressText: '' })
 
 
   const [totalPrice, setTotalPrice] = useState<number>(0);

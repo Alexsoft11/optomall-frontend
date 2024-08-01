@@ -46,7 +46,7 @@ const ChooseLocation = ({ setMapIsOpen, setLocationInfo }: Props) => {
 
                     setLocationInfo({
                         url: createYandexMapsUrl(coords[1], coords[0]),
-                        adressText: adressText
+                        addressText: adressText
                     })
                 }).catch((error: any) => {
                     reject(error);

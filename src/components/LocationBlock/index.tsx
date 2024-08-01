@@ -17,9 +17,15 @@ export default function LocationBlock({ setLocationInfo, locationInfo }: Props) 
     const [mapIsOpen, setMapIsOpen] = useState(false);
 
     useEffect(() => {
-        form.setFieldValue('adressText', locationInfo.adressText)
+        form.setFieldValue('adressText', locationInfo.addressText)
     }, [locationInfo])
-    
+
+    const locationText = () => {
+        const adressText = form.getFieldValue('adressText')
+        const clone = locationInfo.url ? { ...locationInfo, addressText: adressText } : { addressText: adressText, url: "null" }
+        setLocationInfo(clone)
+    }
+
 
     return (
         <Form form={form}>
@@ -33,7 +39,7 @@ export default function LocationBlock({ setLocationInfo, locationInfo }: Props) 
                 </div>
                 <div className={styles.enter_addres}>
                     <span onClick={() => setMapIsOpen(true)}>{t('addressInMap')}</span>
-                    <Input onBlur={() => setLocationInfo({adressText: form.getFieldValue('adressText')})} required name='adressText' placeholder={t('enterAddres')} />
+                    <Input onBlur={locationText} required name='adressText' placeholder={t('enterAddres')} />
                 </div>
             </div>
         </Form>

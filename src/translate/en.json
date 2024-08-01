@@ -118,7 +118,7 @@
     "complite": "CHECKOUT",
     "address": "Delivery address",
     "addressInMap": "Specify the delivery address on the map",
-    "enterAddress": "Enter address manually",
+    "enterAddres": "Enter address manually",
     "person": "Order recipient",
     "name": "Name",
     "phone": "Phone number",
@@ -161,13 +161,14 @@
     "orderCost": "Total Cost:",
     "currency": "uzs",
     "inVerification": "in verification",
-    "cargo": "Cargo",
+    "cargo": "Cargo:",
     "calculated": "Calculated",
     "emptyData": "It's empty here",
     "wait_for_pay_cargo": "Payment for delivery is pending",
     "pay": "Pay",
     "send_check_again": "Check did not pass verification",
-    "upload": "Upload more"
+    "upload": "Upload more",
+    "orderId": "Order ID:"
   },
   "Search": {
     "platform": "Platform",
