@@ -42,12 +42,14 @@ const LikedBtn = ({ onLikeChange, product_id, isLike, id_filter, card }:LikedPro
       if (token) {
         if (onLikeChange) {
           dislikeCard([card.product_id.toString()])
-          setChangeLike(false);
         } else {
           dislikeCard([card.id.toString()])
         }
       }
-      setChangeLike(false);
+
+      if (!onLikeChange) {
+        setChangeLike(false);
+      }
     } else {
       setChangeLike(true);
       if (token) {

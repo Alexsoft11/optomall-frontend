@@ -67,16 +67,27 @@ export default function Home({
     if (token && !hasPosted.current) {
       if (savedData) {
         const parsedData = JSON.parse(savedData);
-        const updatedData = parsedData.map((item: CardInterface) => ({
+        const localStorageData = parsedData.map((item: CardInterface) => ({
           ...item,
           is_liked: true
         }));
+        
+        if (Array.isArray(localStorageData)) {
 
-        if (Array.isArray(updatedData)) {
+          if (localStorageData.length && categories.length > 0) {
+            const filteredData = localStorageData.filter((updatedItem) => {
+              const categoryProduct = categories.flatMap((category: any) => 
+                category.products.filter((item: any) => item.id == updatedItem.id)
+              );
+        
+              if (categoryProduct.length > 0) {
+                return categoryProduct.some((item: any) => updatedItem.is_liked !== item.is_liked);
+              } else {
+                return true;
+              }
+            });
 
-          if (updatedData.length) {
-
-            const likedProductsFilter = updatedData.map((item: CardInterface) => item.id.toString());
+            const likedProductsFilter = filteredData.map((item: CardInterface) => item.id.toString());
   
             if (likedProductsFilter.length > 0) {
               dislikeCard(likedProductsFilter);
