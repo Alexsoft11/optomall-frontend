@@ -11,6 +11,7 @@ export interface PurchasesItemInterface {
 
 export interface PurchasesOrderInterface {
   id: number;
+  unique_id: string,
   status: LanguageStringIntergace;
   status_color: string;
   total_price: number;

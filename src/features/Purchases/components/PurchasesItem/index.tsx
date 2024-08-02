@@ -21,6 +21,7 @@ export default function PurchasesItem({ item }: Props) {
   const locale = useLocale();
   const router = useRouter();
   const [isUploadErr, setIsUploadErr] = useState(false);
+  const getCreateDateRegexp  = /(\d){4}-(\d){2}-(\d){2}/
 
   function hexToRgba(hex?: string, alpha: number = 1): string {
     // Remove the hash at the start if it's there
@@ -96,13 +97,12 @@ export default function PurchasesItem({ item }: Props) {
 
   return (
     <div
-      className={`${styles.main} ${
-        isRotatedUp
-          ? styles.detailOpen
-          : firstLoad
+      className={`${styles.main} ${isRotatedUp
+        ? styles.detailOpen
+        : firstLoad
           ? styles.firsLoadAnimation
           : styles.detailClose
-      }`}
+        }`}
     >
       <div className={styles.order_info}>
         <p>
@@ -125,8 +125,12 @@ export default function PurchasesItem({ item }: Props) {
       </div>
       <div className={styles.order_detail}>
         <div className={styles.detail_item}>
+          <h3>{t("orderId")}</h3>
+          <p>{item.unique_id}</p>
+        </div>
+        <div className={styles.detail_item}>
           <h3>{t("orderDate")}</h3>
-          <p>{item.created_at}</p>
+          <p>{item?.created_at.match(getCreateDateRegexp)![0]}</p>
         </div>
         <div className={styles.detail_item}>
           <h3>{t("orderCost")}</h3>
@@ -138,19 +142,19 @@ export default function PurchasesItem({ item }: Props) {
         </div>
         <div className={styles.detail_item}>
           <h3>{t("recipient")}</h3>
-          <p>{item.user_name}</p>
-          <p>{item.user_phone}</p>
+          <div>
+            <p>{item.user_name}, </p>
+            <p>{item.user_phone}</p>
+          </div>
         </div>
         <div className={styles.detail_item}>
           <h3>{t("cargo")}</h3>
           <p>{item.cargo_price ? item.cargo_price + " " + t("currency") : t("calculated")}</p>
         </div>
-        {/* <div className={styles.sub_status} style={{ color: item.substatus_color }}>{item.substatus[locale as keyof LanguageStringIntergace] || 'sub ststus undefiened :('}</div> */}
       </div>
       <div
-        className={`${styles.more_datail} ${
-          isRotatedUp ? styles.rotateUp : styles.rotateDown
-        }`}
+        className={`${styles.more_datail} ${isRotatedUp ? styles.rotateUp : styles.rotateDown
+          }`}
         onClick={handleClick}
       >
         <p>{t("moreDetail")}</p>

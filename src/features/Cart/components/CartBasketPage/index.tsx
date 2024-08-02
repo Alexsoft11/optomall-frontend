@@ -10,16 +10,8 @@ import { LoadingSpinner } from "@/ui/Spin";
 import CartBasketNoItems from "../CartBasketNoItems";
 import LocationBlock from "@/components/LocationBlock";
 import { LocationInfoInterface } from "@/components/Types";
+import 'animate.css'
 
-
-const initialValue = {
-  url: '',
-  name: '',
-  district: '',
-  region: '',
-  street: '',
-  house: '',
-}
 
 interface Props {
   data: CartItemInterface[]
@@ -30,8 +22,9 @@ export default function CartBasketPage({ data }: Props) {
   const [dataClone, setDataClone] = useState<CartItemInterface[]>(data)
 
   const [addOrder, setAddOrder] = useState<{ item: CartOrderItemInterface, chacked: boolean } | null>(null)
-
-  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>(initialValue)
+  const [locationFailed, setLocationFailed] = useState(false)
+  const [personalDataFailed, setPersonalDataFailed] = useState(false)
+  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>({ addressText: '' })
 
 
   const [totalPrice, setTotalPrice] = useState<number>(0);
@@ -134,10 +127,14 @@ export default function CartBasketPage({ data }: Props) {
         <>
           <CartBasketItems changeQuantity={changeQuantity} setAddOrder={setAddOrder} data={dataClone} />
           <div className={styles.order_side}>
-            <CartOrderBlock itemValue={itemsValue} isCart={true} createOrderData={createOrderData} cost={`${totalPrice} uzs`} />
+            <CartOrderBlock itemValue={itemsValue} setPersonalDataFailed={setPersonalDataFailed} setLocationFailed={setLocationFailed} isCart={true} createOrderData={createOrderData} cost={`${totalPrice} uzs`} />
             <div className={styles.order_info}>
-              <LocationBlock setLocationInfo={setLocationInfo} locationInfo={locationInfo} />
-              <CartGetOrderPerson setPersonData={setPersonData} />
+              <div className={`${locationFailed ? 'animate__shakeX animate__animated' : null}`}>
+                <LocationBlock setLocationInfo={setLocationInfo} locationInfo={locationInfo} />
+              </div>
+              <div className={`${personalDataFailed ? 'animate__shakeX animate__animated' : null}`}>
+                <CartGetOrderPerson setPersonData={setPersonData} />
+              </div>
             </div>
           </div>
           <LoadingSpinner spinning={isLoading} fullscreen={true} size="large" />
@@ -146,3 +143,5 @@ export default function CartBasketPage({ data }: Props) {
     </div>
   );
 }
+
+

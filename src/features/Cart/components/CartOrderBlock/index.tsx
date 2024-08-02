@@ -20,6 +20,8 @@ interface Props {
   isCart?: boolean;
   uploadUrl?: string;
   type?: string;
+  setLocationFailed?: React.Dispatch<React.SetStateAction<boolean>>
+  setPersonalDataFailed?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function CartOrderBlock({
@@ -30,6 +32,8 @@ export default function CartOrderBlock({
   type,
   isCart = false,
   cargoCost,
+  setLocationFailed,
+  setPersonalDataFailed
 }: Props) {
   const t = useTranslations("");
   const [checkModalIsOpen, setCheckModalIsOpen] = useState(false);
@@ -43,14 +47,13 @@ export default function CartOrderBlock({
   >("idle");
   const cookie = new Cookies();
 
-  const buttonClass = `${styles["loading-btn"]} ${
-    buttonStatus === "pending"
-      ? styles["loading-btn--pending"]
-      : buttonStatus === "success"
-        ? styles["loading-btn--success"]
-        : buttonStatus === "fail"
-          ? styles["loading-btn--fail"]
-          : ""
+  const buttonClass = `${styles["loading-btn"]} ${buttonStatus === "pending"
+    ? styles["loading-btn--pending"]
+    : buttonStatus === "success"
+      ? styles["loading-btn--success"]
+      : buttonStatus === "fail"
+        ? styles["loading-btn--fail"]
+        : ""
     }`;
 
   const checkModalClose = () => {
@@ -150,17 +153,20 @@ export default function CartOrderBlock({
       }
       return;
     }
-    if (createOrderData) {
+    if (createOrderData && setLocationFailed && setPersonalDataFailed) {
       const userData = createOrderData.userData;
-      for (let value in createOrderData.location) {
-        if (!createOrderData.location[value as keyof LocationInfoInterface] && value !== 'post_index') {
-          return message.error(t(`Cart.locationRequired`), 2);
-        }
+      if (!createOrderData.location.addressText) {
+        setLocationFailed(true)
+        setTimeout(() => setLocationFailed(false), 1000)
+        return message.error(t(`Cart.locationRequired`), 3);
       }
       if (!userData || !userData.name || !userData.phone) {
-        return message.error(t(`Cart.userDataRequired`), 2);
+        setPersonalDataFailed(true)
+        setTimeout(() => setPersonalDataFailed(false), 1000)
+        return message.error(t(`Cart.userDataRequired`), 3);
       }
     }
+
     createData(createOrderData);
   };
 

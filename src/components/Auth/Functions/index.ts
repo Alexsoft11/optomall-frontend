@@ -8,8 +8,7 @@ export const validatePassword = (
   currentValue: any,
   value: string
 ) => {
-  
-  if (value.includes(' ')) {
+  if (value.includes(" ")) {
     return Promise.reject(new Error(t("Auth.passwordHasEmpty")));
   } else if (value.length < 8) {
     return Promise.reject(new Error(t("Auth.minSymbolPassword")));
@@ -58,11 +57,8 @@ export const validateConfirmCode = (
   return Promise.resolve();
 };
 
-export const validatePhone = (
-  t: Function,
-  value: string
-) => {
-  if (!/^(\d){9}$/m.test(value)) {
+export const validatePhone = (t: Function, value: string) => {
+  if (!/^\((\d){2}\) (\d){3}-(\d){2}-(\d){2}$/m.test(value)) {
     return Promise.reject(new Error(t("Auth.requiredTelMessage")));
   }
   return Promise.resolve();
