@@ -76,8 +76,9 @@
 
                 text-align: center;
 
-                @media (max-width: 600px) {
-                    max-width: 330px;
+                @media (max-width: 768px) {
+                    max-width: none;
+                    width: 57dvw;
                 }
             }
 

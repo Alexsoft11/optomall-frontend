@@ -117,10 +117,6 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     const totals: { [key: number]: number } = {};
     let totalQuantity = 0;
   
-    // Отладочные логи для проверки значений selectedSizes и selectedColors
-    console.log("selectedSizes:", selectedSizes);
-    console.log("selectedColors:", selectedColors);
-  
     for (const colorId in selectedSizes) {
       if (selectedColors.includes(Number(colorId))) {
         const colorTotal = selectedSizes[colorId]?.reduce(
@@ -131,9 +127,6 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
         totalQuantity += colorTotal;
       }
     }
-  
-    console.log("totals:", totals);
-    console.log("totalQuantity:", totalQuantity);
   
     setTotalQuantities(totals);
   };
@@ -206,13 +199,11 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
   };
 
   useEffect(() => {
-    console.log("useEffect triggered");
     calculateTotalQuantities();
     calculateTotalPrice();
   }, [selectedSizes, selectedColors]);
   const resetStates = () => {
     let firstElement = product.colors[0]?.id;
-    console.log(firstElement)
     setSelectedSizes(initialSizeState);
     setSelectedColors([product.colors[0]?.id]);
     setTotalQuantities({10:0});

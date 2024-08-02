@@ -21,7 +21,7 @@ export default function PurchasesItem({ item }: Props) {
   const locale = useLocale();
   const router = useRouter();
   const [isUploadErr, setIsUploadErr] = useState(false);
-  const getCreateDateRegexp  = /(\d){4}-(\d){2}-(\d){2}/
+  const getCreateDateRegexp = /(\d){4}-(\d){2}-(\d){2}/
 
   function hexToRgba(hex?: string, alpha: number = 1): string {
     // Remove the hash at the start if it's there
@@ -97,12 +97,7 @@ export default function PurchasesItem({ item }: Props) {
 
   return (
     <div
-      className={`${styles.main} ${isRotatedUp
-        ? styles.detailOpen
-        : firstLoad
-          ? styles.firsLoadAnimation
-          : styles.detailClose
-        }`}
+      className={`${styles.main} ${isRotatedUp ? styles.detailOpen : firstLoad ? styles.firsLoadAnimation : styles.detailClose}`}
     >
       <div className={styles.order_info}>
         <p>

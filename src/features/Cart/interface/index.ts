@@ -1,5 +1,4 @@
 import { LocationInfoInterface } from "@/components/Types";
-import { LanguageStringIntergace } from "@/interfaces";
 import { StaticImageData } from "next/image";
 
 export interface CartItemInterface {
@@ -13,6 +12,12 @@ export interface CartItemInterface {
   color_id?: string;
   price: string;
   quantity: number;
+  chacked?: boolean;
+}
+
+export interface AddOrderInterface {
+  item: CartOrderItemInterface;
+  chacked: boolean;
 }
 
 export interface CartOrderItemInterface {
@@ -28,7 +33,7 @@ export interface CartOrderItemInterface {
 
 export interface CreateOrderDataInterface {
   total_price: number;
-  location: LocationInfoInterface,
+  location: LocationInfoInterface;
   userData: PersonalDataInterface | null;
   items: CartOrderItemInterface[];
 }

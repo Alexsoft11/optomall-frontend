@@ -135,7 +135,8 @@
     "forKg": "kg uchun",
     "locationRequired": "Tovarni yetkazib berish manzilini to'ldiring va xaritada joylashuvni",
     "userDataRequired": "Qabul qiluvchining shaxsiy ma'lumotlarini to'ldiring!",
-    "signin": "Kirish"
+    "signin": "Kirish",
+    "selectAll": "barchasini tanlash"
   },
   "Order": {
     "payCost": "To'lanadigan summa: ",

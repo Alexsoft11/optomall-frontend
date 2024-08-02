@@ -6,12 +6,12 @@
     max-height: 546px;
     width: 100%;
     height: revert;
-    
+
     display: flex;
     flex-direction: column;
     padding: 20px;
     gap: 20px;
-    
+
     .swiper {
         -webkit-tap-highlight-color: transparent;
         display: flex;
@@ -25,10 +25,20 @@
     }
 
     .items_count {
-        color: var(--silver-grey);
-        font-size: var(--paragraph-two);
-        font-weight: 400;
-        line-height: 16.94px;
+        display: flex;
+        justify-content: space-between;
+
+        p {
+            color: var(--silver-grey);
+            font-size: var(--paragraph-two);
+            font-weight: 400;
+            line-height: 16.94px;
+        }
+
+        .chechbox {
+            max-width: 130px;
+            width: auto !important;
+        }
     }
 
 

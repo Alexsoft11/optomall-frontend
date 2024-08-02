@@ -28,6 +28,12 @@
             grid-template-columns: repeat(3, minmax(30%, max-content));
             grid-template-rows: auto;
 
+            .selectedOrder {
+                border: 3px solid var(--primary-color);
+                border-radius: 10px;
+                height: min-content;
+            }
+
             @media (max-width: 1110px) {
                 grid-template-columns: repeat(2, minmax(40%, max-content));
             }

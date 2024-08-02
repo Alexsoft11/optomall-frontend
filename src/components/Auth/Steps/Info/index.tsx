@@ -52,7 +52,6 @@ export default function Info() {
 
   const onFinish = (values: any) => {
     values.unique_id = router.query.id;
-    values.phone = `+998${inputRef.current?.input?.value}`;
     createData(values);
   };
 
@@ -100,13 +99,22 @@ export default function Info() {
             placeholder={t("Auth.secondName")}
           />
 
-          <MaskedInput
-            ref={inputRef}
-            onBlur={() => form.submit()}
-            type="text"
-            prefix={"+998"}
-            mask={'(00) 000-00-00'}
-          />
+          <Form.Item
+            name="phone"
+            rules={[
+              { validator: (rule, value) => validatePhone(t, value) }
+            ]}
+            required
+          >
+            <MaskedInput
+              className={styles.maskedInput}
+              ref={inputRef}
+              onBlur={() => form.submit()}
+              type="text"
+              prefix={"+998"}
+              mask={'(00) 000-00-00'}
+            />
+          </Form.Item>
 
           <Form.Item className={styles.submitButton}>
             <Button

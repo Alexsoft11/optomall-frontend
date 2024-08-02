@@ -48,7 +48,9 @@ export const getServerSideProps = async (context: any) => {
 
     return {
       props: {
-        basketData: basketResponse || [],
+        basketData: basketResponse.map(el => {
+          return {...el, chacked: false}
+        }) || [],
       },
     };
   } catch (error: any) {

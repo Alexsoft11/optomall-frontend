@@ -1,27 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./CartBasketItem.module.scss";
-import { CartItemInterface, CartOrderItemInterface } from "@/features/Cart/interface";
+import { AddOrderInterface, CartItemInterface, CartOrderItemInterface } from "@/features/Cart/interface";
 import Image from "next/image";
 import { MinusSvg, PlusSvg } from "$/assets/images";
 import { Button } from "antd";
 import { Checkbox } from "@/ui";
-import { useLocale, useTranslations } from "next-intl";
-import { LanguageStringIntergace } from "@/interfaces";
+import { useTranslations } from "next-intl";
 
 interface Props {
   item: CartItemInterface;
-  setAddOrder: React.Dispatch<
-    React.SetStateAction<{
-      item: CartOrderItemInterface;
-      chacked: boolean;
-    } | null>
+  setAddOrder: React.Dispatch<React.SetStateAction<AddOrderInterface | AddOrderInterface[] | null>
   >;
   changeQuantity: (number: number, item: CartItemInterface) => void
 }
 
 export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Props) {
   const t = useTranslations("GLOBAL");
-  
+
   const handleChange = (chacked: boolean) => {
 
     if (!item.size_id) return
@@ -64,7 +59,7 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
 
       <div className={styles.checkbox_block}>
         <div className={styles.Checkbox}>
-          <Checkbox onChange={(e) => handleChange(e.target.checked)} initialValue={false} />
+          <Checkbox checked={item.chacked} onChange={(e) => handleChange(e.target.checked)} initialValue={false} />
         </div>
       </div>
 

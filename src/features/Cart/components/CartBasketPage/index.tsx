@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./CartBasketPage.module.scss";
 import CartBasketItems from "../CartBasketItems";
 import CartOrderBlock from "../CartOrderBlock";
-import { CartItemInterface, CartOrderItemInterface, CreateOrderDataInterface, PersonalDataInterface } from "../../interface";
+import { AddOrderInterface, CartItemInterface, CartOrderItemInterface, CreateOrderDataInterface, PersonalDataInterface } from "../../interface";
 import CartGetOrderPerson from "../CartGetOtderPerson";
 import Cookies from "universal-cookie";
 import useQueryApiClient from "@/utils/useQueryApiClient";
@@ -18,14 +18,15 @@ interface Props {
 }
 
 export default function CartBasketPage({ data }: Props) {
-  const [orderItems, setOrderItems] = useState<CartOrderItemInterface[]>([])
+  const [orderItems, setOrderItems] = useState<CartOrderItemInterface[] | []>([])
   const [dataClone, setDataClone] = useState<CartItemInterface[]>(data)
 
-  const [addOrder, setAddOrder] = useState<{ item: CartOrderItemInterface, chacked: boolean } | null>(null)
+  const [addOrder, setAddOrder] = useState<AddOrderInterface | AddOrderInterface[] | null>(null)
+
   const [locationFailed, setLocationFailed] = useState(false)
   const [personalDataFailed, setPersonalDataFailed] = useState(false)
-  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>({ addressText: '' })
 
+  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>({ addressText: '' })
 
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [personData, setPersonData] = useState<PersonalDataInterface | null>(null);
@@ -56,7 +57,21 @@ export default function CartBasketPage({ data }: Props) {
   }, [])
 
   useEffect(() => {
+    if (Array.isArray(addOrder)) {
+      let clone = [] as CartOrderItemInterface[] | [];
+
+      if (addOrder[0].chacked) {
+        clone = addOrder.map(el => el.item)
+      }
+
+      setOrderItems(clone)
+      setAddOrder(null)
+      return
+    }
     let copy = orderItems.map((el => el));
+    let newDataClone = dataClone.map(el => el.size_id === addOrder?.item.size_id ? { ...el, chacked: addOrder?.chacked } : { ...el });
+
+    setDataClone(newDataClone)
 
     if (!addOrder?.chacked && addOrder?.item) {
       copy = copy.filter(el => {
@@ -125,7 +140,7 @@ export default function CartBasketPage({ data }: Props) {
 
       {!dataClone.length ? <CartBasketNoItems /> : (
         <>
-          <CartBasketItems changeQuantity={changeQuantity} setAddOrder={setAddOrder} data={dataClone} />
+          <CartBasketItems changeQuantity={changeQuantity} setAddOrder={setAddOrder} setDataClone={setDataClone} data={dataClone} />
           <div className={styles.order_side}>
             <CartOrderBlock itemValue={itemsValue} setPersonalDataFailed={setPersonalDataFailed} setLocationFailed={setLocationFailed} isCart={true} createOrderData={createOrderData} cost={`${totalPrice} uzs`} />
             <div className={styles.order_info}>
