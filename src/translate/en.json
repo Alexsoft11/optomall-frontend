@@ -135,7 +135,8 @@
     "forKg": "per Kg",
     "locationRequired": "Please provide a delivery address and specify the location on the map.",
     "userDataRequired": "Please fill in the recipient's personal details!",
-    "signin": "Sign in"
+    "signin": "Sign in",
+    "selectAll": "select all"
   },
   "Order": {
     "payCost": "Amount to be paid: ",

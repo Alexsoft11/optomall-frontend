@@ -9,7 +9,6 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import { message, Upload } from "antd";
 import Cookies from "universal-cookie";
 import { RcFile } from "antd/es/upload";
-import { LocationInfoInterface } from "@/components/Types";
 
 interface Props {
   cost: string;

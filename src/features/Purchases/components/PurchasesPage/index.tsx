@@ -35,7 +35,9 @@ export default function PurchasesPage({ data = [] }: Props) {
                     <div className={styles.items}>
                         {data?.map(el => (
                             <Fragment key={el.id}>
-                                <PurchasesItem item={el} />
+                                <div className={el.unique_id === router.query.orderId? styles.selectedOrder : ''}>
+                                    <PurchasesItem item={el}/>
+                                </div>
                             </Fragment>
                         ))}
                     </div>
