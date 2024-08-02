@@ -12,11 +12,11 @@ import { CategoryInterface } from "../../interfaces";
 import Image from "next/image";
 
 interface Props {
-  products: CardInterface[];
+  // products: CardInterface[];
   categoryData: CategoryInterface[]
 }
 
-const Products = ({ products, categoryData }: Props) => {
+const Products = ({ categoryData }: Props) => {
   const t = useTranslations()
   
   return (

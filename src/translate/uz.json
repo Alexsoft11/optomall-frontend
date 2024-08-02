@@ -174,7 +174,10 @@
     "sales": "Sotish",
     "reputation": "Reputatsiya",
     "longPrice": "Uzoq narx",
-    "downPrice": "Past narx"
+    "downPrice": "Past narx",
+    "submit": "yuborish",
+    "max_price": "Iltimos, maksimal narxni kiriting!",
+    "min_price": "Iltimos, minimal narxni kiriting!"
   },
   "MyReviews": {
     "waitForReview": "Baho berish kutilmoqda",

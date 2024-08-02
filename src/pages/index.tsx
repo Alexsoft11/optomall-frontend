@@ -22,18 +22,18 @@ const Products = dynamic(() => import("@/features/home/components/Products"), {
 
 interface HomeProps {
   slidersData: { sliders: any[] };
-  productsData: { products: any[] };
+  // productsData: { products: any[] };
 }
 
 export default function Home({
   slidersData,
-  productsData,
+  // productsData,
 }: HomeProps) {
   const t = useTranslations("Home");
   const [isLoading, setIsLoading] = useState(true);
   const token = useJwt();
   const hasPosted = useRef(false);
-  const [products, setProducts] = useState(productsData.products);
+  // const [products, setProducts] = useState(productsData.products);
   const [categories, setCategories] = useState<any>([]);
   const [limit, setLimit] = useState(15);
 
@@ -145,7 +145,7 @@ export default function Home({
       metaKeywords={t("metaKeywords")}
     >
       <MainSlider data={slidersData?.sliders} />
-      <Products products={products} categoryData={categories} />
+      <Products categoryData={categories} />
     </PageLayout>
   );
 }
@@ -155,12 +155,12 @@ export default function Home({
 export const getServerSideProps = async (context: any) => {
   try {
     const slidersResponse = await API.getHomePageSlider();
-    const productsResponse = await API.getHomePageProducts();
+    // const productsResponse = await API.getHomePageProducts();
     
     return {
       props: {
         slidersData: slidersResponse.data || { sliders: [] },
-        productsData: productsResponse.data || { products: [] },
+        // productsData: productsResponse.data || { products: [] },
         messages: (await import(`../translate/${context.locale}.json`)).default,
       },
     };
@@ -169,7 +169,7 @@ export const getServerSideProps = async (context: any) => {
     return {
       props: {
         slidersData: { sliders: [] },
-        productsData: { products: [] },
+        // productsData: { products: [] },
         categoryProductsData: { categories: [] },
         messages: (await import(`../translate/${context.locale}.json`)).default,
       },

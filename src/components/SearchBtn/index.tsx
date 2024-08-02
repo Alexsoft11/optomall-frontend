@@ -30,7 +30,6 @@ const SearchBtn = () => {
     } else {
       form.resetFields();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   const handleScroll = () => {
@@ -86,12 +85,12 @@ const SearchBtn = () => {
           />
         </Form>
 
-        {/* <Button
-              className='generalbtn'
-              shape='circle'
-              iconId='photo-svg'
-              iconPosition='left'
-            /> */}
+        <Button
+          className='generalbtn'
+          shape='circle'
+          iconId='photo-svg'
+          iconPosition='left'
+        />
       </div>
     </>
   );

@@ -19,11 +19,11 @@ export const API = {
   // HomePage
   getHomePageSlider: () => axiosInstance.get("sliders"),
 
-  getHomePageProducts: () => axiosInstance.get("products?query=Discount"),
+  // getHomePageProducts: () => axiosInstance.get("products?query=Discount"),
 
   // SearchPage
   getSearchPageProducts: (query: any) =>
-    axiosInstance.get(`search-products-from-taobao?searchQuery=${query}`),
+    axiosInstance.get(`search-products-from-taobao?searchQuery=${query.query.query}&startPrice=${query.query.startPrice}&endPrice=${query.query.endPrice}&lang=${query.locale}`),
 
   getProductDetail: (query: any) =>
     axiosInstance

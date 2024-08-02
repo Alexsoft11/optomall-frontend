@@ -3,6 +3,7 @@ import GoToBack from "@/components/GoToBack";
 import Search from "@/features/Search/components/Search";
 import { API } from "@/services/api";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 interface SearchProps {
   productsData: any;
@@ -26,8 +27,9 @@ export default SearchPage;
 
 export const getServerSideProps = async (context: any) => {
   try {
-    const searchResponce = await API.getSearchPageProducts(context.query.query);
 
+    const searchResponce = await API.getSearchPageProducts(context);
+    console.log(context, "frfrfr")
     return {
       props: {
         productsData: searchResponce.data || [],

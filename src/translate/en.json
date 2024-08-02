@@ -174,7 +174,10 @@
     "sales": "Sales",
     "reputation": "Reputation",
     "longPrice": "Long price",
-    "downPrice": "Down price"
+    "downPrice": "Down price",
+    "submit": "submit",
+    "max_price": "Please input the maximum price!",
+    "min_price": "Please input the minimum price!"
   },
   "MyReviews": {
     "waitForReview": "Waiting for Review",
