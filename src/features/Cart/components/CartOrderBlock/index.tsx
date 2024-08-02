@@ -19,8 +19,7 @@ interface Props {
   isCart?: boolean;
   uploadUrl?: string;
   type?: string;
-  setLocationFailed?: React.Dispatch<React.SetStateAction<boolean>>
-  setPersonalDataFailed?: React.Dispatch<React.SetStateAction<boolean>>
+  setDataFailed?: React.Dispatch<React.SetStateAction<"personal" | "location" | null>>
 }
 
 export default function CartOrderBlock({
@@ -31,8 +30,7 @@ export default function CartOrderBlock({
   type,
   isCart = false,
   cargoCost,
-  setLocationFailed,
-  setPersonalDataFailed
+  setDataFailed
 }: Props) {
   const t = useTranslations("");
   const [checkModalIsOpen, setCheckModalIsOpen] = useState(false);
@@ -152,16 +150,14 @@ export default function CartOrderBlock({
       }
       return;
     }
-    if (createOrderData && setLocationFailed && setPersonalDataFailed) {
+    if (createOrderData && setDataFailed) {
       const userData = createOrderData.userData;
       if (!createOrderData.location.addressText) {
-        setLocationFailed(true)
-        setTimeout(() => setLocationFailed(false), 1000)
+        setDataFailed('location')
         return message.error(t(`Cart.locationRequired`), 3);
       }
       if (!userData || !userData.name || !userData.phone) {
-        setPersonalDataFailed(true)
-        setTimeout(() => setPersonalDataFailed(false), 1000)
+        setDataFailed("personal")
         return message.error(t(`Cart.userDataRequired`), 3);
       }
     }

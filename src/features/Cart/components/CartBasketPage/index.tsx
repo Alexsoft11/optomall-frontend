@@ -21,18 +21,22 @@ export default function CartBasketPage({ data }: Props) {
   const [orderItems, setOrderItems] = useState<CartOrderItemInterface[] | []>([])
   const [dataClone, setDataClone] = useState<CartItemInterface[]>(data)
 
+  const [dataFailed, setDataFailed] = useState<"personal" | "location" | null>(null);
+  const [selectAll, setSelectAll] = useState(false);
+
   const [addOrder, setAddOrder] = useState<AddOrderInterface | AddOrderInterface[] | null>(null)
-
-  const [locationFailed, setLocationFailed] = useState(false)
-  const [personalDataFailed, setPersonalDataFailed] = useState(false)
-
   const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>({ addressText: '' })
-
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [personData, setPersonData] = useState<PersonalDataInterface | null>(null);
   const [itemsValue, setItemsValue] = useState<number>(0);
 
   const cookie = new Cookies();
+
+  useEffect(() => {
+    setOrderItems([])
+    setSelectAll(false)
+  }, [dataClone.length])
+
 
   const createOrderData: CreateOrderDataInterface = {
     total_price: totalPrice,
@@ -68,6 +72,9 @@ export default function CartBasketPage({ data }: Props) {
       setAddOrder(null)
       return
     }
+
+    orderItems.length !== dataClone.length ? setSelectAll(false) : setSelectAll(true)
+
     let copy = orderItems.map((el => el));
     let newDataClone = dataClone.map(el => el.size_id === addOrder?.item.size_id ? { ...el, chacked: addOrder?.chacked } : { ...el });
 
@@ -140,14 +147,14 @@ export default function CartBasketPage({ data }: Props) {
 
       {!dataClone.length ? <CartBasketNoItems /> : (
         <>
-          <CartBasketItems changeQuantity={changeQuantity} setAddOrder={setAddOrder} setDataClone={setDataClone} data={dataClone} />
+          <CartBasketItems selectAll={selectAll} setSelectAll={setSelectAll} changeQuantity={changeQuantity} setAddOrder={setAddOrder} setDataClone={setDataClone} data={dataClone} />
           <div className={styles.order_side}>
-            <CartOrderBlock itemValue={itemsValue} setPersonalDataFailed={setPersonalDataFailed} setLocationFailed={setLocationFailed} isCart={true} createOrderData={createOrderData} cost={`${totalPrice} uzs`} />
+            <CartOrderBlock itemValue={itemsValue} setDataFailed={setDataFailed} isCart={true} createOrderData={createOrderData} cost={`${totalPrice} uzs`} />
             <div className={styles.order_info}>
-              <div className={`${locationFailed ? 'animate__shakeX animate__animated' : null}`}>
+              <div className={`${dataFailed === "location" ? 'animate__shakeX animate__animated' : null}`}>
                 <LocationBlock setLocationInfo={setLocationInfo} locationInfo={locationInfo} />
               </div>
-              <div className={`${personalDataFailed ? 'animate__shakeX animate__animated' : null}`}>
+              <div className={`${dataFailed === "personal" ? 'animate__shakeX animate__animated' : null}`}>
                 <CartGetOrderPerson setPersonData={setPersonData} />
               </div>
             </div>
