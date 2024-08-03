@@ -246,6 +246,11 @@
     "compound":"Состав",
     "made_country":"Страна производство",
     "model_features":"Особенности модели",
-    "copy-link":"Скопировать ссылку"
+    "copy-link":"Скопировать ссылку",
+    "comments":"Отзывы",
+    "characteristic":"Xарактеристика",
+    "comments-not":"Коментарий пока нет"
+
+
   }
 }

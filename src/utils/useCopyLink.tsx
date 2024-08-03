@@ -1,16 +1,20 @@
+import { message } from "antd"; // Assuming you are using Ant Design for notifications
 
-import { message } from "antd";
-
-export const copyLinkToClipboard = (event: any) => {
+export const copyLinkToClipboard = (event: any, type: 'location' | 'url', url?: string) => {
   event.preventDefault();
-  const url = window.location.href;
+  const textToCopy = type === 'location' ? window.location.href : url;
+
+  if (!textToCopy) {
+    console.error("No URL provided to copy.");
+    return;
+  }
+
   navigator.clipboard
-    .writeText(url)
+    .writeText(textToCopy)
     .then(() => {
-      message.success("succes");
-      // Optionally, you can show a notification to the user
+      message.success("Successfully copied to clipboard");
     })
     .catch((error) => {
-      console.error("Failed to copy URL to clipboard:", error);
+      console.error("Failed to copy text to clipboard:", error);
     });
 };

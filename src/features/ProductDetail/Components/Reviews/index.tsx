@@ -9,11 +9,13 @@ import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import { IProductComments } from "../../interface";
+import { useTranslations } from "next-intl";
 
 interface IProps {
   comments: IProductComments[];
 }
 const Reviews: FC<IProps> = ({ comments }) => {
+  const t = useTranslations("Product-detail")
   return (
     <>
       {comments ? (
@@ -75,7 +77,11 @@ const Reviews: FC<IProps> = ({ comments }) => {
             ))}
           </Swiper>
         </div>
-      ) : null}
+      ) : 
+      <div className={styles.comments_notfound}>
+        <p>{t("comments-not")}</p>
+      </div>
+      }
     </>
   );
 };

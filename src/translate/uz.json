@@ -242,6 +242,10 @@
     "compound": "Tarkibi",
     "made_country": "Ishlab chiqarilgan davlati",
     "model_features": "Modelning xususiyatlari",
-    "copy-link":"Havolani kochirish"
+    "copy-link":"Havolani kochirish",
+    "comments":"Sharhlar",
+    "comments-not":"Sharhlar topilmadi"
+
+
   }
 }
