@@ -7,7 +7,6 @@ import { ProductTabsData } from "@/constants/products";
 import { CardInterface } from "@/interfaces";
 import { useTranslations } from "next-intl";
 import { LoadingSpinner } from "@/ui/Spin";
-import useQueryApiClient from "@/utils/useQueryApiClient";
 import { CategoryInterface } from "../../interfaces";
 import Image from "next/image";
 
@@ -22,13 +21,8 @@ const Products = ({ categoryData, getProductsData, products, isProductsLoading }
   const t = useTranslations()
 
   const handleTabChange = (key: string) => {
-    getProductsData({ tab: key });
+    getProductsData({ query: key });
   };
-
-
-  useEffect(() => {
-    handleTabChange('top') 
-  }, [])
   
   return (
     <div className={styles.products}>
@@ -48,7 +42,7 @@ const Products = ({ categoryData, getProductsData, products, isProductsLoading }
 
           <div className={styles.products__cards}>
             {isProductsLoading ? (
-              <LoadingSpinner  spinning={true} tip={'loadingData'} size="large" />
+              <LoadingSpinner spinning={true} tip={'loadingData'} size="large" />
             ) : (
               products?.map((el: CardInterface, idx: number) => (
                 <Card key={el.id}  data={el} />

@@ -8,6 +8,7 @@ import cookie from "cookie";
 import { useJwt } from "@/utils/useJwt";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { CardInterface } from "@/interfaces";
+import { useRouter } from "next/router";
 
 const MainSlider = dynamic(
   () => import("@/features/home/components/MainSlider"),
@@ -36,6 +37,7 @@ export default function Home({
   const [products, setProducts] = useState(productsData.products);
   const [categories, setCategories] = useState<any>([]);
   const [limit, setLimit] = useState(15);
+  const router = useRouter();
 
   const { appendData: getCategories, isLoading: isCategoriesLoading } = useQueryApiClient({
     request: {
@@ -60,7 +62,7 @@ export default function Home({
 
   const { appendData: getProductsData, isLoading: isProductsLoading } = useQueryApiClient({
     request: {
-      url: `products?query=&tab=:tab`,
+      url: `products${token && token !== "undefined" ? "-token" : ""}?query&lang=${router.locale}`,
       method: 'GET',
       disableOnMount: true,
     },
@@ -69,13 +71,12 @@ export default function Home({
     }
   });
 
-
   const savedData =
     typeof window !== "undefined"
       ? localStorage.getItem("likedProducts")
       : null;
 
-   useEffect(() => {
+  useEffect(() => {
     if (token && !hasPosted.current) {
       if (savedData) {
         const parsedData = JSON.parse(savedData);
@@ -156,22 +157,28 @@ export default function Home({
       metaKeywords={t("metaKeywords")}
     >
       <MainSlider data={slidersData?.sliders} />
-      <Products getProductsData={getProductsData} isProductsLoading={isProductsLoading} categoryData={categories} />
+      <Products
+        products={products}
+        getProductsData={getProductsData}
+        isProductsLoading={isProductsLoading} 
+        categoryData={categories} 
+      />
     </PageLayout>
   );
 }
 
-
-
 export const getServerSideProps = async (context: any) => {
   try {
+    const cookies = cookie.parse(context.req.headers.cookie || "");
+
+    const token = decodeURIComponent(cookies.token);
     const slidersResponse = await API.getHomePageSlider();
-    // const productsResponse = await API.getHomePageProducts();
+    const productsResponse = await API.getHomePageProducts(context.query, token);
     
     return {
       props: {
         slidersData: slidersResponse.data || { sliders: [] },
-        // productsData: productsResponse.data || { products: [] },
+        productsData: productsResponse.data || { products: [] },
         messages: (await import(`../translate/${context.locale}.json`)).default,
       },
     };
@@ -180,7 +187,7 @@ export const getServerSideProps = async (context: any) => {
     return {
       props: {
         slidersData: { sliders: [] },
-        // productsData: { products: [] },
+        productsData: { products: [] },
         // categoryProductsData: { categories: [] },
         messages: (await import(`../translate/${context.locale}.json`)).default,
       },

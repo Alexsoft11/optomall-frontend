@@ -19,7 +19,10 @@ export const API = {
   // HomePage
   getHomePageSlider: () => axiosInstance.get("sliders"),
 
-  // getHomePageProducts: () => axiosInstance.get("products?query=Discount"),
+  getHomePageProducts: (query: any, token?: string) =>
+    axiosInstance.get(`products?query=推荐&productsCount=20&lang=${query.locale}`, {
+      headers: token ? { Authorization: "Bearer " + token } : {},
+    }),
 
   // SearchPage
   getSearchPageProducts: (query: any, token?: string) =>
