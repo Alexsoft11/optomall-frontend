@@ -26,10 +26,7 @@ interface HomeProps {
   productsData: { products: any[] };
 }
 
-export default function Home({
-  slidersData,
-  productsData,
-}: HomeProps) {
+export default function Home({ slidersData, productsData }: HomeProps) {
   const t = useTranslations("Home");
   const [isLoading, setIsLoading] = useState(true);
   const token = useJwt();
@@ -39,15 +36,18 @@ export default function Home({
   const [limit, setLimit] = useState(15);
   const router = useRouter();
 
-  const { appendData: getCategories, isLoading: isCategoriesLoading } = useQueryApiClient({
-    request: {
-      url: `additional-categories${token && token !== "undefined" ? "-token" : ""}?limit=${limit}`,
-      method: 'GET',
-    },
-    onSuccess(res: any) {
-      setCategories(res.categories);
-    }
-  });
+  const { appendData: getCategories, isLoading: isCategoriesLoading } =
+    useQueryApiClient({
+      request: {
+        url: `additional-categories${
+          token && token !== "undefined" ? "-token" : ""
+        }?limit=${limit}`,
+        method: "GET",
+      },
+      onSuccess(res: any) {
+        setCategories(res.categories);
+      },
+    });
 
   const { appendData: dislikeCard } = useQueryApiClient({
     request: {
@@ -60,16 +60,19 @@ export default function Home({
     },
   });
 
-  const { appendData: getProductsData, isLoading: isProductsLoading } = useQueryApiClient({
-    request: {
-      url: `products${token && token !== "undefined" ? "-token" : ""}?query&lang=${router.locale}`,
-      method: 'GET',
-      disableOnMount: true,
-    },
-    onSuccess(res: any) {
-      setProducts(res.products);
-    }
-  });
+  const { appendData: getProductsData, isLoading: isProductsLoading } =
+    useQueryApiClient({
+      request: {
+        url: `products${
+          token && token !== "undefined" ? "-token" : ""
+        }?query&lang=${router.locale}&page=2`,
+        method: "GET",
+        disableOnMount: true,
+      },
+      onSuccess(res: any) {
+        setProducts(res.products);
+      },
+    });
 
   const savedData =
     typeof window !== "undefined"
@@ -82,33 +85,37 @@ export default function Home({
         const parsedData = JSON.parse(savedData);
         const localStorageData = parsedData.map((item: CardInterface) => ({
           ...item,
-          is_liked: true
+          is_liked: true,
         }));
-        
-        if (Array.isArray(localStorageData)) {
 
+        if (Array.isArray(localStorageData)) {
           if (localStorageData.length && categories.length > 0) {
             const filteredData = localStorageData.filter((updatedItem) => {
-              const categoryProduct = categories.flatMap((category: any) => 
-                category.products.filter((item: any) => item.id == updatedItem.id)
+              const categoryProduct = categories.flatMap((category: any) =>
+                category.products.filter(
+                  (item: any) => item.id == updatedItem.id
+                )
               );
-        
+
               if (categoryProduct.length > 0) {
-                return categoryProduct.some((item: any) => updatedItem.is_liked !== item.is_liked);
+                return categoryProduct.some(
+                  (item: any) => updatedItem.is_liked !== item.is_liked
+                );
               } else {
                 return true;
               }
             });
 
-            const likedProductsFilter = filteredData.map((item: CardInterface) => item.id.toString());
-  
+            const likedProductsFilter = filteredData.map(
+              (item: CardInterface) => item.id.toString()
+            );
+
             if (likedProductsFilter.length > 0) {
               dislikeCard(likedProductsFilter);
               hasPosted.current = true;
             }
           }
         }
-
       }
     }
   }, [token, dislikeCard, savedData]);
@@ -160,8 +167,8 @@ export default function Home({
       <Products
         products={products}
         getProductsData={getProductsData}
-        isProductsLoading={isProductsLoading} 
-        categoryData={categories} 
+        isProductsLoading={isProductsLoading}
+        categoryData={categories}
       />
     </PageLayout>
   );
@@ -170,11 +177,15 @@ export default function Home({
 export const getServerSideProps = async (context: any) => {
   try {
     const cookies = cookie.parse(context.req.headers.cookie || "");
+    console.log(context);
 
     const token = decodeURIComponent(cookies.token);
     const slidersResponse = await API.getHomePageSlider();
-    const productsResponse = await API.getHomePageProducts(context.query, token);
-    
+    const productsResponse = await API.getHomePageProducts(
+      context.locale,
+      token
+    );
+
     return {
       props: {
         slidersData: slidersResponse.data || { sliders: [] },

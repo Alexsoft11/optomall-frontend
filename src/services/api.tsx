@@ -19,16 +19,25 @@ export const API = {
   // HomePage
   getHomePageSlider: () => axiosInstance.get("sliders"),
 
-  getHomePageProducts: (query: any, token?: string) =>
-    axiosInstance.get(`products?query=推荐&productsCount=20&lang=${query.locale}`, {
+  getHomePageProducts: (lang: any, token?: string) =>
+    axiosInstance.get(`products?query=折扣优惠&productsCount=20&page=2&lang=${lang}`, {
       headers: token ? { Authorization: "Bearer " + token } : {},
     }),
 
   // SearchPage
   getSearchPageProducts: (query: any, token?: string) =>
-    axiosInstance.get(`search-products-from-taobao${token && token !== "undefined" ? "-token" : ""}?searchQuery=${query.query.query}&provider=${query.query.channel}&startPrice=${query.query.startPrice}&endPrice=${query.query.endPrice}&lang=${query.locale}`, {
-      headers: token ? { Authorization: "Bearer " + token } : {},
-    }),
+    axiosInstance.get(
+      `search-products-from-taobao${
+        token && token !== "undefined" ? "-token" : ""
+      }?searchQuery=${query.query.query}&provider=${
+        query.query.channel
+      }&startPrice=${query.query.startPrice}&endPrice=${
+        query.query.endPrice
+      }&lang=${query.locale}`,
+      {
+        headers: token ? { Authorization: "Bearer " + token } : {},
+      }
+    ),
 
   //  ProductDetail
   getProductDetail: (query: any) =>
@@ -50,9 +59,8 @@ export const API = {
       )
       .then((res) => res.data),
 
-    getProductComments: (query: any) =>
-    axiosInstance
-      .get(`get-comments?product_id=${query}`),
+  getProductComments: (query: any) =>
+    axiosInstance.get(`get-comments?product_id=${query}`),
 
   // CartPage
   getUserBasket: (token: string, locale: string) =>
