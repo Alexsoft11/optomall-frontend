@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import styles from './Products.module.scss';
-import Card from '../Card';
+import React, { useState, useEffect } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import styles from "./Products.module.scss";
+import Card from "../Card";
 
 interface Props {
   data: any;
-  getProductsData: ({ count }: { count: number }) => Promise<void>;
+  getProductsData: any;
 }
 
 const Products = ({ data, getProductsData }: Props) => {
@@ -35,7 +35,7 @@ const Products = ({ data, getProductsData }: Props) => {
         hasMore={hasMore}
         loader={<h4>Loading...</h4>}
         endMessage={
-          <p style={{ textAlign: 'center' }}>
+          <p style={{ textAlign: "center" }}>
             <b>Yay! You have seen it all</b>
           </p>
         }
