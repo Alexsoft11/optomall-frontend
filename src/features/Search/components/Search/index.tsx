@@ -8,6 +8,8 @@ import Products from '@/components/Products'
 import { Button, Input } from '@/ui'
 import { Form } from 'antd'
 import { useRouter } from 'next/router'
+import useQueryApiClient from '@/utils/useQueryApiClient'
+import { useJwt } from '@/utils/useJwt'
 
 interface Props {
   data: any;
@@ -18,6 +20,8 @@ const Search = ({ data }: Props) => {
   const router = useRouter();
   const [activePlatform, setActivePlatform] = useState(router.query.channel);
   const [form] = Form.useForm();
+  const token = useJwt();
+  const [products, setProducts] = useState(data);
 
   const handleButtonClick = (platform: any) => {
     router.push(`/search?query=${router.query.query}&channel=${platform}`);
@@ -49,6 +53,20 @@ const Search = ({ data }: Props) => {
       form.resetFields();
     }
   }, [router.query.query]);
+
+  const { appendData: getProductsData, isLoading: isProductsLoading } =
+    useQueryApiClient({
+      request: {
+        url: `search-products-from-taobao${
+          token && token !== "undefined" ? "-token" : ""
+        }?searchQuery&lang=${router.locale}&productsCount=&count`,
+        method: "GET",
+        disableOnMount: true,
+      },
+      onSuccess(res: any) {
+        setProducts(res.products);
+      },
+    });
 
   return (
     <>
@@ -110,7 +128,7 @@ const Search = ({ data }: Props) => {
                         </div>
                     </div>
                 </div>
-                <Products data={data}/>
+                <Products data={products} getProductsData={getProductsData}/>
             </div>
           </div>
         </div>
