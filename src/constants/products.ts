@@ -1,16 +1,16 @@
 export const ProductTabsData = [
     { 
-        key: 'Discount',
+        key: '折扣优惠',
         tab: 'tab_1',
         content: ''
     },
     { 
-        key: 'Top', 
+        key: '热门商品', 
         tab: 'tab_2',
         content: ''
     },
     { 
-        key: 'Recommended', 
+        key: '综合类目', 
         tab: 'tab_3',
         content: ''
     },

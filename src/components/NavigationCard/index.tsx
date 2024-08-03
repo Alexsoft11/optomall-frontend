@@ -22,23 +22,28 @@ export default function NavigationCard({
   return (
     <div className={styles.navigationcard}>
       <div className={styles.navigationcard__inner}>
-        {/* <h1 className={styles.navigationcard__title}>{data.title}</h1> */}
+        
 
         {isSubCategoryLoading ? (
           <LoadingSpinner spinning={true} tip={"loadingData"} size="large" />
         ) : (
-          <div className={styles.navigationcard__list}>
-            {data?.sub_categories?.map((item: any, idx: number) => (
-              <Fragment key={idx}>
-                <Link
-                  onClick={handleClose}
-                  href={`/catalog/product/${item.id}`}
-                >
-                  {item.name}
-                </Link>
-              </Fragment>
-            ))}
-          </div>
+            data.map((el: any, idx: number) => (
+              <>
+                <h1 className={styles.navigationcard__title}>{el.name}</h1>
+                <div key={idx} className={styles.navigationcard__list}>
+                  {el?.items?.map((item: any, idx: number) => (
+                    <Fragment key={idx}>
+                      <Link
+                        onClick={handleClose}
+                        href={`/search?query=${item}`}
+                      >
+                        {item}
+                      </Link>
+                    </Fragment>
+                  ))}
+                </div>
+              </>
+            ))
         )}
       </div>
     </div>

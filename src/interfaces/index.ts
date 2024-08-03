@@ -40,14 +40,11 @@ export interface CategoryCatalogInterface {
   name: string;
   image: string;
   is_active: string;
+  subcategories: Subcategory[];
 }
-
-export interface SubCategoryInterface {
-    id: string;
+export interface Subcategory {
     name: string;
-    provider: string;
-    externaId: string;
-    parentId: string;
+    items: string[];
 }
 
 export interface SlidersDataInterface {

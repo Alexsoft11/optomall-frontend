@@ -1,7 +1,7 @@
 .categories {
     padding-top: 20px;
 
-    @media (min-width:768px) {
+    @media (min-width:970px) {
         display: none;
     }
 
@@ -21,11 +21,26 @@
     }
 
     &__cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        display: flex;
+        flex-direction: column;
         gap: 10px;
 
         padding-top: 20px;
+    }
+
+    &__ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        padding: 10px 0px 20px 0px;
+
+        a {
+            color: var(--black-color);
+            &:hover {
+                color: var(--primary-color);
+            }
+        }
     }
 
     &__card {

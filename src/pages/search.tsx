@@ -3,6 +3,7 @@ import GoToBack from "@/components/GoToBack";
 import Search from "@/features/Search/components/Search";
 import { API } from "@/services/api";
 import Head from "next/head";
+import cookie from "cookie";
 
 interface SearchProps {
   productsData: any;
@@ -26,7 +27,13 @@ export default SearchPage;
 
 export const getServerSideProps = async (context: any) => {
   try {
-    const searchResponce = await API.getSearchPageProducts(context.query.query);
+
+    const cookies = cookie.parse(context.req.headers.cookie || "");
+
+    const token = decodeURIComponent(cookies.token);
+    console.log(token,"tokeennn::")
+    const searchResponce = await API.getSearchPageProducts(context, token);
+
 
     return {
       props: {

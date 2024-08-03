@@ -13,6 +13,7 @@ interface Props {
 }
 
 const MainSlider: React.FC<Props> = ({ data }) => {
+  console.log(data)
   return (
     <>
       <div className={styles.mainbanner}>

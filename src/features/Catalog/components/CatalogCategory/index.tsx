@@ -5,13 +5,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import { CategoryCatalogInterface } from '@/interfaces';
-import { Tooltip } from 'antd';
+import { Collapse, Tooltip } from 'antd';
 import { useTranslations } from 'next-intl';
+import SvgSelector from '$/assets/icons/SvgSelector';
+import { useRouter } from 'next/router';
+
+const { Panel } = Collapse;
 
 const CatalogCategory = () => {
   const [CatalogTabsData, setCatalogTabsData] = useState<CategoryCatalogInterface[]>([]);
   const [overflowedItems, setOverflowedItems] = useState<{ [key: string]: boolean }>({});
   const t = useTranslations("Navbar");
+  const router = useRouter();
 
   useEffect(() => {
     getCategoryData();
@@ -44,30 +49,28 @@ const CatalogCategory = () => {
             <SearchBtn />
           </div>
           <div className={styles.categories__cards}>
-            {
-              CatalogTabsData.map((item, idx) => (
-                <Link key={idx} href={`/catalog/${item.id}`} className={styles.categories__card}>
-                  <div className={styles.categories__card_image}>
-                    <Image src={item.image} width={1000} height={1000} alt="img" />
+            <Collapse
+              expandIconPosition="end"
+              className='catalog_select'
+            >
+              {CatalogTabsData.map((el, idx) => (
+                <Panel header={el.name} key={idx}>
+                  <div>
+                    {el.subcategories.map((subcategory, subIdx) => (
+                      <div key={subIdx}>
+                        <h4>{subcategory.name}</h4>
+                        <ul className={styles.categories__ul}>
+                          {subcategory.items.map((item, itemIdx) => (
+                            <Link href={`/search?query=${item}&channel=taobao`} key={itemIdx}>{item}</Link>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
                   </div>
-                  <Tooltip
-                    overlayClassName="tooltip-white"
-                    title={overflowedItems[item.id] ? item.name : ""}
-                  >
-                    <p
-                      className={styles.categories__text}
-                      ref={(el) => {
-                        if (el) {
-                          checkOverflow(el, item.id);
-                        }
-                      }}
-                    >
-                      {item.name}
-                    </p>
-                  </Tooltip>
-                </Link>
-              ))
-            }
+                </Panel>
+              ))}
+            </Collapse>
+            
           </div>
         </div>
       </div>

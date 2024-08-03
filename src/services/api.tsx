@@ -19,7 +19,10 @@ export const API = {
   // HomePage
   getHomePageSlider: () => axiosInstance.get("sliders"),
 
-  getHomePageProducts: () => axiosInstance.get("products?query=Discount"),
+  getHomePageProducts: (lang: any, token?: string) =>
+    axiosInstance.get(`products?query=折扣优惠&productsCount=20&page=2&lang=${lang}`, {
+      headers: token ? { Authorization: "Bearer " + token } : {},
+    }),
 
   getHomePageCategoryProducts: (limit: number) =>
     axiosInstance.get(`additional-categories?limit=${limit}`),
@@ -48,9 +51,21 @@ export const API = {
       .then((res) => res.data),
 
   // SearchPage
-  getSearchPageProducts: (query: any) =>
-    axiosInstance.get(`search-products-from-taobao?searchQuery=${query}`),
+  getSearchPageProducts: (query: any, token?: string) =>
+    axiosInstance.get(
+      `search-products-from-taobao${
+        token && token !== "undefined" ? "-token" : ""
+      }?searchQuery=${query.query.query}&provider=${
+        query.query.channel
+      }&startPrice=${query.query.startPrice}&endPrice=${
+        query.query.endPrice
+      }&lang=${query.locale}`,
+      {
+        headers: token ? { Authorization: "Bearer " + token } : {},
+      }
+    ),
 
+  //  ProductDetail
   getProductDetail: (query: any) =>
     axiosInstance
       .get(`product-detail-from-taobao?productId=${query}`)

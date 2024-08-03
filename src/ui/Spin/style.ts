@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const StyledSpin = styled(Spin)`
   &.global {
-    height: 100px !important;
+    height: 500px !important;
     position: relative !important;
 
     span {

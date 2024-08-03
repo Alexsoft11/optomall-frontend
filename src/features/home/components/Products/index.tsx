@@ -7,23 +7,28 @@ import { ProductTabsData } from "@/constants/products";
 import { CardInterface } from "@/interfaces";
 import { useTranslations } from "next-intl";
 import { LoadingSpinner } from "@/ui/Spin";
-import useQueryApiClient from "@/utils/useQueryApiClient";
 import { CategoryInterface } from "../../interfaces";
 import Image from "next/image";
 
 interface Props {
   products: CardInterface[];
   categoryData: CategoryInterface[]
+  getProductsData: any;
+  isProductsLoading: any;
 }
 
-const Products = ({ products, categoryData }: Props) => {
+const Products = ({ categoryData, getProductsData, products, isProductsLoading }: Props) => {
   const t = useTranslations()
+
+  const handleTabChange = (key: string) => {
+    getProductsData({ query: key });
+  };
   
   return (
     <div className={styles.products}>
       <div className="container">
         <div className={styles.products__inner}>
-          {/* <div className={styles.products__top}>
+          <div className={styles.products__top}>
             <CustomTabs className="products_tab" onChange={handleTabChange}>
               {ProductTabsData.map((tab) => (
                 <TabPane
@@ -33,16 +38,16 @@ const Products = ({ products, categoryData }: Props) => {
                 />
               ))}
             </CustomTabs>
-          </div> */}
+          </div>
 
           <div className={styles.products__cards}>
-            {/* {isProductsLoading ? (
-              <LoadingSpinner  spinning={true} tip={'loadingData'} size="large" />
+            {isProductsLoading ? (
+              <LoadingSpinner spinning={true} tip={'loadingData'} size="large" />
             ) : (
-              productsChange?.map((el: CardInterface, idx: number) => (
+              products?.map((el: CardInterface, idx: number) => (
                 <Card key={el.id}  data={el} />
               ))
-            )} */}
+            )}
           </div>
           <div className={styles.products__categories}>
             {
