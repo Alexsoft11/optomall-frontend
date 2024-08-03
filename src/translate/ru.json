@@ -241,12 +241,15 @@
     "shipping_costs": "Транспортные расходы",
     "how_to_use": "Как использовать"
   },
-  "Product-detail": {
-    "bought": "Купили",
-    "compound": "Состав",
-    "made_country": "Страна производство",
-    "model_features": "Особенности модели",
-    "copy-link": "Скопировать ссылку"
+  "Product-detail":{
+    "bought":"Купили",
+    "compound":"Состав",
+    "made_country":"Страна производство",
+    "model_features":"Особенности модели",
+    "copy-link":"Скопировать ссылку",
+    "comments":"Отзывы",
+    "characteristic":"Xарактеристика",
+    "comments-not":"Коментарий пока нет"
   },
   "Messages": {
     "dearClient": "Уважаемый клиент, ",

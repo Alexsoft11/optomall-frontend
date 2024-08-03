@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import ModalForms from "../ModalForms";
 import { Button, Form, message } from "antd";
 import styles from "./AccounInfot.module.scss";
@@ -10,8 +10,14 @@ import { editAccountIcon } from "$/assets/images";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
 import { Input } from "@/ui";
+import ChooseLocation from "@/components/ChooseLocation";
+import { LocationInfoInterface } from "@/components/Types";
 
 const AccountInfo = ({ user }: any) => {
+  const [mapIsOpen, setMapIsOpen] = useState(false);
+  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>({
+    addressText: "",
+  });
   const t = useTranslations("");
   const [open, setOpen] = useState({
     isEmail: false,
@@ -157,6 +163,13 @@ const AccountInfo = ({ user }: any) => {
           </div>
         </div>
       </div>
+      {mapIsOpen ? (
+        <ChooseLocation
+          setLocationInfo={setLocationInfo}
+          mapIsOpen={mapIsOpen}
+          setMapIsOpen={setMapIsOpen}
+        />
+      ) : null}
       <ModalForms
         isOpen={open.isEmail}
         onClick={() => setOpen({ ...open, isEmail: false })}>
@@ -220,9 +233,16 @@ const AccountInfo = ({ user }: any) => {
             handleFormSubmit(updatePassword, values, "password")
           }
           className={styles.form}>
-          <Input name='old_password' type='password' placeholder={t("Account.old_password")} />
+          <Input
+            name='old_password'
+            type='password'
+            placeholder={t("Account.old_password")}
+          />
           <Input name='password' placeholder={t("Account.new_password")} />
-          <Input name='confirm_password' placeholder={t("Account.confirm_password")} />
+          <Input
+            name='confirm_password'
+            placeholder={t("Account.confirm_password")}
+          />
 
           <Button
             htmlType='submit'

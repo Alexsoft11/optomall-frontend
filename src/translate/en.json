@@ -242,7 +242,9 @@
     "compound": "Compound",
     "made_country": "Country of Origin",
     "model_features": "Features of the model",
-    "copy-link":"Copy Link"
+    "copy-link":"Copy Link",
+    "comments":"Comments",
+    "comments-not":"No Comments"
   },
   "Messages": {
     "dearClient": "Dear client, ",
