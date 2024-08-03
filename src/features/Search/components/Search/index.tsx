@@ -50,8 +50,6 @@ const Search = ({ data }: Props) => {
     }
   }, [router.query.query]);
 
-  console.log(data)
-
   return (
     <>
         <div className={styles.search}>
