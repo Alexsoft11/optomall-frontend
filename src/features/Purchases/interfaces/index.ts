@@ -6,10 +6,12 @@ export interface PurchasesItemInterface {
   image_url: string;
   price: number;
   title: string;
+  product_id?: number
 }
 
 export interface PurchasesOrderInterface {
   id: number;
+  unique_id: string,
   status: LanguageStringIntergace;
   status_color: string;
   total_price: number;
@@ -24,4 +26,5 @@ export interface PurchasesOrderInterface {
   kg: string | null;
   created_at: string;
   items: PurchasesItemInterface[];
+  cargo_price?: number;
 }

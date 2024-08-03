@@ -37,7 +37,8 @@ export default function MyReviewsPage({ data }: Props) {
             url: "post-comment",
             method: "POST",
             disableOnMount: true,
-            multipart: true
+            multipart: true,
+            responseType: "json"
         },
         onSuccess(res) {
             setDataClone(res.data)

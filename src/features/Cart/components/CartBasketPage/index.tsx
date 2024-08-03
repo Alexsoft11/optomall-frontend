@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./CartBasketPage.module.scss";
 import CartBasketItems from "../CartBasketItems";
 import CartOrderBlock from "../CartOrderBlock";
-import { CartItemInterface, CartOrderItemInterface, CreateOrderDataInterface, PersonalDataInterface } from "../../interface";
+import { AddOrderInterface, CartItemInterface, CartOrderItemInterface, CreateOrderDataInterface, PersonalDataInterface } from "../../interface";
 import CartGetOrderPerson from "../CartGetOtderPerson";
 import Cookies from "universal-cookie";
 import useQueryApiClient from "@/utils/useQueryApiClient";
@@ -10,36 +10,33 @@ import { LoadingSpinner } from "@/ui/Spin";
 import CartBasketNoItems from "../CartBasketNoItems";
 import LocationBlock from "@/components/LocationBlock";
 import { LocationInfoInterface } from "@/components/Types";
+import 'animate.css'
 
-
-const initialValue = {
-  url: '',
-  name: '',
-  district: '',
-  region: '',
-  street: '',
-  house: '',
-  post_index: null,
-}
 
 interface Props {
   data: CartItemInterface[]
 }
 
 export default function CartBasketPage({ data }: Props) {
-  const [orderItems, setOrderItems] = useState<CartOrderItemInterface[]>([])
+  const [orderItems, setOrderItems] = useState<CartOrderItemInterface[] | []>([])
   const [dataClone, setDataClone] = useState<CartItemInterface[]>(data)
 
-  const [addOrder, setAddOrder] = useState<{ item: CartOrderItemInterface, chacked: boolean } | null>(null)
+  const [dataFailed, setDataFailed] = useState<"personal" | "location" | null>(null);
+  const [selectAll, setSelectAll] = useState(false);
 
-  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>(initialValue)
-
-
+  const [addOrder, setAddOrder] = useState<AddOrderInterface | AddOrderInterface[] | null>(null)
+  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>({ addressText: '' })
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [personData, setPersonData] = useState<PersonalDataInterface | null>(null);
   const [itemsValue, setItemsValue] = useState<number>(0);
 
   const cookie = new Cookies();
+
+  useEffect(() => {
+    setOrderItems([])
+    setSelectAll(false)
+  }, [dataClone.length])
+
 
   const createOrderData: CreateOrderDataInterface = {
     total_price: totalPrice,
@@ -64,7 +61,24 @@ export default function CartBasketPage({ data }: Props) {
   }, [])
 
   useEffect(() => {
+    if (Array.isArray(addOrder)) {
+      let clone = [] as CartOrderItemInterface[] | [];
+
+      if (addOrder[0].chacked) {
+        clone = addOrder.map(el => el.item)
+      }
+
+      setOrderItems(clone)
+      setAddOrder(null)
+      return
+    }
+
+    orderItems.length !== dataClone.length ? setSelectAll(false) : setSelectAll(true)
+
     let copy = orderItems.map((el => el));
+    let newDataClone = dataClone.map(el => el.size_id === addOrder?.item.size_id ? { ...el, chacked: addOrder?.chacked } : { ...el });
+
+    setDataClone(newDataClone)
 
     if (!addOrder?.chacked && addOrder?.item) {
       copy = copy.filter(el => {
@@ -133,12 +147,16 @@ export default function CartBasketPage({ data }: Props) {
 
       {!dataClone.length ? <CartBasketNoItems /> : (
         <>
-          <CartBasketItems changeQuantity={changeQuantity} setAddOrder={setAddOrder} data={dataClone} />
+          <CartBasketItems selectAll={selectAll} setSelectAll={setSelectAll} changeQuantity={changeQuantity} setAddOrder={setAddOrder} setDataClone={setDataClone} data={dataClone} />
           <div className={styles.order_side}>
-            <CartOrderBlock itemValue={itemsValue} isCart={true} createOrderData={createOrderData} cost={`${totalPrice} uzs`} />
+            <CartOrderBlock itemValue={itemsValue} setDataFailed={setDataFailed} isCart={true} createOrderData={createOrderData} cost={`${totalPrice} uzs`} />
             <div className={styles.order_info}>
-              <LocationBlock setLocationInfo={setLocationInfo} locationInfo={locationInfo} />
-              <CartGetOrderPerson setPersonData={setPersonData} />
+              <div className={`${dataFailed === "location" ? 'animate__shakeX animate__animated' : null}`}>
+                <LocationBlock setLocationInfo={setLocationInfo} locationInfo={locationInfo} />
+              </div>
+              <div className={`${dataFailed === "personal" ? 'animate__shakeX animate__animated' : null}`}>
+                <CartGetOrderPerson setPersonData={setPersonData} />
+              </div>
             </div>
           </div>
           <LoadingSpinner spinning={isLoading} fullscreen={true} size="large" />
@@ -147,3 +165,5 @@ export default function CartBasketPage({ data }: Props) {
     </div>
   );
 }
+
+

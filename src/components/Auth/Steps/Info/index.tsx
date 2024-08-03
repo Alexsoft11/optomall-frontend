@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Info.module.scss";
-import { Form, message } from "antd";
+import { Form, InputRef, message } from "antd";
 import { Button, Input } from "@/ui";
 import { useTranslations } from "next-intl";
 import useQueryApiClient from "@/utils/useQueryApiClient";
@@ -11,6 +11,7 @@ import useHandleError from "@/utils/useHandleError";
 import Cookies from "universal-cookie";
 import { API } from "@/services/api";
 import { CartItemInterface } from "@/features/Cart/interface";
+import MaskedInput from "antd-mask-input";
 
 export default function Info() {
   const [form] = Form.useForm();
@@ -18,6 +19,7 @@ export default function Info() {
   const cookie = new Cookies();
   const router = useRouter();
   const [handleError] = useHandleError(form);
+  const inputRef = useRef<InputRef>(null);
 
   const { appendData: createData, isLoading } = useQueryApiClient({
     request: {
@@ -50,7 +52,6 @@ export default function Info() {
 
   const onFinish = (values: any) => {
     values.unique_id = router.query.id;
-    values.phone = '+998' + values.phone
     createData(values);
   };
 
@@ -98,17 +99,22 @@ export default function Info() {
             placeholder={t("Auth.secondName")}
           />
 
-
-
-          <Input
+          <Form.Item
             name="phone"
             rules={[
-              { validator: (rule, value) => validatePhone(t, value) },
+              { validator: (rule, value) => validatePhone(t, value) }
             ]}
-            type="text"
-            prefix={"+998"}
-            placeholder={"-- --- -- --"}
-          />
+            required
+          >
+            <MaskedInput
+              className={styles.maskedInput}
+              ref={inputRef}
+              onBlur={() => form.submit()}
+              type="text"
+              prefix={"+998"}
+              mask={'(00) 000-00-00'}
+            />
+          </Form.Item>
 
           <Form.Item className={styles.submitButton}>
             <Button

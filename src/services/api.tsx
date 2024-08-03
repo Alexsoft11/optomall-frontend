@@ -24,6 +24,32 @@ export const API = {
       headers: token ? { Authorization: "Bearer " + token } : {},
     }),
 
+  getHomePageCategoryProducts: (limit: number) =>
+    axiosInstance.get(`additional-categories?limit=${limit}`),
+
+  getHomePageCategoryProductsToken: (limit: number, token?: string) =>
+    axiosInstance
+      .get(
+        `additional-categories${token && token !== "undefined" ? "-token" : ""
+        }?limit=${limit}`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then((res) => res),
+
+  //MessagesPage 
+  getMessages: (token: string) =>
+    axiosInstance
+      .get(`/user/messages`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => res.data),
+
   // SearchPage
   getSearchPageProducts: (query: any, token?: string) =>
     axiosInstance.get(
@@ -48,8 +74,7 @@ export const API = {
   getProductDetailToken: (query: any, lang: string, token?: string) =>
     axiosInstance
       .get(
-        `product-detail-from-taobao${
-          token && token !== "undefined" ? "-token" : ""
+        `product-detail-from-taobao${token && token !== "undefined" ? "-token" : ""
         }?productId=${query}&lang=${lang}`,
         {
           headers: {
@@ -85,7 +110,7 @@ export const API = {
   // MyReviewsPage
   getReviews: (token: string, filter: string, locale: string) =>
     axiosInstance
-      .get(`user-products?filter=${filter}&locale=${locale}`, {
+      .get(`user-products?filter=${filter}&lang=${locale}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -121,9 +146,9 @@ export const API = {
     axiosInstance.post("check-email", { email: email }).then((res) => res.data),
 
   //PurchasesPage
-  getPurchases: (token: string, filter: string) =>
+  getPurchases: (token: string, filter: string, locale: string) =>
     axiosInstance
-      .get(`get-orders?filter=${filter}`, {
+      .get(`get-orders?filter=${filter}&lang=${locale}`, {
         headers: {
           Authorization: "Bearer " + token,
         },

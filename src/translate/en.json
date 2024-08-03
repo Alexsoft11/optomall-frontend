@@ -117,8 +117,8 @@
     "inVerification": "In verification",
     "complite": "CHECKOUT",
     "address": "Delivery address",
-    "addressInMap": "Specify delivery address on the map",
-    "enterAddres": "Enter address",
+    "addressInMap": "Specify the delivery address on the map",
+    "enterAddres": "Enter address manually",
     "person": "Order recipient",
     "name": "Name",
     "phone": "Phone number",
@@ -135,7 +135,8 @@
     "forKg": "per Kg",
     "locationRequired": "Please provide a delivery address and specify the location on the map.",
     "userDataRequired": "Please fill in the recipient's personal details!",
-    "signin": "Sign in"
+    "signin": "Sign in",
+    "selectAll": "select all"
   },
   "Order": {
     "payCost": "Amount to be paid: ",
@@ -161,13 +162,14 @@
     "orderCost": "Total Cost:",
     "currency": "uzs",
     "inVerification": "in verification",
-    "cargo": "Cargo",
+    "cargo": "Cargo:",
     "calculated": "Calculated",
     "emptyData": "It's empty here",
     "wait_for_pay_cargo": "Payment for delivery is pending",
     "pay": "Pay",
     "send_check_again": "Check did not pass verification",
-    "upload": "Upload more"
+    "upload": "Upload more",
+    "orderId": "Order ID:"
   },
   "Search": {
     "platform": "Platform",
@@ -243,6 +245,13 @@
     "compound": "Compound",
     "made_country": "Country of Origin",
     "model_features": "Features of the model",
-    "copy-link":"Copy Link"
+    "copy-link":"Copy Link",
+    "comments":"Comments",
+    "comments-not":"No Comments"
+  },
+  "Messages": {
+    "dearClient": "Dear client, ",
+    "order": "Order: ",
+    "thanksForBuy": "Thank you for shopping with us!"
   }
 }

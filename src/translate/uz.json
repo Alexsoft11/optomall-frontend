@@ -30,7 +30,7 @@
     "unauthenticated": "Tasdiqlanmagan",
     "invalid_data": "Noto'g'ri ma'lumotlar",
     "order_created_successfully": "Buyurtma muvaffaqiyatli yaratildi",
-    "datanot":"Maʼlumot topilmadi",
+    "datanot": "Maʼlumot topilmadi",
     "email": {
       "validation.unique": "Email allaqachon olingan."
     },
@@ -115,8 +115,8 @@
     "total": "Jami",
     "complite": "BUYURTMA QILISH",
     "address": "Yetkazib berish manzili",
-    "addressInMap": "Xaritada yetkazib berish manzilini belgilang",
-    "enterAddres": "Manzilni kiriting",
+    "addressInMap": "Yetkazib berish manzilini xaritada ko'rsating",
+    "enterAddres": "Manzilni qo'lda kiriting",
     "person": "Buyurtma oluvchisi",
     "name": "Ism",
     "phone": "Telefon raqami",
@@ -135,7 +135,8 @@
     "forKg": "kg uchun",
     "locationRequired": "Tovarni yetkazib berish manzilini to'ldiring va xaritada joylashuvni",
     "userDataRequired": "Qabul qiluvchining shaxsiy ma'lumotlarini to'ldiring!",
-    "signin": "Kirish"
+    "signin": "Kirish",
+    "selectAll": "barchasini tanlash"
   },
   "Order": {
     "payCost": "To'lanadigan summa: ",
@@ -154,20 +155,21 @@
     "delivered": "Yetkazib berildi",
     "cancelled": "Bekor qilindi",
     "shipped": "Jo'natildi",
-    "orderDate": "Buyurtma sanasi:",
-    "address": "Yetkazib berish manzili:",
-    "recipient": "Buyurtma oluvchisi:",
+    "orderDate": "Sanasi:",
+    "address": "Manzil:",
+    "recipient": "Oluvchisi:",
     "moreDetail": "Batafsil",
-    "orderCost": "Umumiy summa:",
+    "orderCost": "Summa:",
     "currency": "so'm",
     "inVerification": "tekshirilmoqda",
-    "cargo": "Karqo",
+    "cargo": "Karqo:",
     "calculated": "Hisoblangan",
     "emptyData": "Bu yer bo'sh",
     "wait_for_pay_cargo": "Yetkazib berish uchun to'lov kutilyapti",
     "pay": "To'lash",
     "send_check_again": "Chek tasdiqlanmadi",
-    "upload": "Yana yuklash"
+    "upload": "Yana yuklash",
+    "orderId": "Buyurtma ID:"
   },
   "Search": {
     "platform": "Platforma",
@@ -243,6 +245,13 @@
     "compound": "Tarkibi",
     "made_country": "Ishlab chiqarilgan davlati",
     "model_features": "Modelning xususiyatlari",
-    "copy-link":"Havolani kochirish"
+    "copy-link":"Havolani kochirish",
+    "comments":"Sharhlar",
+    "comments-not":"Sharhlar topilmadi"
+  },
+  "Messages": {
+    "dearClient": "Hurmatli mijoz, ",
+    "order": "Buyurtma: ",
+    "thanksForBuy": "Biz bilan xarid qilganingiz uchun rahmat!"
   }
 }

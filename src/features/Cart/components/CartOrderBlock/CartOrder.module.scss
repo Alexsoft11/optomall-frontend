@@ -56,6 +56,11 @@
 
     .upload_btn {
 
+        @media (max-width: 600px) {
+            display: flex;
+            justify-content: flex-end;
+        }
+
         grid-area: upload_btn;
 
         .response_button__block {
@@ -70,6 +75,11 @@
                 height: $circle-size;
 
                 text-align: center;
+
+                @media (max-width: 768px) {
+                    max-width: none;
+                    width: 57dvw;
+                }
             }
 
             .loading-btn {
@@ -222,7 +232,7 @@
     }
 
     .total {
-        
+
         div {
             grid-area: total;
             display: flex;
@@ -246,14 +256,14 @@
         gap: 0px;
         grid-template-columns: 40% 60%;
         grid-template-areas:
-        'total upload_btn .'
-        'count upload_btn .';
+            'total upload_btn upload_btn'
+            'count upload_btn upload_btn';
         width: 100%;
         left: 0px;
         border-radius: 0px;
         z-index: 998;
         background: var(--white-color);
-        
+
         .order_title {
             width: fit-content;
             font-size: var(--paragraph-two);

@@ -16,6 +16,7 @@ interface RequestProps {
   method?: RequestMethod;
   mustRetry?: boolean;
   multipart?: boolean;
+  responseType?: string;
   enableOnMount?: boolean;
   disableOnMount?: boolean;
   baseUrl?: string;
@@ -84,6 +85,7 @@ function useQueryApiClient({
       method,
       request?.mustRetry,
       request?.multipart,
+      request?.responseType,
       {},
       request.baseUrl
     );
@@ -113,6 +115,7 @@ function useQueryApiClient({
       request?.method,
       request?.mustRetry,
       request?.multipart,
+      request?.responseType,
       passOnSuccess,
       request.baseUrl
     );
@@ -124,6 +127,7 @@ function useQueryApiClient({
     method: RequestMethod = "GET",
     mustRetry: boolean = true,
     multipart: boolean = false,
+    responseType: string = '',
     passOnSuccess: any = {},
     baseUrl: string = ""
   ) => {
@@ -137,7 +141,7 @@ function useQueryApiClient({
       url: url,
       method: method,
       baseURL: baseUrl || BASE_URL + "api/",
-      responseType: multipart ? "blob" : "json",
+      responseType: multipart && !responseType? "blob" : "json",
       paramsSerializer: {
         indexes: true,
       },

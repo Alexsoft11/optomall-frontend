@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState } from "react";
 import styles from "./ProductDetailInfo.module.scss";
 import { Button, Dropdown, Rate } from "antd";
@@ -20,6 +18,8 @@ const ProductDetailInfo = ({
   path = shareUrl(),
 }: any) => {
   const t = useTranslations("Product-detail");
+  // const [activeItem, setActiveItem] = useState<number>(product.colors[0]?.id);
+
   const [selectedColor, setSelectedColor] = useState<number | null>(
     product.colors[0]?.id
   );
@@ -30,13 +30,14 @@ const ProductDetailInfo = ({
     [key: number]: number;
   }>({});
 
+  
   const items: MenuProps["items"] = [
     {
       label: (
-        <Button href={path} className={styles.link} onClick={copyLinkToClipboard}>
+        <p  className={styles.link} onClick={(event) => copyLinkToClipboard(event, 'location',)}>
           <SvgSelector id='copylink-svg' />
             {t("copy-link")}
-        </Button>
+        </p>
       ),
       key: "1",
     },
@@ -111,9 +112,13 @@ const ProductDetailInfo = ({
               <span>Url</span>
               <div></div>
             </div>
-            <Link className={styles.product_link} href={productUrl}>
+           <div className={styles.product_link}> 
+           <Link  href={productUrl}>
               {product.id}
             </Link>
+              <p onClick={(event) => copyLinkToClipboard(event, 'url', product.product_url)}><SvgSelector id="copylinkicon-svg"/></p>
+            </div> 
+           
           </li>
           <li>
             <div className={styles.productSpecs_name}>
@@ -146,6 +151,7 @@ const ProductDetailInfo = ({
         setTotalQuantities={setTotalQuantities}
         selectedColors={selectedColors}
         setSelectedColors={setSelectedColors}
+        setSelectedColor={setSelectedColor}
       />
     </div>
   );

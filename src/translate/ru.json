@@ -31,7 +31,7 @@
     "invalid_data": "Неверные данные",
     "order_created_successfully": "Заказ успешно создан",
     "invalid_unique_id": "неверный айди",
-    "datanot":"Данные не найдены",
+    "datanot": "Данные не найдены",
     "email": {
       "validation": {
         "unique": "Эта электронная почта уже используется."
@@ -120,8 +120,8 @@
     "total": "Итого",
     "complite": "ОФОРМИТЬ",
     "address": "Адрес доставки",
-    "addressInMap": "Укажите адрес доставки на кате",
-    "enterAddres": "Укажите адрес",
+    "addressInMap": "Указать адрес доставки на кате",
+    "enterAddres": "Указать адрес в ручную",
     "person": "Получатель заказа",
     "name": "Имя",
     "phone": "Номер телефона",
@@ -139,7 +139,8 @@
     "forKg": "за Кг",
     "locationRequired": "Заполните адресс доставки товара и укажите местоположение на карте",
     "userDataRequired": "Заполните персональные данные получятеля!",
-    "signin": "Войти"
+    "signin": "Войти",
+    "selectAll": "выбрать все"
   },
   "Order": {
     "payCost": "Сумма к оплате: ",
@@ -166,12 +167,13 @@
     "currency": "сум",
     "inVerification": "в проверке",
     "emptyData": "Здес пусто",
-    "cargo": "Карго",
+    "cargo": "Карго:",
     "calculated": "Рассчитывается",
     "wait_for_pay_cargo": "Оплата за доставку ожидается",
     "pay": "Оплатить",
     "send_check_again": "Чек не прошел проверку",
-    "upload": "Загрузить еще"
+    "upload": "Загрузить еще",
+    "orderId": "ID заказа:"
   },
   "Search": {
     "platform": "Платформа",
@@ -247,6 +249,14 @@
     "compound":"Состав",
     "made_country":"Страна производство",
     "model_features":"Особенности модели",
-    "copy-link":"Скопировать ссылку"
+    "copy-link":"Скопировать ссылку",
+    "comments":"Отзывы",
+    "characteristic":"Xарактеристика",
+    "comments-not":"Коментарий пока нет"
+  },
+  "Messages": {
+    "dearClient": "Уважаемый клиент, ",
+    "order": "Заказ: ",
+    "thanksForBuy": "Спасибо за покупки у нас!"
   }
 }

@@ -54,6 +54,7 @@ export const getServerSideProps = async (context: any) => {
       .catch((error: any) => {
         return null;
       });
+      console.log(product)
     return {
       props: {
         product,
