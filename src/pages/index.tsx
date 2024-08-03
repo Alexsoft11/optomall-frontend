@@ -129,7 +129,6 @@ export default function Home({
     };
   }, []);
 
-  // Следим за изменением limit и вызываем getCategories при каждом изменении
   useEffect(() => {
     getCategories();
   }, [limit]);
@@ -170,7 +169,7 @@ export const getServerSideProps = async (context: any) => {
       props: {
         slidersData: { sliders: [] },
         // productsData: { products: [] },
-        categoryProductsData: { categories: [] },
+        // categoryProductsData: { categories: [] },
         messages: (await import(`../translate/${context.locale}.json`)).default,
       },
     };

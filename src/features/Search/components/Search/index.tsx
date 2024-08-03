@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Search.module.scss'
 import SvgSelector from '$/assets/icons/SvgSelector'
 import Card from '@/components/Card'
@@ -15,14 +15,14 @@ interface Props {
 
 const Search = ({ data }: Props) => {
   const t = useTranslations("Search")
-  const [activePlatform, setActivePlatform] = useState('taobao');
-  const [form] = Form.useForm();
   const router = useRouter();
+  const [activePlatform, setActivePlatform] = useState(router.query.channel);
+  const [form] = Form.useForm();
 
   const handleButtonClick = (platform: any) => {
+    router.push(`/search?query=${router.query.query}&channel=${platform}`);
     setActivePlatform(platform);
   };
-  console.log(router)
 
   const handleFilter = (values: any) => {
     let { min_price, max_price } = values;
@@ -41,6 +41,17 @@ const Search = ({ data }: Props) => {
     router.push(`/search?${queryString}`);
   };
 
+  useEffect(() => {
+    if (router.query) {
+      form.setFieldValue("min_price", router.query.startPrice);
+      form.setFieldValue("max_price", router.query.endPrice);
+    } else {
+      form.resetFields();
+    }
+  }, [router.query.query]);
+
+  console.log(data)
+
   return (
     <>
         <div className={styles.search}>
@@ -50,8 +61,8 @@ const Search = ({ data }: Props) => {
                     <div className={styles.search__platform}>
                       <h2>{t('platform')}:</h2>
                       <button
-                          className={`${styles.search__platform_btn} ${activePlatform === 'alibaba' ? styles.active : ''}`}
-                          onClick={() => handleButtonClick('alibaba')}
+                          className={`${styles.search__platform_btn} ${activePlatform === '1688' ? styles.active : ''}`}
+                          onClick={() => handleButtonClick('1688')}
                       >
                           <SvgSelector id="1688-svg"/>
                           <span>1688</span>

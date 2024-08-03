@@ -14,7 +14,7 @@ const SearchBtn = () => {
 
   const handleSearch = (values: any) => {
     if (values.search) {
-      router.push(`/search?query=${values.search}`);
+      router.push(`/search?query=${values.search}&channel=${router.query.channel || 'taobao'}`);
     }
   };
 

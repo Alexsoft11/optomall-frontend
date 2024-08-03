@@ -22,9 +22,12 @@ export const API = {
   // getHomePageProducts: () => axiosInstance.get("products?query=Discount"),
 
   // SearchPage
-  getSearchPageProducts: (query: any) =>
-    axiosInstance.get(`search-products-from-taobao?searchQuery=${query.query.query}&startPrice=${query.query.startPrice}&endPrice=${query.query.endPrice}&lang=${query.locale}`),
+  getSearchPageProducts: (query: any, token?: string) =>
+    axiosInstance.get(`search-products-from-taobao${token && token !== "undefined" ? "-token" : ""}?searchQuery=${query.query.query}&provider=${query.query.channel}&startPrice=${query.query.startPrice}&endPrice=${query.query.endPrice}&lang=${query.locale}`, {
+      headers: token ? { Authorization: "Bearer " + token } : {},
+    }),
 
+  //  ProductDetail
   getProductDetail: (query: any) =>
     axiosInstance
       .get(`product-detail-from-taobao?productId=${query}`)
