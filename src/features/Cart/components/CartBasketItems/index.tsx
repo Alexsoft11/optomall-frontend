@@ -10,18 +10,17 @@ interface Props {
   setDataClone: React.Dispatch<React.SetStateAction<CartItemInterface[]>>
   data: CartItemInterface[],
   changeQuantity: (number: number, item: CartItemInterface) => void;
+  selectAll: boolean,
+  setSelectAll: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function CartBasketItems({ changeQuantity, data, setAddOrder, setDataClone }: Props) {
+export default function CartBasketItems({ changeQuantity, data, setAddOrder, setDataClone, selectAll, setSelectAll }: Props) {
   const t = useTranslations("Cart");
-  const [selectAll, setSelectAll] = useState(false);
 
-  useEffect(() => {
+  const selectClick = (value: boolean) => {
 
-    const clone = data.map(el => ({
-      ...el,
-      chacked: selectAll
-    }));
+    setSelectAll(value)
+    const clone = data.map(el => ({ ...el, chacked: value }));
 
     setDataClone(clone);
 
@@ -40,17 +39,17 @@ export default function CartBasketItems({ changeQuantity, data, setAddOrder, set
         quantity
       }
 
-      return { item: cartOrderItem, chacked: selectAll };
+      return { item: cartOrderItem, chacked: value };
     }) as AddOrderInterface[];
 
     setAddOrder(addOrderClone);
-  }, [selectAll]);
+  }
 
   return (
     <div className={styles.main}>
       <div className={styles.items_count}>
         <p>{t("item")} {data.length}</p>
-        <Checkbox label={t("selectAll")} className={styles.chechbox} onChange={e => setSelectAll(e.target.checked)} />
+        <Checkbox label={t("selectAll")} checked={selectAll} className={styles.chechbox} onChange={e => selectClick(e.target.checked)} />
       </div>
       <div className={styles.swiper}>
         {data.map((el) => (

@@ -3,20 +3,20 @@
     background: rgba(255, 255, 255, 1);
     box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
-    max-height: 546px;
     width: 100%;
     height: revert;
 
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 20px 20px 0px 20px;
     gap: 20px;
 
     .swiper {
         -webkit-tap-highlight-color: transparent;
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        max-height: 500px;
+        gap: 12px;
         overflow: auto;
         scrollbar-width: 2;
         padding: 0px 10px 0px 0px;
