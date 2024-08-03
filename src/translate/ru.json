@@ -31,7 +31,7 @@
     "invalid_data": "Неверные данные",
     "order_created_successfully": "Заказ успешно создан",
     "invalid_unique_id": "неверный айди",
-    "datanot":"Данные не найдены",
+    "datanot": "Данные не найдены",
     "email": {
       "validation": {
         "unique": "Эта электронная почта уже используется."
@@ -241,11 +241,16 @@
     "shipping_costs": "Транспортные расходы",
     "how_to_use": "Как использовать"
   },
-  "Product-detail":{
-    "bought":"Купили",
-    "compound":"Состав",
-    "made_country":"Страна производство",
-    "model_features":"Особенности модели",
-    "copy-link":"Скопировать ссылку"
+  "Product-detail": {
+    "bought": "Купили",
+    "compound": "Состав",
+    "made_country": "Страна производство",
+    "model_features": "Особенности модели",
+    "copy-link": "Скопировать ссылку"
+  },
+  "Messages": {
+    "dearClient": "Уважаемый клиент, ",
+    "order": "Заказ: ",
+    "thanksForBuy": "Спасибо за покупки у нас!"
   }
 }

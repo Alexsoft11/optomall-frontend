@@ -27,8 +27,7 @@ export const API = {
   getHomePageCategoryProductsToken: (limit: number, token?: string) =>
     axiosInstance
       .get(
-        `additional-categories${
-          token && token !== "undefined" ? "-token" : ""
+        `additional-categories${token && token !== "undefined" ? "-token" : ""
         }?limit=${limit}`,
         {
           headers: {
@@ -37,6 +36,16 @@ export const API = {
         }
       )
       .then((res) => res),
+
+  //MessagesPage 
+  getMessages: (token: string) =>
+    axiosInstance
+      .get(`/user/messages`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => res.data),
 
   // SearchPage
   getSearchPageProducts: (query: any) =>
@@ -50,8 +59,7 @@ export const API = {
   getProductDetailToken: (query: any, lang: string, token?: string) =>
     axiosInstance
       .get(
-        `product-detail-from-taobao${
-          token && token !== "undefined" ? "-token" : ""
+        `product-detail-from-taobao${token && token !== "undefined" ? "-token" : ""
         }?productId=${query}&lang=${lang}`,
         {
           headers: {
