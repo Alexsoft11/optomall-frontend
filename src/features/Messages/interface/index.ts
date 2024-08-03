@@ -1,5 +1,8 @@
+import { LanguageStringIntergace } from "@/interfaces";
+
 export interface MessagesDataInterface {
-    id: number,
-    title: string,
-    description: string
+  id: number;
+  user_id: number;
+  message: LanguageStringIntergace;
+  order_id: string;
 }
