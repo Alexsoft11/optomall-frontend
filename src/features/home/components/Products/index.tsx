@@ -12,18 +12,29 @@ import { CategoryInterface } from "../../interfaces";
 import Image from "next/image";
 
 interface Props {
-  // products: CardInterface[];
+  products: CardInterface[];
   categoryData: CategoryInterface[]
+  getProductsData: any;
+  isProductsLoading: any;
 }
 
-const Products = ({ categoryData }: Props) => {
+const Products = ({ categoryData, getProductsData, products, isProductsLoading }: Props) => {
   const t = useTranslations()
+
+  const handleTabChange = (key: string) => {
+    getProductsData({ tab: key });
+  };
+
+
+  useEffect(() => {
+    handleTabChange('top') 
+  }, [])
   
   return (
     <div className={styles.products}>
       <div className="container">
         <div className={styles.products__inner}>
-          {/* <div className={styles.products__top}>
+          <div className={styles.products__top}>
             <CustomTabs className="products_tab" onChange={handleTabChange}>
               {ProductTabsData.map((tab) => (
                 <TabPane
@@ -33,16 +44,16 @@ const Products = ({ categoryData }: Props) => {
                 />
               ))}
             </CustomTabs>
-          </div> */}
+          </div>
 
           <div className={styles.products__cards}>
-            {/* {isProductsLoading ? (
+            {isProductsLoading ? (
               <LoadingSpinner  spinning={true} tip={'loadingData'} size="large" />
             ) : (
-              productsChange?.map((el: CardInterface, idx: number) => (
+              products?.map((el: CardInterface, idx: number) => (
                 <Card key={el.id}  data={el} />
               ))
-            )} */}
+            )}
           </div>
           <div className={styles.products__categories}>
             {
