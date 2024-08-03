@@ -31,7 +31,7 @@
     "invalid_data": "Неверные данные",
     "order_created_successfully": "Заказ успешно создан",
     "invalid_unique_id": "неверный айди",
-    "datanot":"Данные не найдены",
+    "datanot": "Данные не найдены",
     "email": {
       "validation": {
         "unique": "Эта электронная почта уже используется."
@@ -250,7 +250,10 @@
     "comments":"Отзывы",
     "characteristic":"Xарактеристика",
     "comments-not":"Коментарий пока нет"
-
-
+  },
+  "Messages": {
+    "dearClient": "Уважаемый клиент, ",
+    "order": "Заказ: ",
+    "thanksForBuy": "Спасибо за покупки у нас!"
   }
 }

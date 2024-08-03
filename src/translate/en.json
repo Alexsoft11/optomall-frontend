@@ -245,5 +245,10 @@
     "copy-link":"Copy Link",
     "comments":"Comments",
     "comments-not":"No Comments"
+  },
+  "Messages": {
+    "dearClient": "Dear client, ",
+    "order": "Order: ",
+    "thanksForBuy": "Thank you for shopping with us!"
   }
 }
