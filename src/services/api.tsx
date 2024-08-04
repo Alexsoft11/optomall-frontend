@@ -75,12 +75,17 @@ export const API = {
       .get(`product-detail-from-taobao?productId=${query}`)
       .then((res) => res.data),
 
-  getProductDetailToken: (query: any, lang: string, token?: string) =>
+  getProductDetailToken: (
+    query: any,
+    lang: string,
+    channel: string,
+    token?: string
+  ) =>
     axiosInstance
       .get(
         `product-detail-from-taobao${
           token && token !== "undefined" ? "-token" : ""
-        }?productId=${query}&lang=${lang}`,
+        }?productId=${query}&lang=${lang}&provider=${channel}`,
         {
           headers: {
             Authorization: "Bearer " + token,

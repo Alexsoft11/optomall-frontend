@@ -20,7 +20,7 @@ interface ProductDetailProps {
 const ProductDetailSection = dynamic(
   () => import("@/features/ProductDetail/Components/ProductDetailSection"),
   {
-    loading: () => <LoadingSpinner fullscreen={true} size='large' />,
+    loading: () => <LoadingSpinner fullscreen={true} size="large" />,
   }
 );
 
@@ -46,9 +46,15 @@ export const getServerSideProps = async (context: any) => {
   try {
     const { id: productId } = context.params;
     const lang = context.locale;
+    const channel = context.query.channel || "taobao";
     const cookies = cookie.parse(context.req.headers.cookie || "");
     const token = decodeURIComponent(cookies.token);
-    const product = await API.getProductDetailToken(productId, lang, token);
+    const product = await API.getProductDetailToken(
+      productId,
+      lang,
+      token,
+      channel
+    );
     const productComments = await API.getProductComments(productId)
       .then((res: any) => res.data)
       .catch((error: any) => {
@@ -57,7 +63,7 @@ export const getServerSideProps = async (context: any) => {
     return {
       props: {
         product,
-        productComments:productComments
+        productComments: productComments,
       },
     };
   } catch (error) {
@@ -65,7 +71,7 @@ export const getServerSideProps = async (context: any) => {
     return {
       props: {
         product: null,
-        productComments:null
+        productComments: null,
       },
     };
   }
