@@ -29,7 +29,7 @@ const Products = ({ data, getProductsData, hasMore = false }: Props) => {
   return (
     <div className={styles.products}>
       <InfiniteScroll
-        dataLength={items.length}
+        dataLength={items?.length}
         next={fetchMoreData}
         hasMore={hasMore}
         loader={<LoadingSpinner size="large" />}
