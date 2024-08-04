@@ -1,19 +1,52 @@
-import React from 'react'
-import styles from './Products.module.scss'
-import Card from '../Card';
-
+import React, { useState, useEffect } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import styles from "./Products.module.scss";
+import Card from "../Card";
+import { LoadingSpinner } from "@/ui/Spin";
 interface Props {
-  data: any;
+  data: any[];
+  getProductsData?: (data?: any, urlParams?: any, passOnSuccess?: any) => void;
+  hasMore?: boolean;
 }
 
-const Products = ({ data }: Props) => {
+const Products = ({ data, getProductsData, hasMore = false }: Props) => {
+  const [items, setItems] = useState(data || []);
+  const [page, setPage] = useState(1);
+
+  const fetchMoreData = async () => {
+    if (!getProductsData) {
+      return;
+    }
+    const newCount = page + 1;
+    setPage(newCount);
+    getProductsData({ page: newCount });
+  };
+
+  useEffect(() => {
+    setItems(data);
+  }, [data]);
+
   return (
     <div className={styles.products}>
-        {data?.map((el: any, idx: number) => (
+      <InfiniteScroll
+        dataLength={items?.length}
+        next={fetchMoreData}
+        hasMore={hasMore}
+        loader={<LoadingSpinner size="large" />}
+        endMessage={
+          <p style={{ textAlign: "center" }}>
+            <b>Yay! You have seen it all</b>
+          </p>
+        }
+      >
+        <div className={styles.product_list}>
+          {items?.map((el: any, idx: number) => (
             <Card key={idx} data={el} />
-        ))}
+          ))}
+        </div>
+      </InfiniteScroll>
     </div>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;

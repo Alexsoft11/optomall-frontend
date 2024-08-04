@@ -30,7 +30,7 @@
     "unauthenticated": "Unauthenticated",
     "invalid_data": "Invalid data",
     "order_created_successfully": "Order created successfully",
-    "datanot":"Data Not Found",
+    "datanot": "Data Not Found",
     "email": {
       "validation.unique": "The email has already been taken."
     },
@@ -179,7 +179,11 @@
     "downPrice": "Down price",
     "submit": "submit",
     "max_price": "Please input the maximum price!",
-    "min_price": "Please input the minimum price!"
+    "min_price": "Please input the minimum price!",
+    "metaTitle": "Search Results - Onway",
+    "metaDescription": "Find the best products on Onway through our search results.",
+    "metaKeywords": "search, products, Onway",
+    "results": "Results"
   },
   "MyReviews": {
     "waitForReview": "Waiting for Review",
@@ -216,7 +220,9 @@
     "close": "close"
   },
   "Wishes": {
-    "title": "My wishes"
+    "title": "My wishes",
+    "noItems": "Add what you liked",
+    "add": "Add to wishes"
   },
   "LocationModal": {
     "title": "Delivery Address",
@@ -245,9 +251,9 @@
     "compound": "Compound",
     "made_country": "Country of Origin",
     "model_features": "Features of the model",
-    "copy-link":"Copy Link",
-    "comments":"Comments",
-    "comments-not":"No Comments"
+    "copy-link": "Copy Link",
+    "comments": "Comments",
+    "comments-not": "No Comments"
   },
   "Messages": {
     "dearClient": "Dear client, ",

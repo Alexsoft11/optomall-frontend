@@ -20,9 +20,12 @@ export const API = {
   getHomePageSlider: () => axiosInstance.get("sliders"),
 
   getHomePageProducts: (lang: any, token?: string) =>
-    axiosInstance.get(`products?query=折扣优惠&productsCount=20&page=2&lang=${lang}`, {
-      headers: token ? { Authorization: "Bearer " + token } : {},
-    }),
+    axiosInstance.get(
+      `products?query=折扣优惠&productsCount=20&page=2&lang=${lang}`,
+      {
+        headers: token ? { Authorization: "Bearer " + token } : {},
+      }
+    ),
 
   getHomePageCategoryProducts: (limit: number) =>
     axiosInstance.get(`additional-categories?limit=${limit}`),
@@ -30,7 +33,8 @@ export const API = {
   getHomePageCategoryProductsToken: (limit: number, token?: string) =>
     axiosInstance
       .get(
-        `additional-categories${token && token !== "undefined" ? "-token" : ""
+        `additional-categories${
+          token && token !== "undefined" ? "-token" : ""
         }?limit=${limit}`,
         {
           headers: {
@@ -40,7 +44,7 @@ export const API = {
       )
       .then((res) => res),
 
-  //MessagesPage 
+  //MessagesPage
   getMessages: (token: string) =>
     axiosInstance
       .get(`/user/messages`, {
@@ -59,7 +63,7 @@ export const API = {
         query.query.channel
       }&startPrice=${query.query.startPrice}&endPrice=${
         query.query.endPrice
-      }&lang=${query.locale}`,
+      }&lang=${query.locale}&page=1`,
       {
         headers: token ? { Authorization: "Bearer " + token } : {},
       }
@@ -71,11 +75,17 @@ export const API = {
       .get(`product-detail-from-taobao?productId=${query}`)
       .then((res) => res.data),
 
-  getProductDetailToken: (query: any, lang: string, token?: string) =>
+  getProductDetailToken: (
+    query: any,
+    lang: string,
+    channel: string,
+    token?: string
+  ) =>
     axiosInstance
       .get(
-        `product-detail-from-taobao${token && token !== "undefined" ? "-token" : ""
-        }?productId=${query}&lang=${lang}`,
+        `product-detail-from-taobao${
+          token && token !== "undefined" ? "-token" : ""
+        }?productId=${query}&lang=${lang}&provider=${channel}`,
         {
           headers: {
             Authorization: "Bearer " + token,

@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Search.module.scss";
 import SvgSelector from "$/assets/icons/SvgSelector";
-import Card from "@/components/Card";
 import SearchBtn from "@/components/SearchBtn";
 import { useTranslations } from "next-intl";
 import Products from "@/components/Products";
 import { Button, Input } from "@/ui";
 import { Form } from "antd";
 import { useRouter } from "next/router";
+import useQueryApiClient from "@/utils/useQueryApiClient";
+import { useJwt } from "@/utils/useJwt";
+import { LoadingSpinner } from "@/ui/Spin";
 
 interface Props {
   data: any;
@@ -18,6 +20,9 @@ const Search = ({ data }: Props) => {
   const router = useRouter();
   const [activePlatform, setActivePlatform] = useState(router.query.channel);
   const [form] = Form.useForm();
+  const token = useJwt();
+  const [products, setProducts] = useState(data);
+  const [hasMore, setHasMore] = useState(true);
 
   const handleButtonClick = (platform: any) => {
     router.push(`/search?query=${router.query.query}&channel=${platform}`);
@@ -50,6 +55,26 @@ const Search = ({ data }: Props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.query]);
+
+  const { appendData: getProductsData, isLoading: isProductsLoading } =
+    useQueryApiClient({
+      request: {
+        url: `search-products-from-taobao${
+          token && token !== "undefined" ? "-token" : ""
+        }?searchQuery=${router.query.query}&lang=${router.locale}&provider=${
+          router.query.channel
+        }`,
+        method: "GET",
+        disableOnMount: true,
+      },
+      onSuccess(res: any) {
+        if (!res.products.length) {
+          setHasMore(false);
+          return;
+        }
+        setProducts((prev: any) => [...prev, ...res.products]);
+      },
+    });
 
   return (
     <>
@@ -110,9 +135,14 @@ const Search = ({ data }: Props) => {
                     />
                   </Form>
                 </div>
+                {/* <Products data={products} getProductsData={getProductsData}/> */}
               </div>
             </div>
-            <Products data={data} />
+            {/* {isProductsLoading ? (
+              <LoadingSpinner size="large" />
+            ) : ( */}
+            <Products data={products} hasMore={hasMore} getProductsData={getProductsData} />
+            {/* )} */}
           </div>
         </div>
       </div>

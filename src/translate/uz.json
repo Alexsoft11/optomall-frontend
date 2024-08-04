@@ -12,7 +12,7 @@
     "results": "Qidiruv natijalari",
     "purchases": "Mening xaridlarim",
     "currency": "so'm",
-    "loadingData": "Ma'lumotlar yuklanmoqda...",
+    "loadingData": "Yuklanmoqda...",
     "my_account": "Mening Akountim",
     "cargo": "Karqo uchun to'lov"
   },
@@ -179,7 +179,11 @@
     "downPrice": "Past narx",
     "submit": "yuborish",
     "max_price": "Iltimos, maksimal narxni kiriting!",
-    "min_price": "Iltimos, minimal narxni kiriting!"
+    "min_price": "Iltimos, minimal narxni kiriting!",
+    "metaTitle": "Qidiruv natijalari - Onway",
+    "metaDescription": "Onwayda eng yaxshi mahsulotlarni bizning qidiruv natijalarimiz orqali toping.",
+    "metaKeywords": "qidiruv, mahsulotlar, Onway",
+    "results": "Natijalar"
   },
   "MyReviews": {
     "waitForReview": "Baho berish kutilmoqda",
@@ -216,7 +220,9 @@
     "close": "yopish"
   },
   "Wishes": {
-    "title": "Mening tilaklarim"
+    "title": "Mening tilaklarim",
+    "noItems": "Sizga yoqqan narsani qo'shing",
+    "add": "Istakka qo'shish"
   },
   "LocationModal": {
     "title": "Yetkazib berish manzili",
@@ -245,9 +251,9 @@
     "compound": "Tarkibi",
     "made_country": "Ishlab chiqarilgan davlati",
     "model_features": "Modelning xususiyatlari",
-    "copy-link":"Havolani kochirish",
-    "comments":"Sharhlar",
-    "comments-not":"Sharhlar topilmadi"
+    "copy-link": "Havolani kochirish",
+    "comments": "Sharhlar",
+    "comments-not": "Sharhlar topilmadi"
   },
   "Messages": {
     "dearClient": "Hurmatli mijoz, ",

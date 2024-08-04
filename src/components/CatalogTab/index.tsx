@@ -4,7 +4,7 @@ import NavigationCard from "../NavigationCard";
 import { Tooltip } from "antd";
 import { CustomTabs } from "@/ui/Tabs";
 import useQueryApiClient from "@/utils/useQueryApiClient";
-import { CategoryCatalogInterface } from "@/interfaces";
+import { CategoryInterface } from "@/interfaces";
 import styles from "./CatalogTab.module.scss";
 import { useRouter } from "next/router";
 
@@ -14,9 +14,9 @@ interface Props {
 }
 
 const CatalogTab = ({ openModal, setOpenModal }: Props) => {
-  const [CatalogTabsData, setCatalogTabsData] = useState<
-    CategoryCatalogInterface[]
-  >([]);
+  const [CatalogTabsData, setCatalogTabsData] = useState<CategoryInterface[]>(
+    []
+  );
   const [activeTab, setActiveTab] = useState("0");
   const textRefs = useRef<(HTMLParagraphElement | null)[]>([]);
   const [overflowStates, setOverflowStates] = useState<boolean[]>([]);
@@ -33,7 +33,7 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
   }, [CatalogTabsData]);
 
   const truncateText = (text: any, maxLength: any) => {
-    if (!text) return
+    if (!text) return;
     if (text.length <= maxLength) {
       return text;
     } else {
@@ -52,9 +52,9 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
   });
 
   useEffect(() => {
-    getCategoryData()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.locale])
+    getCategoryData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.locale]);
 
   const handleTabChange = (key: any) => {
     setActiveTab(key);

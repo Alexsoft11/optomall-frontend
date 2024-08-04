@@ -10,6 +10,7 @@ import { useTranslations } from 'next-intl'
 const Footer = () => {
   const [footerData, setFooterData] = useState<any>([])
   const t = useTranslations("Footer")
+  const currentYear = new Date().getFullYear();
 
   const { appendData: getFooterData } = useQueryApiClient({
     request: {
@@ -52,7 +53,7 @@ const Footer = () => {
                 </Link>
               ))}
             </div>
-            <p className={styles.copyright}>© 2023 TaoBao All rights reserved</p>
+            <p className={styles.copyright}>© {currentYear} TaoBao All rights reserved</p>
           </div>
         </div>
       </div>

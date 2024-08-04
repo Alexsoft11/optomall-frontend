@@ -12,7 +12,7 @@
     "results": "Результаты поиска",
     "purchases": "Мои покупки",
     "currency": "сум",
-    "loadingData": "Загрузка данных...",
+    "loadingData": "Загрузка...",
     "my_account": "Мой Аккаунт",
     "cargo": "Оплата за карго"
   },
@@ -183,7 +183,11 @@
     "downPrice": "Снижение цены",
     "submit": "отправить",
     "max_price": "Пожалуйста, введите максимальную цену!",
-    "min_price": "Пожалуйста, введите минимальную цену!"
+    "min_price": "Пожалуйста, введите минимальную цену!",
+    "metaTitle": "Результаты поиска - Onway",
+    "metaDescription": "Найдите лучшие товары на Onway через наши результаты поиска.",
+    "metaKeywords": "поиск, товары, Onway",
+    "results": "Результаты"
   },
   "MyReviews": {
     "waitForReview": "Ждут оценки",
@@ -220,7 +224,9 @@
     "close": "закрыть"
   },
   "Wishes": {
-    "title": "Мои желания"
+    "title": "Мои желания",
+    "noItems": "Добавить то, что вам понравилось",
+    "add": "Добавить в пожелания"
   },
   "LocationModal": {
     "title": "Адрес доставки",
@@ -244,15 +250,15 @@
     "shipping_costs": "Транспортные расходы",
     "how_to_use": "Как использовать"
   },
-  "Product-detail":{
-    "bought":"Купили",
-    "compound":"Состав",
-    "made_country":"Страна производство",
-    "model_features":"Особенности модели",
-    "copy-link":"Скопировать ссылку",
-    "comments":"Отзывы",
-    "characteristic":"Xарактеристика",
-    "comments-not":"Коментарий пока нет"
+  "Product-detail": {
+    "bought": "Купили",
+    "compound": "Состав",
+    "made_country": "Страна производство",
+    "model_features": "Особенности модели",
+    "copy-link": "Скопировать ссылку",
+    "comments": "Отзывы",
+    "characteristic": "Xарактеристика",
+    "comments-not": "Коментарий пока нет"
   },
   "Messages": {
     "dearClient": "Уважаемый клиент, ",

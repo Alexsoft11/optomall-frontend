@@ -5,6 +5,7 @@ import { CardInterface } from "@/interfaces";
 import { useTranslations } from "next-intl";
 import { useJwt } from "@/utils/useJwt";
 import useQueryApiClient from "@/utils/useQueryApiClient";
+import PageNoItems from "@/components/PageNoItems";
 
 interface Props {
   wishesData?: CardInterface[];
@@ -54,16 +55,20 @@ const Wishes = ({ wishesData }: Props) => {
             <h2>{t('title')}</h2>
           </div>
 
-          <div className={styles.wishes__cards}>
-            {data &&
-              data.map((item, idx) => (
-                <Card
-                  key={idx}
-                  data={item}
-                  onLikeChange={handleLikeChange}
-                />
-              ))}
-          </div>
+          {
+            !data.length ? <PageNoItems text={t("add")} title={t("noItems")}/> : (
+              <div className={styles.wishes__cards}>
+                {data &&
+                  data.map((item, idx) => (
+                    <Card
+                      key={idx}
+                      data={item}
+                      onLikeChange={handleLikeChange}
+                    />
+                  ))}
+              </div>
+            )
+          }
         </div>
       </div>
     </div>
