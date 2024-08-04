@@ -17,8 +17,8 @@
     background: #f0f0f0;
     padding: 3px 3px 3px 10px;
     outline: none;
-    padding-left: 5px;
-    padding-right: 10px;
+    padding-left: 10px;
+    padding-right: 5px;
     flex-direction: row-reverse;
   }
 
@@ -82,4 +82,14 @@
       transform: translateY(0);
     }
   }
+}
+
+.search_inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.uploadbtn {
+  width: 200px;
 }
