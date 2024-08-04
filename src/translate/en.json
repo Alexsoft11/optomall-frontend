@@ -143,7 +143,7 @@
     "cardNumber": "Recipient's card number: ",
     "payTutorialText": "Copy the card number below, then open your bank app and transfer the amount specified below in a single payment. Note! You need to transfer the exact amount specified below!",
     "textCopyed": "Text copied!",
-    "impotantMessage": "You need to pay for the cargo upon arrival of your order. The delivery cost is automatically calculated upon arrival and depends on the weight, ${costPerKg} per Kg.",
+    "impotantMessage": "You need to pay for the cargo upon arrival of your order. The delivery cost is automatically calculated upon arrival and depends on the weight, {costPerKg} uzs per Kg.",
     "importantTitle": "Important!"
   },
   "Purchases": {

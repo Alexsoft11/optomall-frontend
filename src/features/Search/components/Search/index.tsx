@@ -84,25 +84,7 @@ const Search = ({ data = [] }: Props) => {
     });
   };
 
-  const { appendData: getProductsData, isLoading: isProductsLoading } =
-    useQueryApiClient({
-      request: {
-        url: `search-products-from-taobao${
-          token && token !== "undefined" ? "-token" : ""
-        }?searchQuery=${router.query.query}&lang=${router.locale}&provider=${
-          router.query.channel
-        }`,
-        method: "GET",
-        disableOnMount: true,
-      },
-      onSuccess(res: any) {
-        if (!res.products.length) {
-          setHasMore(false);
-          return;
-        }
-        setProducts((prev: any) => [...prev, ...res.products]);
-      },
-    });
+
 
   const { appendData: getSearchRes, isLoading: isSearchResLoading } =
     useQueryApiClient({
