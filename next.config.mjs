@@ -6,8 +6,6 @@ const nextConfig = {
     defaultLocale: "ru",
   },
   images: {
-    domains: ['img.alicdn.com'],
-    unoptimized: false,
     remotePatterns: [
       {
         protocol: "https",

@@ -53,6 +53,7 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
 
   useEffect(() => {
     getCategoryData()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.locale])
 
   const handleTabChange = (key: any) => {

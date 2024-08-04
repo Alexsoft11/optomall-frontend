@@ -35,6 +35,7 @@ export default function AuthPage() {
     if (token && currentStep !== "reset" && currentStep !== "forgot-password") {
       push('/');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, currentStep]);
 
 

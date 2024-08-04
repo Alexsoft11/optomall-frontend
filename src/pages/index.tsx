@@ -118,6 +118,7 @@ export default function Home({ slidersData, productsData }: HomeProps) {
         }
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, dislikeCard, savedData]);
 
   useEffect(() => {
@@ -151,6 +152,7 @@ export default function Home({ slidersData, productsData }: HomeProps) {
 
   useEffect(() => {
     getCategories();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit]);
 
   if (isLoading) {
@@ -177,7 +179,6 @@ export default function Home({ slidersData, productsData }: HomeProps) {
 export const getServerSideProps = async (context: any) => {
   try {
     const cookies = cookie.parse(context.req.headers.cookie || "");
-    console.log(context);
 
     const token = decodeURIComponent(cookies.token);
     const slidersResponse = await API.getHomePageSlider();
@@ -190,7 +191,6 @@ export const getServerSideProps = async (context: any) => {
       props: {
         slidersData: slidersResponse.data || { sliders: [] },
         productsData: productsResponse.data || { products: [] },
-        messages: (await import(`../translate/${context.locale}.json`)).default,
       },
     };
   } catch (error: any) {
@@ -199,8 +199,6 @@ export const getServerSideProps = async (context: any) => {
       props: {
         slidersData: { sliders: [] },
         productsData: { products: [] },
-        // categoryProductsData: { categories: [] },
-        messages: (await import(`../translate/${context.locale}.json`)).default,
       },
     };
   }
