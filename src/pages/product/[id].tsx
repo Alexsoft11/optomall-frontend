@@ -52,8 +52,8 @@ export const getServerSideProps = async (context: any) => {
     const product = await API.getProductDetailToken(
       productId,
       lang,
+      channel,
       token,
-      channel
     );
     const productComments = await API.getProductComments(productId)
       .then((res: any) => res.data)
