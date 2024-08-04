@@ -5,9 +5,11 @@ import { API } from "@/services/api";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import React from "react";
+import React, { useState } from "react";
 import cookie from "cookie";
 import { LoadingSpinner } from "@/ui/Spin";
+import useQueryApiClient from "@/utils/useQueryApiClient";
+import { useRouter } from "next/router";
 
 const CartBasketPage = dynamic(
   () => import("@/features/Cart/components/CartBasketPage"),
@@ -20,8 +22,23 @@ interface Props {
   basketData: CartItemInterface[] | [];
 }
 
-export default function Cart({ basketData }: Props) {
+export default function Cart({}: Props) {
   const t = useTranslations("GLOBAL");
+  const { locale } = useRouter();
+  const [basketData, setBasketData] = useState<CartItemInterface[]>([]);
+
+  const { isLoading } = useQueryApiClient({
+    request: {
+      url: `get-user-basket?lang=${locale}`,
+      method: "GET",
+    },
+    onSuccess(res) {
+      const data = res.map((el: CartItemInterface) => {
+        return { ...el, chacked: false };
+      });
+      setBasketData(data);
+    },
+  });
   return (
     <div className="container">
       <Head>
@@ -31,7 +48,7 @@ export default function Cart({ basketData }: Props) {
       <div>
         <GoToBack pathArr={[{ title: "cart", path: "" }]} />
         <PageTitle />
-        <CartBasketPage data={basketData} />
+        <CartBasketPage data={basketData} isBasketDataLoading={isLoading} />
       </div>
     </div>
   );
@@ -39,18 +56,18 @@ export default function Cart({ basketData }: Props) {
 
 export const getServerSideProps = async (context: any) => {
   try {
-    const cookies = cookie.parse(context.req.headers.cookie || "");
+    // const cookies = cookie.parse(context.req.headers.cookie || "");
     // Extract the token from the parsed cookies
-    const token = decodeURIComponent(cookies.token);
-    const { locale } = context;
+    // const token = decodeURIComponent(cookies.token);
+    // const { locale } = context;
 
-    const basketResponse: CartItemInterface[] = await API.getUserBasket(token, locale);
-
+    // const basketResponse: CartItemInterface[] = await API.getUserBasket(token, locale);
+    // basketResponse.map(el => {
+    //   return {...el, chacked: false}
+    // }) ||
     return {
       props: {
-        basketData: basketResponse.map(el => {
-          return {...el, chacked: false}
-        }) || [],
+        basketData: [],
       },
     };
   } catch (error: any) {
