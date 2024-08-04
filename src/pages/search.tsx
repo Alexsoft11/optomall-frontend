@@ -7,6 +7,7 @@ import { API } from "@/services/api";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { LoadingSpinner } from "@/ui/Spin";
+import GoToBack from "@/components/GoToBack";
 
 const Search = dynamic(() => import("@/features/Search/components/Search"), {
   loading: () => <LoadingSpinner fullscreen={true} size="large" />,
@@ -17,7 +18,7 @@ interface SearchProps {
 }
 
 const SearchPage = ({ productsData }: SearchProps) => {
-  const t = useTranslations("SearchPage");
+  const t = useTranslations("Search");
 
   return (
     <PageLayout
@@ -26,9 +27,7 @@ const SearchPage = ({ productsData }: SearchProps) => {
       metaKeywords={t("metaKeywords")}
     >
       <div className="container">
-        <div className="go-to-back">
-          <Link href="/search">{t("results")}</Link>
-        </div>
+        <GoToBack pathArr={[{ title: "results", path: "search" }]} />
       </div>
       <Search data={productsData?.products} />
     </PageLayout>
