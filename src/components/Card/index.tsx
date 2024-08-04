@@ -6,7 +6,6 @@ import { Tooltip } from "antd";
 import CustomImage from "../CustomImage";
 import LikedBtn from "../LikedBtn";
 import { useRouter } from "next/router";
-import { useJwt } from "@/utils/useJwt";
 
 interface CardProps {
   data: CardInterface;

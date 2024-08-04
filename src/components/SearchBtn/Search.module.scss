@@ -2,6 +2,7 @@
   width: 288px;
   max-width: 288px;
   position: relative;
+  z-index: 55;
   @media (max-width: 1020px) {
     max-width: 200px;
   }
@@ -26,7 +27,7 @@
     right: 3px !important;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 999 !important;
+    z-index: 555 !important;
   }
 }
 

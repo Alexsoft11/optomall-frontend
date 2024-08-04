@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { Skeleton } from "antd";
 
 interface IProps {
@@ -32,9 +32,19 @@ const CustomImage: FC<IProps> = ({
 }) => {
   const [isLoad, setIsLoad] = useState(true);
 
+  useEffect(() => {
+    console.log("Image source:", src);
+  }, [src]);
+
+  const handleImageLoad = () => {
+    console.log("Image loaded");
+    setIsLoad(false);
+  };
+
   const imgSrc = src ? src : "";
+
   return (
-    <div className={`${className} ${isLoad ? "blur" : "remove_bluer"}`}>
+    <div className={`${className} ${isLoad ? "blur" : "remove_blur"}`}>
       {isLoad && (
         <Skeleton.Button
           active
@@ -52,7 +62,8 @@ const CustomImage: FC<IProps> = ({
             fill={fill}
             width={width}
             height={height}
-            onLoad={() => setIsLoad(false)}
+            onLoad={handleImageLoad}
+            onError={() => console.error(`Failed to load image: ${imgSrc}`)}
           />
         </Link>
       ) : (
@@ -64,7 +75,8 @@ const CustomImage: FC<IProps> = ({
           width={width}
           height={height}
           loading={loading}
-          onLoad={() => setIsLoad(false)}
+          onLoad={handleImageLoad}
+          onError={() => console.error(`Failed to load image: ${imgSrc}`)}
         />
       )}
     </div>

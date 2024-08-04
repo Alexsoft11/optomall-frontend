@@ -152,6 +152,7 @@ export default function Home({ slidersData, productsData }: HomeProps) {
 
   useEffect(() => {
     getCategories();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit]);
 
   if (isLoading) {
