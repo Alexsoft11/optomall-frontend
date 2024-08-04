@@ -7,10 +7,11 @@ import CartGetOrderPerson from "../CartGetOtderPerson";
 import Cookies from "universal-cookie";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { LoadingSpinner } from "@/ui/Spin";
-import CartBasketNoItems from "../CartBasketNoItems";
 import LocationBlock from "@/components/LocationBlock";
 import { LocationInfoInterface } from "@/components/Types";
 import 'animate.css'
+import PageNoItems from "@/components/PageNoItems";
+import { useTranslations } from "next-intl";
 
 
 interface Props {
@@ -20,6 +21,7 @@ interface Props {
 export default function CartBasketPage({ data }: Props) {
   const [orderItems, setOrderItems] = useState<CartOrderItemInterface[] | []>([])
   const [dataClone, setDataClone] = useState<CartItemInterface[]>(data)
+  const t = useTranslations("Cart");
 
   const [dataFailed, setDataFailed] = useState<"personal" | "location" | null>(null);
   const [selectAll, setSelectAll] = useState(false);
@@ -145,7 +147,7 @@ export default function CartBasketPage({ data }: Props) {
   return (
     <div className={styles.main}>
 
-      {!dataClone.length ? <CartBasketNoItems /> : (
+      {!dataClone.length ? <PageNoItems text={t("goToBuy")} title={t("basketNoItems")} /> : (
         <>
           <CartBasketItems selectAll={selectAll} setSelectAll={setSelectAll} changeQuantity={changeQuantity} setAddOrder={setAddOrder} setDataClone={setDataClone} data={dataClone} />
           <div className={styles.order_side}>

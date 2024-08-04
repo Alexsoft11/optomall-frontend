@@ -4,28 +4,41 @@ import styles from "./Products.module.scss";
 import Card from "../Card";
 
 interface Props {
-  data: any;
+  data: any[];
   getProductsData: any;
 }
 
 const Products = ({ data, getProductsData }: Props) => {
   const [items, setItems] = useState(data);
   const [hasMore, setHasMore] = useState(true);
-  const [productsCount, setProductsCount] = useState(20);
+  const [productsCount, setProductsCount] = useState(1);
 
   const fetchMoreData = async () => {
-    const newCount = productsCount + 20;
+    console.log('fetchMoreData called');
+    const newCount = productsCount + 1;
     setProductsCount(newCount);
-    await getProductsData({ count: newCount });
+    try {
+      const newItems = await getProductsData({ page: newCount });
+
+      console.log('newItems:', newItems);
+
+      // Проверка на конец данных
+      if (newItems.length === 0) {
+        setHasMore(false);
+        console.log('No more items to load');
+      } else {
+        setItems(prevItems => [...prevItems, ...newItems]);
+        console.log('Items updated', [...items, ...newItems]);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
   useEffect(() => {
-    if (data.length >= productsCount) {
-      setItems(data.slice(0, productsCount));
-    } else {
-      setHasMore(false);
-    }
-  }, [data, productsCount]);
+    console.log('Initial data:', data);
+    setItems(data);
+  }, [data]);
 
   return (
     <div className={styles.products}>

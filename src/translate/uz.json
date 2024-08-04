@@ -12,7 +12,7 @@
     "results": "Qidiruv natijalari",
     "purchases": "Mening xaridlarim",
     "currency": "so'm",
-    "loadingData": "Ma'lumotlar yuklanmoqda...",
+    "loadingData": "Yuklanmoqda...",
     "my_account": "Mening Akountim",
     "cargo": "Karqo uchun to'lov"
   },
@@ -216,7 +216,9 @@
     "close": "yopish"
   },
   "Wishes": {
-    "title": "Mening tilaklarim"
+    "title": "Mening tilaklarim",
+    "noItems": "Sizga yoqqan narsani qo'shing",
+    "add": "Istakka qo'shish"
   },
   "LocationModal": {
     "title": "Yetkazib berish manzili",

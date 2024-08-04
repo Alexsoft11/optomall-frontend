@@ -59,7 +59,7 @@ const Search = ({ data }: Props) => {
       request: {
         url: `search-products-from-taobao${
           token && token !== "undefined" ? "-token" : ""
-        }?searchQuery&lang=${router.locale}&productsCount=&count=:count`,
+        }?searchQuery=${router.query.query}&lang=${router.locale}&provider=taobao`,
         method: "GET",
         disableOnMount: true,
       },

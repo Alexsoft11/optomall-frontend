@@ -216,7 +216,9 @@
     "close": "close"
   },
   "Wishes": {
-    "title": "My wishes"
+    "title": "My wishes",
+    "noItems": "Add what you liked",
+    "add": "Add to wishes"
   },
   "LocationModal": {
     "title": "Delivery Address",

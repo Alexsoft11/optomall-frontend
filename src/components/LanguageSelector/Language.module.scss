@@ -1,6 +1,6 @@
 .language_selector {
     position: relative;
-    z-index: 99;
+    z-index: 1000 !important;
     .dropdown {
       .selected_language {
         display: flex;

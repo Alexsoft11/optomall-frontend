@@ -83,3 +83,34 @@
 .ant-tabs .ant-tabs-tab{
   font-size: 20px !important;
 }
+
+.infinite-scroll-component  {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important;
+  column-gap: 25px !important;
+  row-gap: 30px !important;
+
+  @media (max-width: 1220px) {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)) !important;
+    column-gap: 20px !important;
+  }
+
+  @media (max-width: 420px) {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+  }
+
+  @media (max-width:360px) {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
+    gap: 10px;
+  }
+
+  @media (max-width: 320px) {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+  }
+}
