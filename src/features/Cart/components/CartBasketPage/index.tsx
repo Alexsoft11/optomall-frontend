@@ -52,6 +52,7 @@ export default function CartBasketPage({ data }: Props) {
     }
     setTotalPrice(total)
     ChangeitemsValue()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderItems])
 
   useEffect(() => {

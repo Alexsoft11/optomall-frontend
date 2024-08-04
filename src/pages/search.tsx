@@ -31,7 +31,6 @@ export const getServerSideProps = async (context: any) => {
     const cookies = cookie.parse(context.req.headers.cookie || "");
 
     const token = decodeURIComponent(cookies.token);
-    console.log(token,"tokeennn::")
     const searchResponce = await API.getSearchPageProducts(context, token);
 
 

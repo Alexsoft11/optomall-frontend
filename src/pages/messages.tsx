@@ -17,7 +17,6 @@ interface Props {
   messagesData: MessagesDataInterface[];
 }
 export default function Messages({ messagesData }: Props) {
-  console.log(messagesData);
   
   const t = useTranslations("GLOBAL");
   return (
