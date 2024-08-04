@@ -1,20 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
-import styles from './CatalogCategory.module.scss';
-import SearchBtn from '@/components/SearchBtn';
-import Image from 'next/image';
-import Link from 'next/link';
-import useQueryApiClient from '@/utils/useQueryApiClient';
-import { CategoryCatalogInterface } from '@/interfaces';
-import { Collapse, Tooltip } from 'antd';
-import { useTranslations } from 'next-intl';
-import SvgSelector from '$/assets/icons/SvgSelector';
-import { useRouter } from 'next/router';
+import React, { useEffect, useRef, useState } from "react";
+import styles from "./CatalogCategory.module.scss";
+import SearchBtn from "@/components/SearchBtn";
+import Image from "next/image";
+import Link from "next/link";
+import useQueryApiClient from "@/utils/useQueryApiClient";
+import { CategoryInterface } from "@/interfaces";
+import { Collapse, Tooltip } from "antd";
+import { useTranslations } from "next-intl";
+import SvgSelector from "$/assets/icons/SvgSelector";
+import { useRouter } from "next/router";
 
 const { Panel } = Collapse;
 
 const CatalogCategory = () => {
-  const [CatalogTabsData, setCatalogTabsData] = useState<CategoryCatalogInterface[]>([]);
-  const [overflowedItems, setOverflowedItems] = useState<{ [key: string]: boolean }>({});
+  const [CatalogTabsData, setCatalogTabsData] = useState<CategoryInterface[]>(
+    []
+  );
+  const [overflowedItems, setOverflowedItems] = useState<{
+    [key: string]: boolean;
+  }>({});
   const t = useTranslations("Navbar");
   const router = useRouter();
 
@@ -34,25 +38,22 @@ const CatalogCategory = () => {
 
   const checkOverflow = (element: HTMLElement, id: string) => {
     if (element.scrollHeight > element.clientHeight) {
-      setOverflowedItems(prev => ({ ...prev, [id]: true }));
+      setOverflowedItems((prev) => ({ ...prev, [id]: true }));
     } else {
-      setOverflowedItems(prev => ({ ...prev, [id]: false }));
+      setOverflowedItems((prev) => ({ ...prev, [id]: false }));
     }
   };
 
   return (
     <div className={styles.categories}>
-      <div className='container'>
+      <div className="container">
         <div className={styles.categories__inner}>
           <h1 className={styles.categories__title}>{t("catalog")}</h1>
           <div className={styles.categories__search}>
             <SearchBtn />
           </div>
           <div className={styles.categories__cards}>
-            <Collapse
-              expandIconPosition="end"
-              className='catalog_select'
-            >
+            <Collapse expandIconPosition="end" className="catalog_select">
               {CatalogTabsData.map((el, idx) => (
                 <Panel header={el.name} key={idx}>
                   <div>
@@ -61,7 +62,12 @@ const CatalogCategory = () => {
                         <h4>{subcategory.name}</h4>
                         <ul className={styles.categories__ul}>
                           {subcategory.items.map((item, itemIdx) => (
-                            <Link href={`/search?query=${item}&channel=taobao`} key={itemIdx}>{item}</Link>
+                            <Link
+                              href={`/search?query=${item}&channel=taobao`}
+                              key={itemIdx}
+                            >
+                              {item}
+                            </Link>
                           ))}
                         </ul>
                       </div>
@@ -70,7 +76,6 @@ const CatalogCategory = () => {
                 </Panel>
               ))}
             </Collapse>
-            
           </div>
         </div>
       </div>
