@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Products = ({ data, getProductsData, hasMore = false }: Props) => {
-  const [items, setItems] = useState(data);
+  const [items, setItems] = useState(data || []);
   const [page, setPage] = useState(1);
 
   const fetchMoreData = async () => {
@@ -40,7 +40,7 @@ const Products = ({ data, getProductsData, hasMore = false }: Props) => {
         }
       >
         <div className={styles.product_list}>
-          {items.map((el: any, idx: number) => (
+          {items?.map((el: any, idx: number) => (
             <Card key={idx} data={el} />
           ))}
         </div>
