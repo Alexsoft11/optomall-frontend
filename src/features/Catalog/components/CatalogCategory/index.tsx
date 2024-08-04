@@ -63,7 +63,7 @@ const CatalogCategory = () => {
                         <ul className={styles.categories__ul}>
                           {subcategory.items.map((item, itemIdx) => (
                             <Link
-                              href={`/search?query=${item.slug}&channel=taobao`}
+                              href={`/search?value=${item.slug}&channel=taobao`}
                               key={itemIdx}
                             >
                               {item.name}

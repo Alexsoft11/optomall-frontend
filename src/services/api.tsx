@@ -21,7 +21,7 @@ export const API = {
 
   getHomePageProducts: (lang: any, token?: string) =>
     axiosInstance.get(
-      `products?query=折扣优惠&productsCount=20&page=2&lang=${lang}`,
+      `products?query=discount&productsCount=20&page=2&lang=${lang}`,
       {
         headers: token ? { Authorization: "Bearer " + token } : {},
       }

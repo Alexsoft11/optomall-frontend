@@ -38,11 +38,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const cookies = cookie.parse(context.req.headers.cookie || "");
     const token = decodeURIComponent(cookies.token);
-    const searchResponse = await API.getSearchPageProducts(context, token);
+    // const searchResponse = await API.getSearchPageProducts(context, token);
 
     return {
       props: {
-        productsData: searchResponse.data || [],
+        productsData: [],
       },
     };
   } catch (error: any) {

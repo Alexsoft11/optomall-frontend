@@ -12,10 +12,10 @@ import { useJwt } from "@/utils/useJwt";
 import { LoadingSpinner } from "@/ui/Spin";
 
 interface Props {
-  data: any;
+  data?: any;
 }
 
-const Search = ({ data }: Props) => {
+const Search = ({ data = [] }: Props) => {
   const t = useTranslations("Search");
   const router = useRouter();
   const [activePlatform, setActivePlatform] = useState(router.query.channel);
@@ -23,9 +23,15 @@ const Search = ({ data }: Props) => {
   const token = useJwt();
   const [products, setProducts] = useState(data);
   const [hasMore, setHasMore] = useState(true);
-
+  const [scroolApi, setScroolApi] = useState(false);
   const handleButtonClick = (platform: any) => {
-    router.push(`/search?query=${router.query.query}&channel=${platform}`);
+    const newQuery = {
+      ...router.query,
+      channel: platform || "taobao",
+    };
+    router.replace({ pathname: router.pathname, query: newQuery }, undefined, {
+      shallow: true,
+    });
     setActivePlatform(platform);
   };
 
@@ -37,13 +43,14 @@ const Search = ({ data }: Props) => {
       form.setFieldsValue({ min_price, max_price });
     }
 
-    const queryString = new URLSearchParams({
+    const newQuery = {
       ...router.query,
       startPrice: min_price,
       endPrice: max_price,
-    }).toString();
-
-    router.push(`/search?${queryString}`);
+    };
+    router.replace({ pathname: router.pathname, query: newQuery }, undefined, {
+      shallow: true,
+    });
   };
 
   useEffect(() => {
@@ -54,7 +61,28 @@ const Search = ({ data }: Props) => {
       form.resetFields();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query.query]);
+  }, [router.query.value]);
+
+  useEffect(() => {
+    if (router.query) {
+      getSearchRes({
+        ...router.query,
+        searchQuery: router.query.value,
+        lang: router.locale,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query]);
+
+  const handleGetProduct = (query?: any) => {
+    setScroolApi(true);
+    getSearchRes({
+      ...router.query,
+      ...query,
+      searchQuery: router.query.value,
+      lang: router.locale,
+    });
+  };
 
   const { appendData: getProductsData, isLoading: isProductsLoading } =
     useQueryApiClient({
@@ -73,6 +101,27 @@ const Search = ({ data }: Props) => {
           return;
         }
         setProducts((prev: any) => [...prev, ...res.products]);
+      },
+    });
+
+  const { appendData: getSearchRes, isLoading: isSearchResLoading } =
+    useQueryApiClient({
+      request: {
+        url: `search-products-from-taobao`,
+        method: "GET",
+        disableOnMount: true,
+      },
+      onSuccess(res: any) {
+        if (scroolApi) {
+          if (!res.products.length) {
+            setHasMore(false);
+            return;
+          }
+          setProducts((prev: any) => [...prev, ...res.products]);
+          setScroolApi(false);
+          return;
+        }
+        setProducts(res.products);
       },
     });
 
@@ -135,14 +184,17 @@ const Search = ({ data }: Props) => {
                     />
                   </Form>
                 </div>
-                {/* <Products data={products} getProductsData={getProductsData}/> */}
               </div>
             </div>
-            {/* {isProductsLoading ? (
+            {isSearchResLoading && !scroolApi ? (
               <LoadingSpinner size="large" />
-            ) : ( */}
-            <Products data={products} hasMore={hasMore} getProductsData={getProductsData} />
-            {/* )} */}
+            ) : (
+              <Products
+                data={products}
+                hasMore={hasMore}
+                handleGetProduct={handleGetProduct}
+              />
+            )}
           </div>
         </div>
       </div>

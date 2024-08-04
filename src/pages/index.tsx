@@ -60,12 +60,14 @@ export default function Home({ slidersData, productsData }: HomeProps) {
     },
   });
 
+  useEffect(() => {
+    getProductsData({ query: "discount" });
+  }, []);
+
   const { appendData: getProductsData, isLoading: isProductsLoading } =
     useQueryApiClient({
       request: {
-        url: `products${
-          token && token !== "undefined" ? "-token" : ""
-        }?query&lang=${router.locale}&page=2`,
+        url: `products?&lang=${router.locale}`,
         method: "GET",
         disableOnMount: true,
       },
@@ -118,7 +120,7 @@ export default function Home({ slidersData, productsData }: HomeProps) {
         }
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, dislikeCard, savedData]);
 
   useEffect(() => {
@@ -152,7 +154,7 @@ export default function Home({ slidersData, productsData }: HomeProps) {
 
   useEffect(() => {
     getCategories();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit]);
 
   if (isLoading) {
@@ -178,19 +180,19 @@ export default function Home({ slidersData, productsData }: HomeProps) {
 
 export const getServerSideProps = async (context: any) => {
   try {
-    const cookies = cookie.parse(context.req.headers.cookie || "");
+    // const cookies = cookie.parse(context.req.headers.cookie || "");
 
-    const token = decodeURIComponent(cookies.token);
+    // const token = decodeURIComponent(cookies.token);
     const slidersResponse = await API.getHomePageSlider();
-    const productsResponse = await API.getHomePageProducts(
-      context.locale,
-      token
-    );
+    // const productsResponse = await API.getHomePageProducts(
+    //   context.locale,
+    //   token
+    // );
 
     return {
       props: {
         slidersData: slidersResponse.data || { sliders: [] },
-        productsData: productsResponse.data || { products: [] },
+        productsData: { products: [] },
       },
     };
   } catch (error: any) {

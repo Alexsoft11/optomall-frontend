@@ -7,14 +7,28 @@ import { Form } from "antd";
 
 const SearchBtn = () => {
   const router = useRouter();
-  const { query } = router.query;
+  const { value } = router.query;
   const [scrolled, setScrolled] = useState(false);
   const [startScrool, setStartScrool] = useState(false);
   const [form] = Form.useForm();
 
   const handleSearch = (values: any) => {
     if (values.search) {
-      router.push(`/search?query=${values.search}&channel=${router.query.channel || 'taobao'}`);
+      const newQuery = {
+        value: values.search,
+        channel: router.query.channel || "taobao",
+      };
+
+      if (router.pathname === "/search") {
+        router.replace(
+          { pathname: router.pathname, query: newQuery },
+          undefined,
+          { shallow: true }
+        );
+      } else {
+        // If not on the search page, navigate to the search page
+        router.push({ pathname: "/search", query: newQuery });
+      }
     }
   };
 
@@ -25,12 +39,13 @@ const SearchBtn = () => {
   };
 
   useEffect(() => {
-    if (query) {
-      form.setFieldValue("search", query);
+    if (value) {
+      form.setFieldValue("search", value);
     } else {
       form.resetFields();
     }
-  }, [query]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -86,10 +101,10 @@ const SearchBtn = () => {
         </Form>
 
         <Button
-          className='generalbtn'
-          shape='circle'
-          iconId='photo-svg'
-          iconPosition='left'
+          className="generalbtn"
+          shape="circle"
+          iconId="photo-svg"
+          iconPosition="left"
         />
       </div>
     </>

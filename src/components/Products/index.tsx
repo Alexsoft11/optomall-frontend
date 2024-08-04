@@ -5,21 +5,21 @@ import Card from "../Card";
 import { LoadingSpinner } from "@/ui/Spin";
 interface Props {
   data: any[];
-  getProductsData?: (data?: any, urlParams?: any, passOnSuccess?: any) => void;
   hasMore?: boolean;
+  handleGetProduct?: (data?: any) => void;
 }
 
-const Products = ({ data, getProductsData, hasMore = false }: Props) => {
+const Products = ({ data, handleGetProduct, hasMore = false }: Props) => {
   const [items, setItems] = useState(data || []);
   const [page, setPage] = useState(1);
 
   const fetchMoreData = async () => {
-    if (!getProductsData) {
+    if (!handleGetProduct) {
       return;
     }
     const newCount = page + 1;
     setPage(newCount);
-    getProductsData({ page: newCount });
+    handleGetProduct({ page: newCount });
   };
 
   useEffect(() => {

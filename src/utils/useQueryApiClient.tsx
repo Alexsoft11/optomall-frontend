@@ -4,6 +4,7 @@ import axios, { AxiosRequestConfig } from "axios";
 import { useRouter } from "next/router";
 import { BASE_URL } from "@/services/api";
 import { useJwt } from "./useJwt";
+import { ParsedUrlQuery } from "querystring";
 
 interface InvalidRequestResponse {
   status_code: number;
@@ -77,7 +78,7 @@ function useQueryApiClient({
     }
   }, [enabled, disableOnMount, enableOnMount]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const refetch = () => {
+  const refetch = (query: ParsedUrlQuery) => {
     setIsRefetching(true);
     actualCall(
       request.url,
@@ -87,7 +88,8 @@ function useQueryApiClient({
       request?.multipart,
       request?.responseType,
       {},
-      request.baseUrl
+      request.baseUrl,
+      query
     );
   };
 
@@ -127,7 +129,7 @@ function useQueryApiClient({
     method: RequestMethod = "GET",
     mustRetry: boolean = true,
     multipart: boolean = false,
-    responseType: string = '',
+    responseType: string = "",
     passOnSuccess: any = {},
     baseUrl: string = ""
   ) => {
@@ -141,7 +143,7 @@ function useQueryApiClient({
       url: url,
       method: method,
       baseURL: baseUrl || BASE_URL + "api/",
-      responseType: multipart && !responseType? "blob" : "json",
+      responseType: multipart && !responseType ? "blob" : "json",
       paramsSerializer: {
         indexes: true,
       },
