@@ -8,6 +8,7 @@ import { Upload } from "antd";
 import { UploadProps } from "antd/lib";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { json } from "stream/consumers";
+import { useTranslations } from "next-intl";
 
 const { Dragger } = Upload;
 
@@ -17,9 +18,8 @@ const SearchBtn = () => {
   const [scrolled, setScrolled] = useState(false);
   const [startScrool, setStartScrool] = useState(false);
   const [form] = Form.useForm();
+  const t = useTranslations("Search");
   const [isModalVisible, setIsModalVisible] = useState(false);
-  // const [postData, setPostData] = useState();
-  const draggerRef = useRef<any>(null);
   const [fileList, setFileList] = useState([]);
 
   const handleSearch = (values: any) => {
@@ -83,7 +83,7 @@ const SearchBtn = () => {
     },
     onSuccess(res) {
       handleCancel()
-      router.push(`/search?lang=${router.locale}&channel=${router.query.channel || "1688"}&imageUrl=${res.url}`);
+      router.push(`/search?lang=${router.locale}&channel=${router.query.channel || "taobao"}&imageUrl=${res.url}`);
     },
     onError(err) {
       handleCancel()
@@ -165,7 +165,7 @@ const SearchBtn = () => {
         />
 
         <Modal
-          title="Your Modal Title"
+          title={t("upload_title")}
           open={isModalVisible}
           onCancel={handleCancel}
           className="upload_modal"
@@ -176,7 +176,7 @@ const SearchBtn = () => {
               <SvgSelector id="upload-svg" />
             </p>
             <p className="ant-upload-text">
-              Click or drag file to this area to upload
+              {t("upload_text")}
             </p>
           </Dragger>
         </Modal>

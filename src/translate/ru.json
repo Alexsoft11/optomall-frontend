@@ -186,7 +186,9 @@
     "metaTitle": "Результаты поиска - Onway",
     "metaDescription": "Найдите лучшие товары на Onway через наши результаты поиска.",
     "metaKeywords": "поиск, товары, Onway",
-    "results": "Результаты"
+    "results": "Результаты",
+    "upload_title": "Поиск продуктов по изображению",
+    "upload_text": "Перетащите изображение сюда"
   },
   "MyReviews": {
     "waitForReview": "Ждут оценки",
