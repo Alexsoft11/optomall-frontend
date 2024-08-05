@@ -91,7 +91,7 @@ const SearchBtn = () => {
   });
 
   useEffect(() => {
-    if (window.innerWidth <= 850) {
+    if (window.innerWidth <= 970) {
       window.addEventListener("scroll", handleScroll);
     }
   });
@@ -142,14 +142,20 @@ const SearchBtn = () => {
               />
             </Form>
           </div>
+
+          {
+            scrolled && (
+
+              <Button
+                className="generalbtn"
+                shape="circle"
+                iconId="photo-svg"
+                iconPosition="left"
+                onClick={handleButtonClick}
+              />
+            )
+          }
           
-          <Button
-            className="generalbtn"
-            shape="circle"
-            iconId="photo-svg"
-            iconPosition="left"
-            onClick={handleButtonClick}
-          />
         </div>
       </div>
 
