@@ -10,6 +10,7 @@ import cookie from "cookie";
 import { LoadingSpinner } from "@/ui/Spin";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useRouter } from "next/router";
+import { cookieBasket } from "@/components/Auth/Functions";
 
 const CartBasketPage = dynamic(
   () => import("@/features/Cart/components/CartBasketPage"),
@@ -38,6 +39,14 @@ export default function Cart({}: Props) {
       });
       setBasketData(data);
     },
+    onError(err){
+      if (err.message === 'Unauthenticated.' && localStorage.getItem('basket-data')) {
+        const data : CartItemInterface[] = JSON.parse(localStorage.getItem('basket-data')!);
+        console.log(data);
+        
+        setBasketData(data)
+      }
+    }
   });
   return (
     <div className="container">

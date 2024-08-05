@@ -116,7 +116,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
   const calculateTotalQuantities = () => {
     const totals: { [key: number]: number } = {};
     let totalQuantity = 0;
-  
+
     for (const colorId in selectedSizes) {
       if (selectedColors.includes(Number(colorId))) {
         const colorTotal = selectedSizes[colorId]?.reduce(
@@ -127,7 +127,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
         totalQuantity += colorTotal;
       }
     }
-  
+
     setTotalQuantities(totals);
   };
   const calculateTotalPrice = () => {
@@ -175,7 +175,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
               product.colors.find((img) => img.id === colorId)?.image_url || "",
             size: size.value,
             size_id:
-              product.sizes.find((el) => el.value === size.value)?.id || "",
+              product.sizes.find((el) => el.value === size.value)?.id || new Date().getTime(),
             quantity: size.quantity,
             color:
               product.colors.find((color) => color.id === colorId)?.value || "",
@@ -185,9 +185,8 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
       if (user) {
         createData([data]);
       } else {
-        const newBasketData = (
-          JSON.parse(localStorage.getItem("basket-data") as string) || []
-        ).concat(localeData);
+        const newBasketData = (JSON.parse(localStorage.getItem("basket-data") as string) || [])
+        
         localStorage.setItem("basket-data", JSON.stringify(newBasketData));
         message.success("Added to Basket");
         resetStates();
@@ -206,7 +205,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     let firstElement = product.colors[0]?.id;
     setSelectedSizes(initialSizeState);
     setSelectedColors([product.colors[0]?.id]);
-    setTotalQuantities({10:0});
+    setTotalQuantities({ 10: 0 });
     setSelectedColor(product.colors[0]?.id);
   };
 
@@ -231,9 +230,8 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
             (size, idx) => (
               <div key={idx} className={styles.size}>
                 <span
-                  className={`${
-                    size.value === "default" ? styles.text_hidden : ""
-                  }`}>
+                  className={`${size.value === "default" ? styles.text_hidden : ""
+                    }`}>
                   {size.value}
                 </span>
                 <div className={styles.change_value}>
@@ -241,7 +239,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
                     onClick={() =>
                       handleSizeChange(selectedColor, size.value, -1)
                     }
-                   >
+                  >
                     <Image src={MinusSvg} width={24} height={24} alt='#' />
                   </Button>
                   <h4 className={styles.selected_quantity}>
