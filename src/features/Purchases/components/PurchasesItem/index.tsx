@@ -159,7 +159,7 @@ export default function PurchasesItem({ item }: Props) {
 
         {item.isPaid ? (
           <div className={styles.sub_status_slug}>
-            <h4>{t('uploadAgain')}</h4>
+            <h4>{t('send_check_again')}</h4>
             <Upload {...uploadProps}>
               <button>{t("upload")}</button>
             </Upload>

@@ -165,12 +165,10 @@
     "cargo": "Cargo:",
     "calculated": "Calculated",
     "emptyData": "It's empty here",
-    "wait_for_pay_cargo": "Payment for delivery is pending",
     "pay": "Pay",
     "send_check_again": "Check did not pass verification",
     "upload": "Upload more",
-    "orderId": "Order ID:",
-    "uploadAgain": "Payment for delivery is pending"
+    "orderId": "Order ID:"
   },
   "Search": {
     "platform": "Platform",
