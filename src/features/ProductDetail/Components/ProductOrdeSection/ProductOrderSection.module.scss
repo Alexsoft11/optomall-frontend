@@ -40,7 +40,11 @@
   max-height: 220px;
   padding-right: 5px;
   @media screen and (max-width: 856px) {
-    max-height: 300px;
+    max-height: 100%;
+    min-height: 150px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 
@@ -145,7 +149,7 @@
   .size span {
     min-width: 80px;
   }
-};
+}
 @media (max-width: 340px) {
   .size span {
     min-width: 20px;

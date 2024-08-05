@@ -12,7 +12,7 @@ import { LoadingSpinner } from "@/ui/Spin";
 const PurchasesPage = dynamic(
   () => import("@/features/Purchases/components/PurchasesPage"),
   {
-    loading: () => <LoadingSpinner className="global_page_loader" />,
+    loading: () => <LoadingSpinner fullscreen={true} />,
   }
 );
 
@@ -46,7 +46,7 @@ export const getServerSideProps = async (context: any) => {
     const { filter } = context.query;
     const { locale } = context;
 
-    const purchasesResponse = await API.getPurchases(token, filter,locale);
+    const purchasesResponse = await API.getPurchases(token, filter, locale);
 
     return {
       props: {

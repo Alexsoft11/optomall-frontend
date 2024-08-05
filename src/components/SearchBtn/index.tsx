@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { Button, Input, Modal } from "@/ui";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import { Form } from "antd";
-import { Upload } from 'antd';
+import { Upload } from "antd";
 import { UploadProps } from "antd/lib";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { json } from "stream/consumers";
@@ -54,8 +54,8 @@ const SearchBtn = () => {
     } else {
       form.resetFields();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query, router.locale]);
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -91,7 +91,7 @@ const SearchBtn = () => {
       handleCancel()
     }
   });
-  
+
   useEffect(() => {
     if (window.innerWidth <= 850) {
       window.addEventListener("scroll", handleScroll);
@@ -108,11 +108,11 @@ const SearchBtn = () => {
   };
 
   const uploadProps: UploadProps = {
-    name: 'file',
+    name: "file",
     multiple: true,
     customRequest({ file, onSuccess, onError }) {
       const formData = new FormData();
-      formData.append('image', file);
+      formData.append("image", file);
 
       postUploadData(formData);
     },
@@ -162,10 +162,10 @@ const SearchBtn = () => {
         </div>
 
         <Button
-          className='generalbtn'
-          shape='circle'
-          iconId='photo-svg'
-          iconPosition='left'
+          className="generalbtn"
+          shape="circle"
+          iconId="photo-svg"
+          iconPosition="left"
           onClick={handleButtonClick}
         />
 
@@ -178,12 +178,13 @@ const SearchBtn = () => {
         >
           <Dragger {...uploadProps} id="upload-input" className="antd-search-upload">
             <p className="ant-upload-drag-icon">
-              <SvgSelector id="upload-svg"/>
+              <SvgSelector id="upload-svg" />
             </p>
-            <p className="ant-upload-text">Click or drag file to this area to upload</p>
+            <p className="ant-upload-text">
+              Click or drag file to this area to upload
+            </p>
           </Dragger>
         </Modal>
-
       </div>
     </>
   );

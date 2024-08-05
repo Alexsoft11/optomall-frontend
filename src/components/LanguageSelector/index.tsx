@@ -2,7 +2,6 @@ import { useLocale } from "next-intl";
 import { useRouter } from "next/router";
 import styles from "./Language.module.scss";
 import React, { useState, useRef, useEffect } from "react";
-import Image, { StaticImageData } from "next/image";
 import SvgSelector from "$/assets/icons/SvgSelector";
 
 const LanguageSelector = () => {
@@ -10,14 +9,13 @@ const LanguageSelector = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(router.locale);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { pathname, asPath, query } = router;
 
   const languages = router.locales;
 
   const handleLanguageChange = (lang: string) => {
     setSelectedLanguage(lang || "");
-    router.push(router.pathname, router.asPath, {
-      locale: lang,
-    });
+    router.push({ pathname, query }, asPath, { locale: lang });
     closeDropdown();
   };
 

@@ -143,7 +143,7 @@
     "cardNumber": "Oluvchining karta raqami: ",
     "payTutorialText": "Quyidagi karta raqamini nusxalab oling, so'ngra bank ilovangizni oching va ko'rsatilgan summani bir to'lov bilan ushbu raqamga o'tkazing. Diqqat! Quyida ko'rsatilgan aniq summani o'tkazish kerak!",
     "textCopyed": "Matn ko'chirildi!",
-    "impotantMessage": "Sizning buyurtmangiz kelganidan so'ng yukni to'lashingiz kerak. Yetkazib berish narxi buyurtma kelganda avtomatik ravishda hisoblanadi va og'irlikka bog'liq, har Kg uchun ${costPerKg}.",
+    "impotantMessage": "Sizning buyurtmangiz kelganidan so'ng yukni to'lashingiz kerak. Yetkazib berish narxi buyurtma kelganda avtomatik ravishda hisoblanadi va og'irlikka bog'liq, har Kg uchun {costPerKg} uzs.",
     "importantTitle": "Muhim!"
   },
   "Purchases": {
