@@ -184,7 +184,8 @@
     "metaKeywords": "search, products, Onway",
     "results": "Results",
     "upload_title": "Search products by image",
-    "upload_text": "Drag and drop image here"
+    "upload_text": "Drag and drop image here",
+    "noItems": "No products found for this image"
   },
   "MyReviews": {
     "waitForReview": "Waiting for Review",

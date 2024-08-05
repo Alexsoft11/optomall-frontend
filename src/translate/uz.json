@@ -184,7 +184,8 @@
     "metaKeywords": "qidiruv, mahsulotlar, Onway",
     "results": "Natijalar",
     "upload_title": "Mahsulotlarni rasm bo'yicha qidirish",
-    "upload_text": "Rasmni bu yerga sudrab olib tashlang"
+    "upload_text": "Rasmni bu yerga sudrab olib tashlang",
+    "noItems": "Ushbu rasm uchun mahsulot topilmadi"
   },
   "MyReviews": {
     "waitForReview": "Baho berish kutilmoqda",

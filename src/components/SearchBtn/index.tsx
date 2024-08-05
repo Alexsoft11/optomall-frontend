@@ -130,16 +130,26 @@ const SearchBtn = () => {
             ${startScrool ? styles.sticky_start : ""}
             `}
       >
-        <div className={styles.search_stick}>
-          <Form onFinish={handleSearch} form={form}>
-            <Input
-              type="text"
-              onKeyDown={handleKeyPress}
-              className={styles.search_input}
-              name={"search"}
-              prefix={<SvgSelector id="search-svg" />}
-            />
-          </Form>
+        <div className={styles.search_inner}>
+          <div className={styles.search_stick}>
+            <Form onFinish={handleSearch} form={form}>
+              <Input
+                type="text"
+                onKeyDown={handleKeyPress}
+                className={styles.search_input}
+                name={"search"}
+                prefix={<SvgSelector id="search-svg" />}
+              />
+            </Form>
+          </div>
+          
+          <Button
+            className="generalbtn"
+            shape="circle"
+            iconId="photo-svg"
+            iconPosition="left"
+            onClick={handleButtonClick}
+          />
         </div>
       </div>
 
