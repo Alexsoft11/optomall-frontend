@@ -41,9 +41,7 @@ export default function Cart({}: Props) {
     },
     onError(err){
       if (err.message === 'Unauthenticated.' && localStorage.getItem('basket-data')) {
-        const data : CartItemInterface[] = JSON.parse(localStorage.getItem('basket-data')!);
-        console.log(data);
-        
+        const data : CartItemInterface[] = JSON.parse(localStorage.getItem('basket-data')!);      
         setBasketData(data)
       }
     }
