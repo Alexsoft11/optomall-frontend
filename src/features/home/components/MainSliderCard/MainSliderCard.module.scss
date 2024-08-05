@@ -14,25 +14,23 @@
     border-radius: 20px;
 
     @media (max-width: 768px) {
-      min-height: 330px;
+      min-height: 300px;
     }
 
     @media (max-width: 660px) {
-      min-height: 280px;
+      min-height: auto;
     }
 
     @media (max-width: 500px) {
-      min-height: 240px;
       border-radius: 15px;
     }
 
     @media (max-width: 450px) {
-      min-height: 200px;
       border-radius: 10px;
     }
 
-    @media (max-width: 350px) {
-      min-height: 150px;
-    }
+    // @media (max-width: 350px) {
+    //   min-height: 150px;
+    // }
   }
 }
