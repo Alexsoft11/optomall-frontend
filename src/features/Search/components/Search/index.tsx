@@ -171,6 +171,7 @@ const Search = ({ data = [] }: Props) => {
               <LoadingSpinner size="large" />
             ) : (
               <Products
+                type="scroll"
                 data={products}
                 hasMore={hasMore}
                 handleGetProduct={handleGetProduct}

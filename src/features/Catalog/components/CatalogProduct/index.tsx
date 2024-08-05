@@ -29,7 +29,7 @@ const CatalogProduct = ({ data }: Props) => {
               </div>
             </div>
 
-            <Products data={data}/>
+            <Products type="simp" data={data}/>
           </div>
         </div>
       </div>
