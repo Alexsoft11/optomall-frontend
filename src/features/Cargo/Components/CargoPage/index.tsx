@@ -22,7 +22,7 @@ export default function OrderPage({ cargoData }: Props) {
         orderId={+id!}
         cargoCost={cargoData.kg_price}
         type="cargo"
-        cost={`${cargoData.total_price}`}
+        cost={cargoData.total_price}
       />
     </div>
   );

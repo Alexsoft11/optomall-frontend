@@ -11,6 +11,7 @@ import { message } from "antd";
 import { RcFile } from "antd/es/upload";
 import { Upload } from "antd/lib";
 import { useRouter } from "next/router";
+import { formatPrice } from "@/constants";
 
 interface Props {
   item: PurchasesOrderInterface;
@@ -129,7 +130,7 @@ export default function PurchasesItem({ item }: Props) {
         </div>
         <div className={styles.detail_item}>
           <h3>{t("orderCost")}</h3>
-          <p>{item.total_price} сум</p>
+          <p>{formatPrice(item.total_price)} сум</p>
         </div>
         <div className={styles.detail_item}>
           <h3>{t("address")}</h3>
@@ -144,7 +145,7 @@ export default function PurchasesItem({ item }: Props) {
         </div>
         <div className={styles.detail_item}>
           <h3>{t("cargo")}</h3>
-          <p>{item.cargo_price ? item.cargo_price + " " + t("currency") : t("calculated")}</p>
+          <p>{item.cargo_price ? formatPrice(item.cargo_price) + " " + t("currency") : t("calculated")}</p>
         </div>
       </div>
       <div

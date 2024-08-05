@@ -7,6 +7,7 @@ import { MinusSvg, PlusSvg } from "$/assets/images";
 import Image from "next/image";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useJwt } from "@/utils/useJwt";
+import { formatPrice } from "@/constants";
 
 interface Size {
   id: number;
@@ -116,7 +117,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
   const calculateTotalQuantities = () => {
     const totals: { [key: number]: number } = {};
     let totalQuantity = 0;
-  
+
     for (const colorId in selectedSizes) {
       if (selectedColors.includes(Number(colorId))) {
         const colorTotal = selectedSizes[colorId]?.reduce(
@@ -127,7 +128,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
         totalQuantity += colorTotal;
       }
     }
-  
+
     setTotalQuantities(totals);
   };
   const calculateTotalPrice = () => {
@@ -206,21 +207,24 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     let firstElement = product.colors[0]?.id;
     setSelectedSizes(initialSizeState);
     setSelectedColors([product.colors[0]?.id]);
-    setTotalQuantities({10:0});
+    setTotalQuantities({ 10: 0 });
     setSelectedColor(product.colors[0]?.id);
   };
 
   return (
     <div className={styles.product_order}>
       <div className={styles.priceSection}>
-        <span className={styles.currentPrice}>{product.price} uzs</span>
-        {product.discounted_price ? (
+        <span className={styles.currentPrice}>
+          {formatPrice(product.price)} uzs
+        </span>
+        {product.discounted_price &&
+        product.price !== product.discounted_price ? (
           <>
             <span className={styles.discount}>
               -{product.discount_percentage}%
             </span>
             <span className={styles.originalPrice}>
-              {product.discounted_price} uzs
+              {formatPrice(product.discounted_price)} uzs
             </span>
           </>
         ) : null}
@@ -233,7 +237,8 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
                 <span
                   className={`${
                     size.value === "default" ? styles.text_hidden : ""
-                  }`}>
+                  }`}
+                >
                   {size.value}
                 </span>
                 <div className={styles.change_value}>
@@ -241,8 +246,8 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
                     onClick={() =>
                       handleSizeChange(selectedColor, size.value, -1)
                     }
-                   >
-                    <Image src={MinusSvg} width={24} height={24} alt='#' />
+                  >
+                    <Image src={MinusSvg} width={24} height={24} alt="#" />
                   </Button>
                   <h4 className={styles.selected_quantity}>
                     {selectedSizes[selectedColor]?.find(
@@ -254,7 +259,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
                       handleSizeChange(selectedColor, size.value, 1)
                     }
                   >
-                    <Image src={PlusSvg} width={24} height={24} alt='#' />
+                    <Image src={PlusSvg} width={24} height={24} alt="#" />
                   </Button>
                 </div>
               </div>
@@ -265,13 +270,16 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
       <div className={styles.add_basket}>
         <div className={styles.total}>
           <p>Итого</p>
-          <span className={styles.total_quantity}>{totalPrice} uzs</span>
+          <span className={styles.total_quantity}>
+            {formatPrice(totalPrice)} uzs
+          </span>
         </div>
         <Button
           loading={loading}
           className={styles.addToCart}
           onClick={onFinish}
-          disabled={!isProductSelected()}>
+          disabled={!isProductSelected()}
+        >
           В корзину
         </Button>
       </div>

@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { CopySvg } from '$/assets/images';
 import { message } from 'antd';
+import { formatPrice } from '@/constants';
 
 interface Props {
     cost: number,
@@ -38,7 +39,7 @@ export default function OrderCheque({ cardId, cost, costPerKg }: Props) {
                 <p className={styles.pay_cost}>
                     {t("payCost")}
                     <span>
-                        <b> {cost} sum </b>
+                        <b> {formatPrice(cost)} sum </b>
                     </span>
                 </p>
                 <div className={styles.card_number}>
@@ -53,7 +54,7 @@ export default function OrderCheque({ cardId, cost, costPerKg }: Props) {
             <div className={styles.important_message}>
                 <h4>{t('importantTitle')}</h4>
                 <p>
-                    <b>{t("impotantMessage", { costPerKg: costPerKg })}</b>
+                    <b>{t("impotantMessage", { costPerKg: formatPrice(costPerKg) })}</b>
                 </p>
             </div>
         </div>

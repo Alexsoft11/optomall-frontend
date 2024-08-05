@@ -6,6 +6,7 @@ import { MinusSvg, PlusSvg } from "$/assets/images";
 import { Button } from "antd";
 import { Checkbox } from "@/ui";
 import { useTranslations } from "next-intl";
+import { formatPrice } from "@/constants";
 
 interface Props {
   item: CartItemInterface;
@@ -53,7 +54,7 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
         </div>
 
         <h3>
-          {item.price} {t("currency")}
+          {formatPrice(item.price)} {t("currency")}
         </h3>
       </div>
 
