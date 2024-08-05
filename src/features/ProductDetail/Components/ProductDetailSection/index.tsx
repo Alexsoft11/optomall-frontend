@@ -15,29 +15,29 @@ const ProductDetailSection = ({
   score,
   productComments,
 }: any) => {
-
   const [selectedImage, setSelectedImage] = useState(product?.image);
-  const t = useTranslations("Product-detail")
+  const t = useTranslations("Product-detail");
   useEffect(() => {
     setSelectedImage(product?.image);
   }, [product]);
-  
-  const items: TabsProps['items'] = [
+
+  const items: TabsProps["items"] = [
     {
-      key: '1',
+      key: "1",
       label: t(""),
-      children: <ProductDescription description={product.description}/>,
+      children: <ProductDescription description={product.description} />,
     },
     {
-      key: '2',
+      key: "2",
       label: t("comments"),
-      children:<Reviews comments={productComments}/>,
+      children: <Reviews comments={productComments} />,
     },
   ];
+
   return (
     <>
-      <div className='container'>
-        <div className='containers'>
+      <div className="container">
+        <div className="containers">
           <div className={styles.product}>
             <div className={styles.product__inner}>
               <ProductDetailImages
@@ -53,7 +53,7 @@ const ProductDetailSection = ({
             </div>
           </div>
           <div>
-          <Tabs defaultActiveKey="1" items={items}/>
+            <Tabs defaultActiveKey="1" items={items} />
           </div>
           <RecomendedProducts recomendedData={recommended} />
         </div>

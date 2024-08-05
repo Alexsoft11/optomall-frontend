@@ -11,6 +11,9 @@ let defaultObj = {
     Accept: "application/json,text/*;q=0.99",
     "Content-Type": "application/json",
   },
+  paramsSerializer: {
+    indexes: true,
+  },
 };
 
 export const axiosInstance = Axios.create(defaultObj);
@@ -75,21 +78,17 @@ export const API = {
       .get(`product-detail-from-taobao?productId=${query}`)
       .then((res) => res.data),
 
-  getProductDetailToken: (
-    query: any,
-    lang: string,
-    channel: string,
-    token?: string
-  ) =>
+  getProductDetailToken: (params: any, token?: string) =>
     axiosInstance
       .get(
         `product-detail-from-taobao${
           token && token !== "undefined" ? "-token" : ""
-        }?productId=${query}&lang=${lang}&provider=${channel}`,
+        }`,
         {
           headers: {
             Authorization: "Bearer " + token,
           },
+          params: params,
         }
       )
       .then((res) => res.data),

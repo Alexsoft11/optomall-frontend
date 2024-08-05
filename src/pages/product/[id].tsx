@@ -10,6 +10,7 @@ import dynamic from "next/dynamic";
 import cookie from "cookie";
 import DataNotFound from "@/ui/DataNotFound";
 import { IProductComments } from "@/features/ProductDetail/interface";
+import useQueryApiClient from "@/utils/useQueryApiClient";
 
 interface ProductDetailProps {
   product: any;
@@ -24,10 +25,22 @@ const ProductDetailSection = dynamic(
   }
 );
 
-const ProductDetail = ({ product, productComments }: ProductDetailProps) => {
+const ProductDetail = ({ product }: ProductDetailProps) => {
+  const { query } = useRouter();
+
+  const { data: productComments } = useQueryApiClient({
+    request: {
+      url: `get-comments?product_id=${query.id}`,
+      method: "GET",
+      disableOnMount: !query.id,
+    },
+    enabled: !!query.id,
+  });
+
   if (!product) {
     return <DataNotFound />;
   }
+
   const title = product?.detail.title;
 
   return (
@@ -44,26 +57,22 @@ const ProductDetail = ({ product, productComments }: ProductDetailProps) => {
 
 export const getServerSideProps = async (context: any) => {
   try {
-    const { id: productId } = context.params;
-    const lang = context.locale;
     const channel = context.query.channel || "taobao";
     const cookies = cookie.parse(context.req.headers.cookie || "");
     const token = decodeURIComponent(cookies.token);
-    const product = await API.getProductDetailToken(
-      productId,
-      lang,
-      channel,
-      token,
-    );
-    const productComments = await API.getProductComments(productId)
-      .then((res: any) => res.data)
-      .catch((error: any) => {
-        return null;
-      });
+    const params = {
+      productId: context.params.id,
+      lang: context.locale,
+      provider: channel,
+    };
+    const product = await API.getProductDetailToken(params, token);
+
+    // const productComments = await API.getProductComments(id);
+
     return {
       props: {
         product,
-        productComments: productComments,
+        productComments: [],
       },
     };
   } catch (error) {
