@@ -6,6 +6,7 @@ import { Tooltip } from "antd";
 import CustomImage from "../CustomImage";
 import LikedBtn from "../LikedBtn";
 import { useRouter } from "next/router";
+import { formatPrice } from "@/constants";
 
 interface CardProps {
   data: CardInterface;
@@ -72,7 +73,7 @@ const Card = ({ data, onLikeChange, channel = "taobao" }: CardProps) => {
 
         <div className={styles.card__price}>
           <p>
-            {data.price} {t("currency")}
+            {formatPrice(data.price)} {t("currency")}
           </p>
         </div>
       </div>

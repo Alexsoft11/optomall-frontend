@@ -3,6 +3,7 @@ import styles from './PurchasesOrderItem.module.scss';
 import { PurchasesItemInterface } from '../../interfaces';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { formatPrice } from '@/constants';
 
 interface Props {
     item: PurchasesItemInterface
@@ -24,7 +25,7 @@ export default function PurchasesOrderItem({ item }: Props) {
                     <p>{item.title}</p>
                 </div>
 
-                <h3>{item.price} {t('currency')}</h3>
+                <h3>{formatPrice(item.price)} {t('currency')}</h3>
             </div>
         </div>
     );

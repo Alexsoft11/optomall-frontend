@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useJwt } from "@/utils/useJwt";
 import { LoadingSpinner } from "@/ui/Spin";
+import PageNoItems from "@/components/PageNoItems";
 
 interface Props {
   data?: any;
@@ -167,15 +168,22 @@ const Search = ({ data = [] }: Props) => {
                 </div>
               </div>
             </div>
-            {isSearchResLoading && !scroolApi ? (
-              <LoadingSpinner size="large" />
+            
+            {!products.length ? (
+              <PageNoItems title={t("noItems")} />
             ) : (
-              <Products
-                type="scroll"
-                data={products}
-                hasMore={hasMore}
-                handleGetProduct={handleGetProduct}
-              />
+              <>
+                {isSearchResLoading && !scroolApi ? (
+                  <LoadingSpinner size="large" />
+                ) : (
+                  <Products
+                    type="scroll"
+                    data={products}
+                    hasMore={hasMore}
+                    handleGetProduct={handleGetProduct}
+                  />
+                )}
+              </>
             )}
           </div>
         </div>

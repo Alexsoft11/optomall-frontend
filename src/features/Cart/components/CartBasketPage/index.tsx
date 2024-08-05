@@ -18,6 +18,7 @@ import { LocationInfoInterface } from "@/components/Types";
 import "animate.css";
 import PageNoItems from "@/components/PageNoItems";
 import { useTranslations } from "next-intl";
+import { formatPrice } from "@/constants";
 
 interface Props {
   data: CartItemInterface[];
@@ -208,7 +209,7 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
               setDataFailed={setDataFailed}
               isCart={true}
               createOrderData={createOrderData}
-              cost={`${totalPrice} uzs`}
+              cost={totalPrice}
             />
             <div className={styles.order_info}>
               <div

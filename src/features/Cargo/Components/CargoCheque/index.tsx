@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { CopySvg } from "$/assets/images";
 import { message } from "antd";
+import { formatPrice } from "@/constants";
 
 interface Props {
   cost: number;
@@ -35,7 +36,7 @@ export default function CargoCheque({ cardId, cost }: Props) {
         {t("Cargo.payCost")}
         <span>
           <b>
-            {cost} {t("GLOBAL.currency")}{" "}
+            {formatPrice(cost)} {t("GLOBAL.currency")}{" "}
           </b>
         </span>
       </p>

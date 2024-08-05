@@ -9,9 +9,10 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import { message, Upload } from "antd";
 import Cookies from "universal-cookie";
 import { RcFile } from "antd/es/upload";
+import { formatPrice } from "@/constants";
 
 interface Props {
-  cost: string;
+  cost: number;
   itemValue?: number;
   orderId?: number;
   cargoCost?: string;
@@ -19,7 +20,9 @@ interface Props {
   isCart?: boolean;
   uploadUrl?: string;
   type?: string;
-  setDataFailed?: React.Dispatch<React.SetStateAction<"personal" | "location" | null>>
+  setDataFailed?: React.Dispatch<
+    React.SetStateAction<"personal" | "location" | null>
+  >;
 }
 
 export default function CartOrderBlock({
@@ -30,7 +33,7 @@ export default function CartOrderBlock({
   type,
   isCart = false,
   cargoCost,
-  setDataFailed
+  setDataFailed,
 }: Props) {
   const t = useTranslations("");
   const [checkModalIsOpen, setCheckModalIsOpen] = useState(false);
@@ -44,14 +47,15 @@ export default function CartOrderBlock({
   >("idle");
   const cookie = new Cookies();
 
-  const buttonClass = `${styles["loading-btn"]} ${buttonStatus === "pending"
-    ? styles["loading-btn--pending"]
-    : buttonStatus === "success"
+  const buttonClass = `${styles["loading-btn"]} ${
+    buttonStatus === "pending"
+      ? styles["loading-btn--pending"]
+      : buttonStatus === "success"
       ? styles["loading-btn--success"]
       : buttonStatus === "fail"
-        ? styles["loading-btn--fail"]
-        : ""
-    }`;
+      ? styles["loading-btn--fail"]
+      : ""
+  }`;
 
   const checkModalClose = () => {
     router.push("/purchases?filter=in_verification");
@@ -153,11 +157,11 @@ export default function CartOrderBlock({
     if (createOrderData && setDataFailed) {
       const userData = createOrderData.userData;
       if (!createOrderData.location.addressText) {
-        setDataFailed('location')
+        setDataFailed("location");
         return message.error(t(`Cart.locationRequired`), 3);
       }
       if (!userData || !userData.name || !userData.phone) {
-        setDataFailed("personal")
+        setDataFailed("personal");
         return message.error(t(`Cart.userDataRequired`), 3);
       }
     }
@@ -179,13 +183,13 @@ export default function CartOrderBlock({
           <div className={styles.cargo_title}>
             <p>{t("Cart.cargo")}</p>
             <p>
-              {cargoCost} {t("GLOBAL.currency")} {t("Cart.forKg")}
+              {formatPrice(cargoCost)} {t("GLOBAL.currency")} {t("Cart.forKg")}
             </p>
           </div>
         ) : null}
         <div>
           <h1>{t("Cart.total")}:</h1>
-          <p>{cost}</p>
+          <p>{formatPrice(cost)} uzs</p>
         </div>
       </div>
       {orderId ? (

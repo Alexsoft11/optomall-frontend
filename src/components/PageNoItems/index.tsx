@@ -7,8 +7,8 @@ import Image from "next/image";
 import { BasketSvg } from "$/assets/images";
 
 interface Props {
-    title?: string;
-    text?: string;
+  title?: string;
+  text?: string;
 }
 
 const PageNoItems = ({text, title}: Props) => {
@@ -25,15 +25,20 @@ const PageNoItems = ({text, title}: Props) => {
         alt="#"
       />
       <h1>{title}</h1>
-      <div className={styles.button_block}>
-        <Button
-          onClick={() => router.push("/")}
-          type="primary"
-          htmlType="submit"
-          className="generalbtn"
-          label={text}
-        />
-      </div>
+      
+      {
+        text ? (
+          <div className={styles.button_block}>
+            <Button
+              onClick={() => router.push("/")}
+              type="primary"
+              htmlType="submit"
+              className="generalbtn"
+              label={text}
+            />
+          </div>
+        ) : null
+      }
     </div>
   );
 };
