@@ -169,7 +169,8 @@
     "pay": "To'lash",
     "send_check_again": "Chek tasdiqlanmadi",
     "upload": "Yana yuklash",
-    "orderId": "Buyurtma ID:"
+    "orderId": "Buyurtma ID:",
+    "uploadAgain": "Yetkazib berish uchun to'lov kutilmoqda"
   },
   "Search": {
     "platform": "Platforma",

@@ -20,7 +20,6 @@ export interface PurchasesOrderInterface {
   country: string;
   location_url: string;
   location_name: string;
-  substatus: LanguageStringIntergace;
   isPaid: boolean;
   substatus_color: string;
   kg: string | null;

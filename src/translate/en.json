@@ -169,7 +169,8 @@
     "pay": "Pay",
     "send_check_again": "Check did not pass verification",
     "upload": "Upload more",
-    "orderId": "Order ID:"
+    "orderId": "Order ID:",
+    "uploadAgain": "Payment for delivery is pending"
   },
   "Search": {
     "platform": "Platform",
