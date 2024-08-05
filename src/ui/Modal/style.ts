@@ -288,6 +288,14 @@ export const StyledModal = styled(AntdModal)`
     .ant-modal-content {
       width: 550px;
 
+      @media (max-width:700px) {
+        width: 300px;
+      }
+
+      @media (max-width:350px) {
+        width: 250px;
+      }
+
     }
   }
 `;
