@@ -6,7 +6,6 @@ const nextConfig = {
     defaultLocale: "ru",
   },
   images: {
-    unoptimized: false,
     remotePatterns: [
       {
         protocol: "https",

@@ -35,20 +35,22 @@ export interface CatalogCategoriesInterface {
     title: string;
 }
 
-export interface CategoryCatalogInterface {
-  id: string;
-  name: string;
-  image: string;
-  is_active: string;
-}
-
-export interface SubCategoryInterface {
-    id: string;
+export interface SubcategoryItem {
     name: string;
-    provider: string;
-    externaId: string;
-    parentId: string;
-}
+    slug: string;
+  }
+  
+ export interface Subcategory {
+    name: string;
+    slug: string;
+    items: SubcategoryItem[];
+  }
+  
+ export interface CategoryInterface {
+    name: string;
+    slug: string;
+    subcategories: Subcategory[];
+  }
 
 export interface SlidersDataInterface {
     id: number;

@@ -1,12 +1,17 @@
 import React from "react";
-import styles from "./CartBasketNoItems.module.scss";
+import styles from "./PageNoItems.module.scss";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { Button } from "@/ui";
 import Image from "next/image";
 import { BasketSvg } from "$/assets/images";
 
-const CartBasketNoItems = () => {
+interface Props {
+    title?: string;
+    text?: string;
+}
+
+const PageNoItems = ({text, title}: Props) => {
   const t = useTranslations("Cart");
   const router = useRouter();
 
@@ -19,17 +24,17 @@ const CartBasketNoItems = () => {
         height={58}
         alt="#"
       />
-      <h1>{t("basketNoItems")}</h1>
+      <h1>{title}</h1>
       <div className={styles.button_block}>
         <Button
           onClick={() => router.push("/")}
           type="primary"
           htmlType="submit"
           className="generalbtn"
-          label={t("goToBuy")}
+          label={text}
         />
       </div>
     </div>
   );
 };
-export default CartBasketNoItems;
+export default PageNoItems;

@@ -6,16 +6,34 @@ import ProductDetailImages from "../ProductDetailImages";
 import ProductDetailInfo from "../ProductDetailInfo";
 import Reviews from "../Reviews";
 import RecomendedProducts from "../RecomendedProducts";
+import { Tabs, TabsProps } from "antd";
+import ProductDescription from "../ProductDescription";
+import { useTranslations } from "next-intl";
 const ProductDetailSection = ({
   product,
   recommended,
   score,
   productComments,
 }: any) => {
+
   const [selectedImage, setSelectedImage] = useState(product?.image);
+  const t = useTranslations("Product-detail")
   useEffect(() => {
     setSelectedImage(product?.image);
   }, [product]);
+  
+  const items: TabsProps['items'] = [
+    {
+      key: '1',
+      label: t(""),
+      children: <ProductDescription description={product.description}/>,
+    },
+    {
+      key: '2',
+      label: t("comments"),
+      children:<Reviews comments={productComments}/>,
+    },
+  ];
   return (
     <>
       <div className='container'>
@@ -34,7 +52,9 @@ const ProductDetailSection = ({
               />
             </div>
           </div>
-          <Reviews comments={productComments} />
+          <div>
+          <Tabs defaultActiveKey="1" items={items}/>
+          </div>
           <RecomendedProducts recomendedData={recommended} />
         </div>
       </div>

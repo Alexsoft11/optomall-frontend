@@ -19,7 +19,13 @@ export const API = {
   // HomePage
   getHomePageSlider: () => axiosInstance.get("sliders"),
 
-  getHomePageProducts: () => axiosInstance.get("products?query=Discount"),
+  getHomePageProducts: (lang: any, token?: string) =>
+    axiosInstance.get(
+      `products?query=discount&productsCount=20&page=2&lang=${lang}`,
+      {
+        headers: token ? { Authorization: "Bearer " + token } : {},
+      }
+    ),
 
   getHomePageCategoryProducts: (limit: number) =>
     axiosInstance.get(`additional-categories?limit=${limit}`),
@@ -27,7 +33,8 @@ export const API = {
   getHomePageCategoryProductsToken: (limit: number, token?: string) =>
     axiosInstance
       .get(
-        `additional-categories${token && token !== "undefined" ? "-token" : ""
+        `additional-categories${
+          token && token !== "undefined" ? "-token" : ""
         }?limit=${limit}`,
         {
           headers: {
@@ -37,7 +44,7 @@ export const API = {
       )
       .then((res) => res),
 
-  //MessagesPage 
+  //MessagesPage
   getMessages: (token: string) =>
     axiosInstance
       .get(`/user/messages`, {
@@ -48,19 +55,37 @@ export const API = {
       .then((res) => res.data),
 
   // SearchPage
-  getSearchPageProducts: (query: any) =>
-    axiosInstance.get(`search-products-from-taobao?searchQuery=${query}`),
+  getSearchPageProducts: (query: any, token?: string) =>
+    axiosInstance.get(
+      `search-products-from-taobao${
+        token && token !== "undefined" ? "-token" : ""
+      }?searchQuery=${query.query.query}&provider=${
+        query.query.channel
+      }&startPrice=${query.query.startPrice}&endPrice=${
+        query.query.endPrice
+      }&lang=${query.locale}&page=1`,
+      {
+        headers: token ? { Authorization: "Bearer " + token } : {},
+      }
+    ),
 
+  //  ProductDetail
   getProductDetail: (query: any) =>
     axiosInstance
       .get(`product-detail-from-taobao?productId=${query}`)
       .then((res) => res.data),
 
-  getProductDetailToken: (query: any, lang: string, token?: string) =>
+  getProductDetailToken: (
+    query: any,
+    lang: string,
+    channel: string,
+    token?: string
+  ) =>
     axiosInstance
       .get(
-        `product-detail-from-taobao${token && token !== "undefined" ? "-token" : ""
-        }?productId=${query}&lang=${lang}`,
+        `product-detail-from-taobao${
+          token && token !== "undefined" ? "-token" : ""
+        }?productId=${query}&lang=${lang}&provider=${channel}`,
         {
           headers: {
             Authorization: "Bearer " + token,

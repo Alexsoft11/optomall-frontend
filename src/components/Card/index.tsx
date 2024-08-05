@@ -6,7 +6,6 @@ import { Tooltip } from "antd";
 import CustomImage from "../CustomImage";
 import LikedBtn from "../LikedBtn";
 import { useRouter } from "next/router";
-import { useJwt } from "@/utils/useJwt";
 
 interface CardProps {
   data: CardInterface;
@@ -29,7 +28,7 @@ const Card = ({ data, onLikeChange }: CardProps) => {
 
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    router.push(`/product/${data.id}`);
+    router.push(`/product/${data.id}&channel=taobao`);
   };
 
   const getTitle = (

@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import TabPane from "antd/es/tabs/TabPane";
 import NavigationCard from "../NavigationCard";
-import { Tooltip, message } from "antd";
+import { Tooltip } from "antd";
 import { CustomTabs } from "@/ui/Tabs";
 import useQueryApiClient from "@/utils/useQueryApiClient";
-import { CategoryCatalogInterface, SubCategoryInterface } from "@/interfaces";
+import { CategoryInterface } from "@/interfaces";
 import styles from "./CatalogTab.module.scss";
+import { useRouter } from "next/router";
 
 interface Props {
   openModal: any;
@@ -13,15 +14,13 @@ interface Props {
 }
 
 const CatalogTab = ({ openModal, setOpenModal }: Props) => {
-  const [CatalogTabsData, setCatalogTabsData] = useState<
-    CategoryCatalogInterface[]
-  >([]);
-  const [subCategoryData, setSubCategoryData] = useState<
-    SubCategoryInterface[]
-  >([]);
-  const [activeTab, setActiveTab] = useState("1");
+  const [CatalogTabsData, setCatalogTabsData] = useState<CategoryInterface[]>(
+    []
+  );
+  const [activeTab, setActiveTab] = useState("0");
   const textRefs = useRef<(HTMLParagraphElement | null)[]>([]);
   const [overflowStates, setOverflowStates] = useState<boolean[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     const newOverflowStates = CatalogTabsData.map((_, index) => {
@@ -34,7 +33,7 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
   }, [CatalogTabsData]);
 
   const truncateText = (text: any, maxLength: any) => {
-    if (!text) return
+    if (!text) return;
     if (text.length <= maxLength) {
       return text;
     } else {
@@ -44,30 +43,21 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
 
   const { appendData: getCategoryData } = useQueryApiClient({
     request: {
-      url: "categories-from-taobao",
+      url: `categories-from-taobao?lang=${router.locale}`,
       method: "GET",
     },
     onSuccess(res) {
       setCatalogTabsData(res.categories);
-      getSubCategoryData(null, { key: res?.categories[0]?.id });
     },
   });
 
-  const { appendData: getSubCategoryData, isLoading: isSubCategoryLoading } =
-    useQueryApiClient({
-      request: {
-        url: `sub-categories-from-taobao?categoryId=:key`,
-        method: "GET",
-        disableOnMount: true,
-      },
-      onSuccess(res) {
-        setSubCategoryData(res);
-      },
-    });
+  useEffect(() => {
+    getCategoryData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.locale]);
 
   const handleTabChange = (key: any) => {
     setActiveTab(key);
-    getSubCategoryData(null, { key });
   };
 
   return (
@@ -85,7 +75,7 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
         >
           {CatalogTabsData.map((tab, idx) => (
             <TabPane
-              key={tab.id}
+              key={idx}
               tab={
                 <Tooltip
                   overlayClassName="tooltip-white"
@@ -104,8 +94,8 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
               className={styles.navigation__item}
             >
               <NavigationCard
-                isSubCategoryLoading={isSubCategoryLoading}
-                data={subCategoryData}
+                // isSubCategoryLoading={isSubCategoryLoading}
+                data={tab?.subcategories}
                 setOpenModal={setOpenModal}
               />
             </TabPane>

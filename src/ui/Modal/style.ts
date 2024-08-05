@@ -283,4 +283,11 @@ export const StyledModal = styled(AntdModal)`
       background: var(--light-white);
     }
   }
+
+  &.upload_modal {
+    .ant-modal-content {
+      width: 550px;
+
+    }
+  }
 `;
