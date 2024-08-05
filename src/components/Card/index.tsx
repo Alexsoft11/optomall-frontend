@@ -10,15 +10,16 @@ import { useRouter } from "next/router";
 interface CardProps {
   data: CardInterface;
   onLikeChange?: (cardId: number) => void;
+  channel?: string;
 }
 
-const Card = ({ data, onLikeChange }: CardProps) => {
+const Card = ({ data, onLikeChange, channel = "taobao" }: CardProps) => {
   const t = useTranslations("GLOBAL");
   const textRef = useRef<any>(null);
   const [isOverflowed, setIsOverflowed] = useState(false);
   const router = useRouter();
   const locale = useLocale();
-  
+
   useEffect(() => {
     const { current } = textRef;
     if (current) {
@@ -28,7 +29,9 @@ const Card = ({ data, onLikeChange }: CardProps) => {
 
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    router.push(`/product/${data.id}?channel=${router.query.channel}`);
+    router.push(
+      `/product/${data.id}?channel=${router.query.channel || channel}`
+    );
   };
 
   const getTitle = (
@@ -41,7 +44,7 @@ const Card = ({ data, onLikeChange }: CardProps) => {
   };
 
   const title = getTitle(data.title);
-  
+
   return (
     <div className={styles.card}>
       <div onClick={handleLinkClick}>
