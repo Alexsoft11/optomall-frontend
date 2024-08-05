@@ -156,25 +156,8 @@ export default function PurchasesItem({ item }: Props) {
         <SvgSelector className={"breadcrumb_icon"} id={"chevron-svg"} />
       </div>
       <div className={styles.order_items}>
-        {item.substatus_slug === "payment-for-delivery-is-pending" ? (
-          <div className={styles.sub_status_slug}>
-            <h4>{item.substatus[locale as keyof LanguageStringIntergace]}</h4>
-            <button onClick={() => router.push(`cargo/${item.id}`)}>
-              {t("pay")}
-            </button>
-          </div>
-        ) : null}
 
-        {item.substatus_slug === "payment-for-the-order-is-pending" ? (
-          <div className={styles.sub_status_slug}>
-            <h4>{item.substatus[locale as keyof LanguageStringIntergace]}</h4>
-            <button onClick={() => router.push(`order/${item.id}`)}>
-              {t("pay")}
-            </button>
-          </div>
-        ) : null}
-
-        {item.substatus_slug === "send_check_again" ? (
+        {item.isPaid ? (
           <div className={styles.sub_status_slug}>
             <h4>{item.substatus[locale as keyof LanguageStringIntergace]}</h4>
             <Upload {...uploadProps}>
@@ -182,6 +165,7 @@ export default function PurchasesItem({ item }: Props) {
             </Upload>
           </div>
         ) : null}
+
         {item.items.map((el) => (
           <Fragment key={el.id}>
             <PurchasesOrderItem item={el} />
