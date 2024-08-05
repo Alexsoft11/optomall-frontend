@@ -82,12 +82,10 @@ const SearchBtn = () => {
       responseType: "json",
     },
     onSuccess(res) {
-      console.log('++')
       handleCancel()
       router.push(`/search?lang=${router.locale}&channel=${router.query.channel || "1688"}&imageUrl=${res.url}`);
     },
     onError(err) {
-      console.log('dede');
       handleCancel()
     }
   });
@@ -119,10 +117,7 @@ const SearchBtn = () => {
     onChange(info: any) {
       setFileList(info.fileList);
       if (info.file.status === 'done') {
-        console.log(`${info.file.name} file uploaded successfully`);
         setFileList([]);
-      } else if (info.file.status === 'error') {
-        console.log(`${info.file.name} file upload failed.`);
       }
     },
     fileList,

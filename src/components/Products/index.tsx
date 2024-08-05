@@ -49,7 +49,7 @@ const Products = ({ data, handleGetProduct, hasMore = false, type }: Props) => {
         </InfiniteScroll>
       </div>
     ) : (
-      <div className={styles.products}>
+      <div className={styles.product_list}>
         {
           data.map((item, idx) => (
             <Card key={idx} data={item}/>
