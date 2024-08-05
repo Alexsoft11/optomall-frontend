@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { Button, Input, Modal } from "@/ui";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import { Form } from "antd";
-import { Upload } from 'antd';
+import { Upload } from "antd";
 import { UploadProps } from "antd/lib";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 
@@ -50,8 +50,8 @@ const SearchBtn = () => {
     } else {
       form.resetFields();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query, router.locale]);
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -69,7 +69,7 @@ const SearchBtn = () => {
       setScrolled(false);
     }
   };
-  
+
   useEffect(() => {
     if (window.innerWidth <= 850) {
       window.addEventListener("scroll", handleScroll);
@@ -85,23 +85,23 @@ const SearchBtn = () => {
   };
 
   const uploadProps: UploadProps = {
-    name: 'file',
+    name: "file",
     multiple: true,
-    action: '/upload', // Replace with your upload URL
+    action: "/upload", // Replace with your upload URL
     onChange(info: any) {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === 'done') {
-        console.log(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === 'error') {
-        console.log(`${info.file.name} file upload failed.`);
-      }
+      // if (info.file.status !== "uploading") {
+      //   console.log(info.file, info.fileList);
+      // }
+      // if (info.file.status === "done") {
+      //   console.log(`${info.file.name} file uploaded successfully`);
+      // } else if (info.file.status === "error") {
+      //   console.log(`${info.file.name} file upload failed.`);
+      // }
     },
   };
 
   const handleUploadButtonClick = () => {
-    document.getElementById('upload-input')?.click();
+    document.getElementById("upload-input")?.click();
   };
 
   return (
@@ -124,7 +124,6 @@ const SearchBtn = () => {
         </div>
       </div>
 
-
       <div className={styles.search_inner}>
         <div className={styles.search}>
           <Form onFinish={handleSearch} form={form}>
@@ -139,10 +138,10 @@ const SearchBtn = () => {
         </div>
 
         <Button
-          className='generalbtn'
-          shape='circle'
-          iconId='photo-svg'
-          iconPosition='left'
+          className="generalbtn"
+          shape="circle"
+          iconId="photo-svg"
+          iconPosition="left"
           onClick={handleButtonClick}
         />
 
@@ -155,12 +154,14 @@ const SearchBtn = () => {
         >
           <Dragger {...uploadProps} id="upload-input">
             <p className="ant-upload-drag-icon">
-              <SvgSelector id="upload-svg"/>
+              <SvgSelector id="upload-svg" />
             </p>
-            <p className="ant-upload-text">Click or drag file to this area to upload</p>
+            <p className="ant-upload-text">
+              Click or drag file to this area to upload
+            </p>
             <p className="ant-upload-hint">
-              Support for a single or bulk upload. Strictly prohibited from uploading company data or other
-              banned files.
+              Support for a single or bulk upload. Strictly prohibited from
+              uploading company data or other banned files.
             </p>
           </Dragger>
           <div className={styles.uploadbtn}>
@@ -171,7 +172,6 @@ const SearchBtn = () => {
             />
           </div>
         </Modal>
-
       </div>
     </>
   );

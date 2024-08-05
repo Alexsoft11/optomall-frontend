@@ -67,24 +67,23 @@ const Search = ({ data = [] }: Props) => {
     if (router.query) {
       getSearchRes({
         ...router.query,
-        searchQuery: router.query.value,
+        provider: router.query.channel,
         lang: router.locale,
+        channel: null,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query]);
+  }, [router.query, router.locale]);
 
   const handleGetProduct = (query?: any) => {
     setScroolApi(true);
     getSearchRes({
       ...router.query,
       ...query,
-      searchQuery: router.query.value,
+      provider: router.query.provider,
       lang: router.locale,
     });
   };
-
-
 
   const { appendData: getSearchRes, isLoading: isSearchResLoading } =
     useQueryApiClient({

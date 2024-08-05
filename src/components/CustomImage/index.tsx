@@ -33,11 +33,9 @@ const CustomImage: FC<IProps> = ({
   const [isLoad, setIsLoad] = useState(true);
 
   useEffect(() => {
-    console.log("Image source:", src);
   }, [src]);
 
   const handleImageLoad = () => {
-    console.log("Image loaded");
     setIsLoad(false);
   };
 
