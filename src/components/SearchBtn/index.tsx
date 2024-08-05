@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Search.module.scss";
 import { useRouter } from "next/router";
 import { Button, Input, Modal } from "@/ui";
@@ -7,6 +7,7 @@ import { Form } from "antd";
 import { Upload } from "antd";
 import { UploadProps } from "antd/lib";
 import useQueryApiClient from "@/utils/useQueryApiClient";
+import { json } from "stream/consumers";
 
 const { Dragger } = Upload;
 
@@ -17,6 +18,8 @@ const SearchBtn = () => {
   const [startScrool, setStartScrool] = useState(false);
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [postData, setPostData] = useState();
+  const draggerRef = useRef<any>(null);
 
   const handleSearch = (values: any) => {
     if (values.search) {
@@ -70,6 +73,23 @@ const SearchBtn = () => {
     }
   };
 
+  const { appendData: postUploadData } = useQueryApiClient({
+    request: {
+      url: "image-search",
+      method: "POST",
+      multipart: true,
+      responseType: "json",
+    },
+    onSuccess(res) {
+      setPostData(res.url);
+      router.push(
+        `/search?imageUrl=${res.url}&lang=${router.locale}&channel=${
+          router.query.channel || "taobao"
+        }`
+      );
+    },
+  });
+
   useEffect(() => {
     if (window.innerWidth <= 850) {
       window.addEventListener("scroll", handleScroll);
@@ -87,21 +107,28 @@ const SearchBtn = () => {
   const uploadProps: UploadProps = {
     name: "file",
     multiple: true,
-    action: "/upload", // Replace with your upload URL
+    customRequest({ file, onSuccess, onError }) {
+      const formData = new FormData();
+      formData.append("image", file);
+
+      postUploadData(formData);
+      if (draggerRef.current) {
+        draggerRef.current.reset();
+      }
+    },
     onChange(info: any) {
-      // if (info.file.status !== "uploading") {
+      // if (info.file.status !== 'uploading') {
       //   console.log(info.file, info.fileList);
       // }
-      // if (info.file.status === "done") {
+      // if (info.file.status === 'done') {
       //   console.log(`${info.file.name} file uploaded successfully`);
-      // } else if (info.file.status === "error") {
+      //   if (draggerRef.current) {
+      //     draggerRef.current.reset();
+      //   }
+      // } else if (info.file.status === 'error') {
       //   console.log(`${info.file.name} file upload failed.`);
       // }
     },
-  };
-
-  const handleUploadButtonClick = () => {
-    document.getElementById("upload-input")?.click();
   };
 
   return (
@@ -159,18 +186,7 @@ const SearchBtn = () => {
             <p className="ant-upload-text">
               Click or drag file to this area to upload
             </p>
-            <p className="ant-upload-hint">
-              Support for a single or bulk upload. Strictly prohibited from
-              uploading company data or other banned files.
-            </p>
           </Dragger>
-          <div className={styles.uploadbtn}>
-            <Button
-              className="generalbtn"
-              label="upload"
-              onClick={handleUploadButtonClick}
-            />
-          </div>
         </Modal>
       </div>
     </>
