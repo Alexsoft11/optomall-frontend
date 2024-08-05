@@ -28,7 +28,7 @@ const Card = ({ data, onLikeChange }: CardProps) => {
 
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    router.push(`/product/${data.id}&channel=taobao`);
+    router.push(`/product/${data.id}?channel=${router.query.channel}`);
   };
 
   const getTitle = (

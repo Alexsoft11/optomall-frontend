@@ -15,20 +15,23 @@ interface IProps {
   comments: IProductComments[];
 }
 const Reviews: FC<IProps> = ({ comments }) => {
-  const t = useTranslations("Product-detail")
+  const t = useTranslations("Product-detail");
+
   return (
     <>
-      {comments ? (
+      {!!comments.length ? (
         <div className={styles.reviews}>
           <h3 className={styles.title}>Отзывы</h3>
           <div className={styles.navigators}>
             <button
-              className={`prev_btn_reviews ${styles.prev_btn} ${styles.swiper_btns}`}>
-              <SvgSelector id='prev-svg' />
+              className={`prev_btn_reviews ${styles.prev_btn} ${styles.swiper_btns}`}
+            >
+              <SvgSelector id="prev-svg" />
             </button>
             <button
-              className={`next_btn_reviews ${styles.next_btn} ${styles.swiper_btns}`}>
-              <SvgSelector id='next-svg' />
+              className={`next_btn_reviews ${styles.next_btn} ${styles.swiper_btns}`}
+            >
+              <SvgSelector id="next-svg" />
             </button>
           </div>
 
@@ -52,7 +55,8 @@ const Reviews: FC<IProps> = ({ comments }) => {
               },
             }}
             pagination={{ clickable: true }}
-            modules={[Navigation]}>
+            modules={[Navigation]}
+          >
             {comments?.map((review: IProductComments, index: number) => (
               <SwiperSlide key={index} className={styles.stars}>
                 <div className={styles.review_card}>
@@ -77,11 +81,11 @@ const Reviews: FC<IProps> = ({ comments }) => {
             ))}
           </Swiper>
         </div>
-      ) : 
-      <div className={styles.comments_notfound}>
-        <p>{t("comments-not")}</p>
-      </div>
-      }
+      ) : (
+        <div className={styles.comments_notfound}>
+          <p>{t("comments-not")}</p>
+        </div>
+      )}
     </>
   );
 };
