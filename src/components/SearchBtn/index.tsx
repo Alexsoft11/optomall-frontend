@@ -18,8 +18,9 @@ const SearchBtn = () => {
   const [startScrool, setStartScrool] = useState(false);
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [postData, setPostData] = useState();
+  // const [postData, setPostData] = useState();
   const draggerRef = useRef<any>(null);
+  const [fileList, setFileList] = useState([]);
 
   const handleSearch = (values: any) => {
     if (values.search) {
@@ -81,13 +82,12 @@ const SearchBtn = () => {
       responseType: "json",
     },
     onSuccess(res) {
-      setPostData(res.url);
-      router.push(
-        `/search?imageUrl=${res.url}&lang=${router.locale}&channel=${
-          router.query.channel || "taobao"
-        }`
-      );
+      handleCancel()
+      router.push(`/search?lang=${router.locale}&channel=${router.query.channel || "1688"}&imageUrl=${res.url}`);
     },
+    onError(err) {
+      handleCancel()
+    }
   });
 
   useEffect(() => {
@@ -102,6 +102,7 @@ const SearchBtn = () => {
 
   const handleCancel = () => {
     setIsModalVisible(false);
+    setFileList([]);
   };
 
   const uploadProps: UploadProps = {
@@ -112,23 +113,14 @@ const SearchBtn = () => {
       formData.append("image", file);
 
       postUploadData(formData);
-      if (draggerRef.current) {
-        draggerRef.current.reset();
-      }
     },
     onChange(info: any) {
-      // if (info.file.status !== 'uploading') {
-      //   console.log(info.file, info.fileList);
-      // }
-      // if (info.file.status === 'done') {
-      //   console.log(`${info.file.name} file uploaded successfully`);
-      //   if (draggerRef.current) {
-      //     draggerRef.current.reset();
-      //   }
-      // } else if (info.file.status === 'error') {
-      //   console.log(`${info.file.name} file upload failed.`);
-      // }
+      setFileList(info.fileList);
+      if (info.file.status === 'done') {
+        setFileList([]);
+      }
     },
+    fileList,
   };
 
   return (
@@ -179,7 +171,7 @@ const SearchBtn = () => {
           className="upload_modal"
           footer={null}
         >
-          <Dragger {...uploadProps} id="upload-input">
+          <Dragger {...uploadProps} id="upload-input" className="antd-search-upload">
             <p className="ant-upload-drag-icon">
               <SvgSelector id="upload-svg" />
             </p>
