@@ -1,9 +1,9 @@
 .main {
     display: grid;
     grid-template-areas:
-        ". . checkbox"
+        "checkbox checkbox checkbox"
         "img text text"
-        "img . change_value";
+        "img color change_value";
     grid-template-columns: 98px minmax(100px, auto) 130px;
     column-gap: 20px;
     justify-self: end;
@@ -19,6 +19,37 @@
             border-radius: 10px;
         }
     }
+
+    .color_block {
+        max-width: 280px;
+        padding: 5px 0px 0px 0px;
+        grid-area: color;
+        display: flex;
+        width: 90%;
+        color: var(--silver-grey);
+        align-items: center;
+        gap: 5px;
+        height: 20px;
+        overflow: hidden;
+
+        p {
+            max-width: 140px;
+            height: 16.94px;
+            font-weight: 400;
+            line-height: 16.94px;
+            position: relative;
+
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+
+            word-break: break-all;
+            text-overflow: ellipsis;
+
+        }
+    }
+
 
     .item_text {
         grid-area: text;
@@ -36,6 +67,7 @@
             }
         }
 
+
         .item_info {
             max-width: 50%;
             height: 100%;
@@ -44,30 +76,21 @@
             gap: 5px;
 
             p {
-                max-height: 50px;
                 font-size: var(--heading-seven);
                 font-weight: 400;
                 line-height: 19.36px;
 
-                overflow: hidden;
-                text-overflow: ellipsis;
                 display: -webkit-box;
-                -webkit-line-clamp: 2;
-                /* Number of lines to show */
                 -webkit-box-orient: vertical;
-                white-space: normal;
-                word-wrap: break-word;
-                /* Allows text to wrap within the fixed width */
+                -webkit-line-clamp: 3;
+                overflow: hidden;
+
+                word-break: break-all;
+                text-overflow: ellipsis;
+
+
             }
 
-
-
-            span {
-                color: var(--silver-grey);
-                font-weight: 400;
-                line-height: 16.94px;
-
-            }
         }
     }
 
@@ -145,16 +168,16 @@
 
                 p {
                     -webkit-line-clamp: 3;
-                    max-height: 100%;
+                    text-overflow: ellipsis;
                     font-size: var(--paragraph);
                     font-weight: 400;
                     line-height: 16.94px;
                 }
-
-                span {
-                    display: none;
-                }
             }
+        }
+
+        .color_block {
+            display: none;
         }
 
         .change_value {

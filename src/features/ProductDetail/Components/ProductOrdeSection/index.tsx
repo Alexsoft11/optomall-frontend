@@ -186,7 +186,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
       if (user) {
         createData([data]);
       } else {
-        const newBasketData = (JSON.parse(localStorage.getItem("basket-data") as string) || [])
+        const newBasketData = (JSON.parse(localStorage.getItem("basket-data") as string) || []).concat(localeData)
         
         localStorage.setItem("basket-data", JSON.stringify(newBasketData));
         message.success("Added to Basket");
