@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import styles from './LocationBlock.module.scss';
 import { useTranslations } from 'next-intl';
-import ChooseLocation from '@/components/ChooseLocation';
 import { LocationInfoInterface } from '../Types';
-import { Input } from '@/ui';
+import { Select } from '@/ui';
 import { Form } from 'antd';
+import { regionProvinces, regions } from '@/constants/location';
+import { Option } from 'antd/es/mentions';
+import { RegionProvincesInterface } from '@/interfaces';
 
 interface Props {
     setLocationInfo: React.Dispatch<React.SetStateAction<LocationInfoInterface>>
@@ -14,32 +16,56 @@ interface Props {
 export default function LocationBlock({ setLocationInfo, locationInfo }: Props) {
     const [form] = Form.useForm();
     const t = useTranslations('Cart')
-    const [mapIsOpen, setMapIsOpen] = useState(false);
+    const [currentRegion, setcurrentRegion] = useState<keyof RegionProvincesInterface>()
 
-    useEffect(() => {
-        form.setFieldValue('adressText', locationInfo.addressText)
-    }, [locationInfo])
-
-    const locationText = () => {
-        const adressText = form.getFieldValue('adressText')
-        const clone = locationInfo.url ? { ...locationInfo, addressText: adressText } : { addressText: adressText, url: "null" }
+    const selectChange = (value: keyof RegionProvincesInterface, name: keyof LocationInfoInterface) => {
+        setcurrentRegion(value)
+        const clone = Object.assign(locationInfo, {})
+        clone[name] = value
         setLocationInfo(clone)
     }
+
+    const citySelectProps = {
+        className: styles.select,
+        placeholder: 'Select a city',
+        showSearch: true,
+        optionFilterProp: 'children',
+        children: regions.map((el, idx) => (
+            <Fragment key={idx}>
+                <Option value={el.value} >
+                    {el.label}
+                </Option>
+            </Fragment>
+        )),
+        onChange: (e: keyof RegionProvincesInterface) => selectChange(e, 'region'),
+    };
+
+    const streetSelectProps = {
+        className: styles.select,
+        placeholder: 'Select a street',
+        showSearch: true,
+        optionFilterProp: 'children',
+        children: regionProvinces[currentRegion as keyof RegionProvincesInterface]?.map((el, idx) => (
+            <Fragment key={idx}>
+                <Option value={el.value} >
+                    {el.label}
+                </Option>
+            </Fragment>
+        )) || null,
+        onChange: (e: keyof RegionProvincesInterface) => selectChange(e, 'district'),
+    };
+
 
 
     return (
         <Form form={form}>
             <div className={styles.main}>
-
-                {mapIsOpen ?
-                    <ChooseLocation setLocationInfo={setLocationInfo} mapIsOpen={mapIsOpen} setMapIsOpen={setMapIsOpen} /> : null
-                }
                 <div className={styles.text_block}>
                     <h2>{t('address')}</h2>
                 </div>
                 <div className={styles.enter_addres}>
-                    <span onClick={() => setMapIsOpen(true)}>{t('addressInMap')}</span>
-                    <Input onBlur={locationText} required name='adressText' placeholder={t('enterAddres')} />
+                    <Select {...citySelectProps} />
+                    <Select {...streetSelectProps} />
                 </div>
             </div>
         </Form>

@@ -13,6 +13,8 @@ export interface CartItemInterface {
   price: string;
   quantity: number;
   chacked?: boolean;
+  seller_id: string;
+  provider: string;
 }
 
 export interface AddOrderInterface {
