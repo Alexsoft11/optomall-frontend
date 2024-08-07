@@ -31,7 +31,7 @@ const Card = ({ data, onLikeChange, channel = "taobao" }: CardProps) => {
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
     router.push(
-      `/product/${data.id}?channel=${router.query.channel || channel}`
+      `/product/${data.id}?category=&channel=${router.query.channel || channel}`
     );
   };
 

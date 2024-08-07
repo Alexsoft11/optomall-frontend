@@ -71,6 +71,19 @@ export const API = {
         headers: token ? { Authorization: "Bearer " + token } : {},
       }
     ),
+    getRecomendedProducts: (query: any, token?: string) =>
+    axiosInstance.get(
+      `search-products-from-taobao${
+        token && token !== "undefined" ? "-token" : ""
+      }?searchQuery=${query.query.query}&provider=${
+        query.query.channel
+      }&startPrice=${query.query.startPrice}&endPrice=${
+        query.query.endPrice
+      }&lang=${query.locale}&page=1`,
+      {
+        headers: token ? { Authorization: "Bearer " + token } : {},
+      }
+    ),
 
   //  ProductDetail
   getProductDetail: (query: any) =>
