@@ -47,7 +47,10 @@ export default function CartBasketItems({
         size_id,
         price,
         quantity,
+        seller_id,
+        provider
       } = item;
+
       const cartOrderItem = {
         product_id,
         image_url,

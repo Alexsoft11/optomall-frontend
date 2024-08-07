@@ -47,15 +47,14 @@ export default function CartOrderBlock({
   >("idle");
   const cookie = new Cookies();
 
-  const buttonClass = `${styles["loading-btn"]} ${
-    buttonStatus === "pending"
+  const buttonClass = `${styles["loading-btn"]} ${buttonStatus === "pending"
       ? styles["loading-btn--pending"]
       : buttonStatus === "success"
-      ? styles["loading-btn--success"]
-      : buttonStatus === "fail"
-      ? styles["loading-btn--fail"]
-      : ""
-  }`;
+        ? styles["loading-btn--success"]
+        : buttonStatus === "fail"
+          ? styles["loading-btn--fail"]
+          : ""
+    }`;
 
   const checkModalClose = () => {
     router.push("/purchases?filter=in_verification");
@@ -156,7 +155,7 @@ export default function CartOrderBlock({
     }
     if (createOrderData && setDataFailed) {
       const userData = createOrderData.userData;
-      if (!createOrderData.location.addressText) {
+      if (!createOrderData.location.district) {
         setDataFailed("location");
         return message.error(t(`Cart.locationRequired`), 3);
       }

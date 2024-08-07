@@ -98,18 +98,27 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
   ) => {
     setSelectedSizes((prev: SelectedSizes) => {
       const newSizes = { ...prev };
-      const sizeIndex = newSizes[colorId]?.findIndex(
+      if (!newSizes[colorId]) {
+        newSizes[colorId] = [];
+      }
+
+      let sizeIndex = newSizes[colorId].findIndex(
         (size) => size.value === sizeValue
       );
-      if (sizeIndex !== -1) {
-        newSizes[colorId][sizeIndex] = {
-          ...newSizes[colorId][sizeIndex],
-          quantity: Math.max(
-            0,
-            newSizes[colorId][sizeIndex].quantity + increment
-          ),
-        };
+
+      if (sizeIndex === -1) {
+        newSizes[colorId].push({ value: sizeValue, quantity: 0 });
+        sizeIndex = newSizes[colorId].length - 1;
       }
+
+      newSizes[colorId][sizeIndex] = {
+        ...newSizes[colorId][sizeIndex],
+        quantity: Math.max(
+          0,
+          newSizes[colorId][sizeIndex].quantity + increment
+        ),
+      };
+
       return newSizes;
     });
   };
@@ -131,6 +140,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
 
     setTotalQuantities(totals);
   };
+
   const calculateTotalPrice = () => {
     let total = 0;
     for (const colorId in selectedSizes) {
@@ -176,7 +186,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
               product.colors.find((img) => img.id === colorId)?.image_url || "",
             size: size.value,
             size_id:
-              product.sizes.find((el) => el.value === size.value)?.id || "",
+              product.sizes.find((el) => el.value === size.value)?.id || new Date().getTime(),
             quantity: size.quantity,
             color:
               product.colors.find((color) => color.id === colorId)?.value || "",
@@ -186,9 +196,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
       if (user) {
         createData([data]);
       } else {
-        const newBasketData = (
-          JSON.parse(localStorage.getItem("basket-data") as string) || []
-        ).concat(localeData);
+        const newBasketData = (JSON.parse(localStorage.getItem("basket-data") as string) || []).concat(localeData);
         localStorage.setItem("basket-data", JSON.stringify(newBasketData));
         message.success("Added to Basket");
         resetStates();
@@ -203,11 +211,11 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     calculateTotalQuantities();
     calculateTotalPrice();
   }, [selectedSizes, selectedColors]);
+  
   const resetStates = () => {
-    let firstElement = product.colors[0]?.id;
     setSelectedSizes(initialSizeState);
     setSelectedColors([product.colors[0]?.id]);
-    setTotalQuantities({ 10: 0 });
+    setTotalQuantities({ [product.colors[0]?.id]: 0 });
     setSelectedColor(product.colors[0]?.id);
   };
 

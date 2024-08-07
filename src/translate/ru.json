@@ -260,7 +260,8 @@
     "copy-link": "Скопировать ссылку",
     "comments": "Отзывы",
     "characteristic": "Xарактеристика",
-    "comments-not": "Коментарий пока нет"
+    "comments-not": "Коментарий пока нет",
+    "recomendeds":"Похожие товары"
   },
   "Messages": {
     "dearClient": "Уважаемый клиент, ",

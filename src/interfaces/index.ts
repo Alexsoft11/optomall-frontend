@@ -76,6 +76,34 @@ export interface UserBasketSizesInterface {
     color_id: string
 }
 
+export interface SelectOptionInterface {
+    label: string,
+    value: string
+}
+
+
+export interface SelectOptionInterface {
+    label: string,
+    value: string
+}
+
+
+export interface RegionProvincesInterface {
+    tashkent: SelectOptionInterface[],
+    andijan: SelectOptionInterface[],
+    bukhara: SelectOptionInterface[],
+    fergana: SelectOptionInterface[],
+    jizzakh: SelectOptionInterface[],
+    namangan: SelectOptionInterface[],
+    navoiy: SelectOptionInterface[],
+    qashqadaryo: SelectOptionInterface[],
+    khorezm: SelectOptionInterface[],
+    samarkand: SelectOptionInterface[],
+    sirdaryo: SelectOptionInterface[],
+    surxondaryo: SelectOptionInterface[],
+    karakalpakstan: SelectOptionInterface[],
+}
+
 
 export interface LanguageStringIntergace {
     en: string,

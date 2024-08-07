@@ -29,8 +29,7 @@ const Card = ({ data, onLikeChange, channel = "taobao" }: CardProps) => {
   }, [textRef]);
 
   const handleLinkClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    
+    e.preventDefault();    
     const url = `/product/${data.id}?channel=${router.query.channel || channel}`;
   
     if (e.ctrlKey || e.metaKey) {
@@ -38,6 +37,7 @@ const Card = ({ data, onLikeChange, channel = "taobao" }: CardProps) => {
     } else {
       router.push(url);
     }
+
   };
   
 

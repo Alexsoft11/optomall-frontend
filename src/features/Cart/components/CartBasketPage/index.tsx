@@ -32,21 +32,13 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
   const [dataClone, setDataClone] = useState<CartItemInterface[]>(data);
   const t = useTranslations("Cart");
 
-  const [dataFailed, setDataFailed] = useState<"personal" | "location" | null>(
-    null
-  );
+  const [dataFailed, setDataFailed] = useState<"personal" | "location" | null>(null);
   const [selectAll, setSelectAll] = useState(false);
 
-  const [addOrder, setAddOrder] = useState<
-    AddOrderInterface | AddOrderInterface[] | null
-  >(null);
-  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>({
-    addressText: "",
-  });
+  const [addOrder, setAddOrder] = useState<AddOrderInterface | AddOrderInterface[] | null>(null);
+  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>({region: '', district: ''});
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [personData, setPersonData] = useState<PersonalDataInterface | null>(
-    null
-  );
+  const [personData, setPersonData] = useState<PersonalDataInterface | null>(null);
   const [itemsValue, setItemsValue] = useState<number>(0);
 
   const cookie = new Cookies();
@@ -64,7 +56,7 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
 
   const createOrderData: CreateOrderDataInterface = {
     total_price: totalPrice,
-    location: locationInfo,
+    location: locationInfo!,
     userData: personData,
     items: orderItems,
   };
@@ -213,11 +205,10 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
             />
             <div className={styles.order_info}>
               <div
-                className={`${
-                  dataFailed === "location"
-                    ? "animate__shakeX animate__animated"
-                    : null
-                }`}
+                className={`${dataFailed === "location"
+                  ? "animate__shakeX animate__animated"
+                  : null
+                  }`}
               >
                 <LocationBlock
                   setLocationInfo={setLocationInfo}
@@ -225,11 +216,10 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
                 />
               </div>
               <div
-                className={`${
-                  dataFailed === "personal"
-                    ? "animate__shakeX animate__animated"
-                    : null
-                }`}
+                className={`${dataFailed === "personal"
+                  ? "animate__shakeX animate__animated"
+                  : null
+                  }`}
               >
                 <CartGetOrderPerson setPersonData={setPersonData} />
               </div>

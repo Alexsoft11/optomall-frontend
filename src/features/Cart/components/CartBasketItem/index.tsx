@@ -48,14 +48,15 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
       <div className={styles.item_text}>
         <div className={styles.item_info}>
           <p>{item.title}</p>
-          <span>
-            {item.color} · {item.size}
-          </span>
         </div>
 
         <h3>
           {formatPrice(item.price)} {t("currency")}
         </h3>
+      </div>
+
+      <div className={styles.color_block}>
+        <p>{item.color}</p> · <p>{item.size}</p>
       </div>
 
       <div className={styles.checkbox_block}>

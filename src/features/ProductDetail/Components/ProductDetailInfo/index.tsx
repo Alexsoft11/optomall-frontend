@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+/** @format */
+
+import React, { useEffect, useState } from "react";
 import styles from "./ProductDetailInfo.module.scss";
 import { Button, Dropdown, Rate } from "antd";
 import SliderColors from "../SliderColors";
@@ -19,7 +21,7 @@ const ProductDetailInfo = ({
 }: any) => {
   const t = useTranslations("Product-detail");
   // const [activeItem, setActiveItem] = useState<number>(product.colors[0]?.id);
-
+  const [fakeColorsData, setFakeColorsData] = useState<any>();
   const [selectedColor, setSelectedColor] = useState<number | null>(
     product.colors[0]?.id
   );
@@ -30,13 +32,14 @@ const ProductDetailInfo = ({
     [key: number]: number;
   }>({});
 
-  
   const items: MenuProps["items"] = [
     {
       label: (
-        <p  className={styles.link} onClick={(event) => copyLinkToClipboard(event, 'location',)}>
+        <p
+          className={styles.link}
+          onClick={(event) => copyLinkToClipboard(event, "location")}>
           <SvgSelector id='copylink-svg' />
-            {t("copy-link")}
+          {t("copy-link")}
         </p>
       ),
       key: "1",
@@ -72,6 +75,14 @@ const ProductDetailInfo = ({
     },
   ];
   const productUrl = product.product_url ? product.product_url : "";
+console.log(product.colors.length)
+useEffect(()=>{
+  if (product.colors.length <= 0) {
+    setFakeColorsData([{id: 1},
+    ]);
+  }
+},[])
+  console.log("dii", fakeColorsData);
   return (
     <div className={styles.product_info_detail}>
       <div className={styles.productInfo}>
@@ -104,6 +115,7 @@ const ProductDetailInfo = ({
           totalQuantities={totalQuantities}
           selectedColors={selectedColors}
           setSelectedColors={setSelectedColors}
+          fakeColorsData={fakeColorsData}
         />
 
         <div className={styles.productSpecs}>
@@ -112,13 +124,15 @@ const ProductDetailInfo = ({
               <span>Url</span>
               <div></div>
             </div>
-           <div className={styles.product_link}> 
-           <Link  href={productUrl}>
-              {product.id}
-            </Link>
-              <p onClick={(event) => copyLinkToClipboard(event, 'url', product.product_url)}><SvgSelector id="copylinkicon-svg"/></p>
-            </div> 
-           
+            <div className={styles.product_link}>
+              <Link href={productUrl}>{product.id}</Link>
+              <p
+                onClick={(event) =>
+                  copyLinkToClipboard(event, "url", product.product_url)
+                }>
+                <SvgSelector id='copylinkicon-svg' />
+              </p>
+            </div>
           </li>
           <li>
             <div className={styles.productSpecs_name}>
