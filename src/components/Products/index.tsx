@@ -10,9 +10,13 @@ interface Props {
   type?: "simp" | "scroll";
 }
 
-const Products = ({ data, handleGetProduct, hasMore = false, type }: Props) => {
-  const [items, setItems] = useState(data || []);
-  const [page, setPage] = useState(1);
+const Products = ({
+  data = [],
+  handleGetProduct,
+  hasMore = false,
+  type,
+}: Props) => {
+  const [page, setPage] = useState(2);
 
   const fetchMoreData = async () => {
     if (!handleGetProduct) {
@@ -23,35 +27,27 @@ const Products = ({ data, handleGetProduct, hasMore = false, type }: Props) => {
     handleGetProduct({ page: newCount });
   };
 
-  useEffect(() => {
-    setItems(data);
-  }, [data]);
-
-  return (
-    type == "simp" ? (
-      <div className={styles.products_scroll}>
-        <InfiniteScroll
-          dataLength={items?.length}
-          next={fetchMoreData}
-          hasMore={hasMore}
-          loader={<LoadingSpinner size="large" />}
-        >
-          <div className={styles.product_list}>
-            {items?.map((el: any, idx: number) => (
-              <Card key={idx} data={el} />
-            ))}
-          </div>
-        </InfiniteScroll>
-      </div>
-    ) : (
-      <div className={styles.product_list}>
-        {
-          data.map((item, idx) => (
-            <Card key={idx} data={item}/>
-          ))
-        }
-      </div>
-    )
+  return type == "scroll" ? (
+    <div className={styles.products_scroll}>
+      <InfiniteScroll
+        dataLength={data?.length}
+        next={fetchMoreData}
+        hasMore={hasMore}
+        loader={<></>}
+      >
+        <div className={styles.product_list}>
+          {data?.map((el: any, idx: number) => (
+            <Card key={idx} data={el} />
+          ))}
+        </div>
+      </InfiniteScroll>
+    </div>
+  ) : (
+    <div className={styles.product_list}>
+      {data.map((item, idx) => (
+        <Card key={idx} data={item} />
+      ))}
+    </div>
   );
 };
 

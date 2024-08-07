@@ -24,7 +24,6 @@ const Search = ({ data = [] }: Props) => {
   const token = useJwt();
   const [products, setProducts] = useState(data);
   const [hasMore, setHasMore] = useState(true);
-  const [scroolApi, setScroolApi] = useState(false);
   const handleButtonClick = (platform: any) => {
     const newQuery = {
       ...router.query,
@@ -37,17 +36,16 @@ const Search = ({ data = [] }: Props) => {
   };
 
   const handleFilter = (values: any) => {
-    let { min_price, max_price } = values;
+    let { startPrice, endPrice } = values;
 
-    if (min_price > max_price) {
-      [min_price, max_price] = [max_price, min_price];
-      form.setFieldsValue({ min_price, max_price });
+    if (startPrice > endPrice) {
+      [startPrice, endPrice] = [endPrice, startPrice];
+      form.setFieldsValue({ startPrice, endPrice });
     }
-
     const newQuery = {
       ...router.query,
-      startPrice: min_price,
-      endPrice: max_price,
+      startPrice: startPrice,
+      endPrice: endPrice,
     };
     router.replace({ pathname: router.pathname, query: newQuery }, undefined, {
       shallow: true,
@@ -56,8 +54,7 @@ const Search = ({ data = [] }: Props) => {
 
   useEffect(() => {
     if (router.query) {
-      form.setFieldValue("min_price", router.query.startPrice);
-      form.setFieldValue("max_price", router.query.endPrice);
+      form.setFieldsValue(router.query);
     } else {
       form.resetFields();
     }
@@ -71,14 +68,14 @@ const Search = ({ data = [] }: Props) => {
         provider: router.query.channel,
         lang: router.locale,
         channel: null,
+        page: 2,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query, router.locale]);
 
   const handleGetProduct = (query?: any) => {
-    setScroolApi(true);
-    getSearchRes({
+    getProducts({
       ...router.query,
       ...query,
       provider: router.query.provider,
@@ -94,16 +91,24 @@ const Search = ({ data = [] }: Props) => {
         disableOnMount: true,
       },
       onSuccess(res: any) {
-        if (scroolApi) {
-          if (!res.products.length) {
-            setHasMore(false);
-            return;
-          }
-          setProducts((prev: any) => [...prev, ...res.products]);
-          setScroolApi(false);
+        setProducts(res.products);
+      },
+    });
+
+  const { appendData: getProducts, isLoading: isProductsLoading } =
+    useQueryApiClient({
+      request: {
+        url: `search-products-from-taobao`,
+        method: "GET",
+        disableOnMount: true,
+      },
+      onSuccess(res: any) {
+        if (!res.products.length) {
+          setHasMore(false);
           return;
         }
-        setProducts(res.products);
+        const newProducts = [...products, ...res.products];
+        setProducts(newProducts);
       },
     });
 
@@ -145,17 +150,17 @@ const Search = ({ data = [] }: Props) => {
                     <Input
                       type="number"
                       className={styles.search__input}
-                      name={"min_price"}
+                      name={"startPrice"}
                       placeholder="min price"
-                      rules={[{ required: true, message: t("min_price") }]}
+                      rules={[{ required: true, message: t("startPrice") }]}
                       suffix={<SvgSelector id="sorting-svg" />}
                     />
                     <Input
                       type="number"
                       className={styles.search__input}
-                      name={"max_price"}
+                      name={"endPrice"}
                       placeholder="max price"
-                      rules={[{ required: true, message: t("max_price") }]}
+                      rules={[{ required: true, message: t("endPrice") }]}
                       suffix={<SvgSelector id="sorting-svg" />}
                     />
                     <Button
@@ -168,21 +173,20 @@ const Search = ({ data = [] }: Props) => {
                 </div>
               </div>
             </div>
-            
-            {
-              isSearchResLoading ? (
-                <LoadingSpinner size="large" />
-              ) : !products.length ? (
-                <PageNoItems title={t("noItems")} />
-              ) : (
-                <Products
-                  type="scroll"
-                  data={products}
-                  hasMore={hasMore}
-                  handleGetProduct={handleGetProduct}
-                />
-              )
-            }
+
+            {isSearchResLoading ? (
+              <LoadingSpinner size="large" spinning={isSearchResLoading} />
+            ) : !products.length && !isSearchResLoading ? (
+              <PageNoItems title={t("noItems")} />
+            ) : (
+              <Products
+                type="scroll"
+                data={products}
+                hasMore={hasMore}
+                handleGetProduct={handleGetProduct}
+              />
+            )}
+            <LoadingSpinner size="large" spinning={isProductsLoading} />
           </div>
         </div>
       </div>
