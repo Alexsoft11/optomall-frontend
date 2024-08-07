@@ -59,7 +59,9 @@ const SearchBtn = () => {
 
   const handleScroll = () => {
     const offset = window.scrollY;
-    if (offset >= 400) {
+    if (location.pathname === "/" && offset >= 400) {
+      setStartScrool(true);
+    }else if (location.pathname !== "/" && offset > 280) {
       setStartScrool(true);
     } else {
       setStartScrool(false);

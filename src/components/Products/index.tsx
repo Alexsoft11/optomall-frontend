@@ -28,7 +28,7 @@ const Products = ({ data, handleGetProduct, hasMore = false, type }: Props) => {
   }, [data]);
 
   return (
-    type == "simp" ? (
+    type == "scroll" ? (
       <div className={styles.products_scroll}>
         <InfiniteScroll
           dataLength={items?.length}
@@ -46,7 +46,7 @@ const Products = ({ data, handleGetProduct, hasMore = false, type }: Props) => {
     ) : (
       <div className={styles.product_list}>
         {
-          data.map((item, idx) => (
+          data?.map((item, idx) => (
             <Card key={idx} data={item}/>
           ))
         }
