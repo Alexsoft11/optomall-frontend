@@ -5,6 +5,10 @@ export const StyledButton = styled(Button)`
     transition: all 0.2s ease-in-out;
     border: none;
 
+    &:active {
+      background: var(--primary-color) !important;
+    }
+
     a {
       display: flex;
       align-items: center;

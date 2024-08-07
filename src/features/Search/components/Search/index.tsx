@@ -170,7 +170,6 @@ const Search = ({ data = [] }: Props) => {
                       suffix={<SvgSelector id="sorting-svg" />}
                     />
                     <Button
-                      type="primary"
                       htmlType="submit"
                       className="generalbtn"
                       label={t("submit")}
