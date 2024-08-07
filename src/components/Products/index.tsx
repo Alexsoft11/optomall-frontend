@@ -44,7 +44,7 @@ const Products = ({
     </div>
   ) : (
     <div className={styles.product_list}>
-      {data.map((item, idx) => (
+      {data?.map((item, idx) => (
         <Card key={idx} data={item} />
       ))}
     </div>
