@@ -38,7 +38,19 @@
   display: none;
 }
 
+.search_icon_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .sticky_start {
+  .search_inner {
+    display: none;
+    @media (max-width:768px) {
+      display: flex;
+    }
+  }
   @media (max-width: 970px) {
     box-shadow: 0px 4px 35px 0px rgba(0, 0, 0, 0.1);
     position: fixed;
@@ -81,7 +93,8 @@
     }
     &.sticky {
       transition: 0.4s ease;
-      top: 0px;
+      top: 0%;
+      left: 0%;
       transform: translateY(0);
     }
   }

@@ -11,7 +11,6 @@
   }
 }
 
-
 .ant-carousel {
   width: 100% !important;
   height: 100% !important;
@@ -81,6 +80,12 @@
 }
 .ant-tabs .ant-tabs-tab{
   font-size: 20px !important;
+  @media(max-width:480px){
+  font-size: 16px !important;
+  }
+  @media(max-width:360px){
+    font-size: 14px !important;
+    }
 }
 
 .antd-search-upload {

@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useEffect, useState } from "react";
 import styles from "./ProductDetailSection.module.scss";
 import ProductDetailImages from "../ProductDetailImages";
@@ -9,14 +7,24 @@ import RecomendedProducts from "../RecomendedProducts";
 import { Tabs, TabsProps } from "antd";
 import ProductDescription from "../ProductDescription";
 import { useTranslations } from "next-intl";
+import GoToBack from "@/components/GoToBack";
+import { useRouter } from "next/router";
 const ProductDetailSection = ({
   product,
   recommended,
   score,
   productComments,
 }: any) => {
+  const router = useRouter();
   const [selectedImage, setSelectedImage] = useState(product?.image);
   const t = useTranslations("Product-detail");
+
+  const { category } = router.query;
+
+  const pathArr = category
+    ? [{ title: category as string, path: "" }]
+    : [];
+
   useEffect(() => {
     setSelectedImage(product?.image);
   }, [product]);
@@ -24,7 +32,7 @@ const ProductDetailSection = ({
   const items: TabsProps["items"] = [
     {
       key: "1",
-      label: t(""),
+      label: t("characteristic"),
       children: <ProductDescription description={product.description} />,
     },
     {
@@ -36,8 +44,9 @@ const ProductDetailSection = ({
 
   return (
     <>
-      <div className="container">
-        <div className="containers">
+      <div className='container'>
+        <GoToBack pathArr={pathArr} />
+        <div className='containers'>
           <div className={styles.product}>
             <div className={styles.product__inner}>
               <ProductDetailImages
@@ -53,7 +62,7 @@ const ProductDetailSection = ({
             </div>
           </div>
           <div>
-            <Tabs defaultActiveKey="1" items={items} />
+            <Tabs defaultActiveKey='1' items={items} />
           </div>
           <RecomendedProducts recomendedData={recommended} />
         </div>

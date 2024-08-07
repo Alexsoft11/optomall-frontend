@@ -11,6 +11,6 @@ export interface IGoToBackObject {
 }
 
 export interface LocationInfoInterface {
-  url?: string,
-  addressText: string
+  region: string,
+  district: string
 }

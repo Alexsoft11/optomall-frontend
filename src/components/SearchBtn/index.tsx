@@ -48,6 +48,10 @@ const SearchBtn = () => {
     }
   };
 
+  const handleButtonSubmitClick = (e: any) => {
+    form.submit();
+  };
+
   useEffect(() => {
     if (value) {
       form.setFieldValue("search", value);
@@ -59,7 +63,9 @@ const SearchBtn = () => {
 
   const handleScroll = () => {
     const offset = window.scrollY;
-    if (offset >= 400) {
+    if (location.pathname === "/" && offset >= 400) {
+      setStartScrool(true);
+    }else if (location.pathname !== "/" && offset > 280) {
       setStartScrool(true);
     } else {
       setStartScrool(false);
@@ -138,7 +144,7 @@ const SearchBtn = () => {
                 onKeyDown={handleKeyPress}
                 className={styles.search_input}
                 name={"search"}
-                prefix={<SvgSelector id="search-svg" />}
+                suffix={<div className={styles.search_icon_btn} onClick={handleButtonSubmitClick}><SvgSelector id="search-svg" /></div>}
               />
             </Form>
           </div>
@@ -167,7 +173,7 @@ const SearchBtn = () => {
               onKeyDown={handleKeyPress}
               className={styles.search_input}
               name={"search"}
-              prefix={<SvgSelector id="search-svg" />}
+              prefix={<div className={styles.search_icon_btn} onClick={handleButtonSubmitClick}><SvgSelector id="search-svg" /></div>}
             />
           </Form>
         </div>

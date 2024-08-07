@@ -255,7 +255,9 @@
     "model_features": "Features of the model",
     "copy-link": "Copy Link",
     "comments": "Comments",
-    "comments-not": "No Comments"
+    "characteristic": "Characteristics",
+    "comments-not": "No Comments",
+    "recomendeds":"Similar products"
   },
   "Messages": {
     "dearClient": "Dear client, ",

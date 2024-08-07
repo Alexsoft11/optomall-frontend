@@ -16,6 +16,7 @@ const SliderColors = ({
   totalQuantities,
   selectedColors,
   setSelectedColors,
+  fakeColorsData
 }: any) => {
   const [activeItem, setActiveItem] = useState<number>(data[0]?.id);
 
@@ -29,7 +30,12 @@ const SliderColors = ({
     });
     setSelectedColor(colorId);
   };
-
+  const checkData = (data:any)=>{
+    console.log("check", fakeColorsData)
+    if(data.length>0)return data;
+    else return fakeColorsData;
+  }
+console.log(data)
   return (
     <div className={styles.swiper_colors}>
       <Swiper
@@ -56,7 +62,7 @@ const SliderColors = ({
         }}
         modules={[Navigation]}
         className='slider_colors'>
-        {data?.map((el: any, idx: number) => (
+        {checkData(data)?.map((el: any, idx: number) => (
           <SwiperSlide key={idx}>
             <div className={styles.card_item}>
               <Badge count={totalQuantities[el.id] || 0}></Badge>

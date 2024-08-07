@@ -11,19 +11,6 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
-
-        span {
-            cursor: pointer;
-            text-decoration: none;
-            font-size: var(--paragraph-two);
-            font-weight: 500;
-            line-height: 16.94px;
-            color: var(--primary-color);
-        }
-
-        input {
-            height: 40px;
-        }
     }
 
     .text_block {

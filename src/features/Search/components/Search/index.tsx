@@ -83,6 +83,13 @@ const Search = ({ data = [] }: Props) => {
     });
   };
 
+  const validateNoSigns = (_: any, value: string) => {
+    if (value && (value.includes('+') || value.includes('-'))) {
+      return Promise.reject(new Error(t('invalid_value')));
+    }
+    return Promise.resolve();
+  };
+
   const { appendData: getSearchRes, isLoading: isSearchResLoading } =
     useQueryApiClient({
       request: {
@@ -152,7 +159,9 @@ const Search = ({ data = [] }: Props) => {
                       className={styles.search__input}
                       name={"startPrice"}
                       placeholder="min price"
-                      rules={[{ required: true, message: t("startPrice") }]}
+                      rules={[
+                        { validator: validateNoSigns },
+                      ]}
                       suffix={<SvgSelector id="sorting-svg" />}
                     />
                     <Input
@@ -160,11 +169,12 @@ const Search = ({ data = [] }: Props) => {
                       className={styles.search__input}
                       name={"endPrice"}
                       placeholder="max price"
-                      rules={[{ required: true, message: t("endPrice") }]}
+                      rules={[
+                        { validator: validateNoSigns },
+                      ]}
                       suffix={<SvgSelector id="sorting-svg" />}
                     />
                     <Button
-                      type="primary"
                       htmlType="submit"
                       className="generalbtn"
                       label={t("submit")}
