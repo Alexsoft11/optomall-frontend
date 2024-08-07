@@ -38,6 +38,12 @@
   display: none;
 }
 
+.search_icon_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .sticky_start {
   .search_inner {
     display: none;

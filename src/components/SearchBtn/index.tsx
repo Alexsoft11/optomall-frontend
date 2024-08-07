@@ -48,6 +48,10 @@ const SearchBtn = () => {
     }
   };
 
+  const handleButtonSubmitClick = (e: any) => {
+    form.submit();
+  };
+
   useEffect(() => {
     if (value) {
       form.setFieldValue("search", value);
@@ -140,7 +144,7 @@ const SearchBtn = () => {
                 onKeyDown={handleKeyPress}
                 className={styles.search_input}
                 name={"search"}
-                prefix={<SvgSelector id="search-svg" />}
+                suffix={<div className={styles.search_icon_btn} onClick={handleButtonSubmitClick}><SvgSelector id="search-svg" /></div>}
               />
             </Form>
           </div>
@@ -169,7 +173,7 @@ const SearchBtn = () => {
               onKeyDown={handleKeyPress}
               className={styles.search_input}
               name={"search"}
-              prefix={<SvgSelector id="search-svg" />}
+              prefix={<div className={styles.search_icon_btn} onClick={handleButtonSubmitClick}><SvgSelector id="search-svg" /></div>}
             />
           </Form>
         </div>
