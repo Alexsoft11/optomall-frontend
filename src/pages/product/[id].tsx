@@ -18,7 +18,6 @@ interface ProductDetailProps {
   productComments: IProductComments[];
   score: any;
 }
-
 const ProductDetailSection = dynamic(
   () => import("@/features/ProductDetail/Components/ProductDetailSection"),
   {
@@ -27,29 +26,28 @@ const ProductDetailSection = dynamic(
   );
   
   const ProductDetail = ({ product }: ProductDetailProps) => {
+    const { query,locale } = useRouter();
+    const { data: productComments } = useQueryApiClient({
+      request: {
+        url: `get-comments?product_id=${query.id}`,
+        method: "GET",
+        disableOnMount: !query.id,
+      },
+      enabled: !!query.id,
+    });
+    const { data: getSearchRes, isLoading: isSearchResLoading } =
+    useQueryApiClient({
+      request: {
+        url: `search-products-from-taobao?productsCount=10imageUrl=${product?.detail.image}&lang=${locale}`,
+        method: "GET",
+        disableOnMount: !query.id,
+      },
+    });
     if (!product) {
       return <DataNotFound />;
     }
-    const { query,locale } = useRouter();
     const title = product?.detail.title;
 
-  const { data: productComments } = useQueryApiClient({
-    request: {
-      url: `get-comments?product_id=${query.id}`,
-      method: "GET",
-      disableOnMount: !query.id,
-    },
-    enabled: !!query.id,
-  });
-console.log(productComments)
-  const { data: getSearchRes, isLoading: isSearchResLoading } =
-  useQueryApiClient({
-    request: {
-      url: `search-products-from-taobao?productsCount=10imageUrl=${product?.detail.image}&lang=${locale}`,
-      method: "GET",
-      disableOnMount: !query.id,
-    },
-  });
 
 
 console.log(getSearchRes)
