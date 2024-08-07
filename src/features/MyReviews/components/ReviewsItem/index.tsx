@@ -4,7 +4,7 @@ import { MyReviewsReviewedInterface } from '../../interfaces';
 import Image from 'next/image';
 import { Button } from '@/ui';
 import { useTranslations } from 'next-intl';
-import { Rate } from 'antd';
+import { Rate, Tooltip } from 'antd';
 import ReviewModal from '../ReviewModal/Index';
 
 interface Pros {
@@ -15,7 +15,7 @@ interface Pros {
 export default function ReviewsItem({ item, setCommentData }: Pros) {
     const t = useTranslations('MyReviews')
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    
+
 
     const handleClick = () => {
         setModalIsOpen(true)
@@ -30,9 +30,14 @@ export default function ReviewsItem({ item, setCommentData }: Pros) {
                     <Image width={98} height={98} alt='#' src={item.image_url} />
                 </div>
                 <div className={styles.item_text}>
-                    <p>{item.name}</p>
-                    {/* <span>{item.company}</span> */}
-                    <span>null</span>
+                    <Tooltip
+                        overlayClassName="tooltip-white"
+                        title={item.name}
+                    >
+                        <p>{item.name}</p>
+                    </Tooltip>
+
+                    <span>{item.company}</span>
                     <span>{item.date}</span>
                 </div>
             </div>

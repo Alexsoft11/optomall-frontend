@@ -10,14 +10,12 @@ import { editAccountIcon } from "$/assets/images";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
 import { Input } from "@/ui";
-import ChooseLocation from "@/components/ChooseLocation";
+// import ChooseLocation from "@/components/ChooseLocation";
 import { LocationInfoInterface } from "@/components/Types";
 
 const AccountInfo = ({ user }: any) => {
   const [mapIsOpen, setMapIsOpen] = useState(false);
-  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>({
-    addressText: "",
-  });
+  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>();
   const t = useTranslations("");
   const [open, setOpen] = useState({
     isEmail: false,
@@ -163,13 +161,6 @@ const AccountInfo = ({ user }: any) => {
           </div>
         </div>
       </div>
-      {mapIsOpen ? (
-        <ChooseLocation
-          setLocationInfo={setLocationInfo}
-          mapIsOpen={mapIsOpen}
-          setMapIsOpen={setMapIsOpen}
-        />
-      ) : null}
       <ModalForms
         isOpen={open.isEmail}
         onClick={() => setOpen({ ...open, isEmail: false })}>
