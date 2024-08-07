@@ -10,8 +10,8 @@ interface Props {
   data: any;
 }
 
-const CatalogProduct = ({ data }: Props) => {
-  const t = useTranslations("Search")
+const CatalogProduct = ({ data = [] }: Props) => {
+  const t = useTranslations("Search");
   return (
     <>
       <div className={styles.catalog_product}>
@@ -22,14 +22,24 @@ const CatalogProduct = ({ data }: Props) => {
                 <SearchBtn />
               </div>
               <div className={styles.catalog_product__btns}>
-                <button><span>{t("sales")}</span> <SvgSelector id="sorting-svg"/></button>
-                <button><span>{t("reputation")}</span> <SvgSelector id="settings-svg"/></button>
-                <button><span>{t("longPrice")}</span> <SvgSelector id="sorting-svg"/></button>
-                <button><span>{t("downPrice")}</span> <SvgSelector id="settings-svg"/></button>
+                <button>
+                  <span>{t("sales")}</span> <SvgSelector id="sorting-svg" />
+                </button>
+                <button>
+                  <span>{t("reputation")}</span>{" "}
+                  <SvgSelector id="settings-svg" />
+                </button>
+                <button>
+                  <span>{t("longPrice")}</span> <SvgSelector id="sorting-svg" />
+                </button>
+                <button>
+                  <span>{t("downPrice")}</span>{" "}
+                  <SvgSelector id="settings-svg" />
+                </button>
               </div>
             </div>
 
-            <Products type="simp" data={data}/>
+            <Products type="simp" data={data} />
           </div>
         </div>
       </div>
