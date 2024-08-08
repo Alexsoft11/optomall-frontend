@@ -108,16 +108,19 @@ const ProductDetailInfo: React.FC<Props> = ({
     }
   };
 
-  useEffect(() => {
+  const handleResetBasket = () => {
     const colorBasketData = colors.map((color) => ({
       color: color?.value,
       data: [],
     }));
     setColorsBasket(colorBasketData);
     setSelectedColor(colors[0]);
+  };
+
+  useEffect(() => {
+    handleResetBasket();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const items: MenuProps["items"] = [
     {
       label: (
@@ -205,6 +208,7 @@ const ProductDetailInfo: React.FC<Props> = ({
         skus={skus}
         colorsBasket={colorsBasket}
         setColorsBasket={setColorsBasket}
+        handleResetBasket={handleResetBasket}
       />
     </div>
   );

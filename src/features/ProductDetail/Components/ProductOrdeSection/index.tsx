@@ -27,6 +27,7 @@ interface Props {
     React.SetStateAction<ColorsBasketInterface[]>
   >;
   colorsBasket: ColorsBasketInterface[];
+  handleResetBasket: () => void;
 }
 
 const ProductOrderSection: React.FC<Props> = ({
@@ -37,8 +38,9 @@ const ProductOrderSection: React.FC<Props> = ({
   colors,
   setColorsBasket,
   colorsBasket,
+  handleResetBasket,
 }) => {
-  const { query, push, asPath,  } = useRouter();
+  const { query, push, asPath } = useRouter();
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [basketData, setBasketData] = useState<BasketInterface[]>([]);
   const [currentPrice, setCurrentPrice] = useState<number>(product?.price || 0);
@@ -54,6 +56,7 @@ const ProductOrderSection: React.FC<Props> = ({
     },
     onSuccess(res) {
       message.success(res.message);
+      handleResetBasket();
     },
   });
 
