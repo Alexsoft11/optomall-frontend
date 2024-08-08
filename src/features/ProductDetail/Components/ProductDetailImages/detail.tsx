@@ -37,6 +37,7 @@ const Detail = ({ selectedImage, product }: any) => {
             className={styles.detail_image}
             imgClass={styles.img}
             isLink={false}
+            loading="lazy"
           />
         ) : (
           <>

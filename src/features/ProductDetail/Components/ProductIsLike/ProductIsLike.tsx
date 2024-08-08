@@ -1,9 +1,8 @@
-import React, { FC, useEffect, useState } from 'react';
-import styles from './ProductIsLike.module.scss';
-import SvgSelector from '$/assets/icons/SvgSelector';
-import { useJwt } from '@/utils/useJwt';
-import useQueryApiClient from '@/utils/useQueryApiClient';
-
+import React, { FC, useEffect, useState } from "react";
+import styles from "./ProductIsLike.module.scss";
+import SvgSelector from "$/assets/icons/SvgSelector";
+import { useJwt } from "@/utils/useJwt";
+import useQueryApiClient from "@/utils/useQueryApiClient";
 
 interface Product {
   id: string;
@@ -14,7 +13,7 @@ interface Product {
 }
 
 interface IProps {
-  product: Product; // Объект товара для сохранения в localStorage
+  product: any; // Объект товара для сохранения в localStorage
 }
 
 const ProductIsLike: FC<IProps> = ({ product }) => {
@@ -22,32 +21,31 @@ const ProductIsLike: FC<IProps> = ({ product }) => {
   const user = useJwt(); // Подставьте хук для получения текущего пользователя
   const { appendData: dislikeCard } = useQueryApiClient({
     request: {
-      url: 'liked-product',
-      method: 'POST',
+      url: "liked-product",
+      method: "POST",
     },
-   
-  })
+  });
 
   useEffect(() => {
     // Проверяем начальное состояние лайка из localStorage при монтировании компонента
-    const likedProductsString = localStorage.getItem('likedProducts');
+    const likedProductsString = localStorage.getItem("likedProducts");
     if (likedProductsString) {
       const likedProducts: Product[] = JSON.parse(likedProductsString);
-      setIsLiked(likedProducts.some(p => p.id === product.id));
+      setIsLiked(likedProducts.some((p) => p.id === product.id));
     }
   }, [product]);
 
   const handleClickLiked = () => {
-    setIsLiked(prevLiked => {
+    setIsLiked((prevLiked) => {
       // Получаем текущий массив из localStorage
-      const likedProductsString = localStorage.getItem('likedProducts');
+      const likedProductsString = localStorage.getItem("likedProducts");
       let likedProducts: Product[] = [];
       if (likedProductsString) {
         likedProducts = JSON.parse(likedProductsString);
       }
 
       // Проверяем, есть ли уже такой товар в лайках
-      const index = likedProducts.findIndex(p => p.id === product.id);
+      const index = likedProducts.findIndex((p) => p.id === product.id);
 
       // Обновляем массив в зависимости от текущего состояния
       if (prevLiked) {
@@ -60,7 +58,7 @@ const ProductIsLike: FC<IProps> = ({ product }) => {
           dislikeCard([product.id.toString()]);
         } else {
           // Сохраняем обновленный массив в localStorage
-          localStorage.setItem('likedProducts', JSON.stringify(likedProducts));
+          localStorage.setItem("likedProducts", JSON.stringify(likedProducts));
         }
       } else {
         // Добавляем товар в массив
@@ -70,7 +68,7 @@ const ProductIsLike: FC<IProps> = ({ product }) => {
           // Здесь должен быть ваш запрос для лайка товара на сервере
         } else {
           // Сохраняем обновленный массив в localStorage
-          localStorage.setItem('likedProducts', JSON.stringify(likedProducts));
+          localStorage.setItem("likedProducts", JSON.stringify(likedProducts));
         }
       }
 
@@ -81,7 +79,7 @@ const ProductIsLike: FC<IProps> = ({ product }) => {
   return (
     <div>
       <button
-        className={`${styles.liked} ${isLiked ? styles.active : ''}`}
+        className={`${styles.liked} ${isLiked ? styles.active : ""}`}
         type="button"
         onClick={handleClickLiked}
       >

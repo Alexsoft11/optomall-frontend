@@ -9,20 +9,37 @@ import ProductDescription from "../ProductDescription";
 import { useTranslations } from "next-intl";
 import GoToBack from "@/components/GoToBack";
 import { useRouter } from "next/router";
+import { ProductDetailInterface } from "../../interface";
+
+interface Props {
+  product: ProductDetailInterface;
+  score?: {
+    rating: number;
+    sold: number;
+  };
+  recommended: any;
+  productComments: any;
+}
+
 const ProductDetailSection = ({
   product,
   recommended,
   score,
   productComments,
-}: any) => {
+}: Props) => {
   const router = useRouter();
   const [selectedImage, setSelectedImage] = useState(product?.image);
   const t = useTranslations("Product-detail");
 
-  const { category } = router.query;
+  const { category, channel } = router.query;
 
   const pathArr = category
-    ? [{ title: category as string, path: "" }]
+    ? [
+        {
+          titleNotr: category as string,
+          path: `/search?value=${category}&channel=${channel}`,
+        },
+      ]
     : [];
 
   useEffect(() => {
@@ -44,9 +61,9 @@ const ProductDetailSection = ({
 
   return (
     <>
-      <div className='container'>
+      <div className="container">
         <GoToBack pathArr={pathArr} />
-        <div className='containers'>
+        <div className="containers">
           <div className={styles.product}>
             <div className={styles.product__inner}>
               <ProductDetailImages
@@ -55,14 +72,14 @@ const ProductDetailSection = ({
                 product={product}
               />
               <ProductDetailInfo
-                productDetails={score}
                 setSelectedImage={setSelectedImage}
+                productDetails={score}
                 product={product}
               />
             </div>
           </div>
           <div>
-            <Tabs defaultActiveKey='1' items={items} />
+            <Tabs defaultActiveKey="1" items={items} />
           </div>
           <RecomendedProducts recomendedData={recommended} />
         </div>
