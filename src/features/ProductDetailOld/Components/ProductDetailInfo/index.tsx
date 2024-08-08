@@ -75,14 +75,12 @@ const ProductDetailInfo = ({
     },
   ];
   const productUrl = product.product_url ? product.product_url : "";
-console.log(product.colors.length)
 useEffect(()=>{
   if (product.colors.length <= 0) {
     setFakeColorsData([{id: 1},
     ]);
   }
 },[])
-  console.log("dii", fakeColorsData);
   return (
     <div className={styles.product_info_detail}>
       <div className={styles.productInfo}>

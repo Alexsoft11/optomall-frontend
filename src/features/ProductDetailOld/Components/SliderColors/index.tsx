@@ -31,11 +31,9 @@ const SliderColors = ({
     setSelectedColor(colorId);
   };
   const checkData = (data:any)=>{
-    console.log("check", fakeColorsData)
     if(data.length>0)return data;
     else return fakeColorsData;
   }
-console.log(data)
   return (
     <div className={styles.swiper_colors}>
       <Swiper

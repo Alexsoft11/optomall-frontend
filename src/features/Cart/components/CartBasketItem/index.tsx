@@ -16,18 +16,21 @@ interface Props {
 }
 
 export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Props) {
+  
   const t = useTranslations("GLOBAL");
 
   const handleChange = (chacked: boolean) => {
 
-    if (!item.size_id) return
+    if (!item.sku_id) return
     const data: CartOrderItemInterface = {
       product_id: item.product_id,
       image_url: item.image_url,
+      product_url: item.product_url,
       title: item.title,
       color: item.color,
       size: item.size,
-      size_id: item.size_id,
+      provider: item.provider,
+      sku_id: item.sku_id,
       price: +item.price,
       quantity: item.quantity,
     }

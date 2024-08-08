@@ -1,9 +1,7 @@
 import React, { Fragment, useState } from "react";
 import styles from "./PurchasesItem.module.scss";
-import { PurchasesOrderInterface } from "../../interfaces";
 import { useLocale, useTranslations } from "next-intl";
 import SvgSelector from "$/assets/icons/SvgSelector";
-import PurchasesOrderItem from "../PurchasesOrderItem";
 import Image from "next/image";
 import { LanguageStringIntergace } from "@/interfaces";
 import useQueryApiClient from "@/utils/useQueryApiClient";
@@ -12,6 +10,8 @@ import { RcFile } from "antd/es/upload";
 import { Upload } from "antd/lib";
 import { useRouter } from "next/router";
 import { formatPrice } from "@/constants";
+import { PurchasesOrderInterface } from "../Types";
+import PurchasesOrderItem from "../PurchasesOrderItem";
 
 interface Props {
   item: PurchasesOrderInterface;
@@ -20,7 +20,7 @@ interface Props {
 export default function PurchasesItem({ item }: Props) {
   const t = useTranslations("Purchases");
   const locale = useLocale();
-  const router = useRouter();
+  // const router = useRouter();
   const [isUploadErr, setIsUploadErr] = useState(false);
   const getCreateDateRegexp = /(\d){4}-(\d){2}-(\d){2}/
 
