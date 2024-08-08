@@ -290,12 +290,12 @@ const ProductOrderSection: React.FC<Props> = ({
             {formatPrice(totalPrice)} uzs
           </span>
         </div>
-        <Tooltip title={!totalPrice ? "Please select any item" : ""}>
+        <Tooltip title={token && !totalPrice ? "Please select any item" : ""}>
           <Button
             loading={isLoading}
             className={styles.addToCart}
             onClick={onFinish}
-            disabled={!totalPrice}
+            disabled={token && !totalPrice}
             label={"В корзину"}
           ></Button>
         </Tooltip>

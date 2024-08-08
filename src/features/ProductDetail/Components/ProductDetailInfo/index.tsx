@@ -61,7 +61,7 @@ const ProductDetailInfo: React.FC<Props> = ({
     const matchdata =
       type === "color"
         ? ["color", "colour", "colo", "sort by color", "цвет", "rang"]
-        : ["size", "hajm", "hajmi"];
+        : ["size", "hajm", "hajmi", "размер"];
     return skus
       ?.flatMap((sku) => sku.properties)
       .find(
@@ -89,9 +89,13 @@ const ProductDetailInfo: React.FC<Props> = ({
               sku.properties.some((prop) => prop.value === selectedColor.value)
             )
             .flatMap((sku) =>
-              sku.properties.filter((prop) =>
-                prop?.name?.toLowerCase().includes("size")
-              )
+              sku.properties.filter((prop) => {
+                const matches = ["size", "Размер", "размер", "hajmi"].some(
+                  (term) => prop.name?.toLowerCase().includes(term)
+                );
+
+                return matches;
+              })
             )
         )
       )
