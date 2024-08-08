@@ -85,7 +85,7 @@ export const getServerSideProps = async (context: any) => {
 
     const params = {
       productId: context.params.id,
-      lang: context.locale,
+      lang: "en",
       provider: channel,
     };
 

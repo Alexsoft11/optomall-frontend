@@ -81,7 +81,11 @@ const SliderColors = ({
         // Render simple list if imageUrl is null
         <div className={styles.color_list}>
           {colors.map((color, idx: number) =>
-            renderColorItem(color, idx, styles.list_item)
+            renderColorItem(
+              { ...color, imageUrl: undefined },
+              idx,
+              styles.list_item
+            )
           )}
         </div>
       ) : (
