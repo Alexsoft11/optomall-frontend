@@ -47,15 +47,15 @@ const SliderColors = ({
     className: string
   ) => (
     <div className={styles.card_item} key={idx}>
-      <Badge offset={[-2, -2]} count={totalQuantities[color.value] || 0}>
-        <div
-          className={`${className} ${
-            selectedColor?.value === color.value ? styles.selected : ""
-          }`}
-          onClick={() => handleColorSelect(color)}
-        >
-          {color?.imageUrl ? (
-            <Tooltip title={color.value}>
+      <Tooltip title={color?.imageUrl ? color.value : ""} trigger={"hover"}>
+        <Badge offset={[-2, -2]} count={totalQuantities[color.value] || 0}>
+          <div
+            className={`${className} ${
+              selectedColor?.value === color.value ? styles.selected : ""
+            }`}
+            onClick={() => handleColorSelect(color)}
+          >
+            {color?.imageUrl ? (
               <CustomImage
                 src={color?.imageUrl}
                 alt={color?.name ? color?.name : ""}
@@ -63,12 +63,12 @@ const SliderColors = ({
                 isLink={false}
                 loading="lazy"
               />
-            </Tooltip>
-          ) : (
-            <div className={styles.color_value}>{color.value}</div>
-          )}
-        </div>
-      </Badge>
+            ) : (
+              <div className={styles.color_value}>{color.value}</div>
+            )}
+          </div>
+        </Badge>
+      </Tooltip>
     </div>
   );
 

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useTransition } from "react";
 import styles from "./ProductOrderSection.module.scss";
-import { Button, message, Tooltip } from "antd";
-import { MinusSvg, PlusSvg } from "$/assets/images";
+import { Button as AntdButton, message, Tooltip } from "antd";
+import { MinusSvg, PlusSvg, SearchSvg } from "$/assets/images";
 import Image from "next/image";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useJwt } from "@/utils/useJwt";
@@ -14,6 +14,8 @@ import {
   SKUProperty,
 } from "../../interface";
 import { useRouter } from "next/router";
+import { Button, Modal } from "@/ui";
+import { useTranslations } from "next-intl";
 
 interface Props {
   product?: ProductDetailInterface;
@@ -36,14 +38,15 @@ const ProductOrderSection: React.FC<Props> = ({
   setColorsBasket,
   colorsBasket,
 }) => {
-  const { query } = useRouter();
-  const [loading, setLoading] = useState<boolean>(false);
+  const { query, push } = useRouter();
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [basketData, setBasketData] = useState<BasketInterface[]>([]);
   const [currentPrice, setCurrentPrice] = useState<number>(product?.price || 0);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const token = useJwt();
+  const t = useTranslations();
 
-  const user = useJwt();
-  const { appendData: createData } = useQueryApiClient({
+  const { appendData, isLoading } = useQueryApiClient({
     request: {
       url: `user-basket`,
       method: "POST",
@@ -51,22 +54,19 @@ const ProductOrderSection: React.FC<Props> = ({
     },
     onSuccess(res) {
       message.success(res.message);
-      setLoading(false);
-      // resetStates();
     },
   });
 
   useEffect(() => {
     if (!!colorsBasket.length && selectedColor) {
-      for (let i = 0; i < colorsBasket.length; i++) {
-        const element = colorsBasket[i];
-        if (selectedColor.value === element.color) {
-          setBasketData(element.data);
-        }
+      const basketForSelectedColor = colorsBasket.find(
+        (element) => selectedColor.value === element.color
+      );
+      if (basketForSelectedColor) {
+        setBasketData(basketForSelectedColor.data);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedColor]);
+  }, [selectedColor, colorsBasket]);
 
   const updateColorBasket = (updatedBasket: BasketInterface[]) => {
     const newColorsBasket = colorsBasket.map((colorBasket) => {
@@ -82,29 +82,18 @@ const ProductOrderSection: React.FC<Props> = ({
     type: "incr" | "decr",
     sizeProperty?: SKUProperty
   ) => {
-    const selectedSKU =
-      sizes.length > 0
-        ? skus?.find(
-            (sku) =>
-              sku.properties.some(
-                (prop) => prop.value === selectedColor?.value
-              ) &&
-              sku.properties.some((prop) => prop.value === sizeProperty?.value)
-          )
-        : skus?.find((sku) =>
-            sku.properties.some((prop) => prop.value === selectedColor?.value)
-          );
+    const selectedSKU = findSKU(sizeProperty?.value);
 
     if (!selectedSKU) {
       return;
     }
 
     if (type === "incr") {
-      setTotalPrice(totalPrice + selectedSKU?.price);
-      if (basketData?.some((prop) => prop.sku_id === selectedSKU?.sku_id)) {
+      setTotalPrice((prevTotalPrice) => prevTotalPrice + selectedSKU.price);
+      if (basketData.some((prop) => prop.sku_id === selectedSKU.sku_id)) {
         const newBasketData = basketData
           .map((data) => {
-            if (data.sku_id === selectedSKU?.sku_id) {
+            if (data.sku_id === selectedSKU.sku_id) {
               if (selectedSKU.quantity <= data.quantity) {
                 message.warning(
                   `max quantity product is ${selectedSKU.quantity}`
@@ -126,9 +115,9 @@ const ProductOrderSection: React.FC<Props> = ({
             ? selectedColor?.imageUrl
             : product?.image,
           color: selectedColor?.value,
-          max_quantity: selectedSKU?.quantity,
-          price: selectedSKU?.price,
-          product_id: product?.id,
+          max_quantity: selectedSKU.quantity,
+          price: selectedSKU.price,
+          product_id: String(product?.id),
           product_url: product?.product_url,
           provider: query.channel,
           quantity: 1,
@@ -136,7 +125,7 @@ const ProductOrderSection: React.FC<Props> = ({
             ? product?.seller_info.user_num_id
             : "default",
           size: sizeProperty?.value || "default",
-          sku_id: selectedSKU?.sku_id,
+          sku_id: String(selectedSKU.sku_id),
           title: product?.title,
         };
         const newBasketData = [...basketData, newBasketItem];
@@ -146,11 +135,11 @@ const ProductOrderSection: React.FC<Props> = ({
     }
 
     if (type === "decr") {
-      if (basketData?.some((prop) => prop.sku_id === selectedSKU?.sku_id)) {
-        setTotalPrice(totalPrice - selectedSKU?.price);
+      if (basketData.some((prop) => prop.sku_id === selectedSKU.sku_id)) {
+        setTotalPrice((prevTotalPrice) => prevTotalPrice - selectedSKU.price);
         const newBasketData = basketData
           .map((data) => {
-            if (data.sku_id === selectedSKU?.sku_id) {
+            if (data.sku_id === selectedSKU.sku_id) {
               if (data.quantity === 1) {
                 return undefined;
               }
@@ -172,7 +161,6 @@ const ProductOrderSection: React.FC<Props> = ({
         ? sku.properties.some((prop) => prop.value === selectedColor.value)
         : true;
 
-    // Helper function to check if a SKU has a specific size
     const hasSpecificSize = (sku: SKU, size: string) =>
       sku.properties.some((prop) => prop.value === size);
 
@@ -194,6 +182,7 @@ const ProductOrderSection: React.FC<Props> = ({
 
     return selectedSKU;
   };
+
   useEffect(() => {
     const selectedSKU = findSKU();
     if (selectedSKU) {
@@ -205,11 +194,38 @@ const ProductOrderSection: React.FC<Props> = ({
   }, [selectedColor]);
 
   const onFinish = () => {
-    console.log(colorsBasket);
+    if (!token) {
+      return setShowModal(true);
+    }
+    const allBasketData = colorsBasket.flatMap(
+      (colorBasket) => colorBasket.data
+    );
+    if (allBasketData.length === 0) {
+      message.warning("No items to add to the basket.");
+      return;
+    }
+
+    appendData(allBasketData);
   };
 
-  // Add a default size if sizes array is empty
-  const displaySizes = sizes.length > 0 ? sizes : [{ value: "default" }];
+  const modalProps = {
+    onCancel: () => setShowModal(false),
+    className: "bg_white",
+    img: SearchSvg,
+    description: t("Cart.authMessage"),
+    children: (
+      <Button
+        onClick={() => push("auth?step=signin")}
+        className="signIn_btn"
+        label={t("Cart.signin")}
+      />
+    ),
+    open: showModal,
+  };
+
+  const displaySizes = useMemo(() => {
+    return sizes.length > 0 ? sizes : [{ value: "default" }];
+  }, [sizes]);
 
   return (
     <div className={styles.product_order}>
@@ -230,11 +246,11 @@ const ProductOrderSection: React.FC<Props> = ({
         ) : null}
       </div>
 
-      <div className={`${styles.sizeSelector}`}>
+      <div className={styles.sizeSelector}>
         {displaySizes.map((size, idx) => {
           const { value } = size;
           const quantity = basketData?.find((data) => data.size === value);
-          const sizeSku = findSKU(size.value);
+          const sizeSku = findSKU(value);
 
           return (
             <div key={idx} className={styles.size}>
@@ -248,18 +264,18 @@ const ProductOrderSection: React.FC<Props> = ({
                 )}
               </span>
               <div className={styles.change_value}>
-                <Button onClick={() => handleSizeChange("decr", size)}>
+                <AntdButton onClick={() => handleSizeChange("decr", size)}>
                   <Image src={MinusSvg} width={24} height={24} alt="#" />
-                </Button>
+                </AntdButton>
                 <Tooltip title={`Max quantity ${sizeSku?.quantity}`}>
                   <h4 className={styles.selected_quantity}>
                     {quantity ? quantity.quantity : 0}
                   </h4>
                 </Tooltip>
                 <Tooltip>
-                  <Button onClick={() => handleSizeChange("incr", size)}>
+                  <AntdButton onClick={() => handleSizeChange("incr", size)}>
                     <Image src={PlusSvg} width={24} height={24} alt="#" />
-                  </Button>
+                  </AntdButton>
                 </Tooltip>
               </div>
             </div>
@@ -274,15 +290,17 @@ const ProductOrderSection: React.FC<Props> = ({
             {formatPrice(totalPrice)} uzs
           </span>
         </div>
-        <Button
-          loading={loading}
-          className={styles.addToCart}
-          onClick={onFinish}
-          // disabled={!isProductSelected()}
-        >
-          В корзину
-        </Button>
+        <Tooltip title={!totalPrice ? "Please select any item" : ""}>
+          <Button
+            loading={isLoading}
+            className={styles.addToCart}
+            onClick={onFinish}
+            disabled={!totalPrice}
+            label={"В корзину"}
+          ></Button>
+        </Tooltip>
       </div>
+      <Modal {...modalProps} />
     </div>
   );
 };
