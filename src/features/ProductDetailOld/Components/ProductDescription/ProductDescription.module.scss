@@ -1,0 +1,10 @@
+/** @format */
+
+.html_img {
+    text-align: center;
+  @media (max-width: 820px) {
+    img {
+      width: 100%;
+    }
+  }
+}
