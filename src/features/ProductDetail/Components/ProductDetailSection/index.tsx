@@ -31,9 +31,16 @@ const ProductDetailSection = ({
   const [selectedImage, setSelectedImage] = useState(product?.image);
   const t = useTranslations("Product-detail");
 
-  const { category } = router.query;
+  const { category, channel } = router.query;
 
-  const pathArr = category ? [{ title: category as string, path: "" }] : [];
+  const pathArr = category
+    ? [
+        {
+          titleNotr: category as string,
+          path: `/search?value=${category}&channel=${channel}`,
+        },
+      ]
+    : [];
 
   useEffect(() => {
     setSelectedImage(product?.image);
@@ -64,7 +71,11 @@ const ProductDetailSection = ({
                 setSelectedImage={setSelectedImage}
                 product={product}
               />
-              <ProductDetailInfo setSelectedImage={setSelectedImage} productDetails={score} product={product} />
+              <ProductDetailInfo
+                setSelectedImage={setSelectedImage}
+                productDetails={score}
+                product={product}
+              />
             </div>
           </div>
           <div>

@@ -40,6 +40,8 @@ const ProductOrderSection: React.FC<Props> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [basketData, setBasketData] = useState<BasketInterface[]>([]);
+  const [currentPrice, setCurrentPrice] = useState<number>(product?.price || 0);
+
   const user = useJwt();
   const { appendData: createData } = useQueryApiClient({
     request: {
@@ -75,30 +77,47 @@ const ProductOrderSection: React.FC<Props> = ({
     });
     setColorsBasket(newColorsBasket);
   };
-  console.log(colorsBasket);
 
   const handleSizeChange = (
     type: "incr" | "decr",
     sizeProperty?: SKUProperty
   ) => {
-    const selectedSKU = skus?.find(
-      (sku) =>
-        sku.properties.some((prop) => prop.value === selectedColor?.value) &&
-        sku.properties.some((prop) => prop.value === sizeProperty?.value)
-    );
+    const selectedSKU =
+      sizes.length > 0
+        ? skus?.find(
+            (sku) =>
+              sku.properties.some(
+                (prop) => prop.value === selectedColor?.value
+              ) &&
+              sku.properties.some((prop) => prop.value === sizeProperty?.value)
+          )
+        : skus?.find((sku) =>
+            sku.properties.some((prop) => prop.value === selectedColor?.value)
+          );
+
     if (!selectedSKU) {
       return;
     }
+
     if (type === "incr") {
       setTotalPrice(totalPrice + selectedSKU?.price);
       if (basketData?.some((prop) => prop.sku_id === selectedSKU?.sku_id)) {
-        const newBasketData = basketData.map((data) => {
-          if (data.sku_id === selectedSKU?.sku_id) {
-            const quantity = data.quantity + 1;
-            return { ...data, quantity };
-          }
-          return data;
-        });
+        const newBasketData = basketData
+          .map((data) => {
+            if (data.sku_id === selectedSKU?.sku_id) {
+              if (selectedSKU.quantity <= data.quantity) {
+                message.warning(
+                  `max quantity product is ${selectedSKU.quantity}`
+                );
+                return data;
+              }
+              const quantity = data.quantity + 1;
+              return { ...data, quantity };
+            }
+            return data;
+          })
+          .filter((data): data is BasketInterface => data !== undefined);
+
         setBasketData(newBasketData);
         updateColorBasket(newBasketData);
       } else {
@@ -111,12 +130,12 @@ const ProductOrderSection: React.FC<Props> = ({
           price: selectedSKU?.price,
           product_id: product?.id,
           product_url: product?.product_url,
-          provider: query.provider,
+          provider: query.channel,
           quantity: 1,
           seller_id: product?.seller_info
             ? product?.seller_info.user_num_id
             : "default",
-          size: sizeProperty?.value,
+          size: sizeProperty?.value || "default",
           sku_id: selectedSKU?.sku_id,
           title: product?.title,
         };
@@ -147,13 +166,56 @@ const ProductOrderSection: React.FC<Props> = ({
     }
   };
 
-  const onFinish = () => {};
+  const findSKU = (size?: string): SKU | undefined => {
+    const hasColor = (sku: SKU) =>
+      selectedColor
+        ? sku.properties.some((prop) => prop.value === selectedColor.value)
+        : true;
+
+    // Helper function to check if a SKU has a specific size
+    const hasSpecificSize = (sku: SKU, size: string) =>
+      sku.properties.some((prop) => prop.value === size);
+
+    const hasAnySize = (sku: SKU) =>
+      sizes.length > 0
+        ? sizes.some((size) =>
+            sku.properties.some((prop) => prop.value === size.value)
+          )
+        : true;
+
+    let selectedSKU =
+      size && skus
+        ? skus.find((sku) => hasColor(sku) && hasSpecificSize(sku, size))
+        : skus && skus.find((sku) => hasColor(sku) && hasAnySize(sku));
+
+    if (!selectedSKU && selectedColor) {
+      selectedSKU = skus?.find(hasColor);
+    }
+
+    return selectedSKU;
+  };
+  useEffect(() => {
+    const selectedSKU = findSKU();
+    if (selectedSKU) {
+      setCurrentPrice(selectedSKU.price);
+    } else if (product?.price) {
+      setCurrentPrice(product.price);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedColor]);
+
+  const onFinish = () => {
+    console.log(colorsBasket);
+  };
+
+  // Add a default size if sizes array is empty
+  const displaySizes = sizes.length > 0 ? sizes : [{ value: "default" }];
 
   return (
     <div className={styles.product_order}>
       <div className={styles.priceSection}>
         <span className={styles.currentPrice}>
-          {formatPrice(product?.price)} uzs
+          {formatPrice(currentPrice)} uzs
         </span>
         {product?.discounted_price &&
         product.price !== product.discounted_price ? (
@@ -169,9 +231,11 @@ const ProductOrderSection: React.FC<Props> = ({
       </div>
 
       <div className={`${styles.sizeSelector}`}>
-        {sizes.map((size, idx) => {
+        {displaySizes.map((size, idx) => {
           const { value } = size;
           const quantity = basketData?.find((data) => data.size === value);
+          const sizeSku = findSKU(size.value);
+
           return (
             <div key={idx} className={styles.size}>
               <span
@@ -187,12 +251,16 @@ const ProductOrderSection: React.FC<Props> = ({
                 <Button onClick={() => handleSizeChange("decr", size)}>
                   <Image src={MinusSvg} width={24} height={24} alt="#" />
                 </Button>
-                <h4 className={styles.selected_quantity}>
-                  {quantity ? quantity.quantity : 0}
-                </h4>
-                <Button onClick={() => handleSizeChange("incr", size)}>
-                  <Image src={PlusSvg} width={24} height={24} alt="#" />
-                </Button>
+                <Tooltip title={`Max quantity ${sizeSku?.quantity}`}>
+                  <h4 className={styles.selected_quantity}>
+                    {quantity ? quantity.quantity : 0}
+                  </h4>
+                </Tooltip>
+                <Tooltip>
+                  <Button onClick={() => handleSizeChange("incr", size)}>
+                    <Image src={PlusSvg} width={24} height={24} alt="#" />
+                  </Button>
+                </Tooltip>
               </div>
             </div>
           );

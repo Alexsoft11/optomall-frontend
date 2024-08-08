@@ -41,28 +41,42 @@ const ProductDetailInfo: React.FC<Props> = ({
     new Set(
       skus?.flatMap((sku) =>
         sku?.properties
-          .filter((prop) => prop.name?.toLowerCase().includes("color"))
+          .filter((prop) => {
+            const matches = [
+              "color",
+              "colour",
+              "colo",
+              "sort by color",
+              "цвет",
+              "rang",
+            ].some((term) => prop.name?.toLowerCase().includes(term));
+            return matches;
+          })
           .map((prop) => prop.value)
       )
     )
   );
 
   const handleGetProperty = (value: string, type?: string) => {
-    const property = skus
+    const matchdata =
+      type === "color"
+        ? ["color", "colour", "colo", "sort by color", "цвет", "rang"]
+        : ["size", "hajm", "hajmi"];
+    return skus
       ?.flatMap((sku) => sku.properties)
       .find(
         (prop) =>
           prop.value === value &&
           prop?.name &&
-          prop?.name.toLowerCase().includes(type ? type : "color")
+          matchdata.some(
+            (term) => prop?.name && prop.name.toLowerCase().includes(term)
+          )
       );
-
-    return property;
   };
 
   const colors = colorValue
     .map((value) => {
-      const properties = handleGetProperty(value);
+      const properties = handleGetProperty(value, "color");
       return properties;
     })
     ?.filter((data) => data !== undefined);
@@ -81,7 +95,7 @@ const ProductDetailInfo: React.FC<Props> = ({
             )
         )
       )
-    : [{ value: "default" }];
+    : [];
 
   const handleColorSelect = (colorProperty?: SKUProperty) => {
     setSelectedColor(colorProperty);

@@ -29,17 +29,17 @@ const Card = ({ data, onLikeChange, channel = "taobao" }: CardProps) => {
   }, [textRef]);
 
   const handleLinkClick = (e: React.MouseEvent) => {
-    e.preventDefault();    
-    const url = `/product/${data.id}?channel=${router.query.channel || channel}`;
-  
+    e.preventDefault();
+    let url = `/product/${data.id}?channel=${router.query.channel || channel}`;
+    if (router.pathname.includes("search") && router.query.value) {
+      url = `${url}&category=${router.query.value}`;
+    }
     if (e.ctrlKey || e.metaKey) {
-      window.open(url, '_blank');
+      window.open(url, "_blank");
     } else {
       router.push(url);
     }
-
   };
-  
 
   const getTitle = (
     title: any | { uz: string; ru: string; en: string } | undefined

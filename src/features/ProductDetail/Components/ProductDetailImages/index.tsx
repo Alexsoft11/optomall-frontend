@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import { detailData } from "@/mockdata/detailData";
 import Detail from "./detail";
 import { ProductDetailInterface } from "../../interface";
+import CustomImage from "@/components/CustomImage";
 
 // const Detail = dynamic(() => import("./detail"),{ssr:false})
 
@@ -26,12 +27,14 @@ const ProductDetailImages = ({
       <div className={styles.imageThumbnails}>
         {product.pictures.map((item: any, idx: number) => (
           <div key={idx} className={styles.imageThumbnails_card}>
-            <Image
+            <CustomImage
               fill
               key={item.id}
               src={item.image_url}
               alt={`Thumbnail ${item.id}`}
               onClick={() => setSelectedImage(item.image_url)}
+              loading="lazy"
+              isLink={false}
               className={selectedImage === item.image_url ? styles.active : ""}
             />
           </div>
