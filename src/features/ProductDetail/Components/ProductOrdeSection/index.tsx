@@ -38,7 +38,7 @@ const ProductOrderSection: React.FC<Props> = ({
   setColorsBasket,
   colorsBasket,
 }) => {
-  const { query, push } = useRouter();
+  const { query, push, asPath,  } = useRouter();
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [basketData, setBasketData] = useState<BasketInterface[]>([]);
   const [currentPrice, setCurrentPrice] = useState<number>(product?.price || 0);
@@ -215,7 +215,7 @@ const ProductOrderSection: React.FC<Props> = ({
     description: t("Cart.authMessage"),
     children: (
       <Button
-        onClick={() => push("auth?step=signin")}
+        onClick={() => push(`/auth?step=signin&backUrl=${asPath}`)}
         className="signIn_btn"
         label={t("Cart.signin")}
       />
@@ -290,12 +290,12 @@ const ProductOrderSection: React.FC<Props> = ({
             {formatPrice(totalPrice)} uzs
           </span>
         </div>
-        <Tooltip title={!totalPrice ? "Please select any item" : ""}>
+        <Tooltip title={token && !totalPrice ? "Please select any item" : ""}>
           <Button
             loading={isLoading}
             className={styles.addToCart}
             onClick={onFinish}
-            disabled={!totalPrice}
+            disabled={token && !totalPrice}
             label={"В корзину"}
           ></Button>
         </Tooltip>
