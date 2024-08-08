@@ -45,8 +45,8 @@ const Navbar = () => {
   };
 
   const handleModalIsOpen = () => {
-    setModalIsOpen(true)
-  }
+    setModalIsOpen(true);
+  };
 
   return (
     <>
@@ -65,12 +65,15 @@ const Navbar = () => {
                 />
                 <SearchBtn />
 
-                <button className={styles.navbar__support} onClick={handleModalIsOpen}>
+                <button
+                  className={styles.navbar__support}
+                  onClick={handleModalIsOpen}
+                >
                   <SvgSelector id="support-svg" />
                 </button>
                 <Modal
                   onCancel={setModalIsOpen}
-                  className='bg_white'
+                  className="bg_white"
                   img={HeadPhone}
                   description={`${t("modalMessage")}\n+998 71 234 56 78`}
                   open={modalIsOpen}
@@ -84,12 +87,6 @@ const Navbar = () => {
               <div className={styles.navbar__items}>
                 <LanguageSelector />
 
-                <button className={styles.navbar__shop_btn}>
-                  <Link href="/cart">
-                    <SvgSelector id="shop-svg" />
-                  </Link>
-                </button>
-
                 <button className={styles.navbar__saved_btn}>
                   <Link href="/wishes">
                     <SvgSelector id="saved-svg" />
@@ -98,6 +95,11 @@ const Navbar = () => {
 
                 {isMounted && token ? (
                   <>
+                    <button className={styles.navbar__shop_btn}>
+                      <Link href="/cart">
+                        <SvgSelector id="shop-svg" />
+                      </Link>
+                    </button>
                     <button
                       className={`${styles.navbar__user_btn} ${
                         openModal === "user" ? styles.open : ""
@@ -116,8 +118,10 @@ const Navbar = () => {
                         {ModalLinks.map((link: any) => (
                           <Link
                             href={link.href}
-                            onClick={() => {logOut(link.textKey)
-                              setOpenModal(null);}}
+                            onClick={() => {
+                              logOut(link.textKey);
+                              setOpenModal(null);
+                            }}
                             className={styles.navbar__user_item}
                             key={link.id}
                           >
@@ -130,7 +134,7 @@ const Navbar = () => {
                   </>
                 ) : (
                   <>
-                    <div  className={styles.navbar__btn_access}>
+                    <div className={styles.navbar__btn_access}>
                       <Button
                         className="generalbtn"
                         label={t("btn_access")}
@@ -139,7 +143,7 @@ const Navbar = () => {
                       />
                     </div>
 
-                    <div  className={styles.navbar__btn_regist}>
+                    <div className={styles.navbar__btn_regist}>
                       <Button
                         className="line_btn"
                         label={t("btn_regist")}
@@ -168,13 +172,13 @@ const Navbar = () => {
           {NavLinks.map((item, idx) => (
             <Link
               className={`${styles.navbar__mobile_item} ${
-                item.link === '/'
+                item.link === "/"
                   ? router.pathname === item.link
                     ? styles.activeItem
-                    : ''
+                    : ""
                   : router.pathname.startsWith(item.link)
                   ? styles.activeItem
-                  : ''
+                  : ""
               }`}
               key={idx}
               href={item.link}
