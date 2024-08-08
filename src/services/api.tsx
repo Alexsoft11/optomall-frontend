@@ -91,19 +91,11 @@ export const API = {
       .get(`product-detail`, { params: params })
       .then((res) => res.data),
 
-  getProductDetailToken: (params: any, token?: string) =>
+  getProductDetailLocal: (params: any) =>
     axiosInstance
-      .get(
-        `product-detail-from-taobao${
-          token && token !== "undefined" ? "-token" : ""
-        }`,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-          params: params,
-        }
-      )
+      .get(`product-detail-from-taobao`, {
+        params: params,
+      })
       .then((res) => res.data),
 
   getProductComments: (query: any) =>

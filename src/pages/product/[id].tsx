@@ -23,42 +23,58 @@ const ProductDetailSection = dynamic(
   {
     loading: () => <LoadingSpinner fullscreen={true} size="large" />,
   }
-  );
-  
-  const ProductDetail = ({ product }: ProductDetailProps) => {
-    const { query,locale } = useRouter();
-    const { data: productComments } = useQueryApiClient({
-      request: {
-        url: `get-comments?product_id=${query.id}`,
-        method: "GET",
-        disableOnMount: !query.id,
-      },
-      enabled: !!query.id,
-    });
-    const { data: getSearchRes, isLoading: isSearchResLoading } =
+);
+
+const ProductDetailSectionLocal = dynamic(
+  () =>
+    import("@/features/ProductDetailOld/Components/ProductDetailSectionOld"),
+  {
+    loading: () => <LoadingSpinner fullscreen={true} size="large" />,
+  }
+);
+
+const ProductDetail = ({ product }: ProductDetailProps) => {
+  const { query, locale } = useRouter();
+  const { data: productComments } = useQueryApiClient({
+    request: {
+      url: `get-comments?product_id=${query.id}`,
+      method: "GET",
+      disableOnMount: !query.id,
+    },
+    enabled: !!query.id,
+  });
+
+  const { data: getSearchRes, isLoading: isSearchResLoading } =
     useQueryApiClient({
       request: {
-        url: `search-products-from-taobao?productsCount=10imageUrl=${product?.detail.image}&lang=${locale}`,
+        url: `search-products-from-taobao?imageUrl=${product?.detail?.image}&lang=${locale}`,
         method: "GET",
-        disableOnMount: !query.id,
+        disableOnMount: !product?.detail?.image,
       },
+      enabled: !product?.detail?.image,
     });
-    if (!product) {
-      return <DataNotFound />;
-    }
-    const title = product?.detail.title;
+  if (!product) {
+    return <DataNotFound />;
+  }
+  const title = product?.detail.title;
 
-
-
-return (
+  return (
     <PageLayout metaTitle={title}>
-
-      <ProductDetailSection
-        product={product.detail}
-        productComments={productComments}
-        recommended={getSearchRes.products}
-        score={product.score}
-      />
+      {query.channel === "local" ? (
+        <ProductDetailSectionLocal
+          product={product.detail}
+          productComments={productComments}
+          recommended={getSearchRes.products}
+          score={product.score}
+        />
+      ) : (
+        <ProductDetailSection
+          product={product.detail}
+          productComments={productComments}
+          recommended={getSearchRes.products}
+          score={product.score}
+        />
+      )}
     </PageLayout>
   );
 };
@@ -66,20 +82,25 @@ return (
 export const getServerSideProps = async (context: any) => {
   try {
     const channel = context.query.channel || "taobao";
-   
+
     const params = {
       productId: context.params.id,
       lang: context.locale,
       provider: channel,
     };
-    const product = await API.getProductDetail(params);
+
+    let product;
+    if (channel === "local") {
+      product = await API.getProductDetailLocal(params);
+    } else {
+      product = await API.getProductDetail(params);
+    }
 
     // const productComments = await API.getProductComments(id);
 
     return {
       props: {
         product,
-       
       },
     };
   } catch (error) {
@@ -87,7 +108,6 @@ export const getServerSideProps = async (context: any) => {
     return {
       props: {
         product: null,
-       
       },
     };
   }
