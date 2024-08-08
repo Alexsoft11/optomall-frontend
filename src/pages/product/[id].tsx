@@ -50,7 +50,6 @@ const ProductDetailSection = dynamic(
 
 
 
-console.log(getSearchRes)
 return (
     <PageLayout metaTitle={title}>
 
@@ -67,21 +66,20 @@ return (
 export const getServerSideProps = async (context: any) => {
   try {
     const channel = context.query.channel || "taobao";
-    const cookies = cookie.parse(context.req.headers.cookie || "");
-    const token = decodeURIComponent(cookies.token);
+   
     const params = {
       productId: context.params.id,
       lang: context.locale,
       provider: channel,
     };
-    const product = await API.getProductDetailToken(params, token);
+    const product = await API.getProductDetail(params);
 
     // const productComments = await API.getProductComments(id);
 
     return {
       props: {
         product,
-        productComments: [],
+       
       },
     };
   } catch (error) {
@@ -89,7 +87,7 @@ export const getServerSideProps = async (context: any) => {
     return {
       props: {
         product: null,
-        productComments: null,
+       
       },
     };
   }

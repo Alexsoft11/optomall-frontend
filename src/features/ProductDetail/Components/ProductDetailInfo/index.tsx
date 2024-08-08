@@ -4,41 +4,110 @@ import React, { useEffect, useState } from "react";
 import styles from "./ProductDetailInfo.module.scss";
 import { Button, Dropdown, Rate } from "antd";
 import SliderColors from "../SliderColors";
-import ProductOrderSection from "../ProductOrdeSection";
 import { MenuProps } from "antd/lib";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import Link from "next/link";
 import { shareUrl } from "@/constants";
 import ProductIsLike from "../ProductIsLike/ProductIsLike";
-import { productDetailsData } from "@/mockdata/detailData";
 import { useTranslations } from "next-intl";
 import { copyLinkToClipboard } from "@/utils/useCopyLink";
+import {
+  ColorsBasketInterface,
+  ProductDetailInterface,
+  SKU,
+  SKUProperty,
+} from "../../interface";
+import ProductOrderSection from "../ProductOrdeSection";
 
-const ProductDetailInfo = ({
+interface Props {
+  productDetails?: any;
+  product?: ProductDetailInterface;
+  path?: any;
+  setSelectedImage: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const ProductDetailInfo: React.FC<Props> = ({
   productDetails,
   product,
   path = shareUrl(),
-}: any) => {
+  setSelectedImage,
+}) => {
   const t = useTranslations("Product-detail");
-  // const [activeItem, setActiveItem] = useState<number>(product.colors[0]?.id);
-  const [fakeColorsData, setFakeColorsData] = useState<any>();
-  const [selectedColor, setSelectedColor] = useState<number | null>(
-    product.colors[0]?.id
+  const { skus } = product || {};
+  const [selectedColor, setSelectedColor] = useState<SKUProperty | undefined>();
+  const [colorsBasket, setColorsBasket] = useState<ColorsBasketInterface[]>([]);
+
+  const colorValue = Array.from(
+    new Set(
+      skus?.flatMap((sku) =>
+        sku?.properties
+          .filter((prop) => prop.name?.toLowerCase().includes("color"))
+          .map((prop) => prop.value)
+      )
+    )
   );
-  const [selectedColors, setSelectedColors] = useState<number[]>([
-    product.colors[0]?.id,
-  ]);
-  const [totalQuantities, setTotalQuantities] = useState<{
-    [key: number]: number;
-  }>({});
+
+  const handleGetProperty = (value: string, type?: string) => {
+    const property = skus
+      ?.flatMap((sku) => sku.properties)
+      .find(
+        (prop) =>
+          prop.value === value &&
+          prop?.name &&
+          prop?.name.toLowerCase().includes(type ? type : "color")
+      );
+
+    return property;
+  };
+
+  const colors = colorValue
+    .map((value) => {
+      const properties = handleGetProperty(value);
+      return properties;
+    })
+    ?.filter((data) => data !== undefined);
+
+  const sizes = selectedColor?.value
+    ? Array.from(
+        new Set(
+          skus
+            ?.filter((sku) =>
+              sku.properties.some((prop) => prop.value === selectedColor.value)
+            )
+            .flatMap((sku) =>
+              sku.properties.filter((prop) =>
+                prop?.name?.toLowerCase().includes("size")
+              )
+            )
+        )
+      )
+    : [{ value: "default" }];
+
+  const handleColorSelect = (colorProperty?: SKUProperty) => {
+    setSelectedColor(colorProperty);
+    if (colorProperty?.imageUrl) {
+      setSelectedImage(colorProperty.imageUrl);
+    }
+  };
+
+  useEffect(() => {
+    const colorBasketData = colors.map((color) => ({
+      color: color?.value,
+      data: [],
+    }));
+    setColorsBasket(colorBasketData);
+    setSelectedColor(colors[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const items: MenuProps["items"] = [
     {
       label: (
         <p
           className={styles.link}
-          onClick={(event) => copyLinkToClipboard(event, "location")}>
-          <SvgSelector id='copylink-svg' />
+          onClick={(event) => copyLinkToClipboard(event, "location")}
+        >
+          <SvgSelector id="copylink-svg" />
           {t("copy-link")}
         </p>
       ),
@@ -48,8 +117,9 @@ const ProductDetailInfo = ({
       label: (
         <Link
           href={`https://t.me/share/url?url=${path}`}
-          className={styles.link}>
-          <SvgSelector id='telegram-svg' />
+          className={styles.link}
+        >
+          <SvgSelector id="telegram-svg" />
           Telegram
         </Link>
       ),
@@ -58,7 +128,7 @@ const ProductDetailInfo = ({
     {
       label: (
         <Link href={path} className={styles.link}>
-          <SvgSelector id='facebook-svg' />
+          <SvgSelector id="facebook-svg" />
           Facebook{" "}
         </Link>
       ),
@@ -67,22 +137,14 @@ const ProductDetailInfo = ({
     {
       label: (
         <Link href={path} className={styles.link}>
-          <SvgSelector id='instagram-svg' />
+          <SvgSelector id="instagram-svg" />
           Instagram
         </Link>
       ),
       key: "4",
     },
   ];
-  const productUrl = product.product_url ? product.product_url : "";
-console.log(product.colors.length)
-useEffect(()=>{
-  if (product.colors.length <= 0) {
-    setFakeColorsData([{id: 1},
-    ]);
-  }
-},[])
-  console.log("dii", fakeColorsData);
+
   return (
     <div className={styles.product_info_detail}>
       <div className={styles.productInfo}>
@@ -91,7 +153,7 @@ useEffect(()=>{
             <Rate disabled defaultValue={productDetails.rating} />
             <span>{productDetails.rating}</span>
             <span>
-              ({productDetails.sold}){t("bought")}
+              ({productDetails.sold}) {t("bought")}
             </span>
           </div>
           <div className={styles.product_actions}>
@@ -99,9 +161,10 @@ useEffect(()=>{
             <Dropdown
               menu={{ items }}
               trigger={["click"]}
-              placement='bottomRight'>
+              placement="bottomRight"
+            >
               <a onClick={(e) => e.preventDefault()}>
-                <SvgSelector id='share-icon' />
+                <SvgSelector id="share-icon" />
               </a>
             </Dropdown>
           </div>
@@ -109,63 +172,21 @@ useEffect(()=>{
         <h1>{product?.title}</h1>
 
         <SliderColors
-          data={product.colors}
-          setSelectedColor={setSelectedColor}
+          colors={colors}
+          skus={skus}
+          handleColorSelect={handleColorSelect}
           selectedColor={selectedColor}
-          totalQuantities={totalQuantities}
-          selectedColors={selectedColors}
-          setSelectedColors={setSelectedColors}
-          fakeColorsData={fakeColorsData}
+          colorsBasket={colorsBasket}
         />
-
-        <div className={styles.productSpecs}>
-          <li>
-            <div className={styles.productSpecs_name}>
-              <span>Url</span>
-              <div></div>
-            </div>
-            <div className={styles.product_link}>
-              <Link href={productUrl}>{product.id}</Link>
-              <p
-                onClick={(event) =>
-                  copyLinkToClipboard(event, "url", product.product_url)
-                }>
-                <SvgSelector id='copylinkicon-svg' />
-              </p>
-            </div>
-          </li>
-          <li>
-            <div className={styles.productSpecs_name}>
-              <span>{t("compound")}</span>
-              <div></div>
-            </div>
-            <p>{productDetailsData.composition}</p>
-          </li>
-          <li>
-            <div className={styles.productSpecs_name}>
-              <span>{t("made_country")}</span>
-              <div></div>
-            </div>
-            <p>{product.location}</p>
-          </li>
-          <li>
-            <div className={styles.productSpecs_name}>
-              <span>{t("model_features")}</span>
-              <div></div>
-            </div>
-            <p>{productDetailsData.features}</p>
-          </li>
-        </div>
       </div>
 
       <ProductOrderSection
-        totalQuantities={totalQuantities}
         product={product}
         selectedColor={selectedColor}
-        setTotalQuantities={setTotalQuantities}
-        selectedColors={selectedColors}
-        setSelectedColors={setSelectedColors}
-        setSelectedColor={setSelectedColor}
+        sizes={sizes}
+        skus={skus}
+        colorsBasket={colorsBasket}
+        setColorsBasket={setColorsBasket}
       />
     </div>
   );

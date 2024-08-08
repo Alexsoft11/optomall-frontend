@@ -71,7 +71,7 @@ export const API = {
         headers: token ? { Authorization: "Bearer " + token } : {},
       }
     ),
-    getRecomendedProducts: (query: any, token?: string) =>
+  getRecomendedProducts: (query: any, token?: string) =>
     axiosInstance.get(
       `search-products-from-taobao${
         token && token !== "undefined" ? "-token" : ""
@@ -86,9 +86,9 @@ export const API = {
     ),
 
   //  ProductDetail
-  getProductDetail: (query: any) =>
+  getProductDetail: (params: any) =>
     axiosInstance
-      .get(`product-detail-from-taobao?productId=${query}`)
+      .get(`product-detail`, { params: params })
       .then((res) => res.data),
 
   getProductDetailToken: (params: any, token?: string) =>

@@ -6,14 +6,21 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { detailData } from "@/mockdata/detailData";
 import Detail from "./detail";
+import { ProductDetailInterface } from "../../interface";
 
 // const Detail = dynamic(() => import("./detail"),{ssr:false})
+
+interface Props {
+  selectedImage: any;
+  setSelectedImage: any;
+  product: ProductDetailInterface;
+}
 
 const ProductDetailImages = ({
   selectedImage,
   setSelectedImage,
   product,
-}: any) => {
+}: Props) => {
   return (
     <div className={styles.productDetail}>
       <div className={styles.imageThumbnails}>
@@ -31,7 +38,7 @@ const ProductDetailImages = ({
         ))}
       </div>
 
-      <Detail selectedImage={selectedImage} product={product}/>
+      <Detail selectedImage={selectedImage} product={product} />
       <div className={styles.productDetail__inner_image}></div>
     </div>
   );
