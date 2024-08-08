@@ -68,17 +68,16 @@ const SliderColors = ({
               />
             ) : (
               <div className={styles.color_value}>
-                {color.value.length > 20 ? (
+                {color.value.length > 25 ? (
                   <Tooltip
                     title={color.value}
                     trigger={["hover", "contextMenu"]}
                   >
-                    {color.value.slice(0, 16)}...
+                    {color.value.slice(0, 20)}...
                   </Tooltip>
                 ) : (
                   color.value
                 )}
-                {color.value}
               </div>
             )}
           </div>
