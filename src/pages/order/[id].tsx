@@ -51,7 +51,7 @@ export const getServerSideProps = async (context: any) => {
 
     return {
       props: {
-        orderData: orderResponse.order || [],
+        orderData: orderResponse || [],
       },
     };
   } catch (error: any) {

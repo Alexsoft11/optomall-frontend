@@ -136,7 +136,9 @@
     "locationRequired": "Tovarni yetkazib berish manzilini to'ldiring va xaritada joylashuvni",
     "userDataRequired": "Qabul qiluvchining shaxsiy ma'lumotlarini to'ldiring!",
     "signin": "Kirish",
-    "selectAll": "barchasini tanlash"
+    "selectAll": "barchasini tanlash",
+    "selectRegion": "Hududni tanlang",
+    "selectDistrict": "Tumanni tanlang"
   },
   "Order": {
     "payCost": "To'lanadigan summa: ",

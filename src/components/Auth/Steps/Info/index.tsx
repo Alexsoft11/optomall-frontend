@@ -17,7 +17,7 @@ export default function Info() {
   const [form] = Form.useForm();
   const t = useTranslations("");
   const cookie = new Cookies();
-  const router = useRouter();
+  const { push, query } = useRouter();
   const [handleError] = useHandleError(form);
   const inputRef = useRef<InputRef>(null);
 
@@ -33,9 +33,9 @@ export default function Info() {
         return
       }
 
-      if (localStorage.getItem('basket-data')) {
-        API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
-      }
+      // if (localStorage.getItem('basket-data')) {
+      //   API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
+      // }
       const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
 
       // Set the cookie
@@ -43,7 +43,7 @@ export default function Info() {
         path: '/',
         maxAge: maxAge,
       });
-      router.push("/");
+      push(query.backUrl as string || "/")
     },
     onError(res) {
       handleError(res);
@@ -51,7 +51,7 @@ export default function Info() {
   });
 
   const onFinish = (values: any) => {
-    values.unique_id = router.query.id;
+    values.unique_id = query.id;
     createData(values);
   };
 

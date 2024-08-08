@@ -25,10 +25,8 @@ interface Props {
   isBasketDataLoading: boolean;
 }
 
-export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
-  const [orderItems, setOrderItems] = useState<CartOrderItemInterface[] | []>(
-    []
-  );
+export default function CartBasketPage({ data, isBasketDataLoading }: Props) {  
+  const [orderItems, setOrderItems] = useState<CartOrderItemInterface[] | []>([]);
   const [dataClone, setDataClone] = useState<CartItemInterface[]>(data);
   const t = useTranslations("Cart");
 
@@ -36,7 +34,7 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
   const [selectAll, setSelectAll] = useState(false);
 
   const [addOrder, setAddOrder] = useState<AddOrderInterface | AddOrderInterface[] | null>(null);
-  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>({region: '', district: ''});
+  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>({ region: '', district: '' });
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [personData, setPersonData] = useState<PersonalDataInterface | null>(null);
   const [itemsValue, setItemsValue] = useState<number>(0);
@@ -76,11 +74,11 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderItems]);
 
-  useEffect(() => {
-    if (!cookie.get("token") && localStorage.getItem("basket-data")) {
-      setDataClone(JSON.parse(localStorage.getItem("basket-data")!));
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!cookie.get("token") && localStorage.getItem("basket-data")) {
+  //     setDataClone(JSON.parse(localStorage.getItem("basket-data")!));
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (Array.isArray(addOrder)) {
@@ -101,7 +99,7 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
 
     let copy = orderItems.map((el) => el);
     let newDataClone = dataClone.map((el) =>
-      el.size_id === addOrder?.item.size_id
+      el.sku_id === addOrder?.item.sku_id
         ? { ...el, chacked: addOrder?.chacked }
         : { ...el }
     );
@@ -110,7 +108,7 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
 
     if (!addOrder?.chacked && addOrder?.item) {
       copy = copy.filter((el) => {
-        if (addOrder.item.size_id !== el.size_id) return true;
+        if (addOrder.item.sku_id !== el.sku_id) return true;
         else false;
       });
     }
@@ -133,31 +131,32 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
   });
 
   const changeQuantity = (number: number, item: CartItemInterface) => {
-    if (number === 0 && !cookie.get("token")) {
-      const updatedDataClone = dataClone.filter(
-        (el) => el.size_id !== item.size_id
-      );
-      const updatedOrderItems = orderItems.filter(
-        (el) => el.size_id !== item.size_id
-      );
+    // if (number === 0 && !cookie.get("token")) {
+    //   const updatedDataClone = dataClone.filter(
+    //     (el) => el.sku_id !== item.sku_id
+    //   );
+    //   const updatedOrderItems = orderItems.filter(
+    //     (el) => el.sku_id !== item.sku_id
+    //   );
 
-      setDataClone(updatedDataClone);
-      setOrderItems(updatedOrderItems);
+    //   setDataClone(updatedDataClone);
+    //   setOrderItems(updatedOrderItems);
 
-      localStorage.setItem("basket-data", JSON.stringify(updatedDataClone));
-      return;
-    } else if (number === 0 && cookie.get("token")) {
-      removeData({ basket_id: item.id, size_id: item.size_id });
+    //   localStorage.setItem("basket-data", JSON.stringify(updatedDataClone));
+    //   return;
+    // } 
+    if (number === 0 && cookie.get("token")) {
+      removeData({ basket_id: item.id, sku_id: item.sku_id });
     }
 
     const updatedDataClone = dataClone.map((el) => {
-      if (el.size_id === item.size_id) {
+      if (el.sku_id === item.sku_id) {
         return { ...el, quantity: number };
       } else return el;
     });
 
     const updatedOrderItems = orderItems.map((el) => {
-      if (el.size_id === item.size_id) {
+      if (el.sku_id === item.sku_id) {
         return { ...el, quantity: number };
       } else return el;
     });

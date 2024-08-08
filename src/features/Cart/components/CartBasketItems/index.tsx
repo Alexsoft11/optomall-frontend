@@ -44,7 +44,8 @@ export default function CartBasketItems({
         title,
         color,
         size,
-        size_id,
+        sku_id,
+        product_url,
         price,
         quantity,
         seller_id,
@@ -56,9 +57,12 @@ export default function CartBasketItems({
         image_url,
         title,
         color,
+        product_url,
         size,
-        size_id: size_id!,
-        price: parseFloat(price),
+        seller_id: seller_id,
+        provider: provider,
+        sku_id: sku_id!,
+        price: price,
         quantity,
       };
 
@@ -84,7 +88,7 @@ export default function CartBasketItems({
       <div className={styles.swiper}>
         <LoadingSpinner spinning={isLoading} fullscreen={true} size="large" />
         {data.map((el) => (
-          <Fragment key={el.size_id}>
+          <Fragment key={el.sku_id}>
             <CartBasketItem
               changeQuantity={changeQuantity}
               item={el}
