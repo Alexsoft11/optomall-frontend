@@ -38,10 +38,10 @@ const Wishes = ({ wishesData }: Props) => {
       let clone = [...data];
       clone = clone.filter((el: any) => el.id !== cardId);
       setData(clone);
-
+      
     } else {
       let localClone = [...initialData];
-      localClone = localClone.filter((el: any) => el.id !== cardId);
+      localClone = localClone.filter((el: any) => el.id != cardId);
       localStorage.setItem('likedProducts', JSON.stringify(localClone));
       setData(localClone);
     }
