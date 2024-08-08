@@ -27,7 +27,7 @@ export default function LocationBlock({ setLocationInfo, locationInfo }: Props) 
 
     const citySelectProps = {
         className: styles.select,
-        placeholder: 'Select a city',
+        placeholder: t('selectRegion'),
         showSearch: true,
         optionFilterProp: 'children',
         children: regions.map((el, idx) => (
@@ -42,7 +42,7 @@ export default function LocationBlock({ setLocationInfo, locationInfo }: Props) 
 
     const streetSelectProps = {
         className: styles.select,
-        placeholder: 'Select a street',
+        placeholder: t('selectDistrict'),
         showSearch: true,
         optionFilterProp: 'children',
         children: regionProvinces[currentRegion as keyof RegionProvincesInterface]?.map((el, idx) => (

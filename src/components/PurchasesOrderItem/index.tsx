@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './PurchasesOrderItem.module.scss';
-import { PurchasesItemInterface } from '../../interfaces';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { formatPrice } from '@/constants';
+import { PurchasesItemInterface } from '../Types';
 
 interface Props {
     item: PurchasesItemInterface

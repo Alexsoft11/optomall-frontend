@@ -1,6 +1,5 @@
 import GoToBack from "@/components/GoToBack";
 import PageTitle from "@/components/PageTitle";
-import { PurchasesOrderInterface } from "@/features/Purchases/interfaces";
 import { API } from "@/services/api";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
@@ -8,6 +7,7 @@ import Head from "next/head";
 import React from "react";
 import cookie from "cookie";
 import { LoadingSpinner } from "@/ui/Spin";
+import { PurchasesOrderInterface } from "@/components/Types";
 
 const PurchasesPage = dynamic(
   () => import("@/features/Purchases/components/PurchasesPage"),

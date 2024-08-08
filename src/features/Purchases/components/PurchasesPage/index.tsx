@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from "react";
 import styles from "./PurchasesPage.module.scss";
-import { PurchasesOrderInterface } from "../../interfaces";
-import PurchasesItem from "../PurchasesItem";
 import { Button } from "antd";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
+import PurchasesItem from "@/components/PurchasesItem";
+import { PurchasesOrderInterface } from "@/components/Types";
 
 interface Props {
   data: PurchasesOrderInterface[] | [];

@@ -68,7 +68,7 @@ export default function CartOrderBlock({
       disableOnMount: true,
     },
     onSuccess(res) {
-      router.push(`order/${res.order_id}`);
+      router.push(`order/${res.order_group}`);
     },
   });
 
@@ -118,27 +118,27 @@ export default function CartOrderBlock({
 
         formData.append("type", type as string);
         formData.append("image", image);
-        formData.append("order_id", orderId!.toString());
+        formData.append("order_group_id", orderId!.toString());
         createChequeData(formData);
         setButtonStatus("pending");
       }
     },
   };
 
-  const modalProps = {
-    onCancel: () => setAuthModalIsOpen(false),
-    className: "bg_white",
-    img: SearchSvg,
-    description: t("Cart.authMessage"),
-    children: (
-      <Button
-        onClick={() => router.push("auth?step=signin")}
-        className="signIn_btn"
-        label={t("Cart.signin")}
-      />
-    ),
-    open: authModalIsOpen,
-  };
+  // const modalProps = {
+  //   onCancel: () => setAuthModalIsOpen(false),
+  //   className: "bg_white",
+  //   img: SearchSvg,
+  //   description: t("Cart.authMessage"),
+  //   children: (
+  //     <Button
+  //       onClick={() => router.push(`auth?step=signin&backUrl=${router.asPath}`)}
+  //       className="signIn_btn"
+  //       label={t("Cart.signin")}
+  //     />
+  //   ),
+  //   open: authModalIsOpen,
+  // };
 
   const toOrder = () => {
     if (!cookie.get("token")) {
@@ -222,7 +222,7 @@ export default function CartOrderBlock({
         description={t("Cart.checkMessage")}
         open={checkModalIsOpen}
       />
-      <Modal {...modalProps} />
+      {/* <Modal {...modalProps} /> */}
     </div>
   );
 }

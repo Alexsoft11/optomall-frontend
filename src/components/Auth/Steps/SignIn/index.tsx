@@ -19,11 +19,11 @@ export default function SignIn() {
   const t = useTranslations("");
   const cookie = new Cookies();
   const expirationDate = new Date();
-  const router = useRouter();
+  const { push, query } = useRouter();
   const [handleError] = useHandleError(form);
   expirationDate.setDate(expirationDate.getDate() + 3);
 
-  const { appendData: createData, isLoading} = useQueryApiClient({
+  const { appendData: createData, isLoading } = useQueryApiClient({
     request: {
       url: "login",
       method: "POST",
@@ -32,16 +32,15 @@ export default function SignIn() {
     onSuccess(res) {
       if (res.message === "add_personal_data" || !res.info_filled) {
         message.error(t(`Auth.${res.error}`));
-        router.push(`/auth?step=info&id=${res.unique_id}`)
+        push(`/auth?step=info&id=${res.unique_id}`)
       }
       if (!res.token) {
         message.error('Auth.something_wrong')
         return
       }
-      if (localStorage.getItem('basket-data')) {
-        API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
-      }
-      setTimeout(() => router.push("/"), 2000);
+      // if (localStorage.getItem('basket-data')) {
+      //   API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
+      // }
       const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
 
       // Set the cookie
@@ -49,6 +48,8 @@ export default function SignIn() {
         path: '/',
         maxAge: maxAge,
       });
+
+      push(query.backUrl as string || "/")
     },
     onError(err) {
       if (err.message.includes("email")) {

@@ -38,7 +38,7 @@ const ProductOrderSection: React.FC<Props> = ({
   setColorsBasket,
   colorsBasket,
 }) => {
-  const { query, push, asPath,  } = useRouter();
+  const { query, push, asPath } = useRouter();
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [basketData, setBasketData] = useState<BasketInterface[]>([]);
   const [currentPrice, setCurrentPrice] = useState<number>(product?.price || 0);
@@ -167,8 +167,8 @@ const ProductOrderSection: React.FC<Props> = ({
     const hasAnySize = (sku: SKU) =>
       sizes.length > 0
         ? sizes.some((size) =>
-            sku.properties.some((prop) => prop.value === size.value)
-          )
+          sku.properties.some((prop) => prop.value === size.value)
+        )
         : true;
 
     let selectedSKU =
@@ -234,7 +234,7 @@ const ProductOrderSection: React.FC<Props> = ({
           {formatPrice(currentPrice)} uzs
         </span>
         {product?.discounted_price &&
-        product.price !== product.discounted_price ? (
+          product.price !== product.discounted_price ? (
           <>
             <span className={styles.discount}>
               -{product.discount_percentage}%

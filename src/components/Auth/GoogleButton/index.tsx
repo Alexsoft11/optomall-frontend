@@ -14,7 +14,7 @@ import { CartItemInterface } from '@/features/Cart/interface';
 import { LoadingSpinner } from '@/ui/Spin';
 
 export default function GoogleButton() {
-    const router = useRouter();
+    const { push, query } = useRouter();
     const t = useTranslations("Auth")
     const cookie = new Cookies()
 
@@ -25,23 +25,23 @@ export default function GoogleButton() {
             disableOnMount: true,
         },
         onSuccess(res) {
-            if (router.query.step === 'signUp') {
-                router.push(`/auth?step=info&id=${res.unique_id}`)
+            if (query.step === 'signUp') {
+                push(`/auth?step=info&id=${res.unique_id}`)
             } else {
                 if (res.message === "add_personal_data") {
-                    message.error(t(`${res.error}`));
-                    router.push(`/auth?step=info&id=${res.unique_id}`)
+                    // message.error(t(`${res.error}`));
+                    push(`/auth?step=info&id=${res.unique_id}`)
                     return
                 }
                 if (!res.token) {
                     message.error('something_wrong')
                     return
                 }
-                if (localStorage.getItem('basket-data')) {
-                    API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
-                }
+                // if (localStorage.getItem('basket-data')) {
+                //     API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
+                // }
                 cookie.set('token', res.token)
-                router.push(`/`)
+                push(query.backUrl as string || "/")
             }
         },
     });

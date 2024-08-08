@@ -136,7 +136,9 @@
     "locationRequired": "Please provide a delivery address and specify the location on the map.",
     "userDataRequired": "Please fill in the recipient's personal details!",
     "signin": "Sign in",
-    "selectAll": "select all"
+    "selectAll": "select all",
+    "selectRegion": "Select Region",
+    "selectDistrict": "Select District"
   },
   "Order": {
     "payCost": "Amount to be paid: ",

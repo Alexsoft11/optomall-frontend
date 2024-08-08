@@ -40,10 +40,10 @@ export default function Cart({}: Props) {
       setBasketData(data);
     },
     onError(err){
-      if (err.message === 'Unauthenticated.' && localStorage.getItem('basket-data')) {
-        const data : CartItemInterface[] = JSON.parse(localStorage.getItem('basket-data')!);      
-        setBasketData(data)
-      }
+      // if (err.message === 'Unauthenticated.' && localStorage.getItem('basket-data')) {
+      //   const data : CartItemInterface[] = JSON.parse(localStorage.getItem('basket-data')!);      
+      //   setBasketData(data)
+      // }
     }
   });
   return (
