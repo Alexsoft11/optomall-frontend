@@ -25,18 +25,29 @@ interface Props {
   isBasketDataLoading: boolean;
 }
 
-export default function CartBasketPage({ data, isBasketDataLoading }: Props) {  
-  const [orderItems, setOrderItems] = useState<CartOrderItemInterface[] | []>([]);
+export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
+  const [orderItems, setOrderItems] = useState<CartOrderItemInterface[] | []>(
+    []
+  );
   const [dataClone, setDataClone] = useState<CartItemInterface[]>(data);
   const t = useTranslations("Cart");
 
-  const [dataFailed, setDataFailed] = useState<"personal" | "location" | null>(null);
+  const [dataFailed, setDataFailed] = useState<"personal" | "location" | null>(
+    null
+  );
   const [selectAll, setSelectAll] = useState(false);
 
-  const [addOrder, setAddOrder] = useState<AddOrderInterface | AddOrderInterface[] | null>(null);
-  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>({ region: '', district: '' });
+  const [addOrder, setAddOrder] = useState<
+    AddOrderInterface | AddOrderInterface[] | null
+  >(null);
+  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>({
+    region: "",
+    district: "",
+  });
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [personData, setPersonData] = useState<PersonalDataInterface | null>(null);
+  const [personData, setPersonData] = useState<PersonalDataInterface | null>(
+    null
+  );
   const [itemsValue, setItemsValue] = useState<number>(0);
 
   const cookie = new Cookies();
@@ -46,6 +57,7 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
       setDataClone(data);
     }
   }, [data]);
+  console.log(data);
 
   useEffect(() => {
     setOrderItems([]);
@@ -144,7 +156,7 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
 
     //   localStorage.setItem("basket-data", JSON.stringify(updatedDataClone));
     //   return;
-    // } 
+    // }
     if (number === 0 && cookie.get("token")) {
       removeData({ basket_id: item.id, sku_id: item.sku_id });
     }
@@ -204,10 +216,11 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
             />
             <div className={styles.order_info}>
               <div
-                className={`${dataFailed === "location"
-                  ? "animate__shakeX animate__animated"
-                  : null
-                  }`}
+                className={`${
+                  dataFailed === "location"
+                    ? "animate__shakeX animate__animated"
+                    : null
+                }`}
               >
                 <LocationBlock
                   setLocationInfo={setLocationInfo}
@@ -215,10 +228,11 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
                 />
               </div>
               <div
-                className={`${dataFailed === "personal"
-                  ? "animate__shakeX animate__animated"
-                  : null
-                  }`}
+                className={`${
+                  dataFailed === "personal"
+                    ? "animate__shakeX animate__animated"
+                    : null
+                }`}
               >
                 <CartGetOrderPerson setPersonData={setPersonData} />
               </div>

@@ -47,21 +47,22 @@ export default function CartOrderBlock({
   >("idle");
   const cookie = new Cookies();
 
-  const buttonClass = `${styles["loading-btn"]} ${buttonStatus === "pending"
+  const buttonClass = `${styles["loading-btn"]} ${
+    buttonStatus === "pending"
       ? styles["loading-btn--pending"]
       : buttonStatus === "success"
-        ? styles["loading-btn--success"]
-        : buttonStatus === "fail"
-          ? styles["loading-btn--fail"]
-          : ""
-    }`;
+      ? styles["loading-btn--success"]
+      : buttonStatus === "fail"
+      ? styles["loading-btn--fail"]
+      : ""
+  }`;
 
   const checkModalClose = () => {
     router.push("/purchases?filter=in_verification");
     setCheckModalIsOpen(false);
   };
 
-  const { appendData: createData } = useQueryApiClient({
+  const { appendData: createData, isLoading } = useQueryApiClient({
     request: {
       url: "orders",
       method: "POST",
@@ -212,6 +213,7 @@ export default function CartOrderBlock({
           onClick={() => toOrder()}
           className={styles.complite_btn}
           label={t("Cart.complite")}
+          isLoading={isLoading}
         />
       ) : null}
 

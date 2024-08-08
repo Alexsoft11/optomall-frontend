@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import styles from "./CartBasketItem.module.scss";
-import { AddOrderInterface, CartItemInterface, CartOrderItemInterface } from "@/features/Cart/interface";
+import {
+  AddOrderInterface,
+  CartItemInterface,
+  CartOrderItemInterface,
+} from "@/features/Cart/interface";
 import Image from "next/image";
 import { MinusSvg, PlusSvg } from "$/assets/images";
 import { Button } from "antd";
@@ -10,18 +14,21 @@ import { formatPrice } from "@/constants";
 
 interface Props {
   item: CartItemInterface;
-  setAddOrder: React.Dispatch<React.SetStateAction<AddOrderInterface | AddOrderInterface[] | null>
+  setAddOrder: React.Dispatch<
+    React.SetStateAction<AddOrderInterface | AddOrderInterface[] | null>
   >;
-  changeQuantity: (number: number, item: CartItemInterface) => void
+  changeQuantity: (number: number, item: CartItemInterface) => void;
 }
 
-export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Props) {
-  
+export default function CartBasketItem({
+  changeQuantity,
+  item,
+  setAddOrder,
+}: Props) {
   const t = useTranslations("GLOBAL");
 
   const handleChange = (chacked: boolean) => {
-
-    if (!item.sku_id) return
+    if (!item.sku_id) return;
     const data: CartOrderItemInterface = {
       product_id: item.product_id,
       image_url: item.image_url,
@@ -33,20 +40,19 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
       sku_id: item.sku_id,
       price: +item.price,
       quantity: item.quantity,
-    }
-
+    };
+    console.log(data);
 
     setAddOrder({ item: data, chacked: chacked });
   };
 
+  console.log(item);
+
   return (
     <div className={styles.main}>
       <div className={styles.item_img}>
-        {item.image_url ? (
-          <Image fill alt="#" src={item.image_url} />
-        ) : null}
+        {item.image_url ? <Image fill alt="#" src={item.image_url} /> : null}
       </div>
-
 
       <div className={styles.item_text}>
         <div className={styles.item_info}>
@@ -64,7 +70,11 @@ export default function CartBasketItem({ changeQuantity, item, setAddOrder }: Pr
 
       <div className={styles.checkbox_block}>
         <div className={styles.Checkbox}>
-          <Checkbox checked={item.chacked} onChange={(e) => handleChange(e.target.checked)} initialValue={false} />
+          <Checkbox
+            checked={item.chacked}
+            onChange={(e) => handleChange(e.target.checked)}
+            initialValue={false}
+          />
         </div>
       </div>
 

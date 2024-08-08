@@ -28,7 +28,7 @@ export default function CartBasketItems({
   isLoading,
 }: Props) {
   const t = useTranslations("Cart");
-
+  
   const selectClick = (value: boolean) => {
     setSelectAll(value);
     const clone = data.map((el) => ({ ...el, chacked: value }));
