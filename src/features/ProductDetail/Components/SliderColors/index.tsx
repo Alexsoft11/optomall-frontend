@@ -47,7 +47,10 @@ const SliderColors = ({
     className: string
   ) => (
     <div className={styles.card_item} key={idx}>
-      <Tooltip title={color?.imageUrl ? color.value : ""} trigger={"hover"}>
+      <Tooltip
+        title={color?.imageUrl ? color.value : ""}
+        trigger={["contextMenu", "hover"]}
+      >
         <Badge offset={[-2, -2]} count={totalQuantities[color.value] || 0}>
           <div
             className={`${className} ${
@@ -64,7 +67,19 @@ const SliderColors = ({
                 loading="lazy"
               />
             ) : (
-              <div className={styles.color_value}>{color.value}</div>
+              <div className={styles.color_value}>
+                {color.value.length > 20 ? (
+                  <Tooltip
+                    title={color.value}
+                    trigger={["hover", "contextMenu"]}
+                  >
+                    {color.value.slice(0, 16)}...
+                  </Tooltip>
+                ) : (
+                  color.value
+                )}
+                {color.value}
+              </div>
             )}
           </div>
         </Badge>
