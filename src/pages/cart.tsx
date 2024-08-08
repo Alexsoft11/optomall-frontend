@@ -5,12 +5,13 @@ import { API } from "@/services/api";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import cookie from "cookie";
 import { LoadingSpinner } from "@/ui/Spin";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useRouter } from "next/router";
 import { cookieBasket } from "@/components/Auth/Functions";
+import { useJwt } from "@/utils/useJwt";
 
 const CartBasketPage = dynamic(
   () => import("@/features/Cart/components/CartBasketPage"),
@@ -25,7 +26,8 @@ interface Props {
 
 export default function Cart({}: Props) {
   const t = useTranslations("GLOBAL");
-  const { locale } = useRouter();
+  const { locale, push } = useRouter();
+  const token = useJwt();
   const [basketData, setBasketData] = useState<CartItemInterface[]>([]);
 
   const { isLoading } = useQueryApiClient({
@@ -39,13 +41,20 @@ export default function Cart({}: Props) {
       });
       setBasketData(data);
     },
-    onError(err){
+    onError(err) {
       // if (err.message === 'Unauthenticated.' && localStorage.getItem('basket-data')) {
-      //   const data : CartItemInterface[] = JSON.parse(localStorage.getItem('basket-data')!);      
+      //   const data : CartItemInterface[] = JSON.parse(localStorage.getItem('basket-data')!);
       //   setBasketData(data)
       // }
-    }
+    },
   });
+
+  useEffect(() => {
+    if (!token) {
+      push("/");
+    }
+  }, []);
+
   return (
     <div className="container">
       <Head>
