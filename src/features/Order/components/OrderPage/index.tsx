@@ -14,6 +14,7 @@ export default function OrderPage({ orderData }: Props) {
     <div className={styles.main}>
       <div className={styles.order_data}>
         <OrderCheque
+          cardName={orderData?.order?.name}
           costPerKg={orderData?.order.kg_price}
           cardId={orderData?.order.card_number}
           cost={orderData?.order.total_price}

@@ -9,10 +9,11 @@ import { formatPrice } from '@/constants';
 interface Props {
     cost: number,
     cardId: string,
-    costPerKg: string
+    costPerKg: string,
+    cardName?: string,
 }
 
-export default function OrderCheque({ cardId, cost, costPerKg }: Props) {
+export default function OrderCheque({ cardId, cost, costPerKg, cardName }: Props) {
     const t = useTranslations('Order')
     const [messageApi, contextHolder] = message.useMessage();
     const [messageVisible, setMessageVisible] = useState(false);
@@ -45,7 +46,8 @@ export default function OrderCheque({ cardId, cost, costPerKg }: Props) {
                 <div className={styles.card_number}>
                     {t("cardNumber")}
                     <div>
-                        <p>{cardId}</p>
+                        <p><b>{cardId}</b></p>
+                        {cardName ? <p>|  <b>{cardName}</b></p> : null}
                         <Image src={CopySvg} width={24} height={24} alt='#' onClick={copyText} />
                     </div>
                 </div>
