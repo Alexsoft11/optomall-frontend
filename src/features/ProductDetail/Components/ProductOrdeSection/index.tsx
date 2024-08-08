@@ -93,22 +93,21 @@ const ProductOrderSection: React.FC<Props> = ({
 
     if (type === "incr") {
       setTotalPrice((prevTotalPrice) => prevTotalPrice + selectedSKU.price);
-      if (basketData.some((prop) => prop.sku_id === selectedSKU.sku_id)) {
-        const newBasketData = basketData
-          .map((data) => {
-            if (data.sku_id === selectedSKU.sku_id) {
-              if (selectedSKU.quantity <= data.quantity) {
-                message.warning(
-                  `max quantity product is ${selectedSKU.quantity}`
-                );
-                return data;
-              }
-              const quantity = data.quantity + 1;
-              return { ...data, quantity };
+      if (basketData.some((prop) => prop.sku_id == selectedSKU.sku_id)) {
+        const newBasketData = basketData.map((data) => {
+          if (data.sku_id == selectedSKU.sku_id) {
+            if (selectedSKU.quantity <= data.quantity) {
+              message.warning(
+                `max quantity product is ${selectedSKU.quantity}`
+              );
+              return data;
             }
-            return data;
-          })
-          .filter((data): data is BasketInterface => data !== undefined);
+            const quantity = data.quantity + 1;
+
+            return { ...data, quantity };
+          }
+          return data;
+        });
 
         setBasketData(newBasketData);
         updateColorBasket(newBasketData);
@@ -138,11 +137,11 @@ const ProductOrderSection: React.FC<Props> = ({
     }
 
     if (type === "decr") {
-      if (basketData.some((prop) => prop.sku_id === selectedSKU.sku_id)) {
+      if (basketData.some((prop) => prop.sku_id == selectedSKU.sku_id)) {
         setTotalPrice((prevTotalPrice) => prevTotalPrice - selectedSKU.price);
         const newBasketData = basketData
           .map((data) => {
-            if (data.sku_id === selectedSKU.sku_id) {
+            if (data.sku_id == selectedSKU.sku_id) {
               if (data.quantity === 1) {
                 return undefined;
               }
@@ -170,8 +169,8 @@ const ProductOrderSection: React.FC<Props> = ({
     const hasAnySize = (sku: SKU) =>
       sizes.length > 0
         ? sizes.some((size) =>
-          sku.properties.some((prop) => prop.value === size.value)
-        )
+            sku.properties.some((prop) => prop.value === size.value)
+          )
         : true;
 
     let selectedSKU =
@@ -237,7 +236,7 @@ const ProductOrderSection: React.FC<Props> = ({
           {formatPrice(currentPrice)} uzs
         </span>
         {product?.discounted_price &&
-          product.price !== product.discounted_price ? (
+        product.price !== product.discounted_price ? (
           <>
             <span className={styles.discount}>
               -{product.discount_percentage}%
