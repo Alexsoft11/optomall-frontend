@@ -123,9 +123,7 @@ const ProductOrderSection: React.FC<Props> = ({
           product_url: product?.product_url,
           provider: query.channel,
           quantity: 1,
-          seller_id: product?.seller_info
-            ? product?.seller_info.user_num_id
-            : "default",
+          seller_id: product?.seller_id ? String(product?.seller_id) : "default",
           size: sizeProperty?.value || "default",
           sku_id: String(selectedSKU.sku_id),
           title: product?.title,

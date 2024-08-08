@@ -2,9 +2,11 @@
 
 .swiper_colors {
   position: relative;
-  max-width: 310px;
   width: 100%;
   padding: 0px 5px;
+  @media (min-width: 960px) {
+    max-width: 310px;
+  }
   .slide_color {
     width: 44px;
     height: 44px;

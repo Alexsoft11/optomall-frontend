@@ -1,10 +1,8 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./ProductDetailImages.module.scss";
-import Image from "next/image";
-import dynamic from "next/dynamic";
-import { detailData } from "@/mockdata/detailData";
+
 import Detail from "./detail";
 import { ProductDetailInterface } from "../../interface";
 import CustomImage from "@/components/CustomImage";

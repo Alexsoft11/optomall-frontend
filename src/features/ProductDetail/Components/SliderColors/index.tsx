@@ -44,7 +44,7 @@ const SliderColors = ({
   const renderColorItem = (
     color: SKUProperty,
     idx: number,
-    className: string
+    className: string,
   ) => (
     <div className={styles.card_item} key={idx}>
       <Tooltip
@@ -130,6 +130,9 @@ const SliderColors = ({
             className="slider_colors"
           >
             {colors.map((color, idx: number) => {
+              if (!color.imageUrl) {
+                return;
+              }
               return (
                 <SwiperSlide key={idx}>
                   {renderColorItem(color, idx, styles.slide_color)}

@@ -66,6 +66,7 @@ export interface ProductDetailInterface {
   composition: { name: string; value: string }[];
   is_liked: boolean;
   seller_info: SellerInfoInterface;
+  seller_id: string;
 }
 
 export interface BasketInterface {
