@@ -108,7 +108,8 @@
     "metaTitle": "Kirish | ON-WAY",
     "metaDescription": "ON-WAY hisobingizga xavfsiz kiring va maxsus funksiyalardan foydalaning hamda buyurtmalaringizni boshqaring.",
     "metaKeywords": "ON-WAY, kirish, hisobga kirish, xavfsiz kirish",
-    "passwordHasEmpty": "Parolda bo'sh joy bo'lmasligi kerak!"
+    "passwordHasEmpty": "Parolda bo'sh joy bo'lmasligi kerak!",
+    "address":"Manzil"
   },
   "Cart": {
     "item": "Mahsulotlar",
