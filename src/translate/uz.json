@@ -127,7 +127,7 @@
     "checkMessage": "Chek tekshirish uchun yuborildi. Buyurtmangizning joriy holatini buyurtmalar sahifasida kuzatishingiz mumkin.",
     "inVerification": "Tekshiruvda",
     "checkWarningMessage": "Chek tasdiqlanmadi. Chekni tekshiring va qayta urinib ko'ring.",
-    "authMessage": "Buyurtma berish uchun saytda ro'yxatdan o'ting!",
+    "authMessage": "Buyurtma berish uchun saytda avtorizatsiyadan o‘ting!",
     "imgTypeValidation": "Faqat rasm yuklashingiz mumkin!",
     "imgSizeValidation": "Rasm hajmi 5 MB dan kichik bo'lishi kerak!",
     "chooseItem": "Savatdan kamida bitta mahsulot tanlang",
@@ -259,7 +259,7 @@
     "comments": "Sharhlar",
     "characteristic": "Xususiyatlari",
     "comments-not": "Sharhlar topilmadi",
-    "recomendeds":"Shunga o'xshash mahsulotlar"
+    "recomendeds": "Shunga o'xshash mahsulotlar"
   },
   "Messages": {
     "dearClient": "Hurmatli mijoz, ",
