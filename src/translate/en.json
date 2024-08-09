@@ -129,7 +129,7 @@
     "basketNoItems": "Your cart is empty",
     "goToBuy": "Go to purchase",
     "checkWarningMessage": "Receipt failed verification. Check the receipt and try again.",
-    "authMessage": "Register on the website to place an order!",
+    "authMessage": "Log in to the site to place an order!",
     "imgTypeValidation": "You can only upload an image!",
     "imgSizeValidation": "Image size must be smaller than 5 MB!",
     "chooseItem": "Choose at least one item from the basket",
@@ -261,7 +261,7 @@
     "comments": "Comments",
     "characteristic": "Characteristics",
     "comments-not": "No Comments",
-    "recomendeds":"Similar products"
+    "recomendeds": "Similar products"
   },
   "Messages": {
     "dearClient": "Dear client, ",

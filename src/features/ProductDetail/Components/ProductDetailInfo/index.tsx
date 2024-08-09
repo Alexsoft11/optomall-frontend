@@ -90,9 +90,14 @@ const ProductDetailInfo: React.FC<Props> = ({
             )
             .flatMap((sku) =>
               sku.properties.filter((prop) => {
-                const matches = ["size", "Размер", "размер", "hajmi"].some(
-                  (term) => prop.name?.toLowerCase().includes(term)
-                );
+                const matches = [
+                  "size",
+                  "Размер",
+                  "размер",
+                  "hajmi",
+                  "Specification",
+                  "specification",
+                ].some((term) => prop.name?.toLowerCase().includes(term));
 
                 return matches;
               })

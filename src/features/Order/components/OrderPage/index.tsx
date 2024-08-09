@@ -10,6 +10,8 @@ interface Props {
 }
 
 export default function OrderPage({ orderData }: Props) {
+  console.log(orderData);
+  
   return (
     <div className={styles.main}>
       <div className={styles.order_data}>
