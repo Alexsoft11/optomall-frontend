@@ -57,7 +57,6 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
       setDataClone(data);
     }
   }, [data]);
-  console.log(data);
 
   useEffect(() => {
     setOrderItems([]);
@@ -76,7 +75,7 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
     if (orderItems.length) {
       total = +orderItems
         .reduce(
-          (acum, current) => acum + +current.price * current.quantity,
+          (acum, current) => acum + +current.price * +current.quantity,
           total
         )
         .toFixed(2);
@@ -180,7 +179,7 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
   const ChangeitemsValue = () => {
     let total = 0;
     total = +orderItems.reduce(
-      (acum, current) => acum + current.quantity,
+      (acum, current) => acum + +current.quantity,
       total
     );
 

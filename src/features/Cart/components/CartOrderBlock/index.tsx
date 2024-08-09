@@ -37,7 +37,7 @@ export default function CartOrderBlock({
 }: Props) {
   const t = useTranslations("");
   const [checkModalIsOpen, setCheckModalIsOpen] = useState(false);
-  const [authModalIsOpen, setAuthModalIsOpen] = useState(false);
+  // const [authModalIsOpen, setAuthModalIsOpen] = useState(false);
   const [isUploadErr, setIsUploadErr] = useState(false);
   const [messageVisible, setMessageVisible] = useState(false);
 
@@ -143,7 +143,7 @@ export default function CartOrderBlock({
 
   const toOrder = () => {
     if (!cookie.get("token")) {
-      setAuthModalIsOpen(true);
+      // setAuthModalIsOpen(true);
       return;
     }
     if (itemValue === 0) {
