@@ -94,7 +94,6 @@ const CatalogTab = ({ openModal, setOpenModal }: Props) => {
               className={styles.navigation__item}
             >
               <NavigationCard
-                // isSubCategoryLoading={isSubCategoryLoading}
                 data={tab?.subcategories}
                 setOpenModal={setOpenModal}
               />
