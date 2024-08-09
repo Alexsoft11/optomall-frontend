@@ -7,13 +7,17 @@ import { Form } from 'antd';
 import { regionProvinces, regions } from '@/constants/location';
 import { Option } from 'antd/es/mentions';
 import { RegionProvincesInterface } from '@/interfaces';
-
+interface ILocation{
+    region:string,
+    district:string
+}
 interface Props {
     setLocationInfo: React.Dispatch<React.SetStateAction<LocationInfoInterface>>
-    locationInfo: LocationInfoInterface
+    locationInfo: LocationInfoInterface,
+    ILocation?:ILocation
 }
 
-export default function LocationBlock({ setLocationInfo, locationInfo }: Props) {
+export default function LocationBlock({ setLocationInfo, locationInfo, ILocation }: Props) {
     const [form] = Form.useForm();
     const t = useTranslations('Cart')
     const [currentRegion, setcurrentRegion] = useState<keyof RegionProvincesInterface>()
@@ -24,11 +28,13 @@ export default function LocationBlock({ setLocationInfo, locationInfo }: Props) 
         clone[name] = value
         setLocationInfo(clone)
     }
+    console.log(ILocation?.district)
 
     const citySelectProps = {
         className: styles.select,
         placeholder: t('selectRegion'),
         showSearch: true,
+        value:ILocation?.region?ILocation.region: "",
         optionFilterProp: 'children',
         children: regions.map((el, idx) => (
             <Fragment key={idx}>
@@ -44,6 +50,7 @@ export default function LocationBlock({ setLocationInfo, locationInfo }: Props) 
         className: styles.select,
         placeholder: t('selectDistrict'),
         showSearch: true,
+        value:ILocation?.district?ILocation.district:"",
         optionFilterProp: 'children',
         children: regionProvinces[currentRegion as keyof RegionProvincesInterface]?.map((el, idx) => (
             <Fragment key={idx}>

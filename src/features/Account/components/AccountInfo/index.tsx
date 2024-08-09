@@ -10,18 +10,25 @@ import { editAccountIcon } from "$/assets/images";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
 import { Input } from "@/ui";
-// import ChooseLocation from "@/components/ChooseLocation";
 import { LocationInfoInterface } from "@/components/Types";
+import LocationBlock from "@/components/LocationBlock";
+import { validatePhone } from "@/components/Auth/Functions";
+import { MaskedInput } from "antd-mask-input";
 
 const AccountInfo = ({ user }: any) => {
   const [mapIsOpen, setMapIsOpen] = useState(false);
-  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>();
+  const [locationInfo, setLocationInfo] = useState<LocationInfoInterface>({
+    region: "",
+    district: "",
+  });
+
   const t = useTranslations("");
   const [open, setOpen] = useState({
     isEmail: false,
     isUserName: false,
     isPhoneNumber: false,
     isResetPassword: false,
+    isAddress: false,
   });
 
   const [loading, setLoading] = useState({
@@ -29,6 +36,7 @@ const AccountInfo = ({ user }: any) => {
     name: false,
     phone: false,
     password: false,
+    adress: false,
   });
 
   const { appendData: updateEmail } = useQueryApiClient({
@@ -78,6 +86,17 @@ const AccountInfo = ({ user }: any) => {
       setOpen({ ...open, isResetPassword: false });
     },
   });
+  const { appendData: updateAdress } = useQueryApiClient({
+    request: {
+      url: "location-form",
+      method: "POST",
+      disableOnMount: true,
+    },
+    onSuccess: (res) => {
+      message.success(res.message);
+      setOpen({ ...open, isAddress: false });
+    },
+  });
 
   const handleFormSubmit = async (
     mutateFunction: any,
@@ -86,12 +105,20 @@ const AccountInfo = ({ user }: any) => {
   ) => {
     setLoading((prev) => ({ ...prev, [key]: true }));
     try {
-      await mutateFunction(values);
+      console.log(values);
+      // await mutateFunction(values);
     } finally {
       setLoading((prev) => ({ ...prev, [key]: false }));
     }
   };
 
+  const handleValues = async (e: any) => {
+    try {
+      await updateAdress(locationInfo);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <div>
       <div className={styles.card_info}>
@@ -159,6 +186,21 @@ const AccountInfo = ({ user }: any) => {
               />
             </div>
           </div>
+          <div className={styles.card}>
+            <p>{t("Auth.address")}</p>
+            <div>
+              <span>{user?.district}</span>
+              <button onClick={() => setOpen({ ...open, isAddress: true })}>
+                {t("Account.change")}
+              </button>
+              <Image
+                src={editAccountIcon}
+                alt='#'
+                className={styles.info_arrow}
+                onClick={() => setOpen({ ...open, isAddress: true })}
+              />
+            </div>
+          </div>
         </div>
       </div>
       <ModalForms
@@ -187,9 +229,10 @@ const AccountInfo = ({ user }: any) => {
         onClick={() => setOpen({ ...open, isUserName: false })}>
         <Form
           onFinish={(values) => handleFormSubmit(updateName, values, "name")}
-          initialValues={{ name: user?.name }}
+          initialValues={{ name: user?.name, last_name: user?.last_name }}
           className={styles.form}>
           <Input placeholder={t("Account.name")} name='name' />
+          <Input placeholder={t("Account.lastname")} name='last_name' />
           <Form.Item>
             <Button
               htmlType='submit'
@@ -207,7 +250,17 @@ const AccountInfo = ({ user }: any) => {
           onFinish={(values) => handleFormSubmit(updatePhone, values, "phone")}
           initialValues={{ phone: user?.phone }}
           className={styles.form}>
-          <Input placeholder={t("Account.phone")} name='phone' type='number' />
+          <Form.Item
+            name='phone'
+            rules={[{ validator: (rule, value) => validatePhone(t, value) }]}
+            required>
+            <MaskedInput
+              className={styles.maskedInput}
+              type='text'
+              prefix={"+998"}
+              mask={"(00) 000-00-00"}
+            />
+          </Form.Item>
           <Button
             htmlType='submit'
             loading={loading.phone}
@@ -242,6 +295,21 @@ const AccountInfo = ({ user }: any) => {
             {t("Account.confirm")}
           </Button>
         </Form>
+      </ModalForms>
+      <ModalForms
+        isOpen={open.isAddress}
+        onClick={() => setOpen({ ...open, isAddress: false })}>
+        <LocationBlock
+          locationInfo={locationInfo}
+          setLocationInfo={setLocationInfo}
+          ILocation={{ region: user?.region, district: user?.district }}
+        />
+        <Button
+          onClick={handleValues}
+          loading={loading.adress}
+          className={styles.confirm_btn}>
+          {t("Account.confirm")}
+        </Button>
       </ModalForms>
     </div>
   );

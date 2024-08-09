@@ -108,7 +108,9 @@
     "metaTitle": "Login | ON-WAY",
     "metaDescription": "Securely log in to your ON-WAY account to access exclusive features and manage your orders.",
     "metaKeywords": "ON-WAY, login, sign in, account access, secure login",
-    "passwordHasEmpty": "Password cannot contain spaces!"
+    "passwordHasEmpty": "Password cannot contain spaces!",
+    "address":"Address"
+
   },
   "Cart": {
     "item": "Items",
