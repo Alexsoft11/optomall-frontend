@@ -134,7 +134,7 @@ export default function PurchasesItem({ item }: Props) {
         </div>
         <div className={styles.detail_item}>
           <h3>{t("address")}</h3>
-          <p>{item.location_name}</p>
+          <p>{item.location_region}, {item.location_district}</p>
         </div>
         <div className={styles.detail_item}>
           <h3>{t("recipient")}</h3>
