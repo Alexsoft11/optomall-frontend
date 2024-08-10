@@ -1,13 +1,13 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import styles from "./OrderPage.module.scss";
 import OrderCheque from "../OrderCheque";
-import { CartOrderBlock } from "@/features/Cart";
-import { OrderDataInterface } from "../../interfaces";
+import { EditOrderInterface, OrderDataInterface } from "../../interfaces";
 import PurchasesItem from "@/components/PurchasesItem";
 import { LocationInfoInterface } from "@/components/Types";
 import { PersonalDataInterface } from "@/features/Cart/interface";
-import CartGetOrderPerson from "@/features/Cart/components/CartGetOtderPerson";
+import GetOtderPerson from "@/components/GetOtderPerson";
 import LocationBlock from "@/components/LocationBlock";
+import OrderBlock from "@/components/OrderBlock";
 
 interface Props {
   orderData: OrderDataInterface;
@@ -25,17 +25,28 @@ export default function OrderPage({ orderData }: Props) {
     null
   );
 
+  const editOrderData : EditOrderInterface = {
+    order_id: orderData.order.id,
+    region: locationInfo.region,
+    district: locationInfo.district,
+    name: personData?.name || '',
+    phone: personData?.phone || '', 
+  }
+  
+
   return (
     <div className={styles.main}>
       <div className={styles.order_data}>
         <OrderCheque
+
           cardName={orderData?.order?.name}
           costPerKg={orderData?.order.kg_price}
           cardId={orderData?.order.card_number}
           cost={orderData?.order.total_price}
         />
         <div className={styles.order_side}>
-          <CartOrderBlock
+          <OrderBlock
+          editOrderData={editOrderData}
             setDataFailed={setDataFailed}
             orderId={orderData?.order.id}
             type="order"
@@ -61,11 +72,12 @@ export default function OrderPage({ orderData }: Props) {
                   : null
               }`}
             >
-              <CartGetOrderPerson setPersonData={setPersonData} />
+              <GetOtderPerson setPersonData={setPersonData} />
             </div>
           </div>
         </div>
       </div>
+
       <div className={styles.items_block}>
         <div className={styles.items}>
           {orderData?.detail?.map((el) => (

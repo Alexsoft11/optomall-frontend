@@ -31,12 +31,17 @@ export default function LocationBlock({
     value: keyof RegionProvincesInterface,
     name: keyof LocationInfoInterface
   ) => {
-    setcurrentRegion(
-      value.toLocaleLowerCase() as keyof RegionProvincesInterface
-    );
-    name === 'region'? form.setFieldValue("district", null) : null
-    const clone = Object.assign(locationInfo, {});
+    let clone = { ...locationInfo };
+    if (name === "region") {
+      clone = { ...locationInfo, district: "" };
+      setcurrentRegion(
+        value.toLocaleLowerCase() as keyof RegionProvincesInterface
+      );
+      form.setFieldValue("district", null);
+    }
+
     clone[name] = value;
+
     setLocationInfo(clone);
   };
 

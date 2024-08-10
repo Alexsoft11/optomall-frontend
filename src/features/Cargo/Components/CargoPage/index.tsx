@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./CargoPage.module.scss";
 import CargoCheque from "../CargoCheque";
-import { CartOrderBlock } from "@/features/Cart";
 import { useRouter } from "next/router";
 import { CargoDataInterface } from "../../interfaces";
+import OrderBlock from "@/components/OrderBlock";
 
 interface Props {
   cargoData: CargoDataInterface;
@@ -18,7 +18,7 @@ export default function OrderPage({ cargoData }: Props) {
         cardId={cargoData.card_number}
         cost={cargoData.total_price}
       />
-      <CartOrderBlock
+      <OrderBlock
         orderId={+id!}
         cargoCost={cargoData.kg_price}
         type="cargo"

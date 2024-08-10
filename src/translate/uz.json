@@ -142,6 +142,7 @@
     "selectDistrict": "Tumanni tanlang"
   },
   "Order": {
+    "cardName": "Qabul qiluvchining ismi: ",
     "payCost": "To'lanadigan summa: ",
     "cardNumber": "Oluvchining karta raqami: ",
     "payTutorialText": "Quyidagi karta raqamini nusxalab oling, so'ngra bank ilovangizni oching va ko'rsatilgan summani bir to'lov bilan ushbu raqamga o'tkazing. Diqqat! Quyida ko'rsatilgan aniq summani o'tkazish kerak!",

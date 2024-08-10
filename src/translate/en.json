@@ -144,6 +144,7 @@
   },
   "Order": {
     "payCost": "Amount to be paid: ",
+    "cardName": "Recipient Name: ",
     "cardNumber": "Recipient's card number: ",
     "payTutorialText": "Copy the card number below, then open your bank app and transfer the amount specified below in a single payment. Note! You need to transfer the exact amount specified below!",
     "textCopyed": "Text copied!",

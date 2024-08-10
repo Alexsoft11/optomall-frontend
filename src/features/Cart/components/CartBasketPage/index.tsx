@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CartBasketPage.module.scss";
 import CartBasketItems from "../CartBasketItems";
-import CartOrderBlock from "../CartOrderBlock";
+import OrderBlock from "../../../../components/OrderBlock";
 import {
   AddOrderInterface,
   CartItemInterface,
   CartOrderItemInterface,
   CreateOrderDataInterface,
-  PersonalDataInterface,
 } from "../../interface";
-import CartGetOrderPerson from "../CartGetOtderPerson";
 import Cookies from "universal-cookie";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { LoadingSpinner } from "@/ui/Spin";
-import LocationBlock from "@/components/LocationBlock";
-import { LocationInfoInterface } from "@/components/Types";
 import "animate.css";
 import PageNoItems from "@/components/PageNoItems";
 import { useTranslations } from "next-intl";
-import { formatPrice } from "@/constants";
 
 interface Props {
   data: CartItemInterface[];
@@ -196,9 +191,9 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
             isLoading={isBasketDataLoading}
           />
           <div className={styles.order_side}>
-            <CartOrderBlock
+            <OrderBlock
+              type="cart"
               itemValue={itemsValue}
-              isCart={true}
               createOrderData={createOrderData}
               cost={totalPrice}
             />
