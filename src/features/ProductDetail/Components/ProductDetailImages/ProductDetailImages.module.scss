@@ -7,8 +7,8 @@
     height: 400px;
     margin-bottom: 20px;
   }
-  @media(max-width:820px){
-  max-width: 100%;
+  @media (max-width: 820px) {
+    max-width: 100%;
   }
 }
 
@@ -20,7 +20,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 .imageThumbnails {
   display: flex;
@@ -28,13 +27,9 @@
   gap: 10px;
   max-height: 423px;
   border-bottom: 1px solid;
-  padding-bottom: 5px;
+  padding-bottom: 5px !important;
   position: relative;
-
-  &::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-  }
+  min-width: 60px;
 }
 
 .imageThumbnails_card {
@@ -46,17 +41,19 @@
   border-radius: 1px;
   width: 60px;
   height: 60px;
+  min-height: 60px;
 
   img {
-    width: 100%;
-    height: 100%;
+    width: 60px !important;
+    height: 60px !important;
     object-fit: contain;
-    // background: #000;
     border-radius: 20px;
   }
 
-  img.active {
-    border: 2px solid #000;
+  .active {
+    img {
+      border: 3px solid var(--primary-color);
+    }
   }
 }
 
@@ -71,10 +68,9 @@
   transform: rotate(53.3deg);
 }
 
-.detail_image  {
+.detail_image {
   position: relative;
   width: 100%;
-
 
   img {
     max-width: 400px;
@@ -89,27 +85,27 @@
   height: 100%;
   object-fit: cover;
 }
-.detail{ 
+.detail {
   width: 100%;
-  .imagePreviews{
+  .imagePreviews {
     // padding: 20px;
     max-width: 400px;
     position: relative;
     // background: #000;
-    img{
+    img {
       width: 100%;
       height: 100%;
       object-fit: contain;
       height: 400px;
     }
-    @media (max-width:820px) {
+    @media (max-width: 820px) {
       max-width: 100%;
     }
-    @media (max-width:450px) {
+    @media (max-width: 450px) {
       max-width: 100%;
     }
   }
-  @media (max-width:450px) {
+  @media (max-width: 450px) {
     position: absolute;
     left: 0;
     right: 0;
@@ -122,13 +118,13 @@
   }
 }
 
-@media(max-width:450px){
-  .imagePreviews{
+@media (max-width: 450px) {
+  .imagePreviews {
     padding: 0 !important;
     position: absolute;
     left: 0;
-    img{
-      height: 450px ;
+    img {
+      height: 450px;
     }
   }
 }
