@@ -28,7 +28,6 @@ export default function LocationBlock({ setLocationInfo, locationInfo, ILocation
         clone[name] = value
         setLocationInfo(clone)
     }
-    console.log(ILocation?.district)
 
     const citySelectProps = {
         className: styles.select,
