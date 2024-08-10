@@ -23,6 +23,7 @@ export interface SKUProperty {
   displayValue?: string;
   imageUrl?: string | undefined;
   property_id?: string;
+  selectedSku?: SKU;
 }
 
 // Interface for the SKU object

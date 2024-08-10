@@ -85,8 +85,12 @@ const ProductOrderSection: React.FC<Props> = ({
     type: "incr" | "decr",
     sizeProperty?: SKUProperty
   ) => {
-    const selectedSKU = findSKU(sizeProperty?.value);
-
+    let selectedSKU;
+    if (sizeProperty?.value) {
+      selectedSKU = findSKU(sizeProperty?.value);
+    } else {
+      selectedSKU = sizeProperty?.selectedSku;
+    }
     if (!selectedSKU) {
       return;
     }
@@ -228,9 +232,21 @@ const ProductOrderSection: React.FC<Props> = ({
     open: showModal,
   };
 
-  const displaySizes = useMemo(() => {
-    return sizes.length > 0 ? sizes : [{ value: "default" }];
-  }, [sizes]);
+  const displaySizes: SKUProperty[] | undefined = useMemo(() => {
+    if (sizes.length > 0) {
+      return sizes;
+    } else {
+      const defaultSKU = findSKU();
+      const customSizes: SKUProperty[] = [
+        {
+          value: "default",
+          selectedSku: defaultSKU,
+        },
+      ];
+      return customSizes;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sizes, selectedColor]);
 
   return (
     <div className={styles.product_order}>

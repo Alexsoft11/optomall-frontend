@@ -44,6 +44,8 @@ const ProductDetailInfo: React.FC<Props> = ({
     "sort by color",
     "цвет",
     "rang",
+    "series",
+    "watch series",
   ];
   const colorValue = Array.from(
     new Set(
@@ -60,11 +62,9 @@ const ProductDetailInfo: React.FC<Props> = ({
     )
   );
 
+
   const handleGetProperty = (value: string, type?: string) => {
-    const matchdata =
-      type === "color"
-        ? ["color", "colour", "colo", "sort by color", "цвет", "rang"]
-        : ["size", "hajm", "hajmi", "размер"];
+    const matchdata = type === "color" ? colorMatches : sizeMatches;
     return skus
       ?.flatMap((sku) => sku.properties)
       .find(
