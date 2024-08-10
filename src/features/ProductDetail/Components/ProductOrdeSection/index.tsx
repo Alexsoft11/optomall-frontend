@@ -92,7 +92,6 @@ const ProductOrderSection: React.FC<Props> = ({
     }
 
     if (type === "incr") {
-      setTotalPrice((prevTotalPrice) => prevTotalPrice + selectedSKU.price);
       if (basketData.some((prop) => prop.sku_id == selectedSKU.sku_id)) {
         const newBasketData = basketData.map((data) => {
           if (data.sku_id == selectedSKU.sku_id) {
@@ -102,8 +101,11 @@ const ProductOrderSection: React.FC<Props> = ({
               );
               return data;
             }
-            const quantity = data.quantity + 1;
 
+            const quantity = data.quantity + 1;
+            setTotalPrice(
+              (prevTotalPrice) => prevTotalPrice + selectedSKU.price
+            );
             return { ...data, quantity };
           }
           return data;
@@ -123,12 +125,15 @@ const ProductOrderSection: React.FC<Props> = ({
           product_url: product?.product_url,
           provider: query.channel,
           quantity: 1,
-          seller_id: product?.seller_id ? String(product?.seller_id) : "default",
+          seller_id: product?.seller_id
+            ? String(product?.seller_id)
+            : "default",
           size: sizeProperty?.value || "default",
           sku_id: String(selectedSKU.sku_id),
           title: product?.title,
         };
         const newBasketData = [...basketData, newBasketItem];
+        setTotalPrice((prevTotalPrice) => prevTotalPrice + selectedSKU.price);
         setBasketData(newBasketData);
         updateColorBasket(newBasketData);
       }

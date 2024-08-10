@@ -53,7 +53,7 @@ const Footer = () => {
                 </Link>
               ))}
             </div>
-            <p className={styles.copyright}>© {currentYear} TaoBao All rights reserved</p>
+            <p className={styles.copyright}>© {currentYear} OnWay All rights reserved</p>
           </div>
         </div>
       </div>

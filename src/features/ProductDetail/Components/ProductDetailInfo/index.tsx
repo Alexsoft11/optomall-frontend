@@ -36,20 +36,23 @@ const ProductDetailInfo: React.FC<Props> = ({
   const { skus } = product || {};
   const [selectedColor, setSelectedColor] = useState<SKUProperty | undefined>();
   const [colorsBasket, setColorsBasket] = useState<ColorsBasketInterface[]>([]);
-
+  const sizeMatches = ["size", "Размер", "размер", "hajmi", "specification"];
+  const colorMatches = [
+    "color",
+    "colour",
+    "colo",
+    "sort by color",
+    "цвет",
+    "rang",
+  ];
   const colorValue = Array.from(
     new Set(
       skus?.flatMap((sku) =>
         sku?.properties
           .filter((prop) => {
-            const matches = [
-              "color",
-              "colour",
-              "colo",
-              "sort by color",
-              "цвет",
-              "rang",
-            ].some((term) => prop.name?.toLowerCase().includes(term));
+            const matches = colorMatches.some((term) =>
+              prop.name?.toLowerCase().includes(term)
+            );
             return matches;
           })
           .map((prop) => prop.value)
@@ -90,21 +93,26 @@ const ProductDetailInfo: React.FC<Props> = ({
             )
             .flatMap((sku) =>
               sku.properties.filter((prop) => {
-                const matches = [
-                  "size",
-                  "Размер",
-                  "размер",
-                  "hajmi",
-                  "Specification",
-                  "specification",
-                ].some((term) => prop.name?.toLowerCase().includes(term));
-
+                const matches = sizeMatches.some((term) =>
+                  prop.name?.toLowerCase().includes(term)
+                );
                 return matches;
               })
             )
         )
       )
-    : [];
+    : Array.from(
+        new Set(
+          skus?.flatMap((sku) =>
+            sku.properties.filter((prop) => {
+              const matches = sizeMatches.some((term) =>
+                prop.name?.toLowerCase().includes(term)
+              );
+              return matches;
+            })
+          )
+        )
+      );
 
   const handleColorSelect = (colorProperty?: SKUProperty) => {
     setSelectedColor(colorProperty);
