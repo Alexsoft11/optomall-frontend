@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import styles from "./CartOrder.module.scss";
+import styles from "./OrderBlock.module.scss";
 import { useTranslations } from "next-intl";
 import { Button, Modal } from "@/ui";
 import { useRouter } from "next/router";
 import { SearchSvg } from "$/assets/images";
-import { CreateOrderDataInterface } from "../../interface";
+import { CreateOrderDataInterface } from "../../features/Cart/interface";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { message, Upload } from "antd";
 import Cookies from "universal-cookie";
 import { RcFile } from "antd/es/upload";
 import { formatPrice } from "@/constants";
+import { EditOrderInterface } from "@/features/Order/interfaces";
 
 interface Props {
   cost: number;
@@ -17,22 +18,21 @@ interface Props {
   orderId?: number;
   cargoCost?: string;
   createOrderData?: CreateOrderDataInterface;
-  isCart?: boolean;
-  uploadUrl?: string;
   type?: string;
+  editOrderData?: EditOrderInterface;
   setDataFailed?: React.Dispatch<
     React.SetStateAction<"personal" | "location" | null>
   >;
 }
 
-export default function CartOrderBlock({
+export default function OrderBlock({
   cost,
   itemValue,
   orderId,
   createOrderData,
   type,
-  isCart = false,
   cargoCost,
+  editOrderData,
   setDataFailed,
 }: Props) {
   const t = useTranslations("");
@@ -73,6 +73,14 @@ export default function CartOrderBlock({
     },
   });
 
+  const { appendData: editOrder } = useQueryApiClient({
+    request: {
+      url: "edit-order",
+      method: "PUT",
+      disableOnMount: true,
+    },
+  });
+
   const { appendData: createChequeData } = useQueryApiClient({
     request: {
       url: "add-check",
@@ -101,13 +109,32 @@ export default function CartOrderBlock({
       if (!isImage) {
         setIsUploadErr(true);
         message.error(t("Cart.imgTypeValidation"));
-        return;
+        return false;
       }
       const isLt3M = file.size / 1024 / 1024 < 3;
       if (!isLt3M) {
         setIsUploadErr(true);
         message.error(t("Cart.imgSizeValidation"));
-        return;
+        return false;
+      }
+
+      if (editOrderData && setDataFailed) {
+        if (!editOrderData?.region || !editOrderData.district) {
+          setDataFailed("location");
+          setTimeout(() => {
+            setDataFailed(null);
+          }, 1000);
+          message.error(t(`Cart.locationRequired`), 3);
+          return false;
+        }
+        if (!editOrderData?.name || !editOrderData.phone) {
+          setDataFailed("personal");
+          setTimeout(() => {
+            setDataFailed(null);
+          }, 1000);
+          message.error(t(`Cart.userDataRequired`), 3);
+          return false;
+        }
       }
     },
     onChange(info: any) {
@@ -122,24 +149,11 @@ export default function CartOrderBlock({
         formData.append("order_group_id", orderId!.toString());
         createChequeData(formData);
         setButtonStatus("pending");
+
+        editOrder(editOrderData);
       }
     },
   };
-
-  // const modalProps = {
-  //   onCancel: () => setAuthModalIsOpen(false),
-  //   className: "bg_white",
-  //   img: SearchSvg,
-  //   description: t("Cart.authMessage"),
-  //   children: (
-  //     <Button
-  //       onClick={() => router.push(`auth?step=signin&backUrl=${router.asPath}`)}
-  //       className="signIn_btn"
-  //       label={t("Cart.signin")}
-  //     />
-  //   ),
-  //   open: authModalIsOpen,
-  // };
 
   const toOrder = () => {
     if (!cookie.get("token")) {
@@ -154,18 +168,6 @@ export default function CartOrderBlock({
       }
       return;
     }
-    if (createOrderData && setDataFailed) {
-      const userData = createOrderData.userData;
-      if (!createOrderData.location.district) {
-        setDataFailed("location");
-        return message.error(t(`Cart.locationRequired`), 3);
-      }
-      if (!userData || !userData.name || !userData.phone) {
-        setDataFailed("personal");
-        return message.error(t(`Cart.userDataRequired`), 3);
-      }
-    }
-
     createData(createOrderData);
   };
 
@@ -179,14 +181,14 @@ export default function CartOrderBlock({
         </p>
       )}
       <div className={styles.total}>
-        {cargoCost ? (
+        {/* {cargoCost ? (
           <div className={styles.cargo_title}>
             <p>{t("Cart.cargo")}</p>
             <p>
               {formatPrice(cargoCost)} {t("GLOBAL.currency")} {t("Cart.forKg")}
             </p>
           </div>
-        ) : null}
+        ) : null} */}
         <div>
           <h1>{t("Cart.total")}:</h1>
           <p>{formatPrice(cost)} uzs</p>
@@ -208,7 +210,8 @@ export default function CartOrderBlock({
           </div>
         </Upload>
       ) : null}
-      {isCart ? (
+
+      {type === "cart" ? (
         <Button
           onClick={() => toOrder()}
           className={styles.complite_btn}

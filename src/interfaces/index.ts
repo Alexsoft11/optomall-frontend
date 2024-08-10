@@ -83,26 +83,20 @@ export interface SelectOptionInterface {
 }
 
 
-export interface SelectOptionInterface {
-    label: string,
-    value: string
-}
-
-
 export interface RegionProvincesInterface {
-    tashkent: SelectOptionInterface[],
-    andijan: SelectOptionInterface[],
-    bukhara: SelectOptionInterface[],
-    fergana: SelectOptionInterface[],
-    jizzakh: SelectOptionInterface[],
-    namangan: SelectOptionInterface[],
-    navoiy: SelectOptionInterface[],
-    qashqadaryo: SelectOptionInterface[],
-    khorezm: SelectOptionInterface[],
-    samarkand: SelectOptionInterface[],
-    sirdaryo: SelectOptionInterface[],
-    surxondaryo: SelectOptionInterface[],
-    karakalpakstan: SelectOptionInterface[],
+    tashkent: string[],
+    andijan: string[],
+    bukhara: string[],
+    fergana: string[],
+    jizzakh: string[],
+    namangan: string[],
+    navoiy: string[],
+    qashqadaryo: string[],
+    khorezm: string[],
+    samarkand: string[],
+    sirdaryo: string[],
+    surxondaryo: string[],
+    karakalpakstan: string[],
 }
 
 

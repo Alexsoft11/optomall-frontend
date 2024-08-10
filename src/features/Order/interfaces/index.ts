@@ -8,5 +8,13 @@ export interface OrderDataInterface {
     name?: string;
     id: number;
   };
-  detail: PurchasesOrderInterface[]
+  detail: PurchasesOrderInterface[];
+}
+
+export interface EditOrderInterface {
+  order_id: number
+  region: string;
+  district: string;
+  name: string,
+  phone: string,
 }

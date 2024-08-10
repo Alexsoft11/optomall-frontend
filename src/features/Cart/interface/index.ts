@@ -38,8 +38,6 @@ export interface CartOrderItemInterface {
 
 export interface CreateOrderDataInterface {
   total_price: number;
-  location: LocationInfoInterface;
-  userData: PersonalDataInterface | null;
   items: CartOrderItemInterface[];
 }
 

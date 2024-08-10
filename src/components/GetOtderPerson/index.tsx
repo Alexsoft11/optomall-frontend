@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import styles from './CartGetOtderPerson.module.scss';
+import styles from './GetOtderPerson.module.scss';
 import { useTranslations } from 'next-intl';
 import { Form, InputRef } from 'antd';
 import { validateName, validatePhone } from '@/components/Auth/Functions';
@@ -10,7 +10,7 @@ interface Props {
     setPersonData: any
 }
 
-export default function CartGetOrderPerson({ setPersonData }: Props) {
+export default function GetOrderPerson({ setPersonData }: Props) {
     const t = useTranslations('')
     const [form] = Form.useForm();
     const inputRef = useRef<InputRef>(null);
