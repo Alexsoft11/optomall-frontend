@@ -12,6 +12,7 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useRouter } from "next/router";
 import { cookieBasket } from "@/components/Auth/Functions";
 import { useJwt } from "@/utils/useJwt";
+import ToLoginPage from "@/components/ToLoginPage";
 
 const CartBasketPage = dynamic(
   () => import("@/features/Cart/components/CartBasketPage"),
@@ -49,12 +50,6 @@ export default function Cart({}: Props) {
     },
   });
 
-  useEffect(() => {
-    if (!token) {
-      push("/");
-    }
-  }, []);
-
   return (
     <div className="container">
       <Head>
@@ -62,9 +57,15 @@ export default function Cart({}: Props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div>
-        <GoToBack pathArr={[{ title: "cart", path: "" }]} />
-        <PageTitle />
-        <CartBasketPage data={basketData} isBasketDataLoading={isLoading} />
+        {!token ? (
+          <ToLoginPage />
+        ) : (
+          <>
+            <GoToBack pathArr={[{ title: "cart", path: "" }]} />
+            <PageTitle />
+            <CartBasketPage data={basketData} isBasketDataLoading={isLoading} />
+          </>
+        )}
       </div>
     </div>
   );

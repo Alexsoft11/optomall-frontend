@@ -266,5 +266,11 @@
     "dearClient": "Hurmatli mijoz, ",
     "order": "Buyurtma: ",
     "thanksForBuy": "Biz bilan xarid qilganingiz uchun rahmat!"
+  },
+  "ToLoginPage": {
+    "title": "Op! Siz tizimga kirmadingiz",
+    "text": "Autentifikatsiyani talab qiladigan sahifaga qoqilib qolganga o'xshaysiz. Biz taklif qilayotgan ajoyib kontentni o'rganishda davom etish uchun tizimga kiring.",
+    "btn_access": "Kirish",
+    "btn_regist": "Ro'yxatdan o'tish"
   }
 }
