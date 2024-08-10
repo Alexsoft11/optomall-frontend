@@ -44,15 +44,25 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
     enabled: !!query.id,
   });
 
-  const { data: getSearchRes, isLoading: isSearchResLoading } =
-    useQueryApiClient({
-      request: {
-        url: `search-products-from-taobao?imageUrl=${product?.detail?.image}&lang=${locale}`,
-        method: "GET",
-        disableOnMount: !product?.detail?.image,
-      },
-      enabled: !product?.detail?.image,
-    });
+  const {
+    appendData: getSearchRes,
+    data: recomendProducts,
+    isLoading: isSearchResLoading,
+  } = useQueryApiClient({
+    request: {
+      url: `search-products-from-taobao?imageUrl=${product?.detail?.image}&lang=${locale}&provider=${query.channel}`,
+      method: "GET",
+      disableOnMount: true,
+    },
+  });
+
+  useEffect(() => {
+    if (product?.detail?.image) {
+      getSearchRes();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product?.detail?.image]);
+
   if (!product) {
     return <DataNotFound />;
   }
@@ -64,14 +74,14 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
         <ProductDetailSectionLocal
           product={product.detail}
           productComments={productComments}
-          recommended={getSearchRes.products}
+          recommended={recomendProducts.products}
           score={product.score}
         />
       ) : (
         <ProductDetailSection
           product={product.detail}
           productComments={productComments}
-          recommended={getSearchRes.products}
+          recommended={recomendProducts.products}
           score={product.score}
         />
       )}
