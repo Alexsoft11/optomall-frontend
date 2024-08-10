@@ -49,6 +49,7 @@ export interface SubcategoryItem {
  export interface CategoryInterface {
     name: string;
     slug: string;
+    imageUrl: string;
     subcategories: Subcategory[];
   }
 

@@ -267,5 +267,11 @@
     "dearClient": "Dear client, ",
     "order": "Order: ",
     "thanksForBuy": "Thank you for shopping with us!"
+  },
+  "ToLoginPage": {
+    "title": "Oops! You’re Not Logged In",
+    "text": "It seems like you’ve stumbled upon a page that requires authentication. To continue exploring all the amazing content we have to offer, please log in.",
+    "btn_access": "Login",
+    "btn_regist": "Register"
   }
 }
