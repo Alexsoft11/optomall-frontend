@@ -154,17 +154,17 @@ export default function CartOrderBlock({
       }
       return;
     }
-    if (createOrderData && setDataFailed) {
-      const userData = createOrderData.userData;
-      if (!createOrderData.location.district) {
-        setDataFailed("location");
-        return message.error(t(`Cart.locationRequired`), 3);
-      }
-      if (!userData || !userData.name || !userData.phone) {
-        setDataFailed("personal");
-        return message.error(t(`Cart.userDataRequired`), 3);
-      }
-    }
+    // if (createOrderData && setDataFailed) {
+    //   const userData = createOrderData.userData;
+    //   if (!createOrderData.location.district) {
+    //     setDataFailed("location");
+    //     return message.error(t(`Cart.locationRequired`), 3);
+    //   }
+    //   if (!userData || !userData.name || !userData.phone) {
+    //     setDataFailed("personal");
+    //     return message.error(t(`Cart.userDataRequired`), 3);
+    //   }
+    // }
 
     createData(createOrderData);
   };

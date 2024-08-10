@@ -3,20 +3,6 @@
     display: flex;
     gap: 20px;
 
-    .order_side {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        grid-area: order_side;
-    }
-
-    .order_info {
-        grid-area: getOrder;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
     @media (max-width: 769px) {
         padding: 0px;
         display: flex;

@@ -1,53 +1,65 @@
 .main {
+  padding: 10px 0px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .order_data {
     padding: 10px 0px 0px 0px;
     display: flex;
-    flex-direction: column;
     gap: 20px;
 
-    .order_data {
-        padding: 10px 0px 0px 0px;
-        display: flex;
-        gap: 20px;
+    .order_side {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      grid-area: order_side;
     }
-
-    .items_block {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        .items {
-            display: grid;
-            gap: 20px;
-            grid-template-columns: repeat(3, minmax(30%, max-content));
-            grid-template-rows: auto;
-
-            >div {
-                margin-bottom: auto;
-            }
-
-            .selectedOrder {
-                border: 3px solid var(--primary-color);
-                border-radius: 10px;
-                height: min-content;
-            }
-
-            @media (max-width: 1110px) {
-                grid-template-columns: repeat(2, minmax(40%, max-content));
-            }
-
-            @media (max-width: 590px) {
-                grid-template-columns: repeat(1, minmax(100%, max-content));
-            }
-        }
+    .order_info {
+      grid-area: getOrder;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
+  }
 
-    @media (max-width: 1350px) {
-        display: flex;
+  .items_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .items {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(3, minmax(30%, max-content));
+      grid-template-rows: auto;
+
+      > div {
+        margin-bottom: auto;
+      }
+
+      .selectedOrder {
+        border: 3px solid var(--primary-color);
+        border-radius: 10px;
+        height: min-content;
+      }
+
+      @media (max-width: 1110px) {
+        grid-template-columns: repeat(2, minmax(40%, max-content));
+      }
+
+      @media (max-width: 590px) {
+        grid-template-columns: repeat(1, minmax(100%, max-content));
+      }
     }
+  }
 
-    @media (max-width: 770px) {
-        gap: 10px;
-        padding: 0px;
-    }
+  @media (max-width: 1350px) {
+    display: flex;
+  }
 
+  @media (max-width: 770px) {
+    gap: 10px;
+    padding: 0px;
+  }
 }
