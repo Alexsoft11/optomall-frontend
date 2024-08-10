@@ -10,7 +10,7 @@ interface Props {
 export default function MessagesPage({ messagesData }: Props) {
     return (
         <div className={styles.main}>
-            {messagesData.map(el => (
+            {messagesData?.map(el => (
                 <Fragment key={el.id}>
                     <MessagesItem item={el} />
                 </Fragment>

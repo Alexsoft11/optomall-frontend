@@ -35,8 +35,8 @@ export interface PurchasesOrderInterface {
   user_name: string;
   user_phone: string;
   country: string;
-  location_url: string;
-  location_name: string;
+  location_district: string;
+  location_region: string;
   isPaid: boolean;
   substatus_color: string;
   kg: string | null;
