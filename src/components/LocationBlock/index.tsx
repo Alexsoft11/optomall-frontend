@@ -24,7 +24,7 @@ export default function LocationBlock({
 }: Props) {
   const [form] = Form.useForm();
   const t = useTranslations("Cart");
-  const [currentRegion, setcurrentRegion] =
+  const [currentRegion, setCurrentRegion] =
     useState<keyof RegionProvincesInterface>();
 
   const selectChange = (
@@ -34,7 +34,7 @@ export default function LocationBlock({
     let clone = { ...locationInfo };
     if (name === "region") {
       clone = { ...locationInfo, district: "" };
-      setcurrentRegion(
+      setCurrentRegion(
         value.toLocaleLowerCase() as keyof RegionProvincesInterface
       );
       form.setFieldValue("district", null);
@@ -46,15 +46,15 @@ export default function LocationBlock({
   };
 
   useEffect(() => {
-    ILocation?.region
+    locationInfo?.region
       ? regions.map((el, idx) => {
-          if (el === ILocation.region) {
+          if (el === locationInfo.region) {
             form.setFieldValue("region", regions[idx]);
-
+            setCurrentRegion(regions[idx].toLocaleLowerCase() as keyof RegionProvincesInterface)
             regionProvinces[
-              ILocation.region.toLowerCase() as keyof RegionProvincesInterface
+              locationInfo.region.toLowerCase() as keyof RegionProvincesInterface
             ].map((item) => {
-              if (item === ILocation.district) {
+              if (item === locationInfo.district) {
                 form.setFieldValue("district", item);
                 return;
               }

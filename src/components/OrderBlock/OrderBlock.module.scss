@@ -55,6 +55,7 @@
     }
 
     .upload_btn {
+        width: 100%;
 
         @media (max-width: 600px) {
             display: flex;
@@ -70,7 +71,7 @@
             // Unfortunately, we need a wrapper element containing the fixed width for centering the button within the animation (you could also apply the width as an inline style).
             .loading-btn-wrapper {
                 display: inline-block;
-                max-width: 240px;
+                max-width: 274px;
                 width: 50dvw;
                 height: $circle-size;
 

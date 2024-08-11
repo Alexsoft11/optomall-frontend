@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import PageTitle from "@/components/PageTitle";
 import dynamic from "next/dynamic";
 import { API } from "@/services/api";
-import { OrderDataInterface } from "@/features/Order/interfaces";
+import { OrderDataInterface, UserDataInterface } from "@/features/Order/interfaces";
 import cookie from "cookie";
 import { LoadingSpinner } from "@/ui/Spin";
 
@@ -18,9 +18,10 @@ const OrderPage = dynamic(
 
 interface Props {
   orderData: OrderDataInterface;
+  userData: UserDataInterface
 }
 
-export default function Order({ orderData }: Props) {
+export default function Order({ orderData, userData }: Props) {
   const t = useTranslations("GLOBAL");
 
   return (
@@ -31,7 +32,7 @@ export default function Order({ orderData }: Props) {
       <div>
         <GoToBack pathArr={[{ title: "order", path: "" }]} />
         <PageTitle />
-        <OrderPage orderData={orderData} />
+        <OrderPage userData={userData} orderData={orderData} />
       </div>
     </div>
   );
@@ -48,17 +49,20 @@ export const getServerSideProps = async (context: any) => {
     const { locale } = context;
 
     const orderResponse = await API.getOrder(token, id, locale);
+    const userDataResponse = await API.getUserData(token);
 
     return {
       props: {
         orderData: orderResponse || [],
+        userData: userDataResponse || [],
       },
     };
   } catch (error: any) {
     console.error("Error fetching data:", error.message);
     return {
       props: {
-        basketData: [],
+        orderData: [],
+        userData: [],
       },
     };
   }

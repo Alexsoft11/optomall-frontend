@@ -121,6 +121,15 @@ export const API = {
       })
       .then((res) => res.data),
 
+  getUserData: (token: string) =>
+    axiosInstance
+      .get(`user-get-data`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => res.data),
+
   // MyReviewsPage
   getReviews: (token: string, filter: string, locale: string) =>
     axiosInstance
