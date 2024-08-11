@@ -4,10 +4,6 @@ import { useLocale, useTranslations } from "next-intl";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import Image from "next/image";
 import { LanguageStringIntergace } from "@/interfaces";
-import useQueryApiClient from "@/utils/useQueryApiClient";
-import { message } from "antd";
-import { RcFile } from "antd/es/upload";
-import { Upload } from "antd/lib";
 import { useRouter } from "next/router";
 import { formatPrice } from "@/constants";
 import { PurchasesOrderInterface } from "../Types";
@@ -20,9 +16,9 @@ interface Props {
 export default function PurchasesItem({ item }: Props) {
   const t = useTranslations("Purchases");
   const locale = useLocale();
-  // const router = useRouter();
+  const {push} = useRouter();
   const [isUploadErr, setIsUploadErr] = useState(false);
-  const getCreateDateRegexp = /(\d){4}-(\d){2}-(\d){2}/
+  const getCreateDateRegexp = /(\d){4}-(\d){2}-(\d){2}/;
 
   function hexToRgba(hex?: string, alpha: number = 1): string {
     // Remove the hash at the start if it's there
@@ -52,53 +48,17 @@ export default function PurchasesItem({ item }: Props) {
     setFirstLoad(false);
   };
 
-  const { appendData: createChequeData } = useQueryApiClient({
-    request: {
-      url: "add-check",
-      method: "POST",
-      disableOnMount: true,
-      multipart: true,
-    },
-    onSuccess(res) {
-      message.success("success add check", 2);
-    },
-  });
-
-  const uploadProps = {
-    name: "file",
-    showUploadList: false,
-    multiple: false,
-    beforeUpload: (file: RcFile) => {
-      const isImage = file.type === "image/jpeg" || file.type === "image/png";
-      if (!isImage) {
-        setIsUploadErr(true);
-        message.error(t("imgTypeValidation"));
-        return;
-      }
-      const isLt3M = file.size / 1024 / 1024 < 3;
-      if (!isLt3M) {
-        setIsUploadErr(true);
-        message.error(t("imgSizeValidation"));
-        return;
-      }
-    },
-    onChange(info: any) {
-      if (info.file.status === "done" && !isUploadErr) {
-        const image = info.file.originFileObj;
-        delete image.uid;
-
-        const formData = new FormData();
-        formData.append("image", image);
-        formData.append("type", "order");
-        formData.append("order_id", item.id.toString());
-        createChequeData(formData);
-      }
-    },
-  };
+  const toOrder = () => push(`/order/${item.id}`)
 
   return (
     <div
-      className={`${styles.main} ${isRotatedUp ? styles.detailOpen : firstLoad ? styles.firsLoadAnimation : styles.detailClose}`}
+      className={`${styles.main} ${
+        isRotatedUp
+          ? styles.detailOpen
+          : firstLoad
+          ? styles.firsLoadAnimation
+          : styles.detailClose
+      }`}
     >
       <div className={styles.order_info}>
         <p>
@@ -134,7 +94,9 @@ export default function PurchasesItem({ item }: Props) {
         </div>
         <div className={styles.detail_item}>
           <h3>{t("address")}</h3>
-          <p>{item.location_region}, {item.location_district}</p>
+          <p>
+            {item.location_region}, {item.location_district}
+          </p>
         </div>
         <div className={styles.detail_item}>
           <h3>{t("recipient")}</h3>
@@ -145,25 +107,27 @@ export default function PurchasesItem({ item }: Props) {
         </div>
         <div className={styles.detail_item}>
           <h3>{t("cargo")}</h3>
-          <p>{item.cargo_price ? formatPrice(item.cargo_price) + " " + t("currency") : t("calculated")}</p>
+          <p>
+            {item.cargo_price
+              ? formatPrice(item.cargo_price) + " " + t("currency")
+              : t("calculated")}
+          </p>
         </div>
       </div>
       <div
-        className={`${styles.more_datail} ${isRotatedUp ? styles.rotateUp : styles.rotateDown
-          }`}
+        className={`${styles.more_datail} ${
+          isRotatedUp ? styles.rotateUp : styles.rotateDown
+        }`}
         onClick={handleClick}
       >
         <p>{t("moreDetail")}</p>
         <SvgSelector className={"breadcrumb_icon"} id={"chevron-svg"} />
       </div>
       <div className={styles.order_items}>
-
         {item.isPaid ? (
-          <div className={styles.sub_status_slug}>
-            <h4>{t('send_check_again')}</h4>
-            <Upload {...uploadProps}>
-              <button>{t("upload")}</button>
-            </Upload>
+          <div onClick={toOrder} className={styles.sub_status_slug}>
+            <h4>{t("send_check_again")}</h4>
+            <button>{t("upload")}</button>
           </div>
         ) : null}
 

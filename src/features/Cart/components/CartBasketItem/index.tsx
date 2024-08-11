@@ -45,8 +45,6 @@ export default function CartBasketItem({
     setAddOrder({ item: data, chacked: chacked });
   };
 
-  console.log(item);
-
   return (
     <div className={styles.main}>
       <div className={styles.item_img}>
