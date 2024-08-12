@@ -98,6 +98,7 @@
       object-fit: contain;
       height: 400px;
     }
+
     @media (max-width: 820px) {
       max-width: 100%;
     }
@@ -112,9 +113,9 @@
     width: 100%;
   }
 }
-@media (max-width: 960px) {
+@media (max-width: 900px) {
   .imageThumbnails {
-    display: none;
+    display: none !important;
   }
 }
 

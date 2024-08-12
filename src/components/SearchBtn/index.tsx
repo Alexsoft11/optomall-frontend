@@ -7,12 +7,15 @@ import { Form } from "antd";
 import { Upload } from "antd";
 import { UploadProps } from "antd/lib";
 import useQueryApiClient from "@/utils/useQueryApiClient";
-import { json } from "stream/consumers";
 import { useTranslations } from "next-intl";
+import { CategoryInterface } from "@/interfaces";
 
 const { Dragger } = Upload;
 
-const SearchBtn = () => {
+interface Props {
+  categoryData: CategoryInterface[];
+}
+const SearchBtn = ({ categoryData }: Props) => {
   const router = useRouter();
   const { value } = router.query;
   const [scrolled, setScrolled] = useState(false);
@@ -65,7 +68,7 @@ const SearchBtn = () => {
     const offset = window.scrollY;
     if (location.pathname === "/" && offset >= 400) {
       setStartScrool(true);
-    }else if (location.pathname !== "/" && offset > 280) {
+    } else if (location.pathname !== "/" && offset > 280) {
       setStartScrool(true);
     } else {
       setStartScrool(false);
@@ -88,12 +91,16 @@ const SearchBtn = () => {
       responseType: "json",
     },
     onSuccess(res) {
-      handleCancel()
-      router.push(`/search?lang=${router.locale}&channel=${router.query.channel || "taobao"}&imageUrl=${res.url}`);
+      handleCancel();
+      router.push(
+        `/search?lang=${router.locale}&channel=${
+          router.query.channel || "taobao"
+        }&imageUrl=${res.url}`
+      );
     },
     onError(err) {
-      handleCancel()
-    }
+      handleCancel();
+    },
   });
 
   useEffect(() => {
@@ -122,7 +129,7 @@ const SearchBtn = () => {
     },
     onChange(info: any) {
       setFileList(info.fileList);
-      if (info.file.status === 'done') {
+      if (info.file.status === "done") {
         setFileList([]);
       }
     },
@@ -144,24 +151,27 @@ const SearchBtn = () => {
                 onKeyDown={handleKeyPress}
                 className={styles.search_input}
                 name={"search"}
-                suffix={<div className={styles.search_icon_btn} onClick={handleButtonSubmitClick}><SvgSelector id="search-svg" /></div>}
+                suffix={
+                  <div
+                    className={styles.search_icon_btn}
+                    onClick={handleButtonSubmitClick}
+                  >
+                    <SvgSelector id="search-svg" />
+                  </div>
+                }
               />
             </Form>
           </div>
 
-          {
-            scrolled && (
-
-              <Button
-                className="generalbtn"
-                shape="circle"
-                iconId="photo-svg"
-                iconPosition="left"
-                onClick={handleButtonClick}
-              />
-            )
-          }
-          
+          {scrolled && (
+            <Button
+              className="generalbtn"
+              shape="circle"
+              iconId="photo-svg"
+              iconPosition="left"
+              onClick={handleButtonClick}
+            />
+          )}
         </div>
       </div>
 
@@ -173,7 +183,14 @@ const SearchBtn = () => {
               onKeyDown={handleKeyPress}
               className={styles.search_input}
               name={"search"}
-              prefix={<div className={styles.search_icon_btn} onClick={handleButtonSubmitClick}><SvgSelector id="search-svg" /></div>}
+              prefix={
+                <div
+                  className={styles.search_icon_btn}
+                  onClick={handleButtonSubmitClick}
+                >
+                  <SvgSelector id="search-svg" />
+                </div>
+              }
             />
           </Form>
         </div>
@@ -193,13 +210,15 @@ const SearchBtn = () => {
           className="upload_modal"
           footer={null}
         >
-          <Dragger {...uploadProps} id="upload-input" className="antd-search-upload">
+          <Dragger
+            {...uploadProps}
+            id="upload-input"
+            className="antd-search-upload"
+          >
             <p className="ant-upload-drag-icon">
               <SvgSelector id="upload-svg" />
             </p>
-            <p className="ant-upload-text">
-              {t("upload_text")}
-            </p>
+            <p className="ant-upload-text">{t("upload_text")}</p>
           </Dragger>
         </Modal>
       </div>

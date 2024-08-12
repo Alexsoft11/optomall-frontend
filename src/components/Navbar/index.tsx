@@ -13,6 +13,7 @@ import CatalogTab from "../CatalogTab";
 import { useTranslations } from "next-intl";
 import { useJwt } from "@/utils/useJwt";
 import { UseLogOut } from "@/utils/useLogOut";
+import useQueryApiClient from "@/utils/useQueryApiClient";
 
 const Navbar = () => {
   const token = useJwt();
@@ -48,6 +49,20 @@ const Navbar = () => {
     setModalIsOpen(true);
   };
 
+  const { appendData: getCategoryData, data: categoryData } = useQueryApiClient(
+    {
+      request: {
+        url: `categories-from-taobao?lang=${router.locale}`,
+        method: "GET",
+      },
+    }
+  );
+
+  useEffect(() => {
+    getCategoryData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.locale]);
+
   return (
     <>
       <div className={styles.navbar}>
@@ -63,7 +78,7 @@ const Navbar = () => {
                   size="middle"
                   onClick={handleNavBtnClick}
                 />
-                <SearchBtn />
+                <SearchBtn categoryData={categoryData.categories} />
 
                 <button
                   className={styles.navbar__support}
@@ -155,7 +170,11 @@ const Navbar = () => {
                 )}
               </div>
             </div>
-            <CatalogTab setOpenModal={setOpenModal} openModal={openModal} />
+            <CatalogTab
+              categoryData={categoryData.categories}
+              setOpenModal={setOpenModal}
+              openModal={openModal}
+            />
           </div>
         </div>
       </div>
