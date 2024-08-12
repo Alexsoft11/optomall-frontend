@@ -94,3 +94,35 @@
     }
   }
 }
+
+.order-modal {
+  .order-modal-body {
+    width: 800px;
+    .content {
+      .content-inner {
+        text-align: start;
+        h2 {
+          margin: 4px 0;
+        }
+      }
+      .swiper-wrapper {
+        .swiper-slide {
+          width: 90px;
+          height: 120px;
+          display: flex;
+          flex-direction: column;
+          border-radius: 10px;
+          background: #f2f2f2;
+          .img-box {
+            position: relative;
+            width: 90px;
+            height: 90px;
+          }
+          img {
+            max-width: 90px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+.change_value {
+  height: min-content;
+  grid-area: change_value;
+  justify-self: end;
+  width: min-content;
+  background: var(--light-grey);
+  padding: 5px;
+  border-radius: 10px;
+  display: flex;
+  gap: 23px;
+  align-items: center;
+
+  button {
+    background: white;
+    border-radius: 8px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

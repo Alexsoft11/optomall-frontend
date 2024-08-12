@@ -33,107 +33,8 @@ const ProductDetailInfo: React.FC<Props> = ({
   setSelectedImage,
 }) => {
   const t = useTranslations("Product-detail");
-  const { skus } = product || {};
-  const [selectedColor, setSelectedColor] = useState<SKUProperty | undefined>();
-  const [colorsBasket, setColorsBasket] = useState<ColorsBasketInterface[]>([]);
-  const sizeMatches = ["size", "Размер", "размер", "hajmi", "specification"];
-  const colorMatches = [
-    "color",
-    "colour",
-    "colo",
-    "sort by color",
-    "цвет",
-    "rang",
-    "series",
-    "watch series",
-  ];
-  const colorValue = Array.from(
-    new Set(
-      skus?.flatMap((sku) =>
-        sku?.properties
-          .filter((prop) => {
-            const matches = colorMatches.some((term) =>
-              prop.name?.toLowerCase().includes(term)
-            );
-            return matches;
-          })
-          .map((prop) => prop.value)
-      )
-    )
-  );
 
-
-  const handleGetProperty = (value: string, type?: string) => {
-    const matchdata = type === "color" ? colorMatches : sizeMatches;
-    return skus
-      ?.flatMap((sku) => sku.properties)
-      .find(
-        (prop) =>
-          prop.value === value &&
-          prop?.name &&
-          matchdata.some(
-            (term) => prop?.name && prop.name.toLowerCase().includes(term)
-          )
-      );
-  };
-
-  const colors = colorValue
-    .map((value) => {
-      const properties = handleGetProperty(value, "color");
-      return properties;
-    })
-    ?.filter((data) => data !== undefined);
-
-  const sizes = selectedColor?.value
-    ? Array.from(
-        new Set(
-          skus
-            ?.filter((sku) =>
-              sku.properties.some((prop) => prop.value === selectedColor.value)
-            )
-            .flatMap((sku) =>
-              sku.properties.filter((prop) => {
-                const matches = sizeMatches.some((term) =>
-                  prop.name?.toLowerCase().includes(term)
-                );
-                return matches;
-              })
-            )
-        )
-      )
-    : Array.from(
-        new Set(
-          skus?.flatMap((sku) =>
-            sku.properties.filter((prop) => {
-              const matches = sizeMatches.some((term) =>
-                prop.name?.toLowerCase().includes(term)
-              );
-              return matches;
-            })
-          )
-        )
-      );
-
-  const handleColorSelect = (colorProperty?: SKUProperty) => {
-    setSelectedColor(colorProperty);
-    if (colorProperty?.imageUrl) {
-      setSelectedImage(colorProperty.imageUrl);
-    }
-  };
-
-  const handleResetBasket = () => {
-    const colorBasketData = colors.map((color) => ({
-      color: color?.value,
-      data: [],
-    }));
-    setColorsBasket(colorBasketData);
-    setSelectedColor(colors[0]);
-  };
-
-  useEffect(() => {
-    handleResetBasket();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+ 
   const items: MenuProps["items"] = [
     {
       label: (
@@ -205,23 +106,15 @@ const ProductDetailInfo: React.FC<Props> = ({
         </div>
         <h1>{product?.title}</h1>
 
-        <SliderColors
-          colors={colors}
+        {/* <SliderColors
           skus={skus}
-          handleColorSelect={handleColorSelect}
           selectedColor={selectedColor}
           colorsBasket={colorsBasket}
-        />
+        /> */}
       </div>
 
       <ProductOrderSection
         product={product}
-        selectedColor={selectedColor}
-        sizes={sizes}
-        skus={skus}
-        colorsBasket={colorsBasket}
-        setColorsBasket={setColorsBasket}
-        handleResetBasket={handleResetBasket}
       />
     </div>
   );
