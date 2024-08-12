@@ -25,15 +25,39 @@ export interface SKUProperty {
   property_id?: string;
   selectedSku?: SKU;
 }
+interface ParsedProperty {
+  index: string;
+  subindex: string;
+  id: string;
+  name: string;
+  value: string;
+}
+
+export interface GroupedProperties {
+  [propId: string]: {
+    keys: { imageUrl?: string; value: string; propId: string }[];
+    propName: string;
+    imageUrl?: string;
+  };
+}
+
+export interface SelectedProperty {
+  name: string;
+  value: string;
+}
 
 // Interface for the SKU object
 export interface SKU {
+  price: number;
+  total_price: number;
+  orginal_price: number;
+  properties: string;
+  properties_name: string;
   quantity: number;
   sku_id: string;
-  price: number;
-  properties_ids: string;
-  properties: SKUProperty[];
+  parsedProperties?: ParsedProperty[];
 }
+
 export interface SellerInfoInterface {
   nick: string;
   item_score: number;
@@ -68,13 +92,18 @@ export interface ProductDetailInterface {
   is_liked: boolean;
   seller_info: SellerInfoInterface;
   seller_id: string;
+  prop_imgs: PropImage[];
+}
+export  interface PropImage {
+  properties: string;
+  url: string;
 }
 
 export interface BasketInterface {
   product_id: string | undefined;
   title: string | undefined;
   price: number | undefined;
-  color: string | undefined;
+  color?: string | undefined;
   quantity: number;
   max_quantity: number | undefined;
   size: string | undefined;

@@ -86,7 +86,7 @@ export const API = {
   //  ProductDetail
   getProductDetail: (params: any) =>
     axiosInstance
-      .get(`product-detail`, { params: params })
+      .get(`product-detail-from-taobao`, { params: params })
       .then((res) => res.data),
 
   getProductDetailLocal: (params: any) =>
