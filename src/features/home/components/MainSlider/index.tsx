@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './MainSlider.module.scss'
 import SearchBtn from '@/components/SearchBtn';
 import MainSliderCard from '../MainSliderCard';
@@ -7,18 +7,37 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { SlidersDataInterface } from '@/interfaces';
+import useQueryApiClient from '@/utils/useQueryApiClient';
+import { useRouter } from 'next/router';
 
 interface Props {
   data: SlidersDataInterface[];
 }
 
 const MainSlider: React.FC<Props> = ({ data }) => {
+  const router = useRouter();
+
+  const { appendData: getCategoryData, data: categoryData } = useQueryApiClient(
+    {
+      request: {
+        url: `categories-from-taobao?lang=${router.locale}`,
+        method: "GET",
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (window.innerWidth <= 768) {
+      getCategoryData();
+    }
+  }, [router.locale]);
+
   return (
     <>
       <div className={styles.mainbanner}>
         <div className='container'>
           <div className={styles.mainbanner__inner}>
-            <SearchBtn/>
+            <SearchBtn categoryData={categoryData.categories}/>
           </div>
         </div>
 

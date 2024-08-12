@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import styles from "./Search.module.scss";
 import { useRouter } from "next/router";
 import { Button, Input, Modal } from "@/ui";
 import SvgSelector from "$/assets/icons/SvgSelector";
-import { Form } from "antd";
+import { Dropdown, Form, Menu } from "antd";
 import { Upload } from "antd";
 import { UploadProps } from "antd/lib";
 import useQueryApiClient from "@/utils/useQueryApiClient";
@@ -24,7 +24,50 @@ const SearchBtn = ({ categoryData }: Props) => {
   const t = useTranslations("Search");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [fileList, setFileList] = useState([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [filteredItems, setFilteredItems] = useState<any[]>([]);
+  const inputRef = useRef<HTMLDivElement | null>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
+  const extractItems = (categoryData: any) => {
+    let items: any[] = [];
+
+    if (!Array.isArray(categoryData)) {
+      console.error("categoryData is not an array or is undefined");
+      return items;
+    }
+
+    const extract = (data: any) => {
+      if (data.items && Array.isArray(data.items)) {
+        items = items.concat(data.items);
+      }
+      if (data.subcategories && Array.isArray(data.subcategories)) {
+        data.subcategories.forEach((subCategory: any) => extract(subCategory));
+      }
+    };
+
+    categoryData.forEach((category: any) => extract(category));
+
+    return items;
+  };
+
+  const allItems = extractItems(categoryData);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.toLowerCase();
+  
+    if (value) {
+      const filteredHints = allItems.flatMap(item =>
+        item.hints.filter((hint: string) => hint.toLowerCase().includes(value))
+      );
+      setFilteredItems(filteredHints);
+      setIsDropdownOpen(filteredHints.length > 0);
+    } else {
+      setFilteredItems([]);
+      setIsDropdownOpen(false);
+    }
+  };
+  
   const handleSearch = (values: any) => {
     if (values.search) {
       const newQuery = {
@@ -39,7 +82,6 @@ const SearchBtn = ({ categoryData }: Props) => {
           { shallow: true }
         );
       } else {
-        // If not on the search page, navigate to the search page
         router.push({ pathname: "/search", query: newQuery });
       }
     }
@@ -68,18 +110,20 @@ const SearchBtn = ({ categoryData }: Props) => {
     const offset = window.scrollY;
     if (location.pathname === "/" && offset >= 400) {
       setStartScrool(true);
-    } else if (location.pathname !== "/" && offset > 280) {
+    } else if (location.pathname !== "/" && offset > 350) {
       setStartScrool(true);
     } else {
       setStartScrool(false);
+      setIsDropdownOpen(false);
     }
 
     if (location.pathname === "/" && offset > 600) {
       setScrolled(true);
-    } else if (location.pathname !== "/" && offset > 280) {
+    } else if (location.pathname !== "/" && offset > 350) {
       setScrolled(true);
     } else {
       setScrolled(false);
+      setIsDropdownOpen(false);
     }
   };
 
@@ -136,6 +180,35 @@ const SearchBtn = ({ categoryData }: Props) => {
     fileList,
   };
 
+  const menuItems = filteredItems.map((hint, index) => ({
+    key: index,
+    label: (
+      <div
+        onClick={() => {
+          form.setFieldsValue({ search: hint });
+          form.submit();
+          setIsDropdownOpen(false);
+        }}
+      >
+        {hint}
+      </div>
+    ),
+  }));
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 768);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <div
@@ -146,20 +219,23 @@ const SearchBtn = ({ categoryData }: Props) => {
         <div className={styles.search_inner}>
           <div className={styles.search_stick}>
             <Form onFinish={handleSearch} form={form}>
-              <Input
-                type="text"
-                onKeyDown={handleKeyPress}
-                className={styles.search_input}
-                name={"search"}
-                suffix={
-                  <div
-                    className={styles.search_icon_btn}
-                    onClick={handleButtonSubmitClick}
-                  >
-                    <SvgSelector id="search-svg" />
-                  </div>
-                }
-              />
+              <Dropdown menu={{ items: menuItems }} open={isMobile ? isDropdownOpen : false}>
+                <Input
+                  type="text"
+                  onKeyDown={handleKeyPress}
+                  className={styles.search_input}
+                  name={"search"}
+                  onChange={handleInputChange}
+                  prefix={
+                    <div
+                      className={styles.search_icon_btn}
+                      onClick={handleButtonSubmitClick}
+                    >
+                      <SvgSelector id="search-svg" />
+                    </div>
+                  }
+                />
+              </Dropdown>
             </Form>
           </div>
 
@@ -176,22 +252,25 @@ const SearchBtn = ({ categoryData }: Props) => {
       </div>
 
       <div className={styles.search_inner}>
-        <div className={styles.search}>
+        <div className={styles.search} ref={inputRef}>
           <Form onFinish={handleSearch} form={form}>
-            <Input
-              type="text"
-              onKeyDown={handleKeyPress}
-              className={styles.search_input}
-              name={"search"}
-              prefix={
-                <div
-                  className={styles.search_icon_btn}
-                  onClick={handleButtonSubmitClick}
-                >
-                  <SvgSelector id="search-svg" />
-                </div>
-              }
-            />
+            <Dropdown menu={{ items: menuItems }} open={isDropdownOpen}>
+              <Input
+                type="text"
+                onKeyDown={handleKeyPress}
+                className={styles.search_input}
+                name={"search"}
+                onChange={handleInputChange}
+                prefix={
+                  <div
+                    className={styles.search_icon_btn}
+                    onClick={handleButtonSubmitClick}
+                  >
+                    <SvgSelector id="search-svg" />
+                  </div>
+                }
+              />
+            </Dropdown>
           </Form>
         </div>
 
