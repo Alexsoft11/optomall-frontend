@@ -103,7 +103,7 @@ export interface BasketInterface {
   product_id: string | undefined;
   title: string | undefined;
   price: number | undefined;
-  color: string | undefined;
+  color?: string | undefined;
   quantity: number;
   max_quantity: number | undefined;
   size: string | undefined;

@@ -77,11 +77,13 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
         />
       </div>
       <Modal {...modalProps} />
-      <ProductOrderModal
-        product={product}
-        type={orderModalType}
-        setOrderType={setOrderModalType}
-      />
+      {product && (
+        <ProductOrderModal
+          product={product}
+          type={orderModalType}
+          setOrderType={setOrderModalType}
+        />
+      )}
     </div>
   );
 };

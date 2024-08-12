@@ -17,7 +17,7 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
 
 interface Props {
-  product?: ProductDetailInterface;
+  product: ProductDetailInterface;
   setOrderType?: any;
   type?: "to_order" | "to_cart" | null;
 }
@@ -45,7 +45,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
   }>({});
   const [basket, setBasket] = useState<BasketInterface[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [selectedQuantity, setSelectedQuantity] = useState<number>(1); // Default quantity is 1
+  const [selectedQuantity, setSelectedQuantity] = useState<number>(0); // Default quantity is 1
+  const [selectedSku, setSelectedSku] = useState<SKU>(skus[0]);
 
   const { appendData, isLoading } = useQueryApiClient({
     request: {
@@ -71,20 +72,9 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       setParsedSku(parsedSku);
       setGroupedProperties(allProperties);
       setPropertiesWithImages(imageProperties);
-
-      // Automatically select the first property with an image URL
-      const defaultImageProperty = Object.values(imageProperties)[0];
-      if (defaultImageProperty) {
-        const defaultImageValue = defaultImageProperty.keys[0].value;
-        setSelectedProperties({
-          [defaultImageProperty.propName]: defaultImageValue,
-        });
-        setSelectedQuantity(1); // Set initial quantity to 1
-      }
     }
   }, [skus, prop_imgs]);
 
-  // Update total price whenever the basket changes
   useEffect(() => {
     const total = basket.reduce(
       (acc, item) => acc + (item.price || 0) * item.quantity,
@@ -92,6 +82,86 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     );
     setTotalPrice(total);
   }, [basket]);
+
+  // Old function for sku
+  const handleSizeChange = (
+    type: "incr" | "decr",
+    propId?: string,
+    value?: string
+  ) => {
+    // Find the SKU that matches the selected properties
+    // const sku = parsedSku.find((sku) =>
+    //   sku?.parsedProperties?.every(
+    //     (prop) => selectedProperties[prop.id] === prop.value
+    //   )
+    // );
+    // if (!sku) {
+    //   message.error("SKU not found for selected properties");
+    //   return;
+    // }
+    // const basketItem = basket.find((item) => item.sku_id === sku.sku_id);
+    // if (type === "incr") {
+    //   if (basketItem) {
+    //     if (sku.quantity <= basketItem.quantity) {
+    //       message.warning(`Max quantity for this product is ${sku.quantity}`);
+    //       return;
+    //     }
+    //     const updatedBasket = basket.map((item) => {
+    //       if (item.sku_id === sku.sku_id) {
+    //         const newQuantity = item.quantity + 1;
+    //         setTotalPrice((prevTotalPrice) => prevTotalPrice + sku.price);
+    //         return { ...item, quantity: newQuantity };
+    //       }
+    //       return item;
+    //     });
+    //     setBasket(updatedBasket);
+    //   } else {
+    //     const newBasketItem: BasketInterface = {
+    //       product_id: product?.id,
+    //       title: product?.title,
+    //       price: sku.price,
+    //       quantity: 1,
+    //       max_quantity: sku.quantity,
+    //       size: selectedProperties[propId] || "default",
+    //       image_url:
+    //         propertiesWithImages[propId]?.keys.find(
+    //           (key) => key.value === selectedProperties[propId]
+    //         )?.imageUrl || "",
+    //       color:
+    //         propertiesWithImages[propId]?.keys.find(
+    //           (key) => key.value === selectedProperties[propId]
+    //         )?.value || "",
+    //       product_url: product?.product_url,
+    //       seller_id: product?.seller_id,
+    //       provider: provider as string, // Use provider from router query
+    //       sku_id: sku.sku_id,
+    //     };
+    //     setBasket((prevBasket) => [...prevBasket, newBasketItem]);
+    //     setTotalPrice((prevTotalPrice) => prevTotalPrice + sku.price);
+    //   }
+    // }
+    // if (type === "decr") {
+    //   if (basketItem) {
+    //     if (basketItem.quantity === 1) {
+    //       const updatedBasket = basket.filter(
+    //         (item) => item.sku_id !== sku.sku_id
+    //       );
+    //       setBasket(updatedBasket);
+    //       setTotalPrice((prevTotalPrice) => prevTotalPrice - sku.price);
+    //     } else {
+    //       const updatedBasket = basket.map((item) => {
+    //         if (item.sku_id === sku.sku_id) {
+    //           const newQuantity = item.quantity - 1;
+    //           setTotalPrice((prevTotalPrice) => prevTotalPrice - sku.price);
+    //           return { ...item, quantity: newQuantity };
+    //         }
+    //         return item;
+    //       });
+    //       setBasket(updatedBasket);
+    //     }
+    //   }
+    // }
+  };
 
   const handlePropertySelect = (propId: string, value: string) => {
     setSelectedProperties((prevSelected) => ({
@@ -128,18 +198,17 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     const basketItem: BasketInterface = {
       product_id: product?.id,
       title: product?.title,
-      price: product?.price,
-      color: selectedProperties["color"], // Assuming you have a 'color' property
-      quantity: selectedQuantity, // Use the selected quantity
-      max_quantity: product?.quantity || 10,
-      size: selectedProperties["size"], // Assuming you have a 'size' property
+      price: sku.price,
+      quantity: selectedQuantity,
+      max_quantity: sku.quantity,
+      size: selectedProperties["size"] || "default",
       image_url:
-        propertiesWithImages["color"]?.keys.find(
-          (key) => key.value === selectedProperties["color"]
+        propertiesWithImages["size"]?.keys.find(
+          (key) => key.value === selectedProperties["size"]
         )?.imageUrl || "",
       product_url: product?.product_url,
       seller_id: product?.seller_id,
-      provider: provider as string, // Use provider from router query
+      provider: provider as string,
       sku_id: sku.sku_id,
     };
 
@@ -150,22 +219,11 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
 
       if (existingIndex > -1) {
         const updatedBasket = [...prevBasket];
-        updatedBasket[existingIndex].quantity += selectedQuantity; // Increment quantity if already in basket
+        updatedBasket[existingIndex].quantity += selectedQuantity;
         return updatedBasket;
       } else {
         return [...prevBasket, basketItem];
       }
-    });
-  };
-
-  const handleQuantityChange = (type: string) => {
-    setSelectedQuantity((prevQuantity) => {
-      if (type === "incr") {
-        return prevQuantity + 1;
-      } else if (type === "decr" && prevQuantity > 1) {
-        return prevQuantity - 1;
-      }
-      return prevQuantity;
     });
   };
 
@@ -196,16 +254,14 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         footer={
           <div className="modal-footer">
             <div key={1} className={styles.change_value}>
-              <AntdButton onClick={() => handleQuantityChange("decr")}>
+              <AntdButton onClick={() => handleSizeChange("decr")}>
                 <Image src={MinusSvg} width={24} height={24} alt="#" />
               </AntdButton>
               <Tooltip title={`Max quantity`}>
-                <h4 className={styles.selected_quantity}>
-                  <Badge count={selectedQuantity}>{selectedQuantity}</Badge>
-                </h4>
+                <h4 className={styles.selected_quantity}>{selectedQuantity}</h4>
               </Tooltip>
               <Tooltip>
-                <AntdButton onClick={() => handleQuantityChange("incr")}>
+                <AntdButton onClick={() => handleSizeChange("incr")}>
                   <Image src={PlusSvg} width={24} height={24} alt="#" />
                 </AntdButton>
               </Tooltip>
