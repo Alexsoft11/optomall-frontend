@@ -56,7 +56,7 @@ const Products = ({
               />
             ) : (
               products?.map((el: CardInterface, idx: number) => (
-                <Card key={el.id} data={el} />
+                <Card key={el.id} data={el} provider={el.provider} />
               ))
             )}
           </div>
