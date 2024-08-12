@@ -24,6 +24,7 @@ const Search = ({ data = [] }: Props) => {
   const token = useJwt();
   const [products, setProducts] = useState(data);
   const [hasMore, setHasMore] = useState(true);
+  const [activeSort, setActiveSort] = useState<string>("");
   
   const handleButtonClick = (platform: any) => {
     const newQuery = {
@@ -38,6 +39,7 @@ const Search = ({ data = [] }: Props) => {
 
   const handleFilter = (sortType: string) => {
     const newQuery = { ...router.query };
+    setActiveSort(sortType);
   
     if (sortType) {
       newQuery.sort = sortType;
@@ -115,6 +117,21 @@ const Search = ({ data = [] }: Props) => {
       },
     });
 
+  const { appendData: getCategoryData, data: categoryData } = useQueryApiClient(
+    {
+      request: {
+        url: `categories-from-taobao?lang=${router.locale}`,
+        method: "GET",
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (window.innerWidth <= 768) {
+      getCategoryData();
+    }
+  }, [router.locale]);
+
   return (
     <>
       <div className={styles.search}>
@@ -144,32 +161,37 @@ const Search = ({ data = [] }: Props) => {
               </div>
 
               <div className={styles.search__btn}>
-                <SearchBtn />
+                <SearchBtn categoryData={categoryData.categories}/>
               </div>
 
               <div className={styles.search__top}>
                 <div className={styles.search__btns}>
                   <button
+                    className={activeSort === "" ? styles.active : ""}
                     onClick={() => handleFilter("")}
                   >
                     {t("default")}
                   </button>
                   <button
+                    className={activeSort === "_sale" ? styles.active : ""}
                     onClick={() => handleFilter("_sale")}
                   >
                     {t("sales")}
                   </button>
                   <button
+                    className={activeSort === "_credit" ? styles.active : ""}
                     onClick={() => handleFilter("_credit")}
                   >
                     {t("reputation")}
                   </button>
                   <button
+                    className={activeSort === "_bid2" ? styles.active : ""}
                     onClick={() => handleFilter("_bid2")}
                   >
                     {t("price_down")}
                   </button>
                   <button
+                    className={activeSort === "bid2" ? styles.active : ""}
                     onClick={() => handleFilter("bid2")}
                   >
                     {t("price_top")}
