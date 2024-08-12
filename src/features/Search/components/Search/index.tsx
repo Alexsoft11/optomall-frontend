@@ -63,7 +63,7 @@ const Search = ({ data = [] }: Props) => {
     if (router.query) {
       getSearchRes({
         ...router.query,
-        provider: router.query.provider,
+  
         lang: router.locale,
         page: 2,
       });
@@ -75,7 +75,6 @@ const Search = ({ data = [] }: Props) => {
     getProducts({
       ...router.query,
       ...query,
-      provider: router.query.provider,
       lang: router.locale,
     });
   };
