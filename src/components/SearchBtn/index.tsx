@@ -29,7 +29,7 @@ const SearchBtn = ({ categoryData }: Props) => {
     if (values.search) {
       const newQuery = {
         value: values.search,
-        channel: router.query.channel || "taobao",
+        provider: router.query.provider || "taobao",
       };
 
       if (router.pathname === "/search") {
@@ -93,8 +93,8 @@ const SearchBtn = ({ categoryData }: Props) => {
     onSuccess(res) {
       handleCancel();
       router.push(
-        `/search?lang=${router.locale}&channel=${
-          router.query.channel || "taobao"
+        `/search?lang=${router.locale}&provider=${
+          router.query.provider || "taobao"
         }&imageUrl=${res.url}`
       );
     },

@@ -19,7 +19,7 @@ interface Props {
 const Search = ({ data = [] }: Props) => {
   const t = useTranslations("Search");
   const router = useRouter();
-  const [activePlatform, setActivePlatform] = useState(router.query.channel);
+  const [activePlatform, setActivePlatform] = useState(router.query.provider);
   const [form] = Form.useForm();
   const token = useJwt();
   const [products, setProducts] = useState(data);
@@ -27,7 +27,7 @@ const Search = ({ data = [] }: Props) => {
   const handleButtonClick = (platform: any) => {
     const newQuery = {
       ...router.query,
-      channel: platform || "taobao",
+      provider: platform || "taobao",
     };
     router.replace({ pathname: router.pathname, query: newQuery }, undefined, {
       shallow: true,
@@ -65,9 +65,9 @@ const Search = ({ data = [] }: Props) => {
     if (router.query) {
       getSearchRes({
         ...router.query,
-        provider: router.query.channel,
+        provider: router.query.provider,
         lang: router.locale,
-        channel: null,
+        provider: null,
         page: 2,
       });
     }
@@ -84,8 +84,8 @@ const Search = ({ data = [] }: Props) => {
   };
 
   const validateNoSigns = (_: any, value: string) => {
-    if (value && (value.includes('+') || value.includes('-'))) {
-      return Promise.reject(new Error(t('invalid_value')));
+    if (value && (value.includes("+") || value.includes("-"))) {
+      return Promise.reject(new Error(t("invalid_value")));
     }
     return Promise.resolve();
   };
@@ -159,9 +159,7 @@ const Search = ({ data = [] }: Props) => {
                       className={styles.search__input}
                       name={"startPrice"}
                       placeholder="min price"
-                      rules={[
-                        { validator: validateNoSigns },
-                      ]}
+                      rules={[{ validator: validateNoSigns }]}
                       suffix={<SvgSelector id="sorting-svg" />}
                     />
                     <Input
@@ -169,9 +167,7 @@ const Search = ({ data = [] }: Props) => {
                       className={styles.search__input}
                       name={"endPrice"}
                       placeholder="max price"
-                      rules={[
-                        { validator: validateNoSigns },
-                      ]}
+                      rules={[{ validator: validateNoSigns }]}
                       suffix={<SvgSelector id="sorting-svg" />}
                     />
                     <Button
@@ -185,7 +181,11 @@ const Search = ({ data = [] }: Props) => {
             </div>
 
             {isSearchResLoading ? (
-              <LoadingSpinner size="large" fullscreen={true} spinning={isSearchResLoading} />
+              <LoadingSpinner
+                size="large"
+                fullscreen={true}
+                spinning={isSearchResLoading}
+              />
             ) : !products.length && !isSearchResLoading ? (
               <PageNoItems title={t("noItems")} />
             ) : (

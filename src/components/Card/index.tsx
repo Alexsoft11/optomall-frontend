@@ -11,10 +11,10 @@ import { formatPrice } from "@/constants";
 interface CardProps {
   data: CardInterface;
   onLikeChange?: (cardId: number) => void;
-  channel?: string;
+  provider?: string;
 }
 
-const Card = ({ data, onLikeChange, channel = "taobao" }: CardProps) => {
+const Card = ({ data, onLikeChange, provider = "taobao" }: CardProps) => {
   const t = useTranslations("GLOBAL");
   const textRef = useRef<any>(null);
   const [isOverflowed, setIsOverflowed] = useState(false);
@@ -30,7 +30,9 @@ const Card = ({ data, onLikeChange, channel = "taobao" }: CardProps) => {
 
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    let url = `/product/${data.id}?channel=${router.query.channel || channel}`;
+    let url = `/product/${data.id}?provider=${
+      router.query.provider || provider
+    }`;
     if (router.pathname.includes("search") && router.query.value) {
       url = `${url}&category=${router.query.value}`;
     }

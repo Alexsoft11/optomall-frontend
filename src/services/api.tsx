@@ -63,7 +63,7 @@ export const API = {
       `search-products-from-taobao${
         token && token !== "undefined" ? "-token" : ""
       }?searchQuery=${query.query.query}&provider=${
-        query.query.channel
+        query.query.provider
       }&startPrice=${query.query.startPrice}&endPrice=${
         query.query.endPrice
       }&lang=${query.locale}&page=1`,
@@ -76,7 +76,7 @@ export const API = {
       `search-products-from-taobao${
         token && token !== "undefined" ? "-token" : ""
       }?searchQuery=${query.query.query}&provider=${
-        query.query.channel
+        query.query.provider
       }&startPrice=${query.query.startPrice}&endPrice=${
         query.query.endPrice
       }&lang=${query.locale}&page=1`,

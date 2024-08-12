@@ -78,7 +78,7 @@ const Products = ({
 
                 <div className={styles.products__cards}>
                   {item?.products.map((el: any, idx: number) => (
-                    <Card key={idx} data={el} channel="local" />
+                    <Card key={idx} data={el} provider="local" />
                   ))}
                 </div>
               </div>

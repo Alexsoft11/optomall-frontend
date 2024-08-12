@@ -50,7 +50,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
     isLoading: isSearchResLoading,
   } = useQueryApiClient({
     request: {
-      url: `search-products-from-taobao?imageUrl=${product?.detail?.image}&lang=${locale}&provider=${query.channel}`,
+      url: `search-products-from-taobao?imageUrl=${product?.detail?.image}&lang=${locale}&provider=${query.provider}`,
       method: "GET",
       disableOnMount: true,
     },
@@ -70,7 +70,7 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
 
   return (
     <PageLayout metaTitle={title}>
-      {query.channel === "local" ? (
+      {query.provider === "local" ? (
         <ProductDetailSectionLocal
           product={product.detail}
           productComments={productComments}
@@ -91,16 +91,16 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
 
 export const getServerSideProps = async (context: any) => {
   try {
-    const channel = context.query.channel || "taobao";
+    const provider = context.query.provider || "taobao";
 
     const params = {
       productId: context.params.id,
       lang: "en",
-      provider: channel,
+      provider: provider,
     };
 
     let product;
-    if (channel === "local") {
+    if (provider === "local") {
       product = await API.getProductDetailLocal(params);
     } else {
       product = await API.getProductDetail(params);
