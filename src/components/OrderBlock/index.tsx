@@ -101,7 +101,6 @@ export default function OrderBlock({
 
   const props = {
     name: "file",
-    className: styles.upload_btn,
     showUploadList: false,
     multiple: false,
     beforeUpload: (file: RcFile) => {
@@ -195,20 +194,22 @@ export default function OrderBlock({
         </div>
       </div>
       {orderId ? (
-        <Upload {...props}>
-          <div className={styles.response_button__block}>
-            <span className={styles["loading-btn-wrapper"]}>
-              <button
-                className={buttonClass}
-                disabled={buttonStatus === "pending"}
-              >
-                <span className={styles["loading-btn__text"]}>
-                  {buttonStatus === "idle" && t("Cart.loadCheque")}
-                </span>
-              </button>
-            </span>
-          </div>
-        </Upload>
+        <div className={styles.upload_btn}>
+          <Upload {...props}>
+            <div className={styles.response_button__block}>
+              <span className={styles["loading-btn-wrapper"]}>
+                <button
+                  className={buttonClass}
+                  disabled={buttonStatus === "pending"}
+                >
+                  <span className={styles["loading-btn__text"]}>
+                    {buttonStatus === "idle" && t("Cart.loadCheque")}
+                  </span>
+                </button>
+              </span>
+            </div>
+          </Upload>
+        </div>
       ) : null}
 
       {type === "cart" ? (

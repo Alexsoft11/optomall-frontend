@@ -1,4 +1,3 @@
-import { LocationInfoInterface } from "@/components/Types";
 import { StaticImageData } from "next/image";
 
 export interface CartItemInterface {
@@ -39,11 +38,6 @@ export interface CartOrderItemInterface {
 export interface CreateOrderDataInterface {
   total_price: number;
   items: CartOrderItemInterface[];
-}
-
-export interface PersonalDataInterface {
-  name: string;
-  phone: string;
 }
 
 export interface CartOrderDataInterface {
