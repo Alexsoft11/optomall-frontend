@@ -2,9 +2,11 @@ import React from 'react'
 import styles from "./ToLoginPage.module.scss"
 import { Button } from '@/ui'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/router'
 
 const ToLoginPage = () => {
     const t = useTranslations("ToLoginPage")
+    const { query, push, asPath } = useRouter();
   return (
     <div className={styles.tologin}>
         <div className={styles.tologin__inner}>
@@ -12,14 +14,14 @@ const ToLoginPage = () => {
             <p>{t("text")}</p>
             <div className={styles.tologin__btns}>
                 <Button
-                    href="/auth?step=signin"
+                    onClick={() => push(`/auth?step=signin&backUrl=${asPath}`)}
                     size='large'
                     className="generalbtn"
                     label={t("btn_access")}
                 />
 
                 <Button
-                    href="/auth?step=signUp"
+                    onClick={() => push(`/auth?step=signUp&backUrl=${asPath}`)}
                     size='large'
                     className="line_btn"
                     label={t("btn_regist")}

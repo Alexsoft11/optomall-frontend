@@ -30,7 +30,8 @@ const Card = ({ data, onLikeChange, channel = "taobao" }: CardProps) => {
 
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    let url = `/product/${data.id}?channel=${router.query.channel || channel}`;
+    const id = router.pathname.includes("wishes") ? data.product_id : data.id;
+    let url = `/product/${id}?channel=${router.query.channel || channel}`;
     if (router.pathname.includes("search") && router.query.value) {
       url = `${url}&category=${router.query.value}`;
     }
