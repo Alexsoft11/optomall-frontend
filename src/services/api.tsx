@@ -64,9 +64,7 @@ export const API = {
         token && token !== "undefined" ? "-token" : ""
       }?searchQuery=${query.query.query}&provider=${
         query.query.provider
-      }&startPrice=${query.query.startPrice}&endPrice=${
-        query.query.endPrice
-      }&lang=${query.locale}&page=1`,
+      }&sort=${query.query.sort}&lang=${query.locale}&page=1`,
       {
         headers: token ? { Authorization: "Bearer " + token } : {},
       }
