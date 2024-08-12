@@ -31,15 +31,16 @@ export const groupProperties = (
 ): {
   allProperties: GroupedProperties;
   imageProperties: GroupedProperties;
+  parsedSku: SKU[];
 } => {
   const allProperties: GroupedProperties = {};
   const imageProperties: GroupedProperties = {};
-  const skuData = parseSKUProperties(skus);
+  const parsedSku = parseSKUProperties(skus);
   const imagePropMap = new Map(
     propsImgs.map((img) => [img.properties, img.url])
   );
 
-  skuData.forEach((sku) => {
+  parsedSku.forEach((sku) => {
     sku?.parsedProperties?.forEach((property) => {
       const { name, value, index, subindex } = property;
       const propId = `${index}:${subindex}`;
@@ -89,5 +90,5 @@ export const groupProperties = (
     }
   });
 
-  return { allProperties, imageProperties };
+  return { allProperties, imageProperties, parsedSku };
 };
