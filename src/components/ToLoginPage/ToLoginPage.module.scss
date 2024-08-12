@@ -34,6 +34,13 @@
             }
         }
 
+        button {
+            min-width: auto !important;
+            @media (max-width:425px) {
+                min-width: 100% !important;
+            }
+        }
+
         button:nth-child(1) {
             @media (max-width:425px) {
                 margin-bottom: 20px;

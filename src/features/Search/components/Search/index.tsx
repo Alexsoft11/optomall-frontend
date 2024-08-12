@@ -24,6 +24,7 @@ const Search = ({ data = [] }: Props) => {
   const token = useJwt();
   const [products, setProducts] = useState(data);
   const [hasMore, setHasMore] = useState(true);
+  
   const handleButtonClick = (platform: any) => {
     const newQuery = {
       ...router.query,
@@ -35,18 +36,15 @@ const Search = ({ data = [] }: Props) => {
     setActivePlatform(platform);
   };
 
-  const handleFilter = (values: any) => {
-    let { startPrice, endPrice } = values;
-
-    if (startPrice > endPrice) {
-      [startPrice, endPrice] = [endPrice, startPrice];
-      form.setFieldsValue({ startPrice, endPrice });
+  const handleFilter = (sortType: string) => {
+    const newQuery = { ...router.query };
+  
+    if (sortType) {
+      newQuery.sort = sortType;
+    } else {
+      delete newQuery.sort;
     }
-    const newQuery = {
-      ...router.query,
-      startPrice: startPrice,
-      endPrice: endPrice,
-    };
+  
     router.replace({ pathname: router.pathname, query: newQuery }, undefined, {
       shallow: true,
     });
@@ -152,34 +150,32 @@ const Search = ({ data = [] }: Props) => {
               </div>
 
               <div className={styles.search__top}>
-                <div className={styles.search__inputs}>
-                  <Form onFinish={handleFilter} form={form}>
-                    <Input
-                      type="number"
-                      className={styles.search__input}
-                      name={"startPrice"}
-                      placeholder="min price"
-                      rules={[
-                        { validator: validateNoSigns },
-                      ]}
-                      suffix={<SvgSelector id="sorting-svg" />}
-                    />
-                    <Input
-                      type="number"
-                      className={styles.search__input}
-                      name={"endPrice"}
-                      placeholder="max price"
-                      rules={[
-                        { validator: validateNoSigns },
-                      ]}
-                      suffix={<SvgSelector id="sorting-svg" />}
-                    />
-                    <Button
-                      htmlType="submit"
-                      className="generalbtn"
-                      label={t("submit")}
-                    />
-                  </Form>
+                <div className={styles.search__btns}>
+                  <button
+                    onClick={() => handleFilter("")}
+                  >
+                    {t("default")}
+                  </button>
+                  <button
+                    onClick={() => handleFilter("_sale")}
+                  >
+                    {t("sales")}
+                  </button>
+                  <button
+                    onClick={() => handleFilter("_credit")}
+                  >
+                    {t("reputation")}
+                  </button>
+                  <button
+                    onClick={() => handleFilter("_bid2")}
+                  >
+                    {t("price_down")}
+                  </button>
+                  <button
+                    onClick={() => handleFilter("bid2")}
+                  >
+                    {t("price_top")}
+                  </button>
                 </div>
               </div>
             </div>
