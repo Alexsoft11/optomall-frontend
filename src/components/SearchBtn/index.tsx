@@ -26,7 +26,7 @@ const SearchBtn = ({ categoryData }: Props) => {
   const [fileList, setFileList] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [filteredItems, setFilteredItems] = useState<any[]>([]);
-  const inputRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<any | null>(null);
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const extractItems = (categoryData: any) => {
@@ -55,25 +55,47 @@ const SearchBtn = ({ categoryData }: Props) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toLowerCase();
-  
+
     if (value) {
-      const filtered = allItems.filter(item =>
-        item.name.toLowerCase().includes(value) // Filter based on name
+      const hintNamePairs = allItems.flatMap((item) =>
+        item.hints.map((hint: string) => ({
+          id: item.id,
+          name: item.name,
+          hint: hint,
+        }))
       );
-      setFilteredItems(filtered.map(item => item.name));
-      setIsDropdownOpen(filtered.length > 0);
+
+      // Filter and sort based on hint
+      const filteredPairs = hintNamePairs
+        .filter((pair) => pair.hint.toLowerCase().includes(value))
+        .sort(
+          (a, b) =>
+            a.hint.toLowerCase().indexOf(value) -
+            b.hint.toLowerCase().indexOf(value)
+        );
+
+      // Create unique pairs based on id and name
+      const uniquePairs = Array.from(
+        new Set(filteredPairs.map((pair) => pair.id))
+      ).map((id) => filteredPairs.find((pair) => pair.id === id));
+
+      setFilteredItems(uniquePairs);
+      setIsDropdownOpen(uniquePairs.length > 0);
     } else {
       setFilteredItems([]);
       setIsDropdownOpen(false);
     }
   };
-  
+
   const handleSearch = (values: any) => {
     if (values.search) {
-      const newQuery = {
+      const newQuery: any = {
         value: values.search,
         provider: router.query.provider || "taobao",
       };
+      if (values.catId) {
+        newQuery.catId = values.catId;
+      }
 
       if (router.pathname === "/search") {
         router.replace(
@@ -86,6 +108,7 @@ const SearchBtn = ({ categoryData }: Props) => {
       }
     }
   };
+  
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -181,16 +204,15 @@ const SearchBtn = ({ categoryData }: Props) => {
   };
 
   const menuItems = filteredItems.map((hint, index) => ({
-    key: index,
+    key: hint.id,
     label: (
       <div
         onClick={() => {
-          form.setFieldsValue({ search: hint });
-          form.submit();
+          handleSearch({ search: hint.name, catId: hint.id });
           setIsDropdownOpen(false);
         }}
       >
-        {hint}
+        {hint.name}
       </div>
     ),
   }));
@@ -201,13 +223,13 @@ const SearchBtn = ({ categoryData }: Props) => {
     }
   };
 
-  useEffect(() => {
-    setIsMobile(window.innerWidth <= 768);
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  // useEffect(() => {
+  //   setIsMobile(window.innerWidth <= 768);
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
 
   return (
     <>
@@ -219,7 +241,10 @@ const SearchBtn = ({ categoryData }: Props) => {
         <div className={styles.search_inner}>
           <div className={styles.search_stick}>
             <Form onFinish={handleSearch} form={form}>
-              <Dropdown menu={{ items: menuItems }} open={isMobile ? isDropdownOpen : false}>
+              <Dropdown
+                menu={{ items: menuItems }}
+                open={isMobile ? isDropdownOpen : false}
+              >
                 <Input
                   type="text"
                   onKeyDown={handleKeyPress}
