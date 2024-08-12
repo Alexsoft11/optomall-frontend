@@ -57,11 +57,11 @@ const SearchBtn = ({ categoryData }: Props) => {
     const value = e.target.value.toLowerCase();
   
     if (value) {
-      const filteredHints = allItems.flatMap(item =>
-        item.hints.filter((hint: string) => hint.toLowerCase().includes(value))
+      const filtered = allItems.filter(item =>
+        item.name.toLowerCase().includes(value) // Filter based on name
       );
-      setFilteredItems(filteredHints);
-      setIsDropdownOpen(filteredHints.length > 0);
+      setFilteredItems(filtered.map(item => item.name));
+      setIsDropdownOpen(filtered.length > 0);
     } else {
       setFilteredItems([]);
       setIsDropdownOpen(false);
