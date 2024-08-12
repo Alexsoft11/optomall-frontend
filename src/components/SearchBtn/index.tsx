@@ -13,7 +13,7 @@ import { CategoryInterface } from "@/interfaces";
 const { Dragger } = Upload;
 
 interface Props {
-  categoryData: CategoryInterface[];
+  categoryData?: CategoryInterface[];
 }
 const SearchBtn = ({ categoryData }: Props) => {
   const router = useRouter();
