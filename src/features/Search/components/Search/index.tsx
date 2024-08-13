@@ -207,7 +207,7 @@ const Search = ({ data = [] }: Props) => {
                 fullscreen={true}
                 spinning={isSearchResLoading}
               />
-            ) : !products.length && !isSearchResLoading ? (
+            ) : !products?.length && !isSearchResLoading ? (
               <PageNoItems title={t("noItems")} />
             ) : (
               <Products

@@ -90,7 +90,7 @@ const SearchBtn = ({ categoryData }: Props) => {
   const handleSearch = (values: any) => {
     if (values.search) {
       const newQuery: any = {
-        value: values.search,
+        value: values.search.toLowerCase(),
         provider: router.query.provider || "1688",
       };
       if (values.catId) {
