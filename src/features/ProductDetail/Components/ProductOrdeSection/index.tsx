@@ -127,7 +127,7 @@ const ProductOrderSection: React.FC<Props> = ({
           price: selectedSKU.price,
           product_id: String(product?.id),
           product_url: product?.product_url,
-          provider: query.channel,
+          provider: query.provider,
           quantity: 1,
           seller_id: product?.seller_id
             ? String(product?.seller_id)

@@ -94,7 +94,7 @@ const SearchBtn = ({ categoryData }: Props) => {
       
       const newQuery: any = {
         value: values.search.toLowerCase(),
-        channel: router.query.channel || "taobao",
+        provider: router.query.provider || "1688",
       };
 
       if (values.catId || (firstHint && firstHint.id)) {
@@ -163,8 +163,8 @@ const SearchBtn = ({ categoryData }: Props) => {
     onSuccess(res) {
       handleCancel();
       router.push(
-        `/search?lang=${router.locale}&channel=${
-          router.query.channel || "taobao"
+        `/search?lang=${router.locale}&provider=${
+          router.query.provider || "1688"
         }&imageUrl=${res.url}`
       );
     },

@@ -36,7 +36,7 @@ export default function NavigationCard({
                     <Fragment key={idx}>
                       <Link
                         onClick={handleClose}
-                        href={`/search?value=${item.name.toLocaleLowerCase()}&channel=taobao&catId=${item.id}`}
+                        href={`/search?value=${item.name.toLocaleLowerCase()}&provider=1688&catId=${item.id}`}
                       >
                         {item.name}
                       </Link>

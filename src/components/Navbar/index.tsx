@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "@/ui/index";
-import { AuthModalSvg, HeadLogo, HeadPhone } from "$/assets/images/index";
+import { AuthModalSvg, HeadLogo, HeadLogoMini, HeadPhone } from "$/assets/images/index";
 import { ModalLinks, NavLinks } from "@/constants/navbar";
 import styles from "./Navbar.module.scss";
 import Image from "next/image";
@@ -96,7 +96,7 @@ const Navbar = () => {
               </div>
 
               <Link href="/" className={styles.navbar__logo}>
-                <Image src={HeadLogo} alt="img" />
+                <Image src={HeadLogoMini} alt="img" />
               </Link>
 
               <div className={styles.navbar__items}>

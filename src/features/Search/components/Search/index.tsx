@@ -19,7 +19,7 @@ interface Props {
 const Search = ({ data = [] }: Props) => {
   const t = useTranslations("Search");
   const router = useRouter();
-  const [activePlatform, setActivePlatform] = useState(router.query.channel);
+  const [activePlatform, setActivePlatform] = useState(router.query.provider);
   const [form] = Form.useForm();
   const token = useJwt();
   const [products, setProducts] = useState(data);
@@ -29,7 +29,7 @@ const Search = ({ data = [] }: Props) => {
   const handleButtonClick = (platform: any) => {
     const newQuery = {
       ...router.query,
-      channel: platform || "taobao",
+      provider: platform || "taobao",
     };
     router.replace({ pathname: router.pathname, query: newQuery }, undefined, {
       shallow: true,
@@ -65,9 +65,8 @@ const Search = ({ data = [] }: Props) => {
     if (router.query) {
       getSearchRes({
         ...router.query,
-        provider: router.query.channel,
+  
         lang: router.locale,
-        channel: null,
         page: 2,
       });
     }
@@ -78,14 +77,13 @@ const Search = ({ data = [] }: Props) => {
     getProducts({
       ...router.query,
       ...query,
-      provider: router.query.provider,
       lang: router.locale,
     });
   };
 
   const validateNoSigns = (_: any, value: string) => {
-    if (value && (value.includes('+') || value.includes('-'))) {
-      return Promise.reject(new Error(t('invalid_value')));
+    if (value && (value.includes("+") || value.includes("-"))) {
+      return Promise.reject(new Error(t("invalid_value")));
     }
     return Promise.resolve();
   };
@@ -144,15 +142,6 @@ const Search = ({ data = [] }: Props) => {
                 <h2>{t("platform")}:</h2>
                 <button
                   className={`${styles.search__platform_btn} ${
-                    activePlatform === "taobao" ? styles.active : ""
-                  }`}
-                  onClick={() => handleButtonClick("taobao")}
-                >
-                  <SvgSelector id="taobao-svg" />
-                  <span>Taobao</span>
-                </button>
-                <button
-                  className={`${styles.search__platform_btn} ${
                     activePlatform === "1688" ? styles.active : ""
                   }`}
                   onClick={() => handleButtonClick("1688")}
@@ -160,6 +149,16 @@ const Search = ({ data = [] }: Props) => {
                   <SvgSelector id="1688-svg" />
                   <span>1688</span>
                 </button>
+                <button
+                  className={`${styles.search__platform_btn} ${
+                    activePlatform === "taobao" ? styles.active : ""
+                  }`}
+                  onClick={() => handleButtonClick("taobao")}
+                >
+                  <SvgSelector id="taobao-svg" />
+                  <span>Taobao</span>
+                </button>
+              
               </div>
 
               <div className={styles.search__btn}>
@@ -203,7 +202,11 @@ const Search = ({ data = [] }: Props) => {
             </div>
 
             {isSearchResLoading ? (
-              <LoadingSpinner size="large" fullscreen={true} spinning={isSearchResLoading} />
+              <LoadingSpinner
+                size="large"
+                fullscreen={true}
+                spinning={isSearchResLoading}
+              />
             ) : !products?.length && !isSearchResLoading ? (
               <PageNoItems title={t("noItems")} />
             ) : (
