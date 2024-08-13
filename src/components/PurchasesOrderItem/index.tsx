@@ -13,7 +13,11 @@ export default function PurchasesOrderItem({ item }: Props) {
   const t = useTranslations("Purchases");
 
   const openPageWithProduct = () =>
-    window.open(`/product/${item.product_id}?channel=${item.provider}`, "_blank", "noopener,noreferrer");
+    window.open(
+      `/product/${item.product_id}?provider=${item.provider}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
 
   return (
     <div className={styles.main} onClick={openPageWithProduct}>

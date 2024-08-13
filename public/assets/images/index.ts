@@ -1,5 +1,6 @@
 export { default as ProductImage } from "./product_img.png";
 export { default as HeadLogo } from "./head_logo.png";
+export { default as HeadLogoMini } from "./head_logo_mini.png";
 export { default as AuAuthBackground } from "./AuthBackground.svg";
 export { default as GoogleLogo } from "./GoogleLogo.svg";
 export { default as AuthModalSvg } from "./AuthModalSvg.svg";
@@ -9,9 +10,9 @@ export { default as PlusSvg } from "./plus.svg";
 export { default as SliderImg } from "./slider.png";
 export { default as CopySvg } from "./CopySvg.svg";
 export { default as BasketSvg } from "./BasketSvg.svg";
-export { default as CategoryImg1 } from './Category_img1.png'
-export { default as CategoryImg2 } from './Category_img2.png'
-export { default as CategoryImg3 } from './Category_img3.png'
+export { default as CategoryImg1 } from "./Category_img1.png";
+export { default as CategoryImg2 } from "./Category_img2.png";
+export { default as CategoryImg3 } from "./Category_img3.png";
 export { default as SearchSvg } from "./SearchSvg.svg";
 export { default as WarningSvg } from "./WarningSvg.svg";
 export { default as SuccsessSvg } from "./SuccsessSvg.svg";

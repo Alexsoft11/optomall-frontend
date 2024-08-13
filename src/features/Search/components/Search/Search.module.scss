@@ -197,13 +197,18 @@
       min-width: 120px !important;
       min-height: 39px !important;
       border-radius: 5px;
-      background-color: var(--primary-color);
+      background-color: var(--white-smoke);
       border: none;
-      color: var(--white-color);
+      color: var(--black-color);
       cursor: pointer;
 
       @media (max-width:550px) {
         min-width: 120px !important;
+      }
+      
+      &.active {
+        color: var(--white-color);
+        background-color: var(--primary-color);
       }
     }
   }

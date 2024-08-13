@@ -19,16 +19,17 @@ interface Props {
 const Search = ({ data = [] }: Props) => {
   const t = useTranslations("Search");
   const router = useRouter();
-  const [activePlatform, setActivePlatform] = useState(router.query.channel);
+  const [activePlatform, setActivePlatform] = useState(router.query.provider);
   const [form] = Form.useForm();
   const token = useJwt();
   const [products, setProducts] = useState(data);
   const [hasMore, setHasMore] = useState(true);
+  const [activeSort, setActiveSort] = useState<string>("");
   
   const handleButtonClick = (platform: any) => {
     const newQuery = {
       ...router.query,
-      channel: platform || "taobao",
+      provider: platform || "taobao",
     };
     router.replace({ pathname: router.pathname, query: newQuery }, undefined, {
       shallow: true,
@@ -38,6 +39,7 @@ const Search = ({ data = [] }: Props) => {
 
   const handleFilter = (sortType: string) => {
     const newQuery = { ...router.query };
+    setActiveSort(sortType);
   
     if (sortType) {
       newQuery.sort = sortType;
@@ -63,9 +65,8 @@ const Search = ({ data = [] }: Props) => {
     if (router.query) {
       getSearchRes({
         ...router.query,
-        provider: router.query.channel,
+  
         lang: router.locale,
-        channel: null,
         page: 2,
       });
     }
@@ -76,14 +77,13 @@ const Search = ({ data = [] }: Props) => {
     getProducts({
       ...router.query,
       ...query,
-      provider: router.query.provider,
       lang: router.locale,
     });
   };
 
   const validateNoSigns = (_: any, value: string) => {
-    if (value && (value.includes('+') || value.includes('-'))) {
-      return Promise.reject(new Error(t('invalid_value')));
+    if (value && (value.includes("+") || value.includes("-"))) {
+      return Promise.reject(new Error(t("invalid_value")));
     }
     return Promise.resolve();
   };
@@ -117,6 +117,21 @@ const Search = ({ data = [] }: Props) => {
       },
     });
 
+  const { appendData: getCategoryData, data: categoryData } = useQueryApiClient(
+    {
+      request: {
+        url: `categories-from-taobao?lang=${router.locale}`,
+        method: "GET",
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (window.innerWidth <= 768) {
+      getCategoryData();
+    }
+  }, [router.locale]);
+
   return (
     <>
       <div className={styles.search}>
@@ -127,15 +142,6 @@ const Search = ({ data = [] }: Props) => {
                 <h2>{t("platform")}:</h2>
                 <button
                   className={`${styles.search__platform_btn} ${
-                    activePlatform === "taobao" ? styles.active : ""
-                  }`}
-                  onClick={() => handleButtonClick("taobao")}
-                >
-                  <SvgSelector id="taobao-svg" />
-                  <span>Taobao</span>
-                </button>
-                <button
-                  className={`${styles.search__platform_btn} ${
                     activePlatform === "1688" ? styles.active : ""
                   }`}
                   onClick={() => handleButtonClick("1688")}
@@ -143,35 +149,50 @@ const Search = ({ data = [] }: Props) => {
                   <SvgSelector id="1688-svg" />
                   <span>1688</span>
                 </button>
+                <button
+                  className={`${styles.search__platform_btn} ${
+                    activePlatform === "taobao" ? styles.active : ""
+                  }`}
+                  onClick={() => handleButtonClick("taobao")}
+                >
+                  <SvgSelector id="taobao-svg" />
+                  <span>Taobao</span>
+                </button>
+              
               </div>
 
               <div className={styles.search__btn}>
-                <SearchBtn />
+                <SearchBtn categoryData={categoryData.categories}/>
               </div>
 
               <div className={styles.search__top}>
                 <div className={styles.search__btns}>
                   <button
+                    className={activeSort === "" ? styles.active : ""}
                     onClick={() => handleFilter("")}
                   >
                     {t("default")}
                   </button>
                   <button
+                    className={activeSort === "_sale" ? styles.active : ""}
                     onClick={() => handleFilter("_sale")}
                   >
                     {t("sales")}
                   </button>
                   <button
+                    className={activeSort === "_credit" ? styles.active : ""}
                     onClick={() => handleFilter("_credit")}
                   >
                     {t("reputation")}
                   </button>
                   <button
+                    className={activeSort === "_bid2" ? styles.active : ""}
                     onClick={() => handleFilter("_bid2")}
                   >
                     {t("price_down")}
                   </button>
                   <button
+                    className={activeSort === "bid2" ? styles.active : ""}
                     onClick={() => handleFilter("bid2")}
                   >
                     {t("price_top")}
@@ -181,7 +202,11 @@ const Search = ({ data = [] }: Props) => {
             </div>
 
             {isSearchResLoading ? (
-              <LoadingSpinner size="large" fullscreen={true} spinning={isSearchResLoading} />
+              <LoadingSpinner
+                size="large"
+                fullscreen={true}
+                spinning={isSearchResLoading}
+              />
             ) : !products.length && !isSearchResLoading ? (
               <PageNoItems title={t("noItems")} />
             ) : (
