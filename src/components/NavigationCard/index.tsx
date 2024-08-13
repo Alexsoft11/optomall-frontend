@@ -29,17 +29,19 @@ export default function NavigationCard({
           !!data?.length &&
           data.map((el, idx: number) => (
             <>
-              <h1 className={styles.navigationcard__title}>{el.name}</h1>
+              <Link onClick={handleClose} className={styles.navigationcard__title} href={`/search?value=${el.name.toLowerCase()}&channel=taobao&catId=${el.id}`}>{el.name}</Link>
               <div key={idx} className={styles.navigationcard__list}>
                 {el?.items?.map((item, idx: number) => (
-                  <Fragment key={idx}>
-                    <Link
-                      onClick={handleClose}
-                      href={`/search?value=${el.name} ${item.slug}&channel=taobao`}
-                    >
-                      {item.name}
-                    </Link>
-                  </Fragment>
+                  item.is_show == 1 ? (
+                    <Fragment key={idx}>
+                      <Link
+                        onClick={handleClose}
+                        href={`/search?value=${item.name.toLocaleLowerCase()}&channel=taobao&catId=${item.id}`}
+                      >
+                        {item.name}
+                      </Link>
+                    </Fragment>
+                  ) : null
                 ))}
               </div>
             </>

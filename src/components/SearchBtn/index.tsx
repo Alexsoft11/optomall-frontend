@@ -26,8 +26,8 @@ const SearchBtn = ({ categoryData }: Props) => {
   const [fileList, setFileList] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [filteredItems, setFilteredItems] = useState<any[]>([]);
-  const inputRef = useRef<any | null>(null);
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [selectedCatId, setSelectedCatId] = useState<number | null>(null);
 
   const extractItems = (categoryData: any) => {
     let items: any[] = [];
@@ -89,12 +89,16 @@ const SearchBtn = ({ categoryData }: Props) => {
 
   const handleSearch = (values: any) => {
     if (values.search) {
+      const firstHint = filteredItems[0];
+      setIsDropdownOpen(false);
+      
       const newQuery: any = {
         value: values.search.toLowerCase(),
         channel: router.query.channel || "taobao",
       };
-      if (values.catId) {
-        newQuery.catId = values.catId;
+
+      if (values.catId || (firstHint && firstHint.id)) {
+        newQuery.catId = values.catId || firstHint.id;
       }
 
       if (router.pathname === "/search") {
@@ -109,7 +113,6 @@ const SearchBtn = ({ categoryData }: Props) => {
     }
   };
   
-
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       form.submit();
@@ -170,12 +173,6 @@ const SearchBtn = ({ categoryData }: Props) => {
     },
   });
 
-  useEffect(() => {
-    if (window.innerWidth <= 970) {
-      window.addEventListener("scroll", handleScroll);
-    }
-  });
-
   const handleButtonClick = () => {
     setIsModalVisible(true);
   };
@@ -208,6 +205,7 @@ const SearchBtn = ({ categoryData }: Props) => {
     label: (
       <div
         onClick={() => {
+          setSelectedCatId(hint.id);
           handleSearch({ search: hint.name, catId: hint.id });
           setIsDropdownOpen(false);
         }}
@@ -217,19 +215,12 @@ const SearchBtn = ({ categoryData }: Props) => {
     ),
   }));
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
-      setIsDropdownOpen(false);
+  useEffect(() => {
+    if (window.innerWidth <= 970) {
+      window.addEventListener("scroll", handleScroll);
     }
-  };
-
-  // useEffect(() => {
-  //   setIsMobile(window.innerWidth <= 768);
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
+    setIsMobile(window.innerWidth <= 768);
+  }, []);
 
   return (
     <>
@@ -277,24 +268,24 @@ const SearchBtn = ({ categoryData }: Props) => {
       </div>
 
       <div className={styles.search_inner}>
-        <div className={styles.search} ref={inputRef}>
+        <div className={styles.search}>
           <Form onFinish={handleSearch} form={form}>
             <Dropdown menu={{ items: menuItems }} open={isDropdownOpen}>
-              <Input
-                type="text"
-                onKeyDown={handleKeyPress}
-                className={styles.search_input}
-                name={"search"}
-                onChange={handleInputChange}
-                prefix={
-                  <div
-                    className={styles.search_icon_btn}
-                    onClick={handleButtonSubmitClick}
-                  >
-                    <SvgSelector id="search-svg" />
-                  </div>
-                }
-              />
+                <Input
+                  type="text"
+                  onKeyDown={handleKeyPress}
+                  className={styles.search_input}
+                  name={"search"}
+                  onChange={handleInputChange}
+                  prefix={
+                    <div
+                      className={styles.search_icon_btn}
+                      onClick={handleButtonSubmitClick}
+                    >
+                      <SvgSelector id="search-svg" />
+                    </div>
+                  }
+                />
             </Dropdown>
           </Form>
         </div>

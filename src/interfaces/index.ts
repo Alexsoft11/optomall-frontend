@@ -36,15 +36,18 @@ export interface CatalogCategoriesInterface {
 }
 
 export interface SubcategoryItem {
+    id: number;
     name: string;
     slug: string;
-  }
+    is_show: number;
+}
   
  export interface Subcategory {
+    id: number;
     name: string;
     slug: string;
     items: SubcategoryItem[];
-  }
+}
   
  export interface CategoryInterface {
     name: string;
