@@ -90,7 +90,7 @@ const SearchBtn = ({ categoryData }: Props) => {
   const handleSearch = (values: any) => {
     if (values.search) {
       const newQuery: any = {
-        value: values.search,
+        value: values.search.toLowerCase(),
         channel: router.query.channel || "taobao",
       };
       if (values.catId) {
