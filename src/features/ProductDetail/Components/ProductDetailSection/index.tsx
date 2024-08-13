@@ -31,13 +31,13 @@ const ProductDetailSection = ({
   const [selectedImage, setSelectedImage] = useState(product?.image);
   const t = useTranslations("Product-detail");
 
-  const { category, channel } = router.query;
+  const { category, provider } = router.query;
 
   const pathArr = category
     ? [
         {
           titleNotr: category as string,
-          path: `/search?value=${category}&channel=${channel}`,
+          path: `/search?value=${category}&provider=${provider}`,
         },
       ]
     : [];
