@@ -91,7 +91,7 @@ const SearchBtn = ({ categoryData }: Props) => {
     if (values.search) {
       const newQuery: any = {
         value: values.search,
-        provider: router.query.provider || "taobao",
+        provider: router.query.provider || "1688",
       };
       if (values.catId) {
         newQuery.catId = values.catId;
