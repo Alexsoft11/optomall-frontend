@@ -161,7 +161,7 @@ const SearchBtn = ({ categoryData }: Props) => {
       handleCancel();
       router.push(
         `/search?lang=${router.locale}&provider=${
-          router.query.provider || "taobao"
+          router.query.provider || "1688"
         }&imageUrl=${res.url}`
       );
     },
