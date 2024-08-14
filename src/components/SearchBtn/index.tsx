@@ -13,7 +13,7 @@ import { CategoryInterface } from "@/interfaces";
 const { Dragger } = Upload;
 type ProviderInfo = {
   id: string | null;
-  provider: "taobao" | "1688" | null;
+  provider: string | null;
 };
 
 interface Props {
@@ -90,34 +90,53 @@ const SearchBtn = ({ categoryData }: Props) => {
       setIsDropdownOpen(false);
     }
   };
+  const providerPatterns = {
+    taobao:
+      /(?:item\.taobao\.com|detail\.m\.taobao\.com)\/item\.htm\?(?:.*&)?id=(\d+)/,
+    tmall:
+      /(?:detail\.tmall\.com|detail\.m\.tmall\.com)\/item\.htm\?(?:.*&)?id=(\d+)/,
+    1688: /(?:detail\.1688\.com\/offer\/|detail\.1688\.com\/page\/index\.htm\?(?:.*&)?offerId=)(\d+)/i,
+    alibaba: /detail\.m\.1688\.com\/page\/index\.htm\?(?:.*&)?offerid=(\d+)/i,
+  };
 
-  const getProviderInfo = (url: string): ProviderInfo => {
-    const taobaoPattern = /item\.taobao\.com\/item\.htm\?id=(\d+)/;
-    const tmallPattern = /detail\.tmall\.com\/item\.htm\?id=(\d+)/;
-    const alibabaPattern = /detail\.1688\.com\/offer\/(\d+)\.html/;
-    const alibabaMobilePattern =
-      /detail\.m\.1688\.com\/page\/index\.htm\?(?:.*&)?offerid=(\d+)/;
+  const urlPattern =
+    /https?:\/\/(?:[^\s'"]+|\b(?:[a-zA-Z0-9-]+\.){1,3}[a-zA-Z]{2,})[^\s'"]*/;
+  // Improved URL extraction function
+  const extractUrl = (text: string): string | null => {
+    const match = text.match(urlPattern);
+    return match ? match[0] : null;
+  };
 
-    let match = url.match(taobaoPattern);
-    if (match) {
-      return { id: match[1], provider: "taobao" };
+  const detectProviderAndId = (
+    url: string
+  ): { id: string | null; provider: string | null } => {
+    for (const [provider, pattern] of Object.entries(providerPatterns)) {
+      const match = url.match(pattern);
+      if (match) {
+        // If the provider is 'tmall', treat it as 'taobao'
+        return {
+          id: match[1],
+          provider:
+            provider === "tmall"
+              ? "taobao"
+              : provider == "alibaba"
+              ? "1688"
+              : provider,
+        };
+      }
     }
+    return { id: null, provider: null };
+  };
 
-    match = url.match(tmallPattern);
-    if (match) {
-      return { id: match[1], provider: "taobao" };
+  // Main function to get provider info
+  const getProviderInfo = (text: string): ProviderInfo => {
+    const url = extractUrl(text);
+    console.log(url);
+
+    if (url) {
+      const { id, provider } = detectProviderAndId(url);
+      return { id, provider: provider };
     }
-
-    match = url.match(alibabaPattern);
-    if (match) {
-      return { id: match[1], provider: "1688" };
-    }
-
-    match = url.match(alibabaMobilePattern);
-    if (match) {
-      return { id: match[1], provider: "1688" };
-    }
-
     return { id: null, provider: null };
   };
 
@@ -135,6 +154,7 @@ const SearchBtn = ({ categoryData }: Props) => {
           `/product/${providerInfo.id}?provider=${providerInfo.provider}`
         );
       } else {
+        return;
         // Proceed with the existing search logic
         const newQuery: any = {
           value: values.search.toLowerCase(),
