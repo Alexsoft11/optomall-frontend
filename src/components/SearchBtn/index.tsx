@@ -92,10 +92,16 @@ const SearchBtn = ({ categoryData }: Props) => {
   };
 
   const getProviderInfo = (url: string): ProviderInfo => {
-    const taobaoPattern = /item\.(taobao|tmall)\.com\/item\.htm\?id=(\d+)/;
+    const taobaoPattern = /item\.taobao\.com\/item\.htm\?id=(\d+)/;
+    const tmallPattern = /detail\.tmall\.com\/item\.htm\?id=(\d+)/;
     const alibabaPattern = /detail\.1688\.com\/offer\/(\d+)\.html/;
 
     let match = url.match(taobaoPattern);
+    if (match) {
+      return { id: match[1], provider: "taobao" };
+    }
+
+    match = url.match(tmallPattern);
     if (match) {
       return { id: match[1], provider: "taobao" };
     }
