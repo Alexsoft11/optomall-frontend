@@ -30,8 +30,8 @@ const SearchBtn = ({ categoryData }: Props) => {
   const [fileList, setFileList] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [filteredItems, setFilteredItems] = useState<any[]>([]);
-  const inputRef = useRef<any | null>(null);
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [selectedCatId, setSelectedCatId] = useState<number | null>(null);
 
   const extractItems = (categoryData: any) => {
     let items: any[] = [];
@@ -92,7 +92,7 @@ const SearchBtn = ({ categoryData }: Props) => {
   };
 
   const getProviderInfo = (url: string): ProviderInfo => {
-    const taobaoPattern = /item\.taobao\.com\/item\.htm\?id=(\d+)/;
+    const taobaoPattern = /item\.(taobao|tmall)\.com\/item\.htm\?id=(\d+)/;
     const alibabaPattern = /detail\.1688\.com\/offer\/(\d+)\.html/;
 
     let match = url.match(taobaoPattern);
@@ -112,6 +112,8 @@ const SearchBtn = ({ categoryData }: Props) => {
   const handleSearch = (values: any) => {
     if (values.search) {
       const providerInfo = getProviderInfo(values.search);
+      let firstHint; // = filteredItems[0];
+      setIsDropdownOpen(false);
 
       // If a valid Taobao or 1688 link is detected
       if (providerInfo.id && providerInfo.provider) {
@@ -122,9 +124,10 @@ const SearchBtn = ({ categoryData }: Props) => {
       } else {
         // Proceed with the existing search logic
         const newQuery: any = {
-          value: values.search,
+          value: values.search.toLowerCase(),
           provider: router.query.provider || "1688",
         };
+
         if (values.catId) {
           newQuery.catId = values.catId;
         }
@@ -202,12 +205,6 @@ const SearchBtn = ({ categoryData }: Props) => {
     },
   });
 
-  useEffect(() => {
-    if (window.innerWidth <= 970) {
-      window.addEventListener("scroll", handleScroll);
-    }
-  });
-
   const handleButtonClick = () => {
     setIsModalVisible(true);
   };
@@ -240,6 +237,7 @@ const SearchBtn = ({ categoryData }: Props) => {
     label: (
       <div
         onClick={() => {
+          setSelectedCatId(hint.id);
           handleSearch({ search: hint.name, catId: hint.id });
           setIsDropdownOpen(false);
         }}
@@ -249,19 +247,12 @@ const SearchBtn = ({ categoryData }: Props) => {
     ),
   }));
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
-      setIsDropdownOpen(false);
+  useEffect(() => {
+    if (window.innerWidth <= 970) {
+      window.addEventListener("scroll", handleScroll);
     }
-  };
-
-  // useEffect(() => {
-  //   setIsMobile(window.innerWidth <= 768);
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
+    setIsMobile(window.innerWidth <= 768);
+  }, []);
 
   return (
     <>
@@ -309,7 +300,7 @@ const SearchBtn = ({ categoryData }: Props) => {
       </div>
 
       <div className={styles.search_inner}>
-        <div className={styles.search} ref={inputRef}>
+        <div className={styles.search}>
           <Form onFinish={handleSearch} form={form}>
             <Dropdown menu={{ items: menuItems }} open={isDropdownOpen}>
               <Input
