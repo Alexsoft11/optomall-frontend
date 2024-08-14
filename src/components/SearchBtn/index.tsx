@@ -97,8 +97,8 @@ const SearchBtn = ({ categoryData }: Props) => {
         provider: router.query.provider || "1688",
       };
 
-      if (values.catId || (firstHint && firstHint.id)) {
-        newQuery.catId = values.catId || firstHint.id;
+      if (values.catId) {
+        newQuery.catId = values.catId;
       }
 
       if (router.pathname === "/search") {
