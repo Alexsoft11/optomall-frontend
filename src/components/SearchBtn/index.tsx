@@ -11,6 +11,10 @@ import { useTranslations } from "next-intl";
 import { CategoryInterface } from "@/interfaces";
 
 const { Dragger } = Upload;
+type ProviderInfo = {
+  id: string | null;
+  provider: "taobao" | "1688" | null;
+};
 
 interface Props {
   categoryData?: CategoryInterface[];
@@ -87,28 +91,56 @@ const SearchBtn = ({ categoryData }: Props) => {
     }
   };
 
+  const getProviderInfo = (url: string): ProviderInfo => {
+    const taobaoPattern = /item\.taobao\.com\/item\.htm\?id=(\d+)/;
+    const alibabaPattern = /detail\.1688\.com\/offer\/(\d+)\.html/;
+
+    let match = url.match(taobaoPattern);
+    if (match) {
+      return { id: match[1], provider: "taobao" };
+    }
+
+    match = url.match(alibabaPattern);
+    if (match) {
+      return { id: match[1], provider: "1688" };
+    }
+
+    return { id: null, provider: null };
+  };
+
+  // Modified handleSearch function
   const handleSearch = (values: any) => {
     if (values.search) {
-      const newQuery: any = {
-        value: values.search,
-        provider: router.query.provider || "1688",
-      };
-      if (values.catId) {
-        newQuery.catId = values.catId;
-      }
+      const providerInfo = getProviderInfo(values.search);
 
-      if (router.pathname === "/search") {
-        router.replace(
-          { pathname: router.pathname, query: newQuery },
-          undefined,
-          { shallow: true }
+      // If a valid Taobao or 1688 link is detected
+      if (providerInfo.id && providerInfo.provider) {
+        // Navigate to the product page with the ID and provider
+        router.push(
+          `/product/${providerInfo.id}?provider=${providerInfo.provider}`
         );
       } else {
-        router.push({ pathname: "/search", query: newQuery });
+        // Proceed with the existing search logic
+        const newQuery: any = {
+          value: values.search,
+          provider: router.query.provider || "1688",
+        };
+        if (values.catId) {
+          newQuery.catId = values.catId;
+        }
+
+        if (router.pathname === "/search") {
+          router.replace(
+            { pathname: router.pathname, query: newQuery },
+            undefined,
+            { shallow: true }
+          );
+        } else {
+          router.push({ pathname: "/search", query: newQuery });
+        }
       }
     }
   };
-  
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
