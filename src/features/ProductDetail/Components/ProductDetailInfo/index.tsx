@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import styles from "./ProductDetailInfo.module.scss";
 import { Button, Dropdown, Rate } from "antd";
 import SliderColors from "../SliderColors";
@@ -32,9 +32,14 @@ const ProductDetailInfo: React.FC<Props> = ({
   path = shareUrl(),
   setSelectedImage,
 }) => {
+  const [showAll, setShowAll] = useState(false);
+
+  const handleToggleShowAll = () => {
+    setShowAll(!showAll);
+  };
+
   const t = useTranslations("Product-detail");
 
- 
   const items: MenuProps["items"] = [
     {
       label: (
@@ -82,40 +87,60 @@ const ProductDetailInfo: React.FC<Props> = ({
 
   return (
     <div className={styles.product_info_detail}>
-      <div className={styles.productInfo}>
-        <div className={styles.info_head}>
-          <div className={styles.rating}>
-            <Rate disabled defaultValue={productDetails.rating} />
-            <span>{productDetails.rating}</span>
-            <span>
-              ({productDetails.sold}) {t("bought")}
-            </span>
+      <div className={styles.info_block}>
+        <div className={styles.productInfo}>
+          <div className={styles.info_head}>
+            <div className={styles.rating}>
+              <Rate disabled defaultValue={productDetails.rating} />
+              <span>{productDetails.rating}</span>
+              <span>
+                ({productDetails.sold}) {t("bought")}
+              </span>
+            </div>
+            <div className={styles.product_actions}>
+              <ProductIsLike product={product} />
+              <Dropdown
+                menu={{ items }}
+                trigger={["click"]}
+                placement="bottomRight"
+              >
+                <a onClick={(e) => e.preventDefault()}>
+                  <SvgSelector id="share-icon" />
+                </a>
+              </Dropdown>
+            </div>
           </div>
-          <div className={styles.product_actions}>
-            <ProductIsLike product={product} />
-            <Dropdown
-              menu={{ items }}
-              trigger={["click"]}
-              placement="bottomRight"
-            >
-              <a onClick={(e) => e.preventDefault()}>
-                <SvgSelector id="share-icon" />
-              </a>
-            </Dropdown>
-          </div>
-        </div>
-        <h1>{product?.title}</h1>
+          <h1>{product?.title}</h1>
 
-        {/* <SliderColors
+          {/* <SliderColors
           skus={skus}
           selectedColor={selectedColor}
           colorsBasket={colorsBasket}
         /> */}
+        </div>
+        <div className={styles.productDetails}>
+          {(showAll
+            ? product?.composition
+            : product?.composition.slice(0, 4)
+          )?.map((el, idx) => (
+            <Fragment key={idx}>
+              <div className={styles.detail}>
+                <span className={styles.detail_category}>{el.name}</span>
+                <p className={styles.detail_value}>{el.value}</p>
+              </div>
+            </Fragment>
+          ))}
+
+          <button
+            onClick={handleToggleShowAll}
+            className={styles.showAllButton}
+          >
+            {showAll ? "Скрыть" : "Все характеристики и описание"}
+          </button>
+        </div>
       </div>
 
-      <ProductOrderSection
-        product={product}
-      />
+      <ProductOrderSection product={product} />
     </div>
   );
 };

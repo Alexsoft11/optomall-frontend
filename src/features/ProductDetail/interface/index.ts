@@ -26,8 +26,6 @@ export interface SKUProperty {
   selectedSku?: SKU;
 }
 interface ParsedProperty {
-  index: string;
-  subindex: string;
   id: string;
   name: string;
   value: string;
@@ -54,6 +52,7 @@ export interface SKU {
   properties: string;
   properties_name: string;
   quantity: number;
+  selected_quantity: number;
   sku_id: string;
   parsedProperties?: ParsedProperty[];
 }
@@ -94,7 +93,7 @@ export interface ProductDetailInterface {
   seller_id: string;
   prop_imgs: PropImage[];
 }
-export  interface PropImage {
+export interface PropImage {
   properties: string;
   url: string;
 }

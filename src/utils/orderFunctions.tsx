@@ -11,8 +11,6 @@ export const parseSKUProperties = (skus: SKU[]): SKU[] => {
     const propertiesArray = item.properties_name.split(";").map((prop) => {
       const [index, subindex, propName, propValue] = prop.split(":");
       return {
-        index,
-        subindex,
         id: `${index}:${subindex}`,
         name: propName,
         value: propValue,
@@ -41,9 +39,10 @@ export const groupProperties = (
   );
 
   parsedSku.forEach((sku) => {
+    sku.selected_quantity = 0;
     sku?.parsedProperties?.forEach((property) => {
-      const { name, value, index, subindex } = property;
-      const propId = `${index}:${subindex}`;
+      const { name, value, id } = property;
+      const propId = `${id}`;
       const imageUrl = imagePropMap.get(propId);
 
       if (imageUrl) {

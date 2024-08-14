@@ -15,6 +15,7 @@ import styles from "./ProductOrderModal.module.scss";
 import { Button as AntdButton, message, Tooltip, Badge } from "antd";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
+import { log } from "console";
 
 interface Props {
   product: ProductDetailInterface;
@@ -34,19 +35,21 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
   );
   const [propertiesWithImages, setPropertiesWithImages] = useState<{
     [key: string]: {
-      keys: { value: string; imageUrl?: string }[];
+      keys: { value: string; imageUrl?: string; propId: string }[];
       propName: string;
     };
   }>({});
 
-  // State for selected properties and basket
-  const [selectedProperties, setSelectedProperties] = useState<{
-    [propId: string]: string;
-  }>({});
+  const [selectProperty, setSelectProperty] = useState<
+    {
+      name: string;
+      id: string;
+    }[]
+  >();
   const [basket, setBasket] = useState<BasketInterface[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [selectedQuantity, setSelectedQuantity] = useState<number>(0); // Default quantity is 1
-  const [selectedSku, setSelectedSku] = useState<SKU>(skus[0]);
+  const [selectedSku, setSelectedSku] = useState<SKU[] | []>();
+  const [currentSku, setCurrentSku] = useState<SKU>();
 
   const { appendData, isLoading } = useQueryApiClient({
     request: {
@@ -69,6 +72,13 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         skus,
         prop_imgs
       );
+      const newSelectedPropertys = parsedSku[0].parsedProperties?.map((el) => ({
+        name: el.name,
+        id: el.id,
+      }));
+      setSelectProperty(newSelectedPropertys);
+      setCurrentSku(parsedSku[0]);
+      setSelectedSku([parsedSku[0]]);
       setParsedSku(parsedSku);
       setGroupedProperties(allProperties);
       setPropertiesWithImages(imageProperties);
@@ -83,163 +93,97 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     setTotalPrice(total);
   }, [basket]);
 
+  useEffect(() => {}, []);
+
   // Old function for sku
-  const handleSizeChange = (
-    type: "incr" | "decr",
-    propId?: string,
-    value?: string
-  ) => {
-    // Find the SKU that matches the selected properties
-    // const sku = parsedSku.find((sku) =>
-    //   sku?.parsedProperties?.every(
-    //     (prop) => selectedProperties[prop.id] === prop.value
-    //   )
-    // );
-    // if (!sku) {
-    //   message.error("SKU not found for selected properties");
-    //   return;
-    // }
-    // const basketItem = basket.find((item) => item.sku_id === sku.sku_id);
-    // if (type === "incr") {
-    //   if (basketItem) {
-    //     if (sku.quantity <= basketItem.quantity) {
-    //       message.warning(`Max quantity for this product is ${sku.quantity}`);
-    //       return;
-    //     }
-    //     const updatedBasket = basket.map((item) => {
-    //       if (item.sku_id === sku.sku_id) {
-    //         const newQuantity = item.quantity + 1;
-    //         setTotalPrice((prevTotalPrice) => prevTotalPrice + sku.price);
-    //         return { ...item, quantity: newQuantity };
-    //       }
-    //       return item;
-    //     });
-    //     setBasket(updatedBasket);
-    //   } else {
-    //     const newBasketItem: BasketInterface = {
-    //       product_id: product?.id,
-    //       title: product?.title,
-    //       price: sku.price,
-    //       quantity: 1,
-    //       max_quantity: sku.quantity,
-    //       size: selectedProperties[propId] || "default",
-    //       image_url:
-    //         propertiesWithImages[propId]?.keys.find(
-    //           (key) => key.value === selectedProperties[propId]
-    //         )?.imageUrl || "",
-    //       color:
-    //         propertiesWithImages[propId]?.keys.find(
-    //           (key) => key.value === selectedProperties[propId]
-    //         )?.value || "",
-    //       product_url: product?.product_url,
-    //       seller_id: product?.seller_id,
-    //       provider: provider as string, // Use provider from router query
-    //       sku_id: sku.sku_id,
-    //     };
-    //     setBasket((prevBasket) => [...prevBasket, newBasketItem]);
-    //     setTotalPrice((prevTotalPrice) => prevTotalPrice + sku.price);
-    //   }
-    // }
-    // if (type === "decr") {
-    //   if (basketItem) {
-    //     if (basketItem.quantity === 1) {
-    //       const updatedBasket = basket.filter(
-    //         (item) => item.sku_id !== sku.sku_id
-    //       );
-    //       setBasket(updatedBasket);
-    //       setTotalPrice((prevTotalPrice) => prevTotalPrice - sku.price);
-    //     } else {
-    //       const updatedBasket = basket.map((item) => {
-    //         if (item.sku_id === sku.sku_id) {
-    //           const newQuantity = item.quantity - 1;
-    //           setTotalPrice((prevTotalPrice) => prevTotalPrice - sku.price);
-    //           return { ...item, quantity: newQuantity };
-    //         }
-    //         return item;
-    //       });
-    //       setBasket(updatedBasket);
-    //     }
-    //   }
-    // }
-  };
+  const handleSizeChange = (value: number) => {
+    if (value < 0) return;
 
-  const handlePropertySelect = (propId: string, value: string) => {
-    setSelectedProperties((prevSelected) => ({
-      ...prevSelected,
-      [propId]: value,
-    }));
+    if (!currentSku) return;
 
-    // Update the selected quantity based on the SKU
-    const sku = parsedSku.find((sku) =>
-      sku?.parsedProperties?.every(
-        (prop) =>
-          selectedProperties[prop.id] === prop.value || prop.value === value
-      )
-    );
-
-    if (sku) {
-      const basketItem = basket.find((item) => item.sku_id === sku.sku_id);
-      setSelectedQuantity(basketItem ? basketItem.quantity : 1);
-    }
-  };
-
-  const handleAddToBasket = () => {
-    const sku = parsedSku.find((sku) =>
-      sku?.parsedProperties?.every(
-        (prop) => selectedProperties[prop.id] === prop.value
-      )
-    );
-
-    if (!sku) {
-      message.error("SKU not found for selected properties");
+    if (!selectedSku) {
+      const newCurrentSku = { ...currentSku, selected_quantity: value };
+      setSelectedSku([newCurrentSku]);
       return;
     }
 
-    const basketItem: BasketInterface = {
-      product_id: product?.id,
-      title: product?.title,
-      price: sku.price,
-      quantity: selectedQuantity,
-      max_quantity: sku.quantity,
-      size: selectedProperties["size"] || "default",
-      image_url:
-        propertiesWithImages["size"]?.keys.find(
-          (key) => key.value === selectedProperties["size"]
-        )?.imageUrl || "",
-      product_url: product?.product_url,
-      seller_id: product?.seller_id,
-      provider: provider as string,
-      sku_id: sku.sku_id,
-    };
+    if (!selectedSku.find((el) => el.sku_id === currentSku.sku_id)) {
+      const clone = selectedSku.map((el) => el);
+      clone.push({ ...currentSku, selected_quantity: value });
+      setSelectedSku(clone);
+      return;
+    }
 
-    setBasket((prevBasket) => {
-      const existingIndex = prevBasket.findIndex(
-        (item) => item.sku_id === basketItem.sku_id
-      );
+    const clone = selectedSku.map((el) => {
+      if (el.sku_id === currentSku.sku_id) {
+        const newCurrentSku = {
+          ...currentSku,
+          selected_quantity: value,
+        };
+        setCurrentSku(newCurrentSku);
 
-      if (existingIndex > -1) {
-        const updatedBasket = [...prevBasket];
-        updatedBasket[existingIndex].quantity += selectedQuantity;
-        return updatedBasket;
-      } else {
-        return [...prevBasket, basketItem];
-      }
+        return { ...el, selected_quantity: value };
+      } else return el;
     });
+    setSelectedSku(clone);
   };
 
-  const getPropertyQuantity = (propId: string, value: string) => {
-    return basket.reduce((acc, item) => {
-      const sku = parsedSku.find((sku) => sku.sku_id === item.sku_id);
-      if (
-        sku &&
-        sku?.parsedProperties?.some(
-          (prop) => prop.id === propId && prop.value === value
-        )
-      ) {
-        return acc + item.quantity;
+  const handlePropertySelect = (propId: string, name: string) => {
+    let isFind = false;
+
+    let copy = Object.assign(
+      selectProperty || [{ name: name, id: propId }],
+      []
+    );
+
+    copy.forEach((el) => {
+      if (el.name === name) {
+        isFind = true;
+        el.id = propId;
       }
-      return acc;
-    }, 0);
+    });
+
+    !isFind ? copy.push({ name: name, id: propId }) : null;
+
+    parsedSku.map((el) => {
+      let counter = 0;
+      const properyIdArr = el.properties.split(";");
+      const selectIdArr = copy?.map((el) => el.id) || [];
+
+      for (const index of properyIdArr) {
+        selectIdArr.includes(index) ? counter++ : null;
+      }
+
+      if (counter === properyIdArr.length) {
+        const isFind = selectedSku?.find((item) => el.sku_id === item.sku_id);
+        setCurrentSku(isFind || el);
+      }
+    });
+
+    setSelectProperty(copy);
+  };
+
+  const getPropertyQuantity = (propId: string, name: string) => {
+    if (!selectedSku) return;
+
+    let quantity = 0;
+    for (const item of selectedSku) {
+      if (item.properties.split(";").includes(propId)) {
+        quantity += item.selected_quantity;
+      }
+    }
+
+    return quantity;
+  };
+
+  const getExist = (propId: string, arr: SKU[]) => {
+    let flag = false;
+    arr.map((el) => {
+      el.parsedProperties!.map((item) => {
+        item.id === propId ? (flag = true) : null;
+      });
+    });
+    return flag;
   };
 
   const capitalize = (text: string) =>
@@ -254,14 +198,24 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         footer={
           <div className="modal-footer">
             <div key={1} className={styles.change_value}>
-              <AntdButton onClick={() => handleSizeChange("decr")}>
+              <AntdButton
+                onClick={() =>
+                  handleSizeChange(currentSku!.selected_quantity - 1)
+                }
+              >
                 <Image src={MinusSvg} width={24} height={24} alt="#" />
               </AntdButton>
               <Tooltip title={`Max quantity`}>
-                <h4 className={styles.selected_quantity}>{selectedQuantity}</h4>
+                <h4 className={styles.selected_quantity}>
+                  {currentSku?.selected_quantity}
+                </h4>
               </Tooltip>
               <Tooltip>
-                <AntdButton onClick={() => handleSizeChange("incr")}>
+                <AntdButton
+                  onClick={() =>
+                    handleSizeChange(++currentSku!.selected_quantity)
+                  }
+                >
                   <Image src={PlusSvg} width={24} height={24} alt="#" />
                 </AntdButton>
               </Tooltip>
@@ -271,7 +225,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
               size="large"
               label={t(type)}
               type="primary"
-              onClick={handleAddToBasket}
+              // onClick={handleAddToBasket}
             />
           </div>
         }
@@ -302,13 +256,15 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                     loop={true}
                     spaceBetween={5}
                   >
-                    {keys.map(({ value, imageUrl }) => (
+                    {keys.map(({ value, propId, imageUrl }) => (
                       <SwiperSlide
                         key={value}
-                        onClick={() => handlePropertySelect(propName, value)}
+                        onClick={() => handlePropertySelect(propId, propName)}
                         className={
-                          selectedProperties[propName] === value
+                          currentSku?.properties.split(";").includes(propId)
                             ? styles.active
+                            : !getExist(propId, parsedSku)
+                            ? styles.disable
                             : ""
                         }
                       >
@@ -317,7 +273,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                             <Image src={imageUrl} alt={value} fill />
                           </div>
                         )}
-                        <Badge count={getPropertyQuantity(propName, value)}>
+                        <Badge count={getPropertyQuantity(propId, propName)}>
                           <p>{value}</p>
                         </Badge>
                       </SwiperSlide>
@@ -325,30 +281,42 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                   </Swiper>
                 </div>
               ))}
-              {Object.entries(groupedProperties).map(([propName, { keys }]) => (
-                <div className="content-inner grouped-prop" key={propName}>
-                  <h2>{capitalize(propName)}</h2>
-                  <div className="items">
-                    {keys.map(({ value }) => (
-                      <Badge
-                        count={getPropertyQuantity(propName, value)}
-                        key={value}
-                      >
-                        <p
-                          onClick={() => handlePropertySelect(propName, value)}
-                          className={
-                            selectedProperties[propName] === value
-                              ? styles.active
-                              : ""
+              {Object.entries(groupedProperties).map(
+                ([propName, { keys }], idx) => (
+                  <div className="content-inner grouped-prop" key={propName}>
+                    <h2>{capitalize(propName)}</h2>
+                    <div className="items">
+                      {keys.map(({ value, propId }) => (
+                        <Badge
+                          count={
+                            idx !== 0
+                              ? null
+                              : !Object.values(propertiesWithImages).length
+                              ? getPropertyQuantity(propId, propName)
+                              : null
                           }
+                          key={value}
                         >
-                          {value}
-                        </p>
-                      </Badge>
-                    ))}
+                          <p
+                            onClick={() =>
+                              handlePropertySelect(propId, propName)
+                            }
+                            className={
+                              currentSku?.properties.split(";").includes(propId)
+                                ? styles.active
+                                : !getExist(propId, parsedSku)
+                                ? styles.disable
+                                : ""
+                            }
+                          >
+                            {value}
+                          </p>
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+              )}
             </div>
           </div>
         </div>
