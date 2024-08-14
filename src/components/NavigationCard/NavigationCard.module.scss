@@ -26,6 +26,10 @@
     margin-bottom: 20px;
 
     white-space: nowrap;
+
+    &:hover {
+      color: var(--black-color);
+    }
   }
 
   &__list {

@@ -39,8 +39,33 @@ export interface CatalogCategoriesInterface {
 }
 
 export interface SubcategoryItem {
-  name: string;
-  slug: string;
+    id: number;
+    name: string;
+    slug: string;
+    is_show: number;
+}
+  
+ export interface Subcategory {
+    id: number;
+    name: string;
+    slug: string;
+    items: SubcategoryItem[];
+}
+  
+ export interface CategoryInterface {
+    name: string;
+    slug: string;
+    imageUrl: string;
+    subcategories: Subcategory[];
+  }
+
+export interface SlidersDataInterface {
+    id: number;
+    url: string;
+    image: StaticImageData;
+    image_mobile: StaticImageData;
+    name: string;
+    slug: string;
 }
 
 export interface Subcategory {
