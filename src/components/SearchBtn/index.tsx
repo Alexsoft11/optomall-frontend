@@ -113,7 +113,6 @@ const SearchBtn = ({ categoryData }: Props) => {
     for (const [provider, pattern] of Object.entries(providerPatterns)) {
       const match = url.match(pattern);
       if (match) {
-        // If the provider is 'tmall', treat it as 'taobao'
         return {
           id: match[1],
           provider:
@@ -131,7 +130,6 @@ const SearchBtn = ({ categoryData }: Props) => {
   // Main function to get provider info
   const getProviderInfo = (text: string): ProviderInfo => {
     const url = extractUrl(text);
-    console.log(url);
 
     if (url) {
       const { id, provider } = detectProviderAndId(url);
