@@ -89,7 +89,7 @@ const SearchBtn = ({ categoryData }: Props) => {
 
   const handleSearch = (values: any) => {
     if (values.search) {
-      const firstHint = filteredItems[0];
+      let firstHint // = filteredItems[0];
       setIsDropdownOpen(false);
       
       const newQuery: any = {
