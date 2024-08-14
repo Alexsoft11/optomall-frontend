@@ -95,6 +95,8 @@ const SearchBtn = ({ categoryData }: Props) => {
     const taobaoPattern = /item\.taobao\.com\/item\.htm\?id=(\d+)/;
     const tmallPattern = /detail\.tmall\.com\/item\.htm\?id=(\d+)/;
     const alibabaPattern = /detail\.1688\.com\/offer\/(\d+)\.html/;
+    const alibabaMobilePattern =
+      /detail\.m\.1688\.com\/page\/index\.htm\?(?:.*&)?offerid=(\d+)/;
 
     let match = url.match(taobaoPattern);
     if (match) {
@@ -107,6 +109,11 @@ const SearchBtn = ({ categoryData }: Props) => {
     }
 
     match = url.match(alibabaPattern);
+    if (match) {
+      return { id: match[1], provider: "1688" };
+    }
+
+    match = url.match(alibabaMobilePattern);
     if (match) {
       return { id: match[1], provider: "1688" };
     }
