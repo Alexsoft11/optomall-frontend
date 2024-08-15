@@ -3,7 +3,7 @@ import styles from "./ProductOrderSection.module.scss";
 import { SearchSvg } from "$/assets/images";
 import { formatPrice } from "@/constants";
 import {
-  CreateBaskettemsDataInterface,
+  CreateOrderDataInterface,
   ProductDetailInterface,
 } from "../../interface";
 import { useRouter } from "next/router";
@@ -12,6 +12,7 @@ import { useTranslations } from "next-intl";
 import ProductOrderModal from "../ProductOrderModal";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { message } from "antd";
+import { useJwt } from "@/utils/useJwt";
 
 interface Props {
   product?: ProductDetailInterface;
@@ -19,17 +20,18 @@ interface Props {
 
 const ProductOrderSection: React.FC<Props> = ({ product }) => {
   const { push, asPath } = useRouter();
-  const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
-  const [baskedData, setBasketData] = useState<
-    CreateBaskettemsDataInterface[] | []
-  >([]);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [baskedData, setBasketData] = useState<CreateOrderDataInterface | {}>(
+    {}
+  );
+  const token = useJwt();
   const [orderModalType, setOrderModalType] = useState<
     "to_order" | "to_cart" | null
   >(null);
   const t = useTranslations();
 
   const modalProps = {
-    onCancel: () => setShowAuthModal(false),
+    onCancel: () => setShowModal(false),
     className: "bg_white",
     img: SearchSvg,
     description: t("Cart.authMessage"),
@@ -40,24 +42,27 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
         label={t("Cart.signin")}
       />
     ),
-    open: showAuthModal,
+    open: showModal,
   };
 
-  const { appendData: createUserBasket } = useQueryApiClient({
+  const { appendData: createOrder } = useQueryApiClient({
     request: {
-      url: `user-basket`,
+      url: `orders`,
       method: "POST",
       disableOnMount: true,
     },
     onSuccess(res) {
-      message.success(res.message);
+      push(`order/${res.order_group}`);
     },
   });
 
   const toBasket = () => {
     if (!baskedData) return;
-    
-    createUserBasket(baskedData);
+    if (!token) {
+      setShowModal(true);
+      return;
+    }
+    createOrder(baskedData);
   };
   return (
     <div className={styles.product_order}>
