@@ -152,59 +152,31 @@
       .content-inner {
         text-align: start;
 
-        .detail-img-swiper {
-          -webkit-tap-highlight-color: transparent;
+        .img-block {
+          height: 100%;
           display: flex;
-          max-width: 100%;
-          max-height: 250px;
-          gap: 20px;
-          overflow: auto;
-          padding: 15px 3px;
+          flex-direction: column;
+          justify-content: space-between;
 
-          &::-webkit-scrollbar {
-            height: 5px;
-            width: 100px !important;
-          }
-
-          &::-webkit-scrollbar-track {
-            width: 100px !important;
-          }
-
-          .img-block {
+          .img-describtion {
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            @media (max-width: 650px) {
-              max-height: 160px;
-            }
-            .img-describtion {
-              display: flex;
-              align-items: center;
-              text-align: center;
-              background: #f2f2f2;
-              border-bottom-left-radius: 10px;
-              border-bottom-right-radius: 10px;
-              height: 100%;
-              width: 100%;
-              padding: 3px;
-            }
+            align-items: center;
+            text-align: center;
+            background: #f2f2f2;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            height: 100%;
+            width: 100%;
+            padding: 3px;
           }
+        }
 
-          .img-box {
-            position: relative;
-            width: 17dvw;
-            height: 300px;
+        .img-box {
+          position: relative;
 
-            @media (max-width: 650px) {
-              height: 200px;
-              width: 120px;
-              // width: max-content;
-            }
-
-            img {
-              border-top-left-radius: 10px;
-              border-top-right-radius: 10px;
-            }
+          img {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
           }
         }
 
@@ -236,20 +208,20 @@
         max-width: -webkit-fill-available;
         .swiper-wrapper {
           .swiper-slide {
-            width: 90px;
+            padding: 5px 4px;
+            min-width: 120px;
+            width: min-content !important;
             display: flex;
+            justify-content: flex-end;
+            height: auto;
             flex-direction: column;
             border-radius: 10px;
-            background: #f2f2f2;
             cursor: pointer;
 
             .img-box {
               position: relative;
-              width: 90px;
-              height: 90px;
-            }
-            img {
-              max-width: 90px;
+              width: 120px;
+              height: 120px;
             }
           }
         }

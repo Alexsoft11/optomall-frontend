@@ -12,18 +12,21 @@ import {
 import { Button, Modal } from "@/ui";
 import { groupProperties } from "@/utils/orderFunctions";
 import Image from "next/image";
-import { MinusSvg, PlusSvg } from "$/assets/images";
+import { MinusSvg, PlusSvg, SearchSvg } from "$/assets/images";
 import styles from "./ProductOrderModal.module.scss";
 import { Button as AntdButton, message, Tooltip, Badge } from "antd";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
+import { useJwt } from "@/utils/useJwt";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 
 interface Props {
   product: ProductDetailInterface;
   setOrderType?: any;
   type?: "to_order" | "to_cart" | null;
   setBasketData: React.Dispatch<
-    React.SetStateAction<[] | CreateBaskettemsDataInterface[]>
+    React.SetStateAction<{} | CreateOrderDataInterface>
   >;
 }
 
@@ -37,7 +40,7 @@ const ProductOrderModal = ({
   const { skus, prop_imgs } = product || {};
   const router = useRouter();
   const { provider } = router.query; // Extract provider from the query
-
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [parsedSku, setParsedSku] = useState<SKU[]>([]);
   const [groupedProperties, setGroupedProperties] = useState<GroupedProperties>(
     {}
@@ -57,18 +60,14 @@ const ProductOrderModal = ({
   >();
   const [selectedSku, setSelectedSku] = useState<SKU[] | []>();
   const [currentSku, setCurrentSku] = useState<SKU>();
-
-  const { appendData: orderDataCreate } = useQueryApiClient({
+  const token = useJwt();
+  const { appendData: createUserBasket } = useQueryApiClient({
     request: {
-      url: `orders`,
+      url: `user-basket`,
       method: "POST",
       disableOnMount: true,
     },
-    onSuccess(res) {
-      router.push(`order/${res.order_group}`);
-    },
   });
-
   const handleCloseModal = () => {
     setOrderType(null);
   };
@@ -111,31 +110,7 @@ const ProductOrderModal = ({
 
   const toOrder = () => {
     if (!selectedSku) return;
-    const items: CreateOrderItemsDataInterface[] = selectedSku?.map((el) => {
-      return {
-        product_id: product.id,
-        title: product.title,
-        price: el.price,
-        quantity: el.selected_quantity,
-        image_url: getImageUrl(el.properties.split(";")) || product.image,
-        product_url: product.product_url,
-        seller_id: product.seller_id.toString(),
-        provider: provider as string,
-        sku_id: el.sku_id.toString(),
-        properties: el.parsedProperties!,
-      };
-    });
-    const data: CreateOrderDataInterface = {
-      items: items,
-      total_price: getTotalPrice() as number,
-    };
-
-    orderDataCreate(data);
-  };
-
-  useEffect(() => {
-    if (!selectedSku) return;
-    const data: CreateBaskettemsDataInterface[] = selectedSku?.map((el) => {
+    const items: CreateBaskettemsDataInterface[] = selectedSku?.map((el) => {
       return {
         product_id: product.id,
         title: product.title,
@@ -150,6 +125,51 @@ const ProductOrderModal = ({
         properties: el.parsedProperties!,
       };
     });
+    if (!token) {
+      setShowModal(true);
+      return;
+    }
+    createUserBasket(items);
+  };
+
+  const modalProps = {
+    onCancel: () => setShowModal(false),
+    className: "bg_white",
+    img: SearchSvg,
+    description: t("Cart.authMessage"),
+    children: (
+      <Button
+        onClick={() =>
+          router.push(`/auth?step=signin&backUrl=${router.asPath}`)
+        }
+        className="signIn_btn"
+        label={t("Cart.signin")}
+      />
+    ),
+    open: showModal,
+  };
+
+  useEffect(() => {
+    if (!selectedSku) return;
+    const items: CreateOrderItemsDataInterface[] = selectedSku?.map((el) => {
+      return {
+        product_id: product.id,
+        title: product.title,
+        price: el.price,
+        quantity: el.selected_quantity,
+        image_url: getImageUrl(el.properties.split(";")) || product.image,
+        product_url: product.product_url,
+        seller_id: product.seller_id.toString(),
+        provider: provider as string,
+        sku_id: el.sku_id.toString(),
+        properties: el.parsedProperties!,
+      };
+    });
+
+    const data: CreateOrderDataInterface = {
+      items: items,
+      total_price: getTotalPrice() as number,
+    };
 
     setBasketData(data);
   }, [selectedSku, currentSku]);
@@ -315,32 +335,56 @@ const ProductOrderModal = ({
               {Object.values(propertiesWithImages).map(({ keys, propName }) => (
                 <div className="content-inner" key={propName}>
                   <h2>{capitalize(propName)}</h2>
-                  <div className={"detail-img-swiper"}>
+                  <Swiper
+                    spaceBetween={20}
+                    slidesPerView={1.1}
+                    loop={true}
+                    modules={[Navigation]}
+                    breakpoints={{
+                      1000: {
+                        slidesPerView: 8,
+                      },
+                      960: {
+                        slidesPerView: 6,
+                      },
+                      480: {
+                        slidesPerView: 5,
+                      },
+                      380: {
+                        slidesPerView: 1.3,
+                      },
+                    }}
+                    pagination={{ clickable: true }}
+                  >
                     {keys.map(({ value, propId, imageUrl }) => (
-                      <div
-                        key={propId}
-                        onClick={() => handlePropertySelect(propId, propName)}
-                        className={`img-block ${
-                          currentSku?.properties.split(";").includes(propId)
-                            ? styles.active
-                            : !getExist(propId, parsedSku)
-                            ? styles.disable
-                            : ""
-                        }`}
-                      >
-                        {imageUrl && (
-                          <div className="img-box">
-                            <Image src={imageUrl} alt={value} fill />
+                      <SwiperSlide key={propId}>
+                        <div
+                          key={propId}
+                          onClick={() => handlePropertySelect(propId, propName)}
+                          className={`img-block ${
+                            currentSku?.properties.split(";").includes(propId)
+                              ? styles.active
+                              : !getExist(propId, parsedSku)
+                              ? styles.disable
+                              : ""
+                          }`}
+                        >
+                          {imageUrl && (
+                            <div className="img-box">
+                              <Image src={imageUrl} alt={value} fill />
+                            </div>
+                          )}
+                          <div className="img-describtion">
+                            <Badge
+                              count={getPropertyQuantity(propId, propName)}
+                            >
+                              <p>{value}</p>
+                            </Badge>
                           </div>
-                        )}
-                        <div className="img-describtion">
-                          <Badge count={getPropertyQuantity(propId, propName)}>
-                            <p>{value}</p>
-                          </Badge>
                         </div>
-                      </div>
+                      </SwiperSlide>
                     ))}
-                  </div>
+                  </Swiper>
                 </div>
               ))}
               {Object.entries(groupedProperties).map(
@@ -383,6 +427,7 @@ const ProductOrderModal = ({
           </div>
         </div>
       </Modal>
+      <Modal {...modalProps} />
     </div>
   );
 };
