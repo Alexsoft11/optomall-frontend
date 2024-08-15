@@ -61,11 +61,17 @@ const CatalogCategory = () => {
                   <div>
                     {el.subcategories.map((subcategory, subIdx) => (
                       <div key={subIdx}>
-                        <h4>{subcategory.name}</h4>
+                        <h4 className={styles.sub_title}>
+                          <Link
+                            href={`/search?value=${subcategory.name}&provider=1688&catId=${subcategory.id}`}
+                          >
+                            {subcategory.name}
+                          </Link>
+                        </h4>
                         <ul className={styles.categories__ul}>
                           {subcategory.items.map((item, itemIdx) => (
                             <Link
-                              href={`/search?value=${item.slug}&provider=1688`}
+                              href={`/search?value=${item.name}&provider=1688&catId=${item.id}`}
                               key={itemIdx}
                             >
                               {item.name}
