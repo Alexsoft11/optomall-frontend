@@ -5,7 +5,7 @@ import { Button, Input } from "@/ui";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import GoogleButton from "../../GoogleButton";
-import { cookieBasket, validateEmail, validatePassword } from "../../Functions";
+import { validateEmail, validatePassword } from "../../Functions";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import Cookies from "universal-cookie";
 import { useRouter } from "next/router";

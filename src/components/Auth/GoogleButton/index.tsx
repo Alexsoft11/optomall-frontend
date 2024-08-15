@@ -9,7 +9,6 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import Cookies from "universal-cookie";
 import { message } from "antd";
 import { API } from "@/services/api";
-import { cookieBasket } from "../Functions";
 import { CartItemInterface } from "@/features/Cart/interface";
 import { LoadingSpinner } from "@/ui/Spin";
 

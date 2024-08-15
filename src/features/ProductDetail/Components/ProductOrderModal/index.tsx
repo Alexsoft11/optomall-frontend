@@ -318,6 +318,7 @@ const ProductOrderModal = ({
                   <div className={"detail-img-swiper"}>
                     {keys.map(({ value, propId, imageUrl }) => (
                       <div
+                        key={propId}
                         onClick={() => handlePropertySelect(propId, propName)}
                         className={`img-block ${
                           currentSku?.properties.split(";").includes(propId)

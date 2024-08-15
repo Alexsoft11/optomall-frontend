@@ -10,7 +10,6 @@ import cookie from "cookie";
 import { LoadingSpinner } from "@/ui/Spin";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useRouter } from "next/router";
-import { cookieBasket } from "@/components/Auth/Functions";
 import { useJwt } from "@/utils/useJwt";
 import ToLoginPage from "@/components/ToLoginPage";
 
