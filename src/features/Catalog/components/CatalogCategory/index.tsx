@@ -23,13 +23,15 @@ const CatalogCategory = () => {
   const router = useRouter();
 
   useEffect(() => {
-    getCategoryData();
-  }, []);
+    getCategoryData({ lang: router.locale });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.locale]);
 
   const { appendData: getCategoryData } = useQueryApiClient({
     request: {
-      url: "categories-from-taobao",
+      url: `categories-from-taobao`,
       method: "GET",
+      disableOnMount: true,
     },
     onSuccess(res) {
       setCatalogTabsData(res.categories);
