@@ -64,9 +64,8 @@ const Search = ({ data = [] }: Props) => {
   useEffect(() => {
     if (router.query) {
       getSearchRes({
-        ...router.query,
-  
-        lang: router.locale,
+        ...router.query,  
+        lang: "en",
         page: 2,
       });
     }
@@ -77,7 +76,7 @@ const Search = ({ data = [] }: Props) => {
     getProducts({
       ...router.query,
       ...query,
-      lang: router.locale,
+      lang: "en",
     });
   };
 
