@@ -11,6 +11,10 @@ import { useTranslations } from "next-intl";
 import { CategoryInterface } from "@/interfaces";
 
 const { Dragger } = Upload;
+type ProviderInfo = {
+  id: string | null;
+  provider: string | null;
+};
 
 interface Props {
   categoryData?: CategoryInterface[];
@@ -86,33 +90,92 @@ const SearchBtn = ({ categoryData }: Props) => {
       setIsDropdownOpen(false);
     }
   };
+  const providerPatterns = {
+    taobao:
+      /(?:item\.taobao\.com|detail\.m\.taobao\.com)\/item\.htm\?(?:.*&)?id=(\d+)/,
+    tmall:
+      /(?:detail\.tmall\.com|detail\.m\.tmall\.com)\/item\.htm\?(?:.*&)?id=(\d+)/,
+    1688: /(?:detail\.1688\.com\/offer\/|detail\.1688\.com\/page\/index\.htm\?(?:.*&)?offerId=)(\d+)/i,
+    alibaba: /detail\.m\.1688\.com\/page\/index\.htm\?(?:.*&)?offerid=(\d+)/i,
+  };
 
+  const urlPattern =
+    /https?:\/\/(?:[^\s'"]+|\b(?:[a-zA-Z0-9-]+\.){1,3}[a-zA-Z]{2,})[^\s'"]*/;
+  // Improved URL extraction function
+  const extractUrl = (text: string): string | null => {
+    const match = text.match(urlPattern);
+    return match ? match[0] : null;
+  };
+
+  const detectProviderAndId = (
+    url: string
+  ): { id: string | null; provider: string | null } => {
+    for (const [provider, pattern] of Object.entries(providerPatterns)) {
+      const match = url.match(pattern);
+      if (match) {
+        return {
+          id: match[1],
+          provider:
+            provider === "tmall"
+              ? "taobao"
+              : provider == "alibaba"
+              ? "1688"
+              : provider,
+        };
+      }
+    }
+    return { id: null, provider: null };
+  };
+
+  // Main function to get provider info
+  const getProviderInfo = (text: string): ProviderInfo => {
+    const url = extractUrl(text);
+
+    if (url) {
+      const { id, provider } = detectProviderAndId(url);
+      return { id, provider: provider };
+    }
+    return { id: null, provider: null };
+  };
+
+  // Modified handleSearch function
   const handleSearch = (values: any) => {
     if (values.search) {
-      let firstHint // = filteredItems[0];
+      const providerInfo = getProviderInfo(values.search);
+      let firstHint; // = filteredItems[0];
       setIsDropdownOpen(false);
-      
-      const newQuery: any = {
-        value: values.search.toLowerCase(),
-        provider: router.query.provider || "1688",
-      };
 
-      if (values.catId) {
-        newQuery.catId = values.catId;
-      }
-
-      if (router.pathname === "/search") {
-        router.replace(
-          { pathname: router.pathname, query: newQuery },
-          undefined,
-          { shallow: true }
+      // If a valid Taobao or 1688 link is detected
+      if (providerInfo.id && providerInfo.provider) {
+        // Navigate to the product page with the ID and provider
+        router.push(
+          `/product/${providerInfo.id}?provider=${providerInfo.provider}`
         );
       } else {
-        router.push({ pathname: "/search", query: newQuery });
+        return;
+        // Proceed with the existing search logic
+        const newQuery: any = {
+          value: values.search.toLowerCase(),
+          provider: router.query.provider || "1688",
+        };
+
+        if (values.catId) {
+          newQuery.catId = values.catId;
+        }
+
+        if (router.pathname === "/search") {
+          router.replace(
+            { pathname: router.pathname, query: newQuery },
+            undefined,
+            { shallow: true }
+          );
+        } else {
+          router.push({ pathname: "/search", query: newQuery });
+        }
       }
     }
   };
-  
+
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       form.submit();
@@ -271,21 +334,21 @@ const SearchBtn = ({ categoryData }: Props) => {
         <div className={styles.search}>
           <Form onFinish={handleSearch} form={form}>
             <Dropdown menu={{ items: menuItems }} open={isDropdownOpen}>
-                <Input
-                  type="text"
-                  onKeyDown={handleKeyPress}
-                  className={styles.search_input}
-                  name={"search"}
-                  onChange={handleInputChange}
-                  prefix={
-                    <div
-                      className={styles.search_icon_btn}
-                      onClick={handleButtonSubmitClick}
-                    >
-                      <SvgSelector id="search-svg" />
-                    </div>
-                  }
-                />
+              <Input
+                type="text"
+                onKeyDown={handleKeyPress}
+                className={styles.search_input}
+                name={"search"}
+                onChange={handleInputChange}
+                prefix={
+                  <div
+                    className={styles.search_icon_btn}
+                    onClick={handleButtonSubmitClick}
+                  >
+                    <SvgSelector id="search-svg" />
+                  </div>
+                }
+              />
             </Dropdown>
           </Form>
         </div>
