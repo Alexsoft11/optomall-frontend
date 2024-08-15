@@ -196,7 +196,8 @@
     "noItems": "Товары не найдены",
     "default": "По умолчанию",
     "price_down": "Цена ниже",
-    "price_top": "Цена выше"
+    "price_top": "Цена выше",
+    "search_place": "Введите ссылку Taobao, 1688"
   },
   "MyReviews": {
     "waitForReview": "Ждут оценки",

@@ -193,7 +193,8 @@
     "noItems": "Products not found",
     "default": "Default",
     "price_down": "Price down",
-    "price_top": "Price Top"
+    "price_top": "Price Top",
+    "search_place": "Enter link Taobao or 1688"
   },
   "MyReviews": {
     "waitForReview": "Waiting for Review",

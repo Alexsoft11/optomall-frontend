@@ -192,7 +192,8 @@
     "noItems": "Mahsulotlar topilmadi",
     "default": "Birlamchi",
     "price_down": "Past narx",
-    "price_top": "Tepa narx"
+    "price_top": "Tepa narx",
+    "search_place": "Taobao yoki 1688 havolasini kiriting"
   },
   "MyReviews": {
     "waitForReview": "Baho berish kutilmoqda",
