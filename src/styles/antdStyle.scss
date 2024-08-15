@@ -167,7 +167,8 @@
             border-bottom-right-radius: 10px;
             height: 100%;
             width: 100%;
-            padding: 3px;
+            padding: 8px;
+            min-height: 50px;
           }
         }
 
@@ -213,11 +214,10 @@
             width: min-content !important;
             display: flex;
             justify-content: flex-end;
-            height: auto;
             flex-direction: column;
             border-radius: 10px;
             cursor: pointer;
-
+            padding-top: 10px;
             .img-box {
               position: relative;
               width: 120px;

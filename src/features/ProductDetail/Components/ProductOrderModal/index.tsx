@@ -172,6 +172,7 @@ const ProductOrderModal = ({
     };
 
     setBasketData(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSku, currentSku]);
 
   // Old function for sku
@@ -358,30 +359,30 @@ const ProductOrderModal = ({
                   >
                     {keys.map(({ value, propId, imageUrl }) => (
                       <SwiperSlide key={propId}>
-                        <div
-                          key={propId}
-                          onClick={() => handlePropertySelect(propId, propName)}
-                          className={`img-block ${
-                            currentSku?.properties.split(";").includes(propId)
-                              ? styles.active
-                              : !getExist(propId, parsedSku)
-                              ? styles.disable
-                              : ""
-                          }`}
-                        >
-                          {imageUrl && (
-                            <div className="img-box">
-                              <Image src={imageUrl} alt={value} fill />
-                            </div>
-                          )}
-                          <div className="img-describtion">
-                            <Badge
-                              count={getPropertyQuantity(propId, propName)}
-                            >
+                        <Badge count={getPropertyQuantity(propId, propName)}>
+                          <div
+                            key={propId}
+                            onClick={() =>
+                              handlePropertySelect(propId, propName)
+                            }
+                            className={`img-block ${
+                              currentSku?.properties.split(";").includes(propId)
+                                ? styles.active
+                                : !getExist(propId, parsedSku)
+                                ? styles.disable
+                                : ""
+                            }`}
+                          >
+                            {imageUrl && (
+                              <div className="img-box">
+                                <Image src={imageUrl} alt={value} fill />
+                              </div>
+                            )}
+                            <div className="img-describtion">
                               <p>{value}</p>
-                            </Badge>
+                            </div>
                           </div>
-                        </div>
+                        </Badge>
                       </SwiperSlide>
                     ))}
                   </Swiper>
