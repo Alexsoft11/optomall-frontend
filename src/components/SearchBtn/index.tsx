@@ -3,7 +3,7 @@ import styles from "./Search.module.scss";
 import { useRouter } from "next/router";
 import { Button, Input, Modal } from "@/ui";
 import SvgSelector from "$/assets/icons/SvgSelector";
-import { Dropdown, Form, Menu } from "antd";
+import { Dropdown, Form, Menu, message } from "antd";
 import { Upload } from "antd";
 import { UploadProps } from "antd/lib";
 import useQueryApiClient from "@/utils/useQueryApiClient";
@@ -294,10 +294,18 @@ const SearchBtn = ({ categoryData }: Props) => {
       img.src = URL.createObjectURL(file);
     });
   };
+  const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
   
   const uploadProps: UploadProps = {
     name: "file",
     multiple: true,
+    beforeUpload: (file) => {
+      const isValidType = allowedTypes.includes(file.type);
+      if (!isValidType) {
+        message.error(t("upload_validate"));
+      }
+      return isValidType || Upload.LIST_IGNORE;
+    },
     customRequest: async ({ file, onSuccess, onError }) => {
       try {
         const resizedFile = await resizeImage(file as File);

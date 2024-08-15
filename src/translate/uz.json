@@ -193,7 +193,8 @@
     "default": "Birlamchi",
     "price_down": "Past narx",
     "price_top": "Tepa narx",
-    "search_place": "Taobao yoki 1688 havolasini kiriting"
+    "search_place": "Taobao yoki 1688 havolasini kiriting",
+    "upload_validate": "Siz faqat JPG/PNG/JPEG fayllarni yuklashingiz mumkin!"
   },
   "MyReviews": {
     "waitForReview": "Baho berish kutilmoqda",
