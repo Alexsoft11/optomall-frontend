@@ -31,7 +31,7 @@ const Card = ({ data, onLikeChange, provider }: CardProps) => {
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
     const id = router.pathname.includes("wishes") ? data.product_id : data.id;
-    let url = `/product/${id}?provider=${
+    let url = `/product/${id}?lang=${router.locale}&provider=${
       provider || router.query.provider || "taobao"
     }`;
     if (router.pathname.includes("search") && router.query.value) {
