@@ -37,10 +37,8 @@ const Card = ({ data, onLikeChange, provider }: CardProps) => {
     if (router.pathname.includes("search") && router.query.value) {
       url = `${url}&category=${router.query.value}`;
     }
-    if (e.ctrlKey || e.metaKey) {
+    if (e) {
       window.open(url, "_blank");
-    } else {
-      router.push(url);
     }
   };
 
