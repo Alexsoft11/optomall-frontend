@@ -21,6 +21,7 @@ interface Props {
 }
 
 export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
+  
   const [orderItems, setOrderItems] = useState<CartOrderItemInterface[] | []>(
     []
   );
@@ -67,15 +68,9 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
     }
     setTotalPrice(total);
     ChangeitemsValue();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderItems]);
 
-  // useEffect(() => {
-  //   if (!cookie.get("token") && localStorage.getItem("basket-data")) {
-  //     setDataClone(JSON.parse(localStorage.getItem("basket-data")!));
-  //   }
-  // }, []);
-
+  
   useEffect(() => {
     if (Array.isArray(addOrder)) {
       let clone = [] as CartOrderItemInterface[] | [];
@@ -112,7 +107,6 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
 
     setAddOrder(null);
     setOrderItems(copy);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addOrder]);
 
   const { appendData: removeData, isLoading } = useQueryApiClient({
@@ -127,20 +121,6 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
   });
 
   const changeQuantity = (number: number, item: CartItemInterface) => {
-    // if (number === 0 && !cookie.get("token")) {
-    //   const updatedDataClone = dataClone.filter(
-    //     (el) => el.sku_id !== item.sku_id
-    //   );
-    //   const updatedOrderItems = orderItems.filter(
-    //     (el) => el.sku_id !== item.sku_id
-    //   );
-
-    //   setDataClone(updatedDataClone);
-    //   setOrderItems(updatedOrderItems);
-
-    //   localStorage.setItem("basket-data", JSON.stringify(updatedDataClone));
-    //   return;
-    // }
     if (number === 0 && cookie.get("token")) {
       removeData({ basket_id: item.id, sku_id: item.sku_id });
     }

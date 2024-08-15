@@ -25,15 +25,38 @@ export interface SKUProperty {
   property_id?: string;
   selectedSku?: SKU;
 }
+interface ParsedProperty {
+  id: string;
+  name: string;
+  value: string;
+}
+
+export interface GroupedProperties {
+  [propId: string]: {
+    keys: { imageUrl?: string; value: string; propId: string }[];
+    propName: string;
+    imageUrl?: string;
+  };
+}
+
+export interface SelectedProperty {
+  name: string;
+  value: string;
+}
 
 // Interface for the SKU object
 export interface SKU {
-  quantity: number;
-  sku_id: string;
   price: number;
-  properties_ids: string;
-  properties: SKUProperty[];
+  total_price: number;
+  orginal_price: number;
+  properties: string;
+  properties_name: string;
+  quantity: number;
+  selected_quantity: number;
+  sku_id: string;
+  parsedProperties?: ParsedProperty[];
 }
+
 export interface SellerInfoInterface {
   nick: string;
   item_score: number;
@@ -68,13 +91,18 @@ export interface ProductDetailInterface {
   is_liked: boolean;
   seller_info: SellerInfoInterface;
   seller_id: string;
+  prop_imgs: PropImage[];
+}
+export interface PropImage {
+  properties: string;
+  url: string;
 }
 
 export interface BasketInterface {
   product_id: string | undefined;
   title: string | undefined;
   price: number | undefined;
-  color: string | undefined;
+  color?: string | undefined;
   quantity: number;
   max_quantity: number | undefined;
   size: string | undefined;
@@ -89,3 +117,42 @@ export interface ColorsBasketInterface {
   color: string;
   data: BasketInterface[];
 }
+
+export interface ProppertiesInterface {
+  id: string,
+  name: string,
+  value: string
+}
+
+export interface CreateOrderItemsDataInterface {
+  product_id: string;
+  title: string;
+  image_url: string;
+  quantity: number;
+  price: number;
+  seller_id: string;
+  provider: string;
+  sku_id: string;
+  product_url: string;
+  properties: ProppertiesInterface[]
+}
+
+export interface CreateOrderDataInterface {
+  items: CreateOrderItemsDataInterface[];
+  total_price: number;
+}
+
+export interface CreateBaskettemsDataInterface {
+  product_id: string;
+  title: string;
+  image_url: string;
+  quantity: number;
+  max_quantity: number;
+  price: number;
+  seller_id: string;
+  provider: string;
+  sku_id: string;
+  product_url: string;
+  properties: ProppertiesInterface[]
+}
+

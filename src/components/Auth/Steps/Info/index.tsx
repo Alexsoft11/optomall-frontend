@@ -4,13 +4,11 @@ import { Form, InputRef, message } from "antd";
 import { Button, Input } from "@/ui";
 import { useTranslations } from "next-intl";
 import useQueryApiClient from "@/utils/useQueryApiClient";
-import { cookieBasket, validateName, validatePhone } from "../../Functions";
+import { validateName, validatePhone } from "../../Functions";
 import GoToBack from "@/components/GoToBack";
 import { useRouter } from "next/router";
 import useHandleError from "@/utils/useHandleError";
 import Cookies from "universal-cookie";
-import { API } from "@/services/api";
-import { CartItemInterface } from "@/features/Cart/interface";
 import MaskedInput from "antd-mask-input";
 
 export default function Info() {
@@ -29,8 +27,8 @@ export default function Info() {
     },
     onSuccess(res) {
       if (!res.token) {
-        message.error('something_wrong')
-        return
+        message.error("something_wrong");
+        return;
       }
 
       // if (localStorage.getItem('basket-data')) {
@@ -39,11 +37,11 @@ export default function Info() {
       const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
 
       // Set the cookie
-      cookie.set('token', res.token, {
-        path: '/',
+      cookie.set("token", res.token, {
+        path: "/",
         maxAge: maxAge,
       });
-      push(query.backUrl as string || "/")
+      push((query.backUrl as string) || "/");
     },
     onError(res) {
       handleError(res);
@@ -59,7 +57,7 @@ export default function Info() {
     <div className={styles.main}>
       <GoToBack backUrl="/auth?step=signUp" />
       <h1>{t("Auth.info")}</h1>
-      <p className={styles.desc}>{t('Auth.infoDescription')}</p>
+      <p className={styles.desc}>{t("Auth.infoDescription")}</p>
       <div className={styles.form}>
         <Form
           form={form}
@@ -76,24 +74,26 @@ export default function Info() {
           }}
           autoComplete="off"
         >
-
-
           <Input
             name="name"
             rules={[
-              { validator: (rule, value) => validateName(t("Auth.nameValidateError"), rule, value) }
+              {
+                validator: (rule, value) =>
+                  validateName(t("Auth.nameValidateError"), rule, value),
+              },
             ]}
             type="text"
             className={styles.input}
             placeholder={t("Auth.name")}
           />
 
-
-
           <Input
             name="last_name"
             rules={[
-              { validator: (rule, value) => validateName(t("Auth.nameValidateError"), rule, value) }
+              {
+                validator: (rule, value) =>
+                  validateName(t("Auth.nameValidateError"), rule, value),
+              },
             ]}
             type="text"
             placeholder={t("Auth.secondName")}
@@ -101,9 +101,7 @@ export default function Info() {
 
           <Form.Item
             name="phone"
-            rules={[
-              { validator: (rule, value) => validatePhone(t, value) }
-            ]}
+            rules={[{ validator: (rule, value) => validatePhone(t, value) }]}
             required
           >
             <MaskedInput
@@ -112,7 +110,7 @@ export default function Info() {
               onBlur={() => form.submit()}
               type="text"
               prefix={"+998"}
-              mask={'(00) 000-00-00'}
+              mask={"(00) 000-00-00"}
             />
           </Form.Item>
 

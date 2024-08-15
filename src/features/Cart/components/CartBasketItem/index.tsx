@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import styles from "./CartBasketItem.module.scss";
 import {
   AddOrderInterface,
@@ -34,11 +34,10 @@ export default function CartBasketItem({
       image_url: item.image_url,
       product_url: item.product_url,
       title: item.title,
-      color: item.color,
-      size: item.size,
       provider: item.provider,
       sku_id: item.sku_id,
       price: +item.price,
+      properties: item.properties,
       quantity: item.quantity,
     };
 
@@ -62,7 +61,11 @@ export default function CartBasketItem({
       </div>
 
       <div className={styles.color_block}>
-        <p>{item.color}</p> · <p>{item.size}</p>
+        {item.properties.map((el) => (
+          <Fragment key={el.id}>
+            <p>{el.name}</p> · <p>{el.value}</p>
+          </Fragment>
+        ))}
       </div>
 
       <div className={styles.checkbox_block}>

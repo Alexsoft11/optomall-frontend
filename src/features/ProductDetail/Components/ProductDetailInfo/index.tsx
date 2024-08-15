@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import styles from "./ProductDetailInfo.module.scss";
 import { Button, Dropdown, Rate } from "antd";
 import SliderColors from "../SliderColors";
@@ -32,108 +32,14 @@ const ProductDetailInfo: React.FC<Props> = ({
   path = shareUrl(),
   setSelectedImage,
 }) => {
+  const [showAll, setShowAll] = useState(false);
+
+  const handleToggleShowAll = () => {
+    setShowAll(!showAll);
+  };
+
   const t = useTranslations("Product-detail");
-  const { skus } = product || {};
-  const [selectedColor, setSelectedColor] = useState<SKUProperty | undefined>();
-  const [colorsBasket, setColorsBasket] = useState<ColorsBasketInterface[]>([]);
-  const sizeMatches = ["size", "Размер", "размер", "hajmi", "specification"];
-  const colorMatches = [
-    "color",
-    "colour",
-    "colo",
-    "sort by color",
-    "цвет",
-    "rang",
-    "series",
-    "watch series",
-  ];
-  const colorValue = Array.from(
-    new Set(
-      skus?.flatMap((sku) =>
-        sku?.properties
-          .filter((prop) => {
-            const matches = colorMatches.some((term) =>
-              prop.name?.toLowerCase().includes(term)
-            );
-            return matches;
-          })
-          .map((prop) => prop.value)
-      )
-    )
-  );
 
-
-  const handleGetProperty = (value: string, type?: string) => {
-    const matchdata = type === "color" ? colorMatches : sizeMatches;
-    return skus
-      ?.flatMap((sku) => sku.properties)
-      .find(
-        (prop) =>
-          prop.value === value &&
-          prop?.name &&
-          matchdata.some(
-            (term) => prop?.name && prop.name.toLowerCase().includes(term)
-          )
-      );
-  };
-
-  const colors = colorValue
-    .map((value) => {
-      const properties = handleGetProperty(value, "color");
-      return properties;
-    })
-    ?.filter((data) => data !== undefined);
-
-  const sizes = selectedColor?.value
-    ? Array.from(
-        new Set(
-          skus
-            ?.filter((sku) =>
-              sku.properties.some((prop) => prop.value === selectedColor.value)
-            )
-            .flatMap((sku) =>
-              sku.properties.filter((prop) => {
-                const matches = sizeMatches.some((term) =>
-                  prop.name?.toLowerCase().includes(term)
-                );
-                return matches;
-              })
-            )
-        )
-      )
-    : Array.from(
-        new Set(
-          skus?.flatMap((sku) =>
-            sku.properties.filter((prop) => {
-              const matches = sizeMatches.some((term) =>
-                prop.name?.toLowerCase().includes(term)
-              );
-              return matches;
-            })
-          )
-        )
-      );
-
-  const handleColorSelect = (colorProperty?: SKUProperty) => {
-    setSelectedColor(colorProperty);
-    if (colorProperty?.imageUrl) {
-      setSelectedImage(colorProperty.imageUrl);
-    }
-  };
-
-  const handleResetBasket = () => {
-    const colorBasketData = colors.map((color) => ({
-      color: color?.value,
-      data: [],
-    }));
-    setColorsBasket(colorBasketData);
-    setSelectedColor(colors[0]);
-  };
-
-  useEffect(() => {
-    handleResetBasket();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   const items: MenuProps["items"] = [
     {
       label: (
@@ -181,48 +87,60 @@ const ProductDetailInfo: React.FC<Props> = ({
 
   return (
     <div className={styles.product_info_detail}>
-      <div className={styles.productInfo}>
-        <div className={styles.info_head}>
-          <div className={styles.rating}>
-            <Rate disabled defaultValue={productDetails.rating} />
-            <span>{productDetails.rating}</span>
-            <span>
-              ({productDetails.sold}) {t("bought")}
-            </span>
+      <div className={styles.info_block}>
+        <div className={styles.productInfo}>
+          <div className={styles.info_head}>
+            <div className={styles.rating}>
+              <Rate disabled defaultValue={productDetails.rating} />
+              <span>{productDetails.rating}</span>
+              <span>
+                ({productDetails.sold}) {t("bought")}
+              </span>
+            </div>
+            <div className={styles.product_actions}>
+              <ProductIsLike product={product} />
+              <Dropdown
+                menu={{ items }}
+                trigger={["click"]}
+                placement="bottomRight"
+              >
+                <a onClick={(e) => e.preventDefault()}>
+                  <SvgSelector id="share-icon" />
+                </a>
+              </Dropdown>
+            </div>
           </div>
-          <div className={styles.product_actions}>
-            <ProductIsLike product={product} />
-            <Dropdown
-              menu={{ items }}
-              trigger={["click"]}
-              placement="bottomRight"
-            >
-              <a onClick={(e) => e.preventDefault()}>
-                <SvgSelector id="share-icon" />
-              </a>
-            </Dropdown>
-          </div>
-        </div>
-        <h1>{product?.title}</h1>
+          <h1>{product?.title}</h1>
 
-        <SliderColors
-          colors={colors}
+          {/* <SliderColors
           skus={skus}
-          handleColorSelect={handleColorSelect}
           selectedColor={selectedColor}
           colorsBasket={colorsBasket}
-        />
+        /> */}
+        </div>
+        <div className={styles.productDetails}>
+          {(showAll
+            ? product?.composition
+            : product?.composition.slice(0, 4)
+          )?.map((el, idx) => (
+            <Fragment key={idx}>
+              <div className={styles.detail}>
+                <span className={styles.detail_category}>{el.name}</span>
+                <p className={styles.detail_value}>{el.value}</p>
+              </div>
+            </Fragment>
+          ))}
+
+          <button
+            onClick={handleToggleShowAll}
+            className={styles.showAllButton}
+          >
+            {showAll ? "Скрыть" : "Все характеристики и описание"}
+          </button>
+        </div>
       </div>
 
-      <ProductOrderSection
-        product={product}
-        selectedColor={selectedColor}
-        sizes={sizes}
-        skus={skus}
-        colorsBasket={colorsBasket}
-        setColorsBasket={setColorsBasket}
-        handleResetBasket={handleResetBasket}
-      />
+      <ProductOrderSection product={product} />
     </div>
   );
 };

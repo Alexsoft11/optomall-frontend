@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styles from "./PurchasesOrderItem.module.scss";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -11,7 +11,6 @@ interface Props {
 
 export default function PurchasesOrderItem({ item }: Props) {
   const t = useTranslations("Purchases");
-
   const openPageWithProduct = () =>
     window.open(
       `/product/${item.product_id}?provider=${item.provider}`,
@@ -29,7 +28,13 @@ export default function PurchasesOrderItem({ item }: Props) {
         <div className={styles.item_info}>
           <p>{item.title}</p>
           <div className={styles.color_block}>
-            <p>{item.color}</p> · <p>{item.quantity}x</p>
+            {item.properties.map((el) => (
+              <Fragment key={el.id}>
+                <div>
+                  <p>{el.name}</p> · <p>{el.value}</p>
+                </div>
+              </Fragment>
+            ))}
           </div>
         </div>
 

@@ -146,6 +146,7 @@ export default function OrderBlock({
         formData.append("type", type as string);
         formData.append("image", image);
         formData.append("order_group_id", orderId!.toString());
+
         createChequeData(formData);
         setButtonStatus("pending");
 
@@ -180,14 +181,6 @@ export default function OrderBlock({
         </p>
       )}
       <div className={styles.total}>
-        {/* {cargoCost ? (
-          <div className={styles.cargo_title}>
-            <p>{t("Cart.cargo")}</p>
-            <p>
-              {formatPrice(cargoCost)} {t("GLOBAL.currency")} {t("Cart.forKg")}
-            </p>
-          </div>
-        ) : null} */}
         <div>
           <h1>{t("Cart.total")}:</h1>
           <p>{formatPrice(cost)} uzs</p>

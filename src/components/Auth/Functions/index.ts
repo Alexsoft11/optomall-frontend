@@ -76,20 +76,14 @@ export const validateName = (
   return Promise.resolve();
 };
 
-export const cookieBasket = (arr: CartItemInterface[]) => {
-  const corectData: UserBasketPostInterface[] = [];
-  arr.map((el) => {
-    corectData.push({
-      product_id: el.product_id,
-      sizes: [
-        {
-          value: el.size as string,
-          quantity: el.quantity,
-          color_id: "0",
-        },
-      ],
-    });
-  });
+// export const cookieBasket = (arr: CartItemInterface[]) => {
+//   const corectData: UserBasketPostInterface[] = [];
+//   arr.map((el) => {
+//     corectData.push({
+//       product_id: el.product_id,
+      
+//     });
+//   });
 
-  return corectData;
-};
+//   return corectData;
+// };
