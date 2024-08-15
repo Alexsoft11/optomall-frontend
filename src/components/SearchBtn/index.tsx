@@ -244,14 +244,71 @@ const SearchBtn = ({ categoryData }: Props) => {
     setFileList([]);
   };
 
+  const resizeImage = (file: File): Promise<File> => {
+    return new Promise((resolve, reject) => {
+      const img = document.createElement("img");
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+  
+      img.onload = () => {
+        const maxWidth = 600;
+        const maxHeight = 600;
+  
+        let width = img.width;
+        let height = img.height;
+  
+        if (width > maxWidth || height > maxHeight) {
+          if (width > height) {
+            height *= maxWidth / width;
+            width = maxWidth;
+          } else {
+            width *= maxHeight / height;
+            height = maxHeight;
+          }
+        }
+  
+        canvas.width = width;
+        canvas.height = height;
+  
+        ctx?.drawImage(img, 0, 0, width, height);
+  
+        canvas.toBlob(
+          (blob) => {
+            if (blob) {
+              const resizedFile = new File([blob], file.name, {
+                type: file.type,
+                lastModified: Date.now(),
+              });
+              resolve(resizedFile);
+            } else {
+              reject(new Error("Error resizing image"));
+            }
+          },
+          file.type,
+          1
+        );
+      };
+  
+      img.onerror = reject;
+  
+      img.src = URL.createObjectURL(file);
+    });
+  };
+  
   const uploadProps: UploadProps = {
     name: "file",
     multiple: true,
-    customRequest({ file, onSuccess, onError }) {
-      const formData = new FormData();
-      formData.append("image", file);
-
-      postUploadData(formData);
+    customRequest: async ({ file, onSuccess, onError }) => {
+      try {
+        const resizedFile = await resizeImage(file as File);
+  
+        const formData = new FormData();
+        formData.append("image", resizedFile);
+  
+        postUploadData(formData);
+      } catch (error) {
+        console.log('error')
+      }
     },
     onChange(info: any) {
       setFileList(info.fileList);
@@ -261,6 +318,7 @@ const SearchBtn = ({ categoryData }: Props) => {
     },
     fileList,
   };
+  
 
   const menuItems = filteredItems.map((hint, index) => ({
     key: hint.id,
