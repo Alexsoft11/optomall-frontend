@@ -98,6 +98,9 @@ const Search = ({ data = [] }: Props) => {
       onSuccess(res: any) {
         setProducts(res.products);
       },
+      onError(err) {
+        setProducts([]);
+      },
     });
 
   const { appendData: getProducts, isLoading: isProductsLoading } =
