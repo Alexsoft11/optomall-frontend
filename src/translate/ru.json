@@ -268,7 +268,8 @@
     "comments": "Отзывы",
     "characteristic": "Xарактеристика",
     "comments-not": "Коментарий пока нет",
-    "recomendeds":"Похожие товары"
+    "recomendeds":"Похожие товары",
+    "buy": "Купить"
   },
   "Messages": {
     "dearClient": "Уважаемый клиент, ",

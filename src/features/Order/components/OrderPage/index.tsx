@@ -18,7 +18,7 @@ interface Props {
   userData: UserDataInterface;
 }
 
-export default function OrderPage({ orderData, userData }: Props) {
+export default function OrderPage({ orderData, userData }: Props) {  
 
   const locationInitialValue: LocationInfoInterface = {
     region: userData.region || "",

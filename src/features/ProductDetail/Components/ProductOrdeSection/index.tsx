@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import styles from "./ProductOrderSection.module.scss";
 import { SearchSvg } from "$/assets/images";
 import { formatPrice } from "@/constants";
-import { ProductDetailInterface } from "../../interface";
+import {
+  CreateBaskettemsDataInterface,
+  ProductDetailInterface,
+} from "../../interface";
 import { useRouter } from "next/router";
 import { Button, Modal } from "@/ui";
 import { useTranslations } from "next-intl";
 import ProductOrderModal from "../ProductOrderModal";
+import useQueryApiClient from "@/utils/useQueryApiClient";
+import { message } from "antd";
 
 interface Props {
   product?: ProductDetailInterface;
@@ -15,25 +20,13 @@ interface Props {
 const ProductOrderSection: React.FC<Props> = ({ product }) => {
   const { push, asPath } = useRouter();
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
+  const [baskedData, setBasketData] = useState<
+    CreateBaskettemsDataInterface[] | []
+  >([]);
   const [orderModalType, setOrderModalType] = useState<
     "to_order" | "to_cart" | null
   >(null);
   const t = useTranslations();
-
-  // const onFinish = () => {
-  //   if (!token) {
-  //     return setShowAuthModal(true);
-  //   }
-  //   const allBasketData = colorsBasket.flatMap(
-  //     (colorBasket) => colorBasket.data
-  //   );
-  //   if (allBasketData.length === 0) {
-  //     message.warning("No items to add to the basket.");
-  //     return;
-  //   }
-
-  //   appendData(allBasketData);
-  // };
 
   const modalProps = {
     onCancel: () => setShowAuthModal(false),
@@ -50,6 +43,22 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
     open: showAuthModal,
   };
 
+  const { appendData: createUserBasket } = useQueryApiClient({
+    request: {
+      url: `user-basket`,
+      method: "POST",
+      disableOnMount: true,
+    },
+    onSuccess(res) {
+      message.success(res.message);
+    },
+  });
+
+  const toBasket = () => {
+    if (!baskedData) return;
+    
+    createUserBasket(baskedData);
+  };
   return (
     <div className={styles.product_order}>
       <div className={styles.priceSection}>
@@ -75,11 +84,18 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
           iconId={"shop-svg"}
           iconPosition={"bottom"}
         />
+        <Button
+          className={styles.buy}
+          label={t("Product-detail.buy")}
+          onClick={toBasket}
+          iconPosition={"bottom"}
+        />
       </div>
       <Modal {...modalProps} />
       {product && (
         <ProductOrderModal
           product={product}
+          setBasketData={setBasketData}
           type={orderModalType}
           setOrderType={setOrderModalType}
         />

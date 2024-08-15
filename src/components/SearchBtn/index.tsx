@@ -50,7 +50,7 @@ const SearchBtn = ({ categoryData }: Props) => {
       }
     };
 
-    categoryData.forEach((category: any) => extract(category));
+    categoryData?.forEach((category: any) => extract(category));
 
     return items;
   };

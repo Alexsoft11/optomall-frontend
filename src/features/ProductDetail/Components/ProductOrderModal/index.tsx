@@ -5,25 +5,34 @@ import {
   ProductDetailInterface,
   SKU,
   BasketInterface,
+  CreateOrderItemsDataInterface,
+  CreateOrderDataInterface,
+  CreateBaskettemsDataInterface,
 } from "../../interface";
 import { Button, Modal } from "@/ui";
 import { groupProperties } from "@/utils/orderFunctions";
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { MinusSvg, PlusSvg } from "$/assets/images";
 import styles from "./ProductOrderModal.module.scss";
 import { Button as AntdButton, message, Tooltip, Badge } from "antd";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
-import { log } from "console";
 
 interface Props {
   product: ProductDetailInterface;
   setOrderType?: any;
   type?: "to_order" | "to_cart" | null;
+  setBasketData: React.Dispatch<
+    React.SetStateAction<[] | CreateBaskettemsDataInterface[]>
+  >;
 }
 
-const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
+const ProductOrderModal = ({
+  product,
+  setOrderType,
+  type,
+  setBasketData,
+}: Props) => {
   const t = useTranslations();
   const { skus, prop_imgs } = product || {};
   const router = useRouter();
@@ -46,19 +55,17 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       id: string;
     }[]
   >();
-  const [basket, setBasket] = useState<BasketInterface[]>([]);
-  const [totalPrice, setTotalPrice] = useState<number>(0);
   const [selectedSku, setSelectedSku] = useState<SKU[] | []>();
   const [currentSku, setCurrentSku] = useState<SKU>();
 
-  const { appendData, isLoading } = useQueryApiClient({
+  const { appendData: orderDataCreate } = useQueryApiClient({
     request: {
-      url: `user-basket`,
+      url: `orders`,
       method: "POST",
       disableOnMount: true,
     },
     onSuccess(res) {
-      message.success(res.message);
+      router.push(`order/${res.order_group}`);
     },
   });
 
@@ -76,6 +83,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         name: el.name,
         id: el.id,
       }));
+
       setSelectProperty(newSelectedPropertys);
       setCurrentSku(parsedSku[0]);
       setSelectedSku([parsedSku[0]]);
@@ -85,19 +93,71 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     }
   }, [skus, prop_imgs]);
 
-  useEffect(() => {
-    const total = basket.reduce(
-      (acc, item) => acc + (item.price || 0) * item.quantity,
-      0
-    );
-    setTotalPrice(total);
-  }, [basket]);
-
   useEffect(() => {}, []);
+
+  const getImageUrl = (propertys: string[]) => {
+    let url = "";
+    Object.values(propertiesWithImages).map(({ keys }) => {
+      keys.map((el) => {
+        if (propertys.includes(el.propId)) {
+          url = el.imageUrl as string;
+          return;
+        }
+      });
+    });
+
+    return url;
+  };
+
+  const toOrder = () => {
+    if (!selectedSku) return;
+    const items: CreateOrderItemsDataInterface[] = selectedSku?.map((el) => {
+      return {
+        product_id: product.id,
+        title: product.title,
+        price: el.price,
+        quantity: el.selected_quantity,
+        image_url: getImageUrl(el.properties.split(";")) || product.image,
+        product_url: product.product_url,
+        seller_id: product.seller_id.toString(),
+        provider: provider as string,
+        sku_id: el.sku_id.toString(),
+        properties: el.parsedProperties!,
+      };
+    });
+    const data: CreateOrderDataInterface = {
+      items: items,
+      total_price: getTotalPrice() as number,
+    };
+
+    orderDataCreate(data);
+  };
+
+  useEffect(() => {
+    if (!selectedSku) return;
+    const data: CreateBaskettemsDataInterface[] = selectedSku?.map((el) => {
+      return {
+        product_id: product.id,
+        title: product.title,
+        price: el.price,
+        quantity: el.selected_quantity,
+        max_quantity: el.quantity,
+        image_url: getImageUrl(el.properties.split(";")) || product.image,
+        product_url: product.product_url,
+        seller_id: product.seller_id.toString(),
+        provider: provider as string,
+        sku_id: el.sku_id.toString(),
+        properties: el.parsedProperties!,
+      };
+    });
+
+    setBasketData(data);
+  }, [selectedSku, currentSku]);
 
   // Old function for sku
   const handleSizeChange = (value: number) => {
-    if (value < 0) return;
+    if (value < 0 || (currentSku?.quantity && value > currentSku?.quantity))
+      return;
 
     if (!currentSku) return;
 
@@ -186,6 +246,13 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     return flag;
   };
 
+  const getTotalPrice = () => {
+    return selectedSku?.reduce(
+      (acum, cur) => acum + cur.price * cur.selected_quantity,
+      0
+    );
+  };
+
   const capitalize = (text: string) =>
     text.charAt(0).toUpperCase() + text.slice(1);
 
@@ -197,6 +264,11 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         open={!!type}
         footer={
           <div className="modal-footer">
+            <div className="totalPrice">
+              <h3>
+                {getTotalPrice()} {t("GLOBAL.currency")}
+              </h3>
+            </div>
             <div key={1} className={styles.change_value}>
               <AntdButton
                 onClick={() =>
@@ -223,8 +295,9 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
             <Button
               className={styles.addToCart}
               size="large"
-              label={t(type)}
+              label={t("Product-detail.buy")}
               type="primary"
+              onClick={toOrder}
               // onClick={handleAddToBasket}
             />
           </div>
@@ -233,52 +306,40 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         <div className="order-modal-body">
           <div className="top"></div>
           <div className="content">
+            <div className="currentPrice">
+              <h3>
+                {currentSku?.price} {t("GLOBAL.currency")}
+              </h3>
+            </div>
             <div className="property-items">
               {Object.values(propertiesWithImages).map(({ keys, propName }) => (
                 <div className="content-inner" key={propName}>
                   <h2>{capitalize(propName)}</h2>
-                  <Swiper
-                    slidesPerView={6}
-                    breakpoints={{
-                      960: {
-                        slidesPerView: 6,
-                        spaceBetween: 10,
-                      },
-                      460: {
-                        slidesPerView: 5.2,
-                        spaceBetween: 10,
-                      },
-                      350: {
-                        slidesPerView: 5,
-                        spaceBetween: 5,
-                      },
-                    }}
-                    loop={true}
-                    spaceBetween={5}
-                  >
+                  <div className={"detail-img-swiper"}>
                     {keys.map(({ value, propId, imageUrl }) => (
-                      <SwiperSlide
-                        key={value}
+                      <div
                         onClick={() => handlePropertySelect(propId, propName)}
-                        className={
+                        className={`img-block ${
                           currentSku?.properties.split(";").includes(propId)
                             ? styles.active
                             : !getExist(propId, parsedSku)
                             ? styles.disable
                             : ""
-                        }
+                        }`}
                       >
                         {imageUrl && (
                           <div className="img-box">
                             <Image src={imageUrl} alt={value} fill />
                           </div>
                         )}
-                        <Badge count={getPropertyQuantity(propId, propName)}>
-                          <p>{value}</p>
-                        </Badge>
-                      </SwiperSlide>
+                        <div className="img-describtion">
+                          <Badge count={getPropertyQuantity(propId, propName)}>
+                            <p>{value}</p>
+                          </Badge>
+                        </div>
+                      </div>
                     ))}
-                  </Swiper>
+                  </div>
                 </div>
               ))}
               {Object.entries(groupedProperties).map(

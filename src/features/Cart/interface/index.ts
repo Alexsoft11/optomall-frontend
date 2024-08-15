@@ -1,20 +1,23 @@
+import { LocationInfoInterface } from "@/components/Types";
+import { PersonalDataInterface } from "@/features/Order/interfaces";
+import { ProppertiesInterface } from "@/features/ProductDetail/interface";
 import { StaticImageData } from "next/image";
 
 export interface CartItemInterface {
-  id?: number;
-  product_id: string;
-  product_url: string;
-  image_url: StaticImageData | null;
+  id: number;
   title: string;
-  color: string;
-  size: string | null;
-  sku_id?: number;
-  color_id?: string;
+  product_id: string;
+  image_url: StaticImageData | null;
   price: number;
   quantity: number;
-  chacked?: boolean;
-  seller_id: string;
+  sku_id: number;
   provider: string;
+  product_url: string;
+  seller_id: string;
+  properties: ProppertiesInterface[]
+  chacked?: boolean;
+  user_info: LocationInfoInterface
+  user_location: PersonalDataInterface
 }
 
 export interface AddOrderInterface {
@@ -29,9 +32,8 @@ export interface CartOrderItemInterface {
   provider: string;
   product_url: string;
   sku_id: number;
-  color: string;
-  size: string | null;
   price: number;
+  properties: ProppertiesInterface[]
   quantity: number;
 }
 

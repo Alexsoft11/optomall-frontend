@@ -117,3 +117,42 @@ export interface ColorsBasketInterface {
   color: string;
   data: BasketInterface[];
 }
+
+export interface ProppertiesInterface {
+  id: string,
+  name: string,
+  value: string
+}
+
+export interface CreateOrderItemsDataInterface {
+  product_id: string;
+  title: string;
+  image_url: string;
+  quantity: number;
+  price: number;
+  seller_id: string;
+  provider: string;
+  sku_id: string;
+  product_url: string;
+  properties: ProppertiesInterface[]
+}
+
+export interface CreateOrderDataInterface {
+  items: CreateOrderItemsDataInterface[];
+  total_price: number;
+}
+
+export interface CreateBaskettemsDataInterface {
+  product_id: string;
+  title: string;
+  image_url: string;
+  quantity: number;
+  max_quantity: number;
+  price: number;
+  seller_id: string;
+  provider: string;
+  sku_id: string;
+  product_url: string;
+  properties: ProppertiesInterface[]
+}
+
