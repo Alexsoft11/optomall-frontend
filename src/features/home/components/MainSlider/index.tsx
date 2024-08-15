@@ -42,42 +42,48 @@ const MainSlider: React.FC<Props> = ({ data }) => {
         </div>
 
         <div className={styles.main_slider}>
-          <Swiper
-            slidesPerView={1.1}
-            spaceBetween={10}
-            centeredSlides={true}
-            pagination={{
-              clickable: true,
-            }}
-            breakpoints={{
-              768: {
-                slidesPerView: 1.15,
-                spaceBetween: 20,
-                centeredSlides: true
-              },
-              390: {
-                slidesPerView: 1.2,
-                spaceBetween: 10,
-                centeredSlides: true
-              }
-            }}
-            autoplay={{
-              delay: 4500,
-            }}
-            loop={true}
-            navigation={{
-              nextEl: `.next-btn`,
-              prevEl: `.prev-btn`,
-            }}
-            modules={[Pagination,  Navigation, Autoplay]}
-            className={styles.my_swiper}
-          >
-            {data?.map((el: any, idx) => (
-              <SwiperSlide key={idx} className={styles.swiper}>
-                <MainSliderCard el={el} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          {data?.length > 1 ? (
+            <Swiper
+              slidesPerView={1.1}
+              spaceBetween={10}
+              centeredSlides={true}
+              pagination={{
+                clickable: true,
+              }}
+              breakpoints={{
+                768: {
+                  slidesPerView: 1.15,
+                  spaceBetween: 20,
+                  centeredSlides: true
+                },
+                390: {
+                  slidesPerView: 1.2,
+                  spaceBetween: 10,
+                  centeredSlides: true
+                }
+              }}
+              autoplay={{
+                delay: 4500,
+              }}
+              loop={true}
+              navigation={{
+                nextEl: `.next-btn`,
+                prevEl: `.prev-btn`,
+              }}
+              modules={[Pagination, Navigation, Autoplay]}
+              className={styles.my_swiper}
+            >
+              {data.map((el: any, idx) => (
+                <SwiperSlide key={idx} className={styles.swiper}>
+                  <MainSliderCard el={el} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <div className="container">
+              <MainSliderCard el={data[0]} />
+            </div>
+          )}
         </div>
       </div>
     </>

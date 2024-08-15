@@ -189,10 +189,11 @@
     "results": "Natijalar",
     "upload_title": "Mahsulotlarni rasm bo'yicha qidirish",
     "upload_text": "Rasmni bu yerga sudrab olib tashlang",
-    "noItems": "Ushbu rasm uchun mahsulot topilmadi",
+    "noItems": "Mahsulotlar topilmadi",
     "default": "Birlamchi",
     "price_down": "Past narx",
-    "price_top": "Tepa narx"
+    "price_top": "Tepa narx",
+    "search_place": "Taobao yoki 1688 havolasini kiriting"
   },
   "MyReviews": {
     "waitForReview": "Baho berish kutilmoqda",

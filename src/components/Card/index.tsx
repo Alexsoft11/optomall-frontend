@@ -70,15 +70,23 @@ const Card = ({ data, onLikeChange, provider }: CardProps) => {
             height={1000}
           />
         </div>
-
-        <Tooltip
-          overlayClassName="tooltip-white"
-          title={isOverflowed ? title : ""}
-        >
-          <h2 className={styles.card__title} ref={textRef}>
-            {title}
-          </h2>
-        </Tooltip>
+        
+        {
+          window.innerWidth <= 768 ? (
+            <h2 className={styles.card__title}>
+              {title}
+            </h2>
+          ) : (
+            <Tooltip
+              overlayClassName="tooltip-white"
+              title={isOverflowed ? title : ""}
+            >
+              <h2 className={styles.card__title} ref={textRef}>
+                {title}
+              </h2>
+            </Tooltip>
+          )
+        }
 
         <div className={styles.card__price}>
           <p>

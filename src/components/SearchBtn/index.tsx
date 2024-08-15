@@ -303,6 +303,7 @@ const SearchBtn = ({ categoryData }: Props) => {
                   onKeyDown={handleKeyPress}
                   className={styles.search_input}
                   name={"search"}
+                  placeholder={t("search_place")}
                   onChange={handleInputChange}
                   prefix={
                     <div
@@ -338,6 +339,7 @@ const SearchBtn = ({ categoryData }: Props) => {
                 onKeyDown={handleKeyPress}
                 className={styles.search_input}
                 name={"search"}
+                placeholder={t("search_place")}
                 onChange={handleInputChange}
                 prefix={
                   <div
