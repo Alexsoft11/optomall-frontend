@@ -369,6 +369,7 @@ const SearchBtn = ({ categoryData }: Props) => {
         >
           <Dragger
             {...uploadProps}
+            accept="image/*"
             id="upload-input"
             className="antd-search-upload"
           >
