@@ -152,7 +152,6 @@ const SearchBtn = ({ categoryData }: Props) => {
           `/product/${providerInfo.id}?provider=${providerInfo.provider}`
         );
       } else {
-        return;
         // Proceed with the existing search logic
         const newQuery: any = {
           value: values.search.toLowerCase(),
