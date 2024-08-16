@@ -28,10 +28,11 @@ export default function GoogleButton() {
       if (res.message === "add_personal_data" || !res.info_filled) {
         message.error(t(`Auth.${res.error}`));
         push(`/auth?step=info&id=${res.unique_id}`)
+        return
       }
 
       if (!res.token) {
-        message.error("something_wrong");
+        message.error(t('Auth.something_wrong'))
         return;
       }
 
