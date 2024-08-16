@@ -21,6 +21,7 @@ import { useTranslations } from "next-intl";
 import { useJwt } from "@/utils/useJwt";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import SvgSelector from "$/assets/icons/SvgSelector";
 
 interface Props {
   product: ProductDetailInterface;
@@ -381,15 +382,18 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                             }`}
                           >
                             {imageUrl && (
-                              <div
-                                onClick={() => {
-                                  const validImageUrls = keys
-                                    .map(({ imageUrl }) => imageUrl)
-                                    .filter((url): url is string => !!url); // Filters out undefined values
-                                  handleImageClick(validImageUrls, index);
-                                }}
-                                className="img-box"
-                              >
+                              <div className="img-box">
+                                <span
+                                  className="view-icon"
+                                  onClick={() => {
+                                    const validImageUrls = keys
+                                      .map(({ imageUrl }) => imageUrl)
+                                      .filter((url): url is string => !!url);
+                                    handleImageClick(validImageUrls, index);
+                                  }}
+                                >
+                                  <SvgSelector id="open-image-view-svg" />
+                                </span>
                                 <Image src={imageUrl} alt={value} fill />
                               </div>
                             )}

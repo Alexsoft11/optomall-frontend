@@ -179,7 +179,19 @@
 
         .img-box {
           position: relative;
-
+          .view-icon {
+            position: absolute;
+            z-index: 1;
+            top: 5px;
+            right: 10px;
+            svg {
+              width: 20px;
+              height: 20px;
+              path {
+                fill: var(--primary-color);
+              }
+            }
+          }
           img {
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
