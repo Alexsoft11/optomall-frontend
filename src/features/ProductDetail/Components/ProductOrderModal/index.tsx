@@ -71,13 +71,10 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       disableOnMount: true,
     },
     onSuccess(res) {
-      message.success(t(`Product-detail.${res.message}`), 2)
-      const { parsedSku } = groupProperties(
-        skus,
-        prop_imgs
-      );
-      setSelectedSku([parsedSku[0]])
-      setCurrentSku(parsedSku[0])
+      message.success(t(`Product-detail.${res.message}`), 2);
+      const { parsedSku } = groupProperties(skus, prop_imgs);
+      setSelectedSku([parsedSku[0]]);
+      setCurrentSku(parsedSku[0]);
       res.order_group ? router.push(`/order/${res.order_group}`) : null;
     },
   });
@@ -129,13 +126,13 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       const { id, title, product_url, image, seller_info } = product;
 
       let item: CreateBaskettemsDataInterface = {
-        product_id: id,
+        product_id: id.toString(),
         title: title,
         price: el.price,
         quantity: el.selected_quantity,
         image_url: getImageUrl(el.properties.split(";")) || image,
         product_url: product_url,
-        seller_id: seller_info?.user_num_id?.toString(),
+        seller_id: seller_info?.user_num_id?.toString() || "default",
         provider: provider as string,
         sku_id: el.sku_id.toString(),
         properties: el.parsedProperties!,
@@ -154,11 +151,11 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         items: items,
         total_price: getTotalPrice() as number,
       };
-      
+
       createUserBasket(data);
       return;
     }
-    
+
     createUserBasket(items);
   };
 
@@ -180,7 +177,11 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
   };
 
   const handleSizeChange = (value: number) => {
-    if (value < 0 || (currentSku?.quantity && value > currentSku?.quantity) || !currentSku?.quantity)
+    if (
+      value < 0 ||
+      (currentSku?.quantity && value > currentSku?.quantity) ||
+      !currentSku?.quantity
+    )
       return;
 
     if (!currentSku) return;
@@ -319,7 +320,11 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
             <Button
               className={styles.addToCart}
               size="large"
-              label={type === "to_cart"? t("Product-detail.addToCart") : t("Product-detail.buy")}
+              label={
+                type === "to_cart"
+                  ? t("Product-detail.addToCart")
+                  : t("Product-detail.buy")
+              }
               type="primary"
               onClick={toOrder}
             />
