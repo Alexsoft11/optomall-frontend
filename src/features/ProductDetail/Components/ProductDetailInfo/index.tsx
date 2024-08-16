@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import styles from "./ProductDetailInfo.module.scss";
 import { Button, Dropdown, Rate } from "antd";
 import SliderColors from "../SliderColors";
@@ -33,6 +33,7 @@ const ProductDetailInfo: React.FC<Props> = ({
   setSelectedImage,
 }) => {
   const [showAll, setShowAll] = useState(false);
+  const divRef = useRef<HTMLDivElement>(null);
 
   const scrollToTop = (pixels: number = 100): void => {
     window.scrollTo({
@@ -42,10 +43,11 @@ const ProductDetailInfo: React.FC<Props> = ({
   };
 
   const handleToggleShowAll = () => {
-    setShowAll(!showAll);
-    if (showAll) {
-      scrollToTop(600);
+    if (showAll && divRef?.current) {
+      const height = divRef.current.offsetHeight;
+      scrollToTop(height - 50);
     }
+    setShowAll(!showAll);
   };
 
   const t = useTranslations("Product-detail");
@@ -128,7 +130,7 @@ const ProductDetailInfo: React.FC<Props> = ({
           colorsBasket={colorsBasket}
         /> */}
         </div>
-        <div className={styles.productDetails}>
+        <div ref={divRef} className={styles.productDetails}>
           {(showAll
             ? product?.composition
             : product?.composition.slice(0, 4)
