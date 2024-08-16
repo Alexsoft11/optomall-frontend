@@ -14,7 +14,8 @@ import { groupProperties } from "@/utils/orderFunctions";
 import Image from "next/image";
 import { MinusSvg, PlusSvg, SearchSvg } from "$/assets/images";
 import styles from "./ProductOrderModal.module.scss";
-import { Button as AntdButton, message, Tooltip, Badge } from "antd";
+import { Button as AntdButton, Tooltip, Badge } from "antd";
+import Lightbox from "react-awesome-lightbox";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
 import { useJwt } from "@/utils/useJwt";
@@ -57,6 +58,16 @@ const ProductOrderModal = ({
   const [selectedSku, setSelectedSku] = useState<SKU[] | []>();
   const [currentSku, setCurrentSku] = useState<SKU>();
   const token = useJwt();
+  const [isOpen, setIsOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const [currentImages, setCurrentImages] = useState<string[]>([]);
+
+  const handleImageClick = (images: string[], index: number) => {
+    setCurrentImages(images);
+    setPhotoIndex(index);
+    setIsOpen(true);
+  };
+
   const { appendData: createUserBasket } = useQueryApiClient({
     request: {
       url: `user-basket`,
@@ -115,7 +126,7 @@ const ProductOrderModal = ({
         max_quantity: el.quantity,
         image_url: getImageUrl(el.properties.split(";")) || product.image,
         product_url: product.product_url,
-        seller_id: product.seller_id.toString(),
+        seller_id: product?.seller_info?.user_num_id?.toString(),
         provider: provider as string,
         sku_id: el.sku_id.toString(),
         properties: el.parsedProperties!,
@@ -350,32 +361,40 @@ const ProductOrderModal = ({
                     }}
                     pagination={{ clickable: true }}
                   >
-                    {keys.map(({ value, propId, imageUrl }) => (
+                    {keys.map(({ value, propId, imageUrl }, index) => (
                       <SwiperSlide key={propId}>
-                        <div
-                          key={propId}
-                          onClick={() => handlePropertySelect(propId, propName)}
-                          className={`img-block ${
-                            currentSku?.properties.split(";").includes(propId)
-                              ? styles.active
-                              : !getExist(propId, parsedSku)
-                              ? styles.disable
-                              : ""
-                          }`}
-                        >
-                          {imageUrl && (
-                            <div className="img-box">
-                              <Image src={imageUrl} alt={value} fill />
-                            </div>
-                          )}
-                          <div className="img-describtion">
-                            <Badge
-                              count={getPropertyQuantity(propId, propName)}
-                            >
+                        <Badge count={getPropertyQuantity(propId, propName)}>
+                          <div
+                            key={propId}
+                            onClick={() =>
+                              handlePropertySelect(propId, propName)
+                            }
+                            className={`img-block ${
+                              currentSku?.properties.split(";").includes(propId)
+                                ? styles.active
+                                : !getExist(propId, parsedSku)
+                                ? styles.disable
+                                : ""
+                            }`}
+                          >
+                            {imageUrl && (
+                              <div
+                                onClick={() => {
+                                  const validImageUrls = keys
+                                    .map(({ imageUrl }) => imageUrl)
+                                    .filter((url): url is string => !!url); // Filters out undefined values
+                                  handleImageClick(validImageUrls, index);
+                                }}
+                                className="img-box"
+                              >
+                                <Image src={imageUrl} alt={value} fill />
+                              </div>
+                            )}
+                            <div className="img-describtion">
                               <p>{value}</p>
-                            </Badge>
+                            </div>
                           </div>
-                        </div>
+                        </Badge>
                       </SwiperSlide>
                     ))}
                   </Swiper>
@@ -422,6 +441,15 @@ const ProductOrderModal = ({
         </div>
       </Modal>
       <Modal {...modalProps} />
+
+      {isOpen && (
+        <Lightbox
+          images={currentImages.map((img) => ({ url: img }))}
+          onClose={() => setIsOpen(false)}
+          startIndex={photoIndex} // Starting index for the lightbox
+          doubleClickZoom={2} // Zoom level on double-click
+        />
+      )}
     </div>
   );
 };

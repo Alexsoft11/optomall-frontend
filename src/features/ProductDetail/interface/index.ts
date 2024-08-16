@@ -72,6 +72,22 @@ export interface SellerInfoInterface {
   credit_score: number | null;
   shop_name: string;
 }
+
+interface SellerInfo {
+  nick: string;            // Seller's nickname
+  item_score: number;      // Score for items (usually a float)
+  score_p: number;         // Score percentage (usually a float)
+  delivery_score: number;  // Score for delivery (usually a float)
+  shop_type: string;       // Type of the shop (could be an empty string if not specified)
+  user_num_id: string;     // User number ID (typically a string)
+  sid: string | null;      // Shop ID (could be a string or null)
+  title: string;           // Title of the shop (could be an empty string if not specified)
+  zhuy: string;            // URL for the shop
+  cert: string | null;     // Certification (could be a string or null)
+  open_time: string;       // Duration since the shop opened
+  credit_score: string;    // Credit score (usually a string)
+  shop_name: string;       // Name of the shop
+}
 export interface ProductDetailInterface {
   id: string;
   title: string;

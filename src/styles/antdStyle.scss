@@ -94,7 +94,9 @@
     }
   }
 }
-
+.ant-modal-wrap {
+  overflow-x: hidden !important;
+}
 .order-modal {
   .ant-modal-close {
     right: 30px !important;
@@ -119,6 +121,9 @@
       gap: 20px;
 
       .totalPrice {
+        @media screen and (max-width: 500px) {
+          display: none;
+        }
         h3 {
           font-size: 20px;
           font-weight: 400;
@@ -129,7 +134,7 @@
   }
   .order-modal-body {
     width: 800px;
-    max-width: 80dvw;
+    max-width: 84dvw;
 
     .ant-modal-close {
       left: 30px !important;
@@ -167,7 +172,8 @@
             border-bottom-right-radius: 10px;
             height: 100%;
             width: 100%;
-            padding: 3px;
+            padding: 8px;
+            min-height: 50px;
           }
         }
 
@@ -213,11 +219,10 @@
             width: min-content !important;
             display: flex;
             justify-content: flex-end;
-            height: auto;
             flex-direction: column;
             border-radius: 10px;
             cursor: pointer;
-
+            padding-top: 10px;
             .img-box {
               position: relative;
               width: 120px;
@@ -231,4 +236,10 @@
 }
 .ant-dropdown {
   z-index: 999 !important;
+}
+
+.ReactModal__Overlay {
+  &.ReactModal__Overlay--after-open {
+    z-index: 9999 !important;
+  }
 }

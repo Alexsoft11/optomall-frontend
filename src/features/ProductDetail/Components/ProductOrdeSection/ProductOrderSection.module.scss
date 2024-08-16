@@ -6,7 +6,7 @@
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
   padding: 20px;
   margin-bottom: auto;
-  min-width: 350px;
+  min-width: 300px;
   @media screen and (min-width: 856px) {
     max-width: 400px;
   }
@@ -102,6 +102,7 @@
   color: white !important;
   border: none !important;
   padding: 10px 20px !important;
+  max-width: 300px;
   cursor: pointer;
   &:hover {
     background-color: #ff6a00 !important;
@@ -154,8 +155,8 @@
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 60px;
-    z-index: 999;
+    bottom: 58px;
+    z-index: 99;
     padding: 20px;
     background: #fff;
     box-shadow: 0px -4px 35px 0px #0000001a;

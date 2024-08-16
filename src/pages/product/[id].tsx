@@ -34,7 +34,6 @@ const ProductDetailSectionLocal = dynamic(
 );
 
 const ProductDetail = ({ product }: ProductDetailProps) => {
-  
   const { query, locale } = useRouter();
   const { data: productComments } = useQueryApiClient({
     request: {
@@ -96,7 +95,7 @@ export const getServerSideProps = async (context: any) => {
 
     const params = {
       productId: context.params.id,
-      lang: "en",
+      lang: context.locale,
       provider: provider,
     };
 

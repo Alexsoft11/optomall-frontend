@@ -78,7 +78,10 @@ const ProductDetailSection = ({
               />
             </div>
           </div>
-          <div>
+          <div
+            // style={{ overflowX: "hidden" }}
+            className={styles.product_description}
+          >
             <Tabs defaultActiveKey="1" items={items} />
           </div>
           <RecomendedProducts recomendedData={recommended} />

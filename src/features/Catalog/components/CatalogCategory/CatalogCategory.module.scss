@@ -1,108 +1,113 @@
 .categories {
+  padding-top: 20px;
+
+  @media (min-width: 970px) {
+    display: none;
+  }
+
+  &__title {
+    font-size: var(--heading-six);
+    font-weight: 400;
+    line-height: 1.5125rem;
+    text-align: left;
+
+    margin-bottom: 20px;
+  }
+  .sub_title {
+    a {
+      color: var(--black-color);
+      font-weight: 600;
+    }
+  }
+  &__search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
     padding-top: 20px;
+  }
 
-    @media (min-width:970px) {
-        display: none;
+  &__ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 10px 0px 20px 0px;
+
+    a {
+      color: var(--black-color);
+      &:hover {
+        color: var(--primary-color);
+      }
+    }
+  }
+
+  &__card {
+    max-width: 110px;
+    max-height: 110px;
+    min-width: 110px;
+    min-height: 110px;
+    border-radius: 10px;
+    background-color: var(--light-grey-2);
+
+    padding: 10px 18px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+
+    @media (max-width: 390px) {
+      max-width: 150px;
+      max-height: 150px;
+      gap: 16px;
     }
 
-    &__title {
-        font-size: var(--heading-six);
-        font-weight: 400;
-        line-height: 1.5125rem;
-        text-align: left;
+    p {
+      color: var(--black-color);
+      text-align: center;
+      font-size: var(--paragraph-three);
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
 
-        margin-bottom: 20px;
+  &__card_image {
+    max-width: 60px;
+    max-height: 60px;
+
+    @media (max-width: 390px) {
+      max-width: 80px;
+      max-height: 80px;
+      gap: 16px;
     }
 
-    &__search {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    img {
+      width: 100%;
+      height: 100%;
     }
+  }
 
-    &__cards {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+  &__text {
+    color: var(--black-color);
+    font-size: var(--paragraph-two);
+    font-weight: 400;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
-        padding-top: 20px;
+    -webkit-box-orient: vertical;
+    @media (max-width: 768px) {
+      margin-bottom: 5px;
     }
-
-    &__ul {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-
-        padding: 10px 0px 20px 0px;
-
-        a {
-            color: var(--black-color);
-            &:hover {
-                color: var(--primary-color);
-            }
-        }
-    }
-
-    &__card {
-        max-width: 110px;
-        max-height: 110px;
-        min-width: 110px;
-        min-height: 110px;
-        border-radius: 10px;
-        background-color: var(--light-grey-2);
-
-        padding: 10px 18px;
-
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-        gap: 8px;
-
-        @media (max-width:390px) {
-            max-width: 150px;
-            max-height: 150px;
-            gap: 16px;
-        }
-
-        p {
-            color: var(--black-color);
-            text-align: center;
-            font-size: var(--paragraph-three);
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-        }
-    }
-
-    &__card_image {
-        max-width: 60px;
-        max-height: 60px;
-
-        @media (max-width:390px) {
-            max-width: 80px;
-            max-height: 80px;
-            gap: 16px;
-        }
-
-        img {
-            width: 100%;
-            height: 100%;
-        }
-    }
-
-    &__text {
-        color: var(--black-color);
-        font-size: var(--paragraph-two);
-        font-weight: 400;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        text-overflow: ellipsis;
-        overflow: hidden;
-    
-        -webkit-box-orient: vertical;
-        @media (max-width: 768px) {
-          margin-bottom: 5px;
-        }
-    }
+  }
 }

@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import styles from "./ProductDetailInfo.module.scss";
 import { Button, Dropdown, Rate } from "antd";
 import SliderColors from "../SliderColors";
@@ -33,8 +33,20 @@ const ProductDetailInfo: React.FC<Props> = ({
   setSelectedImage,
 }) => {
   const [showAll, setShowAll] = useState(false);
+  const divRef = useRef<HTMLDivElement>(null);
+
+  const scrollToTop = (pixels: number = 100): void => {
+    window.scrollTo({
+      top: window.scrollY - pixels,
+      behavior: "smooth",
+    });
+  };
 
   const handleToggleShowAll = () => {
+    if (showAll && divRef?.current) {
+      const height = divRef.current.offsetHeight;
+      scrollToTop(height - 50);
+    }
     setShowAll(!showAll);
   };
 
@@ -118,7 +130,7 @@ const ProductDetailInfo: React.FC<Props> = ({
           colorsBasket={colorsBasket}
         /> */}
         </div>
-        <div className={styles.productDetails}>
+        <div ref={divRef} className={styles.productDetails}>
           {(showAll
             ? product?.composition
             : product?.composition.slice(0, 4)
@@ -130,13 +142,14 @@ const ProductDetailInfo: React.FC<Props> = ({
               </div>
             </Fragment>
           ))}
-
-          <button
-            onClick={handleToggleShowAll}
-            className={styles.showAllButton}
-          >
-            {showAll ? "Скрыть" : "Все характеристики и описание"}
-          </button>
+          {product?.composition && product?.composition?.length > 4 && (
+            <button
+              onClick={handleToggleShowAll}
+              className={styles.showAllButton}
+            >
+              {showAll ? "Скрыть" : "Все характеристики и описание"}
+            </button>
+          )}
         </div>
       </div>
 

@@ -48,7 +48,7 @@ const ProductDetailImages = ({
       </Swiper>
 
       <Detail selectedImage={selectedImage} product={product} />
-      <div className={styles.productDetail__inner_image}></div>
+      {/* <div className={styles.productDetail__inner_image}></div> */}
     </div>
   );
 };

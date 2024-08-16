@@ -3,7 +3,7 @@ import styles from "./Search.module.scss";
 import { useRouter } from "next/router";
 import { Button, Input, Modal } from "@/ui";
 import SvgSelector from "$/assets/icons/SvgSelector";
-import { Dropdown, Form, Menu } from "antd";
+import { Dropdown, Form, Menu, message } from "antd";
 import { Upload } from "antd";
 import { UploadProps } from "antd/lib";
 import useQueryApiClient from "@/utils/useQueryApiClient";
@@ -152,7 +152,6 @@ const SearchBtn = ({ categoryData }: Props) => {
           `/product/${providerInfo.id}?provider=${providerInfo.provider}`
         );
       } else {
-        return;
         // Proceed with the existing search logic
         const newQuery: any = {
           value: values.search.toLowerCase(),
@@ -245,14 +244,79 @@ const SearchBtn = ({ categoryData }: Props) => {
     setFileList([]);
   };
 
+  const resizeImage = (file: File): Promise<File> => {
+    return new Promise((resolve, reject) => {
+      const img = document.createElement("img");
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+  
+      img.onload = () => {
+        const maxWidth = 600;
+        const maxHeight = 600;
+  
+        let width = img.width;
+        let height = img.height;
+  
+        if (width > maxWidth || height > maxHeight) {
+          if (width > height) {
+            height *= maxWidth / width;
+            width = maxWidth;
+          } else {
+            width *= maxHeight / height;
+            height = maxHeight;
+          }
+        }
+  
+        canvas.width = width;
+        canvas.height = height;
+  
+        ctx?.drawImage(img, 0, 0, width, height);
+  
+        canvas.toBlob(
+          (blob) => {
+            if (blob) {
+              const resizedFile = new File([blob], file.name, {
+                type: file.type,
+                lastModified: Date.now(),
+              });
+              resolve(resizedFile);
+            } else {
+              reject(new Error("Error resizing image"));
+            }
+          },
+          file.type,
+          1
+        );
+      };
+  
+      img.onerror = reject;
+  
+      img.src = URL.createObjectURL(file);
+    });
+  };
+  const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+  
   const uploadProps: UploadProps = {
     name: "file",
     multiple: true,
-    customRequest({ file, onSuccess, onError }) {
-      const formData = new FormData();
-      formData.append("image", file);
-
-      postUploadData(formData);
+    beforeUpload: (file) => {
+      const isValidType = allowedTypes.includes(file.type);
+      if (!isValidType) {
+        message.error(t("upload_validate"));
+      }
+      return isValidType || Upload.LIST_IGNORE;
+    },
+    customRequest: async ({ file, onSuccess, onError }) => {
+      try {
+        const resizedFile = await resizeImage(file as File);
+  
+        const formData = new FormData();
+        formData.append("image", resizedFile);
+  
+        postUploadData(formData);
+      } catch (error) {
+        console.log('error')
+      }
     },
     onChange(info: any) {
       setFileList(info.fileList);
@@ -262,6 +326,7 @@ const SearchBtn = ({ categoryData }: Props) => {
     },
     fileList,
   };
+  
 
   const menuItems = filteredItems.map((hint, index) => ({
     key: hint.id,
@@ -304,6 +369,7 @@ const SearchBtn = ({ categoryData }: Props) => {
                   onKeyDown={handleKeyPress}
                   className={styles.search_input}
                   name={"search"}
+                  placeholder={t("search_place")}
                   onChange={handleInputChange}
                   prefix={
                     <div
@@ -339,6 +405,7 @@ const SearchBtn = ({ categoryData }: Props) => {
                 onKeyDown={handleKeyPress}
                 className={styles.search_input}
                 name={"search"}
+                placeholder={t("search_place")}
                 onChange={handleInputChange}
                 prefix={
                   <div
@@ -370,6 +437,7 @@ const SearchBtn = ({ categoryData }: Props) => {
         >
           <Dragger
             {...uploadProps}
+            accept="image/*"
             id="upload-input"
             className="antd-search-upload"
           >

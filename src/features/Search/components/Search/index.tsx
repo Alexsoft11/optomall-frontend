@@ -18,66 +18,65 @@ interface Props {
 
 const Search = ({ data = [] }: Props) => {
   const t = useTranslations("Search");
-  const router = useRouter();
-  const [activePlatform, setActivePlatform] = useState(router.query.provider);
+  const { query, pathname, replace, locale } = useRouter();
+  const [activePlatform, setActivePlatform] = useState(query.provider);
   const [form] = Form.useForm();
   const token = useJwt();
   const [products, setProducts] = useState(data);
   const [hasMore, setHasMore] = useState(true);
   const [activeSort, setActiveSort] = useState<string>("");
-  
+
   const handleButtonClick = (platform: any) => {
     const newQuery = {
-      ...router.query,
-      provider: platform || "taobao",
+      ...query,
+      provider: platform || "1688",
     };
-    router.replace({ pathname: router.pathname, query: newQuery }, undefined, {
+    replace({ pathname: pathname, query: newQuery }, undefined, {
       shallow: true,
     });
     setActivePlatform(platform);
   };
 
   const handleFilter = (sortType: string) => {
-    const newQuery = { ...router.query };
+    const newQuery = { ...query };
     setActiveSort(sortType);
-  
+
     if (sortType) {
       newQuery.sort = sortType;
     } else {
       delete newQuery.sort;
     }
-  
-    router.replace({ pathname: router.pathname, query: newQuery }, undefined, {
+
+    replace({ pathname: pathname, query: newQuery }, undefined, {
       shallow: true,
     });
   };
 
   useEffect(() => {
-    if (router.query) {
-      form.setFieldsValue(router.query);
+    if (query) {
+      form.setFieldsValue(query);
     } else {
       form.resetFields();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query.value]);
+  }, [query.value]);
 
   useEffect(() => {
-    if (router.query) {
+    if (query) {
       getSearchRes({
-        ...router.query,
-  
-        lang: router.locale,
+        ...query,
+        lang: "en",
         page: 2,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query, router.locale]);
+  }, [query, locale]);
 
-  const handleGetProduct = (query?: any) => {
+  const handleGetProduct = (custom?: any) => {
     getProducts({
-      ...router.query,
+      ...custom,
       ...query,
-      lang: router.locale,
+      lang: "en",
     });
   };
 
@@ -97,6 +96,9 @@ const Search = ({ data = [] }: Props) => {
       },
       onSuccess(res: any) {
         setProducts(res.products);
+      },
+      onError(err) {
+        setProducts([]);
       },
     });
 
@@ -120,7 +122,7 @@ const Search = ({ data = [] }: Props) => {
   const { appendData: getCategoryData, data: categoryData } = useQueryApiClient(
     {
       request: {
-        url: `categories-from-taobao?lang=${router.locale}`,
+        url: `categories-from-taobao?lang=${locale}`,
         method: "GET",
       },
     }
@@ -130,7 +132,8 @@ const Search = ({ data = [] }: Props) => {
     if (window.innerWidth <= 768) {
       getCategoryData();
     }
-  }, [router.locale]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locale]);
 
   return (
     <>
@@ -158,11 +161,10 @@ const Search = ({ data = [] }: Props) => {
                   <SvgSelector id="taobao-svg" />
                   <span>Taobao</span>
                 </button>
-              
               </div>
 
               <div className={styles.search__btn}>
-                <SearchBtn categoryData={categoryData.categories}/>
+                <SearchBtn categoryData={categoryData.categories} />
               </div>
 
               <div className={styles.search__top}>

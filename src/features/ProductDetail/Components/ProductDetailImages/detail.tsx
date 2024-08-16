@@ -6,11 +6,14 @@ import Image from "next/image";
 import SliderSection from "../SliderSection";
 import { detailData } from "@/mockdata/detailData";
 import CustomImage from "@/components/CustomImage";
+import Lightbox from "react-awesome-lightbox";
 
 const isMobile = (windowWidth: number) => windowWidth > 850;
 
 const Detail = ({ selectedImage, product }: any) => {
   const [windowWidth, setWindowWidth] = useState(0);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,6 +30,16 @@ const Detail = ({ selectedImage, product }: any) => {
     };
   }, []);
 
+  const images = [
+    selectedImage,
+    ...product.pictures.map((p: any) => p.image_url),
+  ];
+
+  const handleImageClick = (index: number) => {
+    setCurrentImageIndex(index);
+    setIsOpen(true);
+  };
+
   return (
     <>
       <div className={styles.detail}>
@@ -38,6 +51,7 @@ const Detail = ({ selectedImage, product }: any) => {
             imgClass={styles.img}
             isLink={false}
             loading="lazy"
+            onClick={() => handleImageClick(1)}
           />
         ) : (
           <>
@@ -47,6 +61,14 @@ const Detail = ({ selectedImage, product }: any) => {
           </>
         )}
       </div>
+      {isOpen && (
+        <Lightbox
+          images={images.map((img: string) => ({ url: img }))}
+          onClose={() => setIsOpen(false)}
+          startIndex={currentImageIndex} // Starting index for the lightbox
+          doubleClickZoom={2}
+        />
+      )}
     </>
   );
 };
