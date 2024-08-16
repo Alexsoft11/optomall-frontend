@@ -98,17 +98,7 @@
   overflow-x: hidden !important;
 }
 .order-modal {
-  @media screen and (max-width: 400px) {
-    position: absolute !important;
-    bottom: 0 !important;
-    top: auto !important;
-    padding-bottom: 0 !important;
-    margin-bottom: 0 !important;
-    .ant-modal-content {
-      width: 100% !important;
-      border-bottom-right-radius: 0 !important;
-    }
-  }
+  
   .ant-modal-close {
     right: 30px !important;
     top: 25px !important;
@@ -132,7 +122,7 @@
       gap: 20px;
 
       .totalPrice {
-        @media screen and (max-width: 400px) {
+        @media screen and (max-width: 500px) {
           display: none;
         }
         h3 {
