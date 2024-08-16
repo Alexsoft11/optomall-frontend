@@ -39,6 +39,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
   const [groupedProperties, setGroupedProperties] = useState<GroupedProperties>(
     {}
   );
+  const [messageApi, contextHolder] = message.useMessage();
+  const [messageVisible, setMessageVisible] = useState(false);
   const [propertiesWithImages, setPropertiesWithImages] = useState<{
     [key: string]: {
       keys: { value: string; imageUrl?: string; propId: string }[];
@@ -121,7 +123,19 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     const newSelectedSku = selectedSku?.filter(
       (el) => el.selected_quantity > 0
     );
-    if (!newSelectedSku?.length) return;
+    
+    if (!newSelectedSku?.length) {
+      
+      if (!messageVisible) {
+        setMessageVisible(true);
+        messageApi.open({
+          type: "success",
+          content: t("Cart.chooseItem"),
+          onClose: () => setMessageVisible(false),
+        });
+      }
+      return;
+    }
 
     const items: CreateBaskettemsDataInterface[] = newSelectedSku.map((el) => {
       const { id, title, product_url, image, seller_info } = product;
@@ -284,6 +298,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
 
   return (
     <div>
+      {contextHolder}
       <Modal
         className="order-modal"
         onCancel={handleCloseModal}

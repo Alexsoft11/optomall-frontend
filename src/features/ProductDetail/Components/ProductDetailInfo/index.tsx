@@ -18,6 +18,8 @@ import {
   SKUProperty,
 } from "../../interface";
 import ProductOrderSection from "../ProductOrdeSection";
+import { ArrowRight, TravelDateImg } from "$/assets/images";
+import Image from "next/image";
 
 interface Props {
   productDetails?: any;
@@ -150,6 +152,11 @@ const ProductDetailInfo: React.FC<Props> = ({
               {showAll ? t("hide") : t("allSpecificationsAndDescription")}
             </button>
           )}
+          <button className={styles.travelDate}>
+            <Image src={TravelDateImg} width={14} height={14} alt="#" />
+            <p>Lorem ipsum dolor sit amet</p>
+            <Image src={ArrowRight} width={14} height={14} alt="#" />
+          </button>
         </div>
       </div>
 

@@ -20,3 +20,5 @@ export { default as UploadIcon } from "./uploadIcon.svg";
 export { default as editAccountIcon } from "./editAccountIcon.svg";
 export { default as AddSvg } from "./AddSvg.svg";
 export { default as HeadPhone } from "./headphone.png";
+export { default as TravelDateImg } from "./truck-time.svg";
+export { default as ArrowRight } from "./arrow-right.svg";
