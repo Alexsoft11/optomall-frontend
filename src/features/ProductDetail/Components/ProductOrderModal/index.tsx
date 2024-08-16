@@ -14,7 +14,7 @@ import { groupProperties } from "@/utils/orderFunctions";
 import Image from "next/image";
 import { MinusSvg, PlusSvg, SearchSvg } from "$/assets/images";
 import styles from "./ProductOrderModal.module.scss";
-import { Button as AntdButton, Tooltip, Badge } from "antd";
+import { Button as AntdButton, Tooltip, Badge, message } from "antd";
 import Lightbox from "react-awesome-lightbox";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
@@ -26,17 +26,9 @@ interface Props {
   product: ProductDetailInterface;
   setOrderType?: any;
   type?: "to_order" | "to_cart" | null;
-  setBasketData: React.Dispatch<
-    React.SetStateAction<{} | CreateOrderDataInterface>
-  >;
 }
 
-const ProductOrderModal = ({
-  product,
-  setOrderType,
-  type,
-  setBasketData,
-}: Props) => {
+const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
   const t = useTranslations();
   const { skus, prop_imgs } = product || {};
   const router = useRouter();
@@ -74,9 +66,19 @@ const ProductOrderModal = ({
 
   const { appendData: createUserBasket } = useQueryApiClient({
     request: {
-      url: `user-basket`,
+      url: type && type === "to_cart" ? `user-basket` : "orders",
       method: "POST",
       disableOnMount: true,
+    },
+    onSuccess(res) {
+      message.success(t(`Product-detail.${res.message}`), 2)
+      const { parsedSku } = groupProperties(
+        skus,
+        prop_imgs
+      );
+      setSelectedSku([parsedSku[0]])
+      setCurrentSku(parsedSku[0])
+      res.order_group ? router.push(`/order/${res.order_group}`) : null;
     },
   });
   const handleCloseModal = () => {
@@ -103,8 +105,6 @@ const ProductOrderModal = ({
     }
   }, [skus, prop_imgs]);
 
-  useEffect(() => {}, []);
-
   const getImageUrl = (propertys: string[]) => {
     let url = "";
     Object.values(propertiesWithImages).map(({ keys }) => {
@@ -120,26 +120,45 @@ const ProductOrderModal = ({
   };
 
   const toOrder = () => {
-    if (!selectedSku) return;
-    const items: CreateBaskettemsDataInterface[] = selectedSku?.map((el) => {
-      return {
-        product_id: product.id,
-        title: product.title,
+    const newSelectedSku = selectedSku?.filter(
+      (el) => el.selected_quantity > 0
+    );
+    if (!newSelectedSku?.length) return;
+
+    const items: CreateBaskettemsDataInterface[] = newSelectedSku.map((el) => {
+      const { id, title, product_url, image, seller_info } = product;
+
+      let item: CreateBaskettemsDataInterface = {
+        product_id: id,
+        title: title,
         price: el.price,
         quantity: el.selected_quantity,
-        max_quantity: el.quantity,
-        image_url: getImageUrl(el.properties.split(";")) || product.image,
-        product_url: product.product_url,
-        seller_id: product?.seller_info?.user_num_id?.toString(),
+        image_url: getImageUrl(el.properties.split(";")) || image,
+        product_url: product_url,
+        seller_id: seller_info?.user_num_id?.toString(),
         provider: provider as string,
         sku_id: el.sku_id.toString(),
         properties: el.parsedProperties!,
       };
+
+      if (type === "to_cart") item.max_quantity = el.quantity;
+
+      return item;
     });
     if (!token) {
       setShowModal(true);
       return;
     }
+    if (type === "to_order") {
+      const data: CreateOrderDataInterface = {
+        items: items,
+        total_price: getTotalPrice() as number,
+      };
+      
+      createUserBasket(data);
+      return;
+    }
+    
     createUserBasket(items);
   };
 
@@ -160,35 +179,8 @@ const ProductOrderModal = ({
     open: showModal,
   };
 
-  useEffect(() => {
-    if (!selectedSku || !product) return;
-    const items: CreateOrderItemsDataInterface[] = selectedSku?.map((el) => {
-      return {
-        product_id: product.id,
-        title: product.title,
-        price: el.price,
-        quantity: el.selected_quantity,
-        image_url: getImageUrl(el.properties.split(";")) || product.image,
-        product_url: product.product_url,
-        seller_id: product?.seller_info?.user_num_id?.toString(),
-        provider: provider as string,
-        sku_id: el.sku_id.toString(),
-        properties: el.parsedProperties!,
-      };
-    });
-
-    const data: CreateOrderDataInterface = {
-      items: items,
-      total_price: getTotalPrice() as number,
-    };
-
-    setBasketData(data);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSku, currentSku, product]);
-
-  // Old function for sku
   const handleSizeChange = (value: number) => {
-    if (value < 0 || (currentSku?.quantity && value > currentSku?.quantity))
+    if (value < 0 || (currentSku?.quantity && value > currentSku?.quantity) || !currentSku?.quantity)
       return;
 
     if (!currentSku) return;
@@ -327,10 +319,9 @@ const ProductOrderModal = ({
             <Button
               className={styles.addToCart}
               size="large"
-              label={t("Product-detail.buy")}
+              label={type === "to_cart"? t("Product-detail.addToCart") : t("Product-detail.buy")}
               type="primary"
               onClick={toOrder}
-              // onClick={handleAddToBasket}
             />
           </div>
         }

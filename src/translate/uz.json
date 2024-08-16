@@ -109,7 +109,7 @@
     "metaDescription": "ON-WAY hisobingizga xavfsiz kiring va maxsus funksiyalardan foydalaning hamda buyurtmalaringizni boshqaring.",
     "metaKeywords": "ON-WAY, kirish, hisobga kirish, xavfsiz kirish",
     "passwordHasEmpty": "Parolda bo'sh joy bo'lmasligi kerak!",
-    "address":"Manzil"
+    "address": "Manzil"
   },
   "Cart": {
     "item": "Mahsulotlar",
@@ -267,7 +267,12 @@
     "characteristic": "Xususiyatlari",
     "comments-not": "Sharhlar topilmadi",
     "recomendeds": "Shunga o'xshash mahsulotlar",
-    "buy": "Sotib olish"
+    "buy": "Sotib olish",
+    "addToCart": "Savatga qo'shish",
+    "Products_added_to_baskets": "Mahsulotlar savatga qo'shildi",
+    "order_created_successfully": "Buyurtma muvaffaqiyatli yaratildi",
+    "hide": "Yashirish",
+    "allSpecificationsAndDescription": "Barcha xususiyatlar va tavsif"
   },
   "Messages": {
     "dearClient": "Hurmatli mijoz, ",

@@ -20,50 +20,10 @@ interface Props {
 
 const ProductOrderSection: React.FC<Props> = ({ product }) => {
   const { push, asPath } = useRouter();
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const [baskedData, setBasketData] = useState<CreateOrderDataInterface | {}>(
-    {}
-  );
-  const token = useJwt();
-  const [orderModalType, setOrderModalType] = useState<
-    "to_order" | "to_cart" | null
-  >(null);
+
+  const [orderModalType, setOrderModalType] = useState<"to_order" | "to_cart" | null>(null);
   const t = useTranslations();
 
-  const modalProps = {
-    onCancel: () => setShowModal(false),
-    className: "bg_white",
-    img: SearchSvg,
-    description: t("Cart.authMessage"),
-    children: (
-      <Button
-        onClick={() => push(`/auth?step=signin&backUrl=${asPath}`)}
-        className="signIn_btn"
-        label={t("Cart.signin")}
-      />
-    ),
-    open: showModal,
-  };
-
-  const { appendData: createOrder } = useQueryApiClient({
-    request: {
-      url: `orders`,
-      method: "POST",
-      disableOnMount: true,
-    },
-    onSuccess(res) {
-      push(`order/${res.order_group}`);
-    },
-  });
-
-  const toBasket = () => {
-    if (!baskedData) return;
-    if (!token) {
-      setShowModal(true);
-      return;
-    }
-    createOrder(baskedData);
-  };
   return (
     <div className={styles.product_order}>
       <div className={styles.priceSection}>
@@ -91,16 +51,14 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
         />
         <Button
           className={styles.buy}
+          onClick={() => setOrderModalType("to_order")}
           label={t("Product-detail.buy")}
-          onClick={toBasket}
           iconPosition={"bottom"}
         />
       </div>
-      <Modal {...modalProps} />
       {product && (
         <ProductOrderModal
           product={product}
-          setBasketData={setBasketData}
           type={orderModalType}
           setOrderType={setOrderModalType}
         />

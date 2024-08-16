@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { use, useEffect, useRef } from "react";
 import styles from "./GetOtderPerson.module.scss";
 import { useTranslations } from "next-intl";
 import { Form, InputRef } from "antd";
@@ -24,9 +24,10 @@ export default function GetOrderPerson({ setPersonData, personData }: Props) {
   };
 
   useEffect(() => {
+    personData
     personData.name ? form.setFieldValue("name", personData.name) : null;
     personData.phone ? form.setFieldValue("phone", personData.phone) : null;
-  }, []);
+  }, [personData]);
 
   return (
     <div className={styles.main}>
@@ -57,7 +58,7 @@ export default function GetOrderPerson({ setPersonData, personData }: Props) {
             required
           >
             <MaskedInput
-              value={form.getFieldValue('phone')}
+              value={personData.phone}
               className={styles.maskedInput}
               ref={inputRef}
               onBlur={() => form.submit()}

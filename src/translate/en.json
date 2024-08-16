@@ -109,8 +109,7 @@
     "metaDescription": "Securely log in to your ON-WAY account to access exclusive features and manage your orders.",
     "metaKeywords": "ON-WAY, login, sign in, account access, secure login",
     "passwordHasEmpty": "Password cannot contain spaces!",
-    "address":"Address"
-
+    "address": "Address"
   },
   "Cart": {
     "item": "Items",
@@ -268,7 +267,12 @@
     "characteristic": "Characteristics",
     "comments-not": "No Comments",
     "recomendeds": "Similar products",
-    "buy": "Buy"
+    "buy": "Buy",
+    "addToCart": "Add to Cart",
+    "Products_added_to_baskets": "Products added to baskets",
+    "order_created_successfully": "Order created successfully",
+    "hide": "Hide",
+    "allSpecificationsAndDescription": "All specifications and description"
   },
   "Messages": {
     "dearClient": "Dear client, ",

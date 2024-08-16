@@ -41,8 +41,6 @@ export default function Order({ orderData, userData }: Props) {
 export const getServerSideProps = async (context: any) => {
   try {
     const cookies = cookie.parse(context.req.headers.cookie || "");
-
-    // Extract the token from the parsed cookies
     
     const token = decodeURIComponent(cookies.token);
     const { id } = context.query;

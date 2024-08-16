@@ -24,24 +24,19 @@ export default function GoogleButton() {
       disableOnMount: true,
     },
     onSuccess(res) {
-      if (query.step === "signUp" && !query.backUrl) {
+
+      if (res.info_filled) {
         push(`/auth?step=info&id=${res.unique_id}`);
-      } else {
-        if (res.message === "add_personal_data") {
-          // message.error(t(`${res.error}`));
-          push(`/auth?step=info&id=${res.unique_id}`);
-          return;
-        }
-        if (!res.token) {
-          message.error("something_wrong");
-          return;
-        }
-        // if (localStorage.getItem('basket-data')) {
-        //     API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
-        // }
-        cookie.set("token", res.token);
-        push((query.backUrl as string) || "/");
+        return;
       }
+
+      if (!res.token) {
+        message.error("something_wrong");
+        return;
+      }
+
+      cookie.set("token", res.token);
+      push((query.backUrl as string) || "/");
     },
   });
 
