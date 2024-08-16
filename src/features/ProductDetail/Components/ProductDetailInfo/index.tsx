@@ -142,13 +142,14 @@ const ProductDetailInfo: React.FC<Props> = ({
               </div>
             </Fragment>
           ))}
-
-          <button
-            onClick={handleToggleShowAll}
-            className={styles.showAllButton}
-          >
-            {showAll ? "Скрыть" : "Все характеристики и описание"}
-          </button>
+          {product?.composition && product?.composition?.length > 4 && (
+            <button
+              onClick={handleToggleShowAll}
+              className={styles.showAllButton}
+            >
+              {showAll ? "Скрыть" : "Все характеристики и описание"}
+            </button>
+          )}
         </div>
       </div>
 
