@@ -30,21 +30,6 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
   >(null);
   const t = useTranslations();
 
-  const modalProps = {
-    onCancel: () => setShowModal(false),
-    className: "bg_white",
-    img: SearchSvg,
-    description: t("Cart.authMessage"),
-    children: (
-      <Button
-        onClick={() => push(`/auth?step=signin&backUrl=${asPath}`)}
-        className="signIn_btn"
-        label={t("Cart.signin")}
-      />
-    ),
-    open: showModal,
-  };
-
   const { appendData: createOrder } = useQueryApiClient({
     request: {
       url: `orders`,
@@ -96,11 +81,9 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
           iconPosition={"bottom"}
         />
       </div>
-      <Modal {...modalProps} />
       {product && (
         <ProductOrderModal
           product={product}
-          setBasketData={setBasketData}
           type={orderModalType}
           setOrderType={setOrderModalType}
         />

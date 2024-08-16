@@ -25,16 +25,12 @@ interface Props {
   product: ProductDetailInterface;
   setOrderType?: any;
   type?: "to_order" | "to_cart" | null;
-  setBasketData: React.Dispatch<
-    React.SetStateAction<{} | CreateOrderDataInterface>
-  >;
 }
 
 const ProductOrderModal = ({
   product,
   setOrderType,
   type,
-  setBasketData,
 }: Props) => {
   const t = useTranslations();
   const { skus, prop_imgs } = product || {};
@@ -149,30 +145,28 @@ const ProductOrderModal = ({
     open: showModal,
   };
 
-  useEffect(() => {
-    if (!selectedSku) return;
-    const items: CreateOrderItemsDataInterface[] = selectedSku?.map((el) => {
-      return {
-        product_id: product.id,
-        title: product.title,
-        price: el.price,
-        quantity: el.selected_quantity,
-        image_url: getImageUrl(el.properties.split(";")) || product.image,
-        product_url: product.product_url,
-        seller_id: product.seller_id.toString(),
-        provider: provider as string,
-        sku_id: el.sku_id.toString(),
-        properties: el.parsedProperties!,
-      };
-    });
+  // useEffect(() => {
+  //   if (!selectedSku) return;
+  //   const items: CreateOrderItemsDataInterface[] = selectedSku?.map((el) => {
+  //     return {
+  //       product_id: product.id,
+  //       title: product.title,
+  //       price: el.price,
+  //       quantity: el.selected_quantity,
+  //       image_url: getImageUrl(el.properties.split(";")) || product.image,
+  //       product_url: product.product_url,
+  //       seller_id: product.seller_id,
+  //       provider: provider as string,
+  //       sku_id: el.sku_id.toString(),
+  //       properties: el.parsedProperties!,
+  //     };
+  //   });
 
-    const data: CreateOrderDataInterface = {
-      items: items,
-      total_price: getTotalPrice() as number,
-    };
-
-    setBasketData(data);
-  }, [selectedSku, currentSku]);
+  //   const data: CreateOrderDataInterface = {
+  //     items: items,
+  //     total_price: getTotalPrice() as number,
+  //   };
+  // }, [selectedSku, currentSku]);
 
   // Old function for sku
   const handleSizeChange = (value: number) => {
