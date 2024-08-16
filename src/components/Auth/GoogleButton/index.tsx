@@ -25,9 +25,9 @@ export default function GoogleButton() {
     },
     onSuccess(res) {
 
-      if (res.info_filled) {
-        push(`/auth?step=info&id=${res.unique_id}`);
-        return;
+      if (res.message === "add_personal_data" || !res.info_filled) {
+        message.error(t(`Auth.${res.error}`));
+        push(`/auth?step=info&id=${res.unique_id}`)
       }
 
       if (!res.token) {
