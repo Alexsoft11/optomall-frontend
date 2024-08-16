@@ -25,15 +25,38 @@ export interface SKUProperty {
   property_id?: string;
   selectedSku?: SKU;
 }
+interface ParsedProperty {
+  id: string;
+  name: string;
+  value: string;
+}
+
+export interface GroupedProperties {
+  [propId: string]: {
+    keys: { imageUrl?: string; value: string; propId: string }[];
+    propName: string;
+    imageUrl?: string;
+  };
+}
+
+export interface SelectedProperty {
+  name: string;
+  value: string;
+}
 
 // Interface for the SKU object
 export interface SKU {
-  quantity: number;
-  sku_id: string;
   price: number;
-  properties_ids: string;
-  properties: SKUProperty[];
+  total_price: number;
+  orginal_price: number;
+  properties: string;
+  properties_name: string;
+  quantity: number;
+  selected_quantity: number;
+  sku_id: string;
+  parsedProperties?: ParsedProperty[];
 }
+
 export interface SellerInfoInterface {
   nick: string;
   item_score: number;
@@ -48,6 +71,22 @@ export interface SellerInfoInterface {
   open_time: string;
   credit_score: number | null;
   shop_name: string;
+}
+
+interface SellerInfo {
+  nick: string;            // Seller's nickname
+  item_score: number;      // Score for items (usually a float)
+  score_p: number;         // Score percentage (usually a float)
+  delivery_score: number;  // Score for delivery (usually a float)
+  shop_type: string;       // Type of the shop (could be an empty string if not specified)
+  user_num_id: string;     // User number ID (typically a string)
+  sid: string | null;      // Shop ID (could be a string or null)
+  title: string;           // Title of the shop (could be an empty string if not specified)
+  zhuy: string;            // URL for the shop
+  cert: string | null;     // Certification (could be a string or null)
+  open_time: string;       // Duration since the shop opened
+  credit_score: string;    // Credit score (usually a string)
+  shop_name: string;       // Name of the shop
 }
 export interface ProductDetailInterface {
   id: string;
@@ -68,13 +107,18 @@ export interface ProductDetailInterface {
   is_liked: boolean;
   seller_info: SellerInfoInterface;
   seller_id: string;
+  prop_imgs: PropImage[];
+}
+export interface PropImage {
+  properties: string;
+  url: string;
 }
 
 export interface BasketInterface {
   product_id: string | undefined;
   title: string | undefined;
   price: number | undefined;
-  color: string | undefined;
+  color?: string | undefined;
   quantity: number;
   max_quantity: number | undefined;
   size: string | undefined;
@@ -89,3 +133,42 @@ export interface ColorsBasketInterface {
   color: string;
   data: BasketInterface[];
 }
+
+export interface ProppertiesInterface {
+  id: string,
+  name: string,
+  value: string
+}
+
+export interface CreateOrderItemsDataInterface {
+  product_id: string;
+  title: string;
+  image_url: string;
+  quantity: number;
+  price: number;
+  seller_id: string;
+  provider: string;
+  sku_id: string;
+  product_url: string;
+  properties: ProppertiesInterface[]
+}
+
+export interface CreateOrderDataInterface {
+  items: CreateOrderItemsDataInterface[];
+  total_price: number;
+}
+
+export interface CreateBaskettemsDataInterface {
+  product_id: string;
+  title: string;
+  image_url: string;
+  quantity: number;
+  max_quantity: number;
+  price: number;
+  seller_id: string;
+  provider: string;
+  sku_id: string;
+  product_url: string;
+  properties: ProppertiesInterface[]
+}
+

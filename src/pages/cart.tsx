@@ -10,7 +10,6 @@ import cookie from "cookie";
 import { LoadingSpinner } from "@/ui/Spin";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useRouter } from "next/router";
-import { cookieBasket } from "@/components/Auth/Functions";
 import { useJwt } from "@/utils/useJwt";
 import ToLoginPage from "@/components/ToLoginPage";
 
@@ -38,7 +37,11 @@ export default function Cart({}: Props) {
     },
     onSuccess(res) {
       const data = res.map((el: CartItemInterface) => {
-        return { ...el, chacked: false };
+        const newProperties = el.properties.map((item) => ({
+          ...item,
+          id: item.id.toString(),
+        }));
+        return { ...el, chacked: false, properties: newProperties };
       });
       setBasketData(data);
     },

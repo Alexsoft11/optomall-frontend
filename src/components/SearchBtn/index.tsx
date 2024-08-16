@@ -50,7 +50,7 @@ const SearchBtn = ({ categoryData }: Props) => {
       }
     };
 
-    categoryData.forEach((category: any) => extract(category));
+    categoryData?.forEach((category: any) => extract(category));
 
     return items;
   };
@@ -437,6 +437,7 @@ const SearchBtn = ({ categoryData }: Props) => {
         >
           <Dragger
             {...uploadProps}
+            accept="image/*"
             id="upload-input"
             className="antd-search-upload"
           >

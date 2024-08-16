@@ -95,7 +95,7 @@ export const getServerSideProps = async (context: any) => {
 
     const params = {
       productId: context.params.id,
-      lang: "en",
+      lang: context.locale,
       provider: provider,
     };
 
@@ -107,7 +107,6 @@ export const getServerSideProps = async (context: any) => {
     }
 
     // const productComments = await API.getProductComments(id);
-
     return {
       props: {
         product,

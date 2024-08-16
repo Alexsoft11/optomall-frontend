@@ -15,18 +15,19 @@ export interface LocationInfoInterface {
   district: string;
 }
 
+import { ProppertiesInterface } from "@/features/ProductDetail/interface";
 import { LanguageStringIntergace } from "@/interfaces";
 
 export interface PurchasesItemInterface {
   id: number;
   provider: string;
   order_id: number;
-  color: string;
   quantity: number;
   image_url: string;
   price: number;
   title: string;
   product_id?: number;
+  properties: ProppertiesInterface[]
 }
 
 export interface PurchasesOrderInterface {
