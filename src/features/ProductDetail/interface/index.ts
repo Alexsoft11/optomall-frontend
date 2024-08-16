@@ -163,7 +163,7 @@ export interface CreateBaskettemsDataInterface {
   title: string;
   image_url: string;
   quantity: number;
-  max_quantity: number;
+  max_quantity?: number;
   price: number;
   seller_id: string;
   provider: string;

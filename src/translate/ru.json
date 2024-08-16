@@ -114,7 +114,7 @@
     "metaDescription": "Безопасно войдите в свой аккаунт ON-WAY для доступа к эксклюзивным функциям и управления заказами.",
     "metaKeywords": "ON-WAY, вход, авторизация, доступ к аккаунту, безопасный вход",
     "passwordHasEmpty": "Пароль не может содержать пробел!",
-    "address":"Адрес"
+    "address": "Адрес"
   },
   "Cart": {
     "item": "Товаров",
@@ -270,8 +270,13 @@
     "comments": "Отзывы",
     "characteristic": "Xарактеристика",
     "comments-not": "Коментарий пока нет",
-    "recomendeds":"Похожие товары",
-    "buy": "Купить"
+    "recomendeds": "Похожие товары",
+    "buy": "Купить",
+    "addToCart": "В корзину",
+    "Products_added_to_baskets": "Товары добавлены в корзину",
+    "order_created_successfully": "Заказ успешно создан",
+    "hide": "Скрыть",
+    "allSpecificationsAndDescription": "Все характеристики и описание"
   },
   "Messages": {
     "dearClient": "Уважаемый клиент, ",

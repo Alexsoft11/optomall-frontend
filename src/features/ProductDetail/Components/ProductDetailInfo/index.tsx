@@ -147,7 +147,7 @@ const ProductDetailInfo: React.FC<Props> = ({
               onClick={handleToggleShowAll}
               className={styles.showAllButton}
             >
-              {showAll ? "Скрыть" : "Все характеристики и описание"}
+              {showAll ? t("hide") : t("allSpecificationsAndDescription")}
             </button>
           )}
         </div>
