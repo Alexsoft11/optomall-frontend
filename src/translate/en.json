@@ -131,7 +131,7 @@
     "authMessage": "Log in to the site to place an order!",
     "imgTypeValidation": "You can only upload an image!",
     "imgSizeValidation": "Image size must be smaller than 5 MB!",
-    "chooseItem": "Choose at least one item from the basket",
+    "chooseItem": "Choose at least one item",
     "cargo": "Cargo",
     "forKg": "per Kg",
     "locationRequired": "Please provide a delivery address and specify the location on the map.",

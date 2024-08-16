@@ -38,6 +38,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
   const [groupedProperties, setGroupedProperties] = useState<GroupedProperties>(
     {}
   );
+  const [messageApi, contextHolder] = message.useMessage();
+  const [messageVisible, setMessageVisible] = useState(false);
   const [propertiesWithImages, setPropertiesWithImages] = useState<{
     [key: string]: {
       keys: { value: string; imageUrl?: string; propId: string }[];
@@ -71,13 +73,10 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       disableOnMount: true,
     },
     onSuccess(res) {
-      message.success(t(`Product-detail.${res.message}`), 2)
-      const { parsedSku } = groupProperties(
-        skus,
-        prop_imgs
-      );
-      setSelectedSku([parsedSku[0]])
-      setCurrentSku(parsedSku[0])
+      message.success(t(`Product-detail.${res.message}`), 2);
+      const { parsedSku } = groupProperties(skus, prop_imgs);
+      setSelectedSku([parsedSku[0]]);
+      setCurrentSku(parsedSku[0]);
       res.order_group ? router.push(`/order/${res.order_group}`) : null;
     },
   });
@@ -123,7 +122,19 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     const newSelectedSku = selectedSku?.filter(
       (el) => el.selected_quantity > 0
     );
-    if (!newSelectedSku?.length) return;
+    
+    if (!newSelectedSku?.length) {
+      
+      if (!messageVisible) {
+        setMessageVisible(true);
+        messageApi.open({
+          type: "success",
+          content: t("Cart.chooseItem"),
+          onClose: () => setMessageVisible(false),
+        });
+      }
+      return;
+    }
 
     const items: CreateBaskettemsDataInterface[] = newSelectedSku.map((el) => {
       const { id, title, product_url, image, seller_info } = product;
@@ -154,11 +165,11 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         items: items,
         total_price: getTotalPrice() as number,
       };
-      
+
       createUserBasket(data);
       return;
     }
-    
+
     createUserBasket(items);
   };
 
@@ -180,7 +191,11 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
   };
 
   const handleSizeChange = (value: number) => {
-    if (value < 0 || (currentSku?.quantity && value > currentSku?.quantity) || !currentSku?.quantity)
+    if (
+      value < 0 ||
+      (currentSku?.quantity && value > currentSku?.quantity) ||
+      !currentSku?.quantity
+    )
       return;
 
     if (!currentSku) return;
@@ -282,6 +297,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
 
   return (
     <div>
+      {contextHolder}
       <Modal
         className="order-modal"
         onCancel={handleCloseModal}
@@ -319,7 +335,11 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
             <Button
               className={styles.addToCart}
               size="large"
-              label={type === "to_cart"? t("Product-detail.addToCart") : t("Product-detail.buy")}
+              label={
+                type === "to_cart"
+                  ? t("Product-detail.addToCart")
+                  : t("Product-detail.buy")
+              }
               type="primary"
               onClick={toOrder}
             />
