@@ -130,7 +130,7 @@ const ProductOrderModal = ({
         max_quantity: el.quantity,
         image_url: getImageUrl(el.properties.split(";")) || product.image,
         product_url: product.product_url,
-        seller_id: product.seller_id.toString(),
+        seller_id: product.seller_info.user_num_id.toString(),
         provider: provider as string,
         sku_id: el.sku_id.toString(),
         properties: el.parsedProperties!,
@@ -161,7 +161,7 @@ const ProductOrderModal = ({
   };
 
   useEffect(() => {
-    if (!selectedSku) return;
+    if (!selectedSku || !product) return;
     const items: CreateOrderItemsDataInterface[] = selectedSku?.map((el) => {
       return {
         product_id: product.id,
@@ -170,7 +170,7 @@ const ProductOrderModal = ({
         quantity: el.selected_quantity,
         image_url: getImageUrl(el.properties.split(";")) || product.image,
         product_url: product.product_url,
-        seller_id: product.seller_id.toString(),
+        seller_id: product.seller_info.user_num_id.toString(),
         provider: provider as string,
         sku_id: el.sku_id.toString(),
         properties: el.parsedProperties!,
@@ -184,7 +184,7 @@ const ProductOrderModal = ({
 
     setBasketData(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSku, currentSku]);
+  }, [selectedSku, currentSku, product]);
 
   // Old function for sku
   const handleSizeChange = (value: number) => {
