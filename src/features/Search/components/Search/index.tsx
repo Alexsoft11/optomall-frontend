@@ -65,7 +65,7 @@ const Search = ({ data = [] }: Props) => {
     if (query) {
       getSearchRes({
         ...query,
-        lang: locale,
+        lang: "en",
         page: 2,
       });
     }
@@ -76,7 +76,7 @@ const Search = ({ data = [] }: Props) => {
     getProducts({
       ...query,
       ...query,
-      lang: locale,
+      lang: "en",
     });
   };
 
