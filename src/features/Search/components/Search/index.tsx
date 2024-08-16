@@ -72,9 +72,9 @@ const Search = ({ data = [] }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, locale]);
 
-  const handleGetProduct = (query?: any) => {
+  const handleGetProduct = (custom?: any) => {
     getProducts({
-      ...query,
+      ...custom,
       ...query,
       lang: "en",
     });
