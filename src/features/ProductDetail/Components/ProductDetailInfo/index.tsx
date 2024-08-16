@@ -34,8 +34,18 @@ const ProductDetailInfo: React.FC<Props> = ({
 }) => {
   const [showAll, setShowAll] = useState(false);
 
+  const scrollToTop = (pixels: number = 100): void => {
+    window.scrollTo({
+      top: window.scrollY - pixels,
+      behavior: "smooth",
+    });
+  };
+
   const handleToggleShowAll = () => {
     setShowAll(!showAll);
+    if (showAll) {
+      scrollToTop(600);
+    }
   };
 
   const t = useTranslations("Product-detail");
