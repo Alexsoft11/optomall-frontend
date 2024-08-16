@@ -14,7 +14,8 @@ import { groupProperties } from "@/utils/orderFunctions";
 import Image from "next/image";
 import { MinusSvg, PlusSvg, SearchSvg } from "$/assets/images";
 import styles from "./ProductOrderModal.module.scss";
-import { Button as AntdButton, message, Tooltip, Badge } from "antd";
+import { Button as AntdButton, Tooltip, Badge } from "antd";
+import Lightbox from "react-awesome-lightbox";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
 import { useJwt } from "@/utils/useJwt";
@@ -61,6 +62,16 @@ const ProductOrderModal = ({
   const [selectedSku, setSelectedSku] = useState<SKU[] | []>();
   const [currentSku, setCurrentSku] = useState<SKU>();
   const token = useJwt();
+  const [isOpen, setIsOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const [currentImages, setCurrentImages] = useState<string[]>([]);
+
+  const handleImageClick = (images: string[], index: number) => {
+    setCurrentImages(images);
+    setPhotoIndex(index);
+    setIsOpen(true);
+  };
+
   const { appendData: createUserBasket } = useQueryApiClient({
     request: {
       url: `user-basket`,
@@ -357,7 +368,7 @@ const ProductOrderModal = ({
                     }}
                     pagination={{ clickable: true }}
                   >
-                    {keys.map(({ value, propId, imageUrl }) => (
+                    {keys.map(({ value, propId, imageUrl }, index) => (
                       <SwiperSlide key={propId}>
                         <Badge count={getPropertyQuantity(propId, propName)}>
                           <div
@@ -374,7 +385,15 @@ const ProductOrderModal = ({
                             }`}
                           >
                             {imageUrl && (
-                              <div className="img-box">
+                              <div
+                                onClick={() => {
+                                  const validImageUrls = keys
+                                    .map(({ imageUrl }) => imageUrl)
+                                    .filter((url): url is string => !!url); // Filters out undefined values
+                                  handleImageClick(validImageUrls, index);
+                                }}
+                                className="img-box"
+                              >
                                 <Image src={imageUrl} alt={value} fill />
                               </div>
                             )}
@@ -429,6 +448,15 @@ const ProductOrderModal = ({
         </div>
       </Modal>
       <Modal {...modalProps} />
+
+      {isOpen && (
+        <Lightbox
+          images={currentImages.map((img) => ({ url: img }))}
+          onClose={() => setIsOpen(false)}
+          startIndex={photoIndex} // Starting index for the lightbox
+          doubleClickZoom={2} // Zoom level on double-click
+        />
+      )}
     </div>
   );
 };
