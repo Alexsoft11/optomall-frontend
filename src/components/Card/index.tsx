@@ -31,11 +31,14 @@ const Card = ({ data, onLikeChange, provider }: CardProps) => {
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
     const id = router.pathname.includes("wishes") ? data.product_id : data.id;
-    let url = `/product/${id}?provider=${
-      provider || router.query.provider || "taobao"
+    let url = `/${router.locale}/product/${id}?provider=${
+      provider || router.query.provider || "1688"
     }`;
     if (router.pathname.includes("search") && router.query.value) {
       url = `${url}&category=${router.query.value}`;
+      if(router.query.carId){
+        url = `${url}&catId=${router.query.catId}`;
+      }
     }
     if (e) {
       window.open(url, "_blank");

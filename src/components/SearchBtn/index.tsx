@@ -294,6 +294,7 @@ const SearchBtn = ({ categoryData }: Props) => {
       img.src = URL.createObjectURL(file);
     });
   };
+
   const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
   
   const uploadProps: UploadProps = {
@@ -407,6 +408,7 @@ const SearchBtn = ({ categoryData }: Props) => {
                 name={"search"}
                 placeholder={t("search_place")}
                 onChange={handleInputChange}
+                onBlur={() => setIsDropdownOpen(false)}
                 prefix={
                   <div
                     className={styles.search_icon_btn}
