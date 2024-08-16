@@ -2,7 +2,7 @@
   &__btn {
     display: none;
 
-    @media (max-width: 768px) {
+    @media (max-width: 970px) {
       display: block;
       margin-bottom: 20px;
     }
@@ -202,8 +202,9 @@
       color: var(--black-color);
       cursor: pointer;
 
-      @media (max-width:550px) {
+      @media (max-width:768px) {
         min-width: 120px !important;
+        max-width: 120px !important;
       }
       
       &.active {
