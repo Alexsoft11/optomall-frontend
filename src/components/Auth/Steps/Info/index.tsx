@@ -26,14 +26,11 @@ export default function Info() {
       disableOnMount: true,
     },
     onSuccess(res) {
+
       if (!res.token) {
-        message.error("something_wrong");
+        message.error(t("Auth.something_wrong"));
         return;
       }
-
-      // if (localStorage.getItem('basket-data')) {
-      //   API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
-      // }
       const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
 
       // Set the cookie
@@ -44,6 +41,7 @@ export default function Info() {
       push((query.backUrl as string) || "/");
     },
     onError(res) {
+      message.error(t("Auth.something_wrong"));
       handleError(res);
     },
   });

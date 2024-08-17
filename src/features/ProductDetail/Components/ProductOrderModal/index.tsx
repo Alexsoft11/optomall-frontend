@@ -132,6 +132,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
           type: "success",
           content: t("Cart.chooseItem"),
           onClose: () => setMessageVisible(false),
+          duration: 100
         });
       }
       return;
