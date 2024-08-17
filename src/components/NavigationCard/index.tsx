@@ -29,20 +29,30 @@ export default function NavigationCard({
           !!data?.length &&
           data.map((el, idx: number) => (
             <>
-              <Link onClick={handleClose} className={styles.navigationcard__title} href={`/search?value=${el.name.toLowerCase()}&channel=taobao&catId=${el.id}`}>{el.name}</Link>
+              <Link
+                onClick={handleClose}
+                className={styles.navigationcard__title}
+                href={`/search?value=${el?.name?.toLowerCase()}&channel=taobao&catId=${
+                  el.id
+                }`}
+              >
+                {el.name}
+              </Link>
               <div key={idx} className={styles.navigationcard__list}>
-                {el?.items?.map((item, idx: number) => (
+                {el?.items?.map((item, idx: number) =>
                   item.is_show == 1 ? (
                     <Fragment key={idx}>
                       <Link
                         onClick={handleClose}
-                        href={`/search?value=${item.name.toLocaleLowerCase()}&provider=1688&catId=${item.id}`}
+                        href={`/search?value=${item?.name?.toLocaleLowerCase()}&provider=1688&catId=${
+                          item.id
+                        }`}
                       >
                         {item.name}
                       </Link>
                     </Fragment>
                   ) : null
-                ))}
+                )}
               </div>
             </>
           ))
