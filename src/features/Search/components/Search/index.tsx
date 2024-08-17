@@ -66,7 +66,7 @@ const Search = ({ data = [] }: Props) => {
       getSearchRes({
         ...query,
         lang: locale,
-        page: 2,
+        page: 1,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -80,12 +80,7 @@ const Search = ({ data = [] }: Props) => {
     });
   };
 
-  const validateNoSigns = (_: any, value: string) => {
-    if (value && (value.includes("+") || value.includes("-"))) {
-      return Promise.reject(new Error(t("invalid_value")));
-    }
-    return Promise.resolve();
-  };
+
 
   const { appendData: getSearchRes, isLoading: isSearchResLoading } =
     useQueryApiClient({
@@ -96,6 +91,7 @@ const Search = ({ data = [] }: Props) => {
       },
       onSuccess(res: any) {
         setProducts(res.products);
+        handleGetProduct({ page: 2 });
       },
       onError(err) {
         setProducts([]);
