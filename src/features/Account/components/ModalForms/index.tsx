@@ -1,17 +1,20 @@
 import { Modal } from 'antd'
 import React, { FC, ReactNode } from 'react'
 interface IProps {
-  children:ReactNode
+  children: ReactNode
   isOpen: boolean;
-  onClick:any;
+  onClick: any;
 }
 
-const ModalForms:FC<IProps> = ({children,isOpen,onClick}) => {
+const ModalForms: FC<IProps> = ({ children, isOpen, onClick }) => {
 
   return (
-    <Modal footer open={isOpen} onCancel={onClick}>
-      {children}
-    </Modal>
+    // <div className='custom_modal'>
+      <Modal footer open={isOpen} onCancel={onClick}>
+        {children}
+      </Modal>
+    // </div>
+
   )
 }
 

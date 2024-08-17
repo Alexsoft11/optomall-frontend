@@ -289,3 +289,6 @@ jdiv {
 .main-swiper .swiper-pagination .swiper-pagination-bullet-active {
   background-color: var(--primary-color) !important;
 }
+ .ant-modal .ant-modal-body{
+  padding-top: 25px !important;
+}
