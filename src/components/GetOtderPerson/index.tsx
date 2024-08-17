@@ -1,4 +1,4 @@
-import React, { use, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./GetOtderPerson.module.scss";
 import { useTranslations } from "next-intl";
 import { Form, InputRef } from "antd";
@@ -17,16 +17,17 @@ export default function GetOrderPerson({ setPersonData, personData }: Props) {
   const [form] = Form.useForm();
   const inputRef = useRef<InputRef>(null);
 
-  const onFinifh = () => {
+  const onFinish = () => {
     const data = form.getFieldsValue();
     data.phone = `+998${inputRef.current?.input?.value.match(/\d/g)?.join("")}`;
     setPersonData(data);
   };
 
   useEffect(() => {
-    personData
-    personData.name ? form.setFieldValue("name", personData.name) : null;
-    personData.phone ? form.setFieldValue("phone", personData.phone) : null;
+    form.setFieldsValue({
+      name: personData.name || "",
+      phone: personData.phone || "",
+    });
   }, [personData]);
 
   return (
@@ -34,10 +35,14 @@ export default function GetOrderPerson({ setPersonData, personData }: Props) {
       <h2>{t("Cart.person")}</h2>
       <div className={styles.form_block}>
         <Form
-          onFinish={onFinifh}
+          onFinish={onFinish}
           form={form}
           name="horizontal_login"
           layout="inline"
+          initialValues={{
+            name: personData.name || "",
+            phone: personData.phone || "",
+          }}
         >
           <Input
             name="name"
@@ -58,7 +63,7 @@ export default function GetOrderPerson({ setPersonData, personData }: Props) {
             required
           >
             <MaskedInput
-              value={personData.phone}
+              value={form.getFieldValue("phone")}
               className={styles.maskedInput}
               ref={inputRef}
               onBlur={() => form.submit()}
