@@ -1,9 +1,10 @@
 /** @format */
 
 .html_img {
-    text-align: center;
-  @media (max-width: 820px) {
-    img {
+  text-align: center;
+  img {
+    max-width: 100%;
+    @media (max-width: 820px) {
       width: 100%;
     }
   }
