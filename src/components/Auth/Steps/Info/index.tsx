@@ -105,7 +105,6 @@ export default function Info() {
             <MaskedInput
               className={styles.maskedInput}
               ref={inputRef}
-              onBlur={() => form.submit()}
               type="text"
               prefix={"+998"}
               mask={"(00) 000-00-00"}

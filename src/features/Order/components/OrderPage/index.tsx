@@ -18,24 +18,24 @@ interface Props {
   userData: UserDataInterface;
 }
 
-export default function OrderPage({ orderData, userData }: Props) {  
-
+export default function OrderPage({ orderData, userData }: Props) {
   const locationInitialValue: LocationInfoInterface = {
     region: userData.region || "",
     district: userData.district || "",
   };
 
-  const personalInitialValue : PersonalDataInterface = {
-    name: userData.name || '',
-    phone: userData.phone || ''
-  }
+  const personalInitialValue: PersonalDataInterface = {
+    name: userData.name || "",
+    phone: userData.phone || "",
+  };
   const [locationInfo, setLocationInfo] =
     useState<LocationInfoInterface>(locationInitialValue);
 
   const [dataFailed, setDataFailed] = useState<"personal" | "location" | null>(
     null
   );
-  const [personData, setPersonData] = useState<PersonalDataInterface>(personalInitialValue);
+  const [personData, setPersonData] =
+    useState<PersonalDataInterface>(personalInitialValue);
 
   const editOrderData: EditOrderInterface = {
     order_id: orderData.order.id,
@@ -54,14 +54,14 @@ export default function OrderPage({ orderData, userData }: Props) {
           cardId={orderData?.order.card_number}
           cost={orderData?.order.total_price}
         />
-        <div className={styles.items_block}>
-          <div className={styles.items}>
-            {orderData?.detail?.map((el) => (
-              <Fragment key={el.id}>
-                <PurchasesItem item={el} />
-              </Fragment>
-            ))}
-          </div>
+      </div>
+      <div className={styles.items_block}>
+        <div className={styles.items}>
+          {orderData?.detail?.map((el) => (
+            <Fragment key={el.id}>
+              <PurchasesItem item={el} />
+            </Fragment>
+          ))}
         </div>
       </div>
 
@@ -93,7 +93,10 @@ export default function OrderPage({ orderData, userData }: Props) {
                 : null
             }`}
           >
-            <GetOtderPerson personData={personData} setPersonData={setPersonData} />
+            <GetOtderPerson
+              personData={personData}
+              setPersonData={setPersonData}
+            />
           </div>
         </div>
       </div>
