@@ -327,12 +327,27 @@ const SearchBtn = ({ categoryData }: Props) => {
     },
     fileList,
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (target && !target.classList.contains("search_drop_item")) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   
 
   const menuItems = filteredItems.map((hint, index) => ({
     key: hint.id,
     label: (
       <div
+        className="search_drop_item"
         onClick={() => {
           setSelectedCatId(hint.id);
           handleSearch({ search: hint.name, catId: hint.id });
@@ -408,7 +423,6 @@ const SearchBtn = ({ categoryData }: Props) => {
                 name={"search"}
                 placeholder={t("search_place")}
                 onChange={handleInputChange}
-                onBlur={() => setIsDropdownOpen(false)}
                 prefix={
                   <div
                     className={styles.search_icon_btn}
