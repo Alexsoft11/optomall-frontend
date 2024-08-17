@@ -314,7 +314,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
           <div className="modal-footer">
             <div className="totalPrice">
               <h3>
-                {getTotalPrice()} {t("GLOBAL.currency")}
+                {formatPrice(getTotalPrice())} {t("GLOBAL.currency")}
               </h3>
             </div>
             <div key={1} className={styles.change_value}>
