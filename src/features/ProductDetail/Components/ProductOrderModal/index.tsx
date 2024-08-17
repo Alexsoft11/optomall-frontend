@@ -22,6 +22,7 @@ import { useJwt } from "@/utils/useJwt";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import SvgSelector from "$/assets/icons/SvgSelector";
+import { formatPrice } from "@/constants";
 
 interface Props {
   product: ProductDetailInterface;
@@ -279,7 +280,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     return quantity;
   };
 
-  //function to check is item exist 
+  //function to check is item exist
   const getExist = (propId: string, arr: SKU[]) => {
     let flag = false;
     arr.map((el) => {
@@ -290,12 +291,13 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     return flag;
   };
 
-  //sum all selectedSku`s items price 
+  //sum all selectedSku`s items price
   const getTotalPrice = () => {
-    return selectedSku?.reduce(
+    const total = selectedSku?.reduce(
       (acum, cur) => acum + cur.price * cur.selected_quantity,
       0
     );
+    return formatPrice(total);
   };
 
   const capitalize = (text: string) =>
@@ -357,7 +359,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
           <div className="content">
             <div className="currentPrice">
               <h3>
-                {currentSku?.price} {t("GLOBAL.currency")}
+                {formatPrice(currentSku?.price)} {t("GLOBAL.currency")}
               </h3>
             </div>
             <div className="property-items">
