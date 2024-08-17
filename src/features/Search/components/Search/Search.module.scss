@@ -207,6 +207,11 @@
         max-width: 120px !important;
       }
       
+      @media (max-width:475px) {
+        max-width: 100% !important;
+        min-width: 100% !important;
+      }
+      
       &.active {
         color: var(--white-color);
         background-color: var(--primary-color);
