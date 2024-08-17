@@ -178,12 +178,6 @@ const Search = ({ data = [] }: Props) => {
                     {t("sales")}
                   </button>
                   <button
-                    className={activeSort === "_credit" ? styles.active : ""}
-                    onClick={() => handleFilter("_credit")}
-                  >
-                    {t("reputation")}
-                  </button>
-                  <button
                     className={activeSort === "_bid2" ? styles.active : ""}
                     onClick={() => handleFilter("_bid2")}
                   >

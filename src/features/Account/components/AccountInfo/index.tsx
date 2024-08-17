@@ -105,7 +105,7 @@ const AccountInfo = ({ user }: any) => {
   ) => {
     setLoading((prev) => ({ ...prev, [key]: true }));
     try {
-      // await mutateFunction(values);
+      await mutateFunction(values);
     } finally {
       setLoading((prev) => ({ ...prev, [key]: false }));
     }
