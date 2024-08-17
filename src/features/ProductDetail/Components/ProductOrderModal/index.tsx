@@ -81,9 +81,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       res.order_group ? router.push(`/order/${res.order_group}`) : null;
     },
   });
-  const handleCloseModal = () => {
-    setOrderType(null);
-  };
+
+  const handleCloseModal = () => setOrderType(null);
 
   useEffect(() => {
     if (skus && prop_imgs) {
@@ -105,6 +104,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     }
   }, [skus, prop_imgs]);
 
+  //function to get a link to an image
   const getImageUrl = (propertys: string[]) => {
     let url = "";
     Object.values(propertiesWithImages).map(({ keys }) => {
@@ -119,20 +119,20 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     return url;
   };
 
+  //function create request data to buy or add to cart
   const toOrder = () => {
     const newSelectedSku = selectedSku?.filter(
       (el) => el.selected_quantity > 0
     );
-    
+
     if (!newSelectedSku?.length) {
-      
       if (!messageVisible) {
         setMessageVisible(true);
         messageApi.open({
           type: "success",
           content: t("Cart.chooseItem"),
           onClose: () => setMessageVisible(false),
-          duration: 100
+          duration: 100,
         });
       }
       return;
@@ -191,7 +191,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     ),
     open: showModal,
   };
-
+  //change quantity and add/remove from selectedSku if quantity >1/<=0
   const handleSizeChange = (value: number) => {
     if (
       value < 0 ||
@@ -229,6 +229,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     setSelectedSku(clone);
   };
 
+  //function select item`s property and get combination property`s id to find sku_id
   const handlePropertySelect = (propId: string, name: string) => {
     let isFind = false;
 
@@ -264,6 +265,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     setSelectProperty(copy);
   };
 
+  //get property quantity from data and sum it
   const getPropertyQuantity = (propId: string, name: string) => {
     if (!selectedSku) return;
 
@@ -277,6 +279,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     return quantity;
   };
 
+  //function to check is item exist 
   const getExist = (propId: string, arr: SKU[]) => {
     let flag = false;
     arr.map((el) => {
@@ -287,6 +290,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     return flag;
   };
 
+  //sum all selectedSku`s items price 
   const getTotalPrice = () => {
     return selectedSku?.reduce(
       (acum, cur) => acum + cur.price * cur.selected_quantity,

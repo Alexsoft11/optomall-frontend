@@ -50,11 +50,15 @@
       flex-direction: column;
       gap: 20px;
     }
+
+    @media (max-width: 770px) {
+      width: 100%;
+    }
   }
 
-  // @media (max-width: 1350px) {
-  //   display: flex;
-  // }
+  @media (max-width: 770px) {
+    flex-direction: column;
+  }
 
   @media (max-width: 770px) {
     gap: 10px;
