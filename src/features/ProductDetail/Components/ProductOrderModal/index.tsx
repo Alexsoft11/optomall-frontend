@@ -297,7 +297,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       (acum, cur) => acum + cur.price * cur.selected_quantity,
       0
     );
-    return formatPrice(total);
+    return total;
   };
 
   const capitalize = (text: string) =>
@@ -321,8 +321,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
               <AntdButton
                 onClick={() =>
                   handleSizeChange(currentSku!.selected_quantity - 1)
-                }
-              >
+                }>
                 <Image src={MinusSvg} width={24} height={24} alt="#" />
               </AntdButton>
               <Tooltip title={`Max quantity`}>
@@ -334,8 +333,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                 <AntdButton
                   onClick={() =>
                     handleSizeChange(++currentSku!.selected_quantity)
-                  }
-                >
+                  }>
                   <Image src={PlusSvg} width={24} height={24} alt="#" />
                 </AntdButton>
               </Tooltip>
@@ -352,8 +350,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
               onClick={toOrder}
             />
           </div>
-        }
-      >
+        }>
         <div className="order-modal-body">
           <div className="top"></div>
           <div className="content">
@@ -385,8 +382,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                         slidesPerView: 1.3,
                       },
                     }}
-                    pagination={{ clickable: true }}
-                  >
+                    pagination={{ clickable: true }}>
                     {keys.map(({ value, propId, imageUrl }, index) => (
                       <SwiperSlide key={propId}>
                         <Badge count={getPropertyQuantity(propId, propName)}>
@@ -401,8 +397,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                                 : !getExist(propId, parsedSku)
                                 ? styles.disable
                                 : ""
-                            }`}
-                          >
+                            }`}>
                             {imageUrl && (
                               <div className="img-box">
                                 <span
@@ -412,8 +407,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                                       .map(({ imageUrl }) => imageUrl)
                                       .filter((url): url is string => !!url);
                                     handleImageClick(validImageUrls, index);
-                                  }}
-                                >
+                                  }}>
                                   <SvgSelector id="open-image-view-svg" />
                                 </span>
                                 <Image src={imageUrl} alt={value} fill />
@@ -443,8 +437,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                               ? getPropertyQuantity(propId, propName)
                               : null
                           }
-                          key={value}
-                        >
+                          key={value}>
                           <p
                             onClick={() =>
                               handlePropertySelect(propId, propName)
@@ -455,8 +448,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                                 : !getExist(propId, parsedSku)
                                 ? styles.disable
                                 : ""
-                            }
-                          >
+                            }>
                             {value}
                           </p>
                         </Badge>
