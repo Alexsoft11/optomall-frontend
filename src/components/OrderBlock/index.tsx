@@ -81,28 +81,30 @@ export default function OrderBlock({
     },
   });
 
-  const { appendData: createChequeData } = useQueryApiClient({
-    request: {
-      url: "add-check",
-      method: "POST",
-      disableOnMount: true,
-      multipart: true,
-    },
-    onSuccess(res) {
-      setCheckModalIsOpen(true);
-      setButtonStatus("success");
-      setTimeout(() => setButtonStatus("idle"), 1000);
-    },
-    onError(err) {
-      setButtonStatus("fail");
-      setTimeout(() => setButtonStatus("idle"), 1000);
-    },
-  });
+  const { appendData: createChequeData, isLoading: isLoadingCheck } =
+    useQueryApiClient({
+      request: {
+        url: "add-check",
+        method: "POST",
+        disableOnMount: true,
+        multipart: true,
+      },
+      onSuccess(res) {
+        setCheckModalIsOpen(true);
+        setButtonStatus("success");
+        setTimeout(() => setButtonStatus("idle"), 1000);
+      },
+      onError(err) {
+        setButtonStatus("fail");
+        setTimeout(() => setButtonStatus("idle"), 1000);
+      },
+    });
 
   const props = {
     name: "file",
     showUploadList: false,
     multiple: false,
+
     beforeUpload: (file: RcFile) => {
       const isImage = file.type === "image/jpeg" || file.type === "image/png";
       if (!isImage) {
@@ -188,7 +190,7 @@ export default function OrderBlock({
       </div>
       {orderId ? (
         <div className={styles.upload_btn}>
-          <Upload {...props}>
+          <Upload {...props} accept="image/*">
             <div className={styles.response_button__block}>
               <span className={styles["loading-btn-wrapper"]}>
                 <button
@@ -210,7 +212,7 @@ export default function OrderBlock({
           onClick={() => toOrder()}
           className={styles.complite_btn}
           label={t("Cart.complite")}
-          isLoading={isLoading}
+          isLoading={isLoading || isLoadingCheck}
         />
       ) : null}
 

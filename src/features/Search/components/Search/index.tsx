@@ -132,7 +132,7 @@ const Search = ({ data = [] }: Props) => {
 
   return (
     <>
-      <div className={styles.search}>
+    <div className={styles.search}>
         <div className="container">
           <div className={styles.search__inner}>
             <div className={styles.search__media}>

@@ -9,6 +9,7 @@ import { UploadProps } from "antd/lib";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
 import { CategoryInterface } from "@/interfaces";
+import { LoadingSpinner } from "@/ui/Spin";
 
 const { Dragger } = Upload;
 type ProviderInfo = {
@@ -215,7 +216,7 @@ const SearchBtn = ({ categoryData }: Props) => {
     }
   };
 
-  const { appendData: postUploadData } = useQueryApiClient({
+  const { appendData: postUploadData, isLoading } = useQueryApiClient({
     request: {
       url: "image-search",
       method: "POST",
@@ -249,14 +250,14 @@ const SearchBtn = ({ categoryData }: Props) => {
       const img = document.createElement("img");
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
-  
+
       img.onload = () => {
         const maxWidth = 600;
         const maxHeight = 600;
-  
+
         let width = img.width;
         let height = img.height;
-  
+
         if (width > maxWidth || height > maxHeight) {
           if (width > height) {
             height *= maxWidth / width;
@@ -266,12 +267,12 @@ const SearchBtn = ({ categoryData }: Props) => {
             height = maxHeight;
           }
         }
-  
+
         canvas.width = width;
         canvas.height = height;
-  
+
         ctx?.drawImage(img, 0, 0, width, height);
-  
+
         canvas.toBlob(
           (blob) => {
             if (blob) {
@@ -288,15 +289,15 @@ const SearchBtn = ({ categoryData }: Props) => {
           1
         );
       };
-  
+
       img.onerror = reject;
-  
+
       img.src = URL.createObjectURL(file);
     });
   };
 
   const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
-  
+
   const uploadProps: UploadProps = {
     name: "file",
     multiple: true,
@@ -310,13 +311,13 @@ const SearchBtn = ({ categoryData }: Props) => {
     customRequest: async ({ file, onSuccess, onError }) => {
       try {
         const resizedFile = await resizeImage(file as File);
-  
+
         const formData = new FormData();
         formData.append("image", resizedFile);
-  
+
         postUploadData(formData);
       } catch (error) {
-        console.log('error')
+        console.log("error");
       }
     },
     onChange(info: any) {
@@ -341,7 +342,6 @@ const SearchBtn = ({ categoryData }: Props) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  
 
   const menuItems = filteredItems.map((hint, index) => ({
     key: hint.id,
@@ -456,11 +456,13 @@ const SearchBtn = ({ categoryData }: Props) => {
             accept="image/*"
             id="upload-input"
             className="antd-search-upload"
+            maxCount={1}
           >
             <p className="ant-upload-drag-icon">
               <SvgSelector id="upload-svg" />
             </p>
             <p className="ant-upload-text">{t("upload_text")}</p>
+            <p>Image </p>
           </Dragger>
         </Modal>
       </div>

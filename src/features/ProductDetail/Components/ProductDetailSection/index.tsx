@@ -58,6 +58,7 @@ const ProductDetailSection = ({
       children: <Reviews comments={productComments} />,
     },
   ];
+  console.log(product.product_url);
 
   return (
     <>
