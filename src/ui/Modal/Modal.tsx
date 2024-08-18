@@ -24,7 +24,7 @@ export interface ModalProps {
   centered?: boolean;
   className?: string;
   img?: StaticImageData;
-  description?: string;
+  description?: string | React.ReactNode;
   bgColor?: string;
   chequeSuccessData?: chequeSuccessDataInterface | null;
 }

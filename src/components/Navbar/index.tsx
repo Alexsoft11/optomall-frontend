@@ -90,7 +90,12 @@ const Navbar = () => {
                   onCancel={setModalIsOpen}
                   className="bg_white"
                   img={HeadPhone}
-                  description={`${t("modalMessage")}\n+998 71 234 56 78`}
+                  description={
+                    <>
+                      {t("modalMessage")}<br/>
+                      <a href="tel:+998712345678">+998 71 234 56 78</a>
+                    </>
+                  }
                   open={modalIsOpen}
                 />
               </div>
