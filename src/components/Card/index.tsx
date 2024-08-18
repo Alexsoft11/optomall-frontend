@@ -37,12 +37,14 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
     }`;
     if (router.pathname.includes("search") && router.query.value) {
       url = `${url}&category=${router.query.value}`;
-      if(router.query.carId){
+      if (router.query.carId) {
         url = `${url}&catId=${router.query.catId}`;
       }
     }
-    if (e && isBlank) {
+    if (isBlank) {
       window.open(url, "_blank");
+    } else {
+      router.push(url);
     }
   };
 
@@ -72,23 +74,19 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
             height={1000}
           />
         </div>
-        
-        {
-          window.innerWidth <= 768 ? (
-            <h2 className={styles.card__title}>
+
+        {window.innerWidth <= 768 ? (
+          <h2 className={styles.card__title}>{title}</h2>
+        ) : (
+          <Tooltip
+            overlayClassName="tooltip-white"
+            title={isOverflowed ? title : ""}
+          >
+            <h2 className={styles.card__title} ref={textRef}>
               {title}
             </h2>
-          ) : (
-            <Tooltip
-              overlayClassName="tooltip-white"
-              title={isOverflowed ? title : ""}
-            >
-              <h2 className={styles.card__title} ref={textRef}>
-                {title}
-              </h2>
-            </Tooltip>
-          )
-        }
+          </Tooltip>
+        )}
 
         <div className={styles.card__price}>
           <p>
