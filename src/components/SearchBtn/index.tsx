@@ -462,8 +462,8 @@ const SearchBtn = ({ categoryData }: Props) => {
               <SvgSelector id="upload-svg" />
             </p>
             <p className="ant-upload-text">{t("upload_text")}</p>
-            <p>Image </p>
           </Dragger>
+          <p>{t("imageWarning")}</p>
         </Modal>
       </div>
     </>

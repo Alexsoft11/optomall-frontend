@@ -198,7 +198,8 @@
     "price_down": "Цена ниже",
     "price_top": "Цена выше",
     "search_place": "Введите ссылку Taobao, 1688",
-    "upload_validate": "Вы можете загружать только файлы JPG/PNG/JPEG!"
+    "upload_validate": "Вы можете загружать только файлы JPG/PNG/JPEG!",
+    "imageWarning": "Загрузка изображения может занять 10-15 секунд в зависимости от размера."
   },
   "MyReviews": {
     "waitForReview": "Ждут оценки",
