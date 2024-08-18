@@ -15,12 +15,14 @@ interface Props {
   setLocationInfo: React.Dispatch<React.SetStateAction<LocationInfoInterface>>;
   locationInfo: LocationInfoInterface;
   ILocation?: ILocation;
+  isShowBorder?: boolean;
 }
 
 export default function LocationBlock({
   setLocationInfo,
   locationInfo,
   ILocation,
+  isShowBorder = true,
 }: Props) {
   const [form] = Form.useForm();
   const t = useTranslations("Cart");
@@ -50,7 +52,9 @@ export default function LocationBlock({
       ? regions.map((el, idx) => {
           if (el === locationInfo.region) {
             form.setFieldValue("region", regions[idx]);
-            setCurrentRegion(regions[idx].toLocaleLowerCase() as keyof RegionProvincesInterface)
+            setCurrentRegion(
+              regions[idx].toLocaleLowerCase() as keyof RegionProvincesInterface
+            );
             regionProvinces[
               locationInfo.region.toLowerCase() as keyof RegionProvincesInterface
             ].map((item) => {
@@ -97,7 +101,7 @@ export default function LocationBlock({
 
   return (
     <Form form={form}>
-      <div className={styles.main}>
+      <div className={`${styles.main} ${isShowBorder && styles.border}`}>
         <div className={styles.text_block}>
           <h2>{t("address")}</h2>
         </div>

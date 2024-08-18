@@ -133,7 +133,7 @@ const AccountInfo = ({ user }: any) => {
               </button>
               <Image
                 src={editAccountIcon}
-                alt='#'
+                alt="#"
                 className={styles.info_arrow}
                 onClick={() => setOpen({ ...open, isEmail: true })}
               />
@@ -148,7 +148,7 @@ const AccountInfo = ({ user }: any) => {
               </button>
               <Image
                 src={editAccountIcon}
-                alt='#'
+                alt="#"
                 className={styles.info_arrow}
                 onClick={() => setOpen({ ...open, isUserName: true })}
               />
@@ -163,7 +163,7 @@ const AccountInfo = ({ user }: any) => {
               </button>
               <Image
                 src={editAccountIcon}
-                alt='#'
+                alt="#"
                 className={styles.info_arrow}
                 onClick={() => setOpen({ ...open, isPhoneNumber: true })}
               />
@@ -174,12 +174,13 @@ const AccountInfo = ({ user }: any) => {
             <div>
               <span>********</span>
               <button
-                onClick={() => setOpen({ ...open, isResetPassword: true })}>
+                onClick={() => setOpen({ ...open, isResetPassword: true })}
+              >
                 {t("Account.change")}
               </button>
               <Image
                 src={editAccountIcon}
-                alt='#'
+                alt="#"
                 className={styles.info_arrow}
                 onClick={() => setOpen({ ...open, isResetPassword: true })}
               />
@@ -194,7 +195,7 @@ const AccountInfo = ({ user }: any) => {
               </button>
               <Image
                 src={editAccountIcon}
-                alt='#'
+                alt="#"
                 className={styles.info_arrow}
                 onClick={() => setOpen({ ...open, isAddress: true })}
               />
@@ -204,39 +205,45 @@ const AccountInfo = ({ user }: any) => {
       </div>
       <ModalForms
         isOpen={open.isEmail}
-        onClick={() => setOpen({ ...open, isEmail: false })}>
+        onClick={() => setOpen({ ...open, isEmail: false })}
+      >
         <Form
           onFinish={(values) => handleFormSubmit(updateEmail, values, "email")}
           initialValues={{ email: user?.email }}
-          className={styles.form}>
-          <Input placeholder={t("Account.mail")} name='email' />
+          className={styles.form}
+        >
+          <Input placeholder={t("Account.mail")} name="email" />
           <Input
-            type='password'
+            type="password"
             placeholder={t("Account.password")}
-            name='password'
+            name="password"
           />
           <Button
-            htmlType='submit'
+            htmlType="submit"
             loading={loading.email}
-            className={styles.confirm_btn}>
+            className={styles.confirm_btn}
+          >
             {t("Account.confirm")}
           </Button>
         </Form>
       </ModalForms>
       <ModalForms
         isOpen={open.isUserName}
-        onClick={() => setOpen({ ...open, isUserName: false })}>
+        onClick={() => setOpen({ ...open, isUserName: false })}
+      >
         <Form
           onFinish={(values) => handleFormSubmit(updateName, values, "name")}
           initialValues={{ name: user?.name, last_name: user?.last_name }}
-          className={styles.form}>
-          <Input placeholder={t("Account.name")} name='name' />
-          <Input placeholder={t("Account.lastname")} name='last_name' />
+          className={styles.form}
+        >
+          <Input placeholder={t("Account.name")} name="name" />
+          <Input placeholder={t("Account.lastname")} name="last_name" />
           <Form.Item>
             <Button
-              htmlType='submit'
+              htmlType="submit"
               loading={loading.name}
-              className={styles.confirm_btn}>
+              className={styles.confirm_btn}
+            >
               {t("Account.confirm")}
             </Button>
           </Form.Item>
@@ -244,69 +251,79 @@ const AccountInfo = ({ user }: any) => {
       </ModalForms>
       <ModalForms
         isOpen={open.isPhoneNumber}
-        onClick={() => setOpen({ ...open, isPhoneNumber: false })}>
+        onClick={() => setOpen({ ...open, isPhoneNumber: false })}
+      >
         <Form
           onFinish={(values) => handleFormSubmit(updatePhone, values, "phone")}
           initialValues={{ phone: user?.phone }}
-          className={styles.form}>
+          className={styles.form}
+        >
           <Form.Item
-            name='phone'
+            name="phone"
             rules={[{ validator: (rule, value) => validatePhone(t, value) }]}
-            required>
+            required
+          >
             <MaskedInput
               className={styles.maskedInput}
-              type='text'
+              type="text"
               prefix={"+998"}
               mask={"(00) 000-00-00"}
             />
           </Form.Item>
           <Button
-            htmlType='submit'
+            htmlType="submit"
             loading={loading.phone}
-            className={styles.confirm_btn}>
+            className={styles.confirm_btn}
+          >
             {t("Account.confirm")}
           </Button>
         </Form>
       </ModalForms>
       <ModalForms
         isOpen={open.isResetPassword}
-        onClick={() => setOpen({ ...open, isResetPassword: false })}>
+        onClick={() => setOpen({ ...open, isResetPassword: false })}
+      >
         <Form
           onFinish={(values) =>
             handleFormSubmit(updatePassword, values, "password")
           }
-          className={styles.form}>
+          className={styles.form}
+        >
           <Input
-            name='old_password'
-            type='password'
+            name="old_password"
+            type="password"
             placeholder={t("Account.old_password")}
           />
-          <Input name='password' placeholder={t("Account.new_password")} />
+          <Input name="password" placeholder={t("Account.new_password")} />
           <Input
-            name='confirm_password'
+            name="confirm_password"
             placeholder={t("Account.confirm_password")}
           />
 
           <Button
-            htmlType='submit'
+            htmlType="submit"
             loading={loading.password}
-            className={styles.confirm_btn}>
+            className={styles.confirm_btn}
+          >
             {t("Account.confirm")}
           </Button>
         </Form>
       </ModalForms>
       <ModalForms
         isOpen={open.isAddress}
-        onClick={() => setOpen({ ...open, isAddress: false })}>
+        onClick={() => setOpen({ ...open, isAddress: false })}
+      >
         <LocationBlock
           locationInfo={locationInfo}
           setLocationInfo={setLocationInfo}
           ILocation={{ region: user?.region, district: user?.district }}
+          isShowBorder={false}
         />
         <Button
           onClick={handleValues}
           loading={loading.adress}
-          className={styles.confirm_btn}>
+          className={styles.confirm_btn}
+        >
           {t("Account.confirm")}
         </Button>
       </ModalForms>

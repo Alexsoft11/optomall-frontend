@@ -33,13 +33,13 @@
     }
   }
 }
-.form{
-  margin-top: 30px;
+.form {
+  margin-top: 25px !important;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.confirm_btn{
+.confirm_btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,7 +54,7 @@
   .card_info {
     box-shadow: none;
     padding: 0;
-    h3{
+    h3 {
       display: none;
     }
     .info {
