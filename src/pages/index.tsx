@@ -67,7 +67,7 @@ export default function Home({ slidersData, productsData }: HomeProps) {
   const { appendData: getProductsData, isLoading: isProductsLoading } =
     useQueryApiClient({
       request: {
-        url: `products?&lang=${router.locale}`,
+        url: `products?lang=${router.locale}`,
         method: "GET",
         disableOnMount: true,
       },

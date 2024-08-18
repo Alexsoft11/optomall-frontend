@@ -12,9 +12,10 @@ interface CardProps {
   data: CardInterface;
   onLikeChange?: (cardId: number) => void;
   provider?: string;
+  isBlank?: boolean;
 }
 
-const Card = ({ data, onLikeChange, provider }: CardProps) => {
+const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
   const t = useTranslations("GLOBAL");
   const textRef = useRef<any>(null);
   const [isOverflowed, setIsOverflowed] = useState(false);
@@ -40,7 +41,7 @@ const Card = ({ data, onLikeChange, provider }: CardProps) => {
         url = `${url}&catId=${router.query.catId}`;
       }
     }
-    if (e) {
+    if (e && isBlank) {
       window.open(url, "_blank");
     }
   };

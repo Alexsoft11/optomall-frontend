@@ -37,7 +37,7 @@ const Products = ({
       >
         <div className={styles.product_list}>
           {data?.map((el: any, idx: number) => (
-            <Card key={idx} data={el} />
+            <Card isBlank={true} key={idx} data={el} />
           ))}
         </div>
       </InfiniteScroll>

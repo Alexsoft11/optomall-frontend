@@ -11,6 +11,10 @@ export const StyledModal = styled(AntdModal)`
     display: none;
   }
 
+  a {
+    color: var(--black-color);
+  }
+
   .ant-modal-content {
     width: max-content;
     border-radius: 20px;
