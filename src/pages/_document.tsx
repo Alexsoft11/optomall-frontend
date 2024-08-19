@@ -39,6 +39,10 @@ class MyDocument extends Document {
             type="text/javascript"
             async
           />
+          <meta
+            name="google-site-verification"
+            content="AmLYTSZ7gHcV8XopUlGBqWjxHeWmRfXMVX8D_xMn54E"
+          />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
