@@ -89,15 +89,24 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
   );
 };
 
+function extractId(id: any) {
+  const numericId = id.match(/\d+/g);
+
+  return numericId ? numericId.join("") : "";
+}
+
 export const getServerSideProps = async (context: any) => {
   try {
     const provider = context.query.provider || "taobao";
+    const productId = extractId(context.params.id);
 
     const params = {
-      productId: context.params.id,
+      productId: productId,
       lang: context.locale,
       provider: provider,
     };
+
+    console.log(params);
 
     let product;
     if (provider === "local") {
