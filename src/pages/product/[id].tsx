@@ -7,11 +7,9 @@ import { LoadingSpinner } from "@/ui/Spin";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
-import cookie from "cookie";
 import DataNotFound from "@/ui/DataNotFound";
 import { IProductComments } from "@/features/ProductDetail/interface";
 import useQueryApiClient from "@/utils/useQueryApiClient";
-import GoToBack from "@/components/GoToBack";
 
 interface ProductDetailProps {
   product: any;
@@ -106,7 +104,6 @@ export const getServerSideProps = async (context: any) => {
       provider: provider,
     };
 
-    console.log(params);
 
     let product;
     if (provider === "local") {
