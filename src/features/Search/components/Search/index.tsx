@@ -80,8 +80,6 @@ const Search = ({ data = [] }: Props) => {
     });
   };
 
-
-
   const { appendData: getSearchRes, isLoading: isSearchResLoading } =
     useQueryApiClient({
       request: {
@@ -132,7 +130,7 @@ const Search = ({ data = [] }: Props) => {
 
   return (
     <>
-    <div className={styles.search}>
+      <div className={styles.search}>
         <div className="container">
           <div className={styles.search__inner}>
             <div className={styles.search__media}>
@@ -147,7 +145,7 @@ const Search = ({ data = [] }: Props) => {
                   <SvgSelector id="1688-svg" />
                   <span>1688</span>
                 </button>
-                <button
+                {/* <button
                   className={`${styles.search__platform_btn} ${
                     activePlatform === "taobao" ? styles.active : ""
                   }`}
@@ -155,7 +153,7 @@ const Search = ({ data = [] }: Props) => {
                 >
                   <SvgSelector id="taobao-svg" />
                   <span>Taobao</span>
-                </button>
+                </button> */}
               </div>
 
               <div className={styles.search__btn}>

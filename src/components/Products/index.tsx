@@ -22,7 +22,7 @@ const Products = ({
     if (!handleGetProduct) {
       return;
     }
-    const newCount = page + 1;
+    const newCount = page + 40;
     setPage(newCount);
     handleGetProduct({ page: newCount });
   };
