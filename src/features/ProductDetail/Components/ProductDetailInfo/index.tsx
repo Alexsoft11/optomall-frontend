@@ -14,7 +14,6 @@ import { copyLinkToClipboard } from "@/utils/useCopyLink";
 import {
   ColorsBasketInterface,
   ProductDetailInterface,
-  SKU,
   SKUProperty,
 } from "../../interface";
 import ProductOrderSection from "../ProductOrdeSection";
@@ -34,6 +33,8 @@ const ProductDetailInfo: React.FC<Props> = ({
   path = shareUrl(),
   setSelectedImage,
 }) => {
+  console.log(product);
+  
   const [showAll, setShowAll] = useState(false);
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -134,17 +135,17 @@ const ProductDetailInfo: React.FC<Props> = ({
         </div>
         <div ref={divRef} className={styles.productDetails}>
           {(showAll
-            ? product?.composition
-            : product?.composition.slice(0, 4)
+            ? product?.compositions
+            : product?.compositions.slice(0, 4)
           )?.map((el, idx) => (
             <Fragment key={idx}>
               <div className={styles.detail}>
-                <span className={styles.detail_category}>{el.name}</span>
+                <span className={styles.detail_category}>{el.propertyName}</span>
                 <p className={styles.detail_value}>{el.value}</p>
               </div>
             </Fragment>
           ))}
-          {product?.composition && product?.composition?.length > 4 && (
+          {product?.compositions && product?.compositions?.length > 4 && (
             <button
               onClick={handleToggleShowAll}
               className={styles.showAllButton}

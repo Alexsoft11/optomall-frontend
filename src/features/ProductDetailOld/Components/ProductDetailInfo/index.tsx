@@ -10,7 +10,6 @@ import SvgSelector from "$/assets/icons/SvgSelector";
 import Link from "next/link";
 import { shareUrl } from "@/constants";
 import ProductIsLike from "../ProductIsLike/ProductIsLike";
-import { productDetailsData } from "@/mockdata/detailData";
 import { useTranslations } from "next-intl";
 import { copyLinkToClipboard } from "@/utils/useCopyLink";
 
@@ -137,7 +136,7 @@ useEffect(()=>{
               <span>{t("compound")}</span>
               <div></div>
             </div>
-            <p>{productDetailsData.composition}</p>
+            {/* <p>{productDetailsData.composition}</p> */}
           </li>
           <li>
             <div className={styles.productSpecs_name}>
@@ -151,7 +150,7 @@ useEffect(()=>{
               <span>{t("model_features")}</span>
               <div></div>
             </div>
-            <p>{productDetailsData.features}</p>
+            {/* <p>{productDetailsData.features}</p> */}
           </li>
         </div>
       </div>

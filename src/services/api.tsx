@@ -86,12 +86,12 @@ export const API = {
   //  ProductDetail
   getProductDetail: (params: any) =>
     axiosInstance
-      .get(`product-detail-from-taobao`, { params: params })
+      .get(`product-detail-otapi`, { params: params })
       .then((res) => res.data),
 
   getProductDetailLocal: (params: any) =>
     axiosInstance
-      .get(`product-detail-from-taobao`, {
+      .get(`product-detail-otapi?productId`, {
         params: params,
       })
       .then((res) => res.data),

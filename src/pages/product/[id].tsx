@@ -33,7 +33,7 @@ const ProductDetailSectionLocal = dynamic(
   }
 );
 
-const ProductDetail = ({ product }: ProductDetailProps) => {
+const ProductDetail = ({ product }: ProductDetailProps) => {  
   const { query, locale } = useRouter();
   const { data: productComments } = useQueryApiClient({
     request: {
@@ -98,15 +98,13 @@ function extractId(id: any) {
 export const getServerSideProps = async (context: any) => {
   try {
     const provider = context.query.provider || "taobao";
-    const productId = extractId(context.params.id);
+    const productId = context.params.id
 
     const params = {
       productId: productId,
       lang: context.locale,
       provider: provider,
     };
-
-    console.log(params);
 
     let product;
     if (provider === "local") {

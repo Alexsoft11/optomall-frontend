@@ -20,6 +20,21 @@
   }
 }
 
+.border_bottom {
+  border-bottom-left-radius: 6px !important;
+  border-bottom-right-radius: 6px !important;
+  border-top-right-radius: 0px !important;
+  border-top-left-radius: 0px !important;
+}
+
+.attribute {
+  border: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 120px;
+}
+
 .addToCart {
   background-color: #ff6a00 !important;
   color: white !important;
@@ -42,6 +57,12 @@
   opacity: 0.5;
   /* Slight transparency */
   border: none;
-  padding: 10px 20px;
+  // padding: 10px 20px;
+  border-radius: 10px;
   font-size: 16px;
+
+  p{
+    border-top-right-radius: 0px !important;
+  border-top-left-radius: 0px  !important;
+  }
 }
