@@ -16,7 +16,7 @@ const Products = ({
   hasMore = false,
   type,
 }: Props) => {
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(40);
 
   const fetchMoreData = async () => {
     if (!handleGetProduct) {
