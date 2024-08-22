@@ -228,9 +228,9 @@
       .swiper {
         max-width: -webkit-fill-available;
         .swiper-wrapper {
+          // right: -100%;
           .swiper-slide {
             padding: 5px 4px;
-            right: -100%;
             min-width: 120px;
             width: min-content !important;
             display: flex;
