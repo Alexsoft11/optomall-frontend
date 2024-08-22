@@ -156,10 +156,6 @@
         display: flex;
         flex-direction: column;
         row-gap: 30px;
-        max-height: 60dvh;
-        padding: 5px 10px;
-        overflow: hidden;
-        overflow: auto;
       }
       .content-inner {
         text-align: start;
@@ -186,10 +182,6 @@
 
         .img-box {
           position: relative;
-          min-width: 120px;
-          max-width: 140px;
-          min-height: 120px;
-
           .view-icon {
             position: absolute;
             z-index: 1;

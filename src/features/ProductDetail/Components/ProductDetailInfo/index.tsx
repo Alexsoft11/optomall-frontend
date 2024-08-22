@@ -33,7 +33,6 @@ const ProductDetailInfo: React.FC<Props> = ({
   path = shareUrl(),
   setSelectedImage,
 }) => {
-  console.log(product);
   
   const [showAll, setShowAll] = useState(false);
   const divRef = useRef<HTMLDivElement>(null);

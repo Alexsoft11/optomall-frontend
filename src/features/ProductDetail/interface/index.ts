@@ -46,8 +46,9 @@ export interface AllDataItemInterface {
 export interface ConfiguratorItemInterface {
   Pid: string;
   Vid: string;
-  value?: string;
-  name?: string;
+  value: string;
+  imageUrl?: string;
+  name: string;
 }
 
 export interface ConfiguratorInterface {
@@ -64,9 +65,8 @@ export interface AllDataInterface {
 
 export interface GroupedProperties {
   [propId: string]: {
-    keys: { imageUrl?: string; value: string; propId: string }[];
+    keys: { imageUrl?: string; value: string; Vid: string; Pid: string }[];
     propName: string;
-    imageUrl?: string;
   };
 }
 
@@ -103,11 +103,11 @@ export interface ConfiguredItem {
   configurators: ConfiguratorItemInterface[];
   price: number;
   quantity: number;
-  selected_quantity: number,
+  selected_quantity: number;
   quantityRanges: QuantityRange[];
   salesCount: number;
-  name?: string,
-  value?: string
+  name?: string;
+  value?: string;
 }
 
 export interface SellerInfoInterface {
@@ -223,5 +223,5 @@ export interface CreateBaskettemsDataInterface {
   provider: string;
   sku_id: string;
   product_url: string;
-  properties: ConfiguratorItemInterface[];
+  properties: ParsedProperty[];
 }

@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./ProductDetailImages.module.scss";
 import Image from "next/image";
 import SliderSection from "../SliderSection";
-import { detailData } from "@/mockdata/detailData";
 import CustomImage from "@/components/CustomImage";
 import Lightbox from "react-awesome-lightbox";
 
