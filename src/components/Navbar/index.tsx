@@ -93,7 +93,7 @@ const Navbar = () => {
                   description={
                     <>
                       {t("modalMessage")}<br/>
-                      <a href="tel:+998712345678">+998 71 234 56 78</a>
+                      <a href="tel:+998910105005">+998 91 010 50 05</a>
                     </>
                   }
                   open={modalIsOpen}

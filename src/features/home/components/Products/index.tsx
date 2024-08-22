@@ -56,7 +56,12 @@ const Products = ({
               />
             ) : (
               products?.map((el: CardInterface, idx: number) => (
-                <Card isBlank={true} key={el.id} data={el} provider={el.provider} />
+                <Card
+                  isBlank={false}
+                  key={el.id}
+                  data={el}
+                  provider={el.provider}
+                />
               ))
             )}
           </div>
@@ -78,7 +83,12 @@ const Products = ({
 
                 <div className={styles.products__cards}>
                   {item?.products.map((el: any, idx: number) => (
-                    <Card isBlank={true} key={idx} data={el} provider="local" />
+                    <Card
+                      isBlank={false}
+                      key={idx}
+                      data={el}
+                      provider="local"
+                    />
                   ))}
                 </div>
               </div>

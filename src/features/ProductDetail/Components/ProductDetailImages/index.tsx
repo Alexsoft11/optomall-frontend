@@ -1,6 +1,6 @@
 /** @format */
 
-import React from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 // import "swiper/swiper-bundle.min.css";
 // import "swiper/swiper.min.css";
@@ -10,6 +10,8 @@ import Detail from "./detail";
 import { ProductDetailInterface } from "../../interface";
 import CustomImage from "@/components/CustomImage";
 import { Mousewheel, Navigation } from "swiper/modules";
+import Lightbox from "react-awesome-lightbox";
+import SvgSelector from "$/assets/icons/SvgSelector";
 
 interface Props {
   selectedImage: any;
@@ -22,6 +24,9 @@ const ProductDetailImages = ({
   setSelectedImage,
   product,
 }: Props) => {
+
+
+ 
   return (
     <div className={styles.productDetail}>
       <Swiper
@@ -34,21 +39,26 @@ const ProductDetailImages = ({
       >
         {product.pictures.map((item: any, idx: number) => (
           <SwiperSlide key={item.id} className={styles.imageThumbnails_card}>
-            <CustomImage
-              fill
-              src={item.image_url}
-              alt={`Thumbnail ${item.id}`}
-              onClick={() => setSelectedImage(item.image_url)}
-              loading="lazy"
-              isLink={false}
-              className={selectedImage === item.image_url ? styles.active : ""}
-            />
+            <>
+              <CustomImage
+                fill
+                src={item.image_url}
+                alt={`Thumbnail ${item.id}`}
+                onClick={() => setSelectedImage(item.image_url)}
+                loading="lazy"
+                isLink={false}
+                className={
+                  selectedImage === item.image_url ? styles.active : ""
+                }
+              />
+             
+            </>
           </SwiperSlide>
         ))}
       </Swiper>
 
       <Detail selectedImage={selectedImage} product={product} />
-      {/* <div className={styles.productDetail__inner_image}></div> */}
+    
     </div>
   );
 };

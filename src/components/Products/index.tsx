@@ -16,13 +16,13 @@ const Products = ({
   hasMore = false,
   type,
 }: Props) => {
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(40);
 
   const fetchMoreData = async () => {
     if (!handleGetProduct) {
       return;
     }
-    const newCount = page + 1;
+    const newCount = page + 40;
     setPage(newCount);
     handleGetProduct({ page: newCount });
   };
