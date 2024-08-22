@@ -23,7 +23,7 @@ export interface SKUProperty {
   displayValue?: string;
   imageUrl?: string | undefined;
   property_id?: string;
-  selectedSku?: SKU;
+  selectedSku?: AttributesInterface;
 }
 interface ParsedProperty {
   id: string;
@@ -31,11 +31,42 @@ interface ParsedProperty {
   value: string;
 }
 
+export interface AllDataItemInterface {
+  miniImageUrl?: string;
+  imageUrl?: string;
+  Pid: string;
+  Vid: string;
+  PropertyName: string;
+  Value: string;
+  OriginalPropertyName: string;
+  OriginalValue: string;
+  IsConfigurator: boolean;
+}
+
+export interface ConfiguratorItemInterface {
+  Pid: string;
+  Vid: string;
+  value: string;
+  imageUrl?: string;
+  name: string;
+}
+
+export interface ConfiguratorInterface {
+  Id: string;
+  Quantity: number;
+  SalesCount: number;
+  Configurators: ConfiguratorItemInterface[];
+  Price: any;
+}
+
+export interface AllDataInterface {
+  [key: string]: AttributesInterface[];
+}
+
 export interface GroupedProperties {
   [propId: string]: {
-    keys: { imageUrl?: string; value: string; propId: string }[];
+    keys: { imageUrl?: string; value: string; Vid: string; Pid: string }[];
     propName: string;
-    imageUrl?: string;
   };
 }
 
@@ -45,16 +76,38 @@ export interface SelectedProperty {
 }
 
 // Interface for the SKU object
-export interface SKU {
+export interface AttributesInterface {
+  imageUrl?: string;
+  miniImageUrl?: string;
+  originalPropertyName: string;
+  originalValue: string;
+  pid: string;
+  propertyName: string;
+  value: string;
+  vid: string;
+  isConfigurator: boolean;
+}
+
+interface Configurator {
+  Pid: string; // Product ID
+  Vid: string; // Variant ID
+}
+
+interface QuantityRange {
+  minQuantity: number;
   price: number;
-  total_price: number;
-  orginal_price: number;
-  properties: string;
-  properties_name: string;
+}
+
+export interface ConfiguredItem {
+  id: string;
+  configurators: ConfiguratorItemInterface[];
+  price: number;
   quantity: number;
   selected_quantity: number;
-  sku_id: string;
-  parsedProperties?: ParsedProperty[];
+  quantityRanges: QuantityRange[];
+  salesCount: number;
+  name?: string;
+  value?: string;
 }
 
 export interface SellerInfoInterface {
@@ -74,19 +127,19 @@ export interface SellerInfoInterface {
 }
 
 interface SellerInfo {
-  nick: string;            // Seller's nickname
-  item_score: number;      // Score for items (usually a float)
-  score_p: number;         // Score percentage (usually a float)
-  delivery_score: number;  // Score for delivery (usually a float)
-  shop_type: string;       // Type of the shop (could be an empty string if not specified)
-  user_num_id: string;     // User number ID (typically a string)
-  sid: string | null;      // Shop ID (could be a string or null)
-  title: string;           // Title of the shop (could be an empty string if not specified)
-  zhuy: string;            // URL for the shop
-  cert: string | null;     // Certification (could be a string or null)
-  open_time: string;       // Duration since the shop opened
-  credit_score: string;    // Credit score (usually a string)
-  shop_name: string;       // Name of the shop
+  nick: string; // Seller's nickname
+  item_score: number; // Score for items (usually a float)
+  score_p: number; // Score percentage (usually a float)
+  delivery_score: number; // Score for delivery (usually a float)
+  shop_type: string; // Type of the shop (could be an empty string if not specified)
+  user_num_id: string; // User number ID (typically a string)
+  sid: string | null; // Shop ID (could be a string or null)
+  title: string; // Title of the shop (could be an empty string if not specified)
+  zhuy: string; // URL for the shop
+  cert: string | null; // Certification (could be a string or null)
+  open_time: string; // Duration since the shop opened
+  credit_score: string; // Credit score (usually a string)
+  shop_name: string; // Name of the shop
 }
 export interface ProductDetailInterface {
   id: string;
@@ -101,9 +154,10 @@ export interface ProductDetailInterface {
   location: string;
   product_url: string;
   videos: { url: string | null }[];
-  skus: SKU[];
+  attributes: AttributesInterface[];
   props_list: PropsList;
-  composition: { name: string; value: string }[];
+  compositions: AttributesInterface[];
+  configuredItems: ConfiguredItem[];
   is_liked: boolean;
   seller_info: SellerInfoInterface;
   seller_id: string;
@@ -135,9 +189,9 @@ export interface ColorsBasketInterface {
 }
 
 export interface ProppertiesInterface {
-  id: string,
-  name: string,
-  value: string
+  id: string;
+  name: string;
+  value: string;
 }
 
 export interface CreateOrderItemsDataInterface {
@@ -150,11 +204,11 @@ export interface CreateOrderItemsDataInterface {
   provider: string;
   sku_id: string;
   product_url: string;
-  properties: ProppertiesInterface[]
+  properties: ProppertiesInterface[];
 }
 
 export interface CreateOrderDataInterface {
-  items: CreateOrderItemsDataInterface[];
+  items: CreateBaskettemsDataInterface[];
   total_price: number;
 }
 
@@ -169,6 +223,5 @@ export interface CreateBaskettemsDataInterface {
   provider: string;
   sku_id: string;
   product_url: string;
-  properties: ProppertiesInterface[]
+  properties: ParsedProperty[];
 }
-

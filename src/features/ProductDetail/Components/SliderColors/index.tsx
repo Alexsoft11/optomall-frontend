@@ -9,12 +9,11 @@ import Image from "next/image";
 import styles from "./SliderColors.module.scss";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import { Badge, Tooltip } from "antd";
-import { ColorsBasketInterface, SKU, SKUProperty } from "../../interface";
+import { ColorsBasketInterface, SKUProperty } from "../../interface";
 import CustomImage from "@/components/CustomImage";
 
 interface Props {
   colors: SKUProperty[];
-  skus?: SKU[];
   handleColorSelect: (colorProperty?: SKUProperty) => void;
   selectedColor?: SKUProperty;
   colorsBasket: ColorsBasketInterface[];
@@ -22,7 +21,6 @@ interface Props {
 
 const SliderColors = ({
   colors,
-  skus,
   handleColorSelect,
   selectedColor,
   colorsBasket,
