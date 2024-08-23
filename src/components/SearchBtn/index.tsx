@@ -142,15 +142,17 @@ const SearchBtn = ({ categoryData }: Props) => {
   // Modified handleSearch function
   const handleSearch = (values: any) => {
     if (values.search) {
-      const providerInfo = getProviderInfo(values.search);
+      const { provider, id } = getProviderInfo(values.search);
       let firstHint; // = filteredItems[0];
       setIsDropdownOpen(false);
 
       // If a valid Taobao or 1688 link is detected
-      if (providerInfo.id && providerInfo.provider) {
+      if (id && provider) {
         // Navigate to the product page with the ID and provider
         router.push(
-          `/product/${providerInfo.id}?provider=${providerInfo.provider}`
+          `/product/${
+            provider === "1688" ? "abb-" + id : id
+          }?provider=${provider}`
         );
       } else {
         // Proceed with the existing search logic
