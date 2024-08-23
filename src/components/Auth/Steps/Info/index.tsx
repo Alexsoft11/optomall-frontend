@@ -26,7 +26,7 @@ export default function Info() {
       disableOnMount: true,
     },
     onSuccess(res) {
-
+      const backUrl = localStorage.getItem("backUrl");
       if (!res.token) {
         message.error(t("Auth.something_wrong"));
         return;
@@ -38,7 +38,8 @@ export default function Info() {
         path: "/",
         maxAge: maxAge,
       });
-      push((query.backUrl as string) || "/");
+      localStorage.removeItem('backUrl')
+      push((backUrl as string) || "/");
     },
     onError(res) {
       message.error(t("Auth.something_wrong"));

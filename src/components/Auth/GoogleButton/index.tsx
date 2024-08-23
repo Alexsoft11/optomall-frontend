@@ -24,19 +24,21 @@ export default function GoogleButton() {
       disableOnMount: true,
     },
     onSuccess(res) {
-
+      const backUrl = localStorage.getItem("backUrl");
       if (res.message === "add_personal_data" || !res.info_filled) {
-        push(`/auth?step=info&id=${res.unique_id}`)
-        return
-      }
-
-      if (!res.token) {
-        message.error(t('Auth.something_wrong'))
+        push(`/auth?step=info&id=${res.unique_id}`);
         return;
       }
 
+      if (!res.token) {
+        message.error(t("Auth.something_wrong"));
+        return;
+      }
+      console.log(res);
+
       cookie.set("token", res.token);
-      push((query.backUrl as string) || "/");
+      localStorage.removeItem('backUrl')
+      push((backUrl as string) || "/");
     },
   });
 

@@ -18,7 +18,8 @@ export default function App({ Component, pageProps }: AppProps) {
   const protectPages = ["/messages", "/my-reviews", "/purchases"];
   useEffect(() => {
     if (!token && protectPages.includes(pathname))
-      push(`/auth?step=signin&backUrl=${asPath}`);
+        localStorage.setItem("backUrl", asPath);
+        push(asPath);
   }, [asPath]);
 
   return (

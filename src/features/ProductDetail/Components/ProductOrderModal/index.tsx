@@ -120,6 +120,12 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
 
   //function create request data to buy or add to cart
   const toOrder = () => {
+    console.log('token is:', token);
+    
+    if (!token) {
+      setShowModal(true);
+      return;
+    }
     const newSelectedSku = selectedSku?.filter(
       (el) => el.selected_quantity > 0
     );
@@ -162,10 +168,6 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       if (type === "to_cart") item.max_quantity = el.quantity;
       return item;
     });
-    if (!token) {
-      setShowModal(true);
-      return;
-    }
     if (type === "to_order") {
       const data: CreateOrderDataInterface = {
         items: items,
@@ -179,6 +181,11 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     createUserBasket(items);
   };
 
+  const toAuth = (path: string) => {
+    localStorage.setItem("backUrl", router.asPath);
+    router.push(path);
+  };
+
   const modalProps = {
     onCancel: () => setShowModal(false),
     className: "bg_white",
@@ -186,9 +193,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     description: t("Cart.authMessage"),
     children: (
       <Button
-        onClick={() =>
-          router.push(`/auth?step=signin&backUrl=${router.asPath}`)
-        }
+        onClick={() => toAuth("/auth?step=signin")}
         className="signIn_btn"
         label={t("Cart.signin")}
       />
