@@ -24,7 +24,7 @@ const Search = ({ data = [] }: Props) => {
   const token = useJwt();
   const [products, setProducts] = useState(data);
   const [hasMore, setHasMore] = useState(true);
-  const [activeSort, setActiveSort] = useState<string>("");
+  const [activeSort, setActiveSort] = useState<string>("Default");
 
   const handleButtonClick = (platform: any) => {
     const newQuery = {
@@ -163,26 +163,26 @@ const Search = ({ data = [] }: Props) => {
               <div className={styles.search__top}>
                 <div className={styles.search__btns}>
                   <button
-                    className={activeSort === "" ? styles.active : ""}
-                    onClick={() => handleFilter("")}
+                    className={activeSort === "Default" ? styles.active : ""}
+                    onClick={() => handleFilter("Default")}
                   >
                     {t("default")}
                   </button>
                   <button
-                    className={activeSort === "_sale" ? styles.active : ""}
-                    onClick={() => handleFilter("_sale")}
+                    className={activeSort === "TotalPrice:Asc" ? styles.active : ""}
+                    onClick={() => handleFilter("TotalPrice:Asc")}
                   >
                     {t("sales")}
                   </button>
                   <button
-                    className={activeSort === "_bid2" ? styles.active : ""}
-                    onClick={() => handleFilter("_bid2")}
+                    className={activeSort === "Price:Desc" ? styles.active : ""}
+                    onClick={() => handleFilter("Price:Desc")}
                   >
                     {t("price_down")}
                   </button>
                   <button
-                    className={activeSort === "bid2" ? styles.active : ""}
-                    onClick={() => handleFilter("bid2")}
+                    className={activeSort === "Price:Asc" ? styles.active : ""}
+                    onClick={() => handleFilter("Price:Asc")}
                   >
                     {t("price_top")}
                   </button>
