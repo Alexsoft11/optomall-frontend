@@ -90,14 +90,13 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
 
 export const getServerSideProps = async (context: any) => {
   try {
-    const provider = context.query.provider || "taobao";
+    const provider = context.query.provider || "1688";
 
     const params = {
       productId: context.params.id,
       lang: context.locale,
       provider: provider,
     };
-
 
     let product;
     if (provider === "local") {
