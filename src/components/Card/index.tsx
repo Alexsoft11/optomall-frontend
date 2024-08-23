@@ -29,8 +29,18 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
     }
   }, [textRef]);
 
+  useEffect(() => {
+    const savedScrollPosition = sessionStorage.getItem("scrollPosition");
+    if (savedScrollPosition) {
+      window.scrollTo(0, parseInt(savedScrollPosition, 10));
+    }
+  }, []);
+
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    
+    sessionStorage.setItem("scrollPosition", window.scrollY.toString());
+
     const id = router.pathname.includes("wishes") ? data.product_id : data.id;
     let url = `/${router.locale}/product/${id}?provider=${
       provider || router.query.provider || "1688"
