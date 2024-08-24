@@ -51,7 +51,7 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
         url = `${url}&catId=${router.query.catId}`;
       }
     }
-    if (isBlank) {
+    if (e.ctrlKey || e.metaKey || isBlank) {
       window.open(url, "_blank");
     } else {
       router.push(url);
@@ -70,7 +70,7 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
   const title = getTitle(data.title);
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} data-aos="fade-up" data-aos-duration="1200">
       <div onClick={handleLinkClick}>
         <div className={styles.card__image}>
           <CustomImage
