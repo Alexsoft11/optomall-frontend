@@ -87,19 +87,13 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
   );
 };
 
-function extractId(id: any) {
-  const numericId = id.match(/\d+/g);
-
-  return numericId ? numericId.join("") : "";
-}
 
 export const getServerSideProps = async (context: any) => {
   try {
-    const provider = context.query.provider || "taobao";
-    const productId = context.params.id;
+    const provider = context.query.provider || "1688";
 
     const params = {
-      productId: productId,
+      productId: context.params.id,
       lang: context.locale,
       provider: provider,
     };
