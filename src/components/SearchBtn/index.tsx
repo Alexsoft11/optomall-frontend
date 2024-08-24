@@ -13,16 +13,15 @@ import { LoadingSpinner } from "@/ui/Spin";
 
 const { Dragger } = Upload;
 type ProviderInfo = {
-  id: string | null;
-  provider: string | null;
+  url?: string | null;
 };
 
 interface Props {
   categoryData?: CategoryInterface[];
 }
 const SearchBtn = ({ categoryData }: Props) => {
-  const router = useRouter();
-  const { value } = router.query;
+  const { query, locale, pathname, replace, push } = useRouter();
+  const { value } = query;
   const [scrolled, setScrolled] = useState(false);
   const [startScrool, setStartScrool] = useState(false);
   const [form] = Form.useForm();
@@ -33,6 +32,25 @@ const SearchBtn = ({ categoryData }: Props) => {
   const [filteredItems, setFilteredItems] = useState<any[]>([]);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [selectedCatId, setSelectedCatId] = useState<number | null>(null);
+
+  const { appendData: getProductId, isLoading: isProductsLoading } =
+    useQueryApiClient({
+      request: {
+        url: `search-products-from-taobao`,
+        method: "GET",
+        disableOnMount: true,
+      },
+      onSuccess(res: any) {
+        if (res?.products?.length) {
+          push(`/product/${res.products[0].id}`);
+        } else {
+          message.error(t("noItems"));
+        }
+      },
+      onError() {
+        message.error(t("noItems"));
+      },
+    });
 
   const extractItems = (categoryData: any) => {
     let items: any[] = [];
@@ -91,14 +109,6 @@ const SearchBtn = ({ categoryData }: Props) => {
       setIsDropdownOpen(false);
     }
   };
-  const providerPatterns = {
-    taobao:
-      /(?:item\.taobao\.com|detail\.m\.taobao\.com)\/item\.htm\?(?:.*&)?id=(\d+)/,
-    tmall:
-      /(?:detail\.tmall\.com|detail\.m\.tmall\.com)\/item\.htm\?(?:.*&)?id=(\d+)/,
-    1688: /(?:detail\.1688\.com\/offer\/|detail\.1688\.com\/page\/index\.htm\?(?:.*&)?offerId=)(\d+)/i,
-    alibaba: /detail\.m\.1688\.com\/page\/index\.htm\?(?:.*&)?offerid=(\d+)/i,
-  };
 
   const urlPattern =
     /https?:\/\/(?:[^\s'"]+|\b(?:[a-zA-Z0-9-]+\.){1,3}[a-zA-Z]{2,})[^\s'"]*/;
@@ -108,72 +118,39 @@ const SearchBtn = ({ categoryData }: Props) => {
     return match ? match[0] : null;
   };
 
-  const detectProviderAndId = (
-    url: string
-  ): { id: string | null; provider: string | null } => {
-    for (const [provider, pattern] of Object.entries(providerPatterns)) {
-      const match = url.match(pattern);
-      if (match) {
-        return {
-          id: match[1],
-          provider:
-            provider === "tmall"
-              ? "taobao"
-              : provider == "alibaba"
-              ? "1688"
-              : provider,
-        };
-      }
-    }
-    return { id: null, provider: null };
-  };
-
   // Main function to get provider info
   const getProviderInfo = (text: string): ProviderInfo => {
     const url = extractUrl(text);
-
     if (url) {
-      const { id, provider } = detectProviderAndId(url);
-      return { id, provider: provider };
+      getProductId({ lang: locale, value: url });
     }
-    return { id: null, provider: null };
+    return { url };
   };
 
   // Modified handleSearch function
   const handleSearch = (values: any) => {
     if (values.search) {
-      const { provider, id } = getProviderInfo(values.search);
-      let firstHint; // = filteredItems[0];
+      const { url } = getProviderInfo(values.search);
       setIsDropdownOpen(false);
+      if (url) {
+        return;
+      }
+      // Proceed with the existing search logic
+      const newQuery: any = {
+        value: values.search.toLowerCase(),
+        provider: query.provider || "1688",
+      };
 
-      // If a valid Taobao or 1688 link is detected
-      if (id && provider) {
-        // Navigate to the product page with the ID and provider
-        router.push(
-          `/product/${
-            provider === "1688" ? "abb-" + id : id
-          }?provider=${provider}`
-        );
+      if (values.catId) {
+        newQuery.catId = values.catId;
+      }
+
+      if (pathname === "/search") {
+        replace({ pathname: pathname, query: newQuery }, undefined, {
+          shallow: true,
+        });
       } else {
-        // Proceed with the existing search logic
-        const newQuery: any = {
-          value: values.search.toLowerCase(),
-          provider: router.query.provider || "1688",
-        };
-
-        if (values.catId) {
-          newQuery.catId = values.catId;
-        }
-
-        if (router.pathname === "/search") {
-          router.replace(
-            { pathname: router.pathname, query: newQuery },
-            undefined,
-            { shallow: true }
-          );
-        } else {
-          router.push({ pathname: "/search", query: newQuery });
-        }
+        push({ pathname: "/search", query: newQuery });
       }
     }
   };
@@ -195,7 +172,7 @@ const SearchBtn = ({ categoryData }: Props) => {
       form.resetFields();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query, router.locale]);
+  }, [query, locale]);
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -227,10 +204,10 @@ const SearchBtn = ({ categoryData }: Props) => {
     },
     onSuccess(res) {
       handleCancel();
-      router.push(
-        `/search?lang=${router.locale}&provider=${
-          router.query.provider || "1688"
-        }&imageUrl=${res.url}`
+      push(
+        `/search?lang=${locale}&provider=${query.provider || "1688"}&imageUrl=${
+          res.url
+        }`
       );
     },
     onError(err) {
@@ -468,6 +445,7 @@ const SearchBtn = ({ categoryData }: Props) => {
           <p>{t("imageWarning")}</p>
         </Modal>
       </div>
+      <LoadingSpinner fullscreen={true} spinning={isProductsLoading} />
     </>
   );
 };
