@@ -124,7 +124,6 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       setShowModal(true);
       return;
     }
-
     const newSelectedSku = selectedSku?.filter(
       (el) => el.selected_quantity > 0
     );

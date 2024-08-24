@@ -30,6 +30,7 @@ export default function SignIn() {
       disableOnMount: true,
     },
     onSuccess(res) {
+      // const backUrl = localStorage.getItem("backUrl");
       if (res.message === "add_personal_data" || !res.info_filled) {
         message.error(t(`Auth.${res.message}`));
         push(`/auth?step=info&id=${res.unique_id}`);
