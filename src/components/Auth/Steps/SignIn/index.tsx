@@ -30,7 +30,7 @@ export default function SignIn() {
       disableOnMount: true,
     },
     onSuccess(res) {
-      const backUrl = localStorage.getItem("backUrl");
+      // const backUrl = localStorage.getItem("backUrl");
       if (res.message === "add_personal_data" || !res.info_filled) {
         message.error(t(`Auth.${res.message}`));
         push(`/auth?step=info&id=${res.unique_id}`);
@@ -51,8 +51,8 @@ export default function SignIn() {
         maxAge: maxAge,
       });
 
-      localStorage.removeItem("backUrl");
-      push((backUrl as string) || "/");
+      // localStorage.removeItem("backUrl");
+      // push((backUrl as string) || "/");
     },
     onError(err) {
       if (err.message.includes("email")) {

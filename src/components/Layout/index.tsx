@@ -25,8 +25,8 @@ const MainLayout = ({ children }: ILayoutsProps) => {
   const protectPages = ["/messages", "/my-reviews", "/purchases"];
   useEffect(() => {
     if (!token && protectPages.includes(pathname))
-      localStorage.setItem("backUrl", asPath);
-    push(asPath);
+      // localStorage.setItem("backUrl", asPath);
+      push(asPath);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [asPath]);
 

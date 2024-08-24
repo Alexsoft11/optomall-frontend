@@ -182,7 +182,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
   };
 
   const toAuth = (path: string) => {
-    localStorage.setItem("backUrl", router.asPath);
+    // localStorage.setItem("backUrl", router.asPath);
     router.push(path);
   };
 

@@ -24,7 +24,7 @@ export default function GoogleButton() {
       disableOnMount: true,
     },
     onSuccess(res) {
-      const backUrl = localStorage.getItem("backUrl");
+      // const backUrl = localStorage.getItem("backUrl");
       if (res.message === "add_personal_data" || !res.info_filled) {
         push(`/auth?step=info&id=${res.unique_id}`);
         return;
@@ -37,8 +37,8 @@ export default function GoogleButton() {
       console.log(res);
 
       cookie.set("token", res.token);
-      localStorage.removeItem('backUrl')
-      push((backUrl as string) || "/");
+      // localStorage.removeItem('backUrl')
+      // push((backUrl as string) || "/");
     },
   });
 

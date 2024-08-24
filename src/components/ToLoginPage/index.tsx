@@ -9,7 +9,7 @@ const ToLoginPage = () => {
   const { query, push, asPath } = useRouter();
 
   const toAuth = (path: string) => {
-    localStorage.setItem("backUrl", asPath);
+    // localStorage.setItem("backUrl", asPath);
     push(path);
   };
   return (
