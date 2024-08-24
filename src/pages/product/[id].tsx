@@ -104,8 +104,6 @@ export const getServerSideProps = async (context: any) => {
     } else {
       product = await API.getProductDetail(params);
     }
-
-    // const productComments = await API.getProductComments(id);
     return {
       props: {
         product,
