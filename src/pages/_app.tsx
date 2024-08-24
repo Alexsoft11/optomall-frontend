@@ -16,9 +16,11 @@ export default function App({ Component, pageProps }: AppProps) {
   const { pathname, push, asPath } = useRouter();
   const token = useJwt();
   const protectPages = ["/messages", "/my-reviews", "/purchases"];
+
   useEffect(() => {
     if (!token && protectPages.includes(pathname))
-      push(`/auth?step=signin&backUrl=${asPath}`);
+      localStorage.setItem("backUrl", asPath);
+    push(`/auth?step=signin`);
   }, [asPath]);
 
   return (

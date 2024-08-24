@@ -38,7 +38,7 @@ export default function Info() {
         path: "/",
         maxAge: maxAge,
       });
-      push((query.backUrl as string) || "/");
+      push((localStorage.getItem("backUrl") as string) || "/");
     },
     onError(res) {
       message.error(t("Auth.something_wrong"));
