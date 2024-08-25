@@ -451,11 +451,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                             960: {
                               slidesPerView: 6,
                             },
-                            480: {
-                              slidesPerView: 5,
-                            },
                             0: {
-                              slidesPerView: 3,
+                              slidesPerView: "auto",
                             },
                           }}
                           pagination={{ clickable: true }}

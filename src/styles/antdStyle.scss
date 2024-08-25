@@ -262,6 +262,7 @@
 
         .swiper-wrapper {
           .swiper-slide {
+            width: min-content;
             padding: 5px 4px;
             min-width: 120px;
             display: flex;
