@@ -29,6 +29,7 @@ export default function Cart({}: Props) {
   const { locale, push } = useRouter();
   const token = useJwt();
   const [basketData, setBasketData] = useState<CartItemInterface[]>([]);
+  console.log(basketData)
 
   const { isLoading } = useQueryApiClient({
     request: {
