@@ -21,6 +21,7 @@ const Navbar = () => {
   const t = useTranslations("Navbar");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   type ModalState = "user" | "nav" | null;
+  const [isCheckShow, setIsCheckShow] = useState();
 
   const [openModal, setOpenModal] = useState<ModalState>(null);
   const [isMounted, setIsMounted] = useState(false);
@@ -49,6 +50,21 @@ const Navbar = () => {
     setModalIsOpen(true);
   };
 
+  const { appendData: isCheckApiCarts } = useQueryApiClient({
+    request: {
+      url: "has-items",
+      method: "GET",
+      disableOnMount: true,
+    },
+    onSuccess(res) {
+      setIsCheckShow(res)
+    },
+  });
+
+  useEffect(() => {
+    isCheckApiCarts();
+  }, []);
+
   const { appendData: getCategoryData, data: categoryData } = useQueryApiClient(
     {
       request: {
@@ -60,7 +76,6 @@ const Navbar = () => {
 
   useEffect(() => {
     getCategoryData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.locale]);
 
   return (
@@ -119,6 +134,11 @@ const Navbar = () => {
                       <Link href="/cart">
                         <SvgSelector id="shop-svg" />
                       </Link>
+                      {
+                        isCheckShow && (
+                          <span></span>
+                        )
+                      }
                     </button>
                     <button
                       className={`${styles.navbar__user_btn} ${
@@ -209,6 +229,11 @@ const Navbar = () => {
             >
               <SvgSelector id={`${item.key}-svg`} />
               <p>{t(item.key)}</p>
+              {
+                isCheckShow && item.key == "shop" && (
+                  <span></span>
+                )
+              }
             </Link>
           ))}
         </div>

@@ -60,10 +60,6 @@ export default function Home({ slidersData, productsData }: HomeProps) {
     },
   });
 
-  useEffect(() => {
-    getProductsData({ query: "discount" });
-  }, []);
-
   const { appendData: getProductsData, isLoading: isProductsLoading } =
     useQueryApiClient({
       request: {
@@ -180,19 +176,19 @@ export default function Home({ slidersData, productsData }: HomeProps) {
 
 export const getServerSideProps = async (context: any) => {
   try {
-    // const cookies = cookie.parse(context.req.headers.cookie || "");
+    const cookies = cookie.parse(context.req.headers.cookie || "");
 
-    // const token = decodeURIComponent(cookies.token);
+    const token = decodeURIComponent(cookies.token);
     const slidersResponse = await API.getHomePageSlider();
-    // const productsResponse = await API.getHomePageProducts(
-    //   context.locale,
-    //   token
-    // );
+    const productsResponse = await API.getHomePageProducts(
+      context.locale,
+      token
+    );
 
     return {
       props: {
         slidersData: slidersResponse.data || { sliders: [] },
-        productsData: { products: [] },
+        productsData: productsResponse.data || { products: [] },
       },
     };
   } catch (error: any) {
