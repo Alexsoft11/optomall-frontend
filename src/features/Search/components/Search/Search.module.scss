@@ -183,43 +183,4 @@
       display: none;
     }
   }
-
-  &__btns {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    @media (max-width:850px) {
-      margin-top: 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)) !important;
-    }
-    button {
-      min-width: 120px !important;
-      min-height: 39px !important;
-      border-radius: 5px;
-      background-color: var(--white-smoke);
-      border: none;
-      color: var(--black-color);
-      cursor: pointer;
-
-      box-sizing: border-box;
-      -webkit-border-radius: 5px;
-      -webkit-appearance: none;
-
-      @media (max-width:768px) {
-        min-width: 120px !important;
-        max-width: 120px !important;
-      }
-      
-      @media (max-width:475px) {
-        max-width: 100% !important;
-        min-width: 100% !important;
-      }
-      
-      &.active {
-        color: var(--white-color);
-        background-color: var(--primary-color);
-      }
-    }
-  }
 }
