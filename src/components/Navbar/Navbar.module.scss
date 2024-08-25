@@ -146,11 +146,22 @@
     display: flex;
     align-items: center;
     justify-content: end;
+    position: relative;
 
     a {
       display: flex;
       align-items: center;
       justify-content: end;
+    }
+
+    span {
+      width: 8px;
+      height: 8px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      position: absolute;
+      top: -4px;
+      right: -4px;
     }
 
     @media (max-width: 970px) {
@@ -318,6 +329,7 @@
     flex-direction: column;
     gap: 3px;
     text-decoration: none;
+    position: relative;
 
     svg {
       width: 24px;
@@ -327,6 +339,16 @@
       path {
         fill: #292d32;
       }
+    }
+
+    span {
+      width: 8px;
+      height: 8px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      position: absolute;
+      top: -3px;
+      right: 3px;
     }
 
     p {
