@@ -95,28 +95,13 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       let initialItem = ConfiguredItems[0];
 
       setConfiguredItemsArr(ConfiguredItems);
-      setPropertiesWithImages(imageProperties);
+      setPropertiesWithImages(imageProperties || null);
       setCurrentSku(initialItem);
       setSelectProperty(initialItem.configurators);
       setSelectedSku([initialItem]);
       setGroupedProperties(allProperties);
     }
   }, [attributes]);
-
-  //function to get a link to an image
-  // const getImageUrl = (propertys: string[]) => {
-  //   let url = "";
-  //   Object.values(propertiesWithImages).map(({ keys }) => {
-  //     keys.map((el) => {
-  //       if (propertys.includes(el.propId)) {
-  //         url = el.imageUrl as string;
-  //         return;
-  //       }
-  //     });
-  //   });
-
-  //   return url;
-  // };
 
   //function create request data to buy or add to cart
   const toOrder = () => {
@@ -387,6 +372,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
 
   const capitalize = (text: string) =>
     text.charAt(0).toUpperCase() + text.slice(1);
+
   return (
     <div>
       {contextHolder}
@@ -468,8 +454,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                             480: {
                               slidesPerView: 5,
                             },
-                            380: {
-                              slidesPerView: 1.3,
+                            0: {
+                              slidesPerView: 3,
                             },
                           }}
                           pagination={{ clickable: true }}
@@ -540,7 +526,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                       {keys.map(({ value, pid, vid }, index) => (
                         <Badge
                           count={
-                            idx === 0 && !propertiesWithImages
+                            idx === 0 &&
+                            !Object.keys(propertiesWithImages || {}).length
                               ? getPropertyQuantity(pid, vid, propName)
                               : null
                           }
