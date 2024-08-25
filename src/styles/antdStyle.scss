@@ -6,6 +6,7 @@
       display: block;
     }
   }
+
   .swiper-pagination-bullet-active {
     background-color: var(--primary-color);
   }
@@ -25,14 +26,17 @@
   height: 10px !important;
   border-radius: 50%;
 }
+
 .ant-carousel .slick-dots li.slick-active {
   width: 16px !important;
 }
+
 :where(.css-dev-only-do-not-override-1okl62o).ant-rate .ant-rate-star-first,
 :where(.css-dev-only-do-not-override-1okl62o).ant-rate .ant-rate-star-second {
   color: var(--light-grey);
   font-size: var(--heading-four);
 }
+
 :where(
     .css-dev-only-do-not-override-1okl62o
   ).ant-badge.ant-badge-not-a-wrapper:not(.ant-badge-status) {
@@ -41,11 +45,14 @@
   left: 32px;
   z-index: 30;
 }
+
 .ant-rate .ant-rate-star:not {
   margin-inline-end: 3px !important;
 }
+
 .anticon {
   font-size: 16px !important;
+
   @media (max-width: "360px") {
     font-size: 14px !important;
   }
@@ -64,6 +71,7 @@
   margin-bottom: 0px !important;
   width: 100% !important;
 }
+
 .ant-badge-count {
   z-index: 9 !important;
 }
@@ -71,14 +79,18 @@
 .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: #ff6a00 !important;
 }
+
 .ant-tabs .ant-tabs-ink-bar {
   background: #ff6a00 !important;
 }
+
 .ant-tabs .ant-tabs-tab {
   font-size: 20px !important;
+
   @media (max-width: 480px) {
     font-size: 16px !important;
   }
+
   @media (max-width: 360px) {
     font-size: 14px !important;
   }
@@ -94,12 +106,15 @@
     }
   }
 }
+
 .ant-message-notice-content {
   z-index: 999 !important;
 }
+
 .ant-modal-wrap {
   overflow-x: hidden !important;
 }
+
 .order-modal {
   .ant-modal-close {
     right: 30px !important;
@@ -117,6 +132,7 @@
 
   .ant-modal-footer {
     display: block !important;
+
     .modal-footer {
       display: flex;
       align-items: center;
@@ -127,6 +143,7 @@
         @media screen and (max-width: 500px) {
           display: none;
         }
+
         h3 {
           font-size: 20px;
           font-weight: 400;
@@ -135,6 +152,7 @@
       }
     }
   }
+
   .order-modal-body {
     width: 800px;
     max-width: 84dvw;
@@ -142,21 +160,25 @@
     .ant-modal-close {
       left: 30px !important;
     }
+
     .content {
       .currentPrice {
         text-align: left;
         padding: 0px 0px 37px 0px;
+
         h3 {
           font-size: 24px;
           font-weight: 500;
           line-height: 29.05px;
         }
       }
+
       .property-items {
         display: flex;
         flex-direction: column;
         row-gap: 30px;
       }
+
       .content-inner {
         text-align: start;
 
@@ -177,24 +199,32 @@
             width: 100%;
             padding: 8px;
             min-height: 50px;
+
+            // @media (max-width: 480px) {
+            //   max-width: 120px;
+            // }
           }
         }
 
         .img-box {
           position: relative;
+
           .view-icon {
             position: absolute;
             z-index: 1;
             top: 5px;
             right: 10px;
+
             svg {
               width: 20px;
               height: 20px;
+
               path {
                 fill: var(--primary-color);
               }
             }
           }
+
           img {
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
@@ -210,6 +240,7 @@
           line-height: 121.065%;
         }
       }
+
       .grouped-prop {
         p {
           border-radius: 6px;
@@ -225,20 +256,21 @@
           gap: 10px;
         }
       }
+
       .swiper {
         max-width: -webkit-fill-available;
+
         .swiper-wrapper {
-          // right: -100%;
           .swiper-slide {
             padding: 5px 4px;
             min-width: 120px;
-            width: min-content !important;
             display: flex;
             justify-content: flex-end;
             flex-direction: column;
             border-radius: 10px;
             cursor: pointer;
             padding-top: 10px;
+
             .img-box {
               position: relative;
               width: 120px;
@@ -250,6 +282,7 @@
     }
   }
 }
+
 .ant-dropdown {
   z-index: 999 !important;
 }
