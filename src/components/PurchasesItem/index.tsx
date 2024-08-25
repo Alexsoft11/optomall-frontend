@@ -130,7 +130,7 @@ export default function PurchasesItem({ item }: Props) {
         <SvgSelector className={"breadcrumb_icon"} id={"chevron-svg"} />
       </div>
       <div className={styles.order_items}>
-        {item.isPaid ? (
+        {!item.isPaid ? (
           <div onClick={toOrder} className={styles.sub_status_slug}>
             <h4>{t("send_check_again")}</h4>
             <button>{t("upload")}</button>

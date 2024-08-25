@@ -115,7 +115,13 @@ const SearchBtn = ({ categoryData }: Props) => {
   // Improved URL extraction function
   const extractUrl = (text: string): string | null => {
     const match = text.match(urlPattern);
-    return match ? match[0] : null;
+    const res = match ? match[0] : null;
+    if (res) {
+      const url = new URL(res);
+      const baseUrl = `${url.origin}${url.pathname}`;
+      return baseUrl;
+    }
+    return null;
   };
 
   // Main function to get provider info

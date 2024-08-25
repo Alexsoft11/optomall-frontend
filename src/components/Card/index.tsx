@@ -34,6 +34,16 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
     if (savedScrollPosition) {
       window.scrollTo(0, parseInt(savedScrollPosition, 10));
     }
+
+    const handleBeforeUnload = () => {
+      sessionStorage.setItem("scrollPosition", window.scrollY.toString());
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
   }, []);
 
   const handleLinkClick = (e: React.MouseEvent) => {
@@ -51,7 +61,7 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
         url = `${url}&catId=${router.query.catId}`;
       }
     }
-    if (isBlank) {
+    if (e.ctrlKey || e.metaKey || isBlank) {
       window.open(url, "_blank");
     } else {
       router.push(url);
@@ -70,7 +80,7 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
   const title = getTitle(data.title);
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} data-aos="fade-up" data-aos-duration="1200">
       <div onClick={handleLinkClick}>
         <div className={styles.card__image}>
           <CustomImage
