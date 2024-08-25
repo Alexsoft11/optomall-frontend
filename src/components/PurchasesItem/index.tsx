@@ -14,9 +14,11 @@ interface Props {
 }
 
 export default function PurchasesItem({ item }: Props) {
+  console.log(item);
+
   const t = useTranslations("Purchases");
   const locale = useLocale();
-  const {push} = useRouter();
+  const { push } = useRouter();
   const [isUploadErr, setIsUploadErr] = useState(false);
   const getCreateDateRegexp = /(\d){4}-(\d){2}-(\d){2}/;
 
@@ -48,7 +50,7 @@ export default function PurchasesItem({ item }: Props) {
     setFirstLoad(false);
   };
 
-  const toOrder = () => push(`/order/${item.id}`)
+  const toOrder = () => push(`/order/${item.id}`);
 
   return (
     <div
@@ -92,19 +94,23 @@ export default function PurchasesItem({ item }: Props) {
           <h3>{t("orderCost")}</h3>
           <p>{formatPrice(item.total_price)} сум</p>
         </div>
-        <div className={styles.detail_item}>
-          <h3>{t("address")}</h3>
-          <p>
-            {item.location_region}, {item.location_district}
-          </p>
-        </div>
-        <div className={styles.detail_item}>
-          <h3>{t("recipient")}</h3>
-          <div>
-            <p>{item.user_name}, </p>
-            <p>{item.user_phone}</p>
+        {item.location_region !== "." && item.location_district !== "." ? (
+          <div className={styles.detail_item}>
+            <h3>{t("address")}</h3>
+            <p>
+              {item.location_region}, {item.location_district}
+            </p>
           </div>
-        </div>
+        ) : null}
+        {item.user_name !== "." && item.user_phone !== "." ? (
+          <div className={styles.detail_item}>
+            <h3>{t("recipient")}</h3>
+            <div>
+              <p>{item.user_name}, </p>
+              <p>{item.user_phone}</p>
+            </div>
+          </div>
+        ) : null}
         <div className={styles.detail_item}>
           <h3>{t("cargo")}</h3>
           <p>

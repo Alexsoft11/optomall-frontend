@@ -87,7 +87,6 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
   );
 };
 
-
 export const getServerSideProps = async (context: any) => {
   try {
     const provider = context.query.provider || "1688";
@@ -104,8 +103,6 @@ export const getServerSideProps = async (context: any) => {
     } else {
       product = await API.getProductDetail(params);
     }
-
-    // const productComments = await API.getProductComments(id);
     return {
       props: {
         product,
@@ -116,6 +113,7 @@ export const getServerSideProps = async (context: any) => {
     return {
       props: {
         product: null,
+        // error: error,
       },
     };
   }
