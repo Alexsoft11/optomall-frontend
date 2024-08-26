@@ -154,7 +154,7 @@ const ProductDetailInfo: React.FC<Props> = ({
           )}
           <button className={styles.travelDate}>
             <Image src={TravelDateImg} width={14} height={14} alt="#" />
-            <p>Lorem ipsum dolor sit amet</p>
+            <p>{t("order")}</p>
             <Image src={ArrowRight} width={14} height={14} alt="#" />
           </button>
         </div>
