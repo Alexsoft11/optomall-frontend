@@ -372,7 +372,7 @@ const SearchBtn = ({ categoryData }: Props) => {
                   name={"search"}
                   placeholder={t("search_place")}
                   onChange={handleInputChange}
-                  prefix={
+                  suffix={
                     <div
                       className={styles.search_icon_btn}
                       onClick={handleButtonSubmitClick}
@@ -408,7 +408,7 @@ const SearchBtn = ({ categoryData }: Props) => {
                 name={"search"}
                 placeholder={t("search_place")}
                 onChange={handleInputChange}
-                prefix={
+                suffix={
                   <div
                     className={styles.search_icon_btn}
                     onClick={handleButtonSubmitClick}

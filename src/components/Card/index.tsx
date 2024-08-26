@@ -33,6 +33,7 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
     const savedScrollPosition = sessionStorage.getItem("scrollPosition");
     if (savedScrollPosition) {
       window.scrollTo(0, parseInt(savedScrollPosition, 10));
+      sessionStorage.removeItem("scrollPosition")
     }
 
     const handleBeforeUnload = () => {

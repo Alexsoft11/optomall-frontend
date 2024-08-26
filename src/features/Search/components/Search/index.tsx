@@ -4,7 +4,7 @@ import SvgSelector from "$/assets/icons/SvgSelector";
 import SearchBtn from "@/components/SearchBtn";
 import { useTranslations } from "next-intl";
 import Products from "@/components/Products";
-import { Button, Input } from "@/ui";
+import { Button, Input, Select, SelectOption } from "@/ui";
 import { Form } from "antd";
 import { useRouter } from "next/router";
 import useQueryApiClient from "@/utils/useQueryApiClient";
@@ -186,6 +186,17 @@ const Search = ({ data = [] }: Props) => {
                   >
                     {t("price_top")}
                   </button>
+                  <Select
+                    value={activeSort}
+                    onChange={(value: any) => handleFilter(value)}
+                    className="search_select"
+                    showSearch={false}
+                  >
+                    <SelectOption value="Default">{t("default")}</SelectOption>
+                    <SelectOption value="TotalPrice:Asc">{t("sales")}</SelectOption>
+                    <SelectOption value="Price:Desc">{t("price_down")}</SelectOption>
+                    <SelectOption value="Price:Asc">{t("price_top")}</SelectOption>
+                  </Select>
                 </div>
               </div>
             </div>
