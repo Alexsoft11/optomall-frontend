@@ -184,14 +184,15 @@
     }
   }
 
-  &__btns {
-    div {
-      display: none;
-      @media (max-width:768px) {
-        display: block;
-        margin-top: 5px;
-      }
+  &__select {
+    display: none !important;
+    @media (max-width:768px) {
+      display: block !important;
+      margin-top: 5px;
     }
+  }
+
+  &__btns {
     @media (min-width:768px) {
       display: flex;
       align-items: center;

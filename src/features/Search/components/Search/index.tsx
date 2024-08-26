@@ -189,7 +189,7 @@ const Search = ({ data = [] }: Props) => {
                   <Select
                     value={activeSort}
                     onChange={(value: any) => handleFilter(value)}
-                    className="search_select"
+                    className={`${styles.search__select} search_select`}
                     showSearch={false}
                   >
                     <SelectOption value="Default">{t("default")}</SelectOption>
