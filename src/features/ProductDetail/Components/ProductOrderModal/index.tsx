@@ -380,6 +380,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         className="order-modal"
         onCancel={handleCloseModal}
         open={!!type}
+        maskClosable={false}
         footer={
           <div className="modal-footer">
             <div className="totalPrice">
