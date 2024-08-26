@@ -137,8 +137,9 @@ export default function OrderBlock({
           return false;
         }
       }
+      return true;
     },
-    onChangey: (info: any) => {
+    onChange: (info: any) => {
       if (info.file.status === "done" && !isUploadErr) {
         const image = info.file.originFileObj;
         delete image.uid;
