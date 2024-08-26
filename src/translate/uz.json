@@ -17,9 +17,9 @@
     "cargo": "Karqo uchun to'lov"
   },
   "Home": {
-    "metaTitle": "Bosh sahifa | Onway",
-    "metaDescription": "Onwayga xush kelibsiz - barcha ehtiyojlaringiz uchun yagona do'kon. Mahsulotlarimizning keng doirasini o'rganing va eng yaxshi onlayn xarid qilish tajribasidan rohatlaning.",
-    "metaKeywords": "elektron tijorat, xarid qilish, onway, mahsulotlar, onlayn do'kon,magazin,taobao uz"
+    "metaTitle": "Bosh sahifa | Optomall",
+    "metaDescription": "Optomallga xush kelibsiz - barcha ehtiyojlaringiz uchun yagona do'kon. Mahsulotlarimizning keng doirasini o'rganing va eng yaxshi onlayn xarid qilish tajribasidan rohatlaning.",
+    "metaKeywords": "elektron tijorat, xarid qilish, optomall, mahsulotlar, onlayn do'kon,magazin,taobao uz"
   },
   "Error": {
     "user_registered_successfully": "Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi",
@@ -183,9 +183,9 @@
     "submit": "yuborish",
     "endPrice": "Iltimos, maksimal narxni kiriting!",
     "startPrice": "Iltimos, minimal narxni kiriting!",
-    "metaTitle": "Qidiruv natijalari - Onway",
-    "metaDescription": "Onwayda eng yaxshi mahsulotlarni bizning qidiruv natijalarimiz orqali toping.",
-    "metaKeywords": "qidiruv, mahsulotlar, Onway",
+    "metaTitle": "Qidiruv natijalari - Optomall",
+    "metaDescription": "Optomallda eng yaxshi mahsulotlarni bizning qidiruv natijalarimiz orqali toping.",
+    "metaKeywords": "qidiruv, mahsulotlar, Optomall",
     "results": "Natijalar",
     "upload_title": "Mahsulotlarni rasm bo'yicha qidirish",
     "upload_text": "Rasmni bu yerga sudrab olib tashlang",
@@ -195,7 +195,7 @@
     "price_top": "Tepa narx",
     "search_place": "Taobao yoki 1688 havolasini kiriting",
     "upload_validate": "Siz faqat JPG/PNG/JPEG fayllarni yuklashingiz mumkin!",
-    "imageWarning":"Rasm yuklanishi hajmiga qarab 10-15 soniya olishi mumkin."
+    "imageWarning": "Rasm yuklanishi hajmiga qarab 10-15 soniya olishi mumkin."
   },
   "MyReviews": {
     "waitForReview": "Baho berish kutilmoqda",
@@ -215,7 +215,7 @@
   },
   "Account": {
     "metaTitle": "Hisob | ON-WAY",
-    "metaDescription": "ON-WAY hisobingizni boshqaring, buyurtma tarixini ko'ring, profilingizni yangilang va boshqalar. ONWAY.UZ da barcha hisob funksiyalariga xavfsiz va oson kirish.",
+    "metaDescription": "ON-WAY hisobingizni boshqaring, buyurtma tarixini ko'ring, profilingizni yangilang va boshqalar. OPTOMALL.UZ da barcha hisob funksiyalariga xavfsiz va oson kirish.",
     "metaKeywords": "ON-WAY, hisob, hisobni boshqarish, buyurtma tarixi, profilni yangilash, xavfsiz kirish",
     "change": "O'zgartirish",
     "mail": "Elektron pochta",

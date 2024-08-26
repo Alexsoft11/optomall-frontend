@@ -18,8 +18,8 @@
   },
   "Home": {
     "metaTitle": "Home | ON-WAY",
-    "metaDescription": "Welcome to Onway - Your one-stop shop for all your needs. Explore our wide range of products and enjoy the best online shopping experience.",
-    "metaKeywords": "e-commerce, shopping uz, onway,ON WAY, products, online store uz, taobao uz"
+    "metaDescription": "Welcome to Optomall - Your one-stop shop for all your needs. Explore our wide range of products and enjoy the best online shopping experience.",
+    "metaKeywords": "e-commerce, shopping uz, optomall,ON WAY, products, online store uz, taobao uz"
   },
   "Error": {
     "user_registered_successfully": "User registered successfully",
@@ -183,9 +183,9 @@
     "submit": "submit",
     "endPrice": "Please input the maximum price!",
     "startPrice": "Please input the minimum price!",
-    "metaTitle": "Search Results - Onway",
-    "metaDescription": "Find the best products on Onway through our search results.",
-    "metaKeywords": "search, products, Onway",
+    "metaTitle": "Search Results - Optomall",
+    "metaDescription": "Find the best products on Optomall through our search results.",
+    "metaKeywords": "search, products, Optomall",
     "results": "Results",
     "upload_title": "Search products by image",
     "upload_text": "Drag and drop image here",
@@ -195,7 +195,7 @@
     "price_top": "Price Top",
     "search_place": "Enter link Taobao or 1688",
     "upload_validate": "You can only upload JPG/PNG/JPEG files!",
-    "imageWarning":"Image upload may take 10-15 seconds depending on size."
+    "imageWarning": "Image upload may take 10-15 seconds depending on size."
   },
   "MyReviews": {
     "waitForReview": "Waiting for Review",
@@ -215,7 +215,7 @@
   },
   "Account": {
     "metaTitle": "Account | ON-WAY",
-    "metaDescription": "Manage your ON-WAY account, view order history, update your profile, and more. Secure and easy access to all your account features on ONWAY.UZ.",
+    "metaDescription": "Manage your ON-WAY account, view order history, update your profile, and more. Secure and easy access to all your account features on OPTOMALL.UZ.",
     "metaKeywords": "ON-WAY, account, manage account, order history, update profile, secure access",
     "change": "Change",
     "mail": "Email",
