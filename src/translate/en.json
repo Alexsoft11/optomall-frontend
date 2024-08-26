@@ -273,7 +273,8 @@
     "products_added_to_basket": "Products added to baskets",
     "order_created_successfully": "Order created successfully",
     "hide": "Hide",
-    "allSpecificationsAndDescription": "All specifications and description"
+    "allSpecificationsAndDescription": "All specifications and description",
+    "order": "The order arrives during 18-20 days"
   },
   "Messages": {
     "dearClient": "Dear client, ",

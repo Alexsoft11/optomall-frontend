@@ -277,7 +277,8 @@
     "products_added_to_basket": "Товары добавлены в корзину",
     "order_created_successfully": "Заказ успешно создан",
     "hide": "Скрыть",
-    "allSpecificationsAndDescription": "Все характеристики и описание"
+    "allSpecificationsAndDescription": "Все характеристики и описание",
+    "order": "Заказ приходит в течении 18-20 дней"
   },
   "Messages": {
     "dearClient": "Уважаемый клиент, ",
