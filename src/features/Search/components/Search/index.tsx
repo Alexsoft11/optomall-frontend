@@ -162,7 +162,7 @@ const Search = ({ data = [] }: Props) => {
 
               <div className={styles.search__top}>
                 <div className={styles.search__btns}>
-                  {/* <button
+                  <button
                     className={activeSort === "Default" ? styles.active : ""}
                     onClick={() => handleFilter("Default")}
                   >
@@ -185,7 +185,7 @@ const Search = ({ data = [] }: Props) => {
                     onClick={() => handleFilter("Price:Asc")}
                   >
                     {t("price_top")}
-                  </button> */}
+                  </button>
                   <Select
                     value={activeSort}
                     onChange={(value: any) => handleFilter(value)}
