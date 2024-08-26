@@ -14,8 +14,6 @@ interface Props {
 }
 
 export default function PurchasesItem({ item }: Props) {
-  console.log(item);
-
   const t = useTranslations("Purchases");
   const locale = useLocale();
   const { push } = useRouter();

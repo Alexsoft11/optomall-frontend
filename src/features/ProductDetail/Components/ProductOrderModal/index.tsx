@@ -380,6 +380,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         className="order-modal"
         onCancel={handleCloseModal}
         open={!!type}
+        maskClosable={false}
         footer={
           <div className="modal-footer">
             <div className="totalPrice">
@@ -451,11 +452,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                             960: {
                               slidesPerView: 6,
                             },
-                            480: {
-                              slidesPerView: 5,
-                            },
                             0: {
-                              slidesPerView: 3,
+                              slidesPerView: "auto",
                             },
                           }}
                           pagination={{ clickable: true }}

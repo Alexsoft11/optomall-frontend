@@ -34,7 +34,6 @@ export default function GoogleButton() {
         message.error(t("Auth.something_wrong"));
         return;
       }
-      console.log(res);
 
       cookie.set("token", res.token);
       push((localStorage.getItem("backUrl") as string) || "/");

@@ -174,8 +174,8 @@
     "cargo": "Карго:",
     "calculated": "Рассчитывается",
     "pay": "Оплатить",
-    "send_check_again": "Чек не прошел проверку",
-    "upload": "Загрузить еще",
+    "send_check_again": "Отправить чек снова",
+    "upload": "Загрузить",
     "orderId": "ID заказа:"
   },
   "Search": {

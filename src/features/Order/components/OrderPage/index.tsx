@@ -69,9 +69,9 @@ export default function OrderPage({ orderData, userData }: Props) {
         <OrderBlock
           editOrderData={editOrderData}
           setDataFailed={setDataFailed}
-          orderId={orderData?.order.id}
+          orderId={orderData.order.id}
           type="order"
-          cost={orderData?.order.total_price}
+          cost={orderData.order.total_price}
         />
         <div className={styles.order_info}>
           <div

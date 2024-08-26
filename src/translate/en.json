@@ -170,8 +170,8 @@
     "calculated": "Calculated",
     "emptyData": "It's empty here",
     "pay": "Pay",
-    "send_check_again": "Check did not pass verification",
-    "upload": "Upload more",
+    "send_check_again": "Send check again",
+    "upload": "Upload",
     "orderId": "Order ID:"
   },
   "Search": {
