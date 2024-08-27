@@ -263,6 +263,7 @@
     "how_to_use": "Как использовать"
   },
   "Product-detail": {
+    "isMaxQuantity": "максимальное количество",
     "bought": "Купили",
     "compound": "Состав",
     "made_country": "Страна производство",

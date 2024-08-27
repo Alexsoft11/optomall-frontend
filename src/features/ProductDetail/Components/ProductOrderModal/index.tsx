@@ -3,12 +3,9 @@ import { useRouter } from "next/router";
 import {
   GroupedProperties,
   ProductDetailInterface,
-  BasketInterface,
-  CreateOrderItemsDataInterface,
   CreateOrderDataInterface,
   CreateBaskettemsDataInterface,
   AllDataInterface,
-  ConfiguratorInterface,
   ConfiguredItem,
   ConfiguratorItemInterface,
 } from "../../interface";
@@ -31,15 +28,20 @@ interface Props {
   product: ProductDetailInterface;
   setOrderType?: any;
   type?: "to_order" | "to_cart" | null;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
+const ProductOrderModal = ({
+  product,
+  setOrderType,
+  type,
+  setShowModal,
+}: Props) => {
   const t = useTranslations();
   const { attributes, configuredItems } = product || {};
 
   const router = useRouter();
   const { provider } = router.query; // Extract provider from the query
-  const [showModal, setShowModal] = useState<boolean>(false);
   const [groupedProperties, setGroupedProperties] = useState<AllDataInterface>(
     {}
   );
@@ -105,10 +107,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
 
   //function create request data to buy or add to cart
   const toOrder = () => {
-    if (!token) {
-      setShowModal(true);
-      return;
-    }
+    !token ? setShowModal(true) : null;
     const newSelectedSku = selectedSku?.filter(
       (el) => el.selected_quantity > 0
     );
@@ -151,6 +150,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       if (type === "to_cart") item.max_quantity = el.quantity;
       return item;
     });
+
     if (type === "to_order") {
       const data: CreateOrderDataInterface = {
         items: items,
@@ -164,25 +164,6 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     createUserBasket(items);
   };
 
-  const toAuth = (path: string) => {
-    localStorage.setItem("backUrl", router.asPath);
-    router.push(path);
-  };
-
-  const modalProps = {
-    onCancel: () => setShowModal(false),
-    className: "bg_white",
-    img: SearchSvg,
-    description: t("Cart.authMessage"),
-    children: (
-      <Button
-        onClick={() => toAuth(`/auth?step=signin`)}
-        className="signIn_btn"
-        label={t("Cart.signin")}
-      />
-    ),
-    open: showModal,
-  };
   //change quantity and add/remove from selectedSku if quantity >1/<=0
   const handleSizeChange = (value: number) => {
     if (!selectedSku) return;
@@ -555,7 +536,6 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
           </div>
         </div>
       </Modal>
-      <Modal {...modalProps} />
 
       {isOpen && (
         <Lightbox
