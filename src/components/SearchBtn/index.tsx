@@ -118,7 +118,8 @@ const SearchBtn = ({ categoryData }: Props) => {
     const res = match ? match[0] : null;
     if (res) {
       const url = new URL(res);
-      const baseUrl = `${url.origin}${url.pathname}`;
+      const offerId = url.searchParams.get('offerId');
+      const baseUrl = `${url.origin}${url.pathname}${!!offerId && `?offerId=${offerId}`}`;
       return baseUrl;
     }
     return null;
@@ -211,8 +212,7 @@ const SearchBtn = ({ categoryData }: Props) => {
     onSuccess(res) {
       handleCancel();
       push(
-        `/search?lang=${locale}&provider=${query.provider || "1688"}&imageUrl=${
-          res.url
+        `/search?lang=${locale}&provider=${query.provider || "1688"}&imageUrl=${res.url
         }`
       );
     },
