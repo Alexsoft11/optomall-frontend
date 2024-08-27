@@ -204,7 +204,8 @@
 @media (max-width: 1350px) {
   .product_info_detail {
     display: flex;
-    flex-direction: column;
+    gap: 0px;
+    flex-direction: column-reverse;
   }
 }
 
