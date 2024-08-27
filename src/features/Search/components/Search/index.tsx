@@ -117,6 +117,7 @@ const Search = ({ data = [] }: Props) => {
       request: {
         url: `categories-from-taobao?lang=${locale}`,
         method: "GET",
+        disableOnMount: true
       },
     }
   );
@@ -137,9 +138,8 @@ const Search = ({ data = [] }: Props) => {
               <div className={styles.search__platform}>
                 <h2>{t("platform")}:</h2>
                 <button
-                  className={`${styles.search__platform_btn} ${
-                    activePlatform === "1688" ? styles.active : ""
-                  }`}
+                  className={`${styles.search__platform_btn} ${activePlatform === "1688" ? styles.active : ""
+                    }`}
                   onClick={() => handleButtonClick("1688")}
                 >
                   <SvgSelector id="1688-svg" />

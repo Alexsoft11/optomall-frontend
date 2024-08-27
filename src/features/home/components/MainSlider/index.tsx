@@ -22,6 +22,7 @@ const MainSlider: React.FC<Props> = ({ data }) => {
       request: {
         url: `categories-from-taobao?lang=${router.locale}`,
         method: "GET",
+        disableOnMount: true
       },
     }
   );
@@ -30,6 +31,7 @@ const MainSlider: React.FC<Props> = ({ data }) => {
     if (window.innerWidth <= 768) {
       getCategoryData();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.locale]);
 
   return (
@@ -37,7 +39,7 @@ const MainSlider: React.FC<Props> = ({ data }) => {
       <div className={styles.mainbanner}>
         <div className='container'>
           <div className={styles.mainbanner__inner}>
-            <SearchBtn categoryData={categoryData.categories}/>
+            <SearchBtn categoryData={categoryData?.categories} />
           </div>
         </div>
 

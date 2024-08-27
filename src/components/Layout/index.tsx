@@ -17,13 +17,13 @@ const MainLayout = ({ children }: ILayoutsProps) => {
   const [loading, setLoading] = useState(false);
   const token = useJwt();
 
-  // useEffect(() => {
-  //   AOS.init({
-  //     duration: 1000,
-  //     easing: "ease-in-out",
-  //   });
-  // }, []);
-
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      easing: "ease-in-out",
+    });
+  }, []);
+  
   const protectPages = ["/messages", "/my-reviews", "/purchases"];
   useEffect(() => {
     if (!token && protectPages.includes(pathname))
