@@ -16,7 +16,7 @@ export const StyledButton = styled(Button)`
   }
 
   &:hover {
-    background-color: inherit !important;
+    background: var(--primary-color) !important;
   }
 
   svg {
