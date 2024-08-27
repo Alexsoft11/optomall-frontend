@@ -9,26 +9,42 @@ import { LoadingSpinner } from "@/ui/Spin";
 import { CategoryInterface } from "../../interfaces";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import useQueryApiClient from "@/utils/useQueryApiClient";
+import Products from "@/components/Products";
+import { useRouter } from "next/router";
 
 const Card = dynamic(() => import("@/components/Card"));
 
 interface Props {
-  products: CardInterface[];
+  productsData: CardInterface[];
   categoryData: CategoryInterface[];
   getProductsData: any;
   isProductsLoading: any;
 }
 
-const Products = ({
+const ProductsSection = ({
   categoryData,
   getProductsData,
-  products,
+  productsData,
   isProductsLoading,
 }: Props) => {
   const t = useTranslations();
+  const [hasMore, setHasMore] = useState(true);
+  const { query, locale } = useRouter();
+  const [keyApi, setKeyApi] = useState("discount")
 
   const handleTabChange = (key: string) => {
     getProductsData({ query: key });
+    setKeyApi(key);
+  };
+
+  const handleGetProduct = (custom?: any) => {
+    getProductsData({
+      ...custom,
+      ...query,
+      lang: locale,
+      query: keyApi
+    });
   };
 
   return (
@@ -55,14 +71,16 @@ const Products = ({
                 size="large"
               />
             ) : (
-              products?.map((el: CardInterface, idx: number) => (
-                <Card
-                  isBlank={false}
-                  key={el.id}
-                  data={el}
-                  provider={el.provider}
-                />
-              ))
+              // products?.map((el: CardInterface, idx: number) => (
+              //   <Card
+              //     isBlank={false}
+              //     key={el.id}
+              //     data={el}
+              //     provider={el.provider}
+              //   />
+              // ))
+              <Products type="scroll" data={productsData} hasMore={hasMore}
+              handleGetProduct={handleGetProduct}/>
             )}
           </div>
           <div className={styles.products__categories}>
@@ -100,4 +118,4 @@ const Products = ({
   );
 };
 
-export default Products;
+export default ProductsSection;
