@@ -42,7 +42,11 @@
   padding: 20px;
   width: 100%;
   @media screen and (max-width: 656px) {
-    padding: 5px 0;
+    padding: 0px;
+  }
+
+  .quantity {
+    padding: 10px 0px;
   }
   .priceSection {
     display: flex;
@@ -62,6 +66,12 @@
     .originalPrice {
       text-decoration: line-through;
       color: gray;
+    }
+
+    @media (max-width: 650px) {
+      gap: 5px;
+      height: min-content;
+      padding: 0px;
     }
   }
 
@@ -94,7 +104,7 @@
       color: white !important;
       border: none !important;
       padding: 10px 20px !important;
-      max-width: 300px;
+      max-width: none !important;
       cursor: pointer;
 
       &:hover {
@@ -221,10 +231,4 @@
 
 .selected_quantity {
   width: 20px;
-}
-
-.price_range {
-  .item {
-    /* Add your styles for .item here */
-  }
 }

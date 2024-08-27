@@ -259,6 +259,7 @@
     "how_to_use": "Qanday foydalaniladi"
   },
   "Product-detail": {
+    "isMaxQuantity": "maksimal miqdor",
     "bought": "Sotib olganlar",
     "compound": "Tarkibi",
     "made_country": "Ishlab chiqarilgan davlati",
