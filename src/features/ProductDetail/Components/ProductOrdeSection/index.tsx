@@ -58,17 +58,19 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
           />
         )}
       </div>
-      <div className={styles.price_range}>
-        {product?.quantityRanges.map((el, index) => {
-          const next = product?.quantityRanges[index + 1]
-          return (
-            <div className={styles.item} key={el.minQuantity}>
-              <h4>{formatPrice(el.price)} uzs</h4>
-              <p>{el.minQuantity} {next && '-'}   {next?.minQuantity}</p>
-            </div>
-          )
-        })}
-      </div>
+      {!!product?.quantityRanges.length && (
+        <div className={styles.price_range}>
+          {product?.quantityRanges.map((el, index) => {
+            const next = product?.quantityRanges[index + 1]
+            return (
+              <div className={styles.item} key={el.minQuantity}>
+                <h4>{formatPrice(el.price)} uzs</h4>
+                <p>{el.minQuantity} {next && '-'}   {next?.minQuantity}</p>
+              </div>
+            )
+          })}
+        </div>
+      )}
     </div>
   );
 };
