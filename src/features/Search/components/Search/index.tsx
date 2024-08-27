@@ -175,27 +175,27 @@ const Search = ({ data = [] }: Props) => {
                     {t("sales")}
                   </button>
                   <button
-                    className={activeSort === "Price:Desc" ? styles.active : ""}
-                    onClick={() => handleFilter("Price:Desc")}
+                    className={activeSort === "Price:Asc" ? styles.active : ""}
+                    onClick={() => handleFilter("Price:Asc")}
                   >
                     {t("price_down")}
                   </button>
                   <button
-                    className={activeSort === "Price:Asc" ? styles.active : ""}
-                    onClick={() => handleFilter("Price:Asc")}
+                    className={activeSort === "Price:Desc" ? styles.active : ""}
+                    onClick={() => handleFilter("Price:Desc")}
                   >
                     {t("price_top")}
                   </button>
                   <Select
                     value={activeSort}
                     onChange={(value: any) => handleFilter(value)}
-                    className="search_select"
+                    className={`${styles.search__select} search_select`}
                     showSearch={false}
                   >
                     <SelectOption value="Default">{t("default")}</SelectOption>
                     <SelectOption value="TotalPrice:Asc">{t("sales")}</SelectOption>
-                    <SelectOption value="Price:Desc">{t("price_down")}</SelectOption>
-                    <SelectOption value="Price:Asc">{t("price_top")}</SelectOption>
+                    <SelectOption value="Price:Asc">{t("price_down")}</SelectOption>
+                    <SelectOption value="Price:Desc">{t("price_top")}</SelectOption>
                   </Select>
                 </div>
               </div>
