@@ -141,21 +141,23 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
             </>
           ) : null}
         </div>
-        <div className={styles.quantity}>
-          <div key={1} className={styles.change_value}>
-            <AntdButton onClick={() => changeQuantity(itemQuantity - 1)}>
-              <Image src={MinusSvg} width={24} height={24} alt="#" />
-            </AntdButton>
-            <Tooltip title={`Max quantity`}>
-              <h4 className={styles.selected_quantity}>{itemQuantity}</h4>
-            </Tooltip>
-            <Tooltip>
-              <AntdButton onClick={() => changeQuantity(itemQuantity + 1)}>
-                <Image src={PlusSvg} width={24} height={24} alt="#" />
+        {product?.attributes.length ? null : (
+          <div className={styles.quantity}>
+            <div key={1} className={styles.change_value}>
+              <AntdButton onClick={() => changeQuantity(itemQuantity - 1)}>
+                <Image src={MinusSvg} width={24} height={24} alt="#" />
               </AntdButton>
-            </Tooltip>
+              <Tooltip title={`Max quantity`}>
+                <h4 className={styles.selected_quantity}>{itemQuantity}</h4>
+              </Tooltip>
+              <Tooltip>
+                <AntdButton onClick={() => changeQuantity(itemQuantity + 1)}>
+                  <Image src={PlusSvg} width={24} height={24} alt="#" />
+                </AntdButton>
+              </Tooltip>
+            </div>
           </div>
-        </div>
+        )}
         <div className={styles.add_basket}>
           <Button
             className={styles.addToCart}

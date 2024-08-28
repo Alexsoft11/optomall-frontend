@@ -31,7 +31,7 @@ export default function Info() {
         message.error(t("Auth.something_wrong"));
         return;
       }
-      const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
+      const maxAge = 10 * 24 * 60 * 60; // 10 days in seconds
 
       // Set the cookie
       cookie.set("token", res.token, {
