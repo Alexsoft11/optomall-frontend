@@ -17,7 +17,7 @@ const MainSlider = dynamic(
   }
 );
 
-const Products = dynamic(() => import("@/features/home/components/Products"), {
+const ProductsSection = dynamic(() => import("@/features/home/components/Products"), {
   loading: () => <LoadingSpinner fullscreen={true} size="large" />,
 });
 
@@ -164,8 +164,8 @@ export default function Home({ slidersData, productsData }: HomeProps) {
       metaKeywords={t("metaKeywords")}
     >
       <MainSlider data={slidersData?.sliders} />
-      <Products
-        products={products}
+      <ProductsSection
+        productsData={products}
         getProductsData={getProductsData}
         isProductsLoading={isProductsLoading}
         categoryData={categories}
