@@ -8,6 +8,7 @@ interface Props {
   hasMore?: boolean;
   handleGetProduct?: (data?: any) => void;
   type?: "simp" | "scroll";
+  perPage?: number
 }
 
 const Products = ({
@@ -15,14 +16,15 @@ const Products = ({
   handleGetProduct,
   hasMore = false,
   type,
+  perPage = 40
 }: Props) => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(perPage);
 
   const fetchMoreData = async () => {
     if (!handleGetProduct) {
       return;
     }
-    const newCount = page + 1;
+    const newCount = page + perPage;
     setPage(newCount);
     handleGetProduct({ page: newCount });
   };
