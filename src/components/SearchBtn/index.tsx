@@ -32,7 +32,7 @@ const SearchBtn = ({ categoryData }: Props) => {
   const [filteredItems, setFilteredItems] = useState<any[]>([]);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [selectedCatId, setSelectedCatId] = useState<number | null>(null);
-
+  const [allItems, setAllItems] = useState<any[]>()
   const { appendData: getProductId, isLoading: isProductsLoading } =
     useQueryApiClient({
       request: {
@@ -74,13 +74,20 @@ const SearchBtn = ({ categoryData }: Props) => {
     return items;
   };
 
-  const allItems = extractItems(categoryData);
+  useEffect(() => {
+    if (categoryData) {
+      const allItems = extractItems(categoryData);
+      setAllItems(allItems)
+    }
+
+  }, [categoryData])
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toLowerCase();
 
     if (value) {
-      const hintNamePairs = allItems.flatMap((item) =>
+      const hintNamePairs = allItems?.flatMap((item) =>
         item.hints.map((hint: string) => ({
           id: item.id,
           name: item.name,
@@ -90,7 +97,7 @@ const SearchBtn = ({ categoryData }: Props) => {
 
       // Filter and sort based on hint
       const filteredPairs = hintNamePairs
-        .filter((pair) => pair.hint.toLowerCase().includes(value))
+        ?.filter((pair) => pair.hint.toLowerCase().includes(value))
         .sort(
           (a, b) =>
             a.hint.toLowerCase().indexOf(value) -
@@ -99,8 +106,8 @@ const SearchBtn = ({ categoryData }: Props) => {
 
       // Create unique pairs based on id and name
       const uniquePairs = Array.from(
-        new Set(filteredPairs.map((pair) => pair.id))
-      ).map((id) => filteredPairs.find((pair) => pair.id === id));
+        new Set(filteredPairs?.map((pair) => pair.id))
+      ).map((id) => filteredPairs?.find((pair) => pair.id === id));
 
       setFilteredItems(uniquePairs);
       setIsDropdownOpen(uniquePairs.length > 0);
@@ -118,7 +125,8 @@ const SearchBtn = ({ categoryData }: Props) => {
     const res = match ? match[0] : null;
     if (res) {
       const url = new URL(res);
-      const baseUrl = `${url.origin}${url.pathname}`;
+      const offerId = url.searchParams.get('offerId');
+      const baseUrl = `${url.origin}${url.pathname}${!!offerId && `?offerId=${offerId}`}`;
       return baseUrl;
     }
     return null;
@@ -211,8 +219,7 @@ const SearchBtn = ({ categoryData }: Props) => {
     onSuccess(res) {
       handleCancel();
       push(
-        `/search?lang=${locale}&provider=${query.provider || "1688"}&imageUrl=${
-          res.url
+        `/search?lang=${locale}&provider=${query.provider || "1688"}&imageUrl=${res.url
         }`
       );
     },
@@ -237,8 +244,8 @@ const SearchBtn = ({ categoryData }: Props) => {
       const ctx = canvas.getContext("2d");
 
       img.onload = () => {
-        const maxWidth = 600;
-        const maxHeight = 600;
+        const maxWidth = 1500;
+        const maxHeight = 1500;
 
         let width = img.width;
         let height = img.height;

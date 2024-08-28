@@ -77,11 +77,11 @@
 }
 
 .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #ff6a00 !important;
+  color: var(--primary-color) !important;
 }
 
 .ant-tabs .ant-tabs-ink-bar {
-  background: #ff6a00 !important;
+  background: var(--primary-color) !important;
 }
 
 .ant-tabs .ant-tabs-tab {
@@ -300,7 +300,7 @@
     border-color: var(--primary-color) !important;
   }
 
-  @media (max-width:425px) {
+  @media (max-width: 425px) {
     width: 100% !important;
   }
 }
