@@ -42,7 +42,7 @@
     "account": "My Account",
     "messages": "My Messages",
     "purchases": "My Purchases",
-    "customs": "How Customs Clearance is Calculated",
+    "customs": "How can I pay?",
     "logout": "Logout",
     "btn_access": "Login",
     "btn_regist": "Register",
@@ -287,5 +287,47 @@
     "text": "It seems like you’ve stumbled upon a page that requires authentication. To continue exploring all the amazing content we have to offer, please log in.",
     "btn_access": "Login",
     "btn_regist": "Register"
+  },
+  "Using": {
+    "title_1": "Product search methods",
+    "title_2": "Registration procedure",
+    "panel_1": {
+      "title": "How can you find a product on our trading platform? Let's explore a few methods!",
+      "text_1": "Through the catalog. Our catalog contains almost all types of products, and you can find the products you want! We constantly update our catalog. If you have any recommendations for the catalog or if we missed any product type, contact our operators — we will add that product type to the catalog for you!",
+      "text_2": "Searching by image. This method is very accurate and convenient! You upload a product image, and within 10 seconds, you’ll receive the prices and information for that product. The image search function is located before the search bar on our platform. In this section, you can upload your image or an image taken from the Internet.",
+      "text_3": "Searching by link. With this function, you can find the exact product you want using a link from Taobao, Tmall, or 1688 trading platforms."
+    },
+
+    "panel_2": {
+      "title_1": "How can you find a product on our trading platform? Let's explore a few methods!",
+      "title_2": "Home Page Image",
+      "title_3": "Registration Request Page Image",
+      "title_4": "Pointer to the table requesting email address and password",
+      "title_5": "Pointer to the Google button",
+
+      "text_1": "To register, we need your email address!",
+      "text_2": "You will register by following the procedure shown in the image",
+      "text_3": "After logging into our platform, navigate to the section shown in the image",
+      "text_4": "When you enter this section, the login and registration buttons will appear. To register, click the registration button.",
+      "text_5": "After clicking the registration button, there are two types of registration available",
+      "text_6": "1. You independently enter your email address and set your password",
+      "text_7": "2. Register via Google. If you have a Google email, clicking the button will automatically register you for our site without requiring any password or login.",
+      "text_8": "3. After registering, enter your name, surname, and the phone number you use to start shopping!"
+    }
+  },
+  "Custom": {
+    "title": "How to make a payment on our trading platform?",
+    "payment": "Payment methods:",
+    "text_1": "After you select the desired product, you will proceed to the checkout page. There, you will be provided with information about your selected products and the total payment amount. You will need to transfer the payment amount to the provided card number. Payme, Click, Uzum, and any banking apps will assist you in making the payment.",
+    "text_2": "After transferring the money to our card, take a photo of the receipt and upload it in the receipt upload section on our platform. Once you've uploaded the receipt, your payment and order will be reviewed and confirmed from 9:00 AM to 7:00 PM.",
+    "text_3": "On our platform, you can make payments not only with a plastic card but also in cash. To do this, select the products, add them to your cart, and come to our offices where you can hand over the money. We will issue a receipt and immediately place your order. Currently, our offices are only available in Kokand and Tashkent."
+  },
+  "Transport": {
+    "text_1": "Shipping cost depends on weight.",
+    "text_2": "Example:",
+    "text_3": "sum",
+    "text_4": "kg",
+    "text_5": "g",
+    "text_6": "If the order weight exceeds 1 kg, each additional kilogram or gram will be charged at this rate."
   }
 }
