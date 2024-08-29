@@ -32,3 +32,5 @@ export { default as UsingImg7 } from "./customs_img7.png";
 export { default as UsingImg8 } from "./customs_img8.png";
 export { default as UsingImg9 } from "./customs_img9.png";
 export { default as UsingImg10 } from "./customs_img10.png";
+export { default as PlayIcon } from "./PlayIcon.png";
+export { default as CloseIcon } from "./CloseIcon.svg";
