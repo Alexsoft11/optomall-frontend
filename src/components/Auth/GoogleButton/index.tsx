@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./GoogleButton.module.scss";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
@@ -16,6 +16,7 @@ export default function GoogleButton() {
   const { push, query } = useRouter();
   const t = useTranslations("Auth");
   const cookie = new Cookies();
+  const [secondLoading, setSecondLoading] = useState<boolean>(false)
 
   const { appendData: createData, isLoading } = useQueryApiClient({
     request: {
@@ -35,7 +36,14 @@ export default function GoogleButton() {
         return;
       }
 
-      cookie.set("token", res.token);
+      const maxAge = 10 * 24 * 60 * 60; // 10 days in seconds
+
+      // Set the cookie
+      cookie.set("token", res.token, {
+        path: "/",
+        maxAge: maxAge,
+      });
+      setSecondLoading(true)
       push((localStorage.getItem("backUrl") as string) || "/");
     },
   });
@@ -57,7 +65,7 @@ export default function GoogleButton() {
 
   return (
     <div className={styles.main}>
-      <LoadingSpinner spinning={isLoading} fullscreen={true} size="large" />
+      <LoadingSpinner spinning={isLoading || secondLoading} fullscreen={true} size="large" />
       <button className={styles.button} type="button" onClick={() => login()}>
         <div className={styles.img}>
           <Image fill src={GoogleLogo} alt="#" />

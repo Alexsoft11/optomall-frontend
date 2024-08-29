@@ -43,7 +43,7 @@ export default function SignIn() {
       // if (localStorage.getItem('basket-data')) {
       //   API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
       // }
-      const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
+      const maxAge = 10 * 24 * 60 * 60; // 3 days in seconds
 
       // Set the cookie
       cookie.set("token", res.token, {
