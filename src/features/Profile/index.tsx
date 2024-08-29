@@ -35,7 +35,7 @@ const Profile = () => {
         <SvgSelector id='search-modal-svg' />
         <p>{t("views")}</p>
       </Link>
-      <Link href='/' className={styles.navbar__user_item}>
+      <Link href='/customs' className={styles.navbar__user_item}>
         <SvgSelector id='search-modal-svg' />
         <p>{t("customs")}</p>
       </Link>
@@ -43,12 +43,12 @@ const Profile = () => {
         <SvgSelector id='search-modal-svg' />
         <p>{t("questions")}</p>
       </Link>
-      <Link href='/cart' className={styles.navbar__user_item}>
-        <SvgSelector id='search-modal-svg' />
+      <Link href='/transport' className={styles.navbar__user_item}>
+        <SvgSelector id='transport-svg' />
         <p>{t("transport")}</p>
       </Link>
-      <Link href='/' className={styles.navbar__user_item}>
-        <SvgSelector id='search-modal-svg' />
+      <Link href='/usinginfo' className={styles.navbar__user_item}>
+        <SvgSelector id='use-svg' />
         <p>{t("use")}</p>
       </Link>
       <Link

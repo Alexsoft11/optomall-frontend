@@ -42,7 +42,7 @@
     "account": "Mening hisobim",
     "messages": "Mening xabarlarim",
     "purchases": "Mening xaridlarim",
-    "customs": "Bojxona hisoblash qanday amalga oshiriladi",
+    "customs": "Qanday tolov qilish mumkin?",
     "logout": "Chiqish",
     "btn_access": "Kirish",
     "btn_regist": "Ro’yxatdan o’tish",
@@ -287,5 +287,47 @@
     "text": "Autentifikatsiyani talab qiladigan sahifaga qoqilib qolganga o'xshaysiz. Biz taklif qilayotgan ajoyib kontentni o'rganishda davom etish uchun tizimga kiring.",
     "btn_access": "Kirish",
     "btn_regist": "Ro'yxatdan o'tish"
+  },
+  "Using": {
+    "title_1": "Mahsulotni qidirish usullari",
+    "title_2": "Ro’yhatdan o’tish tartibi",
+    "panel_1": {
+      "title": "Bizning savdo maydonchamizda mahsulotni qanday topish mumkin? Keling, bir nechta usullarni ko'rib chiqaylik!",
+      "text_1": "Katalog orqali. Bizning katalogimizda deyarli barcha turdagi mahsulotlar mavjud va siz o'zingizga kerakli mahsulotlarni topishingiz mumkin! Biz doimiy ravishda katalogimizni yangilab turamiz. Katalog bo'yicha tavsiyalaringiz bo'lsa yoki mahsulot turini o'tkazib yuborgan bo'lsak, bog'laning. operatorlarimiz - biz siz uchun ushbu mahsulot turini katalogga qo'shamiz!",
+      "text_2": "Rasm bo'yicha qidirish. Bu usul juda aniq va qulay! Siz mahsulot rasmini yuklaysiz va 10 soniya ichida siz ushbu mahsulot narxi va ma'lumotlarini olasiz. Rasm qidirish funksiyasi qidiruv paneli oldida joylashgan. bizning platformamizda ushbu bo'limda siz o'zingizning rasmingizni yoki Internetdan olingan rasmni yuklashingiz mumkin.",
+      "text_3": "Havola bo'yicha qidiruv. Bu funksiya yordamida Taobao, Tmall yoki 1688 savdo platformalaridagi havoladan foydalanib, kerakli mahsulotni topishingiz mumkin."
+    },
+
+    "panel_2": {
+      "title_1": "Bizning savdo platformamizda mahsulotni qanday topish mumkin? Keling, bir nechta usullarni ko'rib chiqaylik!",
+      "title_2": "Uy sahifa tasviri",
+      "title_3": "Ro'yxatdan o'tish so'rovi sahifasi tasviri",
+      "title_4": "E-pochta manzili va parol so'ragan jadvalga ko'rsatgich",
+      "title_5": "Google tugmasiga ko'rsatgich",
+
+      "text_1": "Ro'yxatdan o'tish uchun elektron pochta manzilingiz kerak!",
+      "text_2": "Rasmda ko'rsatilgan tartibda ro'yxatdan o'tasiz",
+      "text_3": "Platformamizga kirganingizdan so'ng rasmda ko'rsatilgan bo'limga o'ting",
+      "text_4": "Ushbu bo'limga kirganingizda login va ro'yxatdan o'tish tugmalari paydo bo'ladi. Ro'yxatdan o'tish uchun ro'yxatdan o'tish tugmasini bosing.",
+      "text_5": "Ro'yxatdan o'tish tugmasini bosgandan so'ng, ro'yxatdan o'tishning ikki turi mavjud",
+      "text_6": "1. Siz mustaqil ravishda elektron pochta manzilingizni kiritasiz va parolni o'rnatasiz",
+      "text_7": "2. Google orqali ro'yxatdan o'ting. Agar sizda Google elektron pochta manzili bo'lsa, tugmani bosish sizni hech qanday parol yoki login talab qilmasdan avtomatik ravishda saytimizga ro'yxatdan o'tkazadi.",
+      "text_8": "3. Ro'yxatdan o'tganingizdan so'ng ismingiz, familiyangiz va xaridni boshlash uchun foydalanadigan telefon raqamingizni kiriting!"
+    }
+  },
+  "Custom": {
+    "title": "Bizning savdo maydonchamizda qanday qilib to'lovni amalga oshirish mumkin?",
+    "payment": "To'lov usullari:",
+    "text_1": "Istagan mahsulotni tanlaganingizdan so'ng, siz to'lov sahifasiga o'tasiz. U yerda sizga tanlagan mahsulotlaringiz va umumiy to'lov miqdori haqida ma'lumot beriladi. To'lov miqdorini taqdim etilgan kartaga o'tkazishingiz kerak bo'ladi. Payme, Click, Uzum va boshqa bank ilovalari sizga toʻlovni amalga oshirishda yordam beradi.",
+    "text_2": "Pulni kartamizga o'tkazgandan so'ng, kvitansiyani suratga oling va uni platformamizdagi chekni yuklash bo'limiga yuklang. Kvitansiyani yuklaganingizdan so'ng, to'lovingiz va buyurtmangiz ko'rib chiqiladi va 9 dan boshlab tasdiqlanadi. 9:00 dan 19:00 gacha.",
+    "text_3": "Bizning platformamizda siz nafaqat plastik karta, balki naqd pulda ham to'lovlarni amalga oshirishingiz mumkin. Buning uchun mahsulotlarni tanlang, ularni savatga qo'shing va pulni topshirishingiz mumkin bo'lgan ofislarimizga keling. . Biz kvitansiya beramiz va darhol buyurtma beramiz."
+  },
+  "Transport": {
+    "text_1": "Yetkazib berish narxi og'irlikka bog'liq.",
+    "text_2": "Misol:",
+    "text_3": "so'm",
+    "text_4": "kg",
+    "text_5": "g",
+    "text_6": "Agar buyurtma og'irligi 1 kg dan ortsa, har bir qo'shimcha kilogramm yoki gramm shu tarif bo'yicha hisoblanadi."
   }
 }
