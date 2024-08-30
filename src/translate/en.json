@@ -329,5 +329,14 @@
     "text_4": "kg",
     "text_5": "g",
     "text_6": "If the order weight exceeds 1 kg, each additional kilogram or gram will be charged at this rate."
+  },
+  "About": {
+    "welcome": "WELCOME to the ON-WAY shopping platform!",
+    "partnership": "The ONWAY platform has signed a cooperation agreement with the Chinese giant trading platforms. On the Onway platform, you can make purchases directly from taobao, 1688 and Chinese factories in the national currency of Uzbekistan at a wholesale price!",
+    "features": "Simply put, you can search, choose and get product information through our platform, and even use our platform for free translator service to reduce the cost of products and order. These include production equipment from simple fabric enters.",
+    "reliability": "We are your reliable partner in China. Choice and payment from you, purchase, inspection and delivery from us! Our team has been working with China for 13 years. Our platform has several warehouses in China, has its warehouse in almost all major cities.",
+    "safety": "More than 25 professional employees work on our platform to ensure that your product arrives safely, in good quality and without damage.",
+    "or": "Or",
+    "contact": "you can call the numbers"
   }
 }

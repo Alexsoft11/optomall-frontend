@@ -190,7 +190,7 @@ a {
   margin: auto;
 
   @media (max-width: 425px) {
-    width: 90%;
+    width: 95%;
   }
 }
 

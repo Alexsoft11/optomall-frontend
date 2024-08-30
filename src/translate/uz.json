@@ -329,5 +329,14 @@
     "text_4": "kg",
     "text_5": "g",
     "text_6": "Agar buyurtma og'irligi 1 kg dan ortsa, har bir qo'shimcha kilogramm yoki gramm shu tarif bo'yicha hisoblanadi."
+  },
+  "About": {
+    "welcome": "ON-WAY harid platformasiga HUSH KELIBSIZ!",
+    "partnership": "ONWAY platformasi xitoy Gigant savdo platformalari bilan hamkorlik bitimini imzoladi. Onway platformasida siz taobao, 1688 va xitoyning fabrikalaridan ulgurji narxda togridan to'g'ri O'zbekiston milliy valyutasida haridni amalga oshirishingiz mumkin!",
+    "features": "Oddiyroq qilib aytganda, siz bizning platforma orqali mahsulotni izlashingiz, tanlashingiz va mahsulot haqida ma’lumot olishingiz, hattoki mahsulotni narxini kamaytirish uchun platformamiz orqali tarjimon xizmatidan bepul foydalanishingiz hamda buyurtma berishingiz mumkin. Bular ichiga oddiy matodan boshlab ishlab chiqarish uskunalari ham kiradi.",
+    "reliability": "Biz sizning Xitoydagi ishonchli hamkoringiz. Sizdan tanlov va to’lov, bizdan sotib olish, tekshirish va yetkazish! Bizning jamoamiz Xitoy davlati bilan 13 yildan beri ishlab keladi. Bizning platforma Xitoy davlatida bir nechta omborlariga ega bo’lib, Xitoyning deyarli barcha katta shaharlarida o’z omboriga ega.",
+    "safety": "Mahsulotingiz xavfsiz, sifatli va zararsiz yetib kelishi uchun platformamizda 25 dan ziyod professional xodimlar faoliyat olib borishadi.",
+    "or": "Yoki",
+    "contact": "nomerlariga qo'ng'iroq qilishingiz mumkin"
   }
 }
