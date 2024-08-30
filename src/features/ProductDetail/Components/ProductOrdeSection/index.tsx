@@ -122,6 +122,8 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
     }
   }, [orderType]);
 
+  
+  
   return (
     <div className={styles.order_section}>
       <div className={styles.product_order}>
