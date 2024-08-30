@@ -48,7 +48,7 @@ const Detail = ({ selectedImage, product }: any) => {
     onCancel: () => setIsPlaying(false),
     children: (
       <ReactPlayer
-        url={product.videos[0].Url}
+        url={product?.videos[0]?.Url}
         playing={true}
         controls
         className={styles.video_player}
@@ -71,20 +71,19 @@ const Detail = ({ selectedImage, product }: any) => {
               loading="lazy"
               onClick={() => handleImageClick(1)}
             />
-            {!isPlaying && (
+            {!isPlaying && product.videos[0] ? (
               <>
                 <Button onClick={handlePlay} className={styles.play_button}>
                   <Image alt="#" src={PlayIcon} width={40} height={40} />
                 </Button>
               </>
-            )}
-            {isPlaying && <Modal {...modalProps} />}
+            ) : null}
           </div>
         ) : (
           <>
             <div className={styles.imagePreviews}>
               <SliderSection
-                video={product.videos[0].Url || ""}
+                video={product?.videos[0]?.Url || ""}
                 data={product.pictures}
               />
             </div>
@@ -99,6 +98,7 @@ const Detail = ({ selectedImage, product }: any) => {
           doubleClickZoom={2}
         />
       )}
+      {isPlaying && product.videos[0].Url ? <Modal {...modalProps} /> : null}
     </>
   );
 };
