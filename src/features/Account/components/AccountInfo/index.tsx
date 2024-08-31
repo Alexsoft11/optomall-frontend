@@ -115,7 +115,6 @@ const AccountInfo = ({ user }: any) => {
     try {
       await updateAdress(locationInfo);
     } catch (e) {
-      console.log(e);
     }
   };
   return (

@@ -39,7 +39,6 @@ const ProductOrderModal = ({
 }: Props) => {
   const t = useTranslations();
   const { attributes, configuredItems } = product || {};
-
   const router = useRouter();
   const { provider } = router.query; // Extract provider from the query
   const [groupedProperties, setGroupedProperties] = useState<AllDataInterface>(
@@ -142,7 +141,7 @@ const ProductOrderModal = ({
         quantity: el.selected_quantity,
         image_url: imageUrl || image,
         product_url: product_url,
-        seller_id: seller_info?.user_num_id?.toString() || "default",
+        seller_id: product?.seller_id?.toString() || "default",
         provider: provider as string,
         sku_id: el.id,
         properties: newConfig,
@@ -214,12 +213,12 @@ const ProductOrderModal = ({
       ...(selectProperty || [
         imageUrl
           ? {
-              name: name,
-              Pid: Pid,
-              Vid: Vid,
-              value: value,
-              imageUrl: imageUrl,
-            }
+            name: name,
+            Pid: Pid,
+            Vid: Vid,
+            value: value,
+            imageUrl: imageUrl,
+          }
           : { name: name, Pid: Pid, Vid: Vid, value: value },
       ]),
     ];
@@ -229,12 +228,12 @@ const ProductOrderModal = ({
         isFind = true;
         const data = imageUrl
           ? {
-              name: name,
-              Pid: Pid,
-              Vid: Vid,
-              value: value,
-              imageUrl: imageUrl,
-            }
+            name: name,
+            Pid: Pid,
+            Vid: Vid,
+            value: value,
+            imageUrl: imageUrl,
+          }
           : { name: name, Pid: Pid, Vid: Vid, value: value };
 
         return data;
@@ -243,16 +242,16 @@ const ProductOrderModal = ({
 
     !isFind
       ? copy.push(
-          imageUrl
-            ? {
-                name: name,
-                Pid: Pid,
-                Vid: Vid,
-                value: value,
-                imageUrl: imageUrl,
-              }
-            : { name: name, Pid: Pid, Vid: Vid, value: value }
-        )
+        imageUrl
+          ? {
+            name: name,
+            Pid: Pid,
+            Vid: Vid,
+            value: value,
+            imageUrl: imageUrl,
+          }
+          : { name: name, Pid: Pid, Vid: Vid, value: value }
+      )
       : null;
 
     configuredItemsArr?.map((el) => {
@@ -418,83 +417,82 @@ const ProductOrderModal = ({
               {!propertiesWithImages
                 ? null
                 : Object.values(propertiesWithImages)?.map(
-                    ({ keys, propName }) => (
-                      <div className="content-inner" key={propName}>
-                        <h2>{capitalize(propName)}</h2>
-                        <Swiper
-                          spaceBetween={20}
-                          slidesPerView={1.1}
-                          loop={true}
-                          modules={[Navigation]}
-                          breakpoints={{
-                            1000: {
-                              slidesPerView: 8,
-                            },
-                            960: {
-                              slidesPerView: 6,
-                            },
-                            0: {
-                              slidesPerView: "auto",
-                            },
-                          }}
-                          pagination={{ clickable: true }}
-                        >
-                          {keys.map(({ value, Pid, Vid, imageUrl }, index) => (
-                            <SwiperSlide key={Pid}>
-                              <Badge
-                                count={getPropertyQuantity(Pid, Vid, propName)}
-                              >
-                                <div
-                                  key={Pid}
-                                  onClick={() =>
-                                    handlePropertySelect(
-                                      Pid,
-                                      Vid,
-                                      propName,
-                                      value,
-                                      imageUrl
-                                    )
-                                  }
-                                  className={`img-block ${
-                                    getExist(Pid, Vid)
-                                      ? isSelect(Pid, Vid, propName)
-                                        ? styles.active
-                                        : ""
-                                      : styles.disable
+                  ({ keys, propName }) => (
+                    <div className="content-inner" key={propName}>
+                      <h2>{capitalize(propName)}</h2>
+                      <Swiper
+                        spaceBetween={20}
+                        slidesPerView={1.1}
+                        loop={true}
+                        modules={[Navigation]}
+                        breakpoints={{
+                          1000: {
+                            slidesPerView: 8,
+                          },
+                          960: {
+                            slidesPerView: 6,
+                          },
+                          0: {
+                            slidesPerView: "auto",
+                          },
+                        }}
+                        pagination={{ clickable: true }}
+                      >
+                        {keys.map(({ value, Pid, Vid, imageUrl }, index) => (
+                          <SwiperSlide key={Pid}>
+                            <Badge
+                              count={getPropertyQuantity(Pid, Vid, propName)}
+                            >
+                              <div
+                                key={Pid}
+                                onClick={() =>
+                                  handlePropertySelect(
+                                    Pid,
+                                    Vid,
+                                    propName,
+                                    value,
+                                    imageUrl
+                                  )
+                                }
+                                className={`img-block ${getExist(Pid, Vid)
+                                  ? isSelect(Pid, Vid, propName)
+                                    ? styles.active
+                                    : ""
+                                  : styles.disable
                                   }`}
-                                >
-                                  {imageUrl && (
-                                    <div className="img-box">
-                                      <span
-                                        className="view-icon"
-                                        onClick={() => {
-                                          const validImageUrls = keys
-                                            .map(({ imageUrl }) => imageUrl)
-                                            .filter(
-                                              (url): url is string => !!url
-                                            );
-                                          handleImageClick(
-                                            validImageUrls,
-                                            index
+                              >
+                                {imageUrl && (
+                                  <div className="img-box">
+                                    <span
+                                      className="view-icon"
+                                      onClick={() => {
+                                        const validImageUrls = keys
+                                          .map(({ imageUrl }) => imageUrl)
+                                          .filter(
+                                            (url): url is string => !!url
                                           );
-                                        }}
-                                      >
-                                        <SvgSelector id="open-image-view-svg" />
-                                      </span>
-                                      <Image src={imageUrl} alt={value} fill />
-                                    </div>
-                                  )}
-                                  <div className="img-describtion">
-                                    <p>{value}</p>
+                                        handleImageClick(
+                                          validImageUrls,
+                                          index
+                                        );
+                                      }}
+                                    >
+                                      <SvgSelector id="open-image-view-svg" />
+                                    </span>
+                                    <Image src={imageUrl} alt={value} fill />
                                   </div>
+                                )}
+                                <div className="img-describtion">
+                                  <p>{value}</p>
                                 </div>
-                              </Badge>
-                            </SwiperSlide>
-                          ))}
-                        </Swiper>
-                      </div>
-                    )
-                  )}
+                              </div>
+                            </Badge>
+                          </SwiperSlide>
+                        ))}
+                      </Swiper>
+                    </div>
+                  )
+                )}
             </div>
             <div className="property-items">
               {Object.entries(groupedProperties).map(
@@ -506,7 +504,7 @@ const ProductOrderModal = ({
                         <Badge
                           count={
                             idx === 0 &&
-                            !Object.keys(propertiesWithImages || {}).length
+                              !Object.keys(propertiesWithImages || {}).length
                               ? getPropertyQuantity(pid, vid, propName)
                               : null
                           }

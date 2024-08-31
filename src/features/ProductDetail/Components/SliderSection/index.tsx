@@ -45,7 +45,6 @@ const SliderSection: FC<IProps> = ({ data, video }) => {
     open: isPlaying,
   };
 
-  console.log(!isPlaying);
 
   return (
     <>
