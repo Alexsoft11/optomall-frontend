@@ -423,7 +423,7 @@ const ProductOrderModal = ({
                       <Swiper
                         spaceBetween={20}
                         slidesPerView={1.1}
-                        loop={true}
+                        loop={false}
                         modules={[Navigation]}
                         breakpoints={{
                           1000: {

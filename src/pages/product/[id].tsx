@@ -63,11 +63,10 @@ const ProductDetail = ({ product, error }: ProductDetailProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product?.detail?.image]);
 
-  useEffect(() => {
-    if (error?.productDetail.ErrorDescription) {
-      message.warning(error.productDetail.ErrorDescription)
-    }
-  }, [])
+  if (error) {
+    console.error(error);
+  }
+
 
 
   if (!product) {
