@@ -11,7 +11,7 @@ import { Modal } from "@/ui";
 
 const isMobile = (windowWidth: number) => windowWidth > 850;
 
-const Detail = ({ selectedImage, product }: any) => {
+const Detail = ({ selectedImage, product, imageIndex }: any) => {
   const [windowWidth, setWindowWidth] = useState(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
@@ -35,8 +35,8 @@ const Detail = ({ selectedImage, product }: any) => {
     ...product.pictures.map((p: any) => p.image_url),
   ];
 
-  const handleImageClick = (index: number) => {
-    setCurrentImageIndex(index);
+  const handleImageClick = () => {
+    setCurrentImageIndex(imageIndex);
     setIsOpen(true);
   };
 
@@ -69,7 +69,7 @@ const Detail = ({ selectedImage, product }: any) => {
               imgClass={styles.img}
               isLink={false}
               loading="lazy"
-              onClick={() => handleImageClick(1)}
+              onClick={() => handleImageClick()}
             />
             {!isPlaying && product.videos[0] ? (
               <>

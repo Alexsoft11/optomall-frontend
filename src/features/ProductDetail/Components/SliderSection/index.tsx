@@ -64,7 +64,7 @@ const SliderSection: FC<IProps> = ({ data, video }) => {
             />
             <span
               className={styles.view_icon}
-              onClick={() => handleImageClick(1)}
+              onClick={() => handleImageClick(idx)}
             >
               <SvgSelector id="open-image-view-svg" />
             </span>

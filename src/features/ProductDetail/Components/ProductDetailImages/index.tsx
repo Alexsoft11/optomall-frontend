@@ -24,9 +24,9 @@ const ProductDetailImages = ({
   setSelectedImage,
   product,
 }: Props) => {
+  const [imageIndex, setImageIndex] = useState(1)
 
 
- 
   return (
     <div className={styles.productDetail}>
       <Swiper
@@ -44,21 +44,23 @@ const ProductDetailImages = ({
                 fill
                 src={item.image_url}
                 alt={`Thumbnail ${item.id}`}
-                onClick={() => setSelectedImage(item.image_url)}
+                onClick={() => {
+                  setImageIndex(idx)
+                  setSelectedImage(item.image_url)
+                }}
                 loading="lazy"
                 isLink={false}
                 className={
                   selectedImage === item.image_url ? styles.active : ""
                 }
               />
-             
             </>
           </SwiperSlide>
         ))}
       </Swiper>
 
-      <Detail selectedImage={selectedImage} product={product} />
-    
+      <Detail imageIndex={imageIndex} selectedImage={selectedImage} product={product} />
+
     </div>
   );
 };
