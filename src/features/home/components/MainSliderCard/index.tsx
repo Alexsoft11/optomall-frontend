@@ -9,7 +9,7 @@ interface Props {
 }
 const MainSliderCard = ({ el }: Props) => {
   return (
-    <Link target="_blank" href={el.url} className={styles.main_card}>
+    <Link target="_blank" href={el?.url ? el?.url : ''} className={styles.main_card}>
       <div className={styles.main_card__inner}>
         <Image
           className={styles.main_card__image}

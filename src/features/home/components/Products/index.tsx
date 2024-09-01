@@ -37,8 +37,8 @@ const ProductsSection = ({
     setKeyApi(key);
   };
 
-  const handleGetProduct = (custom?: any) => {
-    getProductsData({
+  const handleGetProductWhenScrool = (custom?: any) => {
+    getProductsWhenScrool({
       ...custom,
       ...query,
       lang: locale,
@@ -46,7 +46,7 @@ const ProductsSection = ({
     });
   };
 
-  const { appendData: getProductsData, isLoading: isProductsLoading } =
+  const { appendData: getProductsWhenScrool, isLoading: isProductsScroolLoading } =
     useQueryApiClient({
       request: {
         url: `products`,
@@ -62,6 +62,20 @@ const ProductsSection = ({
       },
     });
 
+  const { appendData: getProductsData, isLoading: isProductsLoading } =
+    useQueryApiClient({
+      request: {
+        url: `products`,
+        method: "GET",
+        disableOnMount: true,
+      },
+      onSuccess(res: any) {
+        if (res.products) {
+          setProducts(res.products);
+        }
+      },
+    });
+
 
   return (
     <div className={styles.products}>
@@ -69,31 +83,32 @@ const ProductsSection = ({
         <div className={styles.products__inner}>
           <div className={styles.products__top}>
             <CustomTabs className="products_tab" onChange={handleTabChange}>
-              {ProductTabsData.map((tab) => (
-                <TabPane
-                  key={tab.key}
-                  tab={t(`Products.${tab.tab}`)}
-                  className={styles.products__item}
-                />
-              ))}
+              {
+                ProductTabsData.map((tab) => (
+                  <TabPane
+                    key={tab.key}
+                    tab={t(`Products.${tab.tab}`)}
+                    className={styles.products__item}
+                  />
+                ))}
+              )
             </CustomTabs>
           </div>
 
           <div className={styles.products__cards}>
-
-            {/* // products?.map((el: CardInterface, idx: number) => (
-              //   <Card
-              //     isBlank={false}
-              //     key={el.id}
-              //     data={el}
-              //     provider={el.provider}
-              //   />
-              // )) */}
-            <Products type="scroll" perPage={1} data={products} hasMore={hasMore}
-              handleGetProduct={handleGetProduct} />
+            {isProductsLoading ? (
+              <LoadingSpinner
+                spinning={isProductsLoading}
+                tip={"loadingData"}
+                size="large"
+              />
+            ) : (
+              <Products type="scroll" perPage={1} data={products} hasMore={hasMore}
+                handleGetProduct={handleGetProductWhenScrool} />
+            )}
           </div>
           <LoadingSpinner
-            spinning={isProductsLoading}
+            spinning={isProductsScroolLoading}
             tip={"loadingData"}
             size="large"
           />
