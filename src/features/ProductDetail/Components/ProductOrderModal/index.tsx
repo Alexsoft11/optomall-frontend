@@ -145,6 +145,7 @@ const ProductOrderModal = ({
         provider: provider as string,
         sku_id: el.id,
         properties: newConfig,
+        quantityRanges: product?.quantityRanges ? product?.quantityRanges : undefined
       };
       if (type === "to_cart") item.max_quantity = el.quantity;
       return item;

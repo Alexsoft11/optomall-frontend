@@ -93,11 +93,6 @@ interface Configurator {
   Vid: string; // Variant ID
 }
 
-interface QuantityRange {
-  minQuantity: number;
-  price: number;
-}
-
 export interface ConfiguredItem {
   id: string;
   configurators: ConfiguratorItemInterface[];
@@ -230,4 +225,5 @@ export interface CreateBaskettemsDataInterface {
   sku_id: string;
   product_url: string;
   properties: ParsedProperty[];
+  quantityRanges?: QuantityRange[];
 }
