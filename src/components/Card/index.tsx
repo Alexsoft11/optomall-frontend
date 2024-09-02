@@ -30,21 +30,25 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
   }, [textRef]);
 
   useEffect(() => {
-    const savedScrollPosition = sessionStorage.getItem("scrollPosition");
-    if (savedScrollPosition) {
-      window.scrollTo(0, parseInt(savedScrollPosition, 10));
-      sessionStorage.removeItem("scrollPosition")
+    if (router.pathname === '/search') {
+      const savedScrollPosition = sessionStorage.getItem("scrollPosition");
+      if (savedScrollPosition) {
+        window.scrollTo(0, parseInt(savedScrollPosition, 10));
+        sessionStorage.removeItem("scrollPosition");
+        console.log('Scroll position restored');
+      }
+  
+      const handleBeforeUnload = () => {
+        sessionStorage.setItem("scrollPosition", window.scrollY.toString());
+        console.log('Scroll position saved');
+      };
+  
+      window.addEventListener("beforeunload", handleBeforeUnload);
+  
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
     }
-
-    const handleBeforeUnload = () => {
-      sessionStorage.setItem("scrollPosition", window.scrollY.toString());
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
   }, []);
 
   const handleLinkClick = (e: React.MouseEvent) => {
