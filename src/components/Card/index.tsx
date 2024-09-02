@@ -30,7 +30,7 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
   }, [textRef]);
 
   useEffect(() => {
-    if (router.pathname === '/search') {
+    if (router.pathname === '/search' || router.pathname === '/') {
       const savedScrollPosition = sessionStorage.getItem("scrollPosition");
       if (savedScrollPosition) {
         window.scrollTo(0, parseInt(savedScrollPosition, 10));
