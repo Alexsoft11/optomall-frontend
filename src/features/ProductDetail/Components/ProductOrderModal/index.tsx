@@ -366,6 +366,23 @@ const ProductOrderModal = ({
     return total;
   };
 
+  const getTruePrice = () => {
+    if (currentSku && currentSku.quantityRanges) {
+      let price = currentSku.price;
+      const ranges = currentSku.quantityRanges.sort(
+        (a, b) => a.minQuantity - b.minQuantity
+      );
+
+      for (const item of ranges) {
+        if (item.minQuantity <= currentSku.selected_quantity) {
+          price = item.price;
+        }
+      }
+      return price;
+    }
+    return currentSku?.price;
+  };
+
   const capitalize = (text: string) =>
     text.charAt(0).toUpperCase() + text.slice(1);
 
@@ -426,7 +443,7 @@ const ProductOrderModal = ({
           <div className="content">
             <div className="currentPrice">
               <h3>
-                {formatPrice(currentSku?.price)} {t("GLOBAL.currency")}
+                {formatPrice(getTruePrice())} {t("GLOBAL.currency")}
               </h3>
             </div>
             <div className="property-items">
