@@ -344,8 +344,6 @@ const ProductOrderModal = ({
     );
   };
 
-  console.log(product);
-
   //sum all selectedSku`s items price
   const getTotalPrice = () => {
     const total = selectedSku?.reduce((acum, cur) => {

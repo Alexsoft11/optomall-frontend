@@ -179,7 +179,6 @@ export default function OrderBlock({
     },
     onChange: async (info: any) => {
       if (info.file.status === "done" && !isUploadErr) {
-        console.log(info.file.status);
         try {
           const resizedFile = await resizeImage(info.file.originFileObj as File);
           const formData = new FormData();
