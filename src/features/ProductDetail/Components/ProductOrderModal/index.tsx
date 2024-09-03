@@ -349,13 +349,19 @@ const ProductOrderModal = ({
     const total = selectedSku?.reduce((acum, cur) => {
       let price = cur.price;
 
-      cur.quantityRanges?.map((item) => {
-        if (item.minQuantity <= cur.selected_quantity) {
-          price = item.price;
-        }
-      });
-      return acum + price * cur.selected_quantity;
+      if (cur.quantityRanges) {
+        const ranges = cur.quantityRanges.sort(
+          (a, b) => a.minQuantity - b.minQuantity
+        );
 
+        for (const item of ranges) {
+          if (item.minQuantity <= cur.selected_quantity) {
+            price = item.price;
+          }
+        }
+      }
+
+      return acum + price * cur.selected_quantity;
     }, 0);
     return total;
   };
