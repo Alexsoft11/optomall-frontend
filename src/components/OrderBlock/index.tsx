@@ -11,6 +11,7 @@ import Cookies from "universal-cookie";
 import { RcFile } from "antd/es/upload";
 import { formatPrice } from "@/constants";
 import { EditOrderInterface } from "@/features/Order/interfaces";
+import { UploadProps } from "antd/lib";
 
 interface Props {
   cost: number;
@@ -37,25 +38,22 @@ export default function OrderBlock({
 }: Props) {
   const t = useTranslations("");
   const [checkModalIsOpen, setCheckModalIsOpen] = useState(false);
-  // const [authModalIsOpen, setAuthModalIsOpen] = useState(false);
   const [isUploadErr, setIsUploadErr] = useState(false);
   const [messageVisible, setMessageVisible] = useState(false);
-
   const router = useRouter();
   const [buttonStatus, setButtonStatus] = useState<
     "idle" | "pending" | "success" | "fail"
   >("idle");
   const cookie = new Cookies();
 
-  const buttonClass = `${styles["loading-btn"]} ${
-    buttonStatus === "pending"
-      ? styles["loading-btn--pending"]
-      : buttonStatus === "success"
+  const buttonClass = `${styles["loading-btn"]} ${buttonStatus === "pending"
+    ? styles["loading-btn--pending"]
+    : buttonStatus === "success"
       ? styles["loading-btn--success"]
       : buttonStatus === "fail"
-      ? styles["loading-btn--fail"]
-      : ""
-  }`;
+        ? styles["loading-btn--fail"]
+        : ""
+    }`;
 
   const checkModalClose = () => {
     router.push("/purchases?filter=in_verification");
@@ -89,76 +87,116 @@ export default function OrderBlock({
         disableOnMount: true,
         multipart: true,
       },
-      onSuccess(res) {
+      onSuccess() {
         setCheckModalIsOpen(true);
         setButtonStatus("success");
         setTimeout(() => setButtonStatus("idle"), 1000);
       },
-      onError(err) {
+      onError() {
         setButtonStatus("fail");
         setTimeout(() => setButtonStatus("idle"), 1000);
       },
     });
 
-  const props = {
+  const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+
+  const validateFields = () => {
+    if (editOrderData && setDataFailed) {
+      if (!editOrderData.region || !editOrderData.district) {
+        setDataFailed("location");
+        message.error(t("Cart.locationRequired"), 3);
+        setTimeout(() => setDataFailed(null), 1000);
+        return false;
+      }
+      if (!editOrderData.name || !editOrderData.phone) {
+        setDataFailed("personal");
+        message.error(t("Cart.userDataRequired"), 3);
+        setTimeout(() => setDataFailed(null), 1000);
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const resizeImage = (file: File): Promise<File> => {
+    return new Promise((resolve, reject) => {
+      const img = document.createElement("img");
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      img.onload = () => {
+        const maxWidth = 1200;
+        const maxHeight = 1200;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth || height > maxHeight) {
+          if (width > height) {
+            height *= maxWidth / width;
+            width = maxWidth;
+          } else {
+            width *= maxHeight / height;
+            height = maxHeight;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        ctx?.drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const resizedFile = new File([blob], file.name, {
+              type: file.type,
+              lastModified: Date.now(),
+            });
+            resolve(resizedFile);
+          } else {
+            reject(new Error("Error resizing image"));
+          }
+        }, file.type, 1);
+      };
+
+      img.onerror = reject;
+      img.src = URL.createObjectURL(file);
+    });
+  };
+
+  const uploadProps: UploadProps = {
     name: "file",
     showUploadList: false,
     multiple: false,
-
     beforeUpload: (file: RcFile) => {
-      const isImage = file.type === "image/jpeg" || file.type === "image/png";
-      if (!isImage) {
+      if (!allowedTypes.includes(file.type)) {
         setIsUploadErr(true);
         message.error(t("Cart.imgTypeValidation"));
         return false;
       }
-      const isLt3M = file.size / 1024 / 1024 < 3;
-      if (!isLt3M) {
-        setIsUploadErr(true);
-        message.error(t("Cart.imgSizeValidation"));
+      if (!validateFields()) {
         return false;
-      }
-
-      if (editOrderData && setDataFailed) {
-        if (!editOrderData?.region || !editOrderData.district) {
-          setDataFailed("location");
-          setTimeout(() => {
-            setDataFailed(null);
-          }, 1000);
-          message.error(t(`Cart.locationRequired`), 3);
-          return false;
-        }
-        if (!editOrderData?.name || !editOrderData.phone) {
-          setDataFailed("personal");
-          setTimeout(() => {
-            setDataFailed(null);
-          }, 1000);
-          message.error(t(`Cart.userDataRequired`), 3);
-          return false;
-        }
       }
       return true;
     },
-    onChange: (info: any) => {
+    onChange: async (info: any) => {
       if (info.file.status === "done" && !isUploadErr) {
-        const image = info.file.originFileObj;
-        delete image.uid;
-
-        const formData = new FormData();
-
-        formData.append("type", type as string);
-        formData.append("image", image);
-        formData.append("order_group_id", orderId!.toString());
-
-        createChequeData(formData);
-        setButtonStatus("pending");
-
-        editOrder(editOrderData);
+        console.log(info.file.status);
+        try {
+          const resizedFile = await resizeImage(info.file.originFileObj as File);
+          const formData = new FormData();
+          formData.append("image", resizedFile);
+          formData.append("type", type as string);
+          formData.append("order_group_id", orderId!.toString());
+          createChequeData(formData);
+          editOrder(editOrderData);
+          setButtonStatus("pending");
+        } catch (error) {
+          console.error("Error uploading file:", error);
+        }
       }
     },
   };
 
-  const toOrder = () => {
+  const handleOrder = () => {
     if (!cookie.get("token")) {
       // setAuthModalIsOpen(true);
       return;
@@ -176,22 +214,18 @@ export default function OrderBlock({
 
   return (
     <div className={styles.main}>
-      {orderId ? (
-        <p className={styles.order_title}>{t("Cart.payment")}</p>
-      ) : (
-        <p className={styles.order_title}>
-          {t("Cart.item")}, {itemValue}
-        </p>
-      )}
+      <p className={styles.order_title}>
+        {orderId ? t("Cart.payment") : `${t("Cart.item")}, ${itemValue}`}
+      </p>
       <div className={styles.total}>
         <div>
           <h1>{t("Cart.total")}:</h1>
           <p>{formatPrice(cost)} uzs</p>
         </div>
       </div>
-      {orderId ? (
+      {orderId && (
         <div className={styles.upload_btn}>
-          <Upload {...props} accept="image/*">
+          <Upload {...uploadProps} accept="image/*">
             <div className={styles.response_button__block}>
               <span className={styles["loading-btn-wrapper"]}>
                 <button
@@ -206,17 +240,15 @@ export default function OrderBlock({
             </div>
           </Upload>
         </div>
-      ) : null}
-
-      {type === "cart" ? (
+      )}
+      {type === "cart" && (
         <Button
-          onClick={() => toOrder()}
+          onClick={handleOrder}
           className={styles.complite_btn}
           label={t("Cart.complite")}
           isLoading={isLoading || isLoadingCheck}
         />
-      ) : null}
-
+      )}
       <Modal
         onCancel={checkModalClose}
         className="bg_white"
