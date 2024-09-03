@@ -368,10 +368,10 @@ const ProductOrderModal = ({
 
   const getTruePrice = () => {
     if (currentSku && currentSku.quantityRanges) {
-      let price = currentSku.price;
       const ranges = currentSku.quantityRanges.sort(
         (a, b) => a.minQuantity - b.minQuantity
       );
+      let price = ranges[0].price;
 
       for (const item of ranges) {
         if (item.minQuantity <= currentSku.selected_quantity) {
