@@ -145,7 +145,9 @@ const ProductOrderModal = ({
         provider: provider as string,
         sku_id: el.id,
         properties: newConfig,
-        quantityRanges: product?.quantityRanges ? product?.quantityRanges : undefined
+        quantityRanges: product?.quantityRanges
+          ? product?.quantityRanges
+          : undefined,
       };
       if (type === "to_cart") item.max_quantity = el.quantity;
       return item;
@@ -214,12 +216,12 @@ const ProductOrderModal = ({
       ...(selectProperty || [
         imageUrl
           ? {
-            name: name,
-            Pid: Pid,
-            Vid: Vid,
-            value: value,
-            imageUrl: imageUrl,
-          }
+              name: name,
+              Pid: Pid,
+              Vid: Vid,
+              value: value,
+              imageUrl: imageUrl,
+            }
           : { name: name, Pid: Pid, Vid: Vid, value: value },
       ]),
     ];
@@ -229,12 +231,12 @@ const ProductOrderModal = ({
         isFind = true;
         const data = imageUrl
           ? {
-            name: name,
-            Pid: Pid,
-            Vid: Vid,
-            value: value,
-            imageUrl: imageUrl,
-          }
+              name: name,
+              Pid: Pid,
+              Vid: Vid,
+              value: value,
+              imageUrl: imageUrl,
+            }
           : { name: name, Pid: Pid, Vid: Vid, value: value };
 
         return data;
@@ -243,16 +245,16 @@ const ProductOrderModal = ({
 
     !isFind
       ? copy.push(
-        imageUrl
-          ? {
-            name: name,
-            Pid: Pid,
-            Vid: Vid,
-            value: value,
-            imageUrl: imageUrl,
-          }
-          : { name: name, Pid: Pid, Vid: Vid, value: value }
-      )
+          imageUrl
+            ? {
+                name: name,
+                Pid: Pid,
+                Vid: Vid,
+                value: value,
+                imageUrl: imageUrl,
+              }
+            : { name: name, Pid: Pid, Vid: Vid, value: value }
+        )
       : null;
 
     configuredItemsArr?.map((el) => {
@@ -344,10 +346,17 @@ const ProductOrderModal = ({
 
   //sum all selectedSku`s items price
   const getTotalPrice = () => {
-    const total = selectedSku?.reduce(
-      (acum, cur) => acum + cur.price * cur.selected_quantity,
-      0
-    );
+    const total = selectedSku?.reduce((acum, cur) => {
+      let price = cur.price;
+
+      cur.quantityRanges?.map((item) => {
+        if (item.minQuantity <= cur.selected_quantity) {
+          price = item.price;
+        }
+      });
+      return acum + price * cur.selected_quantity;
+
+    }, 0);
     return total;
   };
 
@@ -418,82 +427,83 @@ const ProductOrderModal = ({
               {!propertiesWithImages
                 ? null
                 : Object.values(propertiesWithImages)?.map(
-                  ({ keys, propName }) => (
-                    <div className="content-inner" key={propName}>
-                      <h2>{capitalize(propName)}</h2>
-                      <Swiper
-                        spaceBetween={20}
-                        slidesPerView={1.1}
-                        loop={false}
-                        modules={[Navigation]}
-                        breakpoints={{
-                          1000: {
-                            slidesPerView: 8,
-                          },
-                          960: {
-                            slidesPerView: 6,
-                          },
-                          0: {
-                            slidesPerView: "auto",
-                          },
-                        }}
-                        pagination={{ clickable: true }}
-                      >
-                        {keys.map(({ value, Pid, Vid, imageUrl }, index) => (
-                          <SwiperSlide key={Pid}>
-                            <Badge
-                              count={getPropertyQuantity(Pid, Vid, propName)}
-                            >
-                              <div
-                                key={Pid}
-                                onClick={() =>
-                                  handlePropertySelect(
-                                    Pid,
-                                    Vid,
-                                    propName,
-                                    value,
-                                    imageUrl
-                                  )
-                                }
-                                className={`img-block ${getExist(Pid, Vid)
-                                  ? isSelect(Pid, Vid, propName)
-                                    ? styles.active
-                                    : ""
-                                  : styles.disable
-                                  }`}
+                    ({ keys, propName }) => (
+                      <div className="content-inner" key={propName}>
+                        <h2>{capitalize(propName)}</h2>
+                        <Swiper
+                          spaceBetween={20}
+                          slidesPerView={1.1}
+                          loop={false}
+                          modules={[Navigation]}
+                          breakpoints={{
+                            1000: {
+                              slidesPerView: 8,
+                            },
+                            960: {
+                              slidesPerView: 6,
+                            },
+                            0: {
+                              slidesPerView: "auto",
+                            },
+                          }}
+                          pagination={{ clickable: true }}
+                        >
+                          {keys.map(({ value, Pid, Vid, imageUrl }, index) => (
+                            <SwiperSlide key={Pid}>
+                              <Badge
+                                count={getPropertyQuantity(Pid, Vid, propName)}
                               >
-                                {imageUrl && (
-                                  <div className="img-box">
-                                    <span
-                                      className="view-icon"
-                                      onClick={() => {
-                                        const validImageUrls = keys
-                                          .map(({ imageUrl }) => imageUrl)
-                                          .filter(
-                                            (url): url is string => !!url
+                                <div
+                                  key={Pid}
+                                  onClick={() =>
+                                    handlePropertySelect(
+                                      Pid,
+                                      Vid,
+                                      propName,
+                                      value,
+                                      imageUrl
+                                    )
+                                  }
+                                  className={`img-block ${
+                                    getExist(Pid, Vid)
+                                      ? isSelect(Pid, Vid, propName)
+                                        ? styles.active
+                                        : ""
+                                      : styles.disable
+                                  }`}
+                                >
+                                  {imageUrl && (
+                                    <div className="img-box">
+                                      <span
+                                        className="view-icon"
+                                        onClick={() => {
+                                          const validImageUrls = keys
+                                            .map(({ imageUrl }) => imageUrl)
+                                            .filter(
+                                              (url): url is string => !!url
+                                            );
+                                          handleImageClick(
+                                            validImageUrls,
+                                            index
                                           );
-                                        handleImageClick(
-                                          validImageUrls,
-                                          index
-                                        );
-                                      }}
-                                    >
-                                      <SvgSelector id="open-image-view-svg" />
-                                    </span>
-                                    <Image src={imageUrl} alt={value} fill />
+                                        }}
+                                      >
+                                        <SvgSelector id="open-image-view-svg" />
+                                      </span>
+                                      <Image src={imageUrl} alt={value} fill />
+                                    </div>
+                                  )}
+                                  <div className="img-describtion">
+                                    <p>{value}</p>
                                   </div>
-                                )}
-                                <div className="img-describtion">
-                                  <p>{value}</p>
                                 </div>
-                              </div>
-                            </Badge>
-                          </SwiperSlide>
-                        ))}
-                      </Swiper>
-                    </div>
-                  )
-                )}
+                              </Badge>
+                            </SwiperSlide>
+                          ))}
+                        </Swiper>
+                      </div>
+                    )
+                  )}
             </div>
             <div className="property-items">
               {Object.entries(groupedProperties).map(
@@ -505,7 +515,7 @@ const ProductOrderModal = ({
                         <Badge
                           count={
                             idx === 0 &&
-                              !Object.keys(propertiesWithImages || {}).length
+                            !Object.keys(propertiesWithImages || {}).length
                               ? getPropertyQuantity(pid, vid, propName)
                               : null
                           }
