@@ -43,9 +43,8 @@ export default function Home({ slidersData, productsData }: HomeProps) {
   const { appendData: getCategories, isLoading: isCategoriesLoading } =
     useQueryApiClient({
       request: {
-        url: `additional-categories${
-          token && token !== "undefined" ? "-token" : ""
-        }?limit=${limit}`,
+        url: `additional-categories${token && token !== "undefined" ? "-token" : ""
+          }?limit=${limit}`,
         method: "GET",
       },
       onSuccess(res: any) {
@@ -187,7 +186,7 @@ export const getServerSideProps = async (context: any) => {
     const productsResponse = await API.getHomePageProducts(
       context.locale,
       token,
-      cookies?.ScrollDataCount
+      cookies?.ScrollDataCount || '40'
     );
 
     return {
