@@ -55,7 +55,8 @@
     "views": "My reviews",
     "questions": "Frequently asked questions",
     "transport": "Transport costs",
-    "use": "How to use"
+    "use": "How to use",
+    "make_payment": "How to make a payment"
   },
   "UiModal": {
     "success": "Receipt successfully confirmed",
@@ -256,7 +257,8 @@
     "about_us": "About Us",
     "faq": "Frequently Asked Questions",
     "shipping_costs": "Shipping Costs",
-    "how_to_use": "How to Use"
+    "how_to_use": "How to Use",
+    "make_payment": "How to make a payment"
   },
   "Product-detail": {
     "isMaxQuantity": "is max quantity",
@@ -338,5 +340,18 @@
     "safety": "More than 25 professional employees work on our platform to ensure that your product arrives safely, in good quality and without damage.",
     "or": "Or",
     "contact": "you can call the numbers"
+  },
+  "MakePayment": {
+    "text": "How to make a payment on our trading platform?",
+    "text_1": "Payment methods:",
+    "text_2": "Choosing a product: Find the desired product and click the 'Buy' button.",
+    "text_3": "If you want to make additional orders, select the basket icon.",
+    "text_4": "Order placement: After selecting the product, you will automatically be redirected to the order placement page.",
+    "text_5": "After this, you need to transfer the payment amount to the specified card number.",
+    "text_6": "You can make the payment through these applications:",
+    "text_7": "Or any banking applications will help you make the payment:",
+    "text_8": "After transferring the money to our card, take a screenshot of the receipt:",
+    "text_9": "And upload it in the receipt upload section on our platform:",
+    "text_10": "After uploading the receipt, your payment and order will be reviewed and confirmed between 9:00 AM and 7:00 PM. On our platform, you can pay not only with a plastic card but also in cash. To do this, select the products, add them to the basket, and visit our offices where you can hand over the money. We will issue a receipt and immediately process the order. Currently, our offices are located only in Kokand and Tashkent."
   }
 }
