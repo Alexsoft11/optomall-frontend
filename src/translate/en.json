@@ -55,7 +55,8 @@
     "views": "My reviews",
     "questions": "Frequently asked questions",
     "transport": "Transport costs",
-    "use": "How to use"
+    "use": "How to use",
+    "make_payment": "How to make a payment"
   },
   "UiModal": {
     "success": "Receipt successfully confirmed",
@@ -256,7 +257,8 @@
     "about_us": "About Us",
     "faq": "Frequently Asked Questions",
     "shipping_costs": "Shipping Costs",
-    "how_to_use": "How to Use"
+    "how_to_use": "How to Use",
+    "make_payment": "How to make a payment"
   },
   "Product-detail": {
     "isMaxQuantity": "is max quantity",

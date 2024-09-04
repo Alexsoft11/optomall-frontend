@@ -55,7 +55,8 @@
     "views": "Mening sharhlarim",
     "questions": "Ko'p beriladigan savollar",
     "transport": "Transport xarajatlari",
-    "use": "Qanday foydalanish kerak"
+    "use": "Qanday foydalanish kerak",
+    "make_payment": "Qanday to'lov qilinadi"
   },
   "UiModal": {
     "success": "Chek muvaffaqiyatli tasdiqlandi",
@@ -256,7 +257,8 @@
     "about_us": "Biz haqimizda",
     "faq": "Ko'p beriladigan savollar",
     "shipping_costs": "Yuk tashish xarajatlari",
-    "how_to_use": "Qanday foydalaniladi"
+    "how_to_use": "Qanday foydalaniladi",
+    "make_payment": "Qanday to'lov qilinadi"
   },
   "Product-detail": {
     "isMaxQuantity": "maksimal miqdor",

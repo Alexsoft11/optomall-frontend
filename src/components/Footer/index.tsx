@@ -45,6 +45,9 @@ const Footer = () => {
               <li>
                 <Link href="/usinginfo">{t("how_to_use")}</Link>
               </li>
+              <li>
+                <Link href="/make-payment">{t("make_payment")}</Link>
+              </li>
             </ul>
             <div className={styles.social_icons}>
               {Array.isArray(footerData) && footerData.map((item, idx) => (
