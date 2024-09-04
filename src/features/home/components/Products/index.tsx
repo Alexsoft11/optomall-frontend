@@ -12,6 +12,7 @@ import dynamic from "next/dynamic";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import Products from "@/components/Products";
 import { useRouter } from "next/router";
+import Cookies from "universal-cookie";
 
 const Card = dynamic(() => import("@/components/Card"));
 
@@ -22,16 +23,13 @@ interface Props {
   isProductsLoading: any;
 }
 
-const ProductsSection = ({
-  categoryData,
-  productsData,
-}: Props) => {
+const ProductsSection = ({ categoryData, productsData }: Props) => {
   const t = useTranslations();
   const [hasMore, setHasMore] = useState(true);
   const { query, locale } = useRouter();
-  const [keyApi, setKeyApi] = useState("discount")
-  const [products, setProducts] = useState<any[]>(productsData)
-
+  const [keyApi, setKeyApi] = useState("discount");
+  const [products, setProducts] = useState<any[]>(productsData);
+  const cookie = new Cookies()
   const handleTabChange = (key: string) => {
     getProductsData({ query: key });
     setKeyApi(key);
@@ -42,25 +40,33 @@ const ProductsSection = ({
       ...custom,
       ...query,
       lang: locale,
-      query: keyApi
+      query: keyApi,
     });
   };
 
-  const { appendData: getProductsWhenScrool, isLoading: isProductsScroolLoading } =
-    useQueryApiClient({
-      request: {
-        url: `products`,
-        method: "GET",
-        disableOnMount: true,
-      },
-      onSuccess(res: any) {
-        if (!res.products.length) {
-          setHasMore(false);
-          return;
-        }
-        setProducts((prev) => [...prev, ...res.products]);
-      },
-    });
+  const {
+    appendData: getProductsWhenScrool,
+    isLoading: isProductsScroolLoading,
+  } = useQueryApiClient({
+    request: {
+      url: `products`,
+      method: "GET",
+      disableOnMount: true,
+    },
+    onSuccess(res: any) {
+      if (!res.products.length) {
+        setHasMore(false);
+        return;
+      }
+      setProducts((prev) => {
+        cookie.set(
+          "ScrollDataCount",
+          res.products.length + prev.length
+        );
+        return [...prev, ...res.products];
+      });
+    },
+  });
 
   const { appendData: getProductsData, isLoading: isProductsLoading } =
     useQueryApiClient({
@@ -76,21 +82,19 @@ const ProductsSection = ({
       },
     });
 
-
   return (
     <div className={styles.products}>
       <div className="container">
         <div className={styles.products__inner}>
           <div className={styles.products__top}>
             <CustomTabs className="products_tab" onChange={handleTabChange}>
-              {
-                ProductTabsData.map((tab) => (
-                  <TabPane
-                    key={tab.key}
-                    tab={t(`Products.${tab.tab}`)}
-                    className={styles.products__item}
-                  />
-                ))}
+              {ProductTabsData.map((tab) => (
+                <TabPane
+                  key={tab.key}
+                  tab={t(`Products.${tab.tab}`)}
+                  className={styles.products__item}
+                />
+              ))}
               )
             </CustomTabs>
           </div>
@@ -103,8 +107,13 @@ const ProductsSection = ({
                 size="large"
               />
             ) : (
-              <Products type="scroll" perPage={1} data={products} hasMore={hasMore}
-                handleGetProduct={handleGetProductWhenScrool} />
+              <Products
+                type="scroll"
+                perPage={1}
+                data={products}
+                hasMore={hasMore}
+                handleGetProduct={handleGetProductWhenScrool}
+              />
             )}
           </div>
           <LoadingSpinner

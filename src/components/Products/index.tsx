@@ -8,7 +8,7 @@ interface Props {
   hasMore?: boolean;
   handleGetProduct?: (data?: any) => void;
   type?: "simp" | "scroll";
-  perPage?: number
+  perPage?: number;
 }
 
 const Products = ({
@@ -16,7 +16,7 @@ const Products = ({
   handleGetProduct,
   hasMore = false,
   type,
-  perPage = 40
+  perPage = 40,
 }: Props) => {
   const [page, setPage] = useState(perPage);
 
