@@ -15,7 +15,12 @@ interface CardProps {
   isBlank?: boolean;
 }
 
-const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
+const Card = ({
+  data,
+  onLikeChange,
+  provider,
+  isBlank,
+}: CardProps) => {
   const t = useTranslations("GLOBAL");
   const textRef = useRef<any>(null);
   const [isOverflowed, setIsOverflowed] = useState(false);
@@ -30,21 +35,21 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
   }, [textRef]);
 
   useEffect(() => {
-    if (router.pathname === '/search' || router.pathname === '/') {
+    if (router.pathname === "/search" || router.pathname === "/") {
       const savedScrollPosition = sessionStorage.getItem("scrollPosition");
       if (savedScrollPosition) {
-        window.scrollTo(0, parseInt(savedScrollPosition, 10));
+        window.scrollTo(0, +savedScrollPosition);
         sessionStorage.removeItem("scrollPosition");
-        console.log('Scroll position restored');
+        console.log("Scroll position restored");
       }
-  
+
       const handleBeforeUnload = () => {
         sessionStorage.setItem("scrollPosition", window.scrollY.toString());
-        console.log('Scroll position saved');
+        console.log("Scroll position saved");
       };
-  
+
       window.addEventListener("beforeunload", handleBeforeUnload);
-  
+
       return () => {
         window.removeEventListener("beforeunload", handleBeforeUnload);
       };
@@ -53,7 +58,7 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
 
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    
+
     sessionStorage.setItem("scrollPosition", window.scrollY.toString());
 
     const id = router.pathname.includes("wishes") ? data.product_id : data.id;

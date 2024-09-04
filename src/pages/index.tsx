@@ -9,6 +9,7 @@ import { useJwt } from "@/utils/useJwt";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { CardInterface } from "@/interfaces";
 import { useRouter } from "next/router";
+import { headers } from "next/headers";
 
 const MainSlider = dynamic(
   () => import("@/features/home/components/MainSlider"),
@@ -17,9 +18,12 @@ const MainSlider = dynamic(
   }
 );
 
-const ProductsSection = dynamic(() => import("@/features/home/components/Products"), {
-  loading: () => <LoadingSpinner fullscreen={true} size="large" />,
-});
+const ProductsSection = dynamic(
+  () => import("@/features/home/components/Products"),
+  {
+    loading: () => <LoadingSpinner fullscreen={true} size="large" />,
+  }
+);
 
 interface HomeProps {
   slidersData: { sliders: any[] };
@@ -182,7 +186,8 @@ export const getServerSideProps = async (context: any) => {
     const slidersResponse = await API.getHomePageSlider();
     const productsResponse = await API.getHomePageProducts(
       context.locale,
-      token
+      token,
+      cookies?.ScrollDataCount
     );
 
     return {
