@@ -17,7 +17,7 @@
     "cargo": "Cargo payment"
   },
   "Home": {
-    "metaTitle": "Home | ON-WAY",
+    "metaTitle": "Home | OPTOM-ALL",
     "metaDescription": "Welcome to Optomall - Your one-stop shop for all your needs. Explore our wide range of products and enjoy the best online shopping experience.",
     "metaKeywords": "e-commerce, shopping uz, optomall,ON WAY, products, online store uz, taobao uz"
   },
@@ -105,9 +105,9 @@
     "nameValidateError": "Please enter a valid name",
     "verify_email": "Verify your email!",
     "something_wrong": "Something went wrong! Please try again later.",
-    "metaTitle": "Login | ON-WAY",
-    "metaDescription": "Securely log in to your ON-WAY account to access exclusive features and manage your orders.",
-    "metaKeywords": "ON-WAY, login, sign in, account access, secure login",
+    "metaTitle": "Login | OPTOM-ALL",
+    "metaDescription": "Securely log in to your OPTOM-ALL account to access exclusive features and manage your orders.",
+    "metaKeywords": "OPTOM-ALL, login, sign in, account access, secure login",
     "passwordHasEmpty": "Password cannot contain spaces!",
     "address": "Address"
   },
@@ -214,9 +214,9 @@
     "tab_3": "Recommended for you"
   },
   "Account": {
-    "metaTitle": "Account | ON-WAY",
-    "metaDescription": "Manage your ON-WAY account, view order history, update your profile, and more. Secure and easy access to all your account features on OPTOMALL.UZ.",
-    "metaKeywords": "ON-WAY, account, manage account, order history, update profile, secure access",
+    "metaTitle": "Account | OPTOM-ALL",
+    "metaDescription": "Manage your OPTOM-ALL account, view order history, update your profile, and more. Secure and easy access to all your account features on OPTOMALL.UZ.",
+    "metaKeywords": "OPTOM-ALL, account, manage account, order history, update profile, secure access",
     "change": "Change",
     "mail": "Email",
     "name": "Name",
@@ -331,8 +331,8 @@
     "text_6": "If the order weight exceeds 1 kg, each additional kilogram or gram will be charged at this rate."
   },
   "About": {
-    "welcome": "WELCOME to the ON-WAY shopping platform!",
-    "partnership": "The ONWAY platform has signed a cooperation agreement with the Chinese giant trading platforms. On the Onway platform, you can make purchases directly from taobao, 1688 and Chinese factories in the national currency of Uzbekistan at a wholesale price!",
+    "welcome": "WELCOME to the OPTOM-ALL shopping platform!",
+    "partnership": "The OPTOMALL platform has signed a cooperation agreement with the Chinese giant trading platforms. On the OPTOMALL platform, you can make purchases directly from taobao, 1688 and Chinese factories in the national currency of Uzbekistan at a wholesale price!",
     "features": "Simply put, you can search, choose and get product information through our platform, and even use our platform for free translator service to reduce the cost of products and order. These include production equipment from simple fabric enters.",
     "reliability": "We are your reliable partner in China. Choice and payment from you, purchase, inspection and delivery from us! Our team has been working with China for 13 years. Our platform has several warehouses in China, has its warehouse in almost all major cities.",
     "safety": "More than 25 professional employees work on our platform to ensure that your product arrives safely, in good quality and without damage.",
