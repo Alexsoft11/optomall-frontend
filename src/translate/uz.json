@@ -338,5 +338,18 @@
     "safety": "Mahsulotingiz xavfsiz, sifatli va zararsiz yetib kelishi uchun platformamizda 25 dan ziyod professional xodimlar faoliyat olib borishadi.",
     "or": "Yoki",
     "contact": "nomerlariga qo'ng'iroq qilishingiz mumkin"
+  },
+  "MakePayment": {
+    "text": "Savdo platformamizda qanday qilib to‘lovni amalga oshirish mumkin?",
+    "text_1": "To‘lov usullari:",
+    "text_2": "Mahsulot tanlash: Kerakli mahsulotni toping va 'Sotib olish' tugmasini bosing.",
+    "text_3": "Agar qo‘shimcha buyurtmalarni qilishni xohlasangiz, savatcha ikonkasini tanlang.",
+    "text_4": "Buyurtma berish: Mahsulotni tanlaganingizdan so‘ng, avtomatik ravishda buyurtma berish sahifasiga o‘tasiz.",
+    "text_5": "Shundan so‘ng, to‘lov summasini ko‘rsatilgan kartaga o‘tkazishingiz kerak bo‘ladi.",
+    "text_6": "To‘lovni ushbu ilovalar orqali amalga oshirishingiz mumkin:",
+    "text_7": "Yoki istalgan bank ilovalari orqali to‘lovni amalga oshirishingiz mumkin:",
+    "text_8": "Kartamizga pul o‘tkazganingizdan so‘ng, chekning skrinshotini oling:",
+    "text_9": "Va uni platformamizdagi chek yuklash bo‘limiga yuklang:",
+    "text_10": "Chekni yuklaganingizdan so‘ng, to‘lovingiz va buyurtmangiz 9:00 dan 19:00 gacha ko‘rib chiqilib, tasdiqlanadi. Platformamizda nafaqat plastik karta, balki naqd pul bilan ham to‘lov qilishingiz mumkin. Buning uchun mahsulotlarni tanlab, savatchaga qo‘shing va ofislarimizga tashrif buyuring, u yerda siz pulni topshirishingiz mumkin. Biz chek beramiz va darhol buyurtmani rasmiylashtiramiz. Hozirgi kunda ofislarimiz faqat Qo‘qon va Toshkent shaharlarida joylashgan."
   }
 }
