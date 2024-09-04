@@ -22,9 +22,9 @@ export const API = {
   // HomePage
   getHomePageSlider: () => axiosInstance.get("sliders"),
 
-  getHomePageProducts: (lang: any, token?: string, count?: string) =>
+  getHomePageProducts: (lang: any, token?: string) =>
     axiosInstance.get(
-      `products?query=discount&productsCount=20&page=2&lang=${lang}&productsCount=${count}`,
+      `products?query=discount&productsCount=20&page=2&lang=${lang}`,
       {
         headers: token ? { Authorization: "Bearer " + token } : {},
       }

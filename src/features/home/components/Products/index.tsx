@@ -29,7 +29,7 @@ const ProductsSection = ({ categoryData, productsData }: Props) => {
   const { query, locale } = useRouter();
   const [keyApi, setKeyApi] = useState("discount");
   const [products, setProducts] = useState<any[]>(productsData);
-  const cookie = new Cookies()
+  const cookie = new Cookies();
   const handleTabChange = (key: string) => {
     getProductsData({ query: key });
     setKeyApi(key);
@@ -59,10 +59,6 @@ const ProductsSection = ({ categoryData, productsData }: Props) => {
         return;
       }
       setProducts((prev) => {
-        cookie.set(
-          "ScrollDataCount",
-          res.products.length + prev.length
-        );
         return [...prev, ...res.products];
       });
     },

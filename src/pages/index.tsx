@@ -9,7 +9,6 @@ import { useJwt } from "@/utils/useJwt";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { CardInterface } from "@/interfaces";
 import { useRouter } from "next/router";
-import { headers } from "next/headers";
 
 const MainSlider = dynamic(
   () => import("@/features/home/components/MainSlider"),
@@ -35,16 +34,27 @@ export default function Home({ slidersData, productsData }: HomeProps) {
   const [isLoading, setIsLoading] = useState(true);
   const token = useJwt();
   const hasPosted = useRef(false);
-  const [products, setProducts] = useState(productsData.products);
+
+  // Используем проверку для доступа к localStorage
+  const [products, setProducts] = useState(
+    typeof window !== "undefined" ? JSON.parse(localStorage.getItem('scrollData') || '[]') || productsData.products : productsData.products
+  );
   const [categories, setCategories] = useState<any>([]);
   const [limit, setLimit] = useState(15);
   const router = useRouter();
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem('scrollData');
+    }
+  }, []);
+
   const { appendData: getCategories, isLoading: isCategoriesLoading } =
     useQueryApiClient({
       request: {
-        url: `additional-categories${token && token !== "undefined" ? "-token" : ""
-          }?limit=${limit}`,
+        url: `additional-categories${
+          token && token !== "undefined" ? "-token" : ""
+        }?limit=${limit}`,
         method: "GET",
       },
       onSuccess(res: any) {
@@ -58,8 +68,10 @@ export default function Home({ slidersData, productsData }: HomeProps) {
       method: "POST",
     },
     onSuccess() {
-      localStorage.removeItem("likedProducts");
-      window.location.reload();
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("likedProducts");
+        window.location.reload();
+      }
     },
   });
 
@@ -185,8 +197,7 @@ export const getServerSideProps = async (context: any) => {
     const slidersResponse = await API.getHomePageSlider();
     const productsResponse = await API.getHomePageProducts(
       context.locale,
-      token,
-      cookies?.ScrollDataCount || '40'
+      token
     );
 
     return {

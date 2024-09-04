@@ -7,12 +7,14 @@ import CustomImage from "../CustomImage";
 import LikedBtn from "../LikedBtn";
 import { useRouter } from "next/router";
 import { formatPrice } from "@/constants";
+import Cookies from "universal-cookie";
 
 interface CardProps {
   data: CardInterface;
   onLikeChange?: (cardId: number) => void;
   provider?: string;
   isBlank?: boolean;
+  allData?: any;
 }
 
 const Card = ({
@@ -20,11 +22,13 @@ const Card = ({
   onLikeChange,
   provider,
   isBlank,
+  allData,
 }: CardProps) => {
   const t = useTranslations("GLOBAL");
   const textRef = useRef<any>(null);
   const [isOverflowed, setIsOverflowed] = useState(false);
   const router = useRouter();
+  const cookie = new Cookies();
   const locale = useLocale();
 
   useEffect(() => {
@@ -59,6 +63,7 @@ const Card = ({
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
 
+    localStorage.setItem("scrollData", JSON.stringify(allData)) 
     sessionStorage.setItem("scrollPosition", window.scrollY.toString());
 
     const id = router.pathname.includes("wishes") ? data.product_id : data.id;
