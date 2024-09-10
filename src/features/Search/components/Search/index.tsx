@@ -145,15 +145,14 @@ const Search = ({ data = [] }: Props) => {
                   <SvgSelector id="1688-svg" />
                   <span>1688</span>
                 </button>
-                {/* <button
-                  className={`${styles.search__platform_btn} ${
-                    activePlatform === "taobao" ? styles.active : ""
-                  }`}
+                <button
+                  className={`${styles.search__platform_btn} ${activePlatform === "taobao" ? styles.active : ""
+                    }`}
                   onClick={() => handleButtonClick("taobao")}
                 >
                   <SvgSelector id="taobao-svg" />
                   <span>Taobao</span>
-                </button> */}
+                </button>
               </div>
 
               <div className={styles.search__btn}>

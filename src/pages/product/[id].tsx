@@ -103,9 +103,9 @@ interface ErrorResponse {
 export const getServerSideProps = async (context: any) => {
   try {
     const provider = context.query.provider || "1688";
-
+    const id = provider === '1688' ? 'abb-' + context.params.id : context.params.id
     const params = {
-      productId: context.params.id,
+      productId: id,
       lang: context.locale,
       provider: provider,
     };
