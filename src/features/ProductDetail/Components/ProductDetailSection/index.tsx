@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+  import React, { useEffect, useState } from "react";
 import styles from "./ProductDetailSection.module.scss";
 import ProductDetailImages from "../ProductDetailImages";
 import ProductDetailInfo from "../ProductDetailInfo";
