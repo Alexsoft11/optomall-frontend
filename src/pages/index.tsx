@@ -52,9 +52,8 @@ export default function Home({ slidersData, productsData }: HomeProps) {
   const { appendData: getCategories, isLoading: isCategoriesLoading } =
     useQueryApiClient({
       request: {
-        url: `additional-categories${
-          token && token !== "undefined" ? "-token" : ""
-        }?limit=${limit}`,
+        url: `additional-categories${token && token !== "undefined" ? "-token" : ""
+          }?limit=${limit}`,
         method: "GET",
       },
       onSuccess(res: any) {
