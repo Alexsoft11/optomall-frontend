@@ -16,7 +16,7 @@ const Products = ({
   handleGetProduct,
   hasMore = false,
   type,
-  perPage = 40,
+  perPage = 1,
 }: Props) => {
   const [page, setPage] = useState(perPage);
 

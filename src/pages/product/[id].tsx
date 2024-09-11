@@ -103,7 +103,7 @@ interface ErrorResponse {
 export const getServerSideProps = async (context: any) => {
   try {
     const provider = context.query.provider || "1688";
-    const id = provider === '1688' ? 'abb-' + context.params.id : context.params.id
+    const id = provider === '1688' && !context.params.id.includes('abb') ? 'abb-' + context.params.id : context.params.id
     const params = {
       productId: id,
       lang: context.locale,
