@@ -169,7 +169,7 @@ export default function Home({ slidersData, productsData }: HomeProps) {
     >
       <MainSlider data={slidersData?.sliders} />
       <Products
-        products={products}
+        productsData={products}
         getProductsData={getProductsData}
         isProductsLoading={isProductsLoading}
         categoryData={categories}
