@@ -17,9 +17,9 @@
     "cargo": "Karqo uchun to'lov"
   },
   "Home": {
-    "metaTitle": "Bosh sahifa | Onway",
-    "metaDescription": "Onwayga xush kelibsiz - barcha ehtiyojlaringiz uchun yagona do'kon. Mahsulotlarimizning keng doirasini o'rganing va eng yaxshi onlayn xarid qilish tajribasidan rohatlaning.",
-    "metaKeywords": "elektron tijorat, xarid qilish, onway, mahsulotlar, onlayn do'kon,magazin,taobao uz"
+    "metaTitle": "Bosh sahifa | Optomall",
+    "metaDescription": "Optomallga xush kelibsiz - barcha ehtiyojlaringiz uchun yagona do'kon. Mahsulotlarimizning keng doirasini o'rganing va eng yaxshi onlayn xarid qilish tajribasidan rohatlaning.",
+    "metaKeywords": "elektron tijorat, xarid qilish, optomall, mahsulotlar, onlayn do'kon,magazin,taobao uz"
   },
   "Error": {
     "user_registered_successfully": "Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi",
@@ -42,7 +42,7 @@
     "account": "Mening hisobim",
     "messages": "Mening xabarlarim",
     "purchases": "Mening xaridlarim",
-    "customs": "Bojxona hisoblash qanday amalga oshiriladi",
+    "customs": "Qanday tolov qilish mumkin?",
     "logout": "Chiqish",
     "btn_access": "Kirish",
     "btn_regist": "Ro’yxatdan o’tish",
@@ -55,7 +55,8 @@
     "views": "Mening sharhlarim",
     "questions": "Ko'p beriladigan savollar",
     "transport": "Transport xarajatlari",
-    "use": "Qanday foydalanish kerak"
+    "use": "Qanday foydalanish kerak",
+    "make_payment": "Qanday to'lov qilinadi"
   },
   "UiModal": {
     "success": "Chek muvaffaqiyatli tasdiqlandi",
@@ -105,9 +106,9 @@
     "nameValidateError": "Iltimos, haqiqiy ism kiriting",
     "verify_email": "Elektron pochtangizni tasdiqlang!",
     "something_wrong": "Nimadir noto'g'ri ketdi! Iltimos, keyinroq yana urinib ko'ring.",
-    "metaTitle": "Kirish | ON-WAY",
-    "metaDescription": "ON-WAY hisobingizga xavfsiz kiring va maxsus funksiyalardan foydalaning hamda buyurtmalaringizni boshqaring.",
-    "metaKeywords": "ON-WAY, kirish, hisobga kirish, xavfsiz kirish",
+    "metaTitle": "Kirish | OPTOM-ALL",
+    "metaDescription": "OPTOM-ALL hisobingizga xavfsiz kiring va maxsus funksiyalardan foydalaning hamda buyurtmalaringizni boshqaring.",
+    "metaKeywords": "OPTOM-ALL, kirish, hisobga kirish, xavfsiz kirish",
     "passwordHasEmpty": "Parolda bo'sh joy bo'lmasligi kerak!",
     "address": "Manzil"
   },
@@ -170,8 +171,8 @@
     "calculated": "Hisoblangan",
     "emptyData": "Bu yer bo'sh",
     "pay": "To'lash",
-    "send_check_again": "Chek tasdiqlanmadi",
-    "upload": "Yana yuklash",
+    "send_check_again": "Chekni qayta yuboring",
+    "upload": "Yuklash",
     "orderId": "Buyurtma ID:"
   },
   "Search": {
@@ -183,9 +184,9 @@
     "submit": "yuborish",
     "endPrice": "Iltimos, maksimal narxni kiriting!",
     "startPrice": "Iltimos, minimal narxni kiriting!",
-    "metaTitle": "Qidiruv natijalari - Onway",
-    "metaDescription": "Onwayda eng yaxshi mahsulotlarni bizning qidiruv natijalarimiz orqali toping.",
-    "metaKeywords": "qidiruv, mahsulotlar, Onway",
+    "metaTitle": "Qidiruv natijalari - Optomall",
+    "metaDescription": "Optomallda eng yaxshi mahsulotlarni bizning qidiruv natijalarimiz orqali toping.",
+    "metaKeywords": "qidiruv, mahsulotlar, Optomall",
     "results": "Natijalar",
     "upload_title": "Mahsulotlarni rasm bo'yicha qidirish",
     "upload_text": "Rasmni bu yerga sudrab olib tashlang",
@@ -214,9 +215,9 @@
     "tab_3": "Siz uchun tavsiya etamiz"
   },
   "Account": {
-    "metaTitle": "Hisob | ON-WAY",
-    "metaDescription": "ON-WAY hisobingizni boshqaring, buyurtma tarixini ko'ring, profilingizni yangilang va boshqalar. ONWAY.UZ da barcha hisob funksiyalariga xavfsiz va oson kirish.",
-    "metaKeywords": "ON-WAY, hisob, hisobni boshqarish, buyurtma tarixi, profilni yangilash, xavfsiz kirish",
+    "metaTitle": "Hisob | OPTOM-ALL",
+    "metaDescription": "OPTOM-ALL hisobingizni boshqaring, buyurtma tarixini ko'ring, profilingizni yangilang va boshqalar. OPTOMALL.UZ da barcha hisob funksiyalariga xavfsiz va oson kirish.",
+    "metaKeywords": "OPTOM-ALL, hisob, hisobni boshqarish, buyurtma tarixi, profilni yangilash, xavfsiz kirish",
     "change": "O'zgartirish",
     "mail": "Elektron pochta",
     "name": "Ism",
@@ -256,9 +257,11 @@
     "about_us": "Biz haqimizda",
     "faq": "Ko'p beriladigan savollar",
     "shipping_costs": "Yuk tashish xarajatlari",
-    "how_to_use": "Qanday foydalaniladi"
+    "how_to_use": "Qanday foydalaniladi",
+    "make_payment": "Qanday to'lov qilinadi"
   },
   "Product-detail": {
+    "isMaxQuantity": "maksimal miqdor",
     "bought": "Sotib olganlar",
     "compound": "Tarkibi",
     "made_country": "Ishlab chiqarilgan davlati",
@@ -273,7 +276,8 @@
     "products_added_to_basket": "Mahsulotlar savatga qo'shildi",
     "order_created_successfully": "Buyurtma muvaffaqiyatli yaratildi",
     "hide": "Yashirish",
-    "allSpecificationsAndDescription": "Barcha xususiyatlar va tavsif"
+    "allSpecificationsAndDescription": "Barcha xususiyatlar va tavsif",
+    "order": "Buyurtma 18-20 kun ichida yetib keladi"
   },
   "Messages": {
     "dearClient": "Hurmatli mijoz, ",
@@ -285,5 +289,69 @@
     "text": "Autentifikatsiyani talab qiladigan sahifaga qoqilib qolganga o'xshaysiz. Biz taklif qilayotgan ajoyib kontentni o'rganishda davom etish uchun tizimga kiring.",
     "btn_access": "Kirish",
     "btn_regist": "Ro'yxatdan o'tish"
+  },
+  "Using": {
+    "title_1": "Mahsulotni qidirish usullari",
+    "title_2": "Ro’yhatdan o’tish tartibi",
+    "panel_1": {
+      "title": "Bizning savdo maydonchamizda mahsulotni qanday topish mumkin? Keling, bir nechta usullarni ko'rib chiqaylik!",
+      "text_1": "Katalog orqali. Bizning katalogimizda deyarli barcha turdagi mahsulotlar mavjud va siz o'zingizga kerakli mahsulotlarni topishingiz mumkin! Biz doimiy ravishda katalogimizni yangilab turamiz. Katalog bo'yicha tavsiyalaringiz bo'lsa yoki mahsulot turini o'tkazib yuborgan bo'lsak, bog'laning. operatorlarimiz - biz siz uchun ushbu mahsulot turini katalogga qo'shamiz!",
+      "text_2": "Rasm bo'yicha qidirish. Bu usul juda aniq va qulay! Siz mahsulot rasmini yuklaysiz va 10 soniya ichida siz ushbu mahsulot narxi va ma'lumotlarini olasiz. Rasm qidirish funksiyasi qidiruv paneli oldida joylashgan. bizning platformamizda ushbu bo'limda siz o'zingizning rasmingizni yoki Internetdan olingan rasmni yuklashingiz mumkin.",
+      "text_3": "Havola bo'yicha qidiruv. Bu funksiya yordamida Taobao, Tmall yoki 1688 savdo platformalaridagi havoladan foydalanib, kerakli mahsulotni topishingiz mumkin."
+    },
+
+    "panel_2": {
+      "title_1": "Bizning savdo platformamizda mahsulotni qanday topish mumkin? Keling, bir nechta usullarni ko'rib chiqaylik!",
+      "title_2": "Uy sahifa tasviri",
+      "title_3": "Ro'yxatdan o'tish so'rovi sahifasi tasviri",
+      "title_4": "E-pochta manzili va parol so'ragan jadvalga ko'rsatgich",
+      "title_5": "Google tugmasiga ko'rsatgich",
+
+      "text_1": "Ro'yxatdan o'tish uchun elektron pochta manzilingiz kerak!",
+      "text_2": "Rasmda ko'rsatilgan tartibda ro'yxatdan o'tasiz",
+      "text_3": "Platformamizga kirganingizdan so'ng rasmda ko'rsatilgan bo'limga o'ting",
+      "text_4": "Ushbu bo'limga kirganingizda login va ro'yxatdan o'tish tugmalari paydo bo'ladi. Ro'yxatdan o'tish uchun ro'yxatdan o'tish tugmasini bosing.",
+      "text_5": "Ro'yxatdan o'tish tugmasini bosgandan so'ng, ro'yxatdan o'tishning ikki turi mavjud",
+      "text_6": "1. Siz mustaqil ravishda elektron pochta manzilingizni kiritasiz va parolni o'rnatasiz",
+      "text_7": "2. Google orqali ro'yxatdan o'ting. Agar sizda Google elektron pochta manzili bo'lsa, tugmani bosish sizni hech qanday parol yoki login talab qilmasdan avtomatik ravishda saytimizga ro'yxatdan o'tkazadi.",
+      "text_8": "3. Ro'yxatdan o'tganingizdan so'ng ismingiz, familiyangiz va xaridni boshlash uchun foydalanadigan telefon raqamingizni kiriting!"
+    }
+  },
+  "Custom": {
+    "title": "Bizning savdo maydonchamizda qanday qilib to'lovni amalga oshirish mumkin?",
+    "payment": "To'lov usullari:",
+    "text_1": "Istagan mahsulotni tanlaganingizdan so'ng, siz to'lov sahifasiga o'tasiz. U yerda sizga tanlagan mahsulotlaringiz va umumiy to'lov miqdori haqida ma'lumot beriladi. To'lov miqdorini taqdim etilgan kartaga o'tkazishingiz kerak bo'ladi. Payme, Click, Uzum va boshqa bank ilovalari sizga toʻlovni amalga oshirishda yordam beradi.",
+    "text_2": "Pulni kartamizga o'tkazgandan so'ng, kvitansiyani suratga oling va uni platformamizdagi chekni yuklash bo'limiga yuklang. Kvitansiyani yuklaganingizdan so'ng, to'lovingiz va buyurtmangiz ko'rib chiqiladi va 9 dan boshlab tasdiqlanadi. 9:00 dan 19:00 gacha.",
+    "text_3": "Bizning platformamizda siz nafaqat plastik karta, balki naqd pulda ham to'lovlarni amalga oshirishingiz mumkin. Buning uchun mahsulotlarni tanlang, ularni savatga qo'shing va pulni topshirishingiz mumkin bo'lgan ofislarimizga keling. . Biz kvitansiya beramiz va darhol buyurtma beramiz."
+  },
+  "Transport": {
+    "text_1": "Yetkazib berish narxi og'irlikka bog'liq.",
+    "text_2": "Misol:",
+    "text_3": "so'm",
+    "text_4": "kg",
+    "text_5": "g",
+    "text_6": "Agar buyurtma og'irligi 1 kg dan ortsa, har bir qo'shimcha kilogramm yoki gramm shu tarif bo'yicha hisoblanadi."
+  },
+  "About": {
+    "welcome": "OPTOM-ALL harid platformasiga HUSH KELIBSIZ!",
+    "partnership": "OPTOMALL platformasi xitoy Gigant savdo platformalari bilan hamkorlik bitimini imzoladi. OPTOMALL platformasida siz taobao, 1688 va xitoyning fabrikalaridan ulgurji narxda togridan to'g'ri O'zbekiston milliy valyutasida haridni amalga oshirishingiz mumkin!",
+    "features": "Oddiyroq qilib aytganda, siz bizning platforma orqali mahsulotni izlashingiz, tanlashingiz va mahsulot haqida ma’lumot olishingiz, hattoki mahsulotni narxini kamaytirish uchun platformamiz orqali tarjimon xizmatidan bepul foydalanishingiz hamda buyurtma berishingiz mumkin. Bular ichiga oddiy matodan boshlab ishlab chiqarish uskunalari ham kiradi.",
+    "reliability": "Biz sizning Xitoydagi ishonchli hamkoringiz. Sizdan tanlov va to’lov, bizdan sotib olish, tekshirish va yetkazish! Bizning jamoamiz Xitoy davlati bilan 13 yildan beri ishlab keladi. Bizning platforma Xitoy davlatida bir nechta omborlariga ega bo’lib, Xitoyning deyarli barcha katta shaharlarida o’z omboriga ega.",
+    "safety": "Mahsulotingiz xavfsiz, sifatli va zararsiz yetib kelishi uchun platformamizda 25 dan ziyod professional xodimlar faoliyat olib borishadi.",
+    "or": "Yoki",
+    "contact": "nomerlariga qo'ng'iroq qilishingiz mumkin"
+  },
+  "MakePayment": {
+    "text": "Savdo platformamizda qanday qilib to‘lovni amalga oshirish mumkin?",
+    "text_1": "To‘lov usullari:",
+    "text_2": "Mahsulot tanlash: Kerakli mahsulotni toping va 'Sotib olish' tugmasini bosing.",
+    "text_3": "Agar qo‘shimcha buyurtmalarni qilishni xohlasangiz, savatcha ikonkasini tanlang.",
+    "text_4": "Buyurtma berish: Mahsulotni tanlaganingizdan so‘ng, avtomatik ravishda buyurtma berish sahifasiga o‘tasiz.",
+    "text_5": "Shundan so‘ng, to‘lov summasini ko‘rsatilgan kartaga o‘tkazishingiz kerak bo‘ladi.",
+    "text_6": "To‘lovni ushbu ilovalar orqali amalga oshirishingiz mumkin:",
+    "text_7": "Yoki istalgan bank ilovalari orqali to‘lovni amalga oshirishingiz mumkin:",
+    "text_8": "Kartamizga pul o‘tkazganingizdan so‘ng, chekning skrinshotini oling:",
+    "text_9": "Va uni platformamizdagi chek yuklash bo‘limiga yuklang:",
+    "text_10": "Chekni yuklaganingizdan so‘ng, to‘lovingiz va buyurtmangiz 9:00 dan 19:00 gacha ko‘rib chiqilib, tasdiqlanadi. Platformamizda nafaqat plastik karta, balki naqd pul bilan ham to‘lov qilishingiz mumkin. Buning uchun mahsulotlarni tanlab, savatchaga qo‘shing va ofislarimizga tashrif buyuring, u yerda siz pulni topshirishingiz mumkin. Biz chek beramiz va darhol buyurtmani rasmiylashtiramiz. Hozirgi kunda ofislarimiz faqat Qo‘qon va Toshkent shaharlarida joylashgan."
   }
 }

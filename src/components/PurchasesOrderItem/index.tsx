@@ -39,7 +39,7 @@ export default function PurchasesOrderItem({ item }: Props) {
         </div>
 
         <h3>
-          {formatPrice(item.price)} {t("currency")}
+          {formatPrice(item.price)} {t("currency")} x {item.quantity}
         </h3>
       </div>
     </div>

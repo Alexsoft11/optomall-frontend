@@ -8,6 +8,7 @@ interface Props {
   hasMore?: boolean;
   handleGetProduct?: (data?: any) => void;
   type?: "simp" | "scroll";
+  perPage?: number;
 }
 
 const Products = ({
@@ -15,14 +16,15 @@ const Products = ({
   handleGetProduct,
   hasMore = false,
   type,
+  perPage = 1,
 }: Props) => {
-  const [page, setPage] = useState(40);
+  const [page, setPage] = useState(perPage);
 
   const fetchMoreData = async () => {
     if (!handleGetProduct) {
       return;
     }
-    const newCount = page + 40;
+    const newCount = page + perPage;
     setPage(newCount);
     handleGetProduct({ page: newCount });
   };
@@ -37,7 +39,7 @@ const Products = ({
       >
         <div className={styles.product_list}>
           {data?.map((el: any, idx: number) => (
-            <Card isBlank={false} key={idx} data={el} />
+            <Card isBlank={false} allData={data} key={idx} data={el} />
           ))}
         </div>
       </InfiniteScroll>

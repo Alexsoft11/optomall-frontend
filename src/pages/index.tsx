@@ -176,7 +176,8 @@ export default function Home({ slidersData, productsData }: HomeProps) {
       />
     </PageLayout>
   );
-}
+} 
+
 
 export const getServerSideProps = async (context: any) => {
   try {

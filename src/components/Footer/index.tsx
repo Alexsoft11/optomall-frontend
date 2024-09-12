@@ -34,16 +34,19 @@ const Footer = () => {
             <Image src={HeadLogo} alt="Taobao.com" className={styles.logo} />
             <ul className={styles.footer_links}>
               <li>
-                <Link href="#">{t("about_us")}</Link>
+                <Link href="/about">{t("about_us")}</Link>
               </li>
               <li>
                 <Link href="#">{t("faq")}</Link>
               </li>
               <li>
-                <Link href="#">{t("shipping_costs")}</Link>
+                <Link href="/transport">{t("shipping_costs")}</Link>
               </li>
               <li>
-                <Link href="#">{t("how_to_use")}</Link>
+                <Link href="/usinginfo">{t("how_to_use")}</Link>
+              </li>
+              <li>
+                <Link href="/make-payment">{t("make_payment")}</Link>
               </li>
             </ul>
             <div className={styles.social_icons}>
@@ -53,7 +56,7 @@ const Footer = () => {
                 </Link>
               ))}
             </div>
-            <p className={styles.copyright}>© {currentYear} OnWay All rights reserved</p>
+            <p className={styles.copyright}>© {currentYear} Optomall All rights reserved</p>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import SvgSelector from "$/assets/icons/SvgSelector";
 import SearchBtn from "@/components/SearchBtn";
 import { useTranslations } from "next-intl";
 import Products from "@/components/Products";
-import { Button, Input } from "@/ui";
+import { Button, Input, Select, SelectOption } from "@/ui";
 import { Form } from "antd";
 import { useRouter } from "next/router";
 import useQueryApiClient from "@/utils/useQueryApiClient";
@@ -117,6 +117,7 @@ const Search = ({ data = [] }: Props) => {
       request: {
         url: `categories-from-taobao?lang=${locale}`,
         method: "GET",
+        disableOnMount: true
       },
     }
   );
@@ -137,23 +138,21 @@ const Search = ({ data = [] }: Props) => {
               <div className={styles.search__platform}>
                 <h2>{t("platform")}:</h2>
                 <button
-                  className={`${styles.search__platform_btn} ${
-                    activePlatform === "1688" ? styles.active : ""
-                  }`}
+                  className={`${styles.search__platform_btn} ${activePlatform === "1688" ? styles.active : ""
+                    }`}
                   onClick={() => handleButtonClick("1688")}
                 >
                   <SvgSelector id="1688-svg" />
                   <span>1688</span>
                 </button>
-                {/* <button
-                  className={`${styles.search__platform_btn} ${
-                    activePlatform === "taobao" ? styles.active : ""
-                  }`}
+                <button
+                  className={`${styles.search__platform_btn} ${activePlatform === "taobao" ? styles.active : ""
+                    }`}
                   onClick={() => handleButtonClick("taobao")}
                 >
                   <SvgSelector id="taobao-svg" />
                   <span>Taobao</span>
-                </button> */}
+                </button>
               </div>
 
               <div className={styles.search__btn}>
@@ -175,17 +174,28 @@ const Search = ({ data = [] }: Props) => {
                     {t("sales")}
                   </button>
                   <button
-                    className={activeSort === "Price:Desc" ? styles.active : ""}
-                    onClick={() => handleFilter("Price:Desc")}
+                    className={activeSort === "Price:Asc" ? styles.active : ""}
+                    onClick={() => handleFilter("Price:Asc")}
                   >
                     {t("price_down")}
                   </button>
                   <button
-                    className={activeSort === "Price:Asc" ? styles.active : ""}
-                    onClick={() => handleFilter("Price:Asc")}
+                    className={activeSort === "Price:Desc" ? styles.active : ""}
+                    onClick={() => handleFilter("Price:Desc")}
                   >
                     {t("price_top")}
                   </button>
+                  <Select
+                    value={activeSort}
+                    onChange={(value: any) => handleFilter(value)}
+                    className={`${styles.search__select} search_select`}
+                    showSearch={false}
+                  >
+                    <SelectOption value="Default">{t("default")}</SelectOption>
+                    <SelectOption value="TotalPrice:Asc">{t("sales")}</SelectOption>
+                    <SelectOption value="Price:Asc">{t("price_down")}</SelectOption>
+                    <SelectOption value="Price:Desc">{t("price_top")}</SelectOption>
+                  </Select>
                 </div>
               </div>
             </div>

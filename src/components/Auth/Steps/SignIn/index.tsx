@@ -30,27 +30,28 @@ export default function SignIn() {
       disableOnMount: true,
     },
     onSuccess(res) {
+      // const backUrl = localStorage.getItem("backUrl");
       if (res.message === "add_personal_data" || !res.info_filled) {
         message.error(t(`Auth.${res.message}`));
-        push(`/auth?step=info&id=${res.unique_id}`)
-        return
+        push(`/auth?step=info&id=${res.unique_id}`);
+        return;
       }
       if (!res.token) {
-        message.error(t('Auth.something_wrong'))
-        return
+        message.error(t("Auth.something_wrong"));
+        return;
       }
       // if (localStorage.getItem('basket-data')) {
       //   API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
       // }
-      const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
+      const maxAge = 10 * 24 * 60 * 60; // 3 days in seconds
 
       // Set the cookie
-      cookie.set('token', res.token, {
-        path: '/',
+      cookie.set("token", res.token, {
+        path: "/",
         maxAge: maxAge,
       });
 
-      push(query.backUrl as string || "/")
+      push((localStorage.getItem("backUrl") as string) || "/");
     },
     onError(err) {
       if (err.message.includes("email")) {
@@ -71,7 +72,7 @@ export default function SignIn() {
         ]);
         return;
       }
-      if (err.message.includes('verify_email')) {
+      if (err.message.includes("verify_email")) {
         form.setFields([
           {
             name: "email",
@@ -92,7 +93,7 @@ export default function SignIn() {
     <div className={styles.main}>
       <GoToBack pathArr={[{ title: "signin", path: "" }]} />
       <h1>{t("Auth.signin")}</h1>
-      <p className={styles.desc}>{t('Auth.signInDescription')}</p>
+      <p className={styles.desc}>{t("Auth.signInDescription")}</p>
       <div className={styles.form}>
         <Form
           form={form}
@@ -124,11 +125,18 @@ export default function SignIn() {
           />
 
           <span className={styles.forgot_Password}>
-            <Link href="/auth?step=forgot-password">{t("Auth.forgotPassword")}</Link>
+            <Link href="/auth?step=forgot-password">
+              {t("Auth.forgotPassword")}
+            </Link>
           </span>
 
           <Form.Item className={styles.submitButton}>
-            <Button isLoading={isLoading} type="primary" htmlType="submit" label={t("Auth.signin")} />
+            <Button
+              isLoading={isLoading}
+              type="primary"
+              htmlType="submit"
+              label={t("Auth.signin")}
+            />
           </Form.Item>
         </Form>
 
@@ -140,7 +148,6 @@ export default function SignIn() {
         </div>
 
         <GoogleButton />
-
       </div>
     </div>
   );

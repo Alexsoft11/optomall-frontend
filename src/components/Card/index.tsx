@@ -7,19 +7,28 @@ import CustomImage from "../CustomImage";
 import LikedBtn from "../LikedBtn";
 import { useRouter } from "next/router";
 import { formatPrice } from "@/constants";
+import Cookies from "universal-cookie";
 
 interface CardProps {
   data: CardInterface;
   onLikeChange?: (cardId: number) => void;
   provider?: string;
   isBlank?: boolean;
+  allData?: any;
 }
 
-const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
+const Card = ({
+  data,
+  onLikeChange,
+  provider,
+  isBlank,
+  allData,
+}: CardProps) => {
   const t = useTranslations("GLOBAL");
   const textRef = useRef<any>(null);
   const [isOverflowed, setIsOverflowed] = useState(false);
   const router = useRouter();
+  const cookie = new Cookies();
   const locale = useLocale();
 
   useEffect(() => {
@@ -30,15 +39,31 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
   }, [textRef]);
 
   useEffect(() => {
-    const savedScrollPosition = sessionStorage.getItem("scrollPosition");
-    if (savedScrollPosition) {
-      window.scrollTo(0, parseInt(savedScrollPosition, 10));
+    if (router.pathname === "/search" || router.pathname === "/") {
+      const savedScrollPosition = sessionStorage.getItem("scrollPosition");
+      if (savedScrollPosition) {
+        window.scrollTo(0, +savedScrollPosition);
+        sessionStorage.removeItem("scrollPosition");
+        console.log("Scroll position restored");
+      }
+
+      const handleBeforeUnload = () => {
+        sessionStorage.setItem("scrollPosition", window.scrollY.toString());
+        console.log("Scroll position saved");
+      };
+
+      window.addEventListener("beforeunload", handleBeforeUnload);
+
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
     }
   }, []);
 
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    
+
+    localStorage.setItem("scrollData", JSON.stringify(allData)) 
     sessionStorage.setItem("scrollPosition", window.scrollY.toString());
 
     const id = router.pathname.includes("wishes") ? data.product_id : data.id;
@@ -51,7 +76,7 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
         url = `${url}&catId=${router.query.catId}`;
       }
     }
-    if (isBlank) {
+    if (e.ctrlKey || e.metaKey || isBlank) {
       window.open(url, "_blank");
     } else {
       router.push(url);
@@ -70,7 +95,7 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
   const title = getTitle(data.title);
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} data-aos="fade-up" data-aos-duration="1200">
       <div onClick={handleLinkClick}>
         <div className={styles.card__image}>
           <CustomImage

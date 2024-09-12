@@ -21,6 +21,7 @@ const Navbar = () => {
   const t = useTranslations("Navbar");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   type ModalState = "user" | "nav" | null;
+  const [isCheckShow, setIsCheckShow] = useState();
 
   const [openModal, setOpenModal] = useState<ModalState>(null);
   const [isMounted, setIsMounted] = useState(false);
@@ -49,6 +50,21 @@ const Navbar = () => {
     setModalIsOpen(true);
   };
 
+  const { appendData: isCheckApiCarts } = useQueryApiClient({
+    request: {
+      url: "has-items",
+      method: "GET",
+      disableOnMount: true,
+    },
+    onSuccess(res) {
+      setIsCheckShow(res)
+    },
+  });
+
+  useEffect(() => {
+    isCheckApiCarts();
+  }, []);
+
   const { appendData: getCategoryData, data: categoryData } = useQueryApiClient(
     {
       request: {
@@ -58,10 +74,6 @@ const Navbar = () => {
     }
   );
 
-  useEffect(() => {
-    getCategoryData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.locale]);
 
   return (
     <>
@@ -92,7 +104,7 @@ const Navbar = () => {
                   img={HeadPhone}
                   description={
                     <>
-                      {t("modalMessage")}<br/>
+                      {t("modalMessage")}<br />
                       <a href="tel:+998910105005">+998 91 010 50 05</a>
                     </>
                   }
@@ -119,20 +131,23 @@ const Navbar = () => {
                       <Link href="/cart">
                         <SvgSelector id="shop-svg" />
                       </Link>
+                      {
+                        isCheckShow && (
+                          <span></span>
+                        )
+                      }
                     </button>
                     <button
-                      className={`${styles.navbar__user_btn} ${
-                        openModal === "user" ? styles.open : ""
-                      }`}
+                      className={`${styles.navbar__user_btn} ${openModal === "user" ? styles.open : ""
+                        }`}
                       onClick={handleUserBtnClick}
                     >
                       <SvgSelector id="user-svg" />
                     </button>
 
                     <div
-                      className={`${styles.navbar__user_modal} ${
-                        openModal === "user" ? styles.open : ""
-                      }`}
+                      className={`${styles.navbar__user_modal} ${openModal === "user" ? styles.open : ""
+                        }`}
                     >
                       <div className={styles.navbar__user_inner}>
                         {ModalLinks.map((link: any) => (
@@ -185,9 +200,8 @@ const Navbar = () => {
       </div>
 
       <div
-        className={`${styles.wrap} ${
-          openModal === "nav" || openModal === "user" ? styles.open : ""
-        }`}
+        className={`${styles.wrap} ${openModal === "nav" || openModal === "user" ? styles.open : ""
+          }`}
         onClick={handleWrapBtnClick}
       ></div>
 
@@ -195,20 +209,24 @@ const Navbar = () => {
         <div className={styles.navbar__mobile_inner}>
           {NavLinks.map((item, idx) => (
             <Link
-              className={`${styles.navbar__mobile_item} ${
-                item.link === "/"
+              className={`${styles.navbar__mobile_item} ${item.link === "/"
                   ? router.pathname === item.link
                     ? styles.activeItem
                     : ""
                   : router.pathname.startsWith(item.link)
-                  ? styles.activeItem
-                  : ""
-              }`}
+                    ? styles.activeItem
+                    : ""
+                }`}
               key={idx}
               href={item.link}
             >
               <SvgSelector id={`${item.key}-svg`} />
               <p>{t(item.key)}</p>
+              {
+                isCheckShow && item.key == "shop" && (
+                  <span></span>
+                )
+              }
             </Link>
           ))}
         </div>

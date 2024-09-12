@@ -38,7 +38,7 @@ export default function OrderPage({ orderData, userData }: Props) {
     useState<PersonalDataInterface>(personalInitialValue);
 
   const editOrderData: EditOrderInterface = {
-    order_id: orderData.order.id,
+    order_id: orderData?.order?.id,
     region: locationInfo.region,
     district: locationInfo.district,
     name: personData?.name || "",
@@ -50,9 +50,9 @@ export default function OrderPage({ orderData, userData }: Props) {
       <div className={styles.check}>
         <OrderCheque
           cardName={orderData?.order?.name}
-          costPerKg={orderData?.order.kg_price}
-          cardId={orderData?.order.card_number}
-          cost={orderData?.order.total_price}
+          costPerKg={orderData?.order?.kg_price}
+          cardId={orderData?.order?.card_number}
+          cost={orderData?.order?.total_price}
         />
       </div>
       <div className={styles.items_block}>
@@ -69,17 +69,16 @@ export default function OrderPage({ orderData, userData }: Props) {
         <OrderBlock
           editOrderData={editOrderData}
           setDataFailed={setDataFailed}
-          orderId={orderData?.order.id}
+          orderId={orderData?.order?.id}
           type="order"
-          cost={orderData?.order.total_price}
+          cost={orderData?.order?.total_price}
         />
         <div className={styles.order_info}>
           <div
-            className={`${
-              dataFailed === "location"
-                ? "animate__shakeX animate__animated"
-                : null
-            }`}
+            className={`${dataFailed === "location"
+              ? "animate__shakeX animate__animated"
+              : null
+              }`}
           >
             <LocationBlock
               setLocationInfo={setLocationInfo}
@@ -87,11 +86,10 @@ export default function OrderPage({ orderData, userData }: Props) {
             />
           </div>
           <div
-            className={`${
-              dataFailed === "personal"
-                ? "animate__shakeX animate__animated"
-                : null
-            }`}
+            className={`${dataFailed === "personal"
+              ? "animate__shakeX animate__animated"
+              : null
+              }`}
           >
             <GetOtderPerson
               personData={personData}
