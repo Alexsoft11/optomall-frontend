@@ -134,17 +134,17 @@ const ProductDetailInfo: React.FC<Props> = ({
         </div>
         <div ref={divRef} className={styles.productDetails}>
           {(showAll
-            ? product?.compositions
-            : product?.compositions.slice(0, 4)
+            ? product?.composition
+            : product?.composition?.slice(0, 4)
           )?.map((el, idx) => (
             <Fragment key={idx}>
               <div className={styles.detail}>
-                <span className={styles.detail_category}>{el.propertyName}</span>
+                <span className={styles.detail_category}>{el.name}</span>
                 <p className={styles.detail_value}>{el.value}</p>
               </div>
             </Fragment>
           ))}
-          {product?.compositions && product?.compositions?.length > 4 && (
+          {product?.composition && product?.composition?.length > 4 && (
             <button
               onClick={handleToggleShowAll}
               className={styles.showAllButton}

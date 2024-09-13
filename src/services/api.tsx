@@ -80,7 +80,7 @@ export const API = {
   //  ProductDetail
   getProductDetail: (params: any) =>
     axiosInstance
-      .get(`product-detail-otapi`, { params: params })
+      .get(`product-detail-onbound`, { params: params })
       .then((res) => res.data),
 
   getProductDetailLocal: (params: any) =>

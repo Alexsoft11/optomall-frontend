@@ -28,6 +28,7 @@ const ProductDetailSection = ({
   score,
   productComments,
 }: Props) => {
+  
   const router = useRouter();
   const [selectedImage, setSelectedImage] = useState(product?.image);
   const t = useTranslations("Product-detail");
