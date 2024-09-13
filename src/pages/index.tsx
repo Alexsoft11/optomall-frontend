@@ -9,6 +9,7 @@ import { useJwt } from "@/utils/useJwt";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { CardInterface } from "@/interfaces";
 import { useRouter } from "next/router";
+import Products from "@/features/home/components/Products";
 
 const MainSlider = dynamic(
   () => import("@/features/home/components/MainSlider"),
@@ -178,7 +179,7 @@ export default function Home({ slidersData, productsData }: HomeProps) {
       metaKeywords={t("metaKeywords")}
     >
       <MainSlider data={slidersData?.sliders} />
-      <ProductsSection
+      <Products
         productsData={products}
         getProductsData={getProductsData}
         isProductsLoading={isProductsLoading}
@@ -186,7 +187,8 @@ export default function Home({ slidersData, productsData }: HomeProps) {
       />
     </PageLayout>
   );
-}
+} 
+
 
 export const getServerSideProps = async (context: any) => {
   try {

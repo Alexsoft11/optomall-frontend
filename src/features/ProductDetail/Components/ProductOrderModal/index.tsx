@@ -3,11 +3,11 @@ import { useRouter } from "next/router";
 import {
   GroupedProperties,
   ProductDetailInterface,
+  SKU,
+  BasketInterface,
+  CreateOrderItemsDataInterface,
   CreateOrderDataInterface,
   CreateBaskettemsDataInterface,
-  AllDataInterface,
-  ConfiguredItem,
-  ConfiguratorItemInterface,
 } from "../../interface";
 import { Button, Modal } from "@/ui";
 import { groupProperties } from "@/utils/orderFunctions";
@@ -22,50 +22,45 @@ import { useJwt } from "@/utils/useJwt";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import SvgSelector from "$/assets/icons/SvgSelector";
-import { formatPrice } from "@/constants";
 
 interface Props {
   product: ProductDetailInterface;
   setOrderType?: any;
   type?: "to_order" | "to_cart" | null;
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ProductOrderModal = ({
-  product,
-  setOrderType,
-  type,
-  setShowModal,
-}: Props) => {
+const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
   const t = useTranslations();
-  const { attributes, configuredItems } = product || {};
+  const { skus, prop_imgs } = product || {};
   const router = useRouter();
   const { provider } = router.query; // Extract provider from the query
-  const [groupedProperties, setGroupedProperties] = useState<AllDataInterface>(
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [parsedSku, setParsedSku] = useState<SKU[]>([]);
+  const [groupedProperties, setGroupedProperties] = useState<GroupedProperties>(
     {}
   );
   const [messageApi, contextHolder] = message.useMessage();
   const [messageVisible, setMessageVisible] = useState(false);
+  const [propertiesWithImages, setPropertiesWithImages] = useState<{
+    [key: string]: {
+      keys: { value: string; imageUrl?: string; propId: string }[];
+      propName: string;
+    };
+  }>({});
 
   const [selectProperty, setSelectProperty] = useState<
     {
       name: string;
-      value?: string;
-      imageUrl?: string;
-      Vid: string;
-      Pid: string;
+      id: string;
     }[]
   >();
-  const [selectedSku, setSelectedSku] = useState<ConfiguredItem[]>();
-  const [currentSku, setCurrentSku] = useState<ConfiguredItem>();
+  const [selectedSku, setSelectedSku] = useState<SKU[] | []>();
+  const [currentSku, setCurrentSku] = useState<SKU>();
   const token = useJwt();
-  const [configuredItemsArr, setConfiguredItemsArr] =
-    useState<ConfiguredItem[]>();
   const [isOpen, setIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [currentImages, setCurrentImages] = useState<string[]>([]);
-  const [propertiesWithImages, setPropertiesWithImages] =
-    useState<GroupedProperties>();
+
   const handleImageClick = (images: string[], index: number) => {
     setCurrentImages(images);
     setPhotoIndex(index);
@@ -80,36 +75,55 @@ const ProductOrderModal = ({
     },
     onSuccess(res) {
       message.success(t(`Product-detail.${res.message}`), 2);
-      const { ConfiguredItems } = groupProperties(attributes, configuredItems);
-      setSelectedSku([ConfiguredItems[0]]);
-      setCurrentSku(ConfiguredItems[0]);
+      const { parsedSku } = groupProperties(skus, prop_imgs);
+      setSelectedSku([parsedSku[0]]);
+      setCurrentSku(parsedSku[0]);
       res.order_group ? router.push(`/order/${res.order_group}`) : null;
     },
   });
-
-  const handleCloseModal = () => setOrderType(null);
+  const handleCloseModal = () => {
+    setOrderType(null);
+  };
 
   useEffect(() => {
-    if (attributes && configuredItems) {
-      const { allProperties, ConfiguredItems, imageProperties } =
-        groupProperties(attributes, configuredItems);
-      let initialItem = ConfiguredItems[0];
+    if (skus && prop_imgs) {
+      const { allProperties, imageProperties, parsedSku } = groupProperties(
+        skus,
+        prop_imgs
+      );
+      const newSelectedPropertys = parsedSku[0].parsedProperties?.map((el) => ({
+        name: el.name,
+        id: el.id,
+      }));
 
-      setConfiguredItemsArr(ConfiguredItems);
-      setPropertiesWithImages(imageProperties || null);
-      setCurrentSku(initialItem);
-      setSelectProperty(initialItem.configurators);
-      setSelectedSku([initialItem]);
+      setSelectProperty(newSelectedPropertys);
+      setCurrentSku(parsedSku[0]);
+      setSelectedSku([parsedSku[0]]);
+      setParsedSku(parsedSku);
       setGroupedProperties(allProperties);
+      setPropertiesWithImages(imageProperties);
     }
-  }, [attributes]);
+  }, [skus, prop_imgs]);
 
-  //function create request data to buy or add to cart
+  const getImageUrl = (propertys: string[]) => {
+    let url = "";
+    Object.values(propertiesWithImages).map(({ keys }) => {
+      keys.map((el) => {
+        if (propertys.includes(el.propId)) {
+          url = el.imageUrl as string;
+          return;
+        }
+      });
+    });
+
+    return url;
+  };
+
   const toOrder = () => {
-    !token ? setShowModal(true) : null;
     const newSelectedSku = selectedSku?.filter(
       (el) => el.selected_quantity > 0
     );
+
     if (!newSelectedSku?.length) {
       if (!messageVisible) {
         setMessageVisible(true);
@@ -117,42 +131,35 @@ const ProductOrderModal = ({
           type: "success",
           content: t("Cart.chooseItem"),
           onClose: () => setMessageVisible(false),
-          duration: 100,
         });
       }
       return;
     }
-    const items: CreateBaskettemsDataInterface[] = newSelectedSku.map((el) => {
-      let imageUrl = "";
-      const newConfig = el.configurators.map((el) => {
-        if (el.imageUrl) imageUrl = el.imageUrl;
-        return {
-          name: el.name,
-          value: el.value,
-          id: `${el.Pid};${el.Vid}`,
-        };
-      });
 
+    const items: CreateBaskettemsDataInterface[] = newSelectedSku.map((el) => {
       const { id, title, product_url, image, seller_info } = product;
+
       let item: CreateBaskettemsDataInterface = {
-        product_id: id.toString(),
+        product_id: id,
         title: title,
         price: el.price,
         quantity: el.selected_quantity,
-        image_url: imageUrl || image,
+        image_url: getImageUrl(el.properties.split(";")) || image,
         product_url: product_url,
-        seller_id: product?.seller_id?.toString() || "default",
+        seller_id: seller_info?.user_num_id?.toString(),
         provider: provider as string,
-        sku_id: el.id,
-        properties: newConfig,
-        quantityRanges: product?.quantityRanges
-          ? el?.quantityRanges
-          : undefined,
+        sku_id: el.sku_id.toString(),
+        properties: el.parsedProperties!,
       };
+
       if (type === "to_cart") item.max_quantity = el.quantity;
+
       return item;
     });
-
+    if (!token) {
+      setShowModal(true);
+      return;
+    }
     if (type === "to_order") {
       const data: CreateOrderDataInterface = {
         items: items,
@@ -166,221 +173,123 @@ const ProductOrderModal = ({
     createUserBasket(items);
   };
 
-  //change quantity and add/remove from selectedSku if quantity >1/<=0
+  const modalProps = {
+    onCancel: () => setShowModal(false),
+    className: "bg_white",
+    img: SearchSvg,
+    description: t("Cart.authMessage"),
+    children: (
+      <Button
+        onClick={() =>
+          router.push(`/auth?step=signin&backUrl=${router.asPath}`)
+        }
+        className="signIn_btn"
+        label={t("Cart.signin")}
+      />
+    ),
+    open: showModal,
+  };
+
   const handleSizeChange = (value: number) => {
-    if (!selectedSku) return;
     if (
       value < 0 ||
       (currentSku?.quantity && value > currentSku?.quantity) ||
       !currentSku?.quantity
     )
       return;
+
     if (!currentSku) return;
 
-    const newCurrentSku = {
-      ...currentSku,
-      selected_quantity: value,
-    };
-    setCurrentSku(newCurrentSku);
+    if (!selectedSku) {
+      const newCurrentSku = { ...currentSku, selected_quantity: value };
+      setSelectedSku([newCurrentSku]);
+      return;
+    }
 
-    if (!selectedSku.find((el) => el.id === currentSku.id)) {
+    if (!selectedSku.find((el) => el.sku_id === currentSku.sku_id)) {
       const clone = selectedSku.map((el) => el);
-      clone.push({
-        ...currentSku,
-        selected_quantity: value,
-      });
+      clone.push({ ...currentSku, selected_quantity: value });
       setSelectedSku(clone);
       return;
     }
 
     const clone = selectedSku.map((el) => {
-      if (el.id === currentSku.id) {
+      if (el.sku_id === currentSku.sku_id) {
+        const newCurrentSku = {
+          ...currentSku,
+          selected_quantity: value,
+        };
+        setCurrentSku(newCurrentSku);
+
         return { ...el, selected_quantity: value };
       } else return el;
     });
-
     setSelectedSku(clone);
   };
 
-  //function select item`s property and get combination property`s id to find sku_id
-  const handlePropertySelect = (
-    Pid: string,
-    Vid: string,
-    name: string,
-    value: string,
-    imageUrl?: string
-  ) => {
+  const handlePropertySelect = (propId: string, name: string) => {
     let isFind = false;
 
-    let copy = [
-      ...(selectProperty || [
-        imageUrl
-          ? {
-            name: name,
-            Pid: Pid,
-            Vid: Vid,
-            value: value,
-            imageUrl: imageUrl,
-          }
-          : { name: name, Pid: Pid, Vid: Vid, value: value },
-      ]),
-    ];
+    let copy = Object.assign(
+      selectProperty || [{ name: name, id: propId }],
+      []
+    );
 
-    copy = copy.map((el) => {
+    copy.forEach((el) => {
       if (el.name === name) {
         isFind = true;
-        const data = imageUrl
-          ? {
-            name: name,
-            Pid: Pid,
-            Vid: Vid,
-            value: value,
-            imageUrl: imageUrl,
-          }
-          : { name: name, Pid: Pid, Vid: Vid, value: value };
-
-        return data;
-      } else return el;
+        el.id = propId;
+      }
     });
 
-    !isFind
-      ? copy.push(
-        imageUrl
-          ? {
-            name: name,
-            Pid: Pid,
-            Vid: Vid,
-            value: value,
-            imageUrl: imageUrl,
-          }
-          : { name: name, Pid: Pid, Vid: Vid, value: value }
-      )
-      : null;
+    !isFind ? copy.push({ name: name, id: propId }) : null;
 
-    configuredItemsArr?.map((el) => {
-      let element = Object.assign(el, {});
-      let imagesProperty: ConfiguratorItemInterface[] = [];
-      if (propertiesWithImages) {
-        Object.values(propertiesWithImages).map((images) => {
-          const property = images.keys.map((el) => ({
-            ...el,
-            name: images.propName,
-          }));
-          imagesProperty = property.concat(imagesProperty);
-        });
+    parsedSku.map((el) => {
+      let counter = 0;
+      const properyIdArr = el.properties.split(";");
+      const selectIdArr = copy?.map((el) => el.id) || [];
 
-        element.configurators = el.configurators.map((config) => {
-          return config;
-        });
+      for (const index of properyIdArr) {
+        selectIdArr.includes(index) ? counter++ : null;
       }
 
-      element.configurators = element.configurators.map((item) => {
-        let newConfig: ConfiguratorItemInterface = item;
-        for (const config of imagesProperty) {
-          config.Pid === item.Pid && config.Vid === item.Vid
-            ? (newConfig = config)
-            : null;
-        }
-        return newConfig;
-      });
-
-      let counter = 0;
-
-      element.configurators.map((item) => {
-        copy.map((selectedItem) => {
-          if (selectedItem.Pid === item.Pid && selectedItem.Vid === item.Vid) {
-            counter += 1;
-          }
-        });
-      });
-
-      if (counter === element.configurators.length) {
-        const foundItem = selectedSku?.find(
-          (item) => item.id === element.id
-        ) || {
-          ...element,
-          selected_quantity: 0,
-        };
-
-        setCurrentSku(foundItem);
+      if (counter === properyIdArr.length) {
+        const isFind = selectedSku?.find((item) => el.sku_id === item.sku_id);
+        setCurrentSku(isFind || el);
       }
     });
 
     setSelectProperty(copy);
   };
 
-  //get property quantity from data and sum it
-  const getPropertyQuantity = (Pid: string, Vid: string, name: string) => {
+  const getPropertyQuantity = (propId: string, name: string) => {
     if (!selectedSku) return;
 
     let quantity = 0;
     for (const item of selectedSku) {
-      item.configurators.map((el) => {
-        if (el.Pid === Pid && el.Vid === Vid && el.name === name) {
-          quantity += item.selected_quantity;
-        }
-      });
+      if (item.properties.split(";").includes(propId)) {
+        quantity += item.selected_quantity;
+      }
     }
+
     return quantity;
   };
 
-  //function to check is item exist
-  const getExist = (Pid: string, Vid: string) => {
-    if (!configuredItemsArr) return;
-    for (const configs of configuredItemsArr) {
-      if (configs.quantity <= 0) return false;
-      for (const item of configs.configurators) {
-        if (Pid === item.Pid && Vid === item.Vid) {
-          return true;
-        }
-      }
-    }
-    return false;
+  const getExist = (propId: string, arr: SKU[]) => {
+    let flag = false;
+    arr.map((el) => {
+      el.parsedProperties!.map((item) => {
+        item.id === propId ? (flag = true) : null;
+      });
+    });
+    return flag;
   };
 
-  const isSelect = (Pid: string, Vid: string, name: string) => {
-    return selectProperty?.find(
-      (el) => el.Pid === Pid && el.Vid === Vid && el.name === name
-    );
-  };
-
-  //sum all selectedSku`s items price
   const getTotalPrice = () => {
-    const total = selectedSku?.reduce((acum, cur) => {
-      let price = cur.price;
-
-      if (cur.quantityRanges) {
-        const ranges = cur.quantityRanges.sort(
-          (a, b) => a.minQuantity - b.minQuantity
-        );
-
-        for (const item of ranges) {
-          if (item.minQuantity <= cur.selected_quantity) {
-            price = item.price;
-          }
-        }
-      }
-
-      return acum + price * cur.selected_quantity;
-    }, 0);
-    return total;
-  };
-
-  const getTruePrice = () => {
-    if (currentSku && currentSku.quantityRanges.length) {
-      const ranges = currentSku.quantityRanges.sort(
-        (a, b) => a.minQuantity - b.minQuantity
-      );
-      let price = ranges[0].price;
-
-      for (const item of ranges) {
-        if (item.minQuantity <= currentSku.selected_quantity) {
-          price = item.price;
-        }
-      }
-      return price;
-    }
-    return currentSku?.price;
+    return selectedSku?.reduce(
+      (acum, cur) => acum + cur.price * cur.selected_quantity,
+      0
+    );
   };
 
   const capitalize = (text: string) =>
@@ -393,12 +302,11 @@ const ProductOrderModal = ({
         className="order-modal"
         onCancel={handleCloseModal}
         open={!!type}
-        maskClosable={false}
         footer={
           <div className="modal-footer">
             <div className="totalPrice">
               <h3>
-                {formatPrice(getTotalPrice())} {t("GLOBAL.currency")}
+                {getTotalPrice()} {t("GLOBAL.currency")}
               </h3>
             </div>
             <div key={1} className={styles.change_value}>
@@ -417,7 +325,7 @@ const ProductOrderModal = ({
               <Tooltip>
                 <AntdButton
                   onClick={() =>
-                    handleSizeChange(currentSku!.selected_quantity + 1)
+                    handleSizeChange(++currentSku!.selected_quantity)
                   }
                 >
                   <Image src={PlusSvg} width={24} height={24} alt="#" />
@@ -443,116 +351,110 @@ const ProductOrderModal = ({
           <div className="content">
             <div className="currentPrice">
               <h3>
-                {formatPrice(getTruePrice())} {t("GLOBAL.currency")}
+                {currentSku?.price} {t("GLOBAL.currency")}
               </h3>
             </div>
             <div className="property-items">
-              {!propertiesWithImages
-                ? null
-                : Object.values(propertiesWithImages)?.map(
-                  ({ keys, propName }) => (
-                    <div className="content-inner" key={propName}>
-                      <h2>{capitalize(propName)}</h2>
-                      <Swiper
-                        spaceBetween={20}
-                        slidesPerView={1.1}
-                        loop={false}
-                        modules={[Navigation]}
-                        breakpoints={{
-                          1000: {
-                            slidesPerView: 8,
-                          },
-                          960: {
-                            slidesPerView: 6,
-                          },
-                          0: {
-                            slidesPerView: "auto",
-                          },
-                        }}
-                        pagination={{ clickable: true }}
-                      >
-                        {keys.map(({ value, Pid, Vid, imageUrl }, index) => (
-                          <SwiperSlide key={Pid}>
-                            <Badge
-                              count={getPropertyQuantity(Pid, Vid, propName)}
-                            >
+              {Object.values(propertiesWithImages).map(({ keys, propName }) => (
+                <div className="content-inner" key={propName}>
+                  <h2>{capitalize(propName)}</h2>
+                  <Swiper
+                    spaceBetween={20}
+                    slidesPerView={1.1}
+                    loop={true}
+                    modules={[Navigation]}
+                    breakpoints={{
+                      1000: {
+                        slidesPerView: 8,
+                      },
+                      960: {
+                        slidesPerView: 6,
+                      },
+                      480: {
+                        slidesPerView: 5,
+                      },
+                      380: {
+                        slidesPerView: 1.3,
+                      },
+                    }}
+                    pagination={{ clickable: true }}
+                  >
+                    {keys.map(({ value, propId, imageUrl }, index) => (
+                      <SwiperSlide key={propId}>
+                        <Badge count={getPropertyQuantity(propId, propName)}>
+                          <div
+                            key={propId}
+                            onClick={() =>
+                              handlePropertySelect(propId, propName)
+                            }
+                            className={`img-block ${
+                              currentSku?.properties.split(";").includes(propId)
+                                ? styles.active
+                                : !getExist(propId, parsedSku)
+                                ? styles.disable
+                                : ""
+                            }`}
+                          >
+                            {imageUrl && (
                               <div
-                                key={Pid}
-                                onClick={() =>
-                                  handlePropertySelect(
-                                    Pid,
-                                    Vid,
-                                    propName,
-                                    value,
-                                    imageUrl
-                                  )
-                                }
-                                className={`img-block ${getExist(Pid, Vid)
-                                  ? isSelect(Pid, Vid, propName)
-                                    ? styles.active
-                                    : ""
-                                  : styles.disable
-                                  }`}
+                                // onClick={() => {
+                                //   const validImageUrls = keys
+                                //     .map(({ imageUrl }) => imageUrl)
+                                //     .filter((url): url is string => !!url); // Filters out undefined values
+                                //   handleImageClick(validImageUrls, index);
+                                // }}
+                                className="img-box"
                               >
-                                {imageUrl && (
-                                  <div className="img-box">
-                                    <span
-                                      className="view-icon"
-                                      onClick={() => {
-                                        const validImageUrls = keys
-                                          .map(({ imageUrl }) => imageUrl)
-                                          .filter(
-                                            (url): url is string => !!url
-                                          );
-                                        handleImageClick(
-                                          validImageUrls,
-                                          index
-                                        );
-                                      }}
-                                    >
-                                      <SvgSelector id="open-image-view-svg" />
-                                    </span>
-                                    <Image src={imageUrl} alt={value} fill />
-                                  </div>
-                                )}
-                                <div className="img-describtion">
-                                  <p>{value}</p>
-                                </div>
+                                <span
+                                  className="view-icon"
+                                  onClick={() => {
+                                    const validImageUrls = keys
+                                      .map(({ imageUrl }) => imageUrl)
+                                      .filter((url): url is string => !!url);
+                                    handleImageClick(validImageUrls, index);
+                                  }}
+                                >
+                                  <SvgSelector id="open-image-view-svg" />
+                                </span>
+                                <Image src={imageUrl} alt={value} fill />
                               </div>
-                            </Badge>
-                          </SwiperSlide>
-                        ))}
-                      </Swiper>
-                    </div>
-                  )
-                )}
-            </div>
-            <div className="property-items">
+                            )}
+                            <div className="img-describtion">
+                              <p>{value}</p>
+                            </div>
+                          </div>
+                        </Badge>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              ))}
               {Object.entries(groupedProperties).map(
-                ([propName, keys], idx) => (
+                ([propName, { keys }], idx) => (
                   <div className="content-inner grouped-prop" key={propName}>
                     <h2>{capitalize(propName)}</h2>
                     <div className="items">
-                      {keys.map(({ value, pid, vid }, index) => (
+                      {keys.map(({ value, propId }) => (
                         <Badge
                           count={
-                            idx === 0 &&
-                              !Object.keys(propertiesWithImages || {}).length
-                              ? getPropertyQuantity(pid, vid, propName)
+                            idx !== 0
+                              ? null
+                              : !Object.values(propertiesWithImages).length
+                              ? getPropertyQuantity(propId, propName)
                               : null
                           }
                           key={value}
                         >
                           <p
                             onClick={() =>
-                              handlePropertySelect(pid, vid, propName, value)
+                              handlePropertySelect(propId, propName)
                             }
                             className={
-                              getExist(pid, vid)
-                                ? isSelect(pid, vid, propName)
-                                  ? styles.active
-                                  : ""
-                                : styles.disable
+                              currentSku?.properties.split(";").includes(propId)
+                                ? styles.active
+                                : !getExist(propId, parsedSku)
+                                ? styles.disable
+                                : ""
                             }
                           >
                             {value}
@@ -567,6 +469,7 @@ const ProductOrderModal = ({
           </div>
         </div>
       </Modal>
+      <Modal {...modalProps} />
 
       {isOpen && (
         <Lightbox
