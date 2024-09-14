@@ -83,7 +83,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
 
   const justBuy = (type: "to_order" | "to_cart") => {
     if (!token) return setShowModal(true);
-    if (product && product.attributes.length) {
+    if (product && product.composition.length) {
       return setOrderModalType(type);
     }
     setOrderType(type);
@@ -92,7 +92,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
   useEffect(() => {
     if (!orderType || !product) return;
 
-    if (!product.attributes.length) {
+    if (!product.composition.length) {
       const { id, title, product_url, image, seller_info, price, quantity } =
         product;
 
@@ -122,8 +122,6 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
     }
   }, [orderType]);
 
-  
-  
   return (
     <div className={styles.order_section}>
       <div className={styles.product_order}>
@@ -143,7 +141,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
             </>
           ) : null}
         </div>
-        {product?.attributes.length ? null : (
+        {product?.composition.length ? null : (
           <div className={styles.quantity}>
             <div key={1} className={styles.change_value}>
               <AntdButton onClick={() => changeQuantity(itemQuantity - 1)}>
@@ -176,14 +174,13 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
         </div>
         {product && (
           <ProductOrderModal
-            setShowModal={setShowModal}
             product={product}
             type={orderModalType}
             setOrderType={setOrderModalType}
           />
         )}
       </div>
-      {!!product?.quantityRanges.length && (
+      {product && product?.quantityRanges && product?.quantityRanges.length ? (
         <div className={styles.price_range}>
           {product?.quantityRanges.map((el, index) => {
             const next = product?.quantityRanges[index + 1];
@@ -197,7 +194,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
             );
           })}
         </div>
-      )}
+      ) : null}
       <Modal {...modalProps} />
     </div>
   );

@@ -1,5 +1,3 @@
-/** @format */
-
 import PageLayout from "@/components/Layout/PageLayout";
 import { API } from "@/services/api";
 import { LoadingSpinner } from "@/ui/Spin";
@@ -18,6 +16,8 @@ interface ProductDetailProps {
   score: any;
   error: any
 }
+
+
 const ProductDetailSection = dynamic(
   () => import("@/features/ProductDetail/Components/ProductDetailSection"),
   {
@@ -34,6 +34,7 @@ const ProductDetailSectionLocal = dynamic(
 );
 
 const ProductDetail = ({ product, error }: ProductDetailProps) => {
+  
   const { query, locale } = useRouter();
   const { data: productComments } = useQueryApiClient({
     request: {
