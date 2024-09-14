@@ -37,7 +37,7 @@ export default function Home({ slidersData, productsData }: HomeProps) {
 
   // Используем проверку для доступа к localStorage
   const [products, setProducts] = useState(
-    typeof window !== "undefined" ? JSON.parse(localStorage.getItem('scrollData') || '[]') || productsData.products : productsData.products
+    productsData.products
   );
   const [categories, setCategories] = useState<any>([]);
   const [limit, setLimit] = useState(15);
