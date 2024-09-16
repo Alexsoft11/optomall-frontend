@@ -128,7 +128,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       if (!messageVisible) {
         setMessageVisible(true);
         messageApi.open({
-          type: "success",
+          type: "warning",
           content: t("Cart.chooseItem"),
           onClose: () => setMessageVisible(false),
         });

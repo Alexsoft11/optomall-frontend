@@ -203,7 +203,7 @@ export default function OrderBlock({
     if (itemValue === 0) {
       if (!messageVisible) {
         setMessageVisible(true);
-        message.error(t("Cart.chooseItem"), 1);
+        message.warning(t("Cart.chooseItem"), 1);
         setTimeout(() => setMessageVisible(false), 1000);
       }
       return;
