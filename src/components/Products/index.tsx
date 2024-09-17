@@ -25,14 +25,12 @@ const Products = ({
   const fetchMoreData = async () => {
     if (!handleGetProduct) return;
 
-    // Save current scroll position before fetching more data
     setScrollPosition(window.scrollY);
     setPage((prevPage) => prevPage + perPage);
     handleGetProduct({ page: page + perPage });
   };
 
   useEffect(() => {
-    // Restore scroll position when the component mounts
     window.scrollTo(0, scrollPosition);
   }, [scrollPosition]);
 

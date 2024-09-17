@@ -11,6 +11,7 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useJwt } from "@/utils/useJwt";
 import { LoadingSpinner } from "@/ui/Spin";
 import PageNoItems from "@/components/PageNoItems";
+import useSearchStore from "@/components/useSearchStore";
 
 interface Props {
   data?: any[];
@@ -18,41 +19,59 @@ interface Props {
 
 const Search = ({ data = [] }: Props) => {
   const t = useTranslations("Search");
-  const router = useRouter(); // Get router from useRouter
-  const { query, pathname, replace, locale } = router;
+  const router = useRouter();
+  const { query, pathname, replace, locale, events } = router;
   const [activePlatform, setActivePlatform] = useState(query.provider);
   const [form] = Form.useForm();
-  const token = useJwt();
-  const [products, setProducts] = useState(data);
-  const [hasMore, setHasMore] = useState(true); // Define hasMore state
-  const [activeSort, setActiveSort] = useState<string>("Default");
-  const [canRender, setCanRender] = useState(true); // Add canRender state
+  const {
+    products,
+    hasMore,
+    activeSort,
+    setProducts,
+    setHasMore,
+    setActiveSort,
+  } = useSearchStore();
+  console.log(activePlatform, query.provider)
+
+  useEffect(() => {
+    if (query.provider) {
+      setActivePlatform(query.provider); // Sync activePlatform with query.provider
+    }
+  }, [query.provider]);
 
   const handleButtonClick = (platform: any) => {
     const newQuery = {
       ...query,
       provider: platform || "1688",
     };
+    setProducts([]);
     replace({ pathname: pathname, query: newQuery }, undefined, {
       shallow: true,
     });
-    setActivePlatform(platform);
+    handleGetProduct(newQuery);
   };
 
   const handleFilter = (sortType: string) => {
     const newQuery = { ...query };
     setActiveSort(sortType);
-
+  
     if (sortType) {
       newQuery.sort = sortType;
     } else {
       delete newQuery.sort;
     }
-
+  
+    // Clear existing products before fetching new ones
+    setProducts([]);
+  
+    // Update the query params in the URL
     replace({ pathname: pathname, query: newQuery }, undefined, {
       shallow: true,
     });
-  };
+  
+    // Fetch products with the updated sort type
+    handleGetProduct(newQuery);
+  };  
 
   useEffect(() => {
     if (query) {
@@ -64,7 +83,7 @@ const Search = ({ data = [] }: Props) => {
   }, [query.value]);
 
   useEffect(() => {
-    if (canRender && query) {
+    if (!products.length && query) {
       getSearchRes({
         ...query,
         lang: locale,
@@ -72,15 +91,14 @@ const Search = ({ data = [] }: Props) => {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, locale, canRender]);
+  }, [query, locale]);
 
-  const handleGetProduct = (custom?: any) => {
+  const handleGetProduct = (customQuery: any) => {
     getProducts({
-      ...custom,
-      ...query,
+      ...customQuery,
       lang: locale,
     });
-  };
+  };  
 
   const { appendData: getSearchRes, isLoading: isSearchResLoading } =
     useQueryApiClient({
@@ -91,7 +109,7 @@ const Search = ({ data = [] }: Props) => {
       },
       onSuccess(res: any) {
         setProducts(res.products);
-        setHasMore(res.products.length > 0); // Set hasMore based on response
+        setHasMore(res.products.length > 0);
       },
       onError(err) {
         setProducts([]);
@@ -121,7 +139,7 @@ const Search = ({ data = [] }: Props) => {
       request: {
         url: `categories-from-taobao?lang=${locale}`,
         method: "GET",
-        disableOnMount: true
+        disableOnMount: true,
       },
     }
   );
@@ -130,33 +148,7 @@ const Search = ({ data = [] }: Props) => {
     if (window.innerWidth <= 768) {
       getCategoryData();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locale]);
-
-  useEffect(() => {
-    const handleRouteChangeStart = (url: string, { shallow }: { shallow: boolean }) => {
-      if (url !== '/search') {
-        setCanRender(false);
-        console.log('Navigating away from search page');
-      }
-    };
-  
-    const handleRouteChangeComplete = (url: string, { shallow }: { shallow: boolean }) => {
-      if (url === '/search') {
-        setCanRender(true);
-        console.log('Returned to search page');
-      }
-    };
-  
-    router.events.on('routeChangeStart', handleRouteChangeStart);
-    router.events.on('routeChangeComplete', handleRouteChangeComplete);
-  
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChangeStart);
-      router.events.off('routeChangeComplete', handleRouteChangeComplete);
-    };
-  }, [router.events]);
-  
 
   return (
     <div className={styles.search}>
@@ -166,14 +158,18 @@ const Search = ({ data = [] }: Props) => {
             <div className={styles.search__platform}>
               <h2>{t("platform")}:</h2>
               <button
-                className={`${styles.search__platform_btn} ${activePlatform === "1688" ? styles.active : ""}`}
+                className={`${styles.search__platform_btn} ${
+                  activePlatform === "1688" ? styles.active : ""
+                }`}
                 onClick={() => handleButtonClick("1688")}
               >
                 <SvgSelector id="1688-svg" />
                 <span>1688</span>
               </button>
               <button
-                className={`${styles.search__platform_btn} ${activePlatform === "taobao" ? styles.active : ""}`}
+                className={`${styles.search__platform_btn} ${
+                  activePlatform === "taobao" ? styles.active : ""
+                }`}
                 onClick={() => handleButtonClick("taobao")}
               >
                 <SvgSelector id="taobao-svg" />
@@ -194,7 +190,9 @@ const Search = ({ data = [] }: Props) => {
                   {t("default")}
                 </button>
                 <button
-                  className={activeSort === "TotalPrice:Asc" ? styles.active : ""}
+                  className={
+                    activeSort === "TotalPrice:Asc" ? styles.active : ""
+                  }
                   onClick={() => handleFilter("TotalPrice:Asc")}
                 >
                   {t("sales")}
@@ -218,23 +216,33 @@ const Search = ({ data = [] }: Props) => {
                   showSearch={false}
                 >
                   <SelectOption value="Default">{t("default")}</SelectOption>
-                  <SelectOption value="TotalPrice:Asc">{t("sales")}</SelectOption>
-                  <SelectOption value="Price:Asc">{t("price_down")}</SelectOption>
-                  <SelectOption value="Price:Desc">{t("price_top")}</SelectOption>
+                  <SelectOption value="TotalPrice:Asc">
+                    {t("sales")}
+                  </SelectOption>
+                  <SelectOption value="Price:Asc">
+                    {t("price_down")}
+                  </SelectOption>
+                  <SelectOption value="Price:Desc">
+                    {t("price_top")}
+                  </SelectOption>
                 </Select>
               </div>
             </div>
           </div>
 
           {isSearchResLoading ? (
-            <LoadingSpinner size="large" fullscreen={true} spinning={isSearchResLoading} />
+            <LoadingSpinner
+              size="large"
+              fullscreen={true}
+              spinning={isSearchResLoading}
+            />
           ) : !products?.length && !isSearchResLoading ? (
             <PageNoItems title={t("noItems")} />
           ) : (
             <Products
               type="scroll"
               data={products}
-              hasMore={hasMore} // Pass hasMore state to Products
+              hasMore={hasMore}
               handleGetProduct={handleGetProduct}
             />
           )}
