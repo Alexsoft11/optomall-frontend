@@ -23,8 +23,8 @@ const Search = ({ data = [] }: Props) => {
   const { query, pathname, replace, locale, events } = router;
   const [activePlatform, setActivePlatform] = useState<any>("1688");
   const [form] = Form.useForm();
-  const isEntered = sessionStorage.getItem("isEnter" || null);
-
+  const isEntered = typeof window !== "undefined" ? sessionStorage.getItem("isEnter") : null;
+  
   const {
     products,
     hasMore,
