@@ -40,7 +40,7 @@ const Card = ({
 
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    
+    sessionStorage.setItem("isEnter", 'isEnter');
     setScrollPosition(window.scrollY);
 
     const id = router.pathname.includes("wishes") ? data.product_id : data.id;

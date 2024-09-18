@@ -21,8 +21,9 @@ const Search = ({ data = [] }: Props) => {
   const t = useTranslations("Search");
   const router = useRouter();
   const { query, pathname, replace, locale, events } = router;
-  const [activePlatform, setActivePlatform] = useState(query.provider);
+  const [activePlatform, setActivePlatform] = useState<any>("1688");
   const [form] = Form.useForm();
+  
   const {
     products,
     hasMore,
@@ -31,47 +32,38 @@ const Search = ({ data = [] }: Props) => {
     setHasMore,
     setActiveSort,
   } = useSearchStore();
-  console.log(activePlatform, query.provider)
-
-  useEffect(() => {
-    if (query.provider) {
-      setActivePlatform(query.provider); // Sync activePlatform with query.provider
-    }
-  }, [query.provider]);
 
   const handleButtonClick = (platform: any) => {
     const newQuery = {
       ...query,
       provider: platform || "1688",
     };
-    setProducts([]);
     replace({ pathname: pathname, query: newQuery }, undefined, {
       shallow: true,
     });
-    handleGetProduct(newQuery);
+    setActivePlatform(platform);
   };
 
   const handleFilter = (sortType: string) => {
     const newQuery = { ...query };
     setActiveSort(sortType);
-  
+
     if (sortType) {
       newQuery.sort = sortType;
     } else {
       delete newQuery.sort;
     }
-  
-    // Clear existing products before fetching new ones
-    setProducts([]);
-  
-    // Update the query params in the URL
+
     replace({ pathname: pathname, query: newQuery }, undefined, {
       shallow: true,
     });
-  
-    // Fetch products with the updated sort type
-    handleGetProduct(newQuery);
-  };  
+  };
+
+  useEffect(() => {
+    if (query.provider) {
+      setActivePlatform(query.provider);
+    }
+  }, [query.provider]);
 
   useEffect(() => {
     if (query) {
@@ -81,24 +73,31 @@ const Search = ({ data = [] }: Props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query.value]);
-
+  
   useEffect(() => {
-    if (!products.length && query) {
-      getSearchRes({
-        ...query,
-        lang: locale,
-        page: 1,
-      });
+    if (typeof window !== "undefined") {
+      const isEntered = sessionStorage.getItem("isEnter" || null);
+      if (!isEntered && query) {
+        console.log('first1')
+        getSearchRes({
+          ...query,
+          lang: locale,
+          page: 1,
+        });
+      } else {
+        sessionStorage.removeItem("isEnter");
+        console.log('second2')
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, locale]);
 
   const handleGetProduct = (customQuery: any) => {
     getProducts({
       ...customQuery,
+      ...query,
       lang: locale,
     });
-  };  
+  };
 
   const { appendData: getSearchRes, isLoading: isSearchResLoading } =
     useQueryApiClient({

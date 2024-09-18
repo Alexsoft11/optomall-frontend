@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import styles from "./Products.module.scss";
 import Card from "../Card";
-import { LoadingSpinner } from "@/ui/Spin";
 import useSearchStore from "../useSearchStore";
 interface Props {
   data: any[];
@@ -24,8 +23,6 @@ const Products = ({
 
   const fetchMoreData = async () => {
     if (!handleGetProduct) return;
-
-    setScrollPosition(window.scrollY);
     setPage((prevPage) => prevPage + perPage);
     handleGetProduct({ page: page + perPage });
   };
