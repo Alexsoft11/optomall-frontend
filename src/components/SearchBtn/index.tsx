@@ -33,16 +33,18 @@ const SearchBtn = ({ categoryData }: Props) => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [selectedCatId, setSelectedCatId] = useState<number | null>(null);
   const [allItems, setAllItems] = useState<any[]>()
+
+
   const { appendData: getProductId, isLoading: isProductsLoading } =
     useQueryApiClient({
       request: {
-        url: `search-products-from-taobao`,
+        url: `extract-id`,
         method: "GET",
         disableOnMount: true,
       },
       onSuccess(res: any) {
-        if (res?.products?.length) {
-          push(`/product/${res.products[0].id}`);
+        if (res.id) {
+          push(`/product/${res.id}?provider=${res.provider}`);
         } else {
           message.error(t("noItems"));
         }
@@ -119,24 +121,17 @@ const SearchBtn = ({ categoryData }: Props) => {
 
   const urlPattern =
     /https?:\/\/(?:[^\s'"]+|\b(?:[a-zA-Z0-9-]+\.){1,3}[a-zA-Z]{2,})[^\s'"]*/;
-  // Improved URL extraction function
   const extractUrl = (text: string): string | null => {
     const match = text.match(urlPattern);
     const res = match ? match[0] : null;
-    if (res) {
-      const url = new URL(res);
-      const offerId = url.searchParams.get('offerId');
-      const baseUrl = `${url.origin}${url.pathname}${!!offerId && `?offerId=${offerId}`}`;
-      return baseUrl;
-    }
-    return null;
+    return res || null;
   };
 
   // Main function to get provider info
   const getProviderInfo = (text: string): ProviderInfo => {
     const url = extractUrl(text);
     if (url) {
-      getProductId({ lang: locale, value: url });
+      getProductId({ url: url });
     }
     return { url };
   };
@@ -149,7 +144,6 @@ const SearchBtn = ({ categoryData }: Props) => {
       if (url) {
         return;
       }
-      // Proceed with the existing search logic
       const newQuery: any = {
         value: values.search.toLowerCase(),
         provider: query.provider || "1688",
@@ -244,8 +238,8 @@ const SearchBtn = ({ categoryData }: Props) => {
       const ctx = canvas.getContext("2d");
 
       img.onload = () => {
-        const maxWidth = 400;
-        const maxHeight = 400;
+        const maxWidth = 200;
+        const maxHeight = 200;
 
         let width = img.width;
         let height = img.height;

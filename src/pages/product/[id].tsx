@@ -34,7 +34,7 @@ const ProductDetailSectionLocal = dynamic(
 );
 
 const ProductDetail = ({ product, error }: ProductDetailProps) => {
-  
+
   const { query, locale } = useRouter();
   const { data: productComments } = useQueryApiClient({
     request: {
@@ -104,19 +104,13 @@ interface ErrorResponse {
 export const getServerSideProps = async (context: any) => {
   try {
     const provider = context.query.provider || "1688";
-    const id = provider === '1688' && !context.params.id.includes('abb') ? 'abb-' + context.params.id : context.params.id
     const params = {
-      productId: id,
+      productId: context.params.id,
       lang: context.locale,
       provider: provider,
     };
 
     let product = await API.getProductDetail(params);
-    // if (provider === "local") {
-    //   product = await API.getProductDetailLocal(params);
-    // } else {
-    //   product = await API.getProductDetail(params);
-    // }
     return {
       props: {
         product,
