@@ -23,7 +23,8 @@ const Search = ({ data = [] }: Props) => {
   const { query, pathname, replace, locale, events } = router;
   const [activePlatform, setActivePlatform] = useState<any>("1688");
   const [form] = Form.useForm();
-  
+  const isEntered = sessionStorage.getItem("isEnter" || null);
+
   const {
     products,
     hasMore,
@@ -73,12 +74,10 @@ const Search = ({ data = [] }: Props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query.value]);
-  
+
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const isEntered = sessionStorage.getItem("isEnter" || null);
       if (!isEntered && query) {
-        console.log('first1')
         getSearchRes({
           ...query,
           lang: locale,
@@ -86,7 +85,6 @@ const Search = ({ data = [] }: Props) => {
         });
       } else {
         sessionStorage.removeItem("isEnter");
-        console.log('second2')
       }
     }
   }, [query, locale]);
@@ -157,18 +155,16 @@ const Search = ({ data = [] }: Props) => {
             <div className={styles.search__platform}>
               <h2>{t("platform")}:</h2>
               <button
-                className={`${styles.search__platform_btn} ${
-                  activePlatform === "1688" ? styles.active : ""
-                }`}
+                className={`${styles.search__platform_btn} ${activePlatform === "1688" ? styles.active : ""
+                  }`}
                 onClick={() => handleButtonClick("1688")}
               >
                 <SvgSelector id="1688-svg" />
                 <span>1688</span>
               </button>
               <button
-                className={`${styles.search__platform_btn} ${
-                  activePlatform === "taobao" ? styles.active : ""
-                }`}
+                className={`${styles.search__platform_btn} ${activePlatform === "taobao" ? styles.active : ""
+                  }`}
                 onClick={() => handleButtonClick("taobao")}
               >
                 <SvgSelector id="taobao-svg" />

@@ -20,7 +20,6 @@ const Products = ({
 }: Props) => {
   const [page, setPage] = useState(perPage);
   const { scrollPosition, setScrollPosition } = useSearchStore();
-
   const fetchMoreData = async () => {
     if (!handleGetProduct) return;
     setPage((prevPage) => prevPage + perPage);
