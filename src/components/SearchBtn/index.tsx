@@ -244,8 +244,8 @@ const SearchBtn = ({ categoryData }: Props) => {
       const ctx = canvas.getContext("2d");
 
       img.onload = () => {
-        const maxWidth = 600;
-        const maxHeight = 600;
+        const maxWidth = 400;
+        const maxHeight = 400;
 
         let width = img.width;
         let height = img.height;
