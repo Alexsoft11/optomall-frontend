@@ -91,7 +91,6 @@ const ProductsSection = ({ categoryData, productsData }: Props) => {
                   className={styles.products__item}
                 />
               ))}
-              )
             </CustomTabs>
           </div>
 

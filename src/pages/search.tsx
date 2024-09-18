@@ -34,25 +34,25 @@ const SearchPage = ({ productsData }: SearchProps) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  try {
-    const cookies = cookie.parse(context.req.headers.cookie || "");
-    const token = decodeURIComponent(cookies.token);
-    // const searchResponse = await API.getSearchPageProducts(context, token);
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   try {
+//     const cookies = cookie.parse(context.req.headers.cookie || "");
+//     const token = decodeURIComponent(cookies.token);
+//     // const searchResponse = await API.getSearchPageProducts(context, token);
 
-    return {
-      props: {
-        productsData: [],
-      },
-    };
-  } catch (error: any) {
-    console.error("Error fetching data:", error.message);
-    return {
-      props: {
-        productsData: [],
-      },
-    };
-  }
-};
+//     return {
+//       props: {
+//         productsData: [],
+//       },
+//     };
+//   } catch (error: any) {
+//     console.error("Error fetching data:", error.message);
+//     return {
+//       props: {
+//         productsData: [],
+//       },
+//     };
+//   }
+// };
 
 export default SearchPage;

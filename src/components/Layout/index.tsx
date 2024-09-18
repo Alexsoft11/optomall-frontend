@@ -33,6 +33,12 @@ const MainLayout = ({ children }: ILayoutsProps) => {
   }, [asPath]);
 
   useEffect(() => {
+    if (pathname !== "/search" && pathname !== "/product/[id]" && pathname !== "/") {
+      sessionStorage.removeItem("isEnter");
+    }
+  },[pathname])
+
+  useEffect(() => {
     const handleStart = () => setLoading(true);
     const handleComplete = () => setLoading(false);
 

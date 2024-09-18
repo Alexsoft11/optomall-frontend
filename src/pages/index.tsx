@@ -36,7 +36,6 @@ export default function Home({ slidersData, productsData }: HomeProps) {
   const token = useJwt();
   const hasPosted = useRef(false);
 
-  // Используем проверку для доступа к localStorage
   const [products, setProducts] = useState(
     productsData.products
   );
