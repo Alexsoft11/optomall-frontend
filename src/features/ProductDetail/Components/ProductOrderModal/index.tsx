@@ -78,7 +78,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       message.success(t(`Product-detail.${res.message}`), 2);
 
       // Handle the promise using `.then()` since `onSuccess` cannot be async
-      groupProperties(skus, prop_imgs, product.props_list)
+      groupProperties(skus, prop_imgs, product.props_list, router?.locale)
         .then(({ parsedSku }) => {
           setSelectedSku([parsedSku[0]]);
           setCurrentSku(parsedSku[0]);
@@ -100,7 +100,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     const fetchGroupedProperties = async () => {
       if (skus && prop_imgs) {
         const { allProperties, imageProperties, parsedSku } =
-          await groupProperties(skus, prop_imgs, product.props_list);
+          await groupProperties(skus, prop_imgs, product.props_list, router?.locale);
 
         const newSelectedPropertys = parsedSku[0].parsedProperties?.map(
           (el) => ({
@@ -151,16 +151,11 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       }
       return;
     }
-
+    const minQuantity = product?.quantityRanges[0]?.minQuantity || 0;
     newSelectedSku?.map((el) => {
-      if (
-        product &&
-        el.selected_quantity < product.quantityRanges[0].minQuantity
-      ) {
+      if (product && el.selected_quantity < minQuantity) {
         message.warning(
-          `${t("Product-detail.isMinQuantity")} ${
-            product.quantityRanges[0].minQuantity
-          }`,
+          `${t("Product-detail.isMinQuantity")} ${minQuantity}`,
           5
         );
         return;
@@ -419,13 +414,12 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                             onClick={() =>
                               handlePropertySelect(propId, propName)
                             }
-                            className={`img-block ${
-                              currentSku?.properties.split(";").includes(propId)
-                                ? styles.active
-                                : !getExist(propId, parsedSku)
+                            className={`img-block ${currentSku?.properties.split(";").includes(propId)
+                              ? styles.active
+                              : !getExist(propId, parsedSku)
                                 ? styles.disable
                                 : ""
-                            }`}
+                              }`}
                           >
                             {imageUrl && (
                               <div
@@ -472,8 +466,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                             idx !== 0
                               ? null
                               : !Object.values(propertiesWithImages).length
-                              ? getPropertyQuantity(propId, propName)
-                              : null
+                                ? getPropertyQuantity(propId, propName)
+                                : null
                           }
                           key={value}
                         >
@@ -485,8 +479,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                               currentSku?.properties.split(";").includes(propId)
                                 ? styles.active
                                 : !getExist(propId, parsedSku)
-                                ? styles.disable
-                                : ""
+                                  ? styles.disable
+                                  : ""
                             }
                           >
                             {value}
