@@ -100,10 +100,9 @@ export const getServerSideProps = async (context: any) => {
   try {
     const provider = context.query.provider || "1688";
     const productId = context.params.id.replace(/^abb-/, '');
-    //context.locale
     const params = {
       productId: productId,
-      lang: 'zh-CN',
+      lang: context.locale,
       provider: provider,
     };
 
