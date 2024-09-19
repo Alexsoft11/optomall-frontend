@@ -151,15 +151,11 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       }
       return;
     }
-
+    const minQuantity = product?.quantityRanges[0]?.minQuantity || 0;
     newSelectedSku?.map((el) => {
-      if (
-        product &&
-        el.selected_quantity < product?.quantityRanges[0]?.minQuantity
-      ) {
+      if (product && el.selected_quantity < minQuantity) {
         message.warning(
-          `${t("Product-detail.isMinQuantity")} ${product?.quantityRanges[0]?.minQuantity
-          }`,
+          `${t("Product-detail.isMinQuantity")} ${minQuantity}`,
           5
         );
         return;
@@ -419,10 +415,10 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                               handlePropertySelect(propId, propName)
                             }
                             className={`img-block ${currentSku?.properties.split(";").includes(propId)
-                                ? styles.active
-                                : !getExist(propId, parsedSku)
-                                  ? styles.disable
-                                  : ""
+                              ? styles.active
+                              : !getExist(propId, parsedSku)
+                                ? styles.disable
+                                : ""
                               }`}
                           >
                             {imageUrl && (
