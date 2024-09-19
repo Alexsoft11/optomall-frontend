@@ -32,6 +32,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
   const [itemQuantity, setItemQuantity] = useState<number>(0);
   const [messageDisplayed, setMessageDisplayed] = useState(false);
   const token = useJwt();
+  console.log("ptoduct :", product);
 
   const toAuth = (path: string) => {
     localStorage.setItem("backUrl", asPath);
@@ -83,7 +84,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
 
   const justBuy = (type: "to_order" | "to_cart") => {
     if (!token) return setShowModal(true);
-    if (product && product.composition.length) {
+    if (product && product.props_list) {
       return setOrderModalType(type);
     }
     setOrderType(type);
@@ -92,7 +93,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
   useEffect(() => {
     if (!orderType || !product) return;
 
-    if (!product.composition.length) {
+    if (!product.props_list) {
       const { id, title, product_url, image, seller_info, price, quantity } =
         product;
 
@@ -141,7 +142,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
             </>
           ) : null}
         </div>
-        {product?.composition?.length ? null : (
+        {product && product.props_list ? null : (
           <div className={styles.quantity}>
             <div key={1} className={styles.change_value}>
               <AntdButton onClick={() => changeQuantity(itemQuantity - 1)}>
@@ -172,13 +173,13 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
             iconPosition={"bottom"}
           />
         </div>
-        {product && (
+        {product && product.props_list ? (
           <ProductOrderModal
             product={product}
             type={orderModalType}
             setOrderType={setOrderModalType}
           />
-        )}
+        ) : null}
       </div>
       {product && product?.quantityRanges && product?.quantityRanges.length ? (
         <div className={styles.price_range}>

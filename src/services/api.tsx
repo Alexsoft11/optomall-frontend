@@ -36,7 +36,8 @@ export const API = {
   getHomePageCategoryProductsToken: (limit: number, token?: string) =>
     axiosInstance
       .get(
-        `additional-categories${token && token !== "undefined" ? "-token" : ""
+        `additional-categories${
+          token && token !== "undefined" ? "-token" : ""
         }?limit=${limit}`,
         {
           headers: {
@@ -59,8 +60,10 @@ export const API = {
   // SearchPage
   getSearchPageProducts: (query: any, token?: string) =>
     axiosInstance.get(
-      `search-products-from-taobao${token && token !== "undefined" ? "-token" : ""
-      }?searchQuery=${query.query.query}&provider=${query.query.provider
+      `search-products-from-taobao${
+        token && token !== "undefined" ? "-token" : ""
+      }?searchQuery=${query.query.query}&provider=${
+        query.query.provider
       }&sort=${query.query.sort}&lang=${query.locale}&page=1`,
       {
         headers: token ? { Authorization: "Bearer " + token } : {},
@@ -68,9 +71,12 @@ export const API = {
     ),
   getRecomendedProducts: (query: any, token?: string) =>
     axiosInstance.get(
-      `search-products-from-taobao${token && token !== "undefined" ? "-token" : ""
-      }?searchQuery=${query.query.query}&provider=${query.query.provider
-      }&startPrice=${query.query.startPrice}&endPrice=${query.query.endPrice
+      `search-products-from-taobao${
+        token && token !== "undefined" ? "-token" : ""
+      }?searchQuery=${query.query.query}&provider=${
+        query.query.provider
+      }&startPrice=${query.query.startPrice}&endPrice=${
+        query.query.endPrice
       }&lang=${query.locale}&page=1`,
       {
         headers: token ? { Authorization: "Bearer " + token } : {},
@@ -92,6 +98,9 @@ export const API = {
 
   getProductComments: (query: any) =>
     axiosInstance.get(`get-comments?product_id=${query}`),
+
+  translateProps: (data: any) =>
+    axiosInstance.post("translate", data).then((res) => res.data.translated[0]),
 
   // CartPage
   getUserBasket: (token: string, locale: string) =>

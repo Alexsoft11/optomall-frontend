@@ -22,6 +22,7 @@ import { useJwt } from "@/utils/useJwt";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import SvgSelector from "$/assets/icons/SvgSelector";
+import { API } from "@/services/api";
 
 interface Props {
   product: ProductDetailInterface;
@@ -52,6 +53,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     {
       name: string;
       id: string;
+      originalName?: string;
     }[]
   >();
   const [selectedSku, setSelectedSku] = useState<SKU[] | []>();
@@ -66,7 +68,6 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     setPhotoIndex(index);
     setIsOpen(true);
   };
-
   const { appendData: createUserBasket } = useQueryApiClient({
     request: {
       url: type && type === "to_cart" ? `user-basket` : "orders",
@@ -75,34 +76,48 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     },
     onSuccess(res) {
       message.success(t(`Product-detail.${res.message}`), 2);
-      const { parsedSku } = groupProperties(skus, prop_imgs);
-      setSelectedSku([parsedSku[0]]);
-      setCurrentSku(parsedSku[0]);
-      res.order_group ? router.push(`/order/${res.order_group}`) : null;
+      
+      // Handle the promise using `.then()` since `onSuccess` cannot be async
+      groupProperties(skus, prop_imgs, product.props_list).then(({ parsedSku }) => {
+        setSelectedSku([parsedSku[0]]);
+        setCurrentSku(parsedSku[0]);
+        if (res.order_group) {
+          router.push(`/order/${res.order_group}`);
+        }
+      }).catch((error) => {
+        console.error("Error in groupProperties:", error);
+      });
     },
   });
+  
   const handleCloseModal = () => {
     setOrderType(null);
   };
+  
 
   useEffect(() => {
-    if (skus && prop_imgs) {
-      const { allProperties, imageProperties, parsedSku } = groupProperties(
-        skus,
-        prop_imgs
-      );
-      const newSelectedPropertys = parsedSku[0].parsedProperties?.map((el) => ({
-        name: el.name,
-        id: el.id,
-      }));
+    const fetchGroupedProperties = async () => {
+      if (skus && prop_imgs) {
+        const { allProperties, imageProperties, parsedSku } =
+          await groupProperties(skus, prop_imgs, product.props_list);
 
-      setSelectProperty(newSelectedPropertys);
-      setCurrentSku(parsedSku[0]);
-      setSelectedSku([parsedSku[0]]);
-      setParsedSku(parsedSku);
-      setGroupedProperties(allProperties);
-      setPropertiesWithImages(imageProperties);
-    }
+        const newSelectedPropertys = parsedSku[0].parsedProperties?.map(
+          (el) => ({
+            name: el.name,
+            id: el.id,
+          })
+        );
+
+        setSelectProperty(newSelectedPropertys);
+        setCurrentSku(parsedSku[0]);
+        setSelectedSku([parsedSku[0]]);
+        setParsedSku(parsedSku);
+        setGroupedProperties(allProperties);
+        setPropertiesWithImages(imageProperties);
+      }
+    };
+
+    fetchGroupedProperties();
   }, [skus, prop_imgs]);
 
   const getImageUrl = (propertys: string[]) => {
@@ -224,6 +239,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         return { ...el, selected_quantity: value };
       } else return el;
     });
+    console.log("selected :", clone);
+
     setSelectedSku(clone);
   };
 
