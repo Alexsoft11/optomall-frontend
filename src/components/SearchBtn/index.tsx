@@ -10,6 +10,7 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
 import { CategoryInterface } from "@/interfaces";
 import { LoadingSpinner } from "@/ui/Spin";
+import useSearchStore from "../useSearchStore";
 
 const { Dragger } = Upload;
 type ProviderInfo = {
@@ -34,6 +35,7 @@ const SearchBtn = ({ categoryData }: Props) => {
   const [selectedCatId, setSelectedCatId] = useState<number | null>(null);
   const [allItems, setAllItems] = useState<any[]>()
 
+  const { setScrollPosition } = useSearchStore();
 
   const { appendData: getProductId, isLoading: isProductsLoading } =
     useQueryApiClient({
@@ -139,6 +141,7 @@ const SearchBtn = ({ categoryData }: Props) => {
   // Modified handleSearch function
   const handleSearch = (values: any) => {
     if (values.search) {
+      setScrollPosition(0)
       const { url } = getProviderInfo(values.search);
       setIsDropdownOpen(false);
       if (url) {
@@ -350,6 +353,7 @@ const SearchBtn = ({ categoryData }: Props) => {
       window.addEventListener("scroll", handleScroll);
     }
     setIsMobile(window.innerWidth <= 768);
+    console.log(isMobile)
   }, []);
 
   return (
@@ -364,7 +368,7 @@ const SearchBtn = ({ categoryData }: Props) => {
             <Form onFinish={handleSearch} form={form}>
               <Dropdown
                 menu={{ items: menuItems }}
-                open={isMobile ? isDropdownOpen : false}
+                open={isMobile && startScrool ? isDropdownOpen : false}
               >
                 <Input
                   type="text"

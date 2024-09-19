@@ -8,13 +8,13 @@ import LikedBtn from "../LikedBtn";
 import { useRouter } from "next/router";
 import { formatPrice } from "@/constants";
 import Cookies from "universal-cookie";
+import useSearchStore from "../useSearchStore";
 
 interface CardProps {
   data: CardInterface;
   onLikeChange?: (cardId: number) => void;
   provider?: string;
   isBlank?: boolean;
-  allData?: any;
 }
 
 const Card = ({
@@ -22,7 +22,6 @@ const Card = ({
   onLikeChange,
   provider,
   isBlank,
-  allData,
 }: CardProps) => {
   const t = useTranslations("GLOBAL");
   const textRef = useRef<any>(null);
@@ -30,6 +29,7 @@ const Card = ({
   const router = useRouter();
   const cookie = new Cookies();
   const locale = useLocale();
+  const { setScrollPosition } = useSearchStore();
 
   useEffect(() => {
     const { current } = textRef;
@@ -38,33 +38,10 @@ const Card = ({
     }
   }, [textRef]);
 
-  useEffect(() => {
-    if (router.pathname === "/search" || router.pathname === "/") {
-      const savedScrollPosition = sessionStorage.getItem("scrollPosition");
-      if (savedScrollPosition) {
-        window.scrollTo(0, +savedScrollPosition);
-        sessionStorage.removeItem("scrollPosition");
-        console.log("Scroll position restored");
-      }
-
-      const handleBeforeUnload = () => {
-        sessionStorage.setItem("scrollPosition", window.scrollY.toString());
-        console.log("Scroll position saved");
-      };
-
-      window.addEventListener("beforeunload", handleBeforeUnload);
-
-      return () => {
-        window.removeEventListener("beforeunload", handleBeforeUnload);
-      };
-    }
-  }, []);
-
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
-
-    localStorage.setItem("scrollData", JSON.stringify(allData)) 
-    sessionStorage.setItem("scrollPosition", window.scrollY.toString());
+    sessionStorage.setItem("isEnter", 'isEnter');
+    setScrollPosition(window.scrollY);
 
     const id = router.pathname.includes("wishes") ? data.product_id : data.id;
     let url = `/${router.locale}/product/${id}?provider=${
