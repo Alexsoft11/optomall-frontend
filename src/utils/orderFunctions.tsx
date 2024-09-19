@@ -1,19 +1,30 @@
-// src/utils/skuUtils.ts
-
 import {
   GroupedProperties,
   PropImage,
+  PropsList,
   SKU,
 } from "@/features/ProductDetail/interface";
+import { API } from "@/services/api";
 
-export const parseSKUProperties = (skus: SKU[]): SKU[] => {
+export const parseSKUProperties = (
+  skus: SKU[],
+  parsedTranslate: { id: string; value: any }[]
+): SKU[] => {
   return skus.map((item) => {
     const propertiesArray = item.properties_name.split(";").map((prop) => {
       const [index, subindex, propName, propValue] = prop.split(":");
+      let value = propValue;
+      let name = propName;
+      parsedTranslate.map((el) => {
+        if (el.id === `${index}:${subindex}`) {
+          value = el.value.split(":")[1];
+          name = el.value.split(":")[0];
+        }
+      });
       return {
         id: `${index}:${subindex}`,
-        name: propName,
-        value: propValue,
+        name: name,
+        value: value,
       };
     });
     return {
@@ -23,20 +34,45 @@ export const parseSKUProperties = (skus: SKU[]): SKU[] => {
   });
 };
 
-export const groupProperties = (
+export const groupProperties = async (
   skus: SKU[],
-  propsImgs: PropImage[]
-): {
+  propsImgs: PropImage[],
+  propsList: PropsList
+): Promise<{
   allProperties: GroupedProperties;
   imageProperties: GroupedProperties;
   parsedSku: SKU[];
-} => {
+}> => {
   const allProperties: GroupedProperties = {};
   const imageProperties: GroupedProperties = {};
-  const parsedSku = parseSKUProperties(skus);
   const imagePropMap = new Map(
     propsImgs.map((img) => [img.properties, img.url])
   );
+
+  const translateData = {
+    data: propsList,
+    from: "auto",
+    to: "en",
+  };
+
+  // Await the translation API call
+  let translaperProps;
+  try {
+    translaperProps = await API.translateProps(translateData);
+  } catch (error) {
+    console.error("Error fetching translation data:", error);
+    // You can handle the error more gracefully based on your needs
+    translaperProps = {};
+  }
+
+  const parsedTranslate = Object.keys(translaperProps).map((el, idx) => {
+    return { id: el, value: Object.values(translaperProps)[idx] as string };
+  });
+
+  console.log("parsedTranslate :", parsedTranslate);
+  console.log("translaperProps :", translaperProps);
+
+  const parsedSku = parseSKUProperties(skus, parsedTranslate);
 
   parsedSku.forEach((sku) => {
     sku.selected_quantity = 0;
@@ -72,6 +108,25 @@ export const groupProperties = (
           allProperties[name].keys.push({ value, propId });
         }
       }
+
+      const parsedPropsList = Object.keys(propsList).map((el, idx) => {
+        return { id: el, value: Object.values(propsList)[idx] };
+      });
+
+      parsedPropsList.map((el) => {
+        if (el.id === id) {
+          property.originalName = el.value.split(':')[0];
+          property.originalValue = el.value.split(':')[1];
+        }
+      });
+
+      // console.log('parsedTranslate :', parsedTranslate);
+
+      parsedTranslate.map((el) => {
+        if (el.id === id) {
+          property.name = el.value.split(':')[0]
+        }
+      });
     });
   });
 

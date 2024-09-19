@@ -29,6 +29,8 @@ interface ParsedProperty {
   id: string;
   name: string;
   value: string;
+  originalName?: string;
+  originalValue?: string;
 }
 
 export interface GroupedProperties {
@@ -74,19 +76,19 @@ export interface SellerInfoInterface {
 }
 
 interface SellerInfo {
-  nick: string;            // Seller's nickname
-  item_score: number;      // Score for items (usually a float)
-  score_p: number;         // Score percentage (usually a float)
-  delivery_score: number;  // Score for delivery (usually a float)
-  shop_type: string;       // Type of the shop (could be an empty string if not specified)
-  user_num_id: string;     // User number ID (typically a string)
-  sid: string | null;      // Shop ID (could be a string or null)
-  title: string;           // Title of the shop (could be an empty string if not specified)
-  zhuy: string;            // URL for the shop
-  cert: string | null;     // Certification (could be a string or null)
-  open_time: string;       // Duration since the shop opened
-  credit_score: string;    // Credit score (usually a string)
-  shop_name: string;       // Name of the shop
+  nick: string; // Seller's nickname
+  item_score: number; // Score for items (usually a float)
+  score_p: number; // Score percentage (usually a float)
+  delivery_score: number; // Score for delivery (usually a float)
+  shop_type: string; // Type of the shop (could be an empty string if not specified)
+  user_num_id: string; // User number ID (typically a string)
+  sid: string | null; // Shop ID (could be a string or null)
+  title: string; // Title of the shop (could be an empty string if not specified)
+  zhuy: string; // URL for the shop
+  cert: string | null; // Certification (could be a string or null)
+  open_time: string; // Duration since the shop opened
+  credit_score: string; // Credit score (usually a string)
+  shop_name: string; // Name of the shop
 }
 export interface ProductDetailInterface {
   id: string;
@@ -96,7 +98,7 @@ export interface ProductDetailInterface {
   discount_percentage: number;
   image: string;
   quantity: number;
-  quantityRanges: any[]
+  quantityRanges: any[];
   description: string;
   pictures: { image_url: string; is_main: number }[];
   location: string;
@@ -136,9 +138,9 @@ export interface ColorsBasketInterface {
 }
 
 export interface ProppertiesInterface {
-  id: string,
-  name: string,
-  value: string
+  id: string;
+  name: string;
+  value: string;
 }
 
 export interface CreateOrderItemsDataInterface {
@@ -151,7 +153,7 @@ export interface CreateOrderItemsDataInterface {
   provider: string;
   sku_id: string;
   product_url: string;
-  properties: ProppertiesInterface[]
+  properties: ProppertiesInterface[];
 }
 
 export interface CreateOrderDataInterface {
@@ -170,6 +172,5 @@ export interface CreateBaskettemsDataInterface {
   provider: string;
   sku_id: string;
   product_url: string;
-  properties: ProppertiesInterface[]
+  properties: ProppertiesInterface[];
 }
-

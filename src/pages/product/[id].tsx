@@ -14,9 +14,8 @@ interface ProductDetailProps {
   product: any;
   productComments: IProductComments[];
   score: any;
-  error: any
+  error: any;
 }
-
 
 const ProductDetailSection = dynamic(
   () => import("@/features/ProductDetail/Components/ProductDetailSection"),
@@ -34,7 +33,6 @@ const ProductDetailSectionLocal = dynamic(
 );
 
 const ProductDetail = ({ product, error }: ProductDetailProps) => {
-
   const { query, locale } = useRouter();
   const { data: productComments } = useQueryApiClient({
     request: {
@@ -68,8 +66,6 @@ const ProductDetail = ({ product, error }: ProductDetailProps) => {
     console.error(error);
   }
 
-
-
   if (!product) {
     return <DataNotFound />;
   }
@@ -100,13 +96,12 @@ interface ErrorResponse {
   [key: string]: any;
 }
 
-
 export const getServerSideProps = async (context: any) => {
   try {
     const provider = context.query.provider || "1688";
     const params = {
       productId: context.params.id,
-      lang: context.locale,
+      lang: 'zh-CN',
       provider: provider,
     };
 
@@ -118,8 +113,12 @@ export const getServerSideProps = async (context: any) => {
     };
   } catch (error) {
     console.error("Error fetching product data:", error);
-    const errorMessage = (error as Error).message || "An error occurred while fetching the product data";
-    const errorData: ErrorResponse = (error as any).response?.data || { message: errorMessage };
+    const errorMessage =
+      (error as Error).message ||
+      "An error occurred while fetching the product data";
+    const errorData: ErrorResponse = (error as any).response?.data || {
+      message: errorMessage,
+    };
 
     return {
       props: {
