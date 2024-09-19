@@ -69,9 +69,6 @@ export const groupProperties = async (
     return { id: el, value: Object.values(translaperProps)[idx] as string };
   });
 
-  console.log("parsedTranslate :", parsedTranslate);
-  console.log("translaperProps :", translaperProps);
-
   const parsedSku = parseSKUProperties(skus, parsedTranslate);
 
   parsedSku.forEach((sku) => {
@@ -119,8 +116,6 @@ export const groupProperties = async (
           property.originalValue = el.value.split(':')[1];
         }
       });
-
-      // console.log('parsedTranslate :', parsedTranslate);
 
       parsedTranslate.map((el) => {
         if (el.id === id) {
