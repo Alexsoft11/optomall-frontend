@@ -103,7 +103,7 @@ export const getServerSideProps = async (context: any) => {
     //context.locale
     const params = {
       productId: productId,
-      lang: context.locale,
+      lang: 'zh-CN',
       provider: provider,
     };
 
