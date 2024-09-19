@@ -262,6 +262,7 @@
   },
   "Product-detail": {
     "isMaxQuantity": "maksimal miqdor",
+    "isMinQuantity": "Минимальное количество",
     "bought": "Sotib olganlar",
     "compound": "Tarkibi",
     "made_country": "Ishlab chiqarilgan davlati",

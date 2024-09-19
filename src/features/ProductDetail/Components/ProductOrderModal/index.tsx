@@ -76,24 +76,25 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     },
     onSuccess(res) {
       message.success(t(`Product-detail.${res.message}`), 2);
-      
+
       // Handle the promise using `.then()` since `onSuccess` cannot be async
-      groupProperties(skus, prop_imgs, product.props_list).then(({ parsedSku }) => {
-        setSelectedSku([parsedSku[0]]);
-        setCurrentSku(parsedSku[0]);
-        if (res.order_group) {
-          router.push(`/order/${res.order_group}`);
-        }
-      }).catch((error) => {
-        console.error("Error in groupProperties:", error);
-      });
+      groupProperties(skus, prop_imgs, product.props_list)
+        .then(({ parsedSku }) => {
+          setSelectedSku([parsedSku[0]]);
+          setCurrentSku(parsedSku[0]);
+          if (res.order_group) {
+            router.push(`/order/${res.order_group}`);
+          }
+        })
+        .catch((error) => {
+          console.error("Error in groupProperties:", error);
+        });
     },
   });
-  
+
   const handleCloseModal = () => {
     setOrderType(null);
   };
-  
 
   useEffect(() => {
     const fetchGroupedProperties = async () => {
@@ -151,6 +152,21 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       return;
     }
 
+    newSelectedSku?.map((el) => {
+      if (
+        product &&
+        el.selected_quantity < product.quantityRanges[0].minQuantity
+      ) {
+        message.warning(
+          `${t("Product-detail.isMinQuantity")} ${
+            product.quantityRanges[0].minQuantity
+          }`,
+          5
+        );
+        return;
+      }
+    });
+
     const items: CreateBaskettemsDataInterface[] = newSelectedSku.map((el) => {
       const { id, title, product_url, image, seller_info } = product;
 
@@ -206,12 +222,12 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
   };
 
   const handleSizeChange = (value: number) => {
-    if (
-      value < 0 ||
-      (currentSku?.quantity && value > currentSku?.quantity) ||
-      !currentSku?.quantity
-    )
+    if (value < 0 || !currentSku?.quantity) return;
+
+    if (currentSku?.quantity && value > currentSku.quantity) {
+      message.warning(t("Product-detail.isMaxQuantity"), 5);
       return;
+    }
 
     if (!currentSku) return;
 
@@ -239,7 +255,6 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         return { ...el, selected_quantity: value };
       } else return el;
     });
-    console.log("selected :", clone);
 
     setSelectedSku(clone);
   };
@@ -334,7 +349,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
               >
                 <Image src={MinusSvg} width={24} height={24} alt="#" />
               </AntdButton>
-              <Tooltip title={`Max quantity`}>
+              <Tooltip title={t("Product-detail.isMaxQuantity")}>
                 <h4 className={styles.selected_quantity}>
                   {currentSku?.selected_quantity}
                 </h4>
@@ -342,7 +357,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
               <Tooltip>
                 <AntdButton
                   onClick={() =>
-                    handleSizeChange(++currentSku!.selected_quantity)
+                    handleSizeChange(currentSku!.selected_quantity + 1)
                   }
                 >
                   <Image src={PlusSvg} width={24} height={24} alt="#" />

@@ -353,7 +353,6 @@ const SearchBtn = ({ categoryData }: Props) => {
       window.addEventListener("scroll", handleScroll);
     }
     setIsMobile(window.innerWidth <= 768);
-    console.log(isMobile)
   }, []);
 
   return (

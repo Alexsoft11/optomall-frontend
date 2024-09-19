@@ -32,7 +32,6 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
   const [itemQuantity, setItemQuantity] = useState<number>(0);
   const [messageDisplayed, setMessageDisplayed] = useState(false);
   const token = useJwt();
-  console.log("ptoduct :", product);
 
   const toAuth = (path: string) => {
     localStorage.setItem("backUrl", asPath);

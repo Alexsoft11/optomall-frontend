@@ -266,6 +266,7 @@
   },
   "Product-detail": {
     "isMaxQuantity": "максимальное количество",
+      "isMinQuantity": "Минимальное количество",
     "bought": "Купили",
     "compound": "Состав",
     "made_country": "Страна производство",

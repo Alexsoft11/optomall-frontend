@@ -262,6 +262,7 @@
   },
   "Product-detail": {
     "isMaxQuantity": "is max quantity",
+    "isMinQuantity": "Minimum quantity",
     "bought": "Bought",
     "compound": "Compound",
     "made_country": "Country of Origin",
