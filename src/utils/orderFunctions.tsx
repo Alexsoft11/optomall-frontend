@@ -37,7 +37,8 @@ export const parseSKUProperties = (
 export const groupProperties = async (
   skus: SKU[],
   propsImgs: PropImage[],
-  propsList: PropsList
+  propsList: PropsList,
+  lang?: string
 ): Promise<{
   allProperties: GroupedProperties;
   imageProperties: GroupedProperties;
@@ -52,7 +53,7 @@ export const groupProperties = async (
   const translateData = {
     data: propsList,
     from: "auto",
-    to: "en",
+    to: lang || "ru",
   };
 
   // Await the translation API call
