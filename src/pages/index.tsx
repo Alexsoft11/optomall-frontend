@@ -37,7 +37,7 @@ export default function Home({ slidersData, productsData }: HomeProps) {
   const hasPosted = useRef(false);
 
   const [products, setProducts] = useState(
-    productsData.products
+    productsData?.products || null
   );
   const [categories, setCategories] = useState<any>([]);
   const [limit, setLimit] = useState(15);
@@ -195,15 +195,16 @@ export const getServerSideProps = async (context: any) => {
 
     const token = decodeURIComponent(cookies.token);
     const slidersResponse = await API.getHomePageSlider();
-    const productsResponse = await API.getHomePageProducts(
-      context.locale,
-      token
-    );
+    // const productsResponse = await API.getHomePageProducts(
+    //   context.locale,
+    //   token
+    // );
 
     return {
       props: {
         slidersData: slidersResponse.data || { sliders: [] },
-        productsData: productsResponse.data || { products: [] },
+        // productsData: productsResponse.data || { products: [] },
+        productsData: [],
       },
     };
   } catch (error: any) {

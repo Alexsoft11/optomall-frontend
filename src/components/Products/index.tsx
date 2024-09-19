@@ -27,7 +27,9 @@ const Products = ({
   };
 
   useEffect(() => {
-    window.scrollTo(0, scrollPosition);
+    if (type == "scroll") {
+      window.scrollTo(0, scrollPosition);
+    }
   }, [scrollPosition]);
 
   return type == "scroll" ? (

@@ -353,6 +353,7 @@ const SearchBtn = ({ categoryData }: Props) => {
       window.addEventListener("scroll", handleScroll);
     }
     setIsMobile(window.innerWidth <= 768);
+    console.log(isMobile)
   }, []);
 
   return (
@@ -367,7 +368,7 @@ const SearchBtn = ({ categoryData }: Props) => {
             <Form onFinish={handleSearch} form={form}>
               <Dropdown
                 menu={{ items: menuItems }}
-                open={isMobile ? isDropdownOpen : false}
+                open={isMobile && startScrool ? isDropdownOpen : false}
               >
                 <Input
                   type="text"
