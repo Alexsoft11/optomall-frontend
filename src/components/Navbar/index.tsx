@@ -14,6 +14,7 @@ import { useTranslations } from "next-intl";
 import { useJwt } from "@/utils/useJwt";
 import { UseLogOut } from "@/utils/useLogOut";
 import useQueryApiClient from "@/utils/useQueryApiClient";
+import useSearchStore from "../useSearchStore";
 
 const Navbar = () => {
   const token = useJwt();
@@ -22,6 +23,7 @@ const Navbar = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   type ModalState = "user" | "nav" | null;
   const [isCheckShow, setIsCheckShow] = useState();
+  const { setScrollPosition } = useSearchStore();
 
   const [openModal, setOpenModal] = useState<ModalState>(null);
   const [isMounted, setIsMounted] = useState(false);
@@ -112,7 +114,7 @@ const Navbar = () => {
                 />
               </div>
 
-              <Link href="/" className={styles.navbar__logo}>
+              <Link href="/" className={styles.navbar__logo} onClick={() => setScrollPosition(0)}>
                 <Image src={HeadLogoMini} alt="img" />
               </Link>
 
@@ -156,6 +158,7 @@ const Navbar = () => {
                             onClick={() => {
                               logOut(link.textKey);
                               setOpenModal(null);
+                              setScrollPosition(0)
                             }}
                             className={styles.navbar__user_item}
                             key={link.id}
@@ -210,15 +213,16 @@ const Navbar = () => {
           {NavLinks.map((item, idx) => (
             <Link
               className={`${styles.navbar__mobile_item} ${item.link === "/"
-                  ? router.pathname === item.link
-                    ? styles.activeItem
-                    : ""
-                  : router.pathname.startsWith(item.link)
-                    ? styles.activeItem
-                    : ""
+                ? router.pathname === item.link
+                  ? styles.activeItem
+                  : ""
+                : router.pathname.startsWith(item.link)
+                  ? styles.activeItem
+                  : ""
                 }`}
               key={idx}
               href={item.link}
+              onClick={() => setScrollPosition(0)}
             >
               <SvgSelector id={`${item.key}-svg`} />
               <p>{t(item.key)}</p>

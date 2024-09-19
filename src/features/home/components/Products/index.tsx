@@ -12,7 +12,6 @@ import dynamic from "next/dynamic";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import Products from "@/components/Products";
 import { useRouter } from "next/router";
-import Cookies from "universal-cookie";
 import useSearchStore from "@/components/useSearchStore";
 
 const Card = dynamic(() => import("@/components/Card"));
@@ -24,12 +23,10 @@ interface Props {
   isProductsLoading: any;
 }
 
-const ProductsSection = ({ categoryData, productsData }: Props) => {
+const ProductsSection = ({ categoryData }: Props) => {
   const t = useTranslations();
-  // const [hasMore, setHasMore] = useState(true);
   const { query, locale } = useRouter();
   const [keyApi, setKeyApi] = useState("discount");
-  // const [products, setProducts] = useState<any[]>(productsData || null);
   const {
     products,
     hasMore,
@@ -37,24 +34,14 @@ const ProductsSection = ({ categoryData, productsData }: Props) => {
     setHasMore,
   } = useSearchStore();
   const isEntered = typeof window !== "undefined" ? sessionStorage.getItem("isEnter") : null;
-  const cookie = new Cookies();
   const handleTabChange = (key: string) => {
     getProductsData({ query: key });
     setKeyApi(key);
   };
 
-  // const handleGetProductWhenScrool = (custom?: any) => {
-  //   getProductsWhenScrool({
-  //     ...custom,
-  //     ...query,
-  //     lang: locale,
-  //     query: keyApi,
-  //   });
-  // };
 
-  const handleGetProductWhenScrool = (custom?: any) => {
-    // const searchQuery = sessionStorage.getItem("isEnter");
-  
+
+  const handleGetProductWhenScrool = (custom?: any) => {  
     if (!isEntered && query) {
       getProductsWhenScrool({
         ...custom,
@@ -82,9 +69,6 @@ const ProductsSection = ({ categoryData, productsData }: Props) => {
         setHasMore(false);
         return;
       }
-      // setProducts((prev) => {
-      //   return [...prev, ...res.products];
-      // });
       setProducts([...products, ...res.products]);
     },
   });

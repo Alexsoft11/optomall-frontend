@@ -4,7 +4,6 @@ import Image from 'next/image'
 import styles from './Footer.module.scss'
 import Link from 'next/link'
 import useQueryApiClient from '@/utils/useQueryApiClient'
-// import { FooterInterface } from '../Types'
 import { useTranslations } from 'next-intl'
 
 const Footer = () => {
@@ -32,7 +31,7 @@ const Footer = () => {
         <div className='container'>
           <div className={styles.footer_content}>
             <Image src={HeadLogo} alt="Taobao.com" className={styles.logo} />
-            <ul className={styles.footer_links}>
+            <ul className={styles.footer_links} >
               <li>
                 <Link href="/about">{t("about_us")}</Link>
               </li>

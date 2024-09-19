@@ -99,8 +99,9 @@ interface ErrorResponse {
 export const getServerSideProps = async (context: any) => {
   try {
     const provider = context.query.provider || "1688";
+    const productId = context.params.id.replace(/^abb-/, '');
     const params = {
-      productId: context.params.id,
+      productId: productId,
       lang: 'zh-CN',
       provider: provider,
     };
