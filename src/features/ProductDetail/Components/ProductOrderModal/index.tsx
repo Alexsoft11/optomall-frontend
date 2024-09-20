@@ -148,6 +148,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     return url;
   };
 
+  
   const toOrder = () => {
     const newSelectedSku = selectedSku?.filter(
       (el) => el.selected_quantity > 0
