@@ -79,7 +79,13 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       message.success(t(`Product-detail.${res.message}`), 2);
 
       // Handle the promise using `.then()` since `onSuccess` cannot be async
-      groupProperties(skus, prop_imgs, product.props_list, router?.locale, product.quantityRanges)
+      groupProperties(
+        skus,
+        prop_imgs,
+        product.props_list,
+        router?.locale,
+        product.quantityRanges
+      )
         .then(({ parsedSku }) => {
           setSelectedSku([parsedSku[0]]);
           setCurrentSku(parsedSku[0]);
@@ -101,7 +107,13 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     const fetchGroupedProperties = async () => {
       if (skus && prop_imgs) {
         const { allProperties, imageProperties, parsedSku } =
-          await groupProperties(skus, prop_imgs, product.props_list, router?.locale, product.quantityRanges);
+          await groupProperties(
+            skus,
+            prop_imgs,
+            product.props_list,
+            router?.locale,
+            product.quantityRanges
+          );
 
         const newSelectedPropertys = parsedSku[0].parsedProperties?.map(
           (el) => ({
@@ -152,7 +164,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       }
       return;
     }
-    const quantityRanges = product?.quantityRanges?.[0]
+    const quantityRanges = product?.quantityRanges?.[0];
     const minQuantity = quantityRanges?.minQuantity || 0;
     newSelectedSku?.map((el) => {
       if (product && el.selected_quantity < minQuantity) {
@@ -165,7 +177,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     });
 
     const items: CreateBaskettemsDataInterface[] = newSelectedSku.map((el) => {
-      const { id, title, product_url, image, seller_info, quantityRanges } = product;
+      const { id, title, product_url, image, seller_info, quantityRanges } =
+        product;
 
       let item: CreateBaskettemsDataInterface = {
         product_id: id,
@@ -178,7 +191,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         provider: provider as string,
         sku_id: el.sku_id.toString(),
         properties: el.parsedProperties!,
-        quantityRanges: quantityRanges
+        quantityRanges: quantityRanges,
       };
 
       if (type === "to_cart") item.max_quantity = el.quantity;
@@ -315,29 +328,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     return flag;
   };
 
-  const getTotalPrice = () => {
-    const total = selectedSku?.reduce((acum, cur) => {
-      let price = cur.price;
-
-      if (cur.quantityRanges) {
-        const ranges = cur.quantityRanges.sort(
-          (a, b) => a.minQuantity - b.minQuantity
-        );
-        for (const item of ranges) {
-          if (item.minQuantity <= cur.selected_quantity) {
-            price = item.price;
-          }
-        }
-      }
-
-      return acum + price * cur.selected_quantity;
-    }, 0);
-    return total;
-  };
-
-  console.log(product);
-
-  const totalPrice = useMemo(() => {
+  const oneItemPrice = useMemo(() => {
     if (!selectedSku || !product.quantityRanges) return currentSku?.price;
     if (!currentSku) return 0;
     const quantity = selectedSku.reduce(
@@ -349,8 +340,17 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     product.quantityRanges.map((el) =>
       el.minQuantity <= quantity ? (price = el.price) : null
     );
+
     return price;
   }, [selectedSku]);
+
+  const getTotalPrice = () => {
+    const total = selectedSku?.reduce((acum, cur) => {
+      const price = oneItemPrice || 0;
+      return acum + price * cur.selected_quantity;
+    }, 0);
+    return total;
+  };
 
   const capitalize = (text: string) =>
     text.charAt(0).toUpperCase() + text.slice(1);
@@ -412,7 +412,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
           <div className="content">
             <div className="currentPrice">
               <h3>
-                {formatPrice(totalPrice)} {t("GLOBAL.currency")}
+                {formatPrice(oneItemPrice)} {t("GLOBAL.currency")}
               </h3>
             </div>
             <div className="property-items">
@@ -447,12 +447,15 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                               onClick={() =>
                                 handlePropertySelect(propId, propName)
                               }
-                              className={`img-block ${currentSku?.properties.split(";").includes(propId)
-                                ? styles.active
-                                : !getExist(propId, parsedSku)
+                              className={`img-block ${
+                                currentSku?.properties
+                                  .split(";")
+                                  .includes(propId)
+                                  ? styles.active
+                                  : !getExist(propId, parsedSku)
                                   ? styles.disable
                                   : ""
-                                }`}
+                              }`}
                             >
                               {imageUrl && (
                                 <div className="img-box">
@@ -492,8 +495,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                             idx !== 0
                               ? null
                               : !Object.values(propertiesWithImages).length
-                                ? getPropertyQuantity(propId, propName)
-                                : null
+                              ? getPropertyQuantity(propId, propName)
+                              : null
                           }
                           key={value}
                         >
@@ -505,8 +508,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                               currentSku?.properties.split(";").includes(propId)
                                 ? styles.active
                                 : !getExist(propId, parsedSku)
-                                  ? styles.disable
-                                  : ""
+                                ? styles.disable
+                                : ""
                             }
                           >
                             {value}
