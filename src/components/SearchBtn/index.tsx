@@ -149,7 +149,7 @@ const SearchBtn = ({ categoryData }: Props) => {
       }
       const newQuery: any = {
         value: values.search.toLowerCase(),
-        provider: query.provider || "1688",
+        provider: query.provider || "taobao",
       };
 
       if (values.catId) {
