@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import {
   GroupedProperties,
@@ -382,6 +382,23 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     return total;
   };
 
+  console.log(product);
+
+  const totalPrice = useMemo(() => {
+    if (!selectedSku || !product.quantityRanges) return currentSku?.price;
+    if (!currentSku) return 0;
+    const quantity = selectedSku.reduce(
+      (accum, cur) => accum + cur.selected_quantity,
+      0
+    );
+
+    let price = currentSku.price;
+    product.quantityRanges.map((el) =>
+      el.minQuantity <= quantity ? (price = el.price) : null
+    );
+    return price;
+  }, [selectedSku]);
+
   const capitalize = (text: string) =>
     text.charAt(0).toUpperCase() + text.slice(1);
   return (
@@ -440,7 +457,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
           <div className="content">
             <div className="currentPrice">
               <h3>
-                {formatPrice(currentSku?.price)} {t("GLOBAL.currency")}
+                {formatPrice(totalPrice)} {t("GLOBAL.currency")}
               </h3>
             </div>
             <div className="property-items">

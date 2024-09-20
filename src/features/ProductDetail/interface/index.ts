@@ -156,6 +156,7 @@ export interface ProductDetailInterface {
   videos: { url: string | null }[];
   attributes: AttributesInterface[];
   props_list: PropsList;
+  quantityRanges?: QuantityRange[];
   compositions: AttributesInterface[];
   configuredItems: ConfiguredItem[];
   is_liked: boolean;
