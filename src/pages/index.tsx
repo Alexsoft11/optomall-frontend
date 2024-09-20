@@ -34,6 +34,8 @@ export default function Home({ slidersData }: HomeProps) {
   const t = useTranslations("Home");
   const [isLoading, setIsLoading] = useState(true);
   const token = useJwt();
+  const isEntered = typeof window !== "undefined" ? sessionStorage.getItem("isEnter") : null;
+
   const hasPosted = useRef(false);
   const {
     products,
@@ -135,8 +137,17 @@ export default function Home({ slidersData }: HomeProps) {
   }, [token, dislikeCard, savedData]);
 
   useEffect(() => {
-    getProductsData({ query: "discount" });
+    if (typeof window !== "undefined") {
+      if (!isEntered) {
+        getProductsData({ query: "discount" });
+      } else {
+        sessionStorage.removeItem("isEnter");
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [window])
 
+  useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
@@ -194,7 +205,7 @@ export default function Home({ slidersData }: HomeProps) {
 
 export const getServerSideProps = async (context: any) => {
   try {
-    
+
     const slidersResponse = await API.getHomePageSlider();
 
 

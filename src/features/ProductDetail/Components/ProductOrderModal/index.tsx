@@ -316,7 +316,6 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
   };
 
   const getTotalPrice = () => {
-    console.log(selectedSku)
     const total = selectedSku?.reduce((acum, cur) => {
       let price = cur.price;
 
@@ -324,8 +323,6 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         const ranges = cur.quantityRanges.sort(
           (a, b) => a.minQuantity - b.minQuantity
         );
-        console.log(ranges);
-
         for (const item of ranges) {
           if (item.minQuantity <= cur.selected_quantity) {
             price = item.price;
