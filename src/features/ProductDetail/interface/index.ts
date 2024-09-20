@@ -57,6 +57,7 @@ export interface SKU {
   selected_quantity: number;
   sku_id: string;
   parsedProperties?: ParsedProperty[];
+  quantityRanges?: any[];
 }
 
 export interface SellerInfoInterface {
@@ -98,7 +99,7 @@ export interface ProductDetailInterface {
   discount_percentage: number;
   image: string;
   quantity: number;
-  quantityRanges: any[];
+  quantityRanges?: any[];
   description: string;
   pictures: { image_url: string; is_main: number }[];
   location: string;
@@ -173,4 +174,5 @@ export interface CreateBaskettemsDataInterface {
   sku_id: string;
   product_url: string;
   properties: ProppertiesInterface[];
+  quantityRanges?: any[];
 }
