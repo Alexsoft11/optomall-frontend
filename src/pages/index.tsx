@@ -145,7 +145,7 @@ export default function Home({ slidersData }: HomeProps) {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [window])
+  }, [])
 
   useEffect(() => {
     const timer = setTimeout(() => {

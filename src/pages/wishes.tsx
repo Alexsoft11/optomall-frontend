@@ -3,45 +3,33 @@ import dynamic from "next/dynamic";
 import React from "react";
 import cookie from "cookie";
 import { CardInterface } from "@/interfaces";
+import useQueryApiClient from "@/utils/useQueryApiClient";
+import { LoadingSpinner } from "@/ui/Spin";
 
 interface WishesProps {
-  wishesData: CardInterface[];
 }
 
 const Wishes = dynamic(
   () => import("@/features/Wishes/components/Wishes")
-  // {
-  //   loading: () => <Loader />,
-  // }
 );
 
-const WishesPage = ({ wishesData }: WishesProps) => {
+const WishesPage = ({ }: WishesProps) => {
+  const { data: wishesData, isLoading: isProductsLoading } =
+    useQueryApiClient({
+      request: {
+        url: `liked-products`,
+        method: "GET",
+      },
+
+    });
+
   return (
     <>
-      <Wishes wishesData={wishesData}/>
+      {isProductsLoading ? <LoadingSpinner fullscreen /> : (
+        <Wishes wishesData={wishesData.data} />
+      )}
     </>
   );
 };
 
 export default WishesPage;
-
-export const getServerSideProps = async (context: any) => {
-  try {
-    const cookies = cookie.parse(context.req.headers.cookie || "");
-
-    const token = decodeURIComponent(cookies.token);
-    const wishesResponse = await API.getWishesPageProducts(token);
-    return {
-      props: {
-        wishesData: wishesResponse.data || [],
-      },
-    };
-  } catch (error: any) {
-    console.error("Error fetching data:", error.message);
-    return {
-      props: {
-        wishes: [],
-      },
-    };
-  }
-};
