@@ -20,9 +20,10 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
 import { useJwt } from "@/utils/useJwt";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Scrollbar } from "swiper/modules";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import { API } from "@/services/api";
+import { formatPrice } from "@/constants";
 
 interface Props {
   product: ProductDetailInterface;
@@ -78,7 +79,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       message.success(t(`Product-detail.${res.message}`), 2);
 
       // Handle the promise using `.then()` since `onSuccess` cannot be async
-      groupProperties(skus, prop_imgs, product.props_list, router?.locale)
+      groupProperties(skus, prop_imgs, product.props_list, router?.locale, product.quantityRanges)
         .then(({ parsedSku }) => {
           setSelectedSku([parsedSku[0]]);
           setCurrentSku(parsedSku[0]);
@@ -100,7 +101,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     const fetchGroupedProperties = async () => {
       if (skus && prop_imgs) {
         const { allProperties, imageProperties, parsedSku } =
-          await groupProperties(skus, prop_imgs, product.props_list, router?.locale);
+          await groupProperties(skus, prop_imgs, product.props_list, router?.locale, product.quantityRanges);
 
         const newSelectedPropertys = parsedSku[0].parsedProperties?.map(
           (el) => ({
@@ -151,7 +152,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
       }
       return;
     }
-    const minQuantity = product?.quantityRanges[0]?.minQuantity || 0;
+    const quantityRanges = product?.quantityRanges?.[0]
+    const minQuantity = quantityRanges?.minQuantity || 0;
     newSelectedSku?.map((el) => {
       if (product && el.selected_quantity < minQuantity) {
         message.warning(
@@ -163,7 +165,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     });
 
     const items: CreateBaskettemsDataInterface[] = newSelectedSku.map((el) => {
-      const { id, title, product_url, image, seller_info } = product;
+      const { id, title, product_url, image, seller_info, quantityRanges } = product;
 
       let item: CreateBaskettemsDataInterface = {
         product_id: id,
@@ -176,6 +178,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         provider: provider as string,
         sku_id: el.sku_id.toString(),
         properties: el.parsedProperties!,
+        quantityRanges: quantityRanges
       };
 
       if (type === "to_cart") item.max_quantity = el.quantity;
@@ -313,10 +316,40 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
   };
 
   const getTotalPrice = () => {
-    return selectedSku?.reduce(
-      (acum, cur) => acum + cur.price * cur.selected_quantity,
-      0
-    );
+    const total = selectedSku?.reduce((acum, cur) => {
+      let price = cur.price;
+
+      if (cur.quantityRanges) {
+        const ranges = cur.quantityRanges.sort(
+          (a, b) => a.minQuantity - b.minQuantity
+        );
+        for (const item of ranges) {
+          if (item.minQuantity <= cur.selected_quantity) {
+            price = item.price;
+          }
+        }
+      }
+
+      return acum + price * cur.selected_quantity;
+    }, 0);
+    return total;
+  };
+
+  const getTruePrice = () => {
+    if (currentSku && currentSku?.quantityRanges?.length) {
+      const ranges = currentSku?.quantityRanges?.sort(
+        (a, b) => a.minQuantity - b.minQuantity
+      );
+      let price = ranges[0].price;
+
+      for (const item of ranges) {
+        if (item.minQuantity <= currentSku.selected_quantity) {
+          price = item.price;
+        }
+      }
+      return price;
+    }
+    return currentSku?.price;
   };
 
   const capitalize = (text: string) =>
@@ -329,11 +362,12 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         className="order-modal"
         onCancel={handleCloseModal}
         open={!!type}
+        maskClosable={false}
         footer={
           <div className="modal-footer">
             <div className="totalPrice">
               <h3>
-                {getTotalPrice()} {t("GLOBAL.currency")}
+                {formatPrice(getTotalPrice())} {t("GLOBAL.currency")}
               </h3>
             </div>
             <div key={1} className={styles.change_value}>
@@ -378,83 +412,77 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
           <div className="content">
             <div className="currentPrice">
               <h3>
-                {currentSku?.price} {t("GLOBAL.currency")}
+                {/* {currentSku?.price} */}
+                {formatPrice(getTruePrice())}
+                {t("GLOBAL.currency")}
               </h3>
             </div>
             <div className="property-items">
-              {Object.values(propertiesWithImages).map(({ keys, propName }) => (
-                <div className="content-inner" key={propName}>
-                  <h2>{capitalize(propName)}</h2>
-                  <Swiper
-                    spaceBetween={20}
-                    slidesPerView={1.1}
-                    loop={true}
-                    modules={[Navigation]}
-                    breakpoints={{
-                      1000: {
-                        slidesPerView: 8,
-                      },
-                      960: {
-                        slidesPerView: 6,
-                      },
-                      480: {
-                        slidesPerView: 5,
-                      },
-                      380: {
-                        slidesPerView: 1.3,
-                      },
-                    }}
-                    pagination={{ clickable: true }}
-                  >
-                    {keys.map(({ value, propId, imageUrl }, index) => (
-                      <SwiperSlide key={propId}>
-                        <Badge count={getPropertyQuantity(propId, propName)}>
-                          <div
-                            key={propId}
-                            onClick={() =>
-                              handlePropertySelect(propId, propName)
-                            }
-                            className={`img-block ${currentSku?.properties.split(";").includes(propId)
-                              ? styles.active
-                              : !getExist(propId, parsedSku)
-                                ? styles.disable
-                                : ""
-                              }`}
-                          >
-                            {imageUrl && (
-                              <div
-                                // onClick={() => {
-                                //   const validImageUrls = keys
-                                //     .map(({ imageUrl }) => imageUrl)
-                                //     .filter((url): url is string => !!url); // Filters out undefined values
-                                //   handleImageClick(validImageUrls, index);
-                                // }}
-                                className="img-box"
-                              >
-                                <span
-                                  className="view-icon"
-                                  onClick={() => {
-                                    const validImageUrls = keys
-                                      .map(({ imageUrl }) => imageUrl)
-                                      .filter((url): url is string => !!url);
-                                    handleImageClick(validImageUrls, index);
-                                  }}
-                                >
-                                  <SvgSelector id="open-image-view-svg" />
-                                </span>
-                                <Image src={imageUrl} alt={value} fill />
+              {Object.values(propertiesWithImages).map(({ keys, propName }) => {
+                const slidesCount = keys.length;
+
+                return (
+                  <div className="content-inner" key={propName}>
+                    <h2>{capitalize(propName)}</h2>
+                    <Swiper
+                      spaceBetween={20}
+                      slidesPerView={Math.min(3, slidesCount)}
+                      modules={[Navigation, Scrollbar]}
+                      scrollbar={{ draggable: true }}
+                      breakpoints={{
+                        1000: {
+                          slidesPerView: Math.min(8, slidesCount),
+                        },
+                        960: {
+                          slidesPerView: Math.min(6, slidesCount),
+                        },
+                        0: {
+                          slidesPerView: "auto",
+                        },
+                      }}
+                      pagination={{ clickable: true }}
+                    >
+                      {keys.map(({ value, propId, imageUrl }, index) => (
+                        <SwiperSlide key={propId}>
+                          <Badge count={getPropertyQuantity(propId, propName)}>
+                            <div
+                              onClick={() =>
+                                handlePropertySelect(propId, propName)
+                              }
+                              className={`img-block ${currentSku?.properties.split(";").includes(propId)
+                                ? styles.active
+                                : !getExist(propId, parsedSku)
+                                  ? styles.disable
+                                  : ""
+                                }`}
+                            >
+                              {imageUrl && (
+                                <div className="img-box">
+                                  <span
+                                    className="view-icon"
+                                    onClick={() => {
+                                      const validImageUrls = keys
+                                        .map(({ imageUrl }) => imageUrl)
+                                        .filter((url): url is string => !!url);
+                                      handleImageClick(validImageUrls, index);
+                                    }}
+                                  >
+                                    <SvgSelector id="open-image-view-svg" />
+                                  </span>
+                                  <Image src={imageUrl} alt={value} fill />
+                                </div>
+                              )}
+                              <div className="img-describtion">
+                                <p>{value}</p>
                               </div>
-                            )}
-                            <div className="img-describtion">
-                              <p>{value}</p>
                             </div>
-                          </div>
-                        </Badge>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                </div>
-              ))}
+                          </Badge>
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </div>
+                );
+              })}
               {Object.entries(groupedProperties).map(
                 ([propName, { keys }], idx) => (
                   <div className="content-inner grouped-prop" key={propName}>

@@ -23,8 +23,8 @@ const Search = ({ data = [] }: Props) => {
   const { query, pathname, replace, locale, events } = router;
   const [activePlatform, setActivePlatform] = useState<any>("1688");
   const [form] = Form.useForm();
-  const isEntered = typeof window !== "undefined" ? sessionStorage.getItem("isEnter") : null;
-  
+  const isEntered = typeof window !== "undefined" ? sessionStorage.getItem("isEnterSearch") : null;
+
   const {
     products,
     hasMore,
@@ -32,6 +32,7 @@ const Search = ({ data = [] }: Props) => {
     setProducts,
     setHasMore,
     setActiveSort,
+    setScrollPosition
   } = useSearchStore();
 
   const handleButtonClick = (platform: any) => {
@@ -84,7 +85,7 @@ const Search = ({ data = [] }: Props) => {
           page: 1,
         });
       } else {
-        sessionStorage.removeItem("isEnter");
+        sessionStorage.removeItem("isEnterSearch");
       }
     }
   }, [query, locale]);

@@ -8,7 +8,8 @@ import { API } from "@/services/api";
 
 export const parseSKUProperties = (
   skus: SKU[],
-  parsedTranslate: { id: string; value: any }[]
+  parsedTranslate: { id: string; value: any }[],
+  quantityRanges?: any[]
 ): SKU[] => {
   return skus.map((item) => {
     const propertiesArray = item.properties_name.split(";").map((prop) => {
@@ -29,6 +30,7 @@ export const parseSKUProperties = (
     });
     return {
       ...item,
+      quantityRanges: quantityRanges,
       parsedProperties: propertiesArray,
     };
   });
@@ -38,7 +40,8 @@ export const groupProperties = async (
   skus: SKU[],
   propsImgs: PropImage[],
   propsList: PropsList,
-  lang?: string
+  lang?: string,
+  quantityRanges?: any[]
 ): Promise<{
   allProperties: GroupedProperties;
   imageProperties: GroupedProperties;
@@ -70,7 +73,7 @@ export const groupProperties = async (
     return { id: el, value: Object.values(translaperProps)[idx] as string };
   });
 
-  const parsedSku = parseSKUProperties(skus, parsedTranslate);
+  const parsedSku = parseSKUProperties(skus, parsedTranslate, quantityRanges);
 
   parsedSku.forEach((sku) => {
     sku.selected_quantity = 0;
