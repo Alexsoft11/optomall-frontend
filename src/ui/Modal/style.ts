@@ -16,6 +16,7 @@ export const StyledModal = styled(AntdModal)`
   }
 
   .ant-modal-content {
+    max-width: 90dvw;
     width: max-content;
     border-radius: 20px;
     padding: 20px;

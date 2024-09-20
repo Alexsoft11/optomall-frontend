@@ -1,17 +1,17 @@
-import { Modal as AntdModal } from 'antd';
-import Image, { StaticImageData } from 'next/image';
-import { useEffect } from 'react';
-import { StyledModal } from './style';
-import { chequeSuccessDataInterface } from '@/interfaces';
-import { useTranslations } from 'next-intl';
-import { Button } from '../Button';
+import { Modal as AntdModal } from "antd";
+import Image, { StaticImageData } from "next/image";
+import { useEffect } from "react";
+import { StyledModal } from "./style";
+import { chequeSuccessDataInterface } from "@/interfaces";
+import { useTranslations } from "next-intl";
+import { Button } from "../Button";
 
 export interface ModalProps {
   title?: string;
   children?: React.ReactNode;
   open: boolean;
   onOk?: (e: React.MouseEvent<HTMLElement>) => void;
-  onCancel: React.Dispatch<React.SetStateAction<boolean>>
+  onCancel: React.Dispatch<React.SetStateAction<boolean>>;
   okText?: string;
   cancelText?: string;
   zIndex?: number;
@@ -27,6 +27,7 @@ export interface ModalProps {
   description?: string | React.ReactNode;
   bgColor?: string;
   chequeSuccessData?: chequeSuccessDataInterface | null;
+  maskClosable?: boolean;
 }
 
 export const Modal = ({
@@ -48,12 +49,13 @@ export const Modal = ({
   img,
   className,
   description,
+  maskClosable = true,
 }: ModalProps) => {
   useEffect(() => {
     if (open) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
   }, [open]);
 
@@ -74,18 +76,20 @@ export const Modal = ({
       destroyOnClose={destroyOnClose}
       centered={centered}
       className={className}
+      maskClosable={maskClosable}
     >
       <p></p>
-      <div className='modal-body'>
+      <div className="modal-body">
         {img ? (
           <div className={`message-modal-img ${className}`}>
-            <Image src={img} width={34} height={34} alt='#' />
+            <Image src={img} width={34} height={34} alt="#" />
           </div>
         ) : null}
-        {description? <p className='modal-descripion'> {description} </p> : null}
+        {description ? (
+          <p className="modal-descripion"> {description} </p>
+        ) : null}
 
         {children}
-
       </div>
     </StyledModal>
   );

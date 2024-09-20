@@ -1,5 +1,3 @@
-/** @format */
-
 import PageLayout from "@/components/Layout/PageLayout";
 import { API } from "@/services/api";
 import { LoadingSpinner } from "@/ui/Spin";
@@ -10,12 +8,15 @@ import dynamic from "next/dynamic";
 import DataNotFound from "@/ui/DataNotFound";
 import { IProductComments } from "@/features/ProductDetail/interface";
 import useQueryApiClient from "@/utils/useQueryApiClient";
+import { message } from "antd";
 
 interface ProductDetailProps {
   product: any;
   productComments: IProductComments[];
   score: any;
+  error: any;
 }
+
 const ProductDetailSection = dynamic(
   () => import("@/features/ProductDetail/Components/ProductDetailSection"),
   {
@@ -31,7 +32,7 @@ const ProductDetailSectionLocal = dynamic(
   }
 );
 
-const ProductDetail = ({ product }: ProductDetailProps) => {
+const ProductDetail = ({ product, error }: ProductDetailProps) => {
   const { query, locale } = useRouter();
   const { data: productComments } = useQueryApiClient({
     request: {
@@ -61,10 +62,14 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product?.detail?.image]);
 
+  if (error) {
+    console.error(error);
+  }
+
   if (!product) {
     return <DataNotFound />;
   }
-  const title = product?.detail.title;
+  const title = product?.detail?.title;
 
   return (
     <PageLayout metaTitle={title}>
@@ -86,26 +91,22 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
     </PageLayout>
   );
 };
-
+interface ErrorResponse {
+  message: string;
+  [key: string]: any;
+}
 
 export const getServerSideProps = async (context: any) => {
   try {
     const provider = context.query.provider || "1688";
-
+    const productId = context.params.id.replace(/^abb-/, '');
     const params = {
-      productId: context.params.id,
+      productId: productId,
       lang: context.locale,
       provider: provider,
     };
 
-    let product;
-    if (provider === "local") {
-      product = await API.getProductDetailLocal(params);
-    } else {
-      product = await API.getProductDetail(params);
-    }
-
-    // const productComments = await API.getProductComments(id);
+    let product = await API.getProductDetail(params);
     return {
       props: {
         product,
@@ -113,9 +114,17 @@ export const getServerSideProps = async (context: any) => {
     };
   } catch (error) {
     console.error("Error fetching product data:", error);
+    const errorMessage =
+      (error as Error).message ||
+      "An error occurred while fetching the product data";
+    const errorData: ErrorResponse = (error as any).response?.data || {
+      message: errorMessage,
+    };
+
     return {
       props: {
         product: null,
+        error: errorData,
       },
     };
   }

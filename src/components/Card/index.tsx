@@ -7,6 +7,7 @@ import CustomImage from "../CustomImage";
 import LikedBtn from "../LikedBtn";
 import { useRouter } from "next/router";
 import { formatPrice } from "@/constants";
+import useSearchStore from "../useSearchStore";
 
 interface CardProps {
   data: CardInterface;
@@ -15,12 +16,18 @@ interface CardProps {
   isBlank?: boolean;
 }
 
-const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
+const Card = ({
+  data,
+  onLikeChange,
+  provider,
+  isBlank,
+}: CardProps) => {
   const t = useTranslations("GLOBAL");
   const textRef = useRef<any>(null);
   const [isOverflowed, setIsOverflowed] = useState(false);
   const router = useRouter();
   const locale = useLocale();
+  const { setScrollPosition } = useSearchStore();
 
   useEffect(() => {
     const { current } = textRef;
@@ -29,29 +36,25 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
     }
   }, [textRef]);
 
-  useEffect(() => {
-    const savedScrollPosition = sessionStorage.getItem("scrollPosition");
-    if (savedScrollPosition) {
-      window.scrollTo(0, parseInt(savedScrollPosition, 10));
-    }
-  }, []);
-
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    
-    sessionStorage.setItem("scrollPosition", window.scrollY.toString());
+    if (router.pathname.includes('search')) {
+      sessionStorage.setItem("isEnterSearch", 'search');
+    } else {
+      sessionStorage.setItem("isEnter", 'default');
+    }
+    setScrollPosition(window.scrollY);
 
     const id = router.pathname.includes("wishes") ? data.product_id : data.id;
-    let url = `/${router.locale}/product/${id}?provider=${
-      provider || router.query.provider || "1688"
-    }`;
+    let url = `/${router.locale}/product/${id}?provider=${provider || router.query.provider || "1688"
+      }`;
     if (router.pathname.includes("search") && router.query.value) {
       url = `${url}&category=${router.query.value}`;
       if (router.query.carId) {
         url = `${url}&catId=${router.query.catId}`;
       }
     }
-    if (isBlank) {
+    if (e.ctrlKey || e.metaKey || isBlank) {
       window.open(url, "_blank");
     } else {
       router.push(url);
@@ -70,7 +73,7 @@ const Card = ({ data, onLikeChange, provider, isBlank }: CardProps) => {
   const title = getTitle(data.title);
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} data-aos="fade-up" data-aos-duration="1200">
       <div onClick={handleLinkClick}>
         <div className={styles.card__image}>
           <CustomImage

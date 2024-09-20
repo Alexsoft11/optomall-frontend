@@ -9,6 +9,8 @@ import { useJwt } from "@/utils/useJwt";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { CardInterface } from "@/interfaces";
 import { useRouter } from "next/router";
+import Products from "@/features/home/components/Products";
+import useSearchStore from "@/components/useSearchStore";
 
 const MainSlider = dynamic(
   () => import("@/features/home/components/MainSlider"),
@@ -17,31 +19,44 @@ const MainSlider = dynamic(
   }
 );
 
-const Products = dynamic(() => import("@/features/home/components/Products"), {
-  loading: () => <LoadingSpinner fullscreen={true} size="large" />,
-});
+const ProductsSection = dynamic(
+  () => import("@/features/home/components/Products"),
+  {
+    loading: () => <LoadingSpinner fullscreen={true} size="large" />,
+  }
+);
 
 interface HomeProps {
   slidersData: { sliders: any[] };
-  productsData: { products: any[] };
 }
 
-export default function Home({ slidersData, productsData }: HomeProps) {
+export default function Home({ slidersData }: HomeProps) {
   const t = useTranslations("Home");
   const [isLoading, setIsLoading] = useState(true);
   const token = useJwt();
+  const isEntered = typeof window !== "undefined" ? sessionStorage.getItem("isEnter") : null;
+
   const hasPosted = useRef(false);
-  const [products, setProducts] = useState(productsData.products);
+  const {
+    products,
+    setProducts,
+  } = useSearchStore();
+
   const [categories, setCategories] = useState<any>([]);
   const [limit, setLimit] = useState(15);
   const router = useRouter();
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem('scrollData');
+    }
+  }, []);
+
   const { appendData: getCategories, isLoading: isCategoriesLoading } =
     useQueryApiClient({
       request: {
-        url: `additional-categories${
-          token && token !== "undefined" ? "-token" : ""
-        }?limit=${limit}`,
+        url: `additional-categories${token && token !== "undefined" ? "-token" : ""
+          }?limit=${limit}`,
         method: "GET",
       },
       onSuccess(res: any) {
@@ -55,21 +70,19 @@ export default function Home({ slidersData, productsData }: HomeProps) {
       method: "POST",
     },
     onSuccess() {
-      localStorage.removeItem("likedProducts");
-      window.location.reload();
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("likedProducts");
+        window.location.reload();
+      }
     },
   });
-
-  useEffect(() => {
-    getProductsData({ query: "discount" });
-  }, []);
 
   const { appendData: getProductsData, isLoading: isProductsLoading } =
     useQueryApiClient({
       request: {
         url: `products?lang=${router.locale}`,
         method: "GET",
-        disableOnMount: true,
+        disableOnMount: true
       },
       onSuccess(res: any) {
         setProducts(res.products);
@@ -124,6 +137,17 @@ export default function Home({ slidersData, productsData }: HomeProps) {
   }, [token, dislikeCard, savedData]);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (!isEntered) {
+        getProductsData({ query: "discount" });
+      } else {
+        sessionStorage.removeItem("isEnter");
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
@@ -169,7 +193,7 @@ export default function Home({ slidersData, productsData }: HomeProps) {
     >
       <MainSlider data={slidersData?.sliders} />
       <Products
-        products={products}
+        productsData={products}
         getProductsData={getProductsData}
         isProductsLoading={isProductsLoading}
         categoryData={categories}
@@ -178,21 +202,16 @@ export default function Home({ slidersData, productsData }: HomeProps) {
   );
 }
 
+
 export const getServerSideProps = async (context: any) => {
   try {
-    // const cookies = cookie.parse(context.req.headers.cookie || "");
 
-    // const token = decodeURIComponent(cookies.token);
     const slidersResponse = await API.getHomePageSlider();
-    // const productsResponse = await API.getHomePageProducts(
-    //   context.locale,
-    //   token
-    // );
+
 
     return {
       props: {
         slidersData: slidersResponse.data || { sliders: [] },
-        productsData: { products: [] },
       },
     };
   } catch (error: any) {
@@ -200,7 +219,6 @@ export const getServerSideProps = async (context: any) => {
     return {
       props: {
         slidersData: { sliders: [] },
-        productsData: { products: [] },
       },
     };
   }

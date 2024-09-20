@@ -7,41 +7,57 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { LoadingSpinner } from "@/ui/Spin";
+import { useJwt } from "@/utils/useJwt";
 
 interface ILayoutsProps {
   children: ReactNode;
 }
 const MainLayout = ({ children }: ILayoutsProps) => {
-  const router = useRouter();
+  const { pathname, push, asPath, events } = useRouter();
   const [loading, setLoading] = useState(false);
+  const token = useJwt();
+
   useEffect(() => {
     AOS.init({
       duration: 1000,
       easing: "ease-in-out",
     });
   }, []);
+  
+  const protectPages = ["/messages", "/my-reviews", "/purchases"];
+  useEffect(() => {
+    if (!token && protectPages.includes(pathname))
+      // localStorage.setItem("backUrl", asPath);
+      push(asPath);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [asPath]);
+
+  useEffect(() => {
+    if (pathname !== "/search" && pathname !== "/product/[id]" && pathname !== "/") {
+      sessionStorage.removeItem("isEnter");
+    }
+  },[pathname])
 
   useEffect(() => {
     const handleStart = () => setLoading(true);
     const handleComplete = () => setLoading(false);
 
-    router.events.on("routeChangeStart", handleStart);
-    router.events.on("routeChangeComplete", handleComplete);
-    router.events.on("routeChangeError", handleComplete);
+    events.on("routeChangeStart", handleStart);
+    events.on("routeChangeComplete", handleComplete);
+    events.on("routeChangeError", handleComplete);
 
     return () => {
-      router.events.off("routeChangeStart", handleStart);
-      router.events.off("routeChangeComplete", handleComplete);
-      router.events.off("routeChangeError", handleComplete);
+      events.off("routeChangeStart", handleStart);
+      events.off("routeChangeComplete", handleComplete);
+      events.off("routeChangeError", handleComplete);
     };
-  }, [router]);
+  }, [events]);
 
-  if (router.pathname.includes("auth")) {
+  if (pathname.includes("auth")) {
     return children;
   }
   return (
     <>
-    
       {loading && <LoadingSpinner fullscreen={true} size="large" />}
       <Navbar />
       <main className="main_page">{children}</main>

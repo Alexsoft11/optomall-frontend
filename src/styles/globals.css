@@ -113,6 +113,7 @@
   --ash-grey: #d0d0d0;
   --white-smoke: #f0f0f0;
   --emerald-green: #00ac26;
+  --light-green: #00cc08;
   --mint-cream: #d6ffdf;
   --light-grey-2: #eeeeee;
   --light-grey-3: #ebebeb;
@@ -189,7 +190,7 @@ a {
   margin: auto;
 
   @media (max-width: 425px) {
-    width: 90%;
+    width: 95%;
   }
 }
 
@@ -276,7 +277,6 @@ a {
 .global.ant-spin .ant-spin-dot-item {
   background-color: var(--primary-color) !important;
 }
-
 
 .main-swiper .swiper-pagination .swiper-pagination-bullet-active {
   background-color: var(--primary-color) !important;

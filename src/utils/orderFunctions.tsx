@@ -1,122 +1,147 @@
-// src/utils/skuUtils.ts
-
 import {
-  AllDataInterface,
-  AllDataItemInterface,
-  ConfiguratorInterface,
-  ConfiguratorItemInterface,
   GroupedProperties,
   PropImage,
-  AttributesInterface,
-  ConfiguredItem,
+  PropsList,
+  SKU,
 } from "@/features/ProductDetail/interface";
-import { DetailMockData } from "@/mockdata/detailData";
+import { API } from "@/services/api";
 
-// export const parseSKUProperties = (skus: SKU[]): SKU[] => {
-//   return skus.map((item) => {
-//     const propertiesArray = item.properties_name.split(";").map((prop) => {
-//       const [index, subindex, propName, propValue] = prop.split(":");
-//       return {
-//         id: `${index}:${subindex}`,
-//         name: propName,
-//         value: propValue,
-//       };
-//     });
-//     return {
-//       ...item,
-//       parsedProperties: propertiesArray,
-//     };
-//   });
-// };
-const extractAndRemoveGroupedProperties = (
-  data: AttributesInterface[]
-): GroupedProperties => {
-  const groupedProperties: GroupedProperties = {};
-
-  for (let i = data.length - 1; i >= 0; i--) {
-    // Итерируем массив с конца, чтобы удаление элементов не нарушало индексацию
-    const item = data[i];
-
-    if (item.imageUrl) {
-      const propId = item.pid;
-
-      if (!groupedProperties[propId]) {
-        groupedProperties[propId] = {
-          keys: [],
-          propName: item.propertyName,
-        };
-      }
-
-      groupedProperties[propId].keys.push({
-        imageUrl: item.imageUrl,
-        value: item.value,
-        Vid: item.vid,
-        Pid: item.pid,
+export const parseSKUProperties = (
+  skus: SKU[],
+  parsedTranslate: { id: string; value: any }[],
+  quantityRanges?: any[]
+): SKU[] => {
+  return skus.map((item) => {
+    const propertiesArray = item.properties_name.split(";").map((prop) => {
+      const [index, subindex, propName, propValue] = prop.split(":");
+      let value = propValue;
+      let name = propName;
+      parsedTranslate.map((el) => {
+        if (el.id === `${index}:${subindex}`) {
+          value = el.value.split(":")[1];
+          name = el.value.split(":")[0];
+        }
       });
-    }
-  }
-
-  return groupedProperties;
+      return {
+        id: `${index}:${subindex}`,
+        name: name,
+        value: value,
+      };
+    });
+    return {
+      ...item,
+      quantityRanges: quantityRanges,
+      parsedProperties: propertiesArray,
+    };
+  });
 };
 
-export const groupProperties = (
-  attributes: AttributesInterface[],
-  configuredItems: ConfiguredItem[]
-): {
-  allProperties: AllDataInterface;
+export const groupProperties = async (
+  skus: SKU[],
+  propsImgs: PropImage[],
+  propsList: PropsList,
+  lang?: string,
+  quantityRanges?: any[]
+): Promise<{
+  allProperties: GroupedProperties;
   imageProperties: GroupedProperties;
-  ConfiguredItems: ConfiguredItem[];
-} => {
-  const allProperties: AllDataInterface = {};
-  const imageProperties: GroupedProperties =
-    extractAndRemoveGroupedProperties(attributes);
+  parsedSku: SKU[];
+}> => {
+  const allProperties: GroupedProperties = {};
+  const imageProperties: GroupedProperties = {};
+  const imagePropMap = new Map(
+    propsImgs.map((img) => [img.properties, img.url])
+  );
 
-  let ConfiguredItems: ConfiguredItem[] = configuredItems;
+  const translateData = {
+    data: propsList,
+    from: "auto",
+    to: lang || "ru",
+  };
 
-  ConfiguredItems = configuredItems.map((el) => {
-    let element = Object.assign(el, {});
-    let imagesProperty: ConfiguratorItemInterface[] = [];
+  // Await the translation API call
+  let translaperProps;
+  try {
+    translaperProps = await API.translateProps(translateData);
+  } catch (error) {
+    console.error("Error fetching translation data:", error);
+    // You can handle the error more gracefully based on your needs
+    translaperProps = {};
+  }
 
-    Object.values(imageProperties).map((images) => {
-      const property = images.keys.map((image) => ({
-        ...image,
-        name: images.propName,
-      }));
-      imagesProperty = property.concat(imagesProperty);
-    });
-
-    element.configurators = el.configurators.map((config) => {
-      const newConfig: ConfiguratorItemInterface =
-        imagesProperty.find(
-          (image) => config.Pid === image.Pid && config.Vid === image.Vid
-        ) || config;
-
-      return newConfig;
-    });
-
-    return element;
+  const parsedTranslate = Object.keys(translaperProps).map((el, idx) => {
+    return { id: el, value: Object.values(translaperProps)[idx] as string };
   });
 
-  attributes.map((el) => {
-    ConfiguredItems = ConfiguredItems.map((configs) => {
-      const newConfig = configs.configurators.map((item) => {
-        if (el.pid === item.Pid && el.vid === item.Vid) {
-          return { ...item, name: el.propertyName, value: el.value };
-        } else return item;
+  const parsedSku = parseSKUProperties(skus, parsedTranslate, quantityRanges);
+
+  parsedSku.forEach((sku) => {
+    sku.selected_quantity = 0;
+    sku?.parsedProperties?.forEach((property) => {
+      const { name, value, id } = property;
+      const propId = `${id}`;
+      const imageUrl = imagePropMap.get(propId);
+
+      if (imageUrl) {
+        if (!imageProperties[name]) {
+          imageProperties[name] = {
+            keys: [],
+            propName: name,
+          };
+        }
+
+        if (!imageProperties[name].keys.find((key) => key.value === value)) {
+          imageProperties[name].keys.push({
+            value,
+            imageUrl,
+            propId,
+          });
+        }
+      } else {
+        if (!allProperties[name]) {
+          allProperties[name] = {
+            keys: [],
+            propName: name,
+          };
+        }
+
+        if (!allProperties[name].keys.find((key) => key.value === value)) {
+          allProperties[name].keys.push({ value, propId });
+        }
+      }
+
+      const parsedPropsList = Object.keys(propsList).map((el, idx) => {
+        return { id: el, value: Object.values(propsList)[idx] };
       });
 
-      return { ...configs, configurators: newConfig, selected_quantity: 0 };
+      parsedPropsList.map((el) => {
+        if (el.id === id) {
+          property.originalName = el.value.split(':')[0];
+          property.originalValue = el.value.split(':')[1];
+        }
+      });
+
+      parsedTranslate.map((el) => {
+        if (el.id === id) {
+          property.name = el.value.split(':')[0]
+        }
+      });
     });
   });
 
-  attributes.map((el) => {
-    const newAllData: AttributesInterface[] = attributes.filter(
-      (item) => el.pid === item.pid && !el.imageUrl
-    );
-    if (newAllData.length) {
-      allProperties[newAllData[0].propertyName] = newAllData;
+  Object.keys(allProperties).forEach((name) => {
+    if (imageProperties[name]) {
+      imageProperties[name]?.keys.push(
+        ...allProperties[name].keys.filter(
+          (key) =>
+            !imageProperties[name].keys.some(
+              (imgKey) => imgKey.value === key.value
+            )
+        )
+      );
+      delete allProperties[name];
     }
   });
 
-  return { allProperties, imageProperties, ConfiguredItems };
+  return { allProperties, imageProperties, parsedSku };
 };

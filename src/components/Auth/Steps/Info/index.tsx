@@ -26,19 +26,19 @@ export default function Info() {
       disableOnMount: true,
     },
     onSuccess(res) {
-
+      // const backUrl = localStorage.getItem("backUrl");
       if (!res.token) {
         message.error(t("Auth.something_wrong"));
         return;
       }
-      const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
+      const maxAge = 10 * 24 * 60 * 60; // 10 days in seconds
 
       // Set the cookie
       cookie.set("token", res.token, {
         path: "/",
         maxAge: maxAge,
       });
-      push((query.backUrl as string) || "/");
+      push((localStorage.getItem("backUrl") as string) || "/");
     },
     onError(res) {
       message.error(t("Auth.something_wrong"));

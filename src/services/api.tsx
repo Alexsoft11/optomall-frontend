@@ -24,7 +24,7 @@ export const API = {
 
   getHomePageProducts: (lang: any, token?: string) =>
     axiosInstance.get(
-      `products?query=discount&productsCount=20&page=2&lang=${lang}`,
+      `products?query=discount&productsCount=60&page=2&lang=${lang}`,
       {
         headers: token ? { Authorization: "Bearer " + token } : {},
       }
@@ -86,7 +86,7 @@ export const API = {
   //  ProductDetail
   getProductDetail: (params: any) =>
     axiosInstance
-      .get(`product-detail-otapi`, { params: params })
+      .get(`product-detail-onbound`, { params: params })
       .then((res) => res.data),
 
   getProductDetailLocal: (params: any) =>
@@ -98,6 +98,9 @@ export const API = {
 
   getProductComments: (query: any) =>
     axiosInstance.get(`get-comments?product_id=${query}`),
+
+  translateProps: (data: any) =>
+    axiosInstance.post("translate", data).then((res) => res.data.translated[0]),
 
   // CartPage
   getUserBasket: (token: string, locale: string) =>

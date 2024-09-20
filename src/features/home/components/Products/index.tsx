@@ -9,27 +9,83 @@ import { LoadingSpinner } from "@/ui/Spin";
 import { CategoryInterface } from "../../interfaces";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import useQueryApiClient from "@/utils/useQueryApiClient";
+import Products from "@/components/Products";
+import { useRouter } from "next/router";
+import useSearchStore from "@/components/useSearchStore";
 
 const Card = dynamic(() => import("@/components/Card"));
 
 interface Props {
-  products: CardInterface[];
+  productsData: CardInterface[];
   categoryData: CategoryInterface[];
   getProductsData: any;
   isProductsLoading: any;
 }
 
-const Products = ({
-  categoryData,
-  getProductsData,
-  products,
-  isProductsLoading,
-}: Props) => {
+const ProductsSection = ({ categoryData }: Props) => {
   const t = useTranslations();
-
+  const { query, locale } = useRouter();
+  const [keyApi, setKeyApi] = useState("discount");
+  const {
+    products,
+    hasMore,
+    setProducts,
+    setHasMore,
+  } = useSearchStore();
+  const isEntered = typeof window !== "undefined" ? sessionStorage.getItem("isEnter") : null;
   const handleTabChange = (key: string) => {
     getProductsData({ query: key });
+    setKeyApi(key);
   };
+
+
+
+  const handleGetProductWhenScrool = (custom?: any) => {  
+    if (!isEntered && query) {
+      getProductsWhenScrool({
+        ...custom,
+        ...query,
+        lang: locale,
+        query: keyApi,
+      });
+    } else {
+      sessionStorage.removeItem("isEnter");
+    }
+  };
+  
+
+  const {
+    appendData: getProductsWhenScrool,
+    isLoading: isProductsScroolLoading,
+  } = useQueryApiClient({
+    request: {
+      url: `products`,
+      method: "GET",
+      disableOnMount: true,
+    },
+    onSuccess(res: any) {
+      if (!res.products.length) {
+        setHasMore(false);
+        return;
+      }
+      setProducts([...products, ...res.products]);
+    },
+  });
+
+  const { appendData: getProductsData, isLoading: isProductsLoading } =
+    useQueryApiClient({
+      request: {
+        url: `products`,
+        method: "GET",
+        disableOnMount: true,
+      },
+      onSuccess(res: any) {
+        if (res.products) {
+          setProducts(res.products);
+        }
+      },
+    });
 
   return (
     <div className={styles.products}>
@@ -50,21 +106,25 @@ const Products = ({
           <div className={styles.products__cards}>
             {isProductsLoading ? (
               <LoadingSpinner
-                spinning={true}
+                spinning={isProductsLoading}
                 tip={"loadingData"}
                 size="large"
               />
             ) : (
-              products?.map((el: CardInterface, idx: number) => (
-                <Card
-                  isBlank={false}
-                  key={el.id}
-                  data={el}
-                  provider={el.provider}
-                />
-              ))
+              <Products
+                type="scroll"
+                perPage={1}
+                data={products}
+                hasMore={hasMore}
+                handleGetProduct={handleGetProductWhenScrool}
+              />
             )}
           </div>
+          <LoadingSpinner
+            spinning={isProductsScroolLoading}
+            tip={"loadingData"}
+            size="large"
+          />
           <div className={styles.products__categories}>
             {categoryData?.map((item: any, idx: number) => (
               <div key={idx} className={styles.products__categories_inner}>
@@ -100,4 +160,4 @@ const Products = ({
   );
 };
 
-export default Products;
+export default ProductsSection;

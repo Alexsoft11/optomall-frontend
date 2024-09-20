@@ -69,7 +69,7 @@ export const validateName = (
   currentValue: any,
   value: string
 ) => {
-  const regex = /^[A-Za-z\s]+$/; // Regular expression to match letters and spaces
+  const regex = /^[A-zА-я\s]+$/; // Regular expression to match letters and spaces
   if (!regex.test(value)) {
     return Promise.reject(new Error(text));
   }

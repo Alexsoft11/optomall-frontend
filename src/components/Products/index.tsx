@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import styles from "./Products.module.scss";
 import Card from "../Card";
-import { LoadingSpinner } from "@/ui/Spin";
+import useSearchStore from "../useSearchStore";
 interface Props {
   data: any[];
   hasMore?: boolean;
   handleGetProduct?: (data?: any) => void;
   type?: "simp" | "scroll";
+  perPage?: number;
 }
 
 const Products = ({
@@ -15,17 +16,21 @@ const Products = ({
   handleGetProduct,
   hasMore = false,
   type,
+  perPage = 1,
 }: Props) => {
-  const [page, setPage] = useState(40);
-
+  const [page, setPage] = useState(perPage);
+  const { scrollPosition } = useSearchStore();
   const fetchMoreData = async () => {
-    if (!handleGetProduct) {
-      return;
-    }
-    const newCount = page + 40;
-    setPage(newCount);
-    handleGetProduct({ page: newCount });
+    if (!handleGetProduct) return;
+    setPage((prevPage) => prevPage + perPage);
+    handleGetProduct({ page: page + perPage });
   };
+
+  useEffect(() => {
+    if (type == "scroll") {
+      window.scrollTo(0, scrollPosition);
+    }
+  }, [scrollPosition]);
 
   return type == "scroll" ? (
     <div className={styles.products_scroll}>
