@@ -20,7 +20,7 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
 import { useJwt } from "@/utils/useJwt";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Scrollbar } from "swiper/modules";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import { API } from "@/services/api";
 
@@ -329,6 +329,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         className="order-modal"
         onCancel={handleCloseModal}
         open={!!type}
+        maskClosable={false}
         footer={
           <div className="modal-footer">
             <div className="totalPrice">
@@ -382,79 +383,71 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
               </h3>
             </div>
             <div className="property-items">
-              {Object.values(propertiesWithImages).map(({ keys, propName }) => (
-                <div className="content-inner" key={propName}>
-                  <h2>{capitalize(propName)}</h2>
-                  <Swiper
-                    spaceBetween={20}
-                    slidesPerView={1.1}
-                    loop={true}
-                    modules={[Navigation]}
-                    breakpoints={{
-                      1000: {
-                        slidesPerView: 8,
-                      },
-                      960: {
-                        slidesPerView: 6,
-                      },
-                      480: {
-                        slidesPerView: 5,
-                      },
-                      380: {
-                        slidesPerView: 1.3,
-                      },
-                    }}
-                    pagination={{ clickable: true }}
-                  >
-                    {keys.map(({ value, propId, imageUrl }, index) => (
-                      <SwiperSlide key={propId}>
-                        <Badge count={getPropertyQuantity(propId, propName)}>
-                          <div
-                            key={propId}
-                            onClick={() =>
-                              handlePropertySelect(propId, propName)
-                            }
-                            className={`img-block ${currentSku?.properties.split(";").includes(propId)
-                              ? styles.active
-                              : !getExist(propId, parsedSku)
-                                ? styles.disable
-                                : ""
-                              }`}
-                          >
-                            {imageUrl && (
-                              <div
-                                // onClick={() => {
-                                //   const validImageUrls = keys
-                                //     .map(({ imageUrl }) => imageUrl)
-                                //     .filter((url): url is string => !!url); // Filters out undefined values
-                                //   handleImageClick(validImageUrls, index);
-                                // }}
-                                className="img-box"
-                              >
-                                <span
-                                  className="view-icon"
-                                  onClick={() => {
-                                    const validImageUrls = keys
-                                      .map(({ imageUrl }) => imageUrl)
-                                      .filter((url): url is string => !!url);
-                                    handleImageClick(validImageUrls, index);
-                                  }}
-                                >
-                                  <SvgSelector id="open-image-view-svg" />
-                                </span>
-                                <Image src={imageUrl} alt={value} fill />
+              {Object.values(propertiesWithImages).map(({ keys, propName }) => {
+                const slidesCount = keys.length; // Calculate slide count dynamically
+
+                return (
+                  <div className="content-inner" key={propName}>
+                    <h2>{capitalize(propName)}</h2>
+                    <Swiper
+                      spaceBetween={20}
+                      slidesPerView={Math.min(3, slidesCount)} // Adjust based on slide count
+                      modules={[Navigation, Scrollbar]} // Add Scrollbar module here
+                      scrollbar={{ draggable: true }}   // Enable the draggable scrollbar
+                      breakpoints={{
+                        1000: {
+                          slidesPerView: Math.min(8, slidesCount),
+                        },
+                        960: {
+                          slidesPerView: Math.min(6, slidesCount),
+                        },
+                        0: {
+                          slidesPerView: "auto",
+                        },
+                      }}
+                      pagination={{ clickable: true }}
+                    >
+                      {keys.map(({ value, propId, imageUrl }, index) => (
+                        <SwiperSlide key={propId}>
+                          <Badge count={getPropertyQuantity(propId, propName)}>
+                            <div
+                              onClick={() =>
+                                handlePropertySelect(propId, propName)
+                              }
+                              className={`img-block ${currentSku?.properties.split(";").includes(propId)
+                                ? styles.active
+                                : !getExist(propId, parsedSku)
+                                  ? styles.disable
+                                  : ""
+                                }`}
+                            >
+                              {imageUrl && (
+                                <div className="img-box">
+                                  <span
+                                    className="view-icon"
+                                    onClick={() => {
+                                      const validImageUrls = keys
+                                        .map(({ imageUrl }) => imageUrl)
+                                        .filter((url): url is string => !!url);
+                                      handleImageClick(validImageUrls, index);
+                                    }}
+                                  >
+                                    <SvgSelector id="open-image-view-svg" />
+                                  </span>
+                                  <Image src={imageUrl} alt={value} fill />
+                                </div>
+                              )}
+                              <div className="img-describtion">
+                                <p>{value}</p>
                               </div>
-                            )}
-                            <div className="img-describtion">
-                              <p>{value}</p>
                             </div>
-                          </div>
-                        </Badge>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                </div>
-              ))}
+                          </Badge>
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </div>
+                );
+              })}
               {Object.entries(groupedProperties).map(
                 ([propName, { keys }], idx) => (
                   <div className="content-inner grouped-prop" key={propName}>
