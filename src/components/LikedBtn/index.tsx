@@ -41,9 +41,26 @@ const LikedBtn = ({ onLikeChange, product_id, isLike, id_filter, card }:LikedPro
       }
       if (token) {
         if (onLikeChange) {
-          dislikeCard([card.product_id.toString()])
+          // dislikeCard([card.product_id.toString()])
+          dislikeCard([
+            {
+              product_id: card.product_id.toString(),
+              title: card.title,
+              price: card.price,
+              provider: card.provider,
+              image: card.image
+            }
+          ]);
         } else {
-          dislikeCard([card.id.toString()])
+          dislikeCard([
+            {
+              product_id: card.id.toString(),
+              title: card.title,
+              price: card.price,
+              provider: card.provider,
+              image: card.image
+            }
+          ])
         }
       }
 
@@ -53,7 +70,15 @@ const LikedBtn = ({ onLikeChange, product_id, isLike, id_filter, card }:LikedPro
     } else {
       setChangeLike(true);
       if (token) {
-        dislikeCard([card.id.toString()]);
+        dislikeCard([
+          {
+            product_id: card.id.toString(),
+            title: card.title,
+            price: card.price,
+            provider: card.provider,
+            image: card.image
+          }
+        ]);
       } else {
         likedProducts.push(card);
         localStorage.setItem('likedProducts', JSON.stringify(likedProducts));
@@ -67,6 +92,7 @@ const LikedBtn = ({ onLikeChange, product_id, isLike, id_filter, card }:LikedPro
       method: 'POST',
     },
     onSuccess(res) {
+      console.log('dedeff')
     },
   })
 
