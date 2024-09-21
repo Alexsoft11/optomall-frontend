@@ -76,7 +76,7 @@ const Card = ({
     <div className={styles.card} data-aos="fade-up" data-aos-duration="1200">
       <div onClick={handleLinkClick}>
         <div className={styles.card__image}>
-          <CustomImage
+          {/* <CustomImage
             className={styles.card__image}
             src={data.image}
             alt="img"
@@ -85,7 +85,7 @@ const Card = ({
             loading="lazy"
             width={1000}
             height={1000}
-          />
+          /> */}
         </div>
 
         {window.innerWidth <= 768 ? (

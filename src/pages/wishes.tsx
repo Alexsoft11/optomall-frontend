@@ -26,7 +26,7 @@ const WishesPage = ({ }: WishesProps) => {
   return (
     <>
       {isProductsLoading ? <LoadingSpinner fullscreen /> : (
-        <Wishes wishesData={wishesData.data} />
+        <Wishes wishesData={wishesData} />
       )}
     </>
   );
