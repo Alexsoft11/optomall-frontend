@@ -7,7 +7,6 @@ import CustomImage from "../CustomImage";
 import LikedBtn from "../LikedBtn";
 import { useRouter } from "next/router";
 import { formatPrice } from "@/constants";
-import Cookies from "universal-cookie";
 import useSearchStore from "../useSearchStore";
 
 interface CardProps {
@@ -27,7 +26,6 @@ const Card = ({
   const textRef = useRef<any>(null);
   const [isOverflowed, setIsOverflowed] = useState(false);
   const router = useRouter();
-  const cookie = new Cookies();
   const locale = useLocale();
   const { setScrollPosition } = useSearchStore();
 
@@ -40,13 +38,16 @@ const Card = ({
 
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    sessionStorage.setItem("isEnter", 'isEnter');
+    if (router.pathname.includes('search')) {
+      sessionStorage.setItem("isEnterSearch", 'search');
+    } else {
+      sessionStorage.setItem("isEnter", 'default');
+    }
     setScrollPosition(window.scrollY);
 
     const id = router.pathname.includes("wishes") ? data.product_id : data.id;
-    let url = `/${router.locale}/product/${id}?provider=${
-      provider || router.query.provider || "1688"
-    }`;
+    let url = `/${router.locale}/product/${id}?provider=${provider || router.query.provider || "1688"
+      }`;
     if (router.pathname.includes("search") && router.query.value) {
       url = `${url}&category=${router.query.value}`;
       if (router.query.carId) {

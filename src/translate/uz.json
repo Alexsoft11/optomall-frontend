@@ -191,7 +191,7 @@
     "upload_title": "Mahsulotlarni rasm bo'yicha qidirish",
     "upload_text": "Rasmni bu yerga sudrab olib tashlang",
     "noItems": "Mahsulotlar topilmadi",
-    "default": "Birlamchi",
+    "default": "Standart",
     "price_down": "Past narx",
     "price_top": "Tepa narx",
     "search_place": "Taobao yoki 1688 havolasini kiriting",
@@ -262,6 +262,7 @@
   },
   "Product-detail": {
     "isMaxQuantity": "maksimal miqdor",
+    "isMinQuantity": "Минимальное количество",
     "bought": "Sotib olganlar",
     "compound": "Tarkibi",
     "made_country": "Ishlab chiqarilgan davlati",

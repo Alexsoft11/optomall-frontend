@@ -23,8 +23,8 @@ const Search = ({ data = [] }: Props) => {
   const { query, pathname, replace, locale, events } = router;
   const [activePlatform, setActivePlatform] = useState<any>("1688");
   const [form] = Form.useForm();
-  const isEntered = typeof window !== "undefined" ? sessionStorage.getItem("isEnter") : null;
-  
+  const isEntered = typeof window !== "undefined" ? sessionStorage.getItem("isEnterSearch") : null;
+
   const {
     products,
     hasMore,
@@ -32,6 +32,7 @@ const Search = ({ data = [] }: Props) => {
     setProducts,
     setHasMore,
     setActiveSort,
+    setScrollPosition
   } = useSearchStore();
 
   const handleButtonClick = (platform: any) => {
@@ -84,7 +85,7 @@ const Search = ({ data = [] }: Props) => {
           page: 1,
         });
       } else {
-        sessionStorage.removeItem("isEnter");
+        sessionStorage.removeItem("isEnterSearch");
       }
     }
   }, [query, locale]);
@@ -179,28 +180,28 @@ const Search = ({ data = [] }: Props) => {
             <div className={styles.search__top}>
               <div className={styles.search__btns}>
                 <button
-                  className={activeSort === "Default" ? styles.active : ""}
-                  onClick={() => handleFilter("Default")}
+                  className={activeSort === "" ? styles.active : ""}
+                  onClick={() => handleFilter("")}
                 >
                   {t("default")}
                 </button>
                 <button
                   className={
-                    activeSort === "TotalPrice:Asc" ? styles.active : ""
+                    activeSort === "sale" ? styles.active : ""
                   }
-                  onClick={() => handleFilter("TotalPrice:Asc")}
+                  onClick={() => handleFilter("sale")}
                 >
                   {t("sales")}
                 </button>
                 <button
-                  className={activeSort === "Price:Asc" ? styles.active : ""}
-                  onClick={() => handleFilter("Price:Asc")}
+                  className={activeSort === "_bid" ? styles.active : ""}
+                  onClick={() => handleFilter("_bid")}
                 >
                   {t("price_down")}
                 </button>
                 <button
-                  className={activeSort === "Price:Desc" ? styles.active : ""}
-                  onClick={() => handleFilter("Price:Desc")}
+                  className={activeSort === "bid" ? styles.active : ""}
+                  onClick={() => handleFilter("bid")}
                 >
                   {t("price_top")}
                 </button>

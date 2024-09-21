@@ -32,7 +32,6 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
   const [itemQuantity, setItemQuantity] = useState<number>(0);
   const [messageDisplayed, setMessageDisplayed] = useState(false);
   const token = useJwt();
-  console.log("ptoduct :", product);
 
   const toAuth = (path: string) => {
     localStorage.setItem("backUrl", asPath);
@@ -131,7 +130,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
             {formatPrice(product?.price)} uzs
           </span>
           {product?.discounted_price &&
-          product.price !== product.discounted_price ? (
+            product.price !== product.discounted_price ? (
             <>
               <span className={styles.discount}>
                 -{product.discount_percentage}%
@@ -181,10 +180,11 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
           />
         ) : null}
       </div>
-      {product && product?.quantityRanges && product?.quantityRanges.length ? (
+      {product && product?.quantityRanges && product?.quantityRanges && product?.quantityRanges?.length ? (
         <div className={styles.price_range}>
-          {product?.quantityRanges.map((el, index) => {
-            const next = product?.quantityRanges[index + 1];
+          {product?.quantityRanges?.map((el, index) => {
+            const quantityRange = product?.quantityRanges || []
+            const next = quantityRange[index + 1];
             return (
               <div className={styles.item} key={el.minQuantity}>
                 <h4>{formatPrice(el.price)} uzs</h4>

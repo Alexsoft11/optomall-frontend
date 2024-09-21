@@ -8,7 +8,8 @@ import { API } from "@/services/api";
 
 export const parseSKUProperties = (
   skus: SKU[],
-  parsedTranslate: { id: string; value: any }[]
+  parsedTranslate: { id: string; value: any }[],
+  quantityRanges?: any[]
 ): SKU[] => {
   return skus.map((item) => {
     const propertiesArray = item.properties_name.split(";").map((prop) => {
@@ -29,6 +30,7 @@ export const parseSKUProperties = (
     });
     return {
       ...item,
+      quantityRanges: quantityRanges,
       parsedProperties: propertiesArray,
     };
   });
@@ -37,7 +39,9 @@ export const parseSKUProperties = (
 export const groupProperties = async (
   skus: SKU[],
   propsImgs: PropImage[],
-  propsList: PropsList
+  propsList: PropsList,
+  lang?: string,
+  quantityRanges?: any[]
 ): Promise<{
   allProperties: GroupedProperties;
   imageProperties: GroupedProperties;
@@ -52,7 +56,7 @@ export const groupProperties = async (
   const translateData = {
     data: propsList,
     from: "auto",
-    to: "en",
+    to: lang || "ru",
   };
 
   // Await the translation API call
@@ -69,10 +73,7 @@ export const groupProperties = async (
     return { id: el, value: Object.values(translaperProps)[idx] as string };
   });
 
-  console.log("parsedTranslate :", parsedTranslate);
-  console.log("translaperProps :", translaperProps);
-
-  const parsedSku = parseSKUProperties(skus, parsedTranslate);
+  const parsedSku = parseSKUProperties(skus, parsedTranslate, quantityRanges);
 
   parsedSku.forEach((sku) => {
     sku.selected_quantity = 0;
@@ -119,8 +120,6 @@ export const groupProperties = async (
           property.originalValue = el.value.split(':')[1];
         }
       });
-
-      // console.log('parsedTranslate :', parsedTranslate);
 
       parsedTranslate.map((el) => {
         if (el.id === id) {
