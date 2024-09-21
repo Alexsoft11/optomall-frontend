@@ -15,7 +15,7 @@ interface Product {
 }
 
 interface IProps {
-  product: Product;
+  product: any;
 }
 
 const ProductIsLike: FC<IProps> = ({ product }) => {
