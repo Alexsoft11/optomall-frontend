@@ -11,7 +11,7 @@ export const ModalLinks = [
   { href: "/messages", id: "message-modal-svg", textKey: "messages" },
   { href: "/purchases?filter=all", id: "shop-modal-svg", textKey: "purchases" },
   { href: "/my-reviews?filter=commented", id: "my-views", textKey: "views" },
-  { href: "/customs", id: "search-modal-svg", textKey: "customs" },
+  // { href: "/customs", id: "search-modal-svg", textKey: "customs" },
   { href: "/make-payment", id: "search-modal-svg", textKey: "make_payment" },
   // { href: "/messages", id: "questions-svg", textKey: "questions" },
   { href: "/transport", id: "transport-svg", textKey: "transport" },
