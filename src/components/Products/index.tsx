@@ -30,6 +30,7 @@ const Products = ({
     if (type == "scroll") {
       window.scrollTo(0, scrollPosition);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scrollPosition]);
 
   return type == "scroll" ? (

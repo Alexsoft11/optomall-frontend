@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import styles from "./Products.module.scss";
 import { CustomTabs } from "@/ui/Tabs";
 import TabPane from "antd/es/tabs/TabPane";
@@ -7,7 +7,6 @@ import { CardInterface } from "@/interfaces";
 import { useTranslations } from "next-intl";
 import { LoadingSpinner } from "@/ui/Spin";
 import { CategoryInterface } from "../../interfaces";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import Products from "@/components/Products";
@@ -27,21 +26,22 @@ const ProductsSection = ({ categoryData }: Props) => {
   const t = useTranslations();
   const { query, locale } = useRouter();
   const [keyApi, setKeyApi] = useState("discount");
+
   const {
     products,
     hasMore,
     setProducts,
     setHasMore,
   } = useSearchStore();
+
   const isEntered = typeof window !== "undefined" ? sessionStorage.getItem("isEnter") : null;
+
   const handleTabChange = (key: string) => {
     getProductsData({ query: key });
     setKeyApi(key);
   };
 
-
-
-  const handleGetProductWhenScrool = (custom?: any) => {  
+  const handleGetProductWhenScrool = (custom?: any) => {
     if (!isEntered && query) {
       getProductsWhenScrool({
         ...custom,
@@ -53,7 +53,7 @@ const ProductsSection = ({ categoryData }: Props) => {
       sessionStorage.removeItem("isEnter");
     }
   };
-  
+
 
   const {
     appendData: getProductsWhenScrool,
@@ -125,7 +125,7 @@ const ProductsSection = ({ categoryData }: Props) => {
             tip={"loadingData"}
             size="large"
           />
-          <div className={styles.products__categories}>
+          {/* <div className={styles.products__categories}>
             {categoryData?.map((item: any, idx: number) => (
               <div key={idx} className={styles.products__categories_inner}>
                 <div className={styles.products__banner}>
@@ -153,7 +153,7 @@ const ProductsSection = ({ categoryData }: Props) => {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
