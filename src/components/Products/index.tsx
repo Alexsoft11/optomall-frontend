@@ -30,7 +30,7 @@ const Products = ({
     if (type == "scroll") {
       window.scrollTo(0, scrollPosition);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scrollPosition]);
 
   return type == "scroll" ? (
@@ -43,7 +43,7 @@ const Products = ({
       >
         <div className={styles.product_list}>
           {data?.map((el: any, idx: number) => (
-            <Card isBlank={false} key={idx} data={el} />
+            <Card isBlank={false} key={idx} data={el} provider={el.provider} />
           ))}
         </div>
       </InfiniteScroll>
@@ -51,7 +51,7 @@ const Products = ({
   ) : (
     <div className={styles.product_list}>
       {data?.map((item, idx) => (
-        <Card key={idx} data={item} />
+        <Card key={idx} data={item} provider={item.provider} />
       ))}
     </div>
   );
