@@ -12,14 +12,12 @@ import useSearchStore from "../useSearchStore";
 interface CardProps {
   data: CardInterface;
   onLikeChange?: (cardId: number) => void;
-  provider?: string;
   isBlank?: boolean;
 }
 
 const Card = ({
   data,
   onLikeChange,
-  provider,
   isBlank,
 }: CardProps) => {
   const t = useTranslations("GLOBAL");
@@ -28,7 +26,7 @@ const Card = ({
   const router = useRouter();
   const locale = useLocale();
   const { setScrollPosition } = useSearchStore();
-
+  const provider = data.provider == 'Alibaba1688' ? '1688' : data.provider
   useEffect(() => {
     const { current } = textRef;
     if (current) {
