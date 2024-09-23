@@ -4,7 +4,6 @@ import Card from "@/components/Card";
 import { CardInterface } from "@/interfaces";
 import { useTranslations } from "next-intl";
 import { useJwt } from "@/utils/useJwt";
-import useQueryApiClient from "@/utils/useQueryApiClient";
 import PageNoItems from "@/components/PageNoItems";
 
 interface Props {

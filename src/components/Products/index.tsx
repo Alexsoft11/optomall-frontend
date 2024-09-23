@@ -43,7 +43,7 @@ const Products = ({
       >
         <div className={styles.product_list}>
           {data?.map((el: any, idx: number) => (
-            <Card isBlank={false} key={idx} data={el} provider={el.provider} />
+            <Card isBlank={false} key={idx} data={el} />
           ))}
         </div>
       </InfiniteScroll>
@@ -51,7 +51,7 @@ const Products = ({
   ) : (
     <div className={styles.product_list}>
       {data?.map((item, idx) => (
-        <Card key={idx} data={item} provider={item.provider} />
+        <Card key={idx} data={item} />
       ))}
     </div>
   );
