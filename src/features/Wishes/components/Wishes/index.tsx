@@ -17,7 +17,6 @@ const Wishes = ({ wishesData }: Props) => {
   const initialData: CardInterface[] = savedData ? JSON.parse(savedData) : [];
   
   const token = useJwt();
-  console.log(wishesData)
   
   useEffect(() => {
     if (!token) {
