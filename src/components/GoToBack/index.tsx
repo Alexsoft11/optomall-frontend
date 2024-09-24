@@ -1,19 +1,40 @@
-import React, { FC } from "react";
+import React, { Component, FC } from "react";
 import Link from "next/link";
 import { Breadcrumb, ConfigProvider } from "antd";
 import { useTranslations } from "next-intl";
 import { IGoToBack } from "../Types";
 import SvgSelector from "$/assets/icons/SvgSelector";
 
-const GoToBack: FC<IGoToBack> = ({ pathArr, styles = {color: ''}, backUrl }) => {
+const GoToBack: FC<IGoToBack> = ({
+  pathArr,
+  styles = { color: "" },
+  backUrl,
+}) => {
   const t = useTranslations("GLOBAL");
   let arr = [{ title: <Link href={"/"}>{t("home")}</Link> }];
 
-  pathArr?.map((el:any) => {
-    arr.push({ title: el.path ? <Link style={{cursor: el.path ? 'pointer' : "default"}} href={el.path}>{el.titleNotr ? el.titleNotr : t(el.title)}</Link>  : <p  style={{cursor:'pointer'}}>{el.titleNotr ? el.titleNotr : t(el.title)}</p>});
+  pathArr?.map((el: any) => {
+    arr.push({
+      title: el.path ? (
+        <Link
+          style={{ cursor: el.path ? "pointer" : "default" }}
+          href={el.path}
+        >
+          {el.titleNotr ? el.titleNotr : t(el.title)}
+        </Link>
+      ) : (
+        <p style={{ cursor: "pointer" }}>
+          {el.titleNotr ? el.titleNotr : t(el.title)}
+        </p>
+      ),
+    });
   });
 
-  if (backUrl) arr = [{title: <Link href={backUrl}>{t("back")}</Link>}, {title: <span></span>}]
+  if (backUrl)
+    arr = [
+      { title: <Link href={backUrl}>{t("back")}</Link> },
+      { title: <span></span> },
+    ];
 
   return (
     <div className="go_to_back" data-aos="fade-up">
@@ -21,12 +42,12 @@ const GoToBack: FC<IGoToBack> = ({ pathArr, styles = {color: ''}, backUrl }) => 
         theme={{
           components: {
             Breadcrumb: {
-              linkColor: styles?.color|| "#000000",
-              linkHoverColor: styles?.color ||"#000000",
+              linkColor: styles?.color || "#000000",
+              linkHoverColor: styles?.color || "#000000",
             },
           },
           token: {
-            colorText: styles?.color ||  "#000000",
+            colorText: styles?.color || "#000000",
             colorBgTextHover: "none",
             fontSize: 16,
           },

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import styles from './MainSlider.module.scss'
-import SearchBtn from '@/components/SearchBtn';
 import MainSliderCard from '../MainSliderCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -9,6 +8,10 @@ import 'swiper/css/pagination';
 import { SlidersDataInterface } from '@/interfaces';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
+
+const SearchBtn = dynamic(() => import('@/components/SearchBtn'), );
+
 
 interface Props {
   data: SlidersDataInterface[];
