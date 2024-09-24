@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import DataNotFound from "@/ui/DataNotFound";
 import useQueryApiClient from "@/utils/useQueryApiClient";
+import { message } from "antd";
 
 
 
@@ -26,6 +27,7 @@ const ProductDetailSectionLocal = dynamic(
 
 const ProductDetail = () => {
   const { query, locale } = useRouter();
+
   const { data: productComments } = useQueryApiClient({
     request: {
       url: `get-comments?product_id=${query.id}`,
@@ -35,7 +37,7 @@ const ProductDetail = () => {
     enabled: !!query.id,
   });
 
-  const { data: product, appendData, isLoading } = useQueryApiClient({
+  const { data: product, appendData, isLoading, isError } = useQueryApiClient({
     request: {
       url: `product-detail-onbound`,
       method: "GET",
@@ -76,11 +78,11 @@ const ProductDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product?.detail?.image]);
 
-  if (!product) {
+  if (isError) {
     return <DataNotFound />;
   }
   const title = product?.detail?.title;
-
+  console.log(product)
   return (
     <>
       {isLoading ? <LoadingSpinner size="large" fullscreen /> : product?.detail && (
