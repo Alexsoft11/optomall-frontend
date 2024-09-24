@@ -82,7 +82,6 @@ const ProductDetail = () => {
     return <DataNotFound />;
   }
   const title = product?.detail?.title;
-  console.log(product)
   return (
     <>
       {isLoading ? <LoadingSpinner size="large" fullscreen /> : product?.detail && (
