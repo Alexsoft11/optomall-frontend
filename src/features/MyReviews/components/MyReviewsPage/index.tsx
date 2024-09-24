@@ -7,7 +7,6 @@ import ReviewModal from '../ReviewModal/Index';
 import { useRouter } from 'next/router';
 import { MyReviewsReviewedInterface } from '../../interfaces';
 import useQueryApiClient from '@/utils/useQueryApiClient';
-import { data } from 'yandex-maps';
 
 interface Props {
     data: MyReviewsReviewedInterface[]

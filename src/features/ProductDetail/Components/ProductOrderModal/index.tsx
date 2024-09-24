@@ -429,7 +429,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                       scrollbar={{ draggable: true }}
                       breakpoints={{
                         1000: {
-                          slidesPerView: Math.min(8, slidesCount),
+                          slidesPerView: 8,
                         },
                         960: {
                           slidesPerView: Math.min(6, slidesCount),
@@ -447,15 +447,14 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                               onClick={() =>
                                 handlePropertySelect(propId, propName)
                               }
-                              className={`img-block ${
-                                currentSku?.properties
-                                  .split(";")
-                                  .includes(propId)
-                                  ? styles.active
-                                  : !getExist(propId, parsedSku)
+                              className={`img-block ${currentSku?.properties
+                                .split(";")
+                                .includes(propId)
+                                ? styles.active
+                                : !getExist(propId, parsedSku)
                                   ? styles.disable
                                   : ""
-                              }`}
+                                }`}
                             >
                               {imageUrl && (
                                 <div className="img-box">
@@ -495,8 +494,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                             idx !== 0
                               ? null
                               : !Object.values(propertiesWithImages).length
-                              ? getPropertyQuantity(propId, propName)
-                              : null
+                                ? getPropertyQuantity(propId, propName)
+                                : null
                           }
                           key={value}
                         >
@@ -508,8 +507,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                               currentSku?.properties.split(";").includes(propId)
                                 ? styles.active
                                 : !getExist(propId, parsedSku)
-                                ? styles.disable
-                                : ""
+                                  ? styles.disable
+                                  : ""
                             }
                           >
                             {value}

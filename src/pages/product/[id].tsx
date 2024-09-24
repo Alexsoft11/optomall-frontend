@@ -1,21 +1,13 @@
 import PageLayout from "@/components/Layout/PageLayout";
-import { API } from "@/services/api";
 import { LoadingSpinner } from "@/ui/Spin";
 
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import DataNotFound from "@/ui/DataNotFound";
-import { IProductComments } from "@/features/ProductDetail/interface";
 import useQueryApiClient from "@/utils/useQueryApiClient";
-import { message } from "antd";
 
-interface ProductDetailProps {
-  product: any;
-  productComments: IProductComments[];
-  score: any;
-  error: any;
-}
+
 
 const ProductDetailSection = dynamic(
   () => import("@/features/ProductDetail/Components/ProductDetailSection"),
@@ -32,7 +24,7 @@ const ProductDetailSectionLocal = dynamic(
   }
 );
 
-const ProductDetail = ({ product, error }: ProductDetailProps) => {
+const ProductDetail = () => {
   const { query, locale } = useRouter();
   const { data: productComments } = useQueryApiClient({
     request: {
@@ -43,10 +35,17 @@ const ProductDetail = ({ product, error }: ProductDetailProps) => {
     enabled: !!query.id,
   });
 
+  const { data: product, appendData, isLoading } = useQueryApiClient({
+    request: {
+      url: `product-detail-onbound`,
+      method: "GET",
+      disableOnMount: true,
+    },
+  });
+
   const {
     appendData: getSearchRes,
     data: recomendProducts,
-    isLoading: isSearchResLoading,
   } = useQueryApiClient({
     request: {
       url: `search-products-from-taobao?imageUrl=${product?.detail?.image}&lang=${locale}&provider=${query.provider}`,
@@ -56,15 +55,26 @@ const ProductDetail = ({ product, error }: ProductDetailProps) => {
   });
 
   useEffect(() => {
+    if (query.id) {
+      const id: any = query.id ? query.id : ""
+      const productId = id.replace(/^abb-/, '')
+      const params = {
+        productId: productId,
+        lang: locale,
+        provider: query.provider,
+      };
+      appendData(params)
+    }
+
+  }, [query])
+
+
+  useEffect(() => {
     if (product?.detail?.image) {
       getSearchRes();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product?.detail?.image]);
-
-  if (error) {
-    console.error(error);
-  }
 
   if (!product) {
     return <DataNotFound />;
@@ -72,62 +82,28 @@ const ProductDetail = ({ product, error }: ProductDetailProps) => {
   const title = product?.detail?.title;
 
   return (
-    <PageLayout metaTitle={title}>
-      {query.provider === "local" ? (
-        <ProductDetailSectionLocal
-          product={product.detail}
-          productComments={productComments}
-          recommended={recomendProducts.products}
-          score={product.score}
-        />
-      ) : (
-        <ProductDetailSection
-          product={product.detail}
-          productComments={productComments}
-          recommended={recomendProducts.products}
-          score={product.score}
-        />
+    <>
+      {isLoading ? <LoadingSpinner size="large" fullscreen /> : product?.detail && (
+        <PageLayout metaTitle={title}>
+          {query.provider === "local" ? (
+            <ProductDetailSectionLocal
+              product={product.detail}
+              productComments={productComments}
+              recommended={recomendProducts.products}
+              score={product.score}
+            />
+          ) : (
+            <ProductDetailSection
+              product={product.detail}
+              productComments={productComments}
+              recommended={recomendProducts.products}
+              score={product.score}
+            />
+          )}
+        </PageLayout>
       )}
-    </PageLayout>
+    </>
   );
-};
-interface ErrorResponse {
-  message: string;
-  [key: string]: any;
-}
-
-export const getServerSideProps = async (context: any) => {
-  try {
-    const provider = context.query.provider || "1688";
-    const productId = context.params.id.replace(/^abb-/, '');
-    const params = {
-      productId: productId,
-      lang: context.locale,
-      provider: provider,
-    };
-
-    let product = await API.getProductDetail(params);
-    return {
-      props: {
-        product,
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching product data:", error);
-    const errorMessage =
-      (error as Error).message ||
-      "An error occurred while fetching the product data";
-    const errorData: ErrorResponse = (error as any).response?.data || {
-      message: errorMessage,
-    };
-
-    return {
-      props: {
-        product: null,
-        error: errorData,
-      },
-    };
-  }
 };
 
 export default ProductDetail;
