@@ -28,14 +28,7 @@ const ProductDetailSectionLocal = dynamic(
 const ProductDetail = () => {
   const { query, locale } = useRouter();
 
-  const { data: productComments } = useQueryApiClient({
-    request: {
-      url: `get-comments?product_id=${query.id}`,
-      method: "GET",
-      disableOnMount: !query.id,
-    },
-    enabled: !!query.id,
-  });
+
 
   const { data: product, appendData, isLoading, isError } = useQueryApiClient({
     request: {
@@ -77,6 +70,15 @@ const ProductDetail = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product?.detail?.image]);
+
+  const { data: productComments } = useQueryApiClient({
+    request: {
+      url: `get-comments?product_id=${query.id}`,
+      method: "GET",
+      disableOnMount: !query.id,
+    },
+    enabled: !!query.id,
+  });
 
   if (isError) {
     return <DataNotFound />;
