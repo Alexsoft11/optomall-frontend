@@ -49,6 +49,14 @@ const ProductDetail = () => {
     },
   });
 
+  const { data: productComments, appendData: getComments } = useQueryApiClient({
+    request: {
+      url: `get-comments?product_id=${query.id}`,
+      method: "GET",
+      disableOnMount: false,
+    },
+  });
+
   useEffect(() => {
     if (query.id) {
       const id: any = query.id ? query.id : ""
@@ -59,9 +67,9 @@ const ProductDetail = () => {
         provider: query.provider,
       };
       appendData(params)
+      getComments()
     }
-
-  }, [query])
+  }, [query, locale])
 
 
   useEffect(() => {
@@ -71,14 +79,7 @@ const ProductDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product?.detail?.image]);
 
-  const { data: productComments } = useQueryApiClient({
-    request: {
-      url: `get-comments?product_id=${query.id}`,
-      method: "GET",
-      disableOnMount: !query.id,
-    },
-    enabled: !!query.id,
-  });
+
 
   if (isError) {
     return <DataNotFound />;
