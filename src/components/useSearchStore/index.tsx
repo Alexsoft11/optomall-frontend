@@ -15,7 +15,7 @@ interface SearchState {
 const useSearchStore = create<SearchState>((set) => ({
   products: [],
   hasMore: true,
-  activeSort: "Default",
+  activeSort: "",
   scrollPosition: 0,
   setProducts: (products) => set(() => ({ products })),
   appendProducts: (newProducts) =>
