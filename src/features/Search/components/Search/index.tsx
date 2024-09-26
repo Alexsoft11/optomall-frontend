@@ -239,9 +239,9 @@ const Search = ({ data = [] }: Props) => {
               data={products}
               hasMore={hasMore}
               handleGetProduct={handleGetProduct}
+              scroolLoading={isProductsLoading}
             />
           )}
-          <LoadingSpinner size="large" spinning={isProductsLoading} />
         </div>
       </div>
     </div>

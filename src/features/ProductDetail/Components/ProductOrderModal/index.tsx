@@ -24,6 +24,7 @@ import { Navigation, Scrollbar } from "swiper/modules";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import { API } from "@/services/api";
 import { formatPrice } from "@/constants";
+import { LoadingSpinner } from "@/ui/Spin";
 
 interface Props {
   product: ProductDetailInterface;
@@ -69,7 +70,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     setPhotoIndex(index);
     setIsOpen(true);
   };
-  const { appendData: createUserBasket } = useQueryApiClient({
+  const { appendData: createUserBasket, isLoading: isOrderLoading } = useQueryApiClient({
     request: {
       url: type && type === "to_cart" ? `user-basket` : "orders",
       method: "POST",
@@ -358,6 +359,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
   return (
     <div>
       {contextHolder}
+      <LoadingSpinner spinning={isOrderLoading} fullscreen size="large" />
       <Modal
         className="order-modal"
         onCancel={handleCloseModal}

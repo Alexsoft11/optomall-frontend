@@ -29,3 +29,14 @@
     flex-wrap: wrap !important;
   }
 }
+
+.load_more_button {
+  margin: auto;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: var(--primary-color);
+  font-size: 18px;
+}
