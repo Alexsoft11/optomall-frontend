@@ -4,10 +4,9 @@ import {
   GroupedProperties,
   ProductDetailInterface,
   SKU,
-  BasketInterface,
-  CreateOrderItemsDataInterface,
   CreateOrderDataInterface,
   CreateBaskettemsDataInterface,
+  PropsList,
 } from "../../interface";
 import { Button, Modal } from "@/ui";
 import { groupProperties } from "@/utils/orderFunctions";
@@ -29,9 +28,15 @@ interface Props {
   product: ProductDetailInterface;
   setOrderType?: any;
   type?: "to_order" | "to_cart" | null;
+  translatedData?: PropsList;
 }
 
-const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
+const ProductOrderModal = ({
+  product,
+  setOrderType,
+  type,
+  translatedData,
+}: Props) => {
   const t = useTranslations();
   const { skus, prop_imgs } = product || {};
   const router = useRouter();
@@ -63,7 +68,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [currentImages, setCurrentImages] = useState<string[]>([]);
-
+  
   const handleImageClick = (images: string[], index: number) => {
     setCurrentImages(images);
     setPhotoIndex(index);
@@ -83,7 +88,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
         skus,
         prop_imgs,
         product.props_list,
-        router?.locale,
+        translatedData,
         product.quantityRanges
       )
         .then(({ parsedSku }) => {
@@ -111,7 +116,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
             skus,
             prop_imgs,
             product.props_list,
-            router?.locale,
+            translatedData,
             product.quantityRanges
           );
 
@@ -132,7 +137,7 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
     };
 
     fetchGroupedProperties();
-  }, [skus, prop_imgs]);
+  }, [skus, prop_imgs, translatedData]);
 
   const getImageUrl = (propertys: string[]) => {
     let url = "";
@@ -447,14 +452,15 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                               onClick={() =>
                                 handlePropertySelect(propId, propName)
                               }
-                              className={`img-block ${currentSku?.properties
-                                .split(";")
-                                .includes(propId)
-                                ? styles.active
-                                : !getExist(propId, parsedSku)
+                              className={`img-block ${
+                                currentSku?.properties
+                                  .split(";")
+                                  .includes(propId)
+                                  ? styles.active
+                                  : !getExist(propId, parsedSku)
                                   ? styles.disable
                                   : ""
-                                }`}
+                              }`}
                             >
                               {imageUrl && (
                                 <div className="img-box">
@@ -494,8 +500,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                             idx !== 0
                               ? null
                               : !Object.values(propertiesWithImages).length
-                                ? getPropertyQuantity(propId, propName)
-                                : null
+                              ? getPropertyQuantity(propId, propName)
+                              : null
                           }
                           key={value}
                         >
@@ -507,8 +513,8 @@ const ProductOrderModal = ({ product, setOrderType, type }: Props) => {
                               currentSku?.properties.split(";").includes(propId)
                                 ? styles.active
                                 : !getExist(propId, parsedSku)
-                                  ? styles.disable
-                                  : ""
+                                ? styles.disable
+                                : ""
                             }
                           >
                             {value}
