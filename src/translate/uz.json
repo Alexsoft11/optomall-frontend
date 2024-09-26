@@ -212,7 +212,8 @@
   "Products": {
     "tab_1": "Chegirma",
     "tab_2": "Eng yaxshi mahsulotlar",
-    "tab_3": "Siz uchun tavsiya etamiz"
+    "tab_3": "Siz uchun tavsiya etamiz",
+    "load_more": "Ko'proq yuklash"
   },
   "Account": {
     "metaTitle": "Hisob | OPTOM-ALL",

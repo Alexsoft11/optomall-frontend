@@ -32,7 +32,6 @@ const Search = ({ data = [] }: Props) => {
     setProducts,
     setHasMore,
     setActiveSort,
-    setScrollPosition
   } = useSearchStore();
 
   const handleButtonClick = (platform: any) => {
@@ -156,20 +155,20 @@ const Search = ({ data = [] }: Props) => {
             <div className={styles.search__platform}>
               <h2>{t("platform")}:</h2>
               <button
-                className={`${styles.search__platform_btn} ${activePlatform === "1688" ? styles.active : ""
-                  }`}
-                onClick={() => handleButtonClick("1688")}
-              >
-                <SvgSelector id="1688-svg" />
-                <span>1688</span>
-              </button>
-              <button
                 className={`${styles.search__platform_btn} ${activePlatform === "taobao" ? styles.active : ""
                   }`}
                 onClick={() => handleButtonClick("taobao")}
               >
                 <SvgSelector id="taobao-svg" />
                 <span>Taobao</span>
+              </button>
+              <button
+                className={`${styles.search__platform_btn} ${activePlatform === "1688" ? styles.active : ""
+                  }`}
+                onClick={() => handleButtonClick("1688")}
+              >
+                <SvgSelector id="1688-svg" />
+                <span>1688</span>
               </button>
             </div>
 
@@ -240,9 +239,9 @@ const Search = ({ data = [] }: Props) => {
               data={products}
               hasMore={hasMore}
               handleGetProduct={handleGetProduct}
+              scroolLoading={isProductsLoading}
             />
           )}
-          <LoadingSpinner size="large" spinning={isProductsLoading} />
         </div>
       </div>
     </div>

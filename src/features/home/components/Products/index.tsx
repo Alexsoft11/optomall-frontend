@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import styles from "./Products.module.scss";
 import { CustomTabs } from "@/ui/Tabs";
 import TabPane from "antd/es/tabs/TabPane";
@@ -117,14 +117,11 @@ const ProductsSection = ({ categoryData }: Props) => {
                 data={products}
                 hasMore={hasMore}
                 handleGetProduct={handleGetProductWhenScrool}
+                scroolLoading={isProductsScroolLoading}
               />
             )}
           </div>
-          <LoadingSpinner
-            spinning={isProductsScroolLoading}
-            tip={"loadingData"}
-            size="large"
-          />
+
           {/* <div className={styles.products__categories}>
             {categoryData?.map((item: any, idx: number) => (
               <div key={idx} className={styles.products__categories_inner}>

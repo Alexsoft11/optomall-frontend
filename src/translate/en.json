@@ -212,7 +212,8 @@
   "Products": {
     "tab_1": "Discount",
     "tab_2": "Top Products",
-    "tab_3": "Recommended for you"
+    "tab_3": "Recommended for you",
+    "load_more":"Load more"
   },
   "Account": {
     "metaTitle": "Account | OPTOM-ALL",
