@@ -123,7 +123,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
         quantity: itemQuantity,
         image_url: image,
         product_url: product_url,
-        seller_id: seller_info?.user_num_id?.toString() || "default",
+        seller_id: seller_info?.user_num_id?.toString() || "default" + id,
         provider: provider as string,
         sku_id: id,
         properties: [],

@@ -48,7 +48,7 @@ const Detail = ({ selectedImage, product, imageIndex }: any) => {
     onCancel: () => setIsPlaying(false),
     children: (
       <ReactPlayer
-        url={product?.videos[0]?.Url || product.videos.url}
+        url={product?.videos?.[0]?.Url || product.videos.url}
         playing={true}
         controls
         className={styles.video_player}
@@ -83,7 +83,7 @@ const Detail = ({ selectedImage, product, imageIndex }: any) => {
           <>
             <div className={styles.imagePreviews}>
               <SliderSection
-                video={product?.videos[0]?.Url || product.videos.url || ""}
+                video={product?.videos?.[0]?.Url || product.videos.url || ""}
                 data={product.pictures}
               />
             </div>
