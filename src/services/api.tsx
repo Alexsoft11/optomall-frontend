@@ -99,9 +99,6 @@ export const API = {
   getProductComments: (query: any) =>
     axiosInstance.get(`get-comments?product_id=${query}`),
 
-  translateProps: (data: any) =>
-    axiosInstance.post("translate", data).then((res) => res.data.translated[0]),
-
   // CartPage
   getUserBasket: (token: string, locale: string) =>
     axiosInstance

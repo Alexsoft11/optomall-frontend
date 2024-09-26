@@ -22,7 +22,6 @@ const ProductIsLike: FC<IProps> = ({ product }) => {
   const [isLiked, setIsLiked] = useState<boolean>(product.is_liked);
   const [isLoading, setIsLoading] = useState(false); // Prevents multiple clicks
   const user = useJwt();
-  console.log(product)
 
   const { appendData: dislikeCard } = useQueryApiClient({
     request: {

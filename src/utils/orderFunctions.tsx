@@ -40,7 +40,7 @@ export const groupProperties = async (
   skus: SKU[],
   propsImgs: PropImage[],
   propsList: PropsList,
-  lang?: string,
+  translaperProps?: PropsList,
   quantityRanges?: any[]
 ): Promise<{
   allProperties: GroupedProperties;
@@ -53,25 +53,14 @@ export const groupProperties = async (
     propsImgs.map((img) => [img.properties, img.url])
   );
 
-  const translateData = {
-    data: propsList,
-    from: "auto",
-    to: lang || "ru",
-  };
-
-  // Await the translation API call
-  let translaperProps;
-  try {
-    translaperProps = await API.translateProps(translateData);
-  } catch (error) {
-    console.error("Error fetching translation data:", error);
-    // You can handle the error more gracefully based on your needs
-    translaperProps = {};
-  }
-
-  const parsedTranslate = Object.keys(translaperProps).map((el, idx) => {
-    return { id: el, value: Object.values(translaperProps)[idx] as string };
-  });
+  const parsedTranslate = Object.keys(translaperProps || propsList).map(
+    (el, idx) => {
+      return {
+        id: el,
+        value: Object.values(translaperProps || propsList)[idx] as string,
+      };
+    }
+  );
 
   const parsedSku = parseSKUProperties(skus, parsedTranslate, quantityRanges);
 
@@ -116,14 +105,14 @@ export const groupProperties = async (
 
       parsedPropsList.map((el) => {
         if (el.id === id) {
-          property.originalName = el.value.split(':')[0];
-          property.originalValue = el.value.split(':')[1];
+          property.originalName = el.value.split(":")[0];
+          property.originalValue = el.value.split(":")[1];
         }
       });
 
       parsedTranslate.map((el) => {
         if (el.id === id) {
-          property.name = el.value.split(':')[0]
+          property.name = el.value.split(":")[0];
         }
       });
     });

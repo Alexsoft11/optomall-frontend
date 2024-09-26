@@ -28,7 +28,7 @@ export default function CartBasketItems({
   isLoading,
 }: Props) {
   const t = useTranslations("Cart");
-  
+
   const selectClick = (value: boolean) => {
     setSelectAll(value);
     const clone = data.map((el) => ({ ...el, chacked: value }));
@@ -48,7 +48,7 @@ export default function CartBasketItems({
         price,
         quantity,
         seller_id,
-        provider
+        provider,
       } = item;
 
       const cartOrderItem = {
@@ -73,9 +73,14 @@ export default function CartBasketItems({
   return (
     <div className={styles.main}>
       <div className={styles.items_count}>
-        <p>
-          {t("item")} {data.length}
-        </p>
+        <div>
+          <p>
+            {t("item")} {data.length}
+          </p>
+          <span>
+            {t('')}
+          </span>
+        </div>
         <Checkbox
           label={t("selectAll")}
           checked={selectAll}
