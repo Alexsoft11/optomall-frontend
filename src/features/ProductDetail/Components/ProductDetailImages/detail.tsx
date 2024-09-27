@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "./ProductDetailImages.module.scss";
 import ReactPlayer from "react-player";
 import CustomImage from "@/components/CustomImage";
@@ -44,11 +44,31 @@ const Detail = ({ selectedImage, product, imageIndex }: any) => {
     setIsPlaying(!isPlaying);
   };
 
+  const getVideoUrl = () => {
+    const video = product.videos;
+    if (!video) return ''
+    switch (typeof video) {
+      case "string":
+        return video;
+        break;
+      case "object":
+        if (Array.isArray(video) && video.length) {
+          if (video[0].Url) return video[0].Url;
+          return video[0];
+        } else if (video.Url) return video.Url;
+        break;
+
+      default:
+        return "";
+        break;
+    }
+  };
+
   const modalProps = {
     onCancel: () => setIsPlaying(false),
     children: (
       <ReactPlayer
-        url={product?.videos?.[0]?.Url || product?.videos?.url}
+        url={getVideoUrl()}
         playing={true}
         controls
         className={styles.video_player}
@@ -56,6 +76,8 @@ const Detail = ({ selectedImage, product, imageIndex }: any) => {
     ),
     open: isPlaying,
   };
+
+  console.log(product);
 
   return (
     <>
@@ -71,7 +93,7 @@ const Detail = ({ selectedImage, product, imageIndex }: any) => {
               loading="lazy"
               onClick={() => handleImageClick()}
             />
-            {(!isPlaying && product.videos?.[0]) || product?.videos?.url ? (
+            {!isPlaying && getVideoUrl() ? (
               <>
                 <Button onClick={handlePlay} className={styles.play_button}>
                   <Image alt="#" src={PlayIcon} width={40} height={40} />
@@ -82,10 +104,7 @@ const Detail = ({ selectedImage, product, imageIndex }: any) => {
         ) : (
           <>
             <div className={styles.imagePreviews}>
-              <SliderSection
-                video={product?.videos?.[0]?.Url || product?.videos?.url || ""}
-                data={product.pictures}
-              />
+              <SliderSection video={getVideoUrl()} data={product.pictures} />
             </div>
           </>
         )}
@@ -98,7 +117,7 @@ const Detail = ({ selectedImage, product, imageIndex }: any) => {
           doubleClickZoom={2}
         />
       )}
-      {isPlaying && product.videos?.[0]?.Url || product.videos ? <Modal {...modalProps} /> : null}
+      {isPlaying && getVideoUrl() ? <Modal {...modalProps} /> : null}
     </>
   );
 };
