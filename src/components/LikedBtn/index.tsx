@@ -13,7 +13,7 @@ interface LikedProps {
   onLikeChange?: (cardId: number) => void;
 }
 
-const LikedBtn = ({ onLikeChange, product_id, isLike, id_filter, card }:LikedProps) => {
+const LikedBtn = ({ onLikeChange, product_id, isLike, id_filter, card }: LikedProps) => {
   const token = useJwt();
   const [changeLike, setChangeLike] = useState(isLike);
 
@@ -36,7 +36,10 @@ const LikedBtn = ({ onLikeChange, product_id, isLike, id_filter, card }:LikedPro
         onLikeChange(id_filter);
       }
       if (!token && !onLikeChange) {
-        const updatedLikedProducts = likedProducts.filter((el: any) => el.id !== card.id);
+        const updatedLikedProducts = likedProducts
+          .map((el: any) => ({ ...el, product_id: el.id }))
+          .filter((el: any) => el.id !== card.id);
+
         localStorage.setItem('likedProducts', JSON.stringify(updatedLikedProducts));
       }
       if (token) {
@@ -91,22 +94,18 @@ const LikedBtn = ({ onLikeChange, product_id, isLike, id_filter, card }:LikedPro
       url: 'liked-product',
       method: 'POST',
     },
-    onSuccess(res) {
-      console.log('dedeff')
-    },
   })
 
   return (
     <div>
-        <button
-            className={`${styles.liked} ${
-              changeLike ? styles.active : ""
-            }`}
-            type="submit"
-            onClick={() => handleClickLiked()}
-        >
-            <SvgSelector id="save-svg" />
-        </button>
+      <button
+        className={`${styles.liked} ${changeLike ? styles.active : ""
+          }`}
+        type="submit"
+        onClick={() => handleClickLiked()}
+      >
+        <SvgSelector id="save-svg" />
+      </button>
     </div>
   )
 }
