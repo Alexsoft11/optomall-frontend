@@ -30,7 +30,7 @@ const LikedBtn = ({ onLikeChange, product_id, isLike, id_filter, card }: LikedPr
   const handleClickLiked = () => {
     const likedProductsString = localStorage.getItem('likedProducts');
     const likedProducts = likedProductsString ? JSON.parse(likedProductsString) : [];
-
+    console.log('console', onLikeChange)
     if (changeLike) {
       if (onLikeChange && id_filter !== undefined) {
         onLikeChange(id_filter);
@@ -39,7 +39,7 @@ const LikedBtn = ({ onLikeChange, product_id, isLike, id_filter, card }: LikedPr
         const updatedLikedProducts = likedProducts
           .map((el: any) => ({ ...el, product_id: el.id }))
           .filter((el: any) => el.id !== card.id);
-
+        console.log(updatedLikedProducts)
         localStorage.setItem('likedProducts', JSON.stringify(updatedLikedProducts));
       }
       if (token) {
@@ -83,7 +83,7 @@ const LikedBtn = ({ onLikeChange, product_id, isLike, id_filter, card }: LikedPr
           }
         ]);
       } else {
-        likedProducts.push(card);
+        likedProducts.push({ ...card, product_id: card.id });
         localStorage.setItem('likedProducts', JSON.stringify(likedProducts));
       }
     }
