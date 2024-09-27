@@ -8,9 +8,7 @@ import 'swiper/css/pagination';
 import { SlidersDataInterface } from '@/interfaces';
 import useQueryApiClient from '@/utils/useQueryApiClient';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
-
-const SearchBtn = dynamic(() => import('@/components/SearchBtn'), );
+import SearchBtn from '@/components/SearchBtn';
 
 
 interface Props {

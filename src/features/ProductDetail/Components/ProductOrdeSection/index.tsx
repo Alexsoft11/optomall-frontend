@@ -5,6 +5,7 @@ import {
   CreateBaskettemsDataInterface,
   CreateOrderDataInterface,
   ProductDetailInterface,
+  PropsList,
 } from "../../interface";
 import { Button, Modal } from "@/ui";
 import { Button as AntdButton, Tooltip, message } from "antd";
@@ -32,11 +33,30 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
   const [itemQuantity, setItemQuantity] = useState<number>(0);
   const [messageDisplayed, setMessageDisplayed] = useState(false);
   const token = useJwt();
+  const router = useRouter();
 
   const toAuth = (path: string) => {
     localStorage.setItem("backUrl", asPath);
     push(path);
   };
+
+  const { appendData: translated, data: translatedData } = useQueryApiClient({
+    request: {
+      url: "translate",
+      method: "POST",
+      disableOnMount: false,
+    },
+  });
+
+  useEffect(() => {
+    if (!product || !product.props_list) return;
+    const translateData = {
+      data: product.props_list,
+      from: "auto",
+      to: router.locale || "ru",
+    };
+    translated(translateData);
+  }, []);
 
   const showMessage = () => {
     if (!messageDisplayed) {
@@ -103,7 +123,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
         quantity: itemQuantity,
         image_url: image,
         product_url: product_url,
-        seller_id: seller_info?.user_num_id?.toString() || "default",
+        seller_id: seller_info?.user_num_id?.toString() || "default" + id,
         provider: provider as string,
         sku_id: id,
         properties: [],
@@ -130,7 +150,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
             {formatPrice(product?.price)} uzs
           </span>
           {product?.discounted_price &&
-            product.price !== product.discounted_price ? (
+          product.price !== product.discounted_price ? (
             <>
               <span className={styles.discount}>
                 -{product.discount_percentage}%
@@ -174,16 +194,22 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
         </div>
         {product && product.props_list ? (
           <ProductOrderModal
+            translatedData={
+              translatedData.translated && translatedData?.translated[0]
+            }
             product={product}
             type={orderModalType}
             setOrderType={setOrderModalType}
           />
         ) : null}
       </div>
-      {product && product?.quantityRanges && product?.quantityRanges && product?.quantityRanges?.length ? (
+      {product &&
+      product?.quantityRanges &&
+      product?.quantityRanges &&
+      product?.quantityRanges?.length ? (
         <div className={styles.price_range}>
           {product?.quantityRanges?.map((el, index) => {
-            const quantityRange = product?.quantityRanges || []
+            const quantityRange = product?.quantityRanges || [];
             const next = quantityRange[index + 1];
             return (
               <div className={styles.item} key={el.minQuantity}>
