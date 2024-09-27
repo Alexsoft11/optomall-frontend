@@ -69,41 +69,42 @@ const ProductOrderModal = ({
   const [isOpen, setIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [currentImages, setCurrentImages] = useState<string[]>([]);
-  
+
   const handleImageClick = (images: string[], index: number) => {
     setCurrentImages(images);
     setPhotoIndex(index);
     setIsOpen(true);
   };
-  const { appendData: createUserBasket, isLoading: isOrderLoading } = useQueryApiClient({
-    request: {
-      url: type && type === "to_cart" ? `user-basket` : "orders",
-      method: "POST",
-      disableOnMount: true,
-    },
-    onSuccess(res) {
-      message.success(t(`Product-detail.${res.message}`), 2);
+  const { appendData: createUserBasket, isLoading: isOrderLoading } =
+    useQueryApiClient({
+      request: {
+        url: type && type === "to_cart" ? `user-basket` : "orders",
+        method: "POST",
+        disableOnMount: true,
+      },
+      onSuccess(res) {
+        message.success(t(`Product-detail.${res.message}`), 2);
 
-      // Handle the promise using `.then()` since `onSuccess` cannot be async
-      groupProperties(
-        skus,
-        prop_imgs,
-        product.props_list,
-        translatedData,
-        product.quantityRanges
-      )
-        .then(({ parsedSku }) => {
-          setSelectedSku([parsedSku[0]]);
-          setCurrentSku(parsedSku[0]);
-          if (res.order_group) {
-            router.push(`/order/${res.order_group}`);
-          }
-        })
-        .catch((error) => {
-          console.error("Error in groupProperties:", error);
-        });
-    },
-  });
+        // Handle the promise using `.then()` since `onSuccess` cannot be async
+        groupProperties(
+          skus,
+          prop_imgs,
+          product.props_list,
+          translatedData,
+          product.quantityRanges
+        )
+          .then(({ parsedSku }) => {
+            setSelectedSku([parsedSku[0]]);
+            setCurrentSku(parsedSku[0]);
+            if (res.order_group) {
+              router.push(`/order/${res.order_group}`);
+            }
+          })
+          .catch((error) => {
+            console.error("Error in groupProperties:", error);
+          });
+      },
+    });
 
   const handleCloseModal = () => {
     setOrderType(null);
@@ -159,6 +160,8 @@ const ProductOrderModal = ({
       (el) => el.selected_quantity > 0
     );
 
+    let warning = false;
+
     if (!newSelectedSku?.length) {
       if (!messageVisible) {
         setMessageVisible(true);
@@ -172,15 +175,24 @@ const ProductOrderModal = ({
     }
     const quantityRanges = product?.quantityRanges?.[0];
     const minQuantity = quantityRanges?.minQuantity || 0;
+
     newSelectedSku?.map((el) => {
       if (product && el.selected_quantity < minQuantity) {
-        message.warning(
-          `${t("Product-detail.isMinQuantity")} ${minQuantity}`,
-          5
-        );
+        if (!messageVisible) {
+          setMessageVisible(true);
+          messageApi.open({
+            type: "warning",
+            content: `${t("Product-detail.isMinQuantity")} ${minQuantity}`,
+            onClose: () => setMessageVisible(false),
+            duration: 5,
+          });
+        }
+        warning = true;
         return;
       }
     });
+
+    if (warning) return;
 
     const items: CreateBaskettemsDataInterface[] = newSelectedSku.map((el) => {
       const { id, title, product_url, image, seller_info, quantityRanges } =

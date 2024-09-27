@@ -28,7 +28,7 @@ export default function NavigationCard({
         ) : (
           !!data?.length &&
           data.map((el, idx: number) => (
-            <>
+            <Fragment key={idx}>
               <Link
                 onClick={handleClose}
                 className={styles.navigationcard__title}
@@ -54,7 +54,7 @@ export default function NavigationCard({
                   ) : null
                 )}
               </div>
-            </>
+            </Fragment>
           ))
         )}
       </div>
