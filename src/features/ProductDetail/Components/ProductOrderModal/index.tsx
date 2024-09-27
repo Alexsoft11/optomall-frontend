@@ -198,14 +198,15 @@ const ProductOrderModal = ({
       const { id, title, product_url, image, seller_info, quantityRanges } =
         product;
 
+      const sellerId = seller_info?.user_num_id?.toString() || "defult" + id
       let item: CreateBaskettemsDataInterface = {
-        product_id: id,
+        product_id: id.toString(),
         title: title,
         price: el.price,
         quantity: el.selected_quantity,
         image_url: getImageUrl(el.properties.split(";")) || image,
         product_url: product_url,
-        seller_id: seller_info?.user_num_id?.toString(),
+        seller_id: sellerId,
         provider: provider as string,
         sku_id: el.sku_id.toString(),
         properties: el.parsedProperties!,
@@ -466,15 +467,14 @@ const ProductOrderModal = ({
                               onClick={() =>
                                 handlePropertySelect(propId, propName)
                               }
-                              className={`img-block ${
-                                currentSku?.properties
-                                  .split(";")
-                                  .includes(propId)
-                                  ? styles.active
-                                  : !getExist(propId, parsedSku)
+                              className={`img-block ${currentSku?.properties
+                                .split(";")
+                                .includes(propId)
+                                ? styles.active
+                                : !getExist(propId, parsedSku)
                                   ? styles.disable
                                   : ""
-                              }`}
+                                }`}
                             >
                               {imageUrl && (
                                 <div className="img-box">
@@ -514,8 +514,8 @@ const ProductOrderModal = ({
                             idx !== 0
                               ? null
                               : !Object.values(propertiesWithImages).length
-                              ? getPropertyQuantity(propId, propName)
-                              : null
+                                ? getPropertyQuantity(propId, propName)
+                                : null
                           }
                           key={value}
                         >
@@ -527,8 +527,8 @@ const ProductOrderModal = ({
                               currentSku?.properties.split(";").includes(propId)
                                 ? styles.active
                                 : !getExist(propId, parsedSku)
-                                ? styles.disable
-                                : ""
+                                  ? styles.disable
+                                  : ""
                             }
                           >
                             {value}
