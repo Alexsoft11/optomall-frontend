@@ -1,70 +1,132 @@
 import { StaticImageData } from "next/image";
 
 export interface CardInterface {
-    id: string,
-    product_id: string |number;
-    title?: string;
-    price?: string; 
-    image: StaticImageData;
-    is_liked: boolean;
+  id: string;
+  product_id: string;
+  title?:
+    | string
+    | {
+        uz: string;
+        ru: string;
+        en: string;
+      };
+  price?: string;
+  image: StaticImageData;
+  is_liked: boolean;
+  provider: string;
 }
 
 export interface CardCategoryInterface {
-    id: number;
-    title: string;
-    link: string;
-    imageUrl: StaticImageData;
+  id: number;
+  title: string;
+  link: string;
+  imageUrl: StaticImageData;
 }
 
 export interface MainSliderItemInterface {
-    image: StaticImageData;
+  image: StaticImageData;
 }
 
 export interface chequeSuccessDataInterface {
-    address: string,
-    date: string,
+  address: string;
+  date: string;
 }
 
 export interface CatalogCategoriesInterface {
+  id: number;
+  imageUrl: StaticImageData;
+  title: string;
+}
+
+export interface SubcategoryItem {
     id: number;
-    imageUrl: StaticImageData;
-    title: string;
-}
-
-export interface CategoryCatalogInterface {
-  id: string;
-  name: string;
-  image: string;
-  is_active: string;
-}
-
-export interface SubCategoryInterface {
-    id: string;
     name: string;
-    provider: string;
-    externaId: string;
-    parentId: string;
+    slug: string;
+    is_show: number;
 }
+  
+ export interface Subcategory {
+    id: number;
+    name: string;
+    slug: string;
+    items: SubcategoryItem[];
+}
+  
+ export interface CategoryInterface {
+    name: string;
+    slug: string;
+    imageUrl: string;
+    subcategories: Subcategory[];
+  }
 
 export interface SlidersDataInterface {
     id: number;
     url: string;
     image: StaticImageData;
+    image_mobile: StaticImageData;
+    name: string;
+    slug: string;
 }
 
+export interface Subcategory {
+  name: string;
+  slug: string;
+  items: SubcategoryItem[];
+}
+
+export interface CategoryInterface {
+  name: string;
+  slug: string;
+  imageUrl: string;
+  subcategories: Subcategory[];
+}
+
+export interface SlidersDataInterface {
+  id: number;
+  url: string;
+  image: StaticImageData;
+  image_mobile: StaticImageData;
+}
 
 export interface LoginErrInterface {
-    error: boolean,
-    message: string
+  error: boolean;
+  message: string;
 }
 
 export interface UserBasketPostInterface {
-    product_id: string,
-    sizes: UserBasketSizesInterface[]
+  product_id: string;
+  sizes: UserBasketSizesInterface[];
 }
 
 export interface UserBasketSizesInterface {
-    value: string,
-    quantity: number,
-    color_id: string
+  value: string;
+  quantity: number;
+  color_id: string;
+}
+
+export interface SelectOptionInterface {
+  label: string;
+  value: string;
+}
+
+export interface RegionProvincesInterface {
+  tashkent: string[];
+  andijan: string[];
+  bukhara: string[];
+  fergana: string[];
+  jizzakh: string[];
+  namangan: string[];
+  navoiy: string[];
+  qashqadaryo: string[];
+  khorezm: string[];
+  samarkand: string[];
+  sirdaryo: string[];
+  surxondaryo: string[];
+  karakalpakstan: string[];
+}
+
+export interface LanguageStringIntergace {
+  en: string;
+  uz: string;
+  ru: string;
 }

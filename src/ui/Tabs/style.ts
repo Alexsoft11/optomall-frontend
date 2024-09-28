@@ -84,6 +84,13 @@ export const StyledTabs = styled(Tabs)`
         margin-bottom: 30px;
     }
 
+    .ant-tabs-tab {
+        @media (max-width:500px) {
+            
+            margin: 0px 0px 0px 15px !important;
+        }
+    }
+
     .ant-tabs-tab-btn {
         color: var(--black-color);
         font-size: var(--paragraph-two);
@@ -107,6 +114,10 @@ export const StyledTabs = styled(Tabs)`
 
     .ant-tabs-nav-wrap::before {
         display: none;
+    }
+
+    .ant-tabs-nav-operations {
+        display: none !important;
     }
 }
 `

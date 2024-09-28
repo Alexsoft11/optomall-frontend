@@ -5,7 +5,7 @@ import { Button, Input } from "@/ui";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import GoogleButton from "../../GoogleButton";
-import { cookieBasket, validateEmail, validatePassword } from "../../Functions";
+import { validateEmail, validatePassword } from "../../Functions";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import Cookies from "universal-cookie";
 import { useRouter } from "next/router";
@@ -13,16 +13,14 @@ import GoToBack from "@/components/GoToBack";
 import useHandleError from "@/utils/useHandleError";
 import { CartItemInterface } from "@/features/Cart/interface";
 import { API } from "@/services/api";
-import { LoadingSpinner } from "@/ui/Spin";
 
 export default function SignIn() {
   const [form] = Form.useForm();
   const t = useTranslations("");
   const cookie = new Cookies();
   const expirationDate = new Date();
-  const router = useRouter();
+  const { push, query } = useRouter();
   const [handleError] = useHandleError(form);
-  const [buttonIsLoading, setButtonIsLoading] = useState(false)
   expirationDate.setDate(expirationDate.getDate() + 3);
 
   const { appendData: createData, isLoading } = useQueryApiClient({
@@ -32,29 +30,30 @@ export default function SignIn() {
       disableOnMount: true,
     },
     onSuccess(res) {
-      setButtonIsLoading(false)
-      if (res.message === "add_personal_data") {
-        message.error(t(`Auth.${res.error}`));
-        router.push(`/auth?step=info&id=${res.unique_id}`)
+      // const backUrl = localStorage.getItem("backUrl");
+      if (res.message === "add_personal_data" || !res.info_filled) {
+        message.error(t(`Auth.${res.message}`));
+        push(`/auth?step=info&id=${res.unique_id}`);
+        return;
       }
       if (!res.token) {
-        message.error('Auth.something_wrong')
-        return
+        message.error(t("Auth.something_wrong"));
+        return;
       }
-      if (localStorage.getItem('basket-data')) {
-        API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
-      }
-      setTimeout(() => router.push("/"), 2000);
-      const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
+      // if (localStorage.getItem('basket-data')) {
+      //   API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
+      // }
+      const maxAge = 10 * 24 * 60 * 60; // 3 days in seconds
 
       // Set the cookie
-      cookie.set('token', res.token, {
-        path: '/',
+      cookie.set("token", res.token, {
+        path: "/",
         maxAge: maxAge,
       });
+
+      push((localStorage.getItem("backUrl") as string) || "/");
     },
     onError(err) {
-      setButtonIsLoading(false)
       if (err.message.includes("email")) {
         form.setFields([
           {
@@ -73,7 +72,7 @@ export default function SignIn() {
         ]);
         return;
       }
-      if (err.message.includes('verify_email')) {
+      if (err.message.includes("verify_email")) {
         form.setFields([
           {
             name: "email",
@@ -87,7 +86,6 @@ export default function SignIn() {
   });
 
   const onFinish = (values: any) => {
-    setButtonIsLoading(true)
     createData(values);
   };
 
@@ -95,7 +93,7 @@ export default function SignIn() {
     <div className={styles.main}>
       <GoToBack pathArr={[{ title: "signin", path: "" }]} />
       <h1>{t("Auth.signin")}</h1>
-      <p className={styles.desc}>{t('Auth.signInDescription')}</p>
+      <p className={styles.desc}>{t("Auth.signInDescription")}</p>
       <div className={styles.form}>
         <Form
           form={form}
@@ -127,11 +125,18 @@ export default function SignIn() {
           />
 
           <span className={styles.forgot_Password}>
-            <Link href="/auth?step=forgot-password">{t("Auth.forgotPassword")}</Link>
+            <Link href="/auth?step=forgot-password">
+              {t("Auth.forgotPassword")}
+            </Link>
           </span>
 
           <Form.Item className={styles.submitButton}>
-            <Button isLoading={buttonIsLoading} type="primary" htmlType="submit" label={t("Auth.signin")} />
+            <Button
+              isLoading={isLoading}
+              type="primary"
+              htmlType="submit"
+              label={t("Auth.signin")}
+            />
           </Form.Item>
         </Form>
 
@@ -143,7 +148,6 @@ export default function SignIn() {
         </div>
 
         <GoogleButton />
-        <LoadingSpinner spinning={isLoading} fullscreen={true} size="large" />
       </div>
     </div>
   );

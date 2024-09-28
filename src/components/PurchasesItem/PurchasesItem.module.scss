@@ -1,0 +1,255 @@
+.main {
+  padding: 20px;
+  box-shadow: 0px 0px 4px 0px #00000040;
+  border-radius: 10px;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  height: min-content;
+
+  @media (max-width: 720px) {
+      padding: 10px;
+    }
+
+  .order_info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    .order_status {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      @media (max-width: 720px) {
+        gap: 5px;
+      }
+
+      .flag_img {
+        position: relative;
+        width: 24px;
+        height: 24px;
+
+        img {
+          border-radius: 50%;
+        }
+      }
+
+      .order_status__status {
+        font-size: var(--paragraph-two);
+        font-weight: 400;
+        line-height: 15.73px;
+        border-radius: 10px;
+        padding: 4px 10px;
+        
+        @media (max-width: 720px) {
+          font-size: var(--paragraph-three);
+          padding: 4px 5px;
+        }
+      }
+    }
+
+    p {
+      font-size: var(--paragraph);
+      font-weight: 400;
+      line-height: 19.36px;
+    }
+  }
+
+  .order_detail {
+    width: -webkit-fill-available;
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+    grid-template-rows: repeat(auto, min-content);
+    gap: 10px;
+    padding: 20px 0px;
+
+    @media (max-width: 760px) {
+      grid-template-columns: repeat(2, auto);
+    }
+
+    .detail_item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+
+      h3 {
+        font-size: var(--paragraph);
+        font-weight: 500;
+        line-height: 19.36px;
+      }
+
+      p {
+        font-size: var(--paragraph-three);
+        font-weight: 400;
+        line-height: 14.52px;
+      }
+
+      div {
+        display: flex;
+      }
+
+      @media (max-width: 760px) {
+
+        flex-direction: column;
+        justify-content: flex-start;
+
+        div {
+          display: flex;
+        }
+      }
+
+    }
+
+    .sub_status {
+      font-size: var(--paragraph-two);
+      font-weight: 400;
+      line-height: 16.94px;
+    }
+  }
+
+  .more_datail {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    animation: none;
+
+    p {
+      font-size: var(--paragraph-three);
+      font-weight: 500;
+      line-height: 14.52px;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+
+      path {
+        stroke-width: 1;
+      }
+    }
+  }
+
+  .rotateUp {
+    svg {
+      animation: rotate-up 0.5s forwards;
+    }
+  }
+
+  .rotateDown {
+    svg {
+      animation: rotate-down 0.5s forwards;
+    }
+  }
+
+  .order_items {
+    overflow: auto !important;
+    overflow: hidden;
+    max-height: 270px;
+    height: min-content;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+
+    .sub_status_slug {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      gap: 10px;
+      padding: 0px 0px 20px 0px;
+
+      h4 {
+        font-size: var(--paragraph);
+        font-weight: 400;
+        line-height: 19.36px;
+      }
+
+      button {
+        cursor: pointer;
+        background: none;
+        border: none;
+
+        color: var(--primary-color);
+        font-size: var(--paragraph-three);
+        font-weight: 400;
+        line-height: 15.73px;
+
+
+        &:hover {
+          background: none !important;
+          color: var(--primary-color);
+        }
+      }
+    }
+  }
+}
+
+.firsLoadAnimation {
+  .order_items {
+    height: 0px;
+  }
+}
+
+.detailClose {
+  .order_items {
+    margin: 0px 0px 0px 0px;
+    animation: 0.5s block-closed linear;
+    max-height: 0px;
+  }
+}
+
+.detailOpen {
+  height: 100%;
+  transition: height 2s;
+
+  .order_items {
+    margin: 30px 0px 0px 0px;
+    animation: 0.5s block-open linear;
+    max-height: 270px;
+  }
+}
+
+@keyframes rotate-up {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(-180deg);
+  }
+}
+
+@keyframes rotate-down {
+  0% {
+    transform: rotate(-180deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes block-open {
+  from {
+    max-height: 0px;
+  }
+
+  to {
+    max-height: 270px;
+  }
+}
+
+@keyframes block-closed {
+  from {
+    max-height: 270px;
+    margin: 30px 0px 0px 0px;
+  }
+
+  to {
+    max-height: 0px;
+    margin: 0px;
+  }
+}

@@ -120,6 +120,6 @@ export const Select = ({
       >
         {children}
       </AntdSelect>
-    </Form.Item>
+    </Form.Item >
   );
 };

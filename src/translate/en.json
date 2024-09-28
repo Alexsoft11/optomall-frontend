@@ -12,13 +12,14 @@
     "results": "Search Results",
     "purchases": "My Purchases",
     "currency": "uzs",
-    "loadingData": "Loading data...",
-    "my_account":"My Account"
+    "loadingData": "Loading...",
+    "my_account": "My Account",
+    "cargo": "Cargo payment"
   },
   "Home": {
-    "metaTitle": "Home | Onway",
-    "metaDescription": "Welcome to Onway - Your one-stop shop for all your needs. Explore our wide range of products and enjoy the best online shopping experience.",
-    "metaKeywords": "e-commerce, shopping, onway, products, online store"
+    "metaTitle": "Home | OPTOM-ALL",
+    "metaDescription": "Welcome to Optomall - Your one-stop shop for all your needs. Explore our wide range of products and enjoy the best online shopping experience.",
+    "metaKeywords": "e-commerce, shopping uz, optomall,ON WAY, products, online store uz, taobao uz"
   },
   "Error": {
     "user_registered_successfully": "User registered successfully",
@@ -29,6 +30,7 @@
     "unauthenticated": "Unauthenticated",
     "invalid_data": "Invalid data",
     "order_created_successfully": "Order created successfully",
+    "datanot": "Data Not Found",
     "email": {
       "validation.unique": "The email has already been taken."
     },
@@ -40,7 +42,7 @@
     "account": "My Account",
     "messages": "My Messages",
     "purchases": "My Purchases",
-    "customs": "How Customs Clearance is Calculated",
+    "customs": "How can I pay?",
     "logout": "Logout",
     "btn_access": "Login",
     "btn_regist": "Register",
@@ -49,7 +51,12 @@
     "catalog": "Catalog",
     "saved": "Liked",
     "shop": "Shop",
-    "user": "Profile"
+    "user": "Profile",
+    "views": "My reviews",
+    "questions": "Frequently asked questions",
+    "transport": "Transport costs",
+    "use": "How to use",
+    "make_payment": "How to make a payment"
   },
   "UiModal": {
     "success": "Receipt successfully confirmed",
@@ -98,7 +105,12 @@
     "regisrtationDescription": "fill in the fields to register",
     "nameValidateError": "Please enter a valid name",
     "verify_email": "Verify your email!",
-    "something_wrong": "Something went wrong! Please try again later."
+    "something_wrong": "Something went wrong! Please try again later.",
+    "metaTitle": "Login | OPTOM-ALL",
+    "metaDescription": "Securely log in to your OPTOM-ALL account to access exclusive features and manage your orders.",
+    "metaKeywords": "OPTOM-ALL, login, sign in, account access, secure login",
+    "passwordHasEmpty": "Password cannot contain spaces!",
+    "address": "Address"
   },
   "Cart": {
     "item": "Items",
@@ -107,8 +119,8 @@
     "inVerification": "In verification",
     "complite": "CHECKOUT",
     "address": "Delivery address",
-    "addressInMap": "Specify delivery address on the map",
-    "enterAddres": "Enter address",
+    "addressInMap": "Specify the delivery address on the map",
+    "enterAddres": "Enter address manually",
     "person": "Order recipient",
     "name": "Name",
     "phone": "Phone number",
@@ -117,16 +129,27 @@
     "basketNoItems": "Your cart is empty",
     "goToBuy": "Go to purchase",
     "checkWarningMessage": "Receipt failed verification. Check the receipt and try again.",
-    "authMessage": "Register on the website to place an order!",
+    "authMessage": "Log in to the site to place an order!",
     "imgTypeValidation": "You can only upload an image!",
-    "chooseItem": "Choose at least one item from the basket",
-    "imgSizeValidation": "Image size must be smaller than 5 MB!"
+    "imgSizeValidation": "Image size must be smaller than 5 MB!",
+    "chooseItem": "Choose at least one item",
+    "cargo": "Cargo",
+    "forKg": "per Kg",
+    "locationRequired": "Please provide a delivery address and specify the location on the map.",
+    "userDataRequired": "Please fill in the recipient's personal details!",
+    "signin": "Sign in",
+    "selectAll": "select all",
+    "selectRegion": "Select Region",
+    "selectDistrict": "Select District"
   },
   "Order": {
     "payCost": "Amount to be paid: ",
+    "cardName": "Recipient Name: ",
     "cardNumber": "Recipient's card number: ",
     "payTutorialText": "Copy the card number below, then open your bank app and transfer the amount specified below in a single payment. Note! You need to transfer the exact amount specified below!",
-    "textCopyed": "Text copied!"
+    "textCopyed": "Text copied!",
+    "impotantMessage": "You need to pay for the cargo upon arrival of your order. The delivery cost is automatically calculated upon arrival and depends on the weight, {costPerKg} uzs per Kg.",
+    "importantTitle": "Important!"
   },
   "Purchases": {
     "active": "Active",
@@ -143,14 +166,37 @@
     "moreDetail": "More Detail",
     "orderCost": "Total Cost:",
     "currency": "uzs",
-    "inVerification": "in verification"
+    "inVerification": "in verification",
+    "cargo": "Cargo:",
+    "calculated": "Calculating",
+    "emptyData": "It's empty here",
+    "pay": "Pay",
+    "send_check_again": "Send check again",
+    "upload": "Upload",
+    "orderId": "Order ID:"
   },
   "Search": {
     "platform": "Platform",
     "sales": "Sales",
     "reputation": "Reputation",
     "longPrice": "Long price",
-    "downPrice": "Down price"
+    "downPrice": "Down price",
+    "submit": "submit",
+    "endPrice": "Please input the maximum price!",
+    "startPrice": "Please input the minimum price!",
+    "metaTitle": "Search Results - Optomall",
+    "metaDescription": "Find the best products on Optomall through our search results.",
+    "metaKeywords": "search, products, Optomall",
+    "results": "Results",
+    "upload_title": "Search products by image",
+    "upload_text": "Drag and drop image here",
+    "noItems": "Products not found",
+    "default": "Default",
+    "price_down": "Price down",
+    "price_top": "Price Top",
+    "search_place": "Enter link Taobao or 1688",
+    "upload_validate": "You can only upload JPG/PNG/JPEG files!",
+    "imageWarning": "Image upload may take 10-15 seconds depending on size."
   },
   "MyReviews": {
     "waitForReview": "Waiting for Review",
@@ -158,30 +204,156 @@
     "review": "Leave a Review",
     "reviewProduct": "Rate the Product",
     "enterComment": "Enter Comment",
-    "sendReview": "Publish"
+    "imgTypeValidation": "You can only upload an image!",
+    "imgSizeValidation": "Image size must be smaller than 5 MB!",
+    "sendReview": "Publish",
+    "commentAdded": "Comment added successfully!"
   },
   "Products": {
     "tab_1": "Discount",
     "tab_2": "Top Products",
-    "tab_3": "Recommended for you"
+    "tab_3": "Recommended for you",
+    "load_more":"Load more"
   },
   "Account": {
+    "metaTitle": "Account | OPTOM-ALL",
+    "metaDescription": "Manage your OPTOM-ALL account, view order history, update your profile, and more. Secure and easy access to all your account features on OPTOMALL.UZ.",
+    "metaKeywords": "OPTOM-ALL, account, manage account, order history, update profile, secure access",
     "change": "Change",
     "mail": "Email",
     "name": "Name",
     "phone": "Phone number",
     "confirm": "Confirm",
-    "password":"Password",
-      "old_password":"Old Password",
-      "new_password":"New Password",
-      "confirm_password":"Confirm Password"
-
+    "password": "Password",
+    "old_password": "Old Password",
+    "new_password": "New Password",
+    "confirm_password": "Confirm Password"
   },
   "ChooseLocation": {
     "submit": "submit",
     "close": "close"
   },
   "Wishes": {
-    "title": "My wishes"
+    "title": "My wishes",
+    "noItems": "Add what you liked",
+    "add": "Add to wishes"
+  },
+  "LocationModal": {
+    "title": "Delivery Address",
+    "area": "Area",
+    "street": "Street",
+    "house": "House",
+    "postcode": "Postal Code",
+    "region": "Region",
+    "submit": "Submit",
+    "cooseLocation": "Specify on map"
+  },
+  "Cargo": {
+    "payTutorialText": "The delivery cost is calculated automatically when placing an order and depends on the weight, $5.5 per kg. Below is the delivery cost depending on the weight of your order. Please note! You need to transfer exactly the amount indicated below!",
+    "payCost": "Your delivery cost is: ",
+    "cardNumber": "Recipient's card number: ",
+    "textCopyed": "Text copied!"
+  },
+  "Footer": {
+    "about_us": "About Us",
+    "faq": "Frequently Asked Questions",
+    "shipping_costs": "Shipping Costs",
+    "how_to_use": "How to Use",
+    "make_payment": "How to make a payment"
+  },
+  "Product-detail": {
+    "isMaxQuantity": "is max quantity",
+    "isMinQuantity": "Minimum quantity",
+    "bought": "Bought",
+    "compound": "Compound",
+    "made_country": "Country of Origin",
+    "model_features": "Features of the model",
+    "copy-link": "Copy Link",
+    "comments": "Comments",
+    "characteristic": "Characteristics",
+    "comments-not": "No Comments",
+    "recomendeds": "Similar products",
+    "buy": "Buy",
+    "addToCart": "Add to Cart",
+    "products_added_to_basket": "Products added to baskets",
+    "order_created_successfully": "Order created successfully",
+    "hide": "Hide",
+    "allSpecificationsAndDescription": "All specifications and description",
+    "order": "The order arrives during 18-20 days"
+  },
+  "Messages": {
+    "dearClient": "Dear client, ",
+    "order": "Order: ",
+    "thanksForBuy": "Thank you for shopping with us!"
+  },
+  "ToLoginPage": {
+    "title": "Oops! You’re Not Logged In",
+    "text": "It seems like you’ve stumbled upon a page that requires authentication. To continue exploring all the amazing content we have to offer, please log in.",
+    "btn_access": "Login",
+    "btn_regist": "Register"
+  },
+  "Using": {
+    "title_1": "Product search methods",
+    "title_2": "Registration procedure",
+    "panel_1": {
+      "title": "How can you find a product on our trading platform? Let's explore a few methods!",
+      "text_1": "Through the catalog. Our catalog contains almost all types of products, and you can find the products you want! We constantly update our catalog. If you have any recommendations for the catalog or if we missed any product type, contact our operators — we will add that product type to the catalog for you!",
+      "text_2": "Searching by image. This method is very accurate and convenient! You upload a product image, and within 10 seconds, you’ll receive the prices and information for that product. The image search function is located before the search bar on our platform. In this section, you can upload your image or an image taken from the Internet.",
+      "text_3": "Searching by link. With this function, you can find the exact product you want using a link from Taobao, Tmall, or 1688 trading platforms."
+    },
+
+    "panel_2": {
+      "title_1": "How can you find a product on our trading platform? Let's explore a few methods!",
+      "title_2": "Home Page Image",
+      "title_3": "Registration Request Page Image",
+      "title_4": "Pointer to the table requesting email address and password",
+      "title_5": "Pointer to the Google button",
+
+      "text_1": "To register, we need your email address!",
+      "text_2": "You will register by following the procedure shown in the image",
+      "text_3": "After logging into our platform, navigate to the section shown in the image",
+      "text_4": "When you enter this section, the login and registration buttons will appear. To register, click the registration button.",
+      "text_5": "After clicking the registration button, there are two types of registration available",
+      "text_6": "1. You independently enter your email address and set your password",
+      "text_7": "2. Register via Google. If you have a Google email, clicking the button will automatically register you for our site without requiring any password or login.",
+      "text_8": "3. After registering, enter your name, surname, and the phone number you use to start shopping!"
+    }
+  },
+  "Custom": {
+    "title": "How to make a payment on our trading platform?",
+    "payment": "Payment methods:",
+    "text_1": "After you select the desired product, you will proceed to the checkout page. There, you will be provided with information about your selected products and the total payment amount. You will need to transfer the payment amount to the provided card number. Payme, Click, Uzum, and any banking apps will assist you in making the payment.",
+    "text_2": "After transferring the money to our card, take a photo of the receipt and upload it in the receipt upload section on our platform. Once you've uploaded the receipt, your payment and order will be reviewed and confirmed from 9:00 AM to 7:00 PM.",
+    "text_3": "On our platform, you can make payments not only with a plastic card but also in cash. To do this, select the products, add them to your cart, and come to our offices where you can hand over the money. We will issue a receipt and immediately place your order. Currently, our offices are only available in Kokand and Tashkent."
+  },
+  "Transport": {
+    "text_1": "Shipping cost depends on weight.",
+    "text_2": "Example:",
+    "text_3": "sum",
+    "text_4": "kg",
+    "text_5": "g",
+    "text_6": "If the order weight exceeds 1 kg, each additional kilogram or gram will be charged at this rate."
+  },
+  "About": {
+    "welcome": "WELCOME to the OPTOM-ALL shopping platform!",
+    "partnership": "The OPTOMALL platform has signed a cooperation agreement with the Chinese giant trading platforms. On the OPTOMALL platform, you can make purchases directly from taobao, 1688 and Chinese factories in the national currency of Uzbekistan at a wholesale price!",
+    "features": "Simply put, you can search, choose and get product information through our platform, and even use our platform for free translator service to reduce the cost of products and order. These include production equipment from simple fabric enters.",
+    "reliability": "We are your reliable partner in China. Choice and payment from you, purchase, inspection and delivery from us! Our team has been working with China for 13 years. Our platform has several warehouses in China, has its warehouse in almost all major cities.",
+    "safety": "More than 25 professional employees work on our platform to ensure that your product arrives safely, in good quality and without damage.",
+    "or": "Or",
+    "contact": "you can call the numbers"
+  },
+  "MakePayment": {
+    "text": "How to make a payment on our trading platform?",
+    "text_1": "Payment methods:",
+    "text_2": "Choosing a product: Find the desired product and click the 'Buy' button.",
+    "text_3": "If you want to make additional orders, select the basket icon.",
+    "text_4": "Order placement: After selecting the product, you will automatically be redirected to the order placement page.",
+    "text_5": "After this, you need to transfer the payment amount to the specified card number.",
+    "text_6": "You can make the payment through these applications:",
+    "text_7": "Or any banking applications will help you make the payment:",
+    "text_8": "After transferring the money to our card, take a screenshot of the receipt:",
+    "text_9": "And upload it in the receipt upload section on our platform:",
+    "text_10": "After uploading the receipt, your payment and order will be reviewed and confirmed between 9:00 AM and 7:00 PM. On our platform, you can pay not only with a plastic card but also in cash. To do this, select the products, add them to the basket, and visit our offices where you can hand over the money. We will issue a receipt and immediately process the order. Currently, our offices are located only in Kokand and Tashkent."
   }
 }

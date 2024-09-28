@@ -1,48 +1,73 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import styles from './MyReviewsPage.module.scss';
 import { useTranslations } from 'next-intl';
-import { Button } from 'antd';
-import { MyReviewsDataInterface } from '../../interfaces';
+import { Button, message } from 'antd';
 import ReviewsItem from '../ReviewsItem';
 import ReviewModal from '../ReviewModal/Index';
+import { useRouter } from 'next/router';
+import { MyReviewsReviewedInterface } from '../../interfaces';
+import useQueryApiClient from '@/utils/useQueryApiClient';
 
 interface Props {
-    data: MyReviewsDataInterface
+    data: MyReviewsReviewedInterface[]
 }
 
-export default function MyReviewsPage({ data }: Props) {
-    const t = useTranslations('MyReviews')
-    const [defautlSwitch, setDefautlSwitch] = useState(true)
-    const [modalIsOpen, setModalIsOpen] = useState(false)
+export default function MyReviewsPage({ data }: Props) {    
+    const [commentData, setCommentData] = useState<FormData>()
+    const [dataClone, setDataClone] = useState<MyReviewsReviewedInterface[] | []>(data)
 
-    const setSwitch = () => {
-        setDefautlSwitch(!defautlSwitch)
+    const t = useTranslations('MyReviews')
+    const router = useRouter();
+
+    const changeRout = (filter: string) => {
+        router.push(`/my-reviews?filter=${filter}`)
     }
+    
+
+    useEffect(() => {
+        if (!commentData) return        
+        createData(commentData)
+    }, [commentData])
+
+    useEffect(() => setDataClone(data), [data])
+
+    const { appendData: createData } = useQueryApiClient({
+        request: {
+            url: "post-comment",
+            method: "POST",
+            disableOnMount: true,
+            multipart: true,
+            responseType: "json"
+        },
+        onSuccess(res) {
+            setDataClone(res.data)
+            message.success(t('commentAdded'), 2)
+        },
+    });
 
     return (
         <>
             <div className={styles.main}>
-                <div className={styles.switch_buttons}>
-                    <Button onClick={() => setSwitch()} className={`${defautlSwitch ? styles.active_switch : null}`}>
+                <div className={`${styles.switch_buttons} ${styles["activeChild_" + router.query.filter]}`}>
+                    <Button onClick={() => changeRout('non_commented')} >
                         {t('waitForReview')}
                     </Button>
-                    <Button onClick={() => setSwitch()} className={`${!defautlSwitch ? styles.active_switch : null}`}>
+                    <Button onClick={() => changeRout('commented')}>
                         {t('reviewed')}
                     </Button>
                 </div>
                 <div className={styles.items_block}>
                     <div className={styles.items}>
                         {
-                            data[defautlSwitch ? "waitForReview" : "reviewed"].map(el => (
+                            dataClone?.map(el => (
                                 <Fragment key={el.id}>
-                                    <ReviewsItem item={el} setModalIsOpen={setModalIsOpen} />
+                                    <ReviewsItem item={el} setCommentData={setCommentData} />
                                 </Fragment>
                             ))
                         }
                     </div>
                 </div>
             </div>
-            <ReviewModal modalIsOpen={modalIsOpen} onCancel={setModalIsOpen} />
         </>
     );
 }

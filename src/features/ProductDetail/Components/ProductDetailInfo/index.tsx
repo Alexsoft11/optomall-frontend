@@ -1,114 +1,166 @@
-import React, { useState } from "react";
+/** @format */
+
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import styles from "./ProductDetailInfo.module.scss";
-import { Dropdown, Rate } from "antd";
+import { Button, Dropdown, Rate } from "antd";
 import SliderColors from "../SliderColors";
-import ProductOrderSection from "../ProductOrdeSection";
 import { MenuProps } from "antd/lib";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import Link from "next/link";
 import { shareUrl } from "@/constants";
-import LikedBtn from "@/components/LikedBtn";
 import ProductIsLike from "../ProductIsLike/ProductIsLike";
-import { productDetailsData } from "@/mockdata/detailData";
+import { useTranslations } from "next-intl";
+import { copyLinkToClipboard } from "@/utils/useCopyLink";
+import {
+  ColorsBasketInterface,
+  ProductDetailInterface,
+  SKUProperty,
+} from "../../interface";
+import ProductOrderSection from "../ProductOrdeSection";
+import { ArrowRight, TravelDateImg } from "$/assets/images";
+import Image from "next/image";
 
-const ProductDetailInfo = ({
+interface Props {
+  productDetails?: any;
+  product?: ProductDetailInterface;
+  path?: any;
+  setSelectedImage: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const ProductDetailInfo: React.FC<Props> = ({
   productDetails,
-  setSelectedImage,
   product,
-  path=shareUrl()
-}: any) => {
-  const [selectedColor, setSelectedColor] = useState<number | null>(
-    product.colors[0].id
-  );
-  const [selectedColors, setSelectedColors] = useState<number[]>([
-    product.colors[0].id,
-  ]);
-  const [totalQuantities, setTotalQuantities] = useState<{
-    [key: number]: number;
-  }>({});
+  path = shareUrl(),
+  setSelectedImage,
+}) => {
+  
+  const [showAll, setShowAll] = useState(false);
+  const divRef = useRef<HTMLDivElement>(null);
+
+  const scrollToTop = (pixels: number = 100): void => {
+    window.scrollTo({
+      top: window.scrollY - pixels,
+      behavior: "smooth",
+    });
+  };
+
+  const handleToggleShowAll = () => {
+    if (showAll && divRef?.current) {
+      const height = divRef.current.offsetHeight;
+      scrollToTop(height - 50);
+    }
+    setShowAll(!showAll);
+  };
+
+  const t = useTranslations("Product-detail");
+
   const items: MenuProps["items"] = [
     {
-      label: <Link href={`https://t.me/share/url?url=${path}`} className={styles.link}><SvgSelector id="telegram-svg" />Telegram</Link>,
-      key: "0",
-    },
-    {
-      label: <Link href={path}  className={styles.link}><SvgSelector id="facebook-svg"/>Facebook </Link>,
+      label: (
+        <p
+          className={styles.link}
+          onClick={(event) => copyLinkToClipboard(event, "location")}
+        >
+          <SvgSelector id="copylink-svg" />
+          {t("copy-link")}
+        </p>
+      ),
       key: "1",
     },
     {
-      label: <Link href={path}  className={styles.link}><SvgSelector id="instagram-svg"/>Instagram</Link>,
+      label: (
+        <Link
+          href={`https://t.me/share/url?url=${path}`}
+          className={styles.link}
+        >
+          <SvgSelector id="telegram-svg" />
+          Telegram
+        </Link>
+      ),
       key: "2",
     },
+    {
+      label: (
+        <Link href={path} className={styles.link}>
+          <SvgSelector id="facebook-svg" />
+          Facebook{" "}
+        </Link>
+      ),
+      key: "3",
+    },
+    {
+      label: (
+        <Link href={path} className={styles.link}>
+          <SvgSelector id="instagram-svg" />
+          Instagram
+        </Link>
+      ),
+      key: "4",
+    },
   ];
-console.log(product)
 
   return (
     <div className={styles.product_info_detail}>
-      <div className={styles.productInfo}>
-        <div className={styles.info_head}>
-          <div className={styles.rating}>
-            <Rate disabled defaultValue={productDetails.rating} />
-            <span>{productDetails.rating}</span>
-            <span>({productDetails.sold} купили)</span>
+      <div className={styles.info_block}>
+        <div className={styles.productInfo}>
+          <div className={styles.info_head}>
+            <div className={styles.rating}>
+              <Rate disabled defaultValue={productDetails.rating} />
+              <span>{productDetails.rating}</span>
+              <span>
+                ({productDetails.sold}) {t("bought")}
+              </span>
+            </div>
+            <div className={styles.product_actions}>
+              <ProductIsLike product={product} />
+              <Dropdown
+                menu={{ items }}
+                trigger={["click"]}
+                placement="bottomRight"
+              >
+                <a onClick={(e) => e.preventDefault()}>
+                  <SvgSelector id="share-icon" />
+                </a>
+              </Dropdown>
+            </div>
           </div>
-          <div className={styles.product_actions}>
-          <ProductIsLike product={product}/>
-            <Dropdown menu={{ items }} trigger={["click"]} placement="bottomRight">
-              <a onClick={(e) => e.preventDefault()}><SvgSelector id="share-icon"/></a>
-            </Dropdown>
-          </div>
-        </div>
-        <h1>{product?.title}</h1>
+          <h1>{product?.title}</h1>
 
-        <SliderColors
-          data={product.colors}
-          setSelectedColor={setSelectedColor}
+          {/* <SliderColors
+          skus={skus}
           selectedColor={selectedColor}
-          totalQuantities={totalQuantities}
-          selectedColors={selectedColors}
-          setSelectedColors={setSelectedColors}
-        />
-
-        <div className={styles.productSpecs}>
-          <li>
-            <div className={styles.productSpecs_name}>
-              <span>Url</span>
-              <div></div>
-            </div>
-            <Link href={product.product_url}>{product.id}</Link>
-          </li>
-          <li>
-            <div className={styles.productSpecs_name}>
-              <span>Состав</span>
-              <div></div>
-            </div>
-            <p>{productDetailsData.composition}</p>
-          </li>
-          <li>
-            <div className={styles.productSpecs_name}>
-              <span>Страна производства</span>
-              <div></div>
-            </div>
-            <p>{product.location}</p>
-          </li>
-          <li>
-            <div className={styles.productSpecs_name}>
-              <span>Особенности модели</span>
-              <div></div>
-            </div>
-            <p>{productDetailsData.features}</p>
-          </li>
+          colorsBasket={colorsBasket}
+        /> */}
+        </div>
+        <div ref={divRef} className={styles.productDetails}>
+          {(showAll
+            ? product?.composition
+            : product?.composition?.slice(0, 4)
+          )?.map((el, idx) => (
+            <Fragment key={idx}>
+              <div className={styles.detail}>
+                <span className={styles.detail_category}>{el.name}</span>
+                <p className={styles.detail_value}>{el.value}</p>
+              </div>
+            </Fragment>
+          ))}
+          {product?.composition && product?.composition?.length > 4 && (
+            <button
+              onClick={handleToggleShowAll}
+              className={styles.showAllButton}
+            >
+              {showAll ? t("hide") : t("allSpecificationsAndDescription")}
+            </button>
+          )}
+          <button className={styles.travelDate}>
+            <Image src={TravelDateImg} width={14} height={14} alt="#" />
+            <p>{t("order")}</p>
+            <Image src={ArrowRight} width={14} height={14} alt="#" />
+          </button>
         </div>
       </div>
 
-      <ProductOrderSection
-        totalQuantities={totalQuantities}
-        product={product}
-        selectedColor={selectedColor}
-        setTotalQuantities={setTotalQuantities}
-        selectedColors={selectedColors}
-        setSelectedColors={setSelectedColors}
-      />
+      <ProductOrderSection product={product} />
     </div>
   );
 };

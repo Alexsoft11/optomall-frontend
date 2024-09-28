@@ -1,10 +1,14 @@
-.product{
-    &__inner {
-        display: flex;
-        gap: 40px;
+.product {
+  &__inner {
+    display: flex;
+    gap: 40px;
 
-        @media (max-width:820px) {
-            flex-direction: column;
-          }
+    @media (max-width: 820px) {
+      flex-direction: column;
     }
+  }
+}
+
+.product_description {
+  overflow-x: hidden;
 }

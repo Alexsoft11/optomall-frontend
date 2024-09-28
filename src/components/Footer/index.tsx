@@ -1,52 +1,61 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { HeadLogo } from '$/assets/images/index'
 import Image from 'next/image'
 import styles from './Footer.module.scss'
-import SvgSelector from '$/assets/icons/SvgSelector'
 import Link from 'next/link'
+import useQueryApiClient from '@/utils/useQueryApiClient'
+import { useTranslations } from 'next-intl'
 
 const Footer = () => {
+  const [footerData, setFooterData] = useState<any>([])
+  const t = useTranslations("Footer")
+  const currentYear = new Date().getFullYear();
+
+  const { appendData: getFooterData } = useQueryApiClient({
+    request: {
+      url: "socials",
+      method: "GET",
+    },
+    onSuccess(res) {
+      if (Array.isArray(res.socials)) {
+        setFooterData(res.socials);
+      } else {
+        console.error('Unexpected response format:', res);
+      }
+    },
+  });
+
   return (
     <>
       <div className={styles.footer}>
         <div className='container'>
           <div className={styles.footer_content}>
-            <Image src={HeadLogo} alt="Taobao.com" className={styles.logo}/>
-            <ul className={styles.footer_links}>
+            <Image src={HeadLogo} alt="Taobao.com" className={styles.logo} />
+            <ul className={styles.footer_links} >
               <li>
-                <Link href="#">О нас</Link>
+                <Link href="/about">{t("about_us")}</Link>
               </li>
               <li>
-                <Link href="#">Часто задаваемые вопросы</Link>
+                <Link href="#">{t("faq")}</Link>
               </li>
               <li>
-                <Link href="#">Транспортные расходы</Link>
+                <Link href="/transport">{t("shipping_costs")}</Link>
               </li>
               <li>
-                <Link href="#">Как использовать</Link>
+                <Link href="/usinginfo">{t("how_to_use")}</Link>
+              </li>
+              <li>
+                <Link href="/make-payment">{t("make_payment")}</Link>
               </li>
             </ul>
             <div className={styles.social_icons}>
-              <Link href="#">
-                <SvgSelector id="facebook-svg"/>
-              </Link>
-              <Link href="#">
-                <SvgSelector id="twitter-svg"/>
-              </Link>
-              <Link href="#">
-                <SvgSelector id="instagram-svg"/>
-              </Link>
-              <Link href="#">
-                <SvgSelector id="linked-svg"/>
-              </Link>
-              <Link href="#">
-                <SvgSelector id="tiktok-svg"/>
-              </Link>
-              <Link href="#">
-                <SvgSelector id="youtube-svg"/>
-              </Link>
+              {Array.isArray(footerData) && footerData.map((item, idx) => (
+                <Link key={idx} href={item.path}>
+                  <Image src={item.icon} alt="img" width={32} height={32} />
+                </Link>
+              ))}
             </div>
-            <p className={styles.copyright}>© 2023 TaoBao All rights reserved</p>
+            <p className={styles.copyright}>© {currentYear} Optomall All rights reserved</p>
           </div>
         </div>
       </div>

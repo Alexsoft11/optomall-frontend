@@ -1,0 +1,52 @@
+.main {
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+
+    .form_block {
+        display: flex;
+        gap: 21px;
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+
+            .maskedInput {
+                border-radius: 10px;
+                padding: 9px 15px;
+                font-size: var(--paragraph);
+            }
+        }
+
+        div {
+            margin: 0px !important;
+            width: 100%;
+
+            span {
+                flex-direction: row !important;
+            }
+        }
+
+        input {
+            padding: 9px;
+
+            &::placeholder {
+                color: var(--davys-grey);
+            }
+
+        }
+    }
+
+    h2 {
+        font-size: var(--heading-six);
+        font-weight: 500;
+        line-height: 24.2px;
+    }
+
+}

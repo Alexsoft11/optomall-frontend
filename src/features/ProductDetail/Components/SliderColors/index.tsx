@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -8,77 +8,152 @@ import { Navigation } from "swiper/modules";
 import Image from "next/image";
 import styles from "./SliderColors.module.scss";
 import SvgSelector from "$/assets/icons/SvgSelector";
-import { Badge } from "antd";
+import { Badge, Tooltip } from "antd";
+import { ColorsBasketInterface, SKUProperty } from "../../interface";
+import CustomImage from "@/components/CustomImage";
+
+interface Props {
+  colors: SKUProperty[];
+  handleColorSelect: (colorProperty?: SKUProperty) => void;
+  selectedColor?: SKUProperty;
+  colorsBasket: ColorsBasketInterface[];
+}
 
 const SliderColors = ({
-  data,
-  setSelectedColor,
-  totalQuantities,
-  selectedColors,
-  setSelectedColors,
-}: any) => {
-  const [activeItem, setActiveItem] = useState<number>(data[0].id);
-
-  const handleColorClick = (colorId: number) => {
-    setActiveItem(colorId);
-    setSelectedColors((prev: number[]) => {
-      if (!prev.includes(colorId)) {
-        return [...prev, colorId];
-      }
-      return prev;
+  colors,
+  handleColorSelect,
+  selectedColor,
+  colorsBasket,
+}: Props) => {
+  const getTotalQuantities = () => {
+    const totalQuantities: { [key: string]: number } = {};
+    colorsBasket.forEach((colorBasket) => {
+      const totalQuantity = colorBasket.data.reduce(
+        (sum, item) => sum + item.quantity,
+        0
+      );
+      totalQuantities[colorBasket.color] = totalQuantity;
     });
-    setSelectedColor(colorId);
+    return totalQuantities;
   };
 
-  return (
-    <div className={styles.swiper_colors}>
-      <Swiper
-        loop={true}
-        slidesPerView={4}
-        spaceBetween={5}
-        navigation={{
-          nextEl: `.next_btn`,
-          prevEl: `.prev_btn`,
-        }}
-        breakpoints={{
-          960: {
-            slidesPerView: 6,
-            spaceBetween: 10,
-          },
-          460: {
-            slidesPerView: 5.2,
-            spaceBetween: 10,
-          },
-          350: {
-            slidesPerView: 5,
-            spaceBetween: 5,
-          },
-        }}
-        modules={[Navigation]}
-        className="slider_colors"
+  const totalQuantities = getTotalQuantities();
+
+  const renderColorItem = (
+    color: SKUProperty,
+    idx: number,
+    className: string,
+  ) => (
+    <div className={styles.card_item} key={idx}>
+      <Tooltip
+        title={color?.imageUrl ? color.value : ""}
+        trigger={["contextMenu", "hover"]}
       >
-        {data?.map((el: any, idx: number) => (
-          <SwiperSlide key={idx}>
-            <div className={styles.card_item}>
-              <Badge count={totalQuantities[el.id] || 0}></Badge>
-              <div
-                className={`${styles.slide_color} ${
-                  activeItem === el.id ? styles.selected : ""
-                }`}
-                onClick={() => handleColorClick(el.id)}
-              >
-                <Image src={el.image_url} alt={el.name} fill />
+        <Badge offset={[-2, -2]} count={totalQuantities[color.value] || 0}>
+          <div
+            className={`${className} ${
+              selectedColor?.value === color.value ? styles.selected : ""
+            }`}
+            onClick={() => handleColorSelect(color)}
+          >
+            {color?.imageUrl ? (
+              <CustomImage
+                src={color?.imageUrl}
+                alt={color?.name ? color?.name : ""}
+                fill={true}
+                isLink={false}
+                loading="lazy"
+              />
+            ) : (
+              <div className={styles.color_value}>
+                {color.value.length > 25 ? (
+                  <Tooltip
+                    title={color.value}
+                    trigger={["hover", "contextMenu"]}
+                  >
+                    {color.value.slice(0, 20)}...
+                  </Tooltip>
+                ) : (
+                  color.value
+                )}
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <button className={`next_btn ${styles.next_btn} ${styles.swiper_btns}`}>
-        <SvgSelector id="next-svg" />
-      </button>
-      <button className={`prev_btn ${styles.prev_btn} ${styles.swiper_btns}`}>
-        <SvgSelector id="prev-svg" />
-      </button>
+            )}
+          </div>
+        </Badge>
+      </Tooltip>
+    </div>
+  );
+
+  // Check if the first imageUrl is null
+  const isImageUrlNull = colors.length > 0 && !colors[0].imageUrl;
+
+  return (
+    <div className="">
+      {isImageUrlNull ? (
+        // Render simple list if imageUrl is null
+        <div className={styles.color_list}>
+          {colors.map((color, idx: number) =>
+            renderColorItem(
+              { ...color, imageUrl: undefined },
+              idx,
+              styles.list_item
+            )
+          )}
+        </div>
+      ) : (
+        <div className={styles.swiper_colors}>
+          <Swiper
+            loop={true}
+            slidesPerView={4}
+            spaceBetween={5}
+            navigation={{
+              nextEl: `.next_btn`,
+              prevEl: `.prev_btn`,
+            }}
+            breakpoints={{
+              960: {
+                slidesPerView: 6,
+                spaceBetween: 10,
+              },
+              460: {
+                slidesPerView: 5.2,
+                spaceBetween: 10,
+              },
+              350: {
+                slidesPerView: 5,
+                spaceBetween: 5,
+              },
+            }}
+            modules={[Navigation]}
+            className="slider_colors"
+          >
+            {colors.map((color, idx: number) => {
+              if (!color.imageUrl) {
+                return;
+              }
+              return (
+                <SwiperSlide key={idx}>
+                  {renderColorItem(color, idx, styles.slide_color)}
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+          {colors.length > 5 && (
+            <>
+              <button
+                className={`next_btn ${styles.next_btn} ${styles.swiper_btns}`}
+              >
+                <SvgSelector id="next-svg" />
+              </button>
+              <button
+                className={`prev_btn ${styles.prev_btn} ${styles.swiper_btns}`}
+              >
+                <SvgSelector id="prev-svg" />
+              </button>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -10,11 +10,11 @@ class MyDocument extends Document {
     ctx.renderPage = () =>
       originalRenderPage({
         enhanceApp: (App) => (props) =>
-          (
-            <StyleProvider cache={cache}>
-              <App {...props} />
-            </StyleProvider>
-          ),
+        (
+          <StyleProvider cache={cache}>
+            <App {...props} />
+          </StyleProvider>
+        ),
       });
 
     const initialProps = await Document.getInitialProps(ctx);
@@ -33,13 +33,38 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
-          <script
-            src="https://api-maps.yandex.ru/2.1/?lang=en_RU&apikey=b14d6563-5fe8-4fef-8a47-d4ea235cda5a"
-            type="text/javascript"
-            async
+        <Head>         
+          <meta
+            name="google-site-verification"
+            content="AmLYTSZ7gHcV8XopUlGBqWjxHeWmRfXMVX8D_xMn54E"
           />
-          <script src="//code.jivo.ru/widget/DIDzI069GB" async></script>
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/favicon/apple-touch-icon.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon/favicon-16x16.png"
+          />
+          <link rel="manifest" href="/favicon/site.webmanifest" />
+          <link
+            rel="mask-icon"
+            href="/favicon/safari-pinned-tab.svg"
+            color="#5bbad5"
+          />
+          <meta name="msapplication-TileColor" content="#da532c" />
+          <meta name="theme-color" content="#ffffff" />
+        
+
         </Head>
         <body>
           <Main />

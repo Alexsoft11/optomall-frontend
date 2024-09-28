@@ -1,55 +1,92 @@
 .main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .empty_data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    div {
+      padding: 15dvh 0px 0px 0px;
+      font-size: var(--heading-five);
+      font-weight: 500;
+      line-height: 29.05px;
+    }
+  }
+
+  .items_block {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+
+    .items {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(3, minmax(30%, max-content));
+      grid-template-rows: auto;
+      > div {
+        margin-bottom: auto;
+      }
+      .selectedOrder {
+        border: 3px solid var(--primary-color);
+        border-radius: 10px;
+        height: min-content;
+      }
+
+      @media (max-width: 1110px) {
+        grid-template-columns: repeat(2, minmax(40%, max-content));
+      }
+
+      @media (max-width: 590px) {
+        grid-template-columns: repeat(1, minmax(90%, max-content));
+      }
+    }
+  }
+
+  .switch_buttons {
+    display: flex;
     gap: 20px;
 
-    .items_block {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        .items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(auto, 310px));
-            gap: 20px;
-        }
+    @media (max-width: 340px) {
+      gap: 10px;
+      button {
+        padding: 6px 10px;
+      }
     }
 
+    button {
+      padding: 8.5px 15px;
+      height: auto;
 
-    .switch_buttons {
-        display: flex;
-        gap: 20px;
-
-        button {
-            padding: 8.5px 15px;
-            height: auto;
-
-            span {
-                color: var(--light-white);
-            }
-        }
-
+      span {
+        color: var(--light-white);
+      }
     }
+  }
 
-    .activeChild_all {
-        button:nth-child(2) {
-            span {
-                color: var(--primary-color) !important;
-            }
-        }
+  .activeChild_all {
+    button:nth-child(2) {
+      span {
+        color: var(--primary-color) !important;
+      }
     }
-    .activeChild_active {
-        button:nth-child(1) {
-            span {
-                color: var(--primary-color);
-            }
-        }
+  }
+
+  .activeChild_active {
+    button:nth-child(1) {
+      span {
+        color: var(--primary-color);
+      }
     }
-    .activeChild_in_verification {
-        button:nth-child(3) {
-            span {
-                color: var(--primary-color);
-            }
-        }
+  }
+
+  .activeChild_in_verification {
+    button:nth-child(3) {
+      span {
+        color: var(--primary-color);
+      }
     }
+  }
 }

@@ -11,6 +11,9 @@ let defaultObj = {
     Accept: "application/json,text/*;q=0.99",
     "Content-Type": "application/json",
   },
+  paramsSerializer: {
+    indexes: true,
+  },
 };
 
 export const axiosInstance = Axios.create(defaultObj);
@@ -19,29 +22,87 @@ export const API = {
   // HomePage
   getHomePageSlider: () => axiosInstance.get("sliders"),
 
-  getHomePageProducts: () => axiosInstance.get("products?query=Discount"),
+  getHomePageProducts: (lang: any, token?: string) =>
+    axiosInstance.get(
+      `products?query=discount&productsCount=60&page=2&lang=${lang}`,
+      {
+        headers: token ? { Authorization: "Bearer " + token } : {},
+      }
+    ),
 
-  // SearchPage
-  getSearchPageProducts: (query: any) =>
-    axiosInstance.get(`search-products-from-taobao?searchQuery=${query}`),
+  getHomePageCategoryProducts: (limit: number) =>
+    axiosInstance.get(`additional-categories?limit=${limit}`),
 
-  getProductDetail: (query: any) =>
+  getHomePageCategoryProductsToken: (limit: number, token?: string) =>
     axiosInstance
-      .get(`product-detail-from-taobao?productId=${query}`)
-      .then((res) => res.data),
+      .get(
+        `additional-categories${
+          token && token !== "undefined" ? "-token" : ""
+        }?limit=${limit}`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then((res) => res),
 
-  getProductDetailToken: (query: any, token?:string) =>
+  //MessagesPage
+  getMessages: (token: string) =>
     axiosInstance
-      .get(`product-detail-from-taobao${token && token !== "undefined" ? "-token" : ""}?productId=${query}`,{
+      .get(`/user/messages`, {
         headers: {
           Authorization: "Bearer " + token,
         },
       })
       .then((res) => res.data),
-  // CartPage
-  getUserBasket: (token: string) =>
+
+  // SearchPage
+  getSearchPageProducts: (query: any, token?: string) =>
+    axiosInstance.get(
+      `search-products-from-taobao${
+        token && token !== "undefined" ? "-token" : ""
+      }?searchQuery=${query.query.query}&provider=${
+        query.query.provider
+      }&sort=${query.query.sort}&lang=${query.locale}&page=1`,
+      {
+        headers: token ? { Authorization: "Bearer " + token } : {},
+      }
+    ),
+  getRecomendedProducts: (query: any, token?: string) =>
+    axiosInstance.get(
+      `search-products-from-taobao${
+        token && token !== "undefined" ? "-token" : ""
+      }?searchQuery=${query.query.query}&provider=${
+        query.query.provider
+      }&startPrice=${query.query.startPrice}&endPrice=${
+        query.query.endPrice
+      }&lang=${query.locale}&page=1`,
+      {
+        headers: token ? { Authorization: "Bearer " + token } : {},
+      }
+    ),
+
+  //  ProductDetail
+  getProductDetail: (params: any) =>
     axiosInstance
-      .get(`get-user-basket`, {
+      .get(`product-detail-onbound`, { params: params })
+      .then((res) => res.data),
+
+  getProductDetailLocal: (params: any) =>
+    axiosInstance
+      .get(`product-detail-otapi?productId`, {
+        params: params,
+      })
+      .then((res) => res.data),
+
+  getProductComments: (query: any) =>
+    axiosInstance.get(`get-comments?product_id=${query}`),
+
+  // CartPage
+  getUserBasket: (token: string, locale: string) =>
+    axiosInstance
+      .get(`get-user-basket?lang=${locale}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -49,9 +110,38 @@ export const API = {
       .then((res) => res.data),
 
   // OrderPage
-  getOrder: (token: string, id: string) =>
+  getOrder: (token: string, id: string, locale: string) =>
     axiosInstance
-      .get(`get-order?order_id=${id}`, {
+      .get(`get-order?order_id=${id}&locale=${locale}`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => res.data),
+
+  getUserData: (token: string) =>
+    axiosInstance
+      .get(`user-get-data`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => res.data),
+
+  // MyReviewsPage
+  getReviews: (token: string, filter: string, locale: string) =>
+    axiosInstance
+      .get(`user-products?filter=${filter}&lang=${locale}`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => res.data.data),
+
+  // CargoPage
+  getCargo: (token: string, id: string) =>
+    axiosInstance
+      .get(`get-cargo?order_id=${id}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -65,19 +155,21 @@ export const API = {
       .then((res) => res.data),
 
   userBasketFromStorage: (token: string, data: UserBasketPostInterface[]) =>
-    axiosInstance.post("user-basket", data, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    }),
+    axiosInstance
+      .post("user-basket", data, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => localStorage.removeItem("basket-data")),
 
   authCheckEmail: (email: string) =>
     axiosInstance.post("check-email", { email: email }).then((res) => res.data),
 
   //PurchasesPage
-  getPurchases: (token: string, filter: string) =>
+  getPurchases: (token: string, filter: string, locale: string) =>
     axiosInstance
-      .get(`get-orders?filter=${filter}`, {
+      .get(`get-orders?filter=${filter}&lang=${locale}`, {
         headers: {
           Authorization: "Bearer " + token,
         },

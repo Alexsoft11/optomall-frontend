@@ -16,6 +16,7 @@
     max-width: 90px;
     max-height: 35px;
     margin-bottom: 20px;
+    object-fit: contain;
 }
 
 .footer_links {
@@ -51,9 +52,10 @@
     gap: 60px;
 
     @media (max-width:600px) {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
         gap: 30px;
+    }
+    @media (max-width:390px) {
+        gap: 20px;
     }
 }
 
@@ -63,6 +65,11 @@
 
 .social_icons img {
     height: 30px;
+
+    @media (max-width:390px) {
+        max-width: 24px;
+        max-height: 24px;
+    }
 }
 
 .copyright {

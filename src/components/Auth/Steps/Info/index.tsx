@@ -1,60 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Info.module.scss";
-import { Form, message } from "antd";
+import { Form, InputRef, message } from "antd";
 import { Button, Input } from "@/ui";
 import { useTranslations } from "next-intl";
 import useQueryApiClient from "@/utils/useQueryApiClient";
-import { cookieBasket, validateName, validatePhone } from "../../Functions";
+import { validateName, validatePhone } from "../../Functions";
 import GoToBack from "@/components/GoToBack";
 import { useRouter } from "next/router";
 import useHandleError from "@/utils/useHandleError";
 import Cookies from "universal-cookie";
-import { API } from "@/services/api";
-import { CartItemInterface } from "@/features/Cart/interface";
+import MaskedInput from "antd-mask-input";
 
 export default function Info() {
   const [form] = Form.useForm();
   const t = useTranslations("");
   const cookie = new Cookies();
-  const router = useRouter();
+  const { push, query } = useRouter();
   const [handleError] = useHandleError(form);
-  const [isLoading, setIsLoading] = useState(false)
+  const inputRef = useRef<InputRef>(null);
 
-  const { appendData: createData } = useQueryApiClient({
+  const { appendData: createData, isLoading } = useQueryApiClient({
     request: {
       url: "personal-data",
       method: "POST",
       disableOnMount: true,
     },
     onSuccess(res) {
+      // const backUrl = localStorage.getItem("backUrl");
       if (!res.token) {
-        message.error('something_wrong')
-        return
+        message.error(t("Auth.something_wrong"));
+        return;
       }
-      if (localStorage.getItem('basket-data')) {
-        API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
-      }
-      router.push("/");
-      const maxAge = 60; // 3 days in seconds
+      const maxAge = 10 * 24 * 60 * 60; // 10 days in seconds
 
       // Set the cookie
-      cookie.set('token', res.token, {
-        path: '/',
+      cookie.set("token", res.token, {
+        path: "/",
         maxAge: maxAge,
-        httpOnly: true,
-        secure: process.env.NODE_ENV !== 'development',
       });
-      setIsLoading(false)
+      push((localStorage.getItem("backUrl") as string) || "/");
     },
     onError(res) {
+      message.error(t("Auth.something_wrong"));
       handleError(res);
-      setIsLoading(false)
     },
   });
 
   const onFinish = (values: any) => {
-    values.unique_id = router.query.id;
-    values.phone = '+998' + values.phone
+    values.unique_id = query.id;
     createData(values);
   };
 
@@ -62,7 +55,7 @@ export default function Info() {
     <div className={styles.main}>
       <GoToBack backUrl="/auth?step=signUp" />
       <h1>{t("Auth.info")}</h1>
-      <p className={styles.desc}>{t('Auth.infoDescription')}</p>
+      <p className={styles.desc}>{t("Auth.infoDescription")}</p>
       <div className={styles.form}>
         <Form
           form={form}
@@ -79,40 +72,44 @@ export default function Info() {
           }}
           autoComplete="off"
         >
-
-
           <Input
             name="name"
             rules={[
-              { validator: (rule, value) => validateName(t("Auth.nameValidateError"), rule, value) }
+              {
+                validator: (rule, value) =>
+                  validateName(t("Auth.nameValidateError"), rule, value),
+              },
             ]}
             type="text"
             className={styles.input}
             placeholder={t("Auth.name")}
           />
 
-
-
           <Input
             name="last_name"
             rules={[
-              { validator: (rule, value) => validateName(t("Auth.nameValidateError"), rule, value) }
+              {
+                validator: (rule, value) =>
+                  validateName(t("Auth.nameValidateError"), rule, value),
+              },
             ]}
             type="text"
             placeholder={t("Auth.secondName")}
           />
 
-
-
-          <Input
+          <Form.Item
             name="phone"
-            rules={[
-              { validator: (rule, value) => validatePhone(t, rule, value) },
-            ]}
-            type="text"
-            prefix={"+998"}
-            placeholder={"-- --- -- --"}
-          />
+            rules={[{ validator: (rule, value) => validatePhone(t, value) }]}
+            required
+          >
+            <MaskedInput
+              className={styles.maskedInput}
+              ref={inputRef}
+              type="text"
+              prefix={"+998"}
+              mask={"(00) 000-00-00"}
+            />
+          </Form.Item>
 
           <Form.Item className={styles.submitButton}>
             <Button

@@ -4,13 +4,13 @@ import { MessagesDataInterface } from '../interface';
 import MessagesItem from '../MessagesItem';
 
 interface Props {
-    data: MessagesDataInterface[]
+    messagesData: MessagesDataInterface[]
 }
 
-export default function MessagesPage({ data }: Props) {
+export default function MessagesPage({ messagesData }: Props) {
     return (
         <div className={styles.main}>
-            {data.map(el => (
+            {messagesData?.map(el => (
                 <Fragment key={el.id}>
                     <MessagesItem item={el} />
                 </Fragment>

@@ -1,10 +1,10 @@
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { Skeleton } from "antd";
 
 interface IProps {
-  className: string;
+  className?: string;
   imgClass?: string;
   src: string | StaticImageData;
   alt: string;
@@ -12,9 +12,10 @@ interface IProps {
   width?: number;
   height?: number;
   link?: string;
-  isLink: boolean;
+  isLink?: boolean;
   loading?: "lazy" | "eager";
   target?: "_blank" | "_parent" | "_self" | "_top";
+  onClick?: any;
 }
 
 const CustomImage: FC<IProps> = ({
@@ -29,12 +30,31 @@ const CustomImage: FC<IProps> = ({
   isLink = true,
   loading = "lazy",
   target = "_self",
+  onClick,
 }) => {
-  const [isLoad, setIsLoad] = useState(true);
+  const [isLoad, setIsLoad] = useState(false);
 
-  const imgSrc = src ? src : "";
+  const handleImageLoad = () => {
+    setIsLoad(false);
+  };
+
+  const formatImageUrl = (url: string): string => {
+    if (url.startsWith("//")) {
+      return `https:${url}`;
+    } else if (url.startsWith("http://")) {
+      return url.replace("http://", "https://");
+    }
+    return url;
+  };
+
+  // Format the image URL
+  const imgSrc = formatImageUrl(typeof src === "string" ? src : "");
+
   return (
-    <div className={`${className} ${isLoad ? "blur" : "remove_bluer"}`}>
+    <div
+      className={`${className} ${isLoad ? "blur" : "remove_blur"}`}
+      onClick={onClick}
+    >
       {isLoad && (
         <Skeleton.Button
           active
@@ -52,7 +72,8 @@ const CustomImage: FC<IProps> = ({
             fill={fill}
             width={width}
             height={height}
-            onLoad={() => setIsLoad(false)}
+            onLoad={handleImageLoad}
+            onError={() => console.error(`Failed to load image: ${imgSrc}`)}
           />
         </Link>
       ) : (
@@ -64,7 +85,8 @@ const CustomImage: FC<IProps> = ({
           width={width}
           height={height}
           loading={loading}
-          onLoad={() => setIsLoad(false)}
+          onLoad={handleImageLoad}
+          onError={() => console.error(`Failed to load image: ${imgSrc}`)}
         />
       )}
     </div>

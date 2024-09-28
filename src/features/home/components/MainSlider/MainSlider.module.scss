@@ -1,28 +1,30 @@
 .mainbanner {
-    @media (min-width:2000px) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-    }
+  margin-bottom: 40px;
+  @media (min-width: 2000px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  @media (max-width: 650px) {
+    margin-bottom: 10px;
+  }
 
-    &__inner {
-        display: none;
+  &__inner {
+    display: none;
 
-        @media (max-width:768px) {
-            display: block;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
+    @media (max-width: 970px) {
+      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
     }
+  }
 }
 
 .main_slider {
-    @media (min-width:2000px) {
-        max-width: 1440px;
-    }
+  @media (min-width: 2000px) {
+    width: 1440px;
+  }
 }
-
-

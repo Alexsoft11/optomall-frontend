@@ -1,37 +1,92 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Products.module.scss";
 import { CustomTabs } from "@/ui/Tabs";
 import TabPane from "antd/es/tabs/TabPane";
-import Card from "@/components/Card";
 import { ProductTabsData } from "@/constants/products";
 import { CardInterface } from "@/interfaces";
 import { useTranslations } from "next-intl";
 import { LoadingSpinner } from "@/ui/Spin";
+import { CategoryInterface } from "../../interfaces";
+import dynamic from "next/dynamic";
 import useQueryApiClient from "@/utils/useQueryApiClient";
+import Products from "@/components/Products";
+import { useRouter } from "next/router";
+import useSearchStore from "@/components/useSearchStore";
+
+const Card = dynamic(() => import("@/components/Card"));
 
 interface Props {
-  products: CardInterface[];
+  productsData: CardInterface[];
+  categoryData: CategoryInterface[];
+  getProductsData: any;
+  isProductsLoading: any;
 }
 
-const Products = ({ products }: Props) => {
-  const t = useTranslations()
-  const [productsChange, setProducts] = useState<CardInterface[]>(products);
+const ProductsSection = ({ categoryData }: Props) => {
+  const t = useTranslations();
+  const { query, locale } = useRouter();
+  const [keyApi, setKeyApi] = useState("discount");
 
-  const { appendData: getProductsData, isLoading: isProductsLoading } = useQueryApiClient({
+  const {
+    products,
+    hasMore,
+    setProducts,
+    setHasMore,
+  } = useSearchStore();
+
+  const isEntered = typeof window !== "undefined" ? sessionStorage.getItem("isEnter") : null;
+
+  const handleTabChange = (key: string) => {
+    getProductsData({ query: key });
+    setKeyApi(key);
+  };
+
+  const handleGetProductWhenScrool = (custom?: any) => {
+    if (!isEntered && query) {
+      getProductsWhenScrool({
+        ...custom,
+        ...query,
+        lang: locale,
+        query: keyApi,
+      });
+    } else {
+      sessionStorage.removeItem("isEnter");
+    }
+  };
+
+
+  const {
+    appendData: getProductsWhenScrool,
+    isLoading: isProductsScroolLoading,
+  } = useQueryApiClient({
     request: {
-      url: `products?query=&tab=:tab`,
-      method: 'GET',
+      url: `products`,
+      method: "GET",
       disableOnMount: true,
     },
     onSuccess(res: any) {
-      setProducts(res.products);
-    }
+      if (!res.products.length) {
+        setHasMore(false);
+        return;
+      }
+      setProducts([...products, ...res.products]);
+    },
   });
 
-  const handleTabChange = (key: string) => {
-    getProductsData({ tab: key });
-  };
-  
+  const { appendData: getProductsData, isLoading: isProductsLoading } =
+    useQueryApiClient({
+      request: {
+        url: `products`,
+        method: "GET",
+        disableOnMount: true,
+      },
+      onSuccess(res: any) {
+        if (res.products) {
+          setProducts(res.products);
+        }
+      },
+    });
+
   return (
     <div className={styles.products}>
       <div className="container">
@@ -50,17 +105,56 @@ const Products = ({ products }: Props) => {
 
           <div className={styles.products__cards}>
             {isProductsLoading ? (
-              <LoadingSpinner  spinning={true} tip={'loadingData'} size="large" />
+              <LoadingSpinner
+                spinning={isProductsLoading}
+                tip={"loadingData"}
+                size="large"
+              />
             ) : (
-              productsChange?.map((el: CardInterface, idx: number) => (
-                <Card key={el.id}  data={el} />
-              ))
+              <Products
+                type="scroll"
+                perPage={1}
+                data={products}
+                hasMore={hasMore}
+                handleGetProduct={handleGetProductWhenScrool}
+                scroolLoading={isProductsScroolLoading}
+              />
             )}
           </div>
+
+          {/* <div className={styles.products__categories}>
+            {categoryData?.map((item: any, idx: number) => (
+              <div key={idx} className={styles.products__categories_inner}>
+                <div className={styles.products__banner}>
+                  <Image
+                    src={
+                      window.innerWidth <= 600
+                        ? item?.image_mobile
+                        : item?.image
+                    }
+                    width={10000}
+                    height={10000}
+                    alt="banner img"
+                  />
+                </div>
+
+                <div className={styles.products__cards}>
+                  {item?.products.map((el: any, idx: number) => (
+                    <Card
+                      isBlank={false}
+                      key={idx}
+                      data={el}
+                      provider="local"
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div> */}
         </div>
       </div>
     </div>
   );
 };
 
-export default Products;
+export default ProductsSection;

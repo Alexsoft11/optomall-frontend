@@ -1,15 +1,73 @@
 .main {
-    padding: 10px 0px 0px 0px;
+  padding: 10px 0px 0px 0px;
+  display: grid;
+  gap: 20px;
+
+  grid-template-areas:
+    "check check order"
+    "items items order"
+    "items items .";
+
+  @media (max-width: 770px) {
+    grid-template-areas:
+      "check check check"
+      "order order order"
+      "items items items";
+    gap: 10px;
+    padding: 0px;
+  }
+  .check {
+    grid-area: check;
     display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .items_block {
+    grid-area: items;
+    display: flex;
+    flex-direction: column;
+
+    .items {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(2, minmax(50%, max-content));
+      grid-template-rows: auto;
+
+      > div {
+        margin-bottom: auto;
+      }
+
+      .selectedOrder {
+        border: 3px solid var(--primary-color);
+        border-radius: 10px;
+        height: min-content;
+      }
+
+      @media (max-width: 1110px) {
+        grid-template-columns: repeat(2, minmax(40%, max-content));
+      }
+
+      @media (max-width: 980px) {
+        grid-template-columns: 100%;
+      }
+    }
+  }
+
+  .order_side {
+    grid-area: order;
+    width: min-content;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
 
-    @media (max-width:  1350px) {
-        display: flex;
+    .order_info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
-    @media (max-width:  770px) {
-        gap: 10px;
-        padding: 0px;
+    @media (max-width: 770px) {
+      width: 100%;
     }
-
+  }
 }

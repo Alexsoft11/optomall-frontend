@@ -4,13 +4,14 @@ import SearchBtn from "@/components/SearchBtn";
 import Card from "@/components/Card";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import { useTranslations } from "next-intl";
+import Products from "@/components/Products";
 
 interface Props {
   data: any;
 }
 
-const CatalogProduct = ({ data }: Props) => {
-  const t = useTranslations("Search")
+const CatalogProduct = ({ data = [] }: Props) => {
+  const t = useTranslations("Search");
   return (
     <>
       <div className={styles.catalog_product}>
@@ -21,18 +22,24 @@ const CatalogProduct = ({ data }: Props) => {
                 <SearchBtn />
               </div>
               <div className={styles.catalog_product__btns}>
-                <button><span>{t("sales")}</span> <SvgSelector id="sorting-svg"/></button>
-                <button><span>{t("reputation")}</span> <SvgSelector id="settings-svg"/></button>
-                <button><span>{t("longPrice")}</span> <SvgSelector id="sorting-svg"/></button>
-                <button><span>{t("downPrice")}</span> <SvgSelector id="settings-svg"/></button>
+                <button>
+                  <span>{t("sales")}</span> <SvgSelector id="sorting-svg" />
+                </button>
+                <button>
+                  <span>{t("reputation")}</span>{" "}
+                  <SvgSelector id="settings-svg" />
+                </button>
+                <button>
+                  <span>{t("longPrice")}</span> <SvgSelector id="sorting-svg" />
+                </button>
+                <button>
+                  <span>{t("downPrice")}</span>{" "}
+                  <SvgSelector id="settings-svg" />
+                </button>
               </div>
             </div>
 
-            <div className={styles.catalog_product__cards}>
-              {data?.map((el: any, idx: number) => (
-                <Card key={el.id} data={el}/>
-              ))}
-            </div>
+            <Products type="simp" data={data} />
           </div>
         </div>
       </div>

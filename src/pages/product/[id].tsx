@@ -1,64 +1,113 @@
-/** @format */
-
 import PageLayout from "@/components/Layout/PageLayout";
-import { API } from "@/services/api";
 import { LoadingSpinner } from "@/ui/Spin";
 
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
-import cookie from "cookie";
+import DataNotFound from "@/ui/DataNotFound";
+import useQueryApiClient from "@/utils/useQueryApiClient";
+import { message } from "antd";
 
-interface ProductDetailProps {
-  product: any;
-  score: any;
-}
+
 
 const ProductDetailSection = dynamic(
   () => import("@/features/ProductDetail/Components/ProductDetailSection"),
   {
-    loading: () => <LoadingSpinner fullscreen={true} size='large' />,
+    loading: () => <LoadingSpinner fullscreen={true} size="large" />,
   }
 );
 
-const ProductDetail = ({ product }: ProductDetailProps) => {
-  if (!product) {
-    return <h2>No product found.</h2>;
+const ProductDetailSectionLocal = dynamic(
+  () =>
+    import("@/features/ProductDetailOld/Components/ProductDetailSectionOld"),
+  {
+    loading: () => <LoadingSpinner fullscreen={true} size="large" />,
   }
-  const title = product?.detail.title;
+);
 
+const ProductDetail = () => {
+  const { query, locale } = useRouter();
+
+
+
+  const { data: product, appendData, isLoading, isError } = useQueryApiClient({
+    request: {
+      url: `product-detail-onbound`,
+      method: "GET",
+      disableOnMount: true,
+    },
+  });
+
+  const {
+    appendData: getSearchRes,
+    data: recomendProducts,
+  } = useQueryApiClient({
+    request: {
+      url: `search-products-from-taobao?imageUrl=${product?.detail?.image}&lang=${locale}&provider=${query.provider}`,
+      method: "GET",
+      disableOnMount: true,
+    },
+  });
+
+  const { data: productComments, appendData: getComments } = useQueryApiClient({
+    request: {
+      url: `get-comments?product_id=${query.id}`,
+      method: "GET",
+      disableOnMount: false,
+    },
+  });
+
+  useEffect(() => {
+    if (query.id) {
+      const id: any = query.id ? query.id : ""
+      const productId = id.replace(/^abb-/, '')
+      const params = {
+        productId: productId,
+        lang: locale,
+        provider: query.provider,
+      };
+      appendData(params)
+      getComments()
+    }
+  }, [query, locale])
+
+
+  useEffect(() => {
+    if (product?.detail?.image) {
+      getSearchRes();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product?.detail?.image]);
+
+
+
+  if (isError) {
+    return <DataNotFound />;
+  }
+  const title = product?.detail?.title;
   return (
-    <PageLayout metaTitle={title}>
-      <ProductDetailSection
-        product={product.detail}
-        recommended={product.recommended}
-        score={product.score}
-      />
-    </PageLayout>
+    <>
+      {isLoading ? <LoadingSpinner size="large" fullscreen /> : product?.detail && (
+        <PageLayout metaTitle={title}>
+          {query.provider === "local" ? (
+            <ProductDetailSectionLocal
+              product={product.detail}
+              productComments={productComments}
+              recommended={recomendProducts.products}
+              score={product.score}
+            />
+          ) : (
+            <ProductDetailSection
+              product={product.detail}
+              productComments={productComments}
+              recommended={recomendProducts.products}
+              score={product.score}
+            />
+          )}
+        </PageLayout>
+      )}
+    </>
   );
-};
-
-export const getServerSideProps = async (context: any) => {
-  try { 
-    const { id: productId } = context.params;
-    const cookies = cookie.parse(context.req.headers.cookie || "");
-    const token = decodeURIComponent(cookies.token);
-    console.log(token)
-  const product = await API.getProductDetailToken(productId, token)
-  
-    return {
-      props: {
-        product,
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching product data:", error);
-    return {
-      props: {
-        product: null,
-      },
-    };
-  }
 };
 
 export default ProductDetail;

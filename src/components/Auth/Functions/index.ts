@@ -8,7 +8,9 @@ export const validatePassword = (
   currentValue: any,
   value: string
 ) => {
-  if (value.length < 8) {
+  if (value.includes(" ")) {
+    return Promise.reject(new Error(t("Auth.passwordHasEmpty")));
+  } else if (value.length < 8) {
     return Promise.reject(new Error(t("Auth.minSymbolPassword")));
   }
   return Promise.resolve();
@@ -36,7 +38,7 @@ export async function validateEmail(
 
   if (isRegistPage) {
     const response = await API.authCheckEmail(value);
-    if (response.message === 'true') {
+    if (response.message === "true") {
       return Promise.reject(new Error(t("Auth.emailAlredyUsed")));
     }
   }
@@ -55,39 +57,33 @@ export const validateConfirmCode = (
   return Promise.resolve();
 };
 
-export const validatePhone = (
-  t: Function,
-  currentValue: any,
-  value: string
-) => {
-  if (!/^(\d){9}$/m.test(value)) {
+export const validatePhone = (t: Function, value: string) => {
+  if (!/^\((\d){2}\) (\d){3}-(\d){2}-(\d){2}$/m.test(value)) {
     return Promise.reject(new Error(t("Auth.requiredTelMessage")));
   }
   return Promise.resolve();
 };
 
-export const validateName = (text: string, currentValue: any, value: string) => {
-  const regex = /^[A-Za-z\s]+$/; // Regular expression to match letters and spaces
+export const validateName = (
+  text: string,
+  currentValue: any,
+  value: string
+) => {
+  const regex = /^[A-zА-я\s]+$/; // Regular expression to match letters and spaces
   if (!regex.test(value)) {
     return Promise.reject(new Error(text));
   }
   return Promise.resolve();
 };
 
-export const cookieBasket = (arr: CartItemInterface[]) => {
-  const corectData: UserBasketPostInterface[] = [];
-  arr.map((el) => {
-    corectData.push({
-      product_id: el.product_id,
-      sizes: [
-        {
-          value: el.size as string,
-          quantity: el.quantity,
-          color_id: "0",
-        },
-      ],
-    });
-  });
+// export const cookieBasket = (arr: CartItemInterface[]) => {
+//   const corectData: UserBasketPostInterface[] = [];
+//   arr.map((el) => {
+//     corectData.push({
+//       product_id: el.product_id,
+      
+//     });
+//   });
 
-  return corectData;
-};
+//   return corectData;
+// };

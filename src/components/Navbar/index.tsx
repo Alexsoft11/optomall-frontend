@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "@/ui/index";
-import { AuthModalSvg, HeadLogo, HeadPhone } from "$/assets/images/index";
+import { AuthModalSvg, HeadLogo, HeadLogoMini, HeadPhone } from "$/assets/images/index";
 import { ModalLinks, NavLinks } from "@/constants/navbar";
 import styles from "./Navbar.module.scss";
 import Image from "next/image";
@@ -13,6 +13,8 @@ import CatalogTab from "../CatalogTab";
 import { useTranslations } from "next-intl";
 import { useJwt } from "@/utils/useJwt";
 import { UseLogOut } from "@/utils/useLogOut";
+import useQueryApiClient from "@/utils/useQueryApiClient";
+import useSearchStore from "../useSearchStore";
 
 const Navbar = () => {
   const token = useJwt();
@@ -20,6 +22,8 @@ const Navbar = () => {
   const t = useTranslations("Navbar");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   type ModalState = "user" | "nav" | null;
+  const [isCheckShow, setIsCheckShow] = useState();
+  const { setScrollPosition } = useSearchStore();
 
   const [openModal, setOpenModal] = useState<ModalState>(null);
   const [isMounted, setIsMounted] = useState(false);
@@ -45,8 +49,33 @@ const Navbar = () => {
   };
 
   const handleModalIsOpen = () => {
-    setModalIsOpen(true)
-  }
+    setModalIsOpen(true);
+  };
+
+  const { appendData: isCheckApiCarts } = useQueryApiClient({
+    request: {
+      url: "has-items",
+      method: "GET",
+      disableOnMount: true,
+    },
+    onSuccess(res) {
+      setIsCheckShow(res)
+    },
+  });
+
+  useEffect(() => {
+    isCheckApiCarts();
+  }, []);
+
+  const { appendData: getCategoryData, data: categoryData } = useQueryApiClient(
+    {
+      request: {
+        url: `categories-from-taobao?lang=${router.locale}`,
+        method: "GET",
+      },
+    }
+  );
+
 
   return (
     <>
@@ -59,36 +88,38 @@ const Navbar = () => {
                   className="headbtn"
                   iconId="catalog-svg"
                   iconPosition="top"
-                  label="Каталог"
+                  label={t("catalog")}
                   size="middle"
                   onClick={handleNavBtnClick}
                 />
-                <SearchBtn />
+                <SearchBtn categoryData={categoryData.categories} />
 
-                <button className={styles.navbar__support} onClick={handleModalIsOpen}>
+                <button
+                  className={styles.navbar__support}
+                  onClick={handleModalIsOpen}
+                >
                   <SvgSelector id="support-svg" />
                 </button>
                 <Modal
                   onCancel={setModalIsOpen}
-                  className='bg_white'
+                  className="bg_white"
                   img={HeadPhone}
-                  description={`${t("modalMessage")}\n+998 71 234 56 78`}
+                  description={
+                    <>
+                      {t("modalMessage")}<br />
+                      <a href="tel:+998988889885">+998 98 888 98 85</a>
+                    </>
+                  }
                   open={modalIsOpen}
                 />
               </div>
 
-              <Link href="/" className={styles.navbar__logo}>
-                <Image src={HeadLogo} alt="img" />
+              <Link href="/" className={styles.navbar__logo} onClick={() => setScrollPosition(0)}>
+                <Image src={HeadLogoMini} alt="img" />
               </Link>
 
               <div className={styles.navbar__items}>
                 <LanguageSelector />
-
-                <button className={styles.navbar__shop_btn}>
-                  <Link href="/cart">
-                    <SvgSelector id="shop-svg" />
-                  </Link>
-                </button>
 
                 <button className={styles.navbar__saved_btn}>
                   <Link href="/wishes">
@@ -98,26 +129,37 @@ const Navbar = () => {
 
                 {isMounted && token ? (
                   <>
+                    <button className={styles.navbar__shop_btn}>
+                      <Link href="/cart">
+                        <SvgSelector id="shop-svg" />
+                      </Link>
+                      {
+                        isCheckShow && (
+                          <span></span>
+                        )
+                      }
+                    </button>
                     <button
-                      className={`${styles.navbar__user_btn} ${
-                        openModal === "user" ? styles.open : ""
-                      }`}
+                      className={`${styles.navbar__user_btn} ${openModal === "user" ? styles.open : ""
+                        }`}
                       onClick={handleUserBtnClick}
                     >
                       <SvgSelector id="user-svg" />
                     </button>
 
                     <div
-                      className={`${styles.navbar__user_modal} ${
-                        openModal === "user" ? styles.open : ""
-                      }`}
+                      className={`${styles.navbar__user_modal} ${openModal === "user" ? styles.open : ""
+                        }`}
                     >
                       <div className={styles.navbar__user_inner}>
                         {ModalLinks.map((link: any) => (
                           <Link
                             href={link.href}
-                            onClick={() => {logOut(link.textKey)
-                              setOpenModal(null);}}
+                            onClick={() => {
+                              logOut(link.textKey);
+                              setOpenModal(null);
+                              setScrollPosition(0)
+                            }}
                             className={styles.navbar__user_item}
                             key={link.id}
                           >
@@ -130,7 +172,7 @@ const Navbar = () => {
                   </>
                 ) : (
                   <>
-                    <div  className={styles.navbar__btn_access}>
+                    <div className={styles.navbar__btn_access}>
                       <Button
                         className="generalbtn"
                         label={t("btn_access")}
@@ -139,7 +181,7 @@ const Navbar = () => {
                       />
                     </div>
 
-                    <div  className={styles.navbar__btn_regist}>
+                    <div className={styles.navbar__btn_regist}>
                       <Button
                         className="line_btn"
                         label={t("btn_regist")}
@@ -151,15 +193,18 @@ const Navbar = () => {
                 )}
               </div>
             </div>
-            <CatalogTab setOpenModal={setOpenModal} openModal={openModal} />
+            <CatalogTab
+              categoryData={categoryData.categories}
+              setOpenModal={setOpenModal}
+              openModal={openModal}
+            />
           </div>
         </div>
       </div>
 
       <div
-        className={`${styles.wrap} ${
-          openModal === "nav" || openModal === "user" ? styles.open : ""
-        }`}
+        className={`${styles.wrap} ${openModal === "nav" || openModal === "user" ? styles.open : ""
+          }`}
         onClick={handleWrapBtnClick}
       ></div>
 
@@ -167,20 +212,25 @@ const Navbar = () => {
         <div className={styles.navbar__mobile_inner}>
           {NavLinks.map((item, idx) => (
             <Link
-              className={`${styles.navbar__mobile_item} ${
-                item.link === '/'
-                  ? router.pathname === item.link
-                    ? styles.activeItem
-                    : ''
-                  : router.pathname.startsWith(item.link)
+              className={`${styles.navbar__mobile_item} ${item.link === "/"
+                ? router.pathname === item.link
                   ? styles.activeItem
-                  : ''
-              }`}
+                  : ""
+                : router.pathname.startsWith(item.link)
+                  ? styles.activeItem
+                  : ""
+                }`}
               key={idx}
               href={item.link}
+              onClick={() => setScrollPosition(0)}
             >
               <SvgSelector id={`${item.key}-svg`} />
               <p>{t(item.key)}</p>
+              {
+                isCheckShow && item.key == "shop" && (
+                  <span></span>
+                )
+              }
             </Link>
           ))}
         </div>

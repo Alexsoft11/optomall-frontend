@@ -1,27 +1,27 @@
 import React from "react";
-import { useRouter } from "next/router";
 import Head from "next/head";
 import GoToBack from "@/components/GoToBack";
 import { useTranslations } from "next-intl";
 import PageTitle from "@/components/PageTitle";
 import dynamic from "next/dynamic";
 import { API } from "@/services/api";
-import { OrderDataInterface } from "@/features/Order/interfaces";
-import cookie from "cookie"
+import { OrderDataInterface, UserDataInterface } from "@/features/Order/interfaces";
+import cookie from "cookie";
+import { LoadingSpinner } from "@/ui/Spin";
 
 const OrderPage = dynamic(
-  () => import("@/features/Order/components/OrderPage")
-  // {
-  //   loading: () => <Loader />,
-  // }
+  () => import("@/features/Order/components/OrderPage"),
+  {
+    loading: () => <LoadingSpinner fullscreen={true} size="large" />,
+  }
 );
 
 interface Props {
   orderData: OrderDataInterface;
+  userData: UserDataInterface
 }
 
-export default function Order({ orderData }: Props) {
-  const router = useRouter();
+export default function Order({ orderData, userData }: Props) {
   const t = useTranslations("GLOBAL");
 
   return (
@@ -32,7 +32,7 @@ export default function Order({ orderData }: Props) {
       <div>
         <GoToBack pathArr={[{ title: "order", path: "" }]} />
         <PageTitle />
-        <OrderPage orderData={orderData} />
+        <OrderPage userData={userData} orderData={orderData} />
       </div>
     </div>
   );
@@ -41,23 +41,26 @@ export default function Order({ orderData }: Props) {
 export const getServerSideProps = async (context: any) => {
   try {
     const cookies = cookie.parse(context.req.headers.cookie || "");
-
-    // Extract the token from the parsed cookies
+    
     const token = decodeURIComponent(cookies.token);
     const { id } = context.query;
+    const { locale } = context;
 
-    const orderResponse = await API.getOrder(token, id);
+    const orderResponse = await API.getOrder(token, id, locale);
+    const userDataResponse = await API.getUserData(token);
 
     return {
       props: {
-        orderData: orderResponse.order || [],
+        orderData: orderResponse || [],
+        userData: userDataResponse || [],
       },
     };
   } catch (error: any) {
     console.error("Error fetching data:", error.message);
     return {
       props: {
-        basketData: [],
+        orderData: [],
+        userData: [],
       },
     };
   }

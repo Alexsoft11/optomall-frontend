@@ -1,6 +1,5 @@
 import GoToBack from "@/components/GoToBack";
 import PageTitle from "@/components/PageTitle";
-import { PurchasesOrderInterface } from "@/features/Purchases/interfaces";
 import { API } from "@/services/api";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
@@ -8,11 +7,12 @@ import Head from "next/head";
 import React from "react";
 import cookie from "cookie";
 import { LoadingSpinner } from "@/ui/Spin";
+import { PurchasesOrderInterface } from "@/components/Types";
 
 const PurchasesPage = dynamic(
   () => import("@/features/Purchases/components/PurchasesPage"),
   {
-    loading: () => <LoadingSpinner className="global_page_loader" />,
+    loading: () => <LoadingSpinner fullscreen={true} />,
   }
 );
 
@@ -26,6 +26,7 @@ export default function Purchases({ purchasesData }: Props) {
     <div className="container">
       <Head>
         <title>{t("purchases")}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div>
         <GoToBack pathArr={[{ title: "purchases", path: "" }]} />
@@ -43,8 +44,9 @@ export const getServerSideProps = async (context: any) => {
     // Extract the token from the parsed cookies
     const token = decodeURIComponent(cookies.token);
     const { filter } = context.query;
+    const { locale } = context;
 
-    const purchasesResponse = await API.getPurchases(token, filter);
+    const purchasesResponse = await API.getPurchases(token, filter, locale);
 
     return {
       props: {

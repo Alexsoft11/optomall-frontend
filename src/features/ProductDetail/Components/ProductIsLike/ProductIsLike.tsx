@@ -1,92 +1,112 @@
-import React, { FC, useEffect, useState } from 'react';
-import styles from './ProductIsLike.module.scss';
-import SvgSelector from '$/assets/icons/SvgSelector';
-import { useJwt } from '@/utils/useJwt';
-import useQueryApiClient from '@/utils/useQueryApiClient';
-
+import React, { FC, useEffect, useState } from "react";
+import styles from "./ProductIsLike.module.scss";
+import SvgSelector from "$/assets/icons/SvgSelector";
+import { useJwt } from "@/utils/useJwt";
+import useQueryApiClient from "@/utils/useQueryApiClient";
 
 interface Product {
   id: string;
   img: string;
   title: string;
   price: number;
-  is_liked: boolean; // Добавлено свойство is_like для управления состоянием лайка
+  provider: string;
+  image: string;
+  is_liked: boolean;
 }
 
 interface IProps {
-  product: Product; // Объект товара для сохранения в localStorage
+  product: any;
 }
 
 const ProductIsLike: FC<IProps> = ({ product }) => {
-  const [isLiked, setIsLiked] = useState<boolean>(product.is_liked); // Используем is_like из product для инициализации состояния
-  const user = useJwt(); // Подставьте хук для получения текущего пользователя
+  const [isLiked, setIsLiked] = useState<boolean>(product.is_liked);
+  const [isLoading, setIsLoading] = useState(false); // Prevents multiple clicks
+  const user = useJwt();
+
   const { appendData: dislikeCard } = useQueryApiClient({
     request: {
-      url: 'liked-product',
-      method: 'POST',
+      url: "liked-product",
+      method: "POST",
     },
-    onSuccess(res) {
+    onSuccess: () => {
+      setIsLoading(false); // Reset loading state after successful request
     },
-  })
+    onError: (err) => {
+      console.error(err);
+      setIsLoading(false); // Reset loading state on error
+    },
+  });
 
   useEffect(() => {
-    // Проверяем начальное состояние лайка из localStorage при монтировании компонента
-    const likedProductsString = localStorage.getItem('likedProducts');
+    const likedProductsString = localStorage.getItem("likedProducts");
     if (likedProductsString) {
       const likedProducts: Product[] = JSON.parse(likedProductsString);
-      setIsLiked(likedProducts.some(p => p.id === product.id));
+      setIsLiked(likedProducts.some((p) => p.id === product.id));
     }
   }, [product]);
 
   const handleClickLiked = () => {
-    setIsLiked(prevLiked => {
-      // Получаем текущий массив из localStorage
-      const likedProductsString = localStorage.getItem('likedProducts');
-      let likedProducts: Product[] = [];
-      if (likedProductsString) {
-        likedProducts = JSON.parse(likedProductsString);
+    if (isLoading) return; // Prevent further actions while a request is in progress
+
+    setIsLoading(true); // Set loading state to prevent double requests
+
+    const likedProductsString = localStorage.getItem("likedProducts");
+    let likedProducts: Product[] = likedProductsString ? JSON.parse(likedProductsString) : [];
+
+    const index = likedProducts.findIndex((p) => p.id === product.id);
+
+    if (isLiked) {
+      if (index !== -1) {
+        likedProducts.splice(index, 1);
       }
 
-      // Проверяем, есть ли уже такой товар в лайках
-      const index = likedProducts.findIndex(p => p.id === product.id);
-
-      // Обновляем массив в зависимости от текущего состояния
-      if (prevLiked) {
-        // Удаляем товар из массива
-        if (index !== -1) {
-          likedProducts.splice(index, 1);
-        }
-        if (user) {
-          // Отправляем запрос на сервер для дизлайка товара с указанием product_id
-          dislikeCard([product.id.toString()]);
-        } else {
-          // Сохраняем обновленный массив в localStorage
-          localStorage.setItem('likedProducts', JSON.stringify(likedProducts));
-        }
+      if (user) {
+        // Trigger the dislike API request
+        dislikeCard([
+          {
+            product_id: product.id.toString(),
+            title: product.title,
+            price: product.price,
+            provider: product.provider,
+            image: product.image,
+          },
+        ]);
       } else {
-        // Добавляем товар в массив
-        likedProducts.push(product);
-        if (user) {
-          // Отправляем запрос на сервер для лайка товара с указанием product_id
-          // Здесь должен быть ваш запрос для лайка товара на сервере
-        } else {
-          // Сохраняем обновленный массив в localStorage
-          localStorage.setItem('likedProducts', JSON.stringify(likedProducts));
-        }
+        // Update localStorage and stop loading if there's no API call
+        localStorage.setItem("likedProducts", JSON.stringify(likedProducts));
+        setIsLoading(false);
       }
+    } else {
+      likedProducts.push(product);
+      if (user) {
+        // Trigger the like API request (this needs to be implemented separately)
+        dislikeCard([
+          {
+            product_id: product.id.toString(),
+            title: product.title,
+            price: product.price,
+            provider: product.provider,
+            image: product.image,
+          },
+        ]);
+      } else {
+        localStorage.setItem("likedProducts", JSON.stringify(likedProducts));
+        setIsLoading(false); // Stop loading if no API call was made
+      }
+    }
 
-      return !prevLiked;
-    });
+    setIsLiked(!isLiked); // Flip the liked state
   };
 
   return (
     <div>
       <button
-        className={`${styles.liked} ${isLiked ? styles.active : ''}`}
+        className={`${styles.liked} ${isLiked ? styles.active : ""}`}
         type="button"
         onClick={handleClickLiked}
+        disabled={isLoading} // Disable the button while the request is in progress
       >
-        <SvgSelector id="saved-svg" />
+        <SvgSelector id="save-svg" />
       </button>
     </div>
   );

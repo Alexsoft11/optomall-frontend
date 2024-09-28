@@ -3,13 +3,16 @@ const nextConfig = {
   reactStrictMode: true,
   i18n: {
     locales: ["en", "ru", "uz"],
-    defaultLocale: "ru",
+    defaultLocale: "uz",
   },
   images: {
-    unoptimized: false,
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "**",
+      },
+      {
+        protocol: "http",
         hostname: "**",
       },
     ],
