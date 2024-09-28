@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Products.module.scss";
 import Card from "../Card";
-import useSearchStore from "../useSearchStore";
+import useSearchStore from "../../store/useSearchStore";
 import { useTranslations } from "next-intl";
 import { LoadingSpinner } from "@/ui/Spin";
 
@@ -22,7 +22,7 @@ const Products = ({
   scroolLoading
 }: Props) => {
   const [page, setPage] = useState(perPage);
-  const { scrollPosition } = useSearchStore();
+  const { scrollPosition, isBack } = useSearchStore();
   const t = useTranslations("");
 
   const fetchMoreData = async () => {
@@ -32,7 +32,7 @@ const Products = ({
   };
 
   useEffect(() => {
-    if (type === "scroll") {
+    if (type === "scroll" && isBack) {
       window.scrollTo(0, scrollPosition);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

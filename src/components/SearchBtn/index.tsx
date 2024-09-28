@@ -10,7 +10,7 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
 import { CategoryInterface } from "@/interfaces";
 import { LoadingSpinner } from "@/ui/Spin";
-import useSearchStore from "../useSearchStore";
+import useSearchStore from "../../store/useSearchStore";
 
 const { Dragger } = Upload;
 type ProviderInfo = {

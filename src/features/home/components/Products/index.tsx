@@ -11,18 +11,18 @@ import dynamic from "next/dynamic";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import Products from "@/components/Products";
 import { useRouter } from "next/router";
-import useSearchStore from "@/components/useSearchStore";
+import useSearchStore from "@/store/useSearchStore";
 
 const Card = dynamic(() => import("@/components/Card"));
 
 interface Props {
   productsData: CardInterface[];
-  categoryData: CategoryInterface[];
   getProductsData: any;
   isProductsLoading: any;
+  categoryData?: CategoryInterface[];
 }
 
-const ProductsSection = ({ categoryData }: Props) => {
+const ProductsSection = ({ }: Props) => {
   const t = useTranslations();
   const { query, locale } = useRouter();
   const [keyApi, setKeyApi] = useState("discount");
@@ -34,23 +34,19 @@ const ProductsSection = ({ categoryData }: Props) => {
     setHasMore,
   } = useSearchStore();
 
-  const isEntered = typeof window !== "undefined" ? sessionStorage.getItem("isEnter") : null;
-
   const handleTabChange = (key: string) => {
     getProductsData({ query: key });
     setKeyApi(key);
   };
 
   const handleGetProductWhenScrool = (custom?: any) => {
-    if (!isEntered && query) {
+    if (query) {
       getProductsWhenScrool({
         ...custom,
         ...query,
         lang: locale,
         query: keyApi,
       });
-    } else {
-      sessionStorage.removeItem("isEnter");
     }
   };
 

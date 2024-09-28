@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import DataNotFound from "@/ui/DataNotFound";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { message } from "antd";
+import useSearchStore from "@/store/useSearchStore";
 
 
 
@@ -26,8 +27,8 @@ const ProductDetailSectionLocal = dynamic(
 );
 
 const ProductDetail = () => {
-  const { query, locale } = useRouter();
-
+  const { query, locale, beforePopState } = useRouter();
+  const { setIsBack } = useSearchStore();
 
 
   const { data: product, appendData, isLoading, isError } = useQueryApiClient({
@@ -79,7 +80,20 @@ const ProductDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product?.detail?.image]);
 
+  useEffect(() => {
+    const handleBack = () => {
+      setIsBack(true)
+    };
 
+    beforePopState(() => {
+      handleBack();
+      return true;
+    });
+
+    return () => {
+      beforePopState(() => true);
+    };
+  }, [beforePopState]);
 
   if (isError) {
     return <DataNotFound />;

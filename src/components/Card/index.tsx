@@ -7,7 +7,7 @@ import CustomImage from "../CustomImage";
 import LikedBtn from "../LikedBtn";
 import { useRouter } from "next/router";
 import { formatPrice } from "@/constants";
-import useSearchStore from "../useSearchStore";
+import useSearchStore from "../../store/useSearchStore";
 
 interface CardProps {
   data: CardInterface;
@@ -36,11 +36,6 @@ const Card = ({
 
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (router.pathname.includes('search')) {
-      sessionStorage.setItem("isEnterSearch", 'search');
-    } else {
-      sessionStorage.setItem("isEnter", 'default');
-    }
     setScrollPosition(window.scrollY);
 
     const id = router.pathname.includes("wishes") ? data.product_id : data.id;

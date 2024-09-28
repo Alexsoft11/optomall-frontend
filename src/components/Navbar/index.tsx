@@ -14,7 +14,7 @@ import { useTranslations } from "next-intl";
 import { useJwt } from "@/utils/useJwt";
 import { UseLogOut } from "@/utils/useLogOut";
 import useQueryApiClient from "@/utils/useQueryApiClient";
-import useSearchStore from "../useSearchStore";
+import useSearchStore from "../../store/useSearchStore";
 
 const Navbar = () => {
   const token = useJwt();

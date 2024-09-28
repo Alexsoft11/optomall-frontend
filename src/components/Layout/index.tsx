@@ -31,12 +31,7 @@ const MainLayout = ({ children }: ILayoutsProps) => {
       push(asPath);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [asPath]);
-
-  useEffect(() => {
-    if (pathname !== "/search" && pathname !== "/product/[id]" && pathname !== "/") {
-      sessionStorage.removeItem("isEnter");
-    }
-  },[pathname])
+ 
 
   useEffect(() => {
     const handleStart = () => setLoading(true);

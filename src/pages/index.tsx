@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import PageLayout from "@/components/Layout/PageLayout";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useRouter } from "next/router";
-import useSearchStore from "@/components/useSearchStore";
+import useSearchStore from "@/store/useSearchStore";
 
 const MainSlider = dynamic(
   () => import("@/features/home/components/MainSlider"),
@@ -25,13 +25,12 @@ interface HomeProps {
 
 export default function Home({ slidersData }: HomeProps) {
   const t = useTranslations("Home");
-  // const [isLoading, setIsLoading] = useState(true);
-  const isEntered = typeof window !== "undefined" ? sessionStorage.getItem("isEnter") : null;
   const {
     products,
     setProducts,
+    isBack,
+    setIsBack
   } = useSearchStore();
-  const [categories, setCategories] = useState<any>([]);
   const router = useRouter();
 
 
@@ -49,25 +48,14 @@ export default function Home({ slidersData }: HomeProps) {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (!isEntered) {
+      if (!isBack) {
         getProductsData({ query: "discount" });
       } else {
-        sessionStorage.removeItem("isEnter");
+        setIsBack(false)
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 500);
-
-  //   return () => {
-  //     clearTimeout(timer);
-  //   };
-  // }, []);
-
 
 
   // if (isLoading) {
@@ -85,7 +73,6 @@ export default function Home({ slidersData }: HomeProps) {
         productsData={products}
         getProductsData={getProductsData}
         isProductsLoading={isProductsLoading}
-        categoryData={categories}
       />
     </PageLayout>
   );

@@ -11,19 +11,16 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useJwt } from "@/utils/useJwt";
 import { LoadingSpinner } from "@/ui/Spin";
 import PageNoItems from "@/components/PageNoItems";
-import useSearchStore from "@/components/useSearchStore";
+import useSearchStore from "@/store/useSearchStore";
 
-interface Props {
-  data?: any[];
-}
 
-const Search = ({ data = [] }: Props) => {
+
+const Search = () => {
   const t = useTranslations("Search");
   const router = useRouter();
-  const { query, pathname, replace, locale, events } = router;
+  const { query, pathname, replace, locale } = router;
   const [activePlatform, setActivePlatform] = useState<any>("1688");
   const [form] = Form.useForm();
-  const isEntered = typeof window !== "undefined" ? sessionStorage.getItem("isEnterSearch") : null;
 
   const {
     products,
@@ -32,6 +29,8 @@ const Search = ({ data = [] }: Props) => {
     setProducts,
     setHasMore,
     setActiveSort,
+    isBack,
+    setIsBack
   } = useSearchStore();
 
   const handleButtonClick = (platform: any) => {
@@ -77,14 +76,14 @@ const Search = ({ data = [] }: Props) => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (!isEntered && query) {
+      if (!isBack && query) {
         getSearchRes({
           ...query,
           lang: locale,
           page: 1,
         });
       } else {
-        sessionStorage.removeItem("isEnterSearch");
+        setIsBack(false)
       }
     }
   }, [query, locale]);
@@ -145,6 +144,7 @@ const Search = ({ data = [] }: Props) => {
     if (window.innerWidth <= 768) {
       getCategoryData();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locale]);
 
   return (
