@@ -77,8 +77,6 @@ const Detail = ({ selectedImage, product, imageIndex }: any) => {
     open: isPlaying,
   };
 
-  console.log(product);
-
   return (
     <>
       <div className={styles.detail}>

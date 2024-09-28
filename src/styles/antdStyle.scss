@@ -190,14 +190,17 @@
           justify-content: space-between;
 
           .img-describtion {
-            display: flex;
-            align-items: center;
-            text-align: center;
+            width: 120px;
+            display: -webkit-box;
+            -webkit-line-clamp: 8; // Обрезаем на 4 строке
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            // max-height: 6em; // Примерно 4 строки
+            line-height: 1.5em; // Настройте в зависимости от высоты строки
             background: #f2f2f2;
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
-            height: 100%;
-            width: 100%;
             padding: 8px;
             min-height: 50px;
           }

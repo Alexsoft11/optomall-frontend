@@ -61,6 +61,14 @@ export const groupProperties = async (
       };
     }
   );
+  
+  parsedTranslate.map(el => {
+    parsedTranslate.forEach(item => {
+      if (item.id.split(':')[0] === el.id.split(':')[0]) {
+        item.value = `${el.value.split(':')[0]}: ${item.value.split(':')[1]}`
+      }
+    })
+  })
 
   const parsedSku = parseSKUProperties(skus, parsedTranslate, quantityRanges);
 

@@ -198,7 +198,7 @@ const ProductOrderModal = ({
       const { id, title, product_url, image, seller_info, quantityRanges } =
         product;
 
-      const sellerId = seller_info?.user_num_id?.toString() || "defult" + id
+      const sellerId = seller_info?.user_num_id?.toString() || "defult" + id;
       let item: CreateBaskettemsDataInterface = {
         product_id: id.toString(),
         title: title,
@@ -348,7 +348,9 @@ const ProductOrderModal = ({
   };
 
   const oneItemPrice = useMemo(() => {
-    if (!selectedSku || !product.quantityRanges) return currentSku?.price;
+    if (!selectedSku || !product.quantityRanges?.length)
+      return currentSku?.price;
+
     if (!currentSku) return 0;
     const quantity = selectedSku.reduce(
       (accum, cur) => accum + cur.selected_quantity,
@@ -361,13 +363,30 @@ const ProductOrderModal = ({
     );
 
     return price;
-  }, [selectedSku]);
+  }, [selectedSku, currentSku]);
 
   const getTotalPrice = () => {
-    const total = selectedSku?.reduce((acum, cur) => {
-      const price = oneItemPrice || 0;
-      return acum + price * cur.selected_quantity;
-    }, 0);
+    let total = 0;
+    if (selectedSku && product.quantityRanges?.length) {
+      let price = 0;
+      const quantity = selectedSku.reduce(
+        (accum, cur) => accum + cur.selected_quantity,
+        0
+      );
+      product.quantityRanges.map((el) =>
+        el.minQuantity <= quantity ? (price = el.price) : null
+      );
+      total = selectedSku?.reduce(
+        (acum, cur) => acum + price * cur.selected_quantity,
+        0
+      );
+    } else if (selectedSku && !product.quantityRanges?.length) {
+      total = selectedSku?.reduce((acum, cur) => {
+        const price = cur.price;
+        return acum + price * cur.selected_quantity;
+      }, 0);
+    }
+
     return total;
   };
 
@@ -467,14 +486,15 @@ const ProductOrderModal = ({
                               onClick={() =>
                                 handlePropertySelect(propId, propName)
                               }
-                              className={`img-block ${currentSku?.properties
-                                .split(";")
-                                .includes(propId)
-                                ? styles.active
-                                : !getExist(propId, parsedSku)
+                              className={`img-block ${
+                                currentSku?.properties
+                                  .split(";")
+                                  .includes(propId)
+                                  ? styles.active
+                                  : !getExist(propId, parsedSku)
                                   ? styles.disable
                                   : ""
-                                }`}
+                              }`}
                             >
                               {imageUrl && (
                                 <div className="img-box">
@@ -514,8 +534,8 @@ const ProductOrderModal = ({
                             idx !== 0
                               ? null
                               : !Object.values(propertiesWithImages).length
-                                ? getPropertyQuantity(propId, propName)
-                                : null
+                              ? getPropertyQuantity(propId, propName)
+                              : null
                           }
                           key={value}
                         >
@@ -527,8 +547,8 @@ const ProductOrderModal = ({
                               currentSku?.properties.split(";").includes(propId)
                                 ? styles.active
                                 : !getExist(propId, parsedSku)
-                                  ? styles.disable
-                                  : ""
+                                ? styles.disable
+                                : ""
                             }
                           >
                             {value}
