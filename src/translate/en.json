@@ -113,6 +113,7 @@
     "address": "Address"
   },
   "Cart": {
+    "deleteSelected": "delete selected",
     "item": "Items",
     "total": "Total",
     "checkMessage": "The receipt has been sent for verification. You can track the current status of your order on the orders page.",
@@ -213,7 +214,7 @@
     "tab_1": "Discount",
     "tab_2": "Top Products",
     "tab_3": "Recommended for you",
-    "load_more":"Load more"
+    "load_more": "Load more"
   },
   "Account": {
     "metaTitle": "Account | OPTOM-ALL",
