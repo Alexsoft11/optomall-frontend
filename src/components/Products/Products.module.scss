@@ -1,8 +1,8 @@
 .product_list {
   display: grid !important;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important;
-  column-gap: 25px !important;
-  row-gap: 30px !important;
+  column-gap: 15px !important;
+  row-gap: 20px !important;
 
   @media (max-width: 1220px) {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;

@@ -150,7 +150,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
             {formatPrice(product?.price)} uzs
           </span>
           {product?.discounted_price &&
-          product.price !== product.discounted_price ? (
+            product.price !== product.discounted_price ? (
             <>
               <span className={styles.discount}>
                 -{product.discount_percentage}%
@@ -182,7 +182,8 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
           <Button
             className={styles.addToCart}
             onClick={() => justBuy("to_cart")}
-            iconId={"shop-svg"}
+            label={t("Product-detail.addToCart")}
+
             iconPosition={"bottom"}
           />
           <Button
@@ -204,9 +205,9 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
         ) : null}
       </div>
       {product &&
-      product?.quantityRanges &&
-      product?.quantityRanges &&
-      product?.quantityRanges?.length ? (
+        product?.quantityRanges &&
+        product?.quantityRanges &&
+        product?.quantityRanges?.length ? (
         <div className={styles.price_range}>
           {product?.quantityRanges?.map((el, index) => {
             const quantityRange = product?.quantityRanges || [];
