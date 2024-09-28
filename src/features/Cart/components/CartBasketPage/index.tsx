@@ -21,7 +21,6 @@ interface Props {
 }
 
 export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
-  
   const [orderItems, setOrderItems] = useState<CartOrderItemInterface[] | []>(
     []
   );
@@ -70,7 +69,6 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
     ChangeitemsValue();
   }, [orderItems]);
 
-  
   useEffect(() => {
     if (Array.isArray(addOrder)) {
       let clone = [] as CartOrderItemInterface[] | [];
@@ -122,7 +120,7 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
 
   const changeQuantity = (number: number, item: CartItemInterface) => {
     if (number === 0 && cookie.get("token")) {
-      removeData({ basket_id: item.id, sku_id: item.sku_id });
+      removeData({ basket_ids: [item.id] });
     }
 
     const updatedDataClone = dataClone.map((el) => {
@@ -168,6 +166,7 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
             setAddOrder={setAddOrder}
             setDataClone={setDataClone}
             data={dataClone}
+            selected={orderItems}
             isLoading={isBasketDataLoading}
           />
           <div className={styles.order_side}>

@@ -2,9 +2,14 @@ import React, { Fragment } from "react";
 import styles from "./CartBasketItems.module.scss";
 import { useTranslations } from "next-intl";
 import CartBasketItem from "../CartBasketItem";
-import { AddOrderInterface, CartItemInterface } from "../../interface";
+import {
+  AddOrderInterface,
+  CartItemInterface,
+  CartOrderItemInterface,
+} from "../../interface";
 import { Checkbox } from "@/ui";
 import { LoadingSpinner } from "@/ui/Spin";
+import useQueryApiClient from "@/utils/useQueryApiClient";
 
 interface Props {
   setAddOrder: React.Dispatch<
@@ -16,6 +21,7 @@ interface Props {
   selectAll: boolean;
   setSelectAll: React.Dispatch<React.SetStateAction<boolean>>;
   isLoading: boolean;
+  selected: CartOrderItemInterface[];
 }
 
 export default function CartBasketItems({
@@ -26,6 +32,7 @@ export default function CartBasketItems({
   selectAll,
   setSelectAll,
   isLoading,
+  selected,
 }: Props) {
   const t = useTranslations("Cart");
 
@@ -70,6 +77,19 @@ export default function CartBasketItems({
     setAddOrder(addOrderClone);
   };
 
+  const { appendData: deleteSelectedItem } = useQueryApiClient({
+    request: {
+      url: "remove",
+      method: "DELETE",
+      disableOnMount: true,
+    },
+  });
+
+  const deleteSelected = () => {
+    const data = selected.map(el => el.sku_id)
+    deleteSelectedItem()
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles.items_count}>
@@ -77,8 +97,11 @@ export default function CartBasketItems({
           <p>
             {t("item")} {data.length}
           </p>
-          <span>
-            {t('')}
+          <span
+            onClick={deleteSelected}
+            className={selected.length ? "" : styles.delete_disable}
+          >
+            {t("deleteSelected")}
           </span>
         </div>
         <Checkbox

@@ -118,6 +118,7 @@
     "address": "Адрес"
   },
   "Cart": {
+    "deleteSelected": "удалить выбранное",
     "item": "Товаров",
     "total": "Итого",
     "complite": "ОФОРМИТЬ",

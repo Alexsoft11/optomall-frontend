@@ -30,11 +30,28 @@
     display: flex;
     justify-content: space-between;
 
+    div {
+      display: flex;
+      gap: 10px;
+      align-items: end;
+    }
+
     p {
       color: var(--silver-grey);
       font-size: var(--paragraph-two);
       font-weight: 400;
       line-height: 16.94px;
+    }
+    span {
+      color: var(--silver-grey);
+      font-size: var(--paragraph-two);
+      font-weight: 400;
+      line-height: 16.94px;
+      color: var(--primary-color);
+    }
+
+    .delete_disable {
+      opacity: 0.4;
     }
 
     .chechbox {
