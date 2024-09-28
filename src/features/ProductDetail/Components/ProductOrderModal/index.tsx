@@ -75,6 +75,7 @@ const ProductOrderModal = ({
     setPhotoIndex(index);
     setIsOpen(true);
   };
+
   const { appendData: createUserBasket, isLoading: isOrderLoading } =
     useQueryApiClient({
       request: {
@@ -175,22 +176,24 @@ const ProductOrderModal = ({
     }
     const quantityRanges = product?.quantityRanges?.[0];
     const minQuantity = quantityRanges?.minQuantity || 0;
+    const quantity = newSelectedSku.reduce(
+      (acum, cur) => acum + cur.selected_quantity,
+      0
+    );
 
-    newSelectedSku?.map((el) => {
-      if (product && el.selected_quantity < minQuantity) {
-        if (!messageVisible) {
-          setMessageVisible(true);
-          messageApi.open({
-            type: "warning",
-            content: `${t("Product-detail.isMinQuantity")} ${minQuantity}`,
-            onClose: () => setMessageVisible(false),
-            duration: 5,
-          });
-        }
-        warning = true;
-        return;
+    if (product && quantity < minQuantity) {
+      if (!messageVisible) {
+        setMessageVisible(true);
+        messageApi.open({
+          type: "warning",
+          content: `${t("Product-detail.isMinQuantity")} ${minQuantity}`,
+          onClose: () => setMessageVisible(false),
+          duration: 5,
+        });
       }
-    });
+      warning = true;
+      return;
+    }
 
     if (warning) return;
 
@@ -252,14 +255,20 @@ const ProductOrderModal = ({
   };
 
   const handleSizeChange = (value: number) => {
-    if (value < 0 || !currentSku?.quantity) return;
+    if (!currentSku) return;
+    if (value < 0 || !currentSku.quantity) return;
 
-    if (currentSku?.quantity && value > currentSku.quantity) {
-      message.warning(t("Product-detail.isMaxQuantity"), 5);
+    if (currentSku.quantity && value > currentSku.quantity) {
+      if (!messageVisible) {
+        setMessageVisible(true);
+        messageApi.open({
+          type: "warning",
+          content: t("Product-detail.isMaxQuantity"),
+          onClose: () => setMessageVisible(false),
+        });
+      }
       return;
     }
-
-    if (!currentSku) return;
 
     if (!selectedSku) {
       const newCurrentSku = { ...currentSku, selected_quantity: value };
@@ -270,6 +279,7 @@ const ProductOrderModal = ({
     if (!selectedSku.find((el) => el.sku_id === currentSku.sku_id)) {
       const clone = selectedSku.map((el) => el);
       clone.push({ ...currentSku, selected_quantity: value });
+      setCurrentSku({ ...currentSku, selected_quantity: value });
       setSelectedSku(clone);
       return;
     }
@@ -352,12 +362,14 @@ const ProductOrderModal = ({
       return currentSku?.price;
 
     if (!currentSku) return 0;
+
     const quantity = selectedSku.reduce(
       (accum, cur) => accum + cur.selected_quantity,
       0
     );
 
     let price = currentSku.price;
+
     product.quantityRanges.map((el) =>
       el.minQuantity <= quantity ? (price = el.price) : null
     );
@@ -366,29 +378,34 @@ const ProductOrderModal = ({
   }, [selectedSku, currentSku]);
 
   const getTotalPrice = () => {
-    let total = 0;
     if (selectedSku && product.quantityRanges?.length) {
       let price = 0;
       const quantity = selectedSku.reduce(
         (accum, cur) => accum + cur.selected_quantity,
         0
       );
+
       product.quantityRanges.map((el) =>
         el.minQuantity <= quantity ? (price = el.price) : null
       );
-      total = selectedSku?.reduce(
-        (acum, cur) => acum + price * cur.selected_quantity,
+
+      const total = selectedSku?.reduce(
+        (acum, cur) => acum + (price || cur.price) * cur.selected_quantity,
         0
       );
-    } else if (selectedSku && !product.quantityRanges?.length) {
-      total = selectedSku?.reduce((acum, cur) => {
-        const price = cur.price;
-        return acum + price * cur.selected_quantity;
-      }, 0);
-    }
 
-    return total;
+      return total;
+    } else {
+      const total = selectedSku?.reduce((acum, cur) => {
+        return acum + cur.price * cur.selected_quantity;
+      }, 0);
+      return total;
+    }
   };
+
+  const getQuantity = useMemo(() => {
+    return currentSku ? currentSku.selected_quantity : 0;
+  }, [currentSku, selectedSku]);
 
   const capitalize = (text: string) =>
     text.charAt(0).toUpperCase() + text.slice(1);
@@ -418,9 +435,7 @@ const ProductOrderModal = ({
                 <Image src={MinusSvg} width={24} height={24} alt="#" />
               </AntdButton>
               <Tooltip title={t("Product-detail.isMaxQuantity")}>
-                <h4 className={styles.selected_quantity}>
-                  {currentSku?.selected_quantity}
-                </h4>
+                <h4 className={styles.selected_quantity}>{getQuantity}</h4>
               </Tooltip>
               <Tooltip>
                 <AntdButton
