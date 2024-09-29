@@ -263,7 +263,9 @@ const ProductOrderModal = ({
         setMessageVisible(true);
         messageApi.open({
           type: "warning",
-          content: `${t("Product-detail.isMaxQuantity")}, ${currentSku.quantity} `,
+          content: `${t("Product-detail.isMaxQuantity")}, ${
+            currentSku.quantity
+          } `,
           onClose: () => setMessageVisible(false),
         });
       }
@@ -358,7 +360,11 @@ const ProductOrderModal = ({
   };
 
   const oneItemPrice = useMemo(() => {
-    if (!selectedSku || !product.quantityRanges?.length)
+    if (
+      !selectedSku ||
+      !product.quantityRanges ||
+      product.quantityRanges.length <= 1
+    )
       return currentSku?.price;
 
     if (!currentSku) return 0;
