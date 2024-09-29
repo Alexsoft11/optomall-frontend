@@ -384,7 +384,11 @@ const ProductOrderModal = ({
   }, [selectedSku, currentSku]);
 
   const getTotalPrice = () => {
-    if (selectedSku && product.quantityRanges?.length) {
+    if (
+      selectedSku &&
+      product.quantityRanges &&
+      product.quantityRanges.length > 1
+    ) {
       let price = 0;
       const quantity = selectedSku.reduce(
         (accum, cur) => accum + cur.selected_quantity,
