@@ -50,13 +50,7 @@ const ProductDetail = () => {
     },
   });
 
-  const { data: productComments, appendData: getComments } = useQueryApiClient({
-    request: {
-      url: `get-comments?product_id=${query.id}`,
-      method: "GET",
-      disableOnMount: false,
-    },
-  });
+  
 
   useEffect(() => {
     if (query.id) {
@@ -68,7 +62,6 @@ const ProductDetail = () => {
         provider: query.provider,
       };
       appendData(params)
-      getComments()
     }
   }, [query, locale])
 
@@ -106,14 +99,12 @@ const ProductDetail = () => {
           {query.provider === "local" ? (
             <ProductDetailSectionLocal
               product={product.detail}
-              productComments={productComments}
               recommended={recomendProducts.products}
               score={product.score}
             />
           ) : (
             <ProductDetailSection
               product={product.detail}
-              productComments={productComments}
               recommended={recomendProducts.products}
               score={product.score}
             />

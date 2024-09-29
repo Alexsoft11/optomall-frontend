@@ -19,14 +19,12 @@ interface Props {
     sold: number;
   };
   recommended: any;
-  productComments: any;
 }
 
 const ProductDetailSection = ({
   product,
   recommended,
   score,
-  productComments,
 }: Props) => {
   
   const router = useRouter();
@@ -57,7 +55,7 @@ const ProductDetailSection = ({
     {
       key: "2",
       label: t("comments"),
-      children: <Reviews comments={productComments} />,
+      children: <Reviews  />,
     },
   ];
 

@@ -42,7 +42,7 @@ const ProductsSection = () => {
   };
 
   useEffect(() => {
-    if (!isBack) {
+    if (!isBack || !homeProducts.length) {
       getProductsWhenScrool({ query: "discount", lang: locale, });
     } else {
       setIsBack(false)

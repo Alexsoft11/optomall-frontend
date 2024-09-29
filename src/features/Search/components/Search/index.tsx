@@ -75,7 +75,7 @@ const Search = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (!isBack && query) {
+      if ((!isBack || !products.length) && query) {
         getSearchRes({
           ...query,
           lang: locale,

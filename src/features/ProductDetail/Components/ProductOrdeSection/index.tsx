@@ -161,7 +161,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
             </>
           ) : null}
         </div>
-        {product && product.props_list ? null : (
+        {product && product.props_list.length ? null : (
           <div className={styles.quantity}>
             <div key={1} className={styles.change_value}>
               <AntdButton onClick={() => changeQuantity(itemQuantity - 1)}>
@@ -206,8 +206,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
       </div>
       {product &&
         product?.quantityRanges &&
-        product?.quantityRanges &&
-        product?.quantityRanges?.length ? (
+        product?.quantityRanges?.length > 1 ? (
         <div className={styles.price_range}>
           {product?.quantityRanges?.map((el, index) => {
             const quantityRange = product?.quantityRanges || [];
