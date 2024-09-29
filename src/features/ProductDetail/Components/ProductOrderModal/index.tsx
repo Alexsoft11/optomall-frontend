@@ -263,7 +263,7 @@ const ProductOrderModal = ({
         setMessageVisible(true);
         messageApi.open({
           type: "warning",
-          content: t("Product-detail.isMaxQuantity"),
+          content: `${t("Product-detail.isMaxQuantity")}, ${currentSku.quantity} `,
           onClose: () => setMessageVisible(false),
         });
       }
