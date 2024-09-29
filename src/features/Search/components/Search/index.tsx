@@ -4,14 +4,13 @@ import SvgSelector from "$/assets/icons/SvgSelector";
 import SearchBtn from "@/components/SearchBtn";
 import { useTranslations } from "next-intl";
 import Products from "@/components/Products";
-import { Button, Input, Select, SelectOption } from "@/ui";
+import { Select, SelectOption } from "@/ui";
 import { Form } from "antd";
 import { useRouter } from "next/router";
 import useQueryApiClient from "@/utils/useQueryApiClient";
-import { useJwt } from "@/utils/useJwt";
 import { LoadingSpinner } from "@/ui/Spin";
 import PageNoItems from "@/components/PageNoItems";
-import useSearchStore from "@/store/useSearchStore";
+import useProductStore from "@/store/useProductStore";
 
 
 
@@ -31,7 +30,7 @@ const Search = () => {
     setActiveSort,
     isBack,
     setIsBack
-  } = useSearchStore();
+  } = useProductStore();
 
   const handleButtonClick = (platform: any) => {
     const newQuery = {
@@ -82,6 +81,7 @@ const Search = () => {
           lang: locale,
           page: 1,
         });
+        setProducts([])
       } else {
         setIsBack(false)
       }
@@ -130,22 +130,6 @@ const Search = () => {
       },
     });
 
-  const { appendData: getCategoryData, data: categoryData } = useQueryApiClient(
-    {
-      request: {
-        url: `categories-from-taobao?lang=${locale}`,
-        method: "GET",
-        disableOnMount: true,
-      },
-    }
-  );
-
-  useEffect(() => {
-    if (window.innerWidth <= 768) {
-      getCategoryData();
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [locale]);
 
   return (
     <div className={styles.search}>
@@ -173,7 +157,7 @@ const Search = () => {
             </div>
 
             <div className={styles.search__btn}>
-              <SearchBtn categoryData={categoryData.categories} />
+              <SearchBtn />
             </div>
 
             <div className={styles.search__top}>

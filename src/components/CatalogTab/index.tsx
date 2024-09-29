@@ -5,20 +5,21 @@ import { Tooltip } from "antd";
 import { CustomTabs } from "@/ui/Tabs";
 import { CategoryInterface } from "@/interfaces";
 import styles from "./CatalogTab.module.scss";
+import useProductStore from "@/store/useProductStore";
 
 interface Props {
   openModal: any;
   setOpenModal: any;
-  categoryData?: CategoryInterface[];
 }
 
-const CatalogTab = ({ openModal, setOpenModal, categoryData }: Props) => {
+const CatalogTab = ({ openModal, setOpenModal }: Props) => {
   const [CatalogTabsData, setCatalogTabsData] = useState<CategoryInterface[]>(
     []
   );
   const [activeTab, setActiveTab] = useState("0");
   const textRefs = useRef<(HTMLParagraphElement | null)[]>([]);
   const [overflowStates, setOverflowStates] = useState<boolean[]>([]);
+  const { categories } = useProductStore();
 
   useEffect(() => {
     const newOverflowStates = CatalogTabsData.map((_, index) => {
@@ -31,10 +32,10 @@ const CatalogTab = ({ openModal, setOpenModal, categoryData }: Props) => {
   }, [CatalogTabsData]);
 
   useEffect(() => {
-    if (categoryData) {
-      setCatalogTabsData(categoryData);
+    if (categories) {
+      setCatalogTabsData(categories);
     }
-  }, [categoryData]);
+  }, [categories]);
 
   const truncateText = (text: any, maxLength: any) => {
     if (!text) return;
@@ -51,9 +52,8 @@ const CatalogTab = ({ openModal, setOpenModal, categoryData }: Props) => {
 
   return (
     <div
-      className={`${styles.navigation} ${
-        openModal === "nav" ? styles.open : ""
-      }`}
+      className={`${styles.navigation} ${openModal === "nav" ? styles.open : ""
+        }`}
     >
       <div className={styles.navigation__inner}>
         <CustomTabs

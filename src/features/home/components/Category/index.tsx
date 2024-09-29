@@ -5,28 +5,15 @@ import Link from "next/link";
 import { CategoryInterface } from "@/interfaces";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { Tooltip } from "antd";
+import useProductStore from "@/store/useProductStore";
 
 const Category = () => {
-  const [CatalogTabsData, setCatalogTabsData] = useState<CategoryInterface[]>(
-    []
-  );
+  const { categories } = useProductStore();
+
   const [overflowedItems, setOverflowedItems] = useState<{
     [key: string]: boolean;
   }>({});
 
-  useEffect(() => {
-    getCategoryData();
-  }, []);
-
-  const { appendData: getCategoryData } = useQueryApiClient({
-    request: {
-      url: "categories-from-taobao",
-      method: "GET",
-    },
-    onSuccess(res) {
-      setCatalogTabsData(res.categories);
-    },
-  });
 
   const checkOverflow = (element: HTMLElement, id: string) => {
     if (element.scrollHeight > element.clientHeight) {
@@ -41,7 +28,7 @@ const Category = () => {
         <div className="container">
           <div className={styles.category__inner}>
             <div className={styles.category__left}>
-              {CatalogTabsData.slice(0, 4).map((item: any, idx: number) => (
+              {categories.slice(0, 4).map((item: any, idx: number) => (
                 <Link key={idx} href={`catalog/${item.id}`}>
                   <div className={styles.category__card}>
                     <Tooltip

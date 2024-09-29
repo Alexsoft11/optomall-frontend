@@ -18,29 +18,12 @@ interface Props {
 const MainSlider: React.FC<Props> = ({ data }) => {
   const router = useRouter();
 
-  const { appendData: getCategoryData, data: categoryData } = useQueryApiClient(
-    {
-      request: {
-        url: `categories-from-taobao?lang=${router.locale}`,
-        method: "GET",
-        disableOnMount: true
-      },
-    }
-  );
-
-  useEffect(() => {
-    if (window.innerWidth <= 768) {
-      getCategoryData();
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.locale]);
-
   return (
     <>
       <div className={styles.mainbanner}>
         <div className='container'>
           <div className={styles.mainbanner__inner}>
-            <SearchBtn categoryData={categoryData?.categories} />
+            <SearchBtn />
           </div>
         </div>
 

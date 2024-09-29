@@ -14,7 +14,7 @@ import { useTranslations } from "next-intl";
 import { useJwt } from "@/utils/useJwt";
 import { UseLogOut } from "@/utils/useLogOut";
 import useQueryApiClient from "@/utils/useQueryApiClient";
-import useSearchStore from "../../store/useSearchStore";
+import useProductStore from "../../store/useProductStore";
 
 const Navbar = () => {
   const token = useJwt();
@@ -23,7 +23,7 @@ const Navbar = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   type ModalState = "user" | "nav" | null;
   const [isCheckShow, setIsCheckShow] = useState();
-  const { setScrollPosition } = useSearchStore();
+  const { setScrollPosition, setCategory } = useProductStore();
 
   const [openModal, setOpenModal] = useState<ModalState>(null);
   const [isMounted, setIsMounted] = useState(false);
@@ -67,13 +67,17 @@ const Navbar = () => {
     isCheckApiCarts();
   }, []);
 
-  const { appendData: getCategoryData, data: categoryData } = useQueryApiClient(
+  const {  } = useQueryApiClient(
     {
       request: {
         url: `categories-from-taobao?lang=${router.locale}`,
         method: "GET",
       },
+      onSuccess(res) {
+        setCategory(res.categories)
+      },
     }
+
   );
 
 
@@ -92,7 +96,7 @@ const Navbar = () => {
                   size="middle"
                   onClick={handleNavBtnClick}
                 />
-                <SearchBtn categoryData={categoryData.categories} />
+                <SearchBtn />
 
                 <button
                   className={styles.navbar__support}
@@ -194,7 +198,6 @@ const Navbar = () => {
               </div>
             </div>
             <CatalogTab
-              categoryData={categoryData.categories}
               setOpenModal={setOpenModal}
               openModal={openModal}
             />

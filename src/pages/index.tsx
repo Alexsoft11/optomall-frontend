@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import dynamic from "next/dynamic";
 import { API } from "@/services/api";
 import { LoadingSpinner } from "@/ui/Spin";
 import { useTranslations } from "next-intl";
 import PageLayout from "@/components/Layout/PageLayout";
-import useQueryApiClient from "@/utils/useQueryApiClient";
-import { useRouter } from "next/router";
-import useSearchStore from "@/store/useSearchStore";
+
 
 const MainSlider = dynamic(
   () => import("@/features/home/components/MainSlider"),
@@ -25,42 +23,6 @@ interface HomeProps {
 
 export default function Home({ slidersData }: HomeProps) {
   const t = useTranslations("Home");
-  const {
-    products,
-    setProducts,
-    isBack,
-    setIsBack
-  } = useSearchStore();
-  const router = useRouter();
-
-
-  const { appendData: getProductsData, isLoading: isProductsLoading } =
-    useQueryApiClient({
-      request: {
-        url: `products?lang=${router.locale}`,
-        method: "GET",
-        disableOnMount: true
-      },
-      onSuccess(res: any) {
-        setProducts(res.products);
-      },
-    });
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (!isBack) {
-        getProductsData({ query: "discount" });
-      } else {
-        setIsBack(false)
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-
-  // if (isLoading) {
-  //   return <LoadingSpinner fullscreen={true} size="large" />;
-  // }
 
   return (
     <PageLayout
@@ -69,24 +31,21 @@ export default function Home({ slidersData }: HomeProps) {
       metaKeywords={t("metaKeywords")}
     >
       <MainSlider data={slidersData?.sliders} />
-      <ProductsSection
-        productsData={products}
-        getProductsData={getProductsData}
-        isProductsLoading={isProductsLoading}
-      />
+      <ProductsSection />
     </PageLayout>
   );
 }
 
 
-export const getServerSideProps = async (context: any) => {
+export const getStaticProps = async () => {
   try {
-
     const slidersResponse = await API.getHomePageSlider();
+
     return {
       props: {
         slidersData: slidersResponse.data || { sliders: [] },
       },
+      revalidate: 86400,
     };
   } catch (error: any) {
     console.error("Error fetching data:", error.message);
@@ -94,6 +53,7 @@ export const getServerSideProps = async (context: any) => {
       props: {
         slidersData: { sliders: [] },
       },
+      revalidate: 9400,
     };
   }
 };

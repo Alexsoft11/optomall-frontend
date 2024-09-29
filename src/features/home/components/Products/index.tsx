@@ -1,38 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Products.module.scss";
 import { CustomTabs } from "@/ui/Tabs";
 import TabPane from "antd/es/tabs/TabPane";
 import { ProductTabsData } from "@/constants/products";
-import { CardInterface } from "@/interfaces";
 import { useTranslations } from "next-intl";
 import { LoadingSpinner } from "@/ui/Spin";
-import { CategoryInterface } from "../../interfaces";
-import dynamic from "next/dynamic";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import Products from "@/components/Products";
 import { useRouter } from "next/router";
-import useSearchStore from "@/store/useSearchStore";
+import useProductStore from "@/store/useProductStore";
 
-const Card = dynamic(() => import("@/components/Card"));
 
-interface Props {
-  productsData: CardInterface[];
-  getProductsData: any;
-  isProductsLoading: any;
-  categoryData?: CategoryInterface[];
-}
-
-const ProductsSection = ({ }: Props) => {
+const ProductsSection = () => {
   const t = useTranslations();
   const { query, locale } = useRouter();
   const [keyApi, setKeyApi] = useState("discount");
 
   const {
-    products,
+    homeProducts,
     hasMore,
-    setProducts,
+    isBack,
     setHasMore,
-  } = useSearchStore();
+    setHomeProducts,
+    setIsBack
+  } = useProductStore();
 
   const handleTabChange = (key: string) => {
     getProductsData({ query: key });
@@ -50,6 +41,14 @@ const ProductsSection = ({ }: Props) => {
     }
   };
 
+  useEffect(() => {
+    if (!isBack) {
+      getProductsWhenScrool({ query: "discount", lang: locale, });
+    } else {
+      setIsBack(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const {
     appendData: getProductsWhenScrool,
@@ -65,7 +64,7 @@ const ProductsSection = ({ }: Props) => {
         setHasMore(false);
         return;
       }
-      setProducts([...products, ...res.products]);
+      setHomeProducts([...homeProducts, ...res.products]);
     },
   });
 
@@ -78,7 +77,7 @@ const ProductsSection = ({ }: Props) => {
       },
       onSuccess(res: any) {
         if (res.products) {
-          setProducts(res.products);
+          setHomeProducts(res.products);
         }
       },
     });
@@ -110,7 +109,7 @@ const ProductsSection = ({ }: Props) => {
               <Products
                 type="scroll"
                 perPage={1}
-                data={products}
+                data={homeProducts}
                 hasMore={hasMore}
                 handleGetProduct={handleGetProductWhenScrool}
                 scroolLoading={isProductsScroolLoading}

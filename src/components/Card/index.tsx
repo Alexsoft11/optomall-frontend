@@ -7,7 +7,7 @@ import CustomImage from "../CustomImage";
 import LikedBtn from "../LikedBtn";
 import { useRouter } from "next/router";
 import { formatPrice } from "@/constants";
-import useSearchStore from "../../store/useSearchStore";
+import useProductStore from "../../store/useProductStore";
 
 interface CardProps {
   data: CardInterface;
@@ -25,7 +25,7 @@ const Card = ({
   const [isOverflowed, setIsOverflowed] = useState(false);
   const router = useRouter();
   const locale = useLocale();
-  const { setScrollPosition } = useSearchStore();
+  const { setScrollPosition } = useProductStore();
   const provider = data.provider == 'Alibaba1688' ? '1688' : data.provider
   useEffect(() => {
     const { current } = textRef;

@@ -1,32 +1,41 @@
+import { CategoryInterface } from '@/interfaces';
 import { create } from 'zustand';
 
-interface SearchState {
+interface ProductState {
   products: any[];
+  homeProducts: any[];
   hasMore: boolean;
   activeSort: string;
   scrollPosition: number;
+  isBack: boolean;
+  categories: CategoryInterface[];
   setProducts: (products: any[]) => void;
+  setHomeProducts: (products: any[]) => void;
   appendProducts: (newProducts: any[]) => void;
   setHasMore: (hasMore: boolean) => void;
   setActiveSort: (sortType: string) => void;
-  setScrollPosition: (position: number) => void; // Existing method
-  isBack: boolean;
-  setIsBack: (value: boolean) => void
+  setScrollPosition: (position: number) => void;
+  setCategory: (categories: any[]) => void;
+  setIsBack: (value: boolean) => void;
 }
 
-const useSearchStore = create<SearchState>((set) => ({
+const useProductStore = create<ProductState>((set) => ({
   products: [],
+  homeProducts: [],
   hasMore: true,
-  activeSort: "",
+  activeSort: '',
   scrollPosition: 0,
+  isBack: false,
+  categories: [],
   setProducts: (products) => set(() => ({ products })),
+  setHomeProducts: (homeProducts) => set(() => ({ homeProducts })),
   appendProducts: (newProducts) =>
     set((state) => ({ products: [...state.products, ...newProducts] })),
   setHasMore: (hasMore) => set(() => ({ hasMore })),
   setActiveSort: (sortType) => set(() => ({ activeSort: sortType })),
   setScrollPosition: (position) => set(() => ({ scrollPosition: position })),
-  isBack: false,
+  setCategory: (categories) => set(() => ({ categories: categories })),
   setIsBack: (value) => set(() => ({ isBack: value })),
 }));
 
-export default useSearchStore;
+export default useProductStore;

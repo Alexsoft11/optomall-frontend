@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Products.module.scss";
 import Card from "../Card";
-import useSearchStore from "../../store/useSearchStore";
+import useProductStore from "../../store/useProductStore";
 import { useTranslations } from "next-intl";
 import { LoadingSpinner } from "@/ui/Spin";
 
@@ -19,10 +19,11 @@ const Products = ({
   handleGetProduct,
   type,
   perPage = 1,
-  scroolLoading
+  scroolLoading,
+
 }: Props) => {
   const [page, setPage] = useState(perPage);
-  const { scrollPosition, isBack } = useSearchStore();
+  const { scrollPosition, isBack } = useProductStore();
   const t = useTranslations("");
 
   const fetchMoreData = async () => {

@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 import DataNotFound from "@/ui/DataNotFound";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { message } from "antd";
-import useSearchStore from "@/store/useSearchStore";
+import useProductStore from "@/store/useProductStore";
 
 
 
@@ -28,7 +28,7 @@ const ProductDetailSectionLocal = dynamic(
 
 const ProductDetail = () => {
   const { query, locale, beforePopState } = useRouter();
-  const { setIsBack } = useSearchStore();
+  const { setIsBack } = useProductStore();
 
 
   const { data: product, appendData, isLoading, isError } = useQueryApiClient({

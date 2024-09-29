@@ -1,26 +1,22 @@
-import React, { use, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Search.module.scss";
 import { useRouter } from "next/router";
 import { Button, Input, Modal } from "@/ui";
 import SvgSelector from "$/assets/icons/SvgSelector";
-import { Dropdown, Form, Menu, message } from "antd";
+import { Dropdown, Form, message } from "antd";
 import { Upload } from "antd";
 import { UploadProps } from "antd/lib";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
-import { CategoryInterface } from "@/interfaces";
 import { LoadingSpinner } from "@/ui/Spin";
-import useSearchStore from "../../store/useSearchStore";
+import useProductStore from "../../store/useProductStore";
 
 const { Dragger } = Upload;
 type ProviderInfo = {
   url?: string | null;
 };
 
-interface Props {
-  categoryData?: CategoryInterface[];
-}
-const SearchBtn = ({ categoryData }: Props) => {
+const SearchBtn = () => {
   const { query, locale, pathname, replace, push } = useRouter();
   const { value } = query;
   const [scrolled, setScrolled] = useState(false);
@@ -35,7 +31,7 @@ const SearchBtn = ({ categoryData }: Props) => {
   const [selectedCatId, setSelectedCatId] = useState<number | null>(null);
   const [allItems, setAllItems] = useState<any[]>()
 
-  const { setScrollPosition } = useSearchStore();
+  const { setScrollPosition, categories } = useProductStore();
 
   const { appendData: getProductId, isLoading: isProductsLoading } =
     useQueryApiClient({
@@ -56,11 +52,11 @@ const SearchBtn = ({ categoryData }: Props) => {
       },
     });
 
-  const extractItems = (categoryData: any) => {
+  const extractItems = (categories: any) => {
     let items: any[] = [];
 
-    if (!Array.isArray(categoryData)) {
-      console.error("categoryData is not an array or is undefined");
+    if (!Array.isArray(categories)) {
+      console.error("categories is not an array or is undefined");
       return items;
     }
 
@@ -73,18 +69,18 @@ const SearchBtn = ({ categoryData }: Props) => {
       }
     };
 
-    categoryData?.forEach((category: any) => extract(category));
+    categories?.forEach((category: any) => extract(category));
 
     return items;
   };
 
   useEffect(() => {
-    if (categoryData) {
-      const allItems = extractItems(categoryData);
+    if (categories) {
+      const allItems = extractItems(categories);
       setAllItems(allItems)
     }
 
-  }, [categoryData])
+  }, [categories])
 
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

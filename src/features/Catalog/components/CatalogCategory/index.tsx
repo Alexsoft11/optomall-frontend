@@ -1,50 +1,28 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import styles from "./CatalogCategory.module.scss";
 import SearchBtn from "@/components/SearchBtn";
-import Image from "next/image";
 import Link from "next/link";
-import useQueryApiClient from "@/utils/useQueryApiClient";
-import { CategoryInterface } from "@/interfaces";
-import { Collapse, Tooltip } from "antd";
+import { Collapse } from "antd";
 import { useTranslations } from "next-intl";
-import SvgSelector from "$/assets/icons/SvgSelector";
-import { useRouter } from "next/router";
+import useProductStore from "@/store/useProductStore";
 
 const { Panel } = Collapse;
 
 const CatalogCategory = () => {
-  const [CatalogTabsData, setCatalogTabsData] = useState<CategoryInterface[]>(
-    []
-  );
-  const [overflowedItems, setOverflowedItems] = useState<{
-    [key: string]: boolean;
-  }>({});
+
+  // const [overflowedItems, setOverflowedItems] = useState<{
+  //   [key: string]: boolean;
+  // }>({});
   const t = useTranslations("Navbar");
-  const router = useRouter();
-
-  useEffect(() => {
-    getCategoryData({ lang: router.locale });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.locale]);
-
-  const { appendData: getCategoryData } = useQueryApiClient({
-    request: {
-      url: `categories-from-taobao`,
-      method: "GET",
-      disableOnMount: true,
-    },
-    onSuccess(res) {
-      setCatalogTabsData(res.categories);
-    },
-  });
-
-  const checkOverflow = (element: HTMLElement, id: string) => {
-    if (element.scrollHeight > element.clientHeight) {
-      setOverflowedItems((prev) => ({ ...prev, [id]: true }));
-    } else {
-      setOverflowedItems((prev) => ({ ...prev, [id]: false }));
-    }
-  };
+  const { categories } = useProductStore();
+ 
+  // const checkOverflow = (element: HTMLElement, id: string) => {
+  //   if (element.scrollHeight > element.clientHeight) {
+  //     setOverflowedItems((prev) => ({ ...prev, [id]: true }));
+  //   } else {
+  //     setOverflowedItems((prev) => ({ ...prev, [id]: false }));
+  //   }
+  // };
 
   return (
     <div className={styles.categories}>
@@ -56,7 +34,7 @@ const CatalogCategory = () => {
           </div>
           <div className={styles.categories__cards}>
             <Collapse expandIconPosition="end" className="catalog_select">
-              {CatalogTabsData.map((el, idx) => (
+              {categories.map((el, idx) => (
                 <Panel header={el.name} key={idx}>
                   <div>
                     {el.subcategories.map((subcategory, subIdx) => (
