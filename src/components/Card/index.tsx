@@ -66,7 +66,7 @@ const Card = ({
   const title = getTitle(data.title);
 
   return (
-    <div className={styles.card} data-aos="fade-up" data-aos-duration="1200">
+    <div className={styles.card} data-aos="fade-up" data-aos-duration="600">
       <div onClick={handleLinkClick}>
         <div className={styles.card__image}>
           <CustomImage
