@@ -161,7 +161,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
             </>
           ) : null}
         </div>
-        {product && product.props_list.length ? null : (
+        {product && product.skus.length > 1 ? null : (
           <div className={styles.quantity}>
             <div key={1} className={styles.change_value}>
               <AntdButton onClick={() => changeQuantity(itemQuantity - 1)}>
