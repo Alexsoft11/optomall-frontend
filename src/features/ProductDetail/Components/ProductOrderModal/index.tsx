@@ -263,9 +263,8 @@ const ProductOrderModal = ({
         setMessageVisible(true);
         messageApi.open({
           type: "warning",
-          content: `${t("Product-detail.isMaxQuantity")}, ${
-            currentSku.quantity
-          } `,
+          content: `${t("Product-detail.isMaxQuantity")}, ${currentSku.quantity
+            } `,
           onClose: () => setMessageVisible(false),
         });
       }
@@ -493,7 +492,7 @@ const ProductOrderModal = ({
                       scrollbar={{ draggable: true }}
                       breakpoints={{
                         1000: {
-                          slidesPerView: 8,
+                          slidesPerView: 'auto',
                         },
                         960: {
                           slidesPerView: Math.min(6, slidesCount),
@@ -511,15 +510,14 @@ const ProductOrderModal = ({
                               onClick={() =>
                                 handlePropertySelect(propId, propName)
                               }
-                              className={`img-block ${
-                                currentSku?.properties
-                                  .split(";")
-                                  .includes(propId)
-                                  ? styles.active
-                                  : !getExist(propId, parsedSku)
+                              className={`img-block ${currentSku?.properties
+                                .split(";")
+                                .includes(propId)
+                                ? styles.active
+                                : !getExist(propId, parsedSku)
                                   ? styles.disable
                                   : ""
-                              }`}
+                                }`}
                             >
                               {imageUrl && (
                                 <div className="img-box">
@@ -559,8 +557,8 @@ const ProductOrderModal = ({
                             idx !== 0
                               ? null
                               : !Object.values(propertiesWithImages).length
-                              ? getPropertyQuantity(propId, propName)
-                              : null
+                                ? getPropertyQuantity(propId, propName)
+                                : null
                           }
                           key={value}
                         >
@@ -572,8 +570,8 @@ const ProductOrderModal = ({
                               currentSku?.properties.split(";").includes(propId)
                                 ? styles.active
                                 : !getExist(propId, parsedSku)
-                                ? styles.disable
-                                : ""
+                                  ? styles.disable
+                                  : ""
                             }
                           >
                             {value}
