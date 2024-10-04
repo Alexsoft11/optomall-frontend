@@ -75,7 +75,7 @@ const Search = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if ((!isBack || !products.length) && query) {
+      if ((!isBack || !products.length) && (query.value || query.imageUrl)) {
         getSearchRes({
           ...query,
           lang: locale,
@@ -86,6 +86,7 @@ const Search = () => {
         setIsBack(false)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, locale]);
 
   const handleGetProduct = (customQuery: any) => {
