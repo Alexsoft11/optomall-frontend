@@ -107,7 +107,7 @@ const ProductsSection = () => {
               />
             ) : (
               <Products
-                type="scroll"
+                type="more"
                 perPage={1}
                 data={homeProducts}
                 hasMore={hasMore}

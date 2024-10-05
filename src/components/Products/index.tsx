@@ -4,12 +4,13 @@ import Card from "../Card";
 import useProductStore from "../../store/useProductStore";
 import { useTranslations } from "next-intl";
 import { LoadingSpinner } from "@/ui/Spin";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 interface Props {
   data: any[];
   hasMore?: boolean;
   handleGetProduct?: (data?: any) => void;
-  type?: "simp" | "scroll";
+  type?: "simp" | "scroll" | "more";
   perPage?: number;
   scroolLoading?: boolean
 }
@@ -33,7 +34,7 @@ const Products = ({
   };
 
   useEffect(() => {
-    if (type === "scroll" && isBack) {
+    if ((type === "scroll" || type === "more") && isBack) {
       window.scrollTo(0, scrollPosition);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -41,12 +42,29 @@ const Products = ({
 
   return (
     <div>
-      <div className={styles.product_list}>
-        {data?.map((item, idx) => (
-          <Card key={idx} data={item} />
-        ))}
-      </div>
-      {scroolLoading ? <LoadingSpinner size="large" /> : type === 'scroll' && (
+      {type === 'scroll' ? (
+        <div className={styles.products_scroll}>
+          <InfiniteScroll
+            dataLength={data?.length}
+            next={fetchMoreData}
+            hasMore={true}
+            loader={<></>}
+          >
+            <div className={styles.product_list}>
+              {data?.map((el: any, idx: number) => (
+                <Card key={idx} data={el} />
+              ))}
+            </div>
+          </InfiniteScroll>
+        </div>
+      ) : (
+        <div className={styles.product_list}>
+          {data?.map((item, idx) => (
+            <Card key={idx} data={item} />
+          ))}
+        </div>
+      )}
+      {scroolLoading ? <LoadingSpinner size="large" /> : type === 'more' && (
         <div data-aos="fade-up" data-aos-duration="1200" className={styles.load_more_button} onClick={fetchMoreData}>
           {t('Products.load_more')}
         </div>
