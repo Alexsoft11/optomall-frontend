@@ -212,7 +212,7 @@ const SearchBtn = () => {
     onSuccess(res) {
       handleCancel();
       push(
-        `/search?lang=${locale}&provider=${query.provider || "taobao"}&imageUrl=${res.url
+        `/search?lang=${locale}&provider=${query.provider || "1688"}&imageUrl=${res.url
         }`
       );
     },

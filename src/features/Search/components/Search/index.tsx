@@ -94,6 +94,7 @@ const Search = () => {
       ...customQuery,
       ...query,
       lang: locale,
+
     });
   };
 
