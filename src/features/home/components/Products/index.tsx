@@ -66,6 +66,7 @@ const ProductsSection = () => {
       }
       setHomeProducts([...homeProducts, ...res.products]);
     },
+  
   });
 
   const { appendData: getProductsData, isLoading: isProductsLoading } =

@@ -89,8 +89,8 @@ const Search = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, locale]);
 
-  const handleGetProduct = (customQuery: any) => {
-    getProducts({
+  const handleGetProductWhenScrool = (customQuery: any) => {
+    getMoreProducts({
       ...customQuery,
       ...query,
       lang: locale,
@@ -114,7 +114,7 @@ const Search = () => {
       },
     });
 
-  const { appendData: getProducts, isLoading: isProductsLoading } =
+  const { appendData: getMoreProducts, isLoading: isProductsLoading } =
     useQueryApiClient({
       request: {
         url: `search-products-from-taobao`,
@@ -128,9 +128,16 @@ const Search = () => {
         }
         const newProducts = [...products, ...res.products];
         setProducts(newProducts);
+
+      },
+      onError() {
+        handleGetProductWhenScrool({ page: getRandomPageNumber() });
       },
     });
 
+  const getRandomPageNumber = () => {
+    return Math.floor(Math.random() * (50 - 10 + 1)) + 10;
+  };
 
   return (
     <div className={styles.search}>
@@ -223,7 +230,7 @@ const Search = () => {
               type="scroll"
               data={products}
               hasMore={hasMore}
-              handleGetProduct={handleGetProduct}
+              handleGetProduct={handleGetProductWhenScrool}
               scroolLoading={isProductsLoading}
             />
           )}
