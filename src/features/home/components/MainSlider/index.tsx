@@ -49,9 +49,9 @@ const MainSlider: React.FC<Props> = ({ data }) => {
                 }
               }}
               autoplay={{
-                delay: 4500,
+                delay: 5500,
+                disableOnInteraction: false,
               }}
-              loop={true}
               navigation={{
                 nextEl: `.next-btn`,
                 prevEl: `.prev-btn`,
