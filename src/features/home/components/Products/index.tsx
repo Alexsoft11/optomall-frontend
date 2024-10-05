@@ -115,23 +115,25 @@ const ProductsSection = () => {
             </CustomTabs>
           </div>
 
-          <div className={styles.products__cards}>
-            {isProductsLoading ? (
-              <LoadingSpinner
-                spinning={isProductsLoading}
-                tip={"loadingData"}
-                size="large"
-              />
-            ) : (
-              <Products
-                type="more"
-                perPage={1}
-                data={homeProducts}
-                hasMore={hasMore}
-                handleGetProduct={handleGetProductWhenScrool}
-                scroolLoading={isProductsScroolLoading}
-              />
-            )}
+          <div className={styles.product_sec}>
+            <div className={styles.products__cards}>
+              {isProductsLoading ? (
+                <LoadingSpinner
+                  spinning={isProductsLoading}
+                  tip={"loadingData"}
+                  size="large"
+                />
+              ) : (
+                <Products
+                  type="more"
+                  perPage={1}
+                  data={homeProducts}
+                  hasMore={hasMore}
+                  handleGetProduct={handleGetProductWhenScrool}
+                  scroolLoading={isProductsScroolLoading}
+                />
+              )}
+            </div>
           </div>
           <div className={styles.products__categories}>
             {additionalCategories?.categories?.map((item: any, idx: number) => (
@@ -144,7 +146,6 @@ const ProductsSection = () => {
                     alt="banner img"
                   />
                 </div>
-
                 <div className={styles.products__cards}>
                   {item?.products.map((el: any, idx: number) => (
                     <Card
