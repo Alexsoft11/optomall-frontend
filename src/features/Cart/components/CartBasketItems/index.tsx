@@ -85,9 +85,13 @@ export default function CartBasketItems({
       method: "DELETE",
       disableOnMount: true,
     },
+    onSuccess(res) {
+      setDataClone(res.original)
+    }
   });
 
   const deleteSelected = () => {
+    if (!selected.length) return;
     const data = selected.map((el) => el.id);
     deleteSelectedItem({ basket_ids: data });
   };
