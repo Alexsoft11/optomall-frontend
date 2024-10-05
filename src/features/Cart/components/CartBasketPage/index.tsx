@@ -72,7 +72,7 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
   useEffect(() => {
     if (Array.isArray(addOrder)) {
       let clone = [] as CartOrderItemInterface[] | [];
-
+    
       if (addOrder[0].chacked) {
         clone = addOrder.map((el) => el.item);
       }

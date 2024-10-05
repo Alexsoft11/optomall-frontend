@@ -26,6 +26,7 @@ export interface AddOrderInterface {
 }
 
 export interface CartOrderItemInterface {
+  id: number,
   product_id: string;
   image_url: StaticImageData | null;
   title: string;
