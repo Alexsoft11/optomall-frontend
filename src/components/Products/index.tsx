@@ -41,7 +41,7 @@ const Products = ({
   }, [scrollPosition]);
 
   return (
-    <div>
+    <div  className={styles.product_list_sec}>
       {type === 'scroll' ? (
         <div className={styles.products_scroll}>
           <InfiniteScroll
