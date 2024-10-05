@@ -9,6 +9,9 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import Products from "@/components/Products";
 import { useRouter } from "next/router";
 import useProductStore from "@/store/useProductStore";
+import Image from "next/image";
+import Card from "@/components/Card";
+import { getProductLimit } from "@/utils/getProductLimit";
 
 
 const ProductsSection = () => {
@@ -26,7 +29,8 @@ const ProductsSection = () => {
   } = useProductStore();
 
   const handleTabChange = (key: string) => {
-    getProductsData({ query: key });
+    const productsCount = getProductLimit(5)
+    getProductsData({ query: key, productsCount });
     setKeyApi(key);
   };
 
@@ -43,7 +47,10 @@ const ProductsSection = () => {
 
   useEffect(() => {
     if (!isBack || !homeProducts.length) {
-      getProductsWhenScrool({ query: "discount", lang: locale, });
+      const productsCount = getProductLimit(5)
+      getProductsWhenScrool({ query: "discount", lang: locale, productsCount });
+      const limit = getProductLimit(3)
+      getAditionalCats({ limit })
     } else {
       setIsBack(false)
     }
@@ -66,7 +73,7 @@ const ProductsSection = () => {
       }
       setHomeProducts([...homeProducts, ...res.products]);
     },
-  
+
   });
 
   const { appendData: getProductsData, isLoading: isProductsLoading } =
@@ -80,6 +87,15 @@ const ProductsSection = () => {
         if (res.products) {
           setHomeProducts(res.products);
         }
+      },
+    });
+
+  const { data: additionalCategories, appendData: getAditionalCats } =
+    useQueryApiClient({
+      request: {
+        url: `additional-categories`,
+        method: "GET",
+        disableOnMount: true,
       },
     });
 
@@ -117,17 +133,12 @@ const ProductsSection = () => {
               />
             )}
           </div>
-
-          {/* <div className={styles.products__categories}>
-            {categoryData?.map((item: any, idx: number) => (
+          <div className={styles.products__categories}>
+            {additionalCategories?.categories?.map((item: any, idx: number) => (
               <div key={idx} className={styles.products__categories_inner}>
                 <div className={styles.products__banner}>
                   <Image
-                    src={
-                      window.innerWidth <= 600
-                        ? item?.image_mobile
-                        : item?.image
-                    }
+                    src={item?.image}
                     width={10000}
                     height={10000}
                     alt="banner img"
@@ -140,13 +151,12 @@ const ProductsSection = () => {
                       isBlank={false}
                       key={idx}
                       data={el}
-                      provider="local"
                     />
                   ))}
                 </div>
               </div>
             ))}
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
