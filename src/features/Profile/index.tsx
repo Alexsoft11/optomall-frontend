@@ -45,10 +45,10 @@ const Profile = () => {
         <SvgSelector id="search-modal-svg" />
         <p>{t("make_payment")}</p>
       </Link>
-      <Link href="/messages" className={styles.navbar__user_item}>
+      {/* <Link href="/messages" className={styles.navbar__user_item}>
         <SvgSelector id="search-modal-svg" />
         <p>{t("questions")}</p>
-      </Link>
+      </Link> */}
       <Link href="/transport" className={styles.navbar__user_item}>
         <SvgSelector id="transport-svg" />
         <p>{t("transport")}</p>

@@ -128,7 +128,6 @@ const Search = () => {
         }
         const newProducts = [...products, ...res.products];
         setProducts(newProducts);
-
       },
       onError() {
         handleGetProductWhenScrool({ page: getRandomPageNumber() });
