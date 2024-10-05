@@ -56,9 +56,11 @@ export default function CartBasketItems({
         quantity,
         seller_id,
         provider,
+        id,
       } = item;
-
+    
       const cartOrderItem = {
+        id: id,
         product_id,
         image_url,
         properties,
@@ -86,8 +88,8 @@ export default function CartBasketItems({
   });
 
   const deleteSelected = () => {
-    const data = selected.map(el => el.sku_id)
-    deleteSelectedItem()
+    const data = selected.map((el) => el.id);
+    deleteSelectedItem({ basket_ids: data });
   };
 
   return (

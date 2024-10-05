@@ -30,6 +30,7 @@ export default function CartBasketItem({
   const handleChange = (chacked: boolean) => {
     if (!item.sku_id) return;
     const data: CartOrderItemInterface = {
+      id: item.id,
       product_id: item.product_id,
       image_url: item.image_url,
       product_url: item.product_url,
