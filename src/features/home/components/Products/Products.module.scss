@@ -12,11 +12,6 @@
     margin-top: 0px;
   }
 
-  &__top {
-    @media (max-width: 500px) {
-    }
-  }
-
   &__cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
