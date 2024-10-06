@@ -66,7 +66,7 @@ const Products = ({
         </div>
       )}
       {scroolLoading ? <LoadingSpinner size="large" /> : type === 'more' && (
-        <div data-aos="fade-up" data-aos-duration="1200" className={styles.load_more_button} onClick={fetchMoreData}>
+        <div data-aos="fade-up" data-aos-duration="800" className={styles.load_more_button} onClick={fetchMoreData}>
           {t('Products.load_more')}
         </div>
       )}
