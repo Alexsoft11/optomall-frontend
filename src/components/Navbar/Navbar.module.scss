@@ -87,7 +87,17 @@
       }
     }
   }
-
+  &__support_desktop {
+    cursor: pointer;
+    display: block;
+    border: none;
+    background: none;
+    margin-left: 22px;
+    margin-top: 3px;
+    @media (max-width: 970px) {
+      display: none !important;
+    }
+  }
   &__support {
     cursor: pointer;
     display: none;

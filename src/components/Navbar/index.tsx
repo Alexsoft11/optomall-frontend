@@ -15,6 +15,7 @@ import { useJwt } from "@/utils/useJwt";
 import { UseLogOut } from "@/utils/useLogOut";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import useProductStore from "../../store/useProductStore";
+import { copyLinkToClipboard } from "@/utils/useCopyLink";
 
 const Navbar = () => {
   const token = useJwt();
@@ -67,7 +68,7 @@ const Navbar = () => {
     isCheckApiCarts();
   }, []);
 
-  const {  } = useQueryApiClient(
+  const { } = useQueryApiClient(
     {
       request: {
         url: `categories-from-taobao?lang=${router.locale}`,
@@ -109,10 +110,21 @@ const Navbar = () => {
                   className="bg_white"
                   img={HeadPhone}
                   description={
-                    <>
-                      {t("modalMessage")}<br />
-                      <a href="tel:+998988889885">+998 98 888 98 85</a>
-                    </>
+                    <div className="support-modal">
+                      {t("modalMessage")}
+                      <div className="supp-item">
+                        <a href="tel:+998988889885">+998 98 888 98 85</a>
+                        <div onClick={(e) => copyLinkToClipboard(e, 'url', '+998988889885')}>
+                          <SvgSelector id="copylink-svg" />
+                        </div>
+                      </div>
+                      <div className="supp-item">
+                        <a href="https://t.me/Optomall_uz">t.me/Optomall_uz</a>
+                        <div onClick={(e) => copyLinkToClipboard(e, 'url', 'https://t.me/Optomall_uz')}>
+                          <SvgSelector id="copylink-svg" />
+                        </div>
+                      </div>
+                    </div>
                   }
                   open={modalIsOpen}
                 />
@@ -130,7 +142,12 @@ const Navbar = () => {
                     <SvgSelector id="saved-svg" />
                   </Link>
                 </button>
-
+                <button
+                  className={styles.navbar__support_desktop}
+                  onClick={handleModalIsOpen}
+                >
+                  <SvgSelector id="support-svg" />
+                </button>
                 {isMounted && token ? (
                   <>
                     <button className={styles.navbar__shop_btn}>

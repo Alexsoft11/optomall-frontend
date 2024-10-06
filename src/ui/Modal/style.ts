@@ -14,7 +14,24 @@ export const StyledModal = styled(AntdModal)`
   a {
     color: var(--black-color);
   }
-
+  .support-modal {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    justify-content: center;
+    align-items: center;
+    a:hover {
+      color: var(--primary-color);
+    }
+    .supp-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      svg {
+        cursor: pointer;
+      }
+    }
+  }
   .ant-modal-content {
     max-width: 90dvw;
     width: max-content;
