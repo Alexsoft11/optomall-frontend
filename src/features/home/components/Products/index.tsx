@@ -12,6 +12,7 @@ import useProductStore from "@/store/useProductStore";
 import Image from "next/image";
 import Card from "@/components/Card";
 import { getProductLimit } from "@/utils/getProductLimit";
+import AditionalProductList from "../AditionalProductList";
 
 
 const ProductsSection = () => {
@@ -73,7 +74,6 @@ const ProductsSection = () => {
       }
       setHomeProducts([...homeProducts, ...res.products]);
     },
-
   });
 
   const { appendData: getProductsData, isLoading: isProductsLoading } =
@@ -146,15 +146,7 @@ const ProductsSection = () => {
                     alt="banner img"
                   />
                 </div>
-                <div className={styles.products__cards}>
-                  {item?.products.map((el: any, idx: number) => (
-                    <Card
-                      isBlank={false}
-                      key={idx}
-                      data={el}
-                    />
-                  ))}
-                </div>
+                <AditionalProductList category={item} />
               </div>
             ))}
           </div>

@@ -9,10 +9,11 @@ import InfiniteScroll from "react-infinite-scroll-component";
 interface Props {
   data: any[];
   hasMore?: boolean;
-  handleGetProduct?: (data?: any) => void;
+  handleGetProduct?: (data?: any, categoryId?: string) => void;
   type?: "simp" | "scroll" | "more";
   perPage?: number;
-  scroolLoading?: boolean
+  scroolLoading?: boolean,
+  categoryId?: string
 }
 
 const Products = ({
@@ -21,7 +22,7 @@ const Products = ({
   type,
   perPage = 1,
   scroolLoading,
-
+  categoryId
 }: Props) => {
   const [page, setPage] = useState(perPage);
   const { scrollPosition, isBack } = useProductStore();
@@ -30,7 +31,7 @@ const Products = ({
   const fetchMoreData = async () => {
     if (!handleGetProduct) return;
     setPage((prevPage) => prevPage + perPage);
-    handleGetProduct({ page: page + perPage });
+    handleGetProduct({ page: page + perPage }, categoryId);
   };
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const Products = ({
   }, [scrollPosition]);
 
   return (
-    <div  className={styles.product_list_sec}>
+    <div className={styles.product_list_sec}>
       {type === 'scroll' ? (
         <div className={styles.products_scroll}>
           <InfiniteScroll
