@@ -1,97 +1,96 @@
 .language_selector {
-    position: relative;
-    z-index: 1000 !important;
-    .dropdown {
-      .selected_language {
+  position: relative;
+  z-index: 1000 !important;
+  .dropdown {
+    .selected_language {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      span {
+        font-size: var(--paragraph-two);
+        font-weight: 400;
+        line-height: 98.523%;
+        text-transform: capitalize;
+        margin-top: 3px;
+      }
+      svg {
+        transition: 0.5s ease;
+        max-width: 24px;
+        max-height: 24px;
+      }
+    }
+    .flag {
+      width: 20px;
+      height: 20px;
+    }
+    .language_list {
+      transform: translateY(-20%);
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      list-style-type: none;
+      row-gap: 15px;
+      padding: 6px 23px 6px 23px;
+      box-shadow: 0px 4px 35px 0px rgba(0, 0, 0, 0.1);
+      left: -8px;
+      margin: 10px 0;
+      visibility: hidden;
+      transition: 0.2s ease;
+      border-radius: 5px;
+      opacity: 0;
+      backdrop-filter: blur(80px);
+      background: var(--white-color);
+      @media (max-width: 970px) {
+        padding: 10px 20px;
+        row-gap: 20px;
+        left: 0px;
+      }
+      li {
+        font-size: var(--paragraph-two);
+        font-weight: 700;
+        line-height: 98.523%;
+        text-transform: capitalize;
+        text-align: center;
+        cursor: pointer;
         display: flex;
         align-items: center;
+        color: #6e7191;
         gap: 5px;
-        cursor: pointer;
-        span {
-          font-size: var(--paragraph-two);
-          font-weight: 400;
-          line-height: 98.523%;
-          text-transform: capitalize;
-          margin-top: 3px;
-        }
-        svg {
-          transition: 0.5s ease;
-          max-width: 24px;
-          max-height: 24px;
+        @media (max-width: 970px) {
+          font-size: var(--paragraph);
         }
       }
-      .flag {
-        width: 20px;
-        height: 20px;
+    }
+    &.open {
+      .selected_language {
+        svg {
+          fill: var(--primary-color);
+          path {
+            fill: var(--primary-color);
+          }
+        }
+        span {
+          color: var(--primary-color);
+        }
       }
       .language_list {
-        transform: translateY(-20%);
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        list-style-type: none;
-        row-gap: 15px;
-        padding: 6px 23px 6px 23px;
-        box-shadow: 0px 4px 35px 0px rgba(0, 0, 0, 0.10);
-        left: -8px;
-        margin: 10px 0;
-        visibility: hidden;
-        transition: 0.2s ease;
-        border-radius: 5px;
-        opacity: 0;
-        backdrop-filter: blur(80px);
-        background: var(--white-color);
-        @media (max-width:970px) {
-          padding: 10px 20px;
-          row-gap: 20px;
-          left: 0px;
-        }
-        li {
-          font-size: var(--paragraph-two);
-          font-weight: 700;
-          line-height: 98.523%;
-          text-transform: capitalize;
-          text-align: center;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          color: #6e7191;
-          gap: 5px;
-          @media (max-width:970px) {
-            font-size: var(--paragraph);
-          }
-        }
-      }
-      &.open {
-        .selected_language {
-          svg {
-            fill: #FF4200;
-            path {
-                fill: #FF4200;
-            }
-          }
-          span {
-            color: #FF4200;
-          }
-        }
-        .language_list {
-          visibility: visible;
-          opacity: 1;
-          transform: translateY(0%);
-        }
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0%);
       }
     }
   }
-  .color {
-    .lang_item {
-      color: #6e7191;
-    }
+}
+.color {
+  .lang_item {
+    color: #6e7191;
   }
-  .transparent {
-    .lang_item {
-      color: #f2f2f2;
-    }
+}
+.transparent {
+  .lang_item {
+    color: #f2f2f2;
   }
-  
+}

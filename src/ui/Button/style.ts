@@ -88,7 +88,7 @@ export const StyledButton = styled(Button)`
     padding: 3px 8px;
     border-radius: 10px;
     line-height: 1.25;
-    background: #ff4200;
+    background: var(--primary-color);
     height: 100%;
     width: 66px;
     gap: 3px !important;
@@ -132,7 +132,7 @@ export const StyledButton = styled(Button)`
   &.generalbtn {
     min-width: 100%;
     line-height: 1.25;
-    background: #ff4200;
+    background: var(--primary-color);
     display: flex;
     align-items: center;
     justify-content: center;

@@ -12,37 +12,7 @@
     margin-top: 0px;
   }
 
-  &__cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    column-gap: 25px;
-    row-gap: 30px;
-
-    @media (max-width: 1220px) {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-
-    @media (max-width: 768px) {
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      column-gap: 20px;
-    }
-
-    @media (max-width: 420px) {
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
-
-    @media (max-width: 360px) {
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 10px;
-    }
-
-    @media (max-width: 320px) {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-  }
+  
 
   &__banner {
     aspect-ratio: 3 / 1;
