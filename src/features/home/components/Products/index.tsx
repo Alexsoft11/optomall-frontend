@@ -137,8 +137,8 @@ const ProductsSection = () => {
           </div>
           <div className={styles.products__categories}>
             {additionalCategories?.categories?.map((item: any, idx: number) => (
-              <div key={idx} className={styles.products__categories_inner}>
-                <div className={styles.products__banner} data-aos="fade-up" data-aos-duration="800">
+              <div key={idx} className={styles.products__categories_inner} data-aos="fade-up" data-aos-duration="800">
+                <div className={styles.products__banner} >
                   <Image
                     src={item?.image}
                     width={10000}
