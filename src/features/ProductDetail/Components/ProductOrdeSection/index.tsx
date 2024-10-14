@@ -193,7 +193,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
             iconPosition={"bottom"}
           />
         </div>
-        {product && product.props_list ? (
+        {/* {product && product.props_list ? (
           <ProductOrderModal
             translatedData={
               translatedData.translated && translatedData?.translated[0]
@@ -202,7 +202,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
             type={orderModalType}
             setOrderType={setOrderModalType}
           />
-        ) : null}
+        ) : null} */}
       </div>
       {product &&
         product?.quantityRanges &&
