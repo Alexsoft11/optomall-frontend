@@ -9,10 +9,8 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import Products from "@/components/Products";
 import { useRouter } from "next/router";
 import useProductStore from "@/store/useProductStore";
-import Image from "next/image";
-import Card from "@/components/Card";
 import { getProductLimit } from "@/utils/getProductLimit";
-import AditionalProductList from "../AditionalProductList";
+import AdditionalCategory from "@/components/AdditionalCategory";
 
 
 const ProductsSection = () => {
@@ -136,19 +134,7 @@ const ProductsSection = () => {
             </div>
           </div>
           <div className={styles.products__categories}>
-            {additionalCategories?.categories?.map((item: any, idx: number) => (
-              <div key={idx} className={styles.products__categories_inner} data-aos="fade-up" data-aos-duration="800">
-                <div className={styles.products__banner} >
-                  <Image
-                    src={item?.image}
-                    width={10000}
-                    height={10000}
-                    alt="banner img"
-                  />
-                </div>
-                <AditionalProductList category={item} />
-              </div>
-            ))}
+            <AdditionalCategory categories={additionalCategories?.categories} enableLink={true} />
           </div>
         </div>
       </div>

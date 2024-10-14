@@ -65,10 +65,13 @@ const Navbar = () => {
   });
 
   useEffect(() => {
-    isCheckApiCarts();
-  }, []);
+    if (token) {
+      isCheckApiCarts();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
-  const { } = useQueryApiClient(
+  useQueryApiClient(
     {
       request: {
         url: `categories-from-taobao?lang=${router.locale}`,

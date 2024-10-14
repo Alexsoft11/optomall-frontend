@@ -39,33 +39,33 @@ export interface CatalogCategoriesInterface {
 }
 
 export interface SubcategoryItem {
-    id: number;
-    name: string;
-    slug: string;
-    is_show: number;
+  id: number;
+  name: string;
+  slug: string;
+  is_show: number;
 }
-  
- export interface Subcategory {
-    id: number;
-    name: string;
-    slug: string;
-    items: SubcategoryItem[];
+
+export interface Subcategory {
+  id: number;
+  name: string;
+  slug: string;
+  items: SubcategoryItem[];
 }
-  
- export interface CategoryInterface {
-    name: string;
-    slug: string;
-    imageUrl: string;
-    subcategories: Subcategory[];
-  }
+
+export interface CategoryInterface {
+  name: string;
+  slug: string;
+  imageUrl: string;
+  subcategories: Subcategory[];
+}
 
 export interface SlidersDataInterface {
-    id: number;
-    url: string;
-    image: StaticImageData;
-    image_mobile: StaticImageData;
-    name: string;
-    slug: string;
+  id: number;
+  url: string;
+  image: StaticImageData;
+  image_mobile: StaticImageData;
+  name: string;
+  slug: string;
 }
 
 export interface Subcategory {
@@ -129,4 +129,29 @@ export interface LanguageStringIntergace {
   en: string;
   uz: string;
   ru: string;
+}
+
+export interface IAdditonalCategory {
+  id: number;
+  name: {
+    uz: string;
+    ru: string;
+    en: string;
+  };
+  slug: string;
+  image: string;
+  image_mobile: string;
+  is_active: number;
+  products: IProductCard[];
+}
+
+export interface IProductCard {
+  id: number;
+  title: string;
+  price: number;
+  discounted_price: number;
+  discount_percent: number;
+  image: string;
+  provider: string;
+  is_liked: boolean;
 }
