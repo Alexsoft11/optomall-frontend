@@ -33,7 +33,7 @@ const ProductDetail = () => {
 
   const { data: product, appendData, isLoading, isError } = useQueryApiClient({
     request: {
-      url: `product-detail-tmapi`,
+      url: `product-detail-onbound`,
       method: "GET",
       disableOnMount: true,
     },
