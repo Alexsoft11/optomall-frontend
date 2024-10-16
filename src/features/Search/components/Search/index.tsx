@@ -73,29 +73,29 @@ const Search = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query.value]);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      if ((!isBack || !products.length) && (query.value || query.imageUrl)) {
-        getSearchRes({
-          ...query,
-          lang: locale,
-          page: 1,
-        });
-        setProducts([])
-      } else {
-        setIsBack(false)
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, locale]);
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     if ((!isBack || !products.length) && (query.value || query.imageUrl)) {
+  //       getSearchRes({
+  //         ...query,
+  //         lang: locale,
+  //         page: 1,
+  //       });
+  //       setProducts([])
+  //     } else {
+  //       setIsBack(false)
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [query, locale]);
 
   const handleGetProductWhenScrool = (customQuery: any) => {
-    getMoreProducts({
-      ...customQuery,
-      ...query,
-      lang: locale,
+    // getMoreProducts({
+    //   ...customQuery,
+    //   ...query,
+    //   lang: locale,
 
-    });
+    // });
   };
 
   const { appendData: getSearchRes, isLoading: isSearchResLoading } =

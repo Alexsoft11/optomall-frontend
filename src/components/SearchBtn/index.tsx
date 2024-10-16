@@ -164,12 +164,12 @@ const SearchBtn = () => {
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      form.submit();
+      // form.submit();
     }
   };
 
   const handleButtonSubmitClick = (e: any) => {
-    form.submit();
+    // form.submit();
   };
 
   useEffect(() => {
@@ -222,7 +222,7 @@ const SearchBtn = () => {
   });
 
   const handleButtonClick = () => {
-    setIsModalVisible(true);
+    // setIsModalVisible(true);
   };
 
   const handleCancel = () => {
