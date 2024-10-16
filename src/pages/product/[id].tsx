@@ -52,26 +52,26 @@ const ProductDetail = () => {
 
   
 
-  useEffect(() => {
-    if (query.id) {
-      const id: any = query.id ? query.id : ""
-      const productId = id.replace(/^abb-/, '')
-      const params = {
-        productId: productId,
-        lang: locale,
-        provider: query.provider,
-      };
-      appendData(params)
-    }
-  }, [query, locale])
+  // useEffect(() => {
+  //   if (query.id) {
+  //     const id: any = query.id ? query.id : ""
+  //     const productId = id.replace(/^abb-/, '')
+  //     const params = {
+  //       productId: productId,
+  //       lang: locale,
+  //       provider: query.provider,
+  //     };
+  //     appendData(params)
+  //   }
+  // }, [query, locale])
 
 
-  useEffect(() => {
-    if (product?.detail?.image) {
-      getSearchRes();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product?.detail?.image]);
+  // useEffect(() => {
+  //   if (product?.detail?.image) {
+  //     getSearchRes();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [product?.detail?.image]);
 
   useEffect(() => {
     const handleBack = () => {

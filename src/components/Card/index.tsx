@@ -38,20 +38,20 @@ const Card = ({
     e.preventDefault();
     setScrollPosition(window.scrollY);
 
-    const id = router.pathname.includes("wishes") ? data.product_id : data.id;
-    let url = `/${router.locale}/product/${id}?provider=${provider || router.query.provider || "1688"
-      }`;
-    if (router.pathname.includes("search") && router.query.value) {
-      url = `${url}&category=${router.query.value}`;
-      if (router.query.carId) {
-        url = `${url}&catId=${router.query.catId}`;
-      }
-    }
-    if (e.ctrlKey || e.metaKey || isBlank) {
-      window.open(url, "_blank");
-    } else {
-      router.push(url);
-    }
+    // const id = router.pathname.includes("wishes") ? data.product_id : data.id;
+    // let url = `/${router.locale}/product/${id}?provider=${provider || router.query.provider || "1688"
+    //   }`;
+    // if (router.pathname.includes("search") && router.query.value) {
+    //   url = `${url}&category=${router.query.value}`;
+    //   if (router.query.carId) {
+    //     url = `${url}&catId=${router.query.catId}`;
+    //   }
+    // }
+    // if (e.ctrlKey || e.metaKey || isBlank) {
+    //   window.open(url, "_blank");
+    // } else {
+    //   router.push(url);
+    // }
   };
 
   const getTitle = (
