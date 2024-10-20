@@ -33,7 +33,7 @@ const ProductDetail = () => {
 
   const { data: product, appendData, isLoading, isError } = useQueryApiClient({
     request: {
-      url: `product-detail-onbound`,
+      url: `product-detail-tmapi`,
       method: "GET",
       disableOnMount: true,
     },
@@ -68,7 +68,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     if (product?.detail?.image) {
-      getSearchRes();
+      // getSearchRes();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product?.detail?.image]);

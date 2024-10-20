@@ -10,7 +10,6 @@ import { useTranslations } from "next-intl";
 import GoToBack from "@/components/GoToBack";
 import { useRouter } from "next/router";
 import { ProductDetailInterface } from "../../interface";
-import { DetailMockData } from "@/mockdata/detailData";
 
 interface Props {
   product: ProductDetailInterface;

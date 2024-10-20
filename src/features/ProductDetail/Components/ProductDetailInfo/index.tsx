@@ -83,7 +83,7 @@ const ProductDetailInfo: React.FC<Props> = ({
       label: (
         <Link href={path} className={styles.link}>
           <SvgSelector id="facebook-svg" />
-          Facebook{" "}
+          Facebook
         </Link>
       ),
       key: "3",
