@@ -405,8 +405,6 @@ const ProductOrderModal = ({
   const getQuantity = useMemo(() => {
     return currentSku ? currentSku.selected_quantity : 0;
   }, [currentSku, selectedSku]);
-
-  console.log('groupedProperties :', groupedProperties);
   
   const capitalize = (text: string) => {
     return text.charAt(0).toUpperCase() + text.slice(1);
