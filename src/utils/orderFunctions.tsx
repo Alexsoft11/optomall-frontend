@@ -3,6 +3,7 @@ import {
   PropImage,
   PropsList,
   SKU,
+  TranslaedProps,
 } from "@/features/ProductDetail/interface";
 import { API } from "@/services/api";
 
@@ -42,17 +43,19 @@ export const parseSKUProperties = (
 export const groupProperties = async (
   skus: SKU[],
   propsList: PropsList[],
-  translaperProps?: PropsList,
+  translaperProps?: TranslaedProps,
   quantityRanges?: any[]
 ): Promise<{
   allProperties: PropsList[];
   parsedSku: SKU[];
 }> => {
-  const parsedTranslate = Object.keys(translaperProps || propsList).map(
+  const parsedTranslate = (Object.keys(translaperProps || {}) || propsList).map(
     (el, idx) => {
       return {
         id: el,
-        value: Object.values(translaperProps || propsList)[idx] as string,
+        value: (Object.values(translaperProps || {}) || propsList)[
+          idx
+        ] as string,
       };
     }
   );
@@ -67,7 +70,7 @@ export const groupProperties = async (
 
         parsedTranslate.map((el) => {
           if (el.id === propId) value = el.value;
-          else if (el.id === pid) propName = propName = el.value;
+          else if (el.id === pid) propName = el.value;
         });
 
         return {
@@ -81,7 +84,7 @@ export const groupProperties = async (
         pid: pid,
         prop_name: propName,
         values: updatesValues,
-        originalName: name,
+        originalName: prop_name,
       };
     }
   );

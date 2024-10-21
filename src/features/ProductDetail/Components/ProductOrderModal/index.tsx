@@ -7,6 +7,7 @@ import {
   CreateOrderDataInterface,
   CreateBaskettemsDataInterface,
   PropsList,
+  TranslaedProps,
 } from "../../interface";
 import { Button, Modal } from "@/ui";
 import { groupProperties } from "@/utils/orderFunctions";
@@ -29,7 +30,7 @@ interface Props {
   product: ProductDetailInterface;
   setOrderType?: any;
   type?: "to_order" | "to_cart" | null;
-  translatedData?: PropsList;
+  translatedData?: TranslaedProps;
 }
 
 const ProductOrderModal = ({
@@ -405,13 +406,15 @@ const ProductOrderModal = ({
     return currentSku ? currentSku.selected_quantity : 0;
   }, [currentSku, selectedSku]);
 
-  const capitalize = (text: string) =>
-    text.charAt(0).toUpperCase() + text.slice(1);
-
+  console.log('groupedProperties :', groupedProperties);
+  
+  const capitalize = (text: string) => {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
   return (
     <div>
       {contextHolder}
-      <LoadingSpinner spinning={isOrderLoading} fullscreen size="large" />
+      <LoadingSpinner spinning={isOrderLoading || !translatedData} fullscreen size="large" />
       <Modal
         className="order-modal"
         onCancel={handleCloseModal}
@@ -468,7 +471,7 @@ const ProductOrderModal = ({
               </h3>
             </div>
             <div className="property-items">
-              {groupedProperties.map(({ pid, prop_name, values }, idx) => {
+              {groupedProperties.map(({prop_name, values }, idx) => {
                 const slidesCount = values.length;
 
                 return (

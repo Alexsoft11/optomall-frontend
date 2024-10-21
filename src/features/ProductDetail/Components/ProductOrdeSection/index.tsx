@@ -118,6 +118,9 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
     setOrderType(type);
   };
 
+  console.log(product);
+  
+
   useEffect(() => {
     if (!orderType || !product) return;
 

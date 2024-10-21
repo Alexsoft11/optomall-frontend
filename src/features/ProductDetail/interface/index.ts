@@ -12,6 +12,10 @@ export interface ColorImage {
   url: string;
 }
 
+export interface TranslaedProps {
+  [key: string]: string;
+}
+
 export interface PropsList {
   pid: string;
   prop_name: string;
@@ -22,7 +26,7 @@ export interface PropListItem {
   imageUrl: string;
   name: string;
   vid?: string;
-  id: string
+  id: string;
 }
 
 export interface SKUProperty {
