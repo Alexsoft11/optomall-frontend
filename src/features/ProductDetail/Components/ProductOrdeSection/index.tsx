@@ -50,8 +50,17 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
 
   useEffect(() => {
     if (!product || !product.props_list) return;
+    const data: { [key: string]: string } = {};
+
+    // Iterate through the product props_list
+    product.props_list.forEach(({ pid, prop_name, values }) => {
+      data[`${pid}`] = prop_name;
+      values.forEach(({ name, vid }) => {
+        data[`${pid}:${vid}`] = name;
+      });
+    });
     const translateData = {
-      data: product.props_list,
+      data: data,
       from: "auto",
       to: router.locale || "ru",
     };
@@ -150,7 +159,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
             {formatPrice(product?.price)} uzs
           </span>
           {product?.discounted_price &&
-            product.price !== product.discounted_price ? (
+          product.price !== product.discounted_price ? (
             <>
               <span className={styles.discount}>
                 -{product.discount_percentage}%
@@ -183,7 +192,6 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
             className={styles.addToCart}
             onClick={() => justBuy("to_cart")}
             label={t("Product-detail.addToCart")}
-
             iconPosition={"bottom"}
           />
           <Button
@@ -205,8 +213,8 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
         ) : null}
       </div>
       {product &&
-        product?.quantityRanges &&
-        product?.quantityRanges?.length > 1 ? (
+      product?.quantityRanges &&
+      product?.quantityRanges?.length > 1 ? (
         <div className={styles.price_range}>
           {product?.quantityRanges?.map((el, index) => {
             const quantityRange = product?.quantityRanges || [];

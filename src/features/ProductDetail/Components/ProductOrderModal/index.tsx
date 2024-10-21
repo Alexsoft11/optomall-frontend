@@ -44,17 +44,9 @@ const ProductOrderModal = ({
   const { provider } = router.query; // Extract provider from the query
   const [showModal, setShowModal] = useState<boolean>(false);
   const [parsedSku, setParsedSku] = useState<SKU[]>([]);
-  const [groupedProperties, setGroupedProperties] = useState<GroupedProperties>(
-    {}
-  );
+  const [groupedProperties, setGroupedProperties] = useState<PropsList[]>([]);
   const [messageApi, contextHolder] = message.useMessage();
   const [messageVisible, setMessageVisible] = useState(false);
-  const [propertiesWithImages, setPropertiesWithImages] = useState<{
-    [key: string]: {
-      keys: { value: string; imageUrl?: string; propId: string }[];
-      propName: string;
-    };
-  }>({});
 
   const [selectProperty, setSelectProperty] = useState<
     {
@@ -89,7 +81,6 @@ const ProductOrderModal = ({
         // Handle the promise using `.then()` since `onSuccess` cannot be async
         groupProperties(
           skus,
-          prop_imgs,
           product.props_list,
           translatedData,
           product.quantityRanges
@@ -114,14 +105,12 @@ const ProductOrderModal = ({
   useEffect(() => {
     const fetchGroupedProperties = async () => {
       if (skus && prop_imgs) {
-        const { allProperties, imageProperties, parsedSku } =
-          await groupProperties(
-            skus,
-            prop_imgs,
-            product.props_list,
-            translatedData,
-            product.quantityRanges
-          );
+        const { allProperties, parsedSku } = await groupProperties(
+          skus,
+          product.props_list,
+          translatedData,
+          product.quantityRanges
+        );
 
         const newSelectedPropertys = parsedSku[0].parsedProperties?.map(
           (el) => ({
@@ -135,7 +124,6 @@ const ProductOrderModal = ({
         setSelectedSku([parsedSku[0]]);
         setParsedSku(parsedSku);
         setGroupedProperties(allProperties);
-        setPropertiesWithImages(imageProperties);
       }
     };
 
@@ -144,9 +132,10 @@ const ProductOrderModal = ({
 
   const getImageUrl = (propertys: string[]) => {
     let url = "";
-    Object.values(propertiesWithImages).map(({ keys }) => {
-      keys.map((el) => {
-        if (propertys.includes(el.propId)) {
+
+    groupedProperties.map(({ values }) => {
+      values.map((el) => {
+        if (propertys.includes(el.id) && el.imageUrl) {
           url = el.imageUrl as string;
           return;
         }
@@ -155,7 +144,6 @@ const ProductOrderModal = ({
 
     return url;
   };
-
   const toOrder = () => {
     const newSelectedSku = selectedSku?.filter(
       (el) => el.selected_quantity > 0
@@ -263,8 +251,9 @@ const ProductOrderModal = ({
         setMessageVisible(true);
         messageApi.open({
           type: "warning",
-          content: `${t("Product-detail.isMaxQuantity")}, ${currentSku.quantity
-            } `,
+          content: `${t("Product-detail.isMaxQuantity")}, ${
+            currentSku.quantity
+          } `,
           onClose: () => setMessageVisible(false),
         });
       }
@@ -355,7 +344,7 @@ const ProductOrderModal = ({
         item.id === propId ? (flag = true) : null;
       });
     });
-    return flag;
+    return true;
   };
 
   const oneItemPrice = useMemo(() => {
@@ -479,12 +468,12 @@ const ProductOrderModal = ({
               </h3>
             </div>
             <div className="property-items">
-              {Object.values(propertiesWithImages).map(({ keys, propName }) => {
-                const slidesCount = keys.length;
+              {groupedProperties.map(({ pid, prop_name, values }, idx) => {
+                const slidesCount = values.length;
 
                 return (
-                  <div className="content-inner" key={propName}>
-                    <h2>{capitalize(propName)}</h2>
+                  <div className="content-inner" key={prop_name}>
+                    <h2>{capitalize(prop_name)}</h2>
                     <Swiper
                       spaceBetween={20}
                       slidesPerView={Math.min(3, slidesCount)}
@@ -492,7 +481,7 @@ const ProductOrderModal = ({
                       scrollbar={{ draggable: true }}
                       breakpoints={{
                         1000: {
-                          slidesPerView: 'auto',
+                          slidesPerView: "auto",
                         },
                         960: {
                           slidesPerView: Math.min(6, slidesCount),
@@ -503,28 +492,39 @@ const ProductOrderModal = ({
                       }}
                       pagination={{ clickable: true }}
                     >
-                      {keys.map(({ value, propId, imageUrl }, index) => (
-                        <SwiperSlide key={propId}>
-                          <Badge count={getPropertyQuantity(propId, propName)}>
+                      {values.map(({ imageUrl, name, id }, index) => (
+                        <SwiperSlide key={id}>
+                          <Badge
+                            count={
+                              idx === 0
+                                ? getPropertyQuantity(id, prop_name)
+                                : null
+                            }
+                          >
                             <div
                               onClick={() =>
-                                handlePropertySelect(propId, propName)
+                                handlePropertySelect(id, prop_name)
                               }
-                              className={`img-block ${currentSku?.properties
-                                .split(";")
-                                .includes(propId)
-                                ? styles.active
-                                : !getExist(propId, parsedSku)
+                              className={`${
+                                currentSku?.properties.split(";").includes(id)
+                                  ? styles.active
+                                  : !getExist(id, parsedSku)
                                   ? styles.disable
                                   : ""
-                                }`}
+                              }
+                                ${
+                                  imageUrl
+                                    ? "img-block"
+                                    : "content-inner grouped-prop"
+                                }
+                              `}
                             >
                               {imageUrl && (
                                 <div className="img-box">
                                   <span
                                     className="view-icon"
                                     onClick={() => {
-                                      const validImageUrls = keys
+                                      const validImageUrls = values
                                         .map(({ imageUrl }) => imageUrl)
                                         .filter((url): url is string => !!url);
                                       handleImageClick(validImageUrls, index);
@@ -532,11 +532,11 @@ const ProductOrderModal = ({
                                   >
                                     <SvgSelector id="open-image-view-svg" />
                                   </span>
-                                  <Image src={imageUrl} alt={value} fill />
+                                  <Image src={imageUrl} alt={name} fill />
                                 </div>
                               )}
                               <div className="img-describtion">
-                                <p>{value}</p>
+                                <p>{name}</p>
                               </div>
                             </div>
                           </Badge>
@@ -546,7 +546,7 @@ const ProductOrderModal = ({
                   </div>
                 );
               })}
-              {Object.entries(groupedProperties).map(
+              {/* {Object.entries(groupedProperties).map(
                 ([propName, { keys }], idx) => (
                   <div className="content-inner grouped-prop" key={propName}>
                     <h2>{capitalize(propName)}</h2>
@@ -581,7 +581,7 @@ const ProductOrderModal = ({
                     </div>
                   </div>
                 )
-              )}
+              )} */}
             </div>
           </div>
         </div>
