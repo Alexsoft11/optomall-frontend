@@ -139,8 +139,8 @@ const ProductDetailInfo: React.FC<Props> = ({
           )?.map((el, idx) => (
             <Fragment key={idx}>
               <div className={styles.detail}>
-                <span className={styles.detail_category}>{el.name}</span>
-                <p className={styles.detail_value}>{el.value}</p>
+                <span className={styles.detail_category}>{Object.keys(el)}</span>
+                <p className={styles.detail_value}>{Object.values(el)}</p>
               </div>
             </Fragment>
           ))}

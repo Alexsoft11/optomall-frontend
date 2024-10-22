@@ -26,7 +26,6 @@ const AditionalProductList = ({ category = {} }: Props) => {
         disableOnMount: true,
       },
       onSuccess(res) {
-        console.log(res)
         if (res.products.length == 0) {
           setHasMore(false)
           return
