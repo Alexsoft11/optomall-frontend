@@ -104,7 +104,7 @@ const ProductOrderModal = ({
             type: "error",
             content: t(`Auth.something_wrong`),
             onClose: () => setMessageVisible(false),
-            duration: 2
+            duration: 2,
           });
         }
       },
@@ -357,7 +357,7 @@ const ProductOrderModal = ({
         item.id === propId ? (flag = true) : null;
       });
     });
-    return true;
+    return flag;
   };
 
   const oneItemPrice = useMemo(() => {
@@ -488,7 +488,7 @@ const ProductOrderModal = ({
               {groupedProperties.map(({ prop_name, values }, idx) => {
                 const slidesCount = values.length;
 
-                return (
+                return values[0].imageUrl ? (
                   <div className="content-inner" key={prop_name}>
                     <h2>{capitalize(prop_name)}</h2>
                     <Swiper
@@ -561,42 +561,42 @@ const ProductOrderModal = ({
                       ))}
                     </Swiper>
                   </div>
-                );
-              })}
-              {/* {Object.entries(groupedProperties).map(
-                ([propName, { keys }], idx) => (
-                  <div className="content-inner grouped-prop" key={propName}>
-                    <h2>{capitalize(propName)}</h2>
+                ) : (
+                  <div className="content-inner grouped-prop" key={prop_name}>
+                    <h2>{capitalize(prop_name)}</h2>
                     <div className="items">
-                      {keys.map(({ value, propId }) => (
+                      {values.map(({ name, id }, index) => (
                         <Badge
                           count={
                             idx !== 0
                               ? null
-                              : !Object.values(propertiesWithImages).length
-                                ? getPropertyQuantity(propId, propName)
-                                : null
+                              : idx === 0
+                              ? getPropertyQuantity(id, prop_name)
+                              : null
                           }
-                          key={value}
+                          key={index}
                         >
                           <p
-                            onClick={() =>
-                              handlePropertySelect(propId, propName)
-                            }
+                            onClick={() => handlePropertySelect(id, prop_name)}
                             className={
-                              currentSku?.properties.split(";").includes(propId)
+                              currentSku?.properties.split(";").includes(id)
                                 ? styles.active
-                                : !getExist(propId, parsedSku)
-                                  ? styles.disable
-                                  : ""
+                                : !getExist(id, parsedSku)
+                                ? styles.disable
+                                : ""
                             }
                           >
-                            {value}
+                            {name}
                           </p>
                         </Badge>
                       ))}
                     </div>
                   </div>
+                );
+              })}
+              {/* {Object.entries(groupedProperties).map(
+                ([propName, { keys }], idx) => (
+                  
                 )
               )} */}
             </div>
