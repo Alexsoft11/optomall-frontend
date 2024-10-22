@@ -29,6 +29,8 @@ export const parseSKUProperties = (
         id: propId,
         name: name,
         value: value,
+        originalName: propName,
+        originalValue: propValue,
       };
     });
     return {
@@ -63,11 +65,12 @@ export const groupProperties = async (
   const allProperties: PropsList[] = propsList.map(
     ({ pid, prop_name, values }) => {
       let propName = prop_name;
+      let originalValue = "";
 
       const updatesValues = values.map(({ imageUrl, name, vid }) => {
         let value = name;
         let propId = `${pid}:${vid}`;
-
+        originalValue = name;
         parsedTranslate.map((el) => {
           if (el.id === propId) value = el.value;
           else if (el.id === pid) propName = el.value;
@@ -85,6 +88,7 @@ export const groupProperties = async (
         prop_name: propName,
         values: updatesValues,
         originalName: prop_name,
+        originalValue: originalValue,
       };
     }
   );
