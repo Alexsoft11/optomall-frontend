@@ -9,8 +9,6 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import { message } from "antd";
 import useProductStore from "@/store/useProductStore";
 
-
-
 const ProductDetailSection = dynamic(
   () => import("@/features/ProductDetail/Components/ProductDetailSection"),
   {
@@ -30,8 +28,12 @@ const ProductDetail = () => {
   const { query, locale, beforePopState } = useRouter();
   const { setIsBack } = useProductStore();
 
-
-  const { data: product, appendData, isLoading, isError } = useQueryApiClient({
+  const {
+    data: product,
+    appendData,
+    isLoading,
+    isError,
+  } = useQueryApiClient({
     request: {
       url: `product-detail-tmapi`,
       method: "GET",
@@ -39,32 +41,27 @@ const ProductDetail = () => {
     },
   });
 
-  const {
-    appendData: getSearchRes,
-    data: recomendProducts,
-  } = useQueryApiClient({
-    request: {
-      url: `search-products-from-taobao?imageUrl=${product?.detail?.image}&lang=${locale}&provider=${query.provider}`,
-      method: "GET",
-      disableOnMount: true,
-    },
-  });
-
-  
+  const { appendData: getSearchRes, data: recomendProducts } =
+    useQueryApiClient({
+      request: {
+        url: `search-products-from-tmapi?imageUrl=${product?.detail?.image}&lang=${locale}&provider=${query.provider}`,
+        method: "GET",
+        disableOnMount: true,
+      },
+    });
 
   useEffect(() => {
     if (query.id) {
-      const id: any = query.id ? query.id : ""
-      const productId = id.replace(/^abb-/, '')
+      const id: any = query.id ? query.id : "";
+      const productId = id.replace(/^abb-/, "");
       const params = {
         productId: productId,
         lang: locale,
         provider: query.provider,
       };
-      appendData(params)
+      appendData(params);
     }
-  }, [query, locale])
-
+  }, [query, locale]);
 
   useEffect(() => {
     if (product?.detail?.image) {
@@ -75,7 +72,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     const handleBack = () => {
-      setIsBack(true)
+      setIsBack(true);
     };
 
     beforePopState(() => {
@@ -94,22 +91,26 @@ const ProductDetail = () => {
   const title = product?.detail?.title;
   return (
     <>
-      {isLoading ? <LoadingSpinner size="large" fullscreen /> : product?.detail && (
-        <PageLayout metaTitle={title}>
-          {query.provider === "local" ? (
-            <ProductDetailSectionLocal
-              product={product.detail}
-              recommended={recomendProducts.products}
-              score={product.score}
-            />
-          ) : (
-            <ProductDetailSection
-              product={product.detail}
-              recommended={recomendProducts.products}
-              score={product.score}
-            />
-          )}
-        </PageLayout>
+      {isLoading ? (
+        <LoadingSpinner size="large" fullscreen />
+      ) : (
+        product?.detail && (
+          <PageLayout metaTitle={title}>
+            {query.provider === "local" ? (
+              <ProductDetailSectionLocal
+                product={product.detail}
+                recommended={recomendProducts.products}
+                score={product.score}
+              />
+            ) : (
+              <ProductDetailSection
+                product={product.detail}
+                recommended={recomendProducts.products}
+                score={product.score}
+              />
+            )}
+          </PageLayout>
+        )
       )}
     </>
   );

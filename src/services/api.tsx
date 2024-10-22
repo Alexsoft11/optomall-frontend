@@ -60,7 +60,7 @@ export const API = {
   // SearchPage
   getSearchPageProducts: (query: any, token?: string) =>
     axiosInstance.get(
-      `search-products-from-taobao${
+      `search-products-from-tmapi${
         token && token !== "undefined" ? "-token" : ""
       }?searchQuery=${query.query.query}&provider=${
         query.query.provider
@@ -71,7 +71,7 @@ export const API = {
     ),
   getRecomendedProducts: (query: any, token?: string) =>
     axiosInstance.get(
-      `search-products-from-taobao${
+      `search-products-from-tmapi${
         token && token !== "undefined" ? "-token" : ""
       }?searchQuery=${query.query.query}&provider=${
         query.query.provider

@@ -101,7 +101,7 @@ const Search = () => {
   const { appendData: getSearchRes, isLoading: isSearchResLoading } =
     useQueryApiClient({
       request: {
-        url: `search-products-from-taobao`,
+        url: `search-products-from-tmapi`,
         method: "GET",
         disableOnMount: true,
       },
@@ -118,7 +118,7 @@ const Search = () => {
   const { appendData: getMoreProducts, isLoading: isProductsLoading } =
     useQueryApiClient({
       request: {
-        url: `search-products-from-taobao`,
+        url: `search-products-from-tmapi`,
         method: "GET",
         disableOnMount: true,
       },
