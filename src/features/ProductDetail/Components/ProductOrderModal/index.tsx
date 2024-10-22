@@ -97,6 +97,17 @@ const ProductOrderModal = ({
             console.error("Error in groupProperties:", error);
           });
       },
+      onError(err) {
+        if (!messageVisible) {
+          setMessageVisible(true);
+          messageApi.open({
+            type: "error",
+            content: t(`Auth.something_wrong`),
+            onClose: () => setMessageVisible(false),
+            duration: 2
+          });
+        }
+      },
     });
 
   const handleCloseModal = () => {
@@ -145,6 +156,7 @@ const ProductOrderModal = ({
 
     return url;
   };
+
   const toOrder = () => {
     const newSelectedSku = selectedSku?.filter(
       (el) => el.selected_quantity > 0
@@ -242,6 +254,8 @@ const ProductOrderModal = ({
     ),
     open: showModal,
   };
+
+  console.log(parsedSku);
 
   const handleSizeChange = (value: number) => {
     if (!currentSku) return;
@@ -405,14 +419,18 @@ const ProductOrderModal = ({
   const getQuantity = useMemo(() => {
     return currentSku ? currentSku.selected_quantity : 0;
   }, [currentSku, selectedSku]);
-  
+
   const capitalize = (text: string) => {
     return text.charAt(0).toUpperCase() + text.slice(1);
-  }
+  };
   return (
     <div>
       {contextHolder}
-      <LoadingSpinner spinning={isOrderLoading || !translatedData} fullscreen size="large" />
+      <LoadingSpinner
+        spinning={isOrderLoading || !translatedData}
+        fullscreen
+        size="large"
+      />
       <Modal
         className="order-modal"
         onCancel={handleCloseModal}
@@ -469,7 +487,7 @@ const ProductOrderModal = ({
               </h3>
             </div>
             <div className="property-items">
-              {groupedProperties.map(({prop_name, values }, idx) => {
+              {groupedProperties.map(({ prop_name, values }, idx) => {
                 const slidesCount = values.length;
 
                 return (
