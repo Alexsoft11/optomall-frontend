@@ -14,7 +14,9 @@ export const parseSKUProperties = (
 ): SKU[] => {
   return skus.map((item) => {
     const propertiesArray = item.properties_name.split(";").map((prop, idx) => {
-      const [propName, propValue] = prop.split(":");
+      let propLength = item.properties_name.split(";").length;
+      const [propName, propValue] =
+        propLength > 2 ? prop.split(":") : item.properties_name.split(";");
       const [index, subindex] = item.properties.split(";")[idx].split(":");
       let value = propValue;
       let name = propName;
@@ -29,8 +31,8 @@ export const parseSKUProperties = (
         id: propId,
         name: name,
         value: value,
-        originalName: propName,
         originalValue: propValue,
+        originalName: propName,
       };
     });
     return {
