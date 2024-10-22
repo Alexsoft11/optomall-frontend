@@ -255,8 +255,6 @@ const ProductOrderModal = ({
     open: showModal,
   };
 
-  console.log(parsedSku);
-
   const handleSizeChange = (value: number) => {
     if (!currentSku) return;
     if (value < 0 || !currentSku.quantity) return;
