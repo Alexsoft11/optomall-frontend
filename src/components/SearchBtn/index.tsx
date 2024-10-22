@@ -29,7 +29,7 @@ const SearchBtn = () => {
   const [filteredItems, setFilteredItems] = useState<any[]>([]);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [selectedCatId, setSelectedCatId] = useState<number | null>(null);
-  const [allItems, setAllItems] = useState<any[]>()
+  const [allItems, setAllItems] = useState<any[]>();
 
   const { setScrollPosition, categories } = useProductStore();
 
@@ -77,11 +77,9 @@ const SearchBtn = () => {
   useEffect(() => {
     if (categories) {
       const allItems = extractItems(categories);
-      setAllItems(allItems)
+      setAllItems(allItems);
     }
-
-  }, [categories])
-
+  }, [categories]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toLowerCase();
@@ -137,7 +135,7 @@ const SearchBtn = () => {
   // Modified handleSearch function
   const handleSearch = (values: any) => {
     if (values.search) {
-      setScrollPosition(0)
+      setScrollPosition(0);
       const { url } = getProviderInfo(values.search);
       setIsDropdownOpen(false);
       if (url) {
@@ -145,7 +143,7 @@ const SearchBtn = () => {
       }
       const newQuery: any = {
         value: values.search.toLowerCase(),
-        provider: query.provider || "taobao",
+        provider: query.provider || "1688",
       };
 
       if (values.catId) {
@@ -212,7 +210,8 @@ const SearchBtn = () => {
     onSuccess(res) {
       handleCancel();
       push(
-        `/search?lang=${locale}&provider=${query.provider || "1688"}&imageUrl=${res.url
+        `/search?lang=${locale}&provider=${query.provider || "1688"}&imageUrl=${
+          res.url
         }`
       );
     },
