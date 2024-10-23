@@ -16,7 +16,7 @@ const RecomendedProducts: FC<IProps> = ({ recomendedData }) => {
           <div>
             <h3 className={styles.title}>{t("recomendeds")}</h3>
             <div className={styles.cards}>
-              <Products type='simp' data={recomendedData} />
+              <Products type="simp" data={recomendedData} />
             </div>
           </div>
         </>

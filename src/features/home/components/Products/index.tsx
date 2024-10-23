@@ -12,7 +12,6 @@ import useProductStore from "@/store/useProductStore";
 import { getProductLimit } from "@/utils/getProductLimit";
 import AdditionalCategory from "@/components/AdditionalCategory";
 
-
 const ProductsSection = () => {
   const t = useTranslations();
   const { query, locale } = useRouter();
@@ -24,11 +23,11 @@ const ProductsSection = () => {
     isBack,
     setHasMore,
     setHomeProducts,
-    setIsBack
+    setIsBack,
   } = useProductStore();
 
   const handleTabChange = (key: string) => {
-    const productsCount = getProductLimit(5)
+    const productsCount = getProductLimit(5);
     getProductsData({ query: key, productsCount });
     setKeyApi(key);
   };
@@ -46,15 +45,15 @@ const ProductsSection = () => {
 
   useEffect(() => {
     if (!isBack || !homeProducts.length) {
-      const productsCount = getProductLimit(5)
+      const productsCount = getProductLimit(5);
       getProductsWhenScrool({ query: "discount", lang: locale, productsCount });
-      const limit = getProductLimit(3)
-      getAditionalCats({ limit })
+      const limit = getProductLimit(3);
+      getAditionalCats({ limit });
     } else {
-      setIsBack(false)
+      setIsBack(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   const {
     appendData: getProductsWhenScrool,
@@ -134,7 +133,10 @@ const ProductsSection = () => {
             </div>
           </div>
           <div className={styles.products__categories}>
-            <AdditionalCategory categories={additionalCategories?.categories} enableLink={true} />
+            <AdditionalCategory
+              categories={additionalCategories?.categories}
+              enableLink={true}
+            />
           </div>
         </div>
       </div>

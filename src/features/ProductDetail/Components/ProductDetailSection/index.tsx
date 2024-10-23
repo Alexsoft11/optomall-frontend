@@ -1,4 +1,4 @@
-  import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ProductDetailSection.module.scss";
 import ProductDetailImages from "../ProductDetailImages";
 import ProductDetailInfo from "../ProductDetailInfo";
@@ -20,12 +20,7 @@ interface Props {
   recommended: any;
 }
 
-const ProductDetailSection = ({
-  product,
-  recommended,
-  score,
-}: Props) => {
-  
+const ProductDetailSection = ({ product, recommended, score }: Props) => {
   const router = useRouter();
   const [selectedImage, setSelectedImage] = useState(product?.image);
   const t = useTranslations("Product-detail");
@@ -54,7 +49,7 @@ const ProductDetailSection = ({
     {
       key: "2",
       label: t("comments"),
-      children: <Reviews  />,
+      children: <Reviews />,
     },
   ];
 
@@ -77,9 +72,7 @@ const ProductDetailSection = ({
               />
             </div>
           </div>
-          <div
-            className={styles.product_description}
-          >
+          <div className={styles.product_description}>
             <Tabs defaultActiveKey="1" items={items} />
           </div>
           <RecomendedProducts recomendedData={recommended} />
