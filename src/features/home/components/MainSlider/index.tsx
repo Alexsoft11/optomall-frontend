@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react'
-import styles from './MainSlider.module.scss'
-import MainSliderCard from '../MainSliderCard';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import React, { useEffect } from "react";
+import styles from "./MainSlider.module.scss";
+import MainSliderCard from "../MainSliderCard";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { SlidersDataInterface } from '@/interfaces';
-import useQueryApiClient from '@/utils/useQueryApiClient';
-import { useRouter } from 'next/router';
-import SearchBtn from '@/components/SearchBtn';
-
+import "swiper/css";
+import "swiper/css/pagination";
+import { SlidersDataInterface } from "@/interfaces";
+import useQueryApiClient from "@/utils/useQueryApiClient";
+import { useRouter } from "next/router";
+import SearchBtn from "@/components/SearchBtn";
 
 interface Props {
   data: SlidersDataInterface[];
@@ -21,7 +20,7 @@ const MainSlider: React.FC<Props> = ({ data }) => {
   return (
     <>
       <div className={styles.mainbanner}>
-        <div className='container'>
+        <div className="container">
           <div className={styles.mainbanner__inner}>
             <SearchBtn />
           </div>
@@ -36,17 +35,18 @@ const MainSlider: React.FC<Props> = ({ data }) => {
               pagination={{
                 clickable: true,
               }}
+              loop={true}
               breakpoints={{
                 768: {
                   slidesPerView: 1.15,
                   spaceBetween: 20,
-                  centeredSlides: true
+                  centeredSlides: true,
                 },
                 390: {
                   slidesPerView: 1.2,
                   spaceBetween: 10,
-                  centeredSlides: true
-                }
+                  centeredSlides: true,
+                },
               }}
               autoplay={{
                 delay: 5500,
@@ -73,7 +73,7 @@ const MainSlider: React.FC<Props> = ({ data }) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default MainSlider
+export default MainSlider;

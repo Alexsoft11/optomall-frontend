@@ -64,7 +64,7 @@ const AditionalProductList = ({ category = {} }: Props) => {
         ))}
       </div>
       {isLoading ? <LoadingSpinner size="large" /> : !hasMore ? <></> : (
-        <div data-aos="fade-up" data-aos-duration="800" className={styles.load_more_button} onClick={handleGetMoreProducts}>
+        <div data-aos="fade-up" data-aos-duration="800" className={'load_more_button'} onClick={handleGetMoreProducts}>
           {t('Products.load_more')}
         </div>
       )}

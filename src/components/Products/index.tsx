@@ -12,8 +12,8 @@ interface Props {
   handleGetProduct?: (data?: any, categoryId?: string) => void;
   type?: "simp" | "scroll" | "more";
   perPage?: number;
-  scroolLoading?: boolean,
-  categoryId?: string
+  scroolLoading?: boolean;
+  categoryId?: string;
 }
 
 const Products = ({
@@ -22,7 +22,7 @@ const Products = ({
   type,
   perPage = 1,
   scroolLoading,
-  categoryId
+  categoryId,
 }: Props) => {
   const [page, setPage] = useState(perPage);
   const { scrollPosition, isBack } = useProductStore();
@@ -43,7 +43,7 @@ const Products = ({
 
   return (
     <div className={styles.product_list_sec}>
-      {type === 'scroll' ? (
+      {type === "scroll" ? (
         <div className={styles.products_scroll}>
           <InfiniteScroll
             dataLength={data?.length}
@@ -65,10 +65,19 @@ const Products = ({
           ))}
         </div>
       )}
-      {scroolLoading ? <LoadingSpinner size="large" /> : type === 'more' && (
-        <div data-aos="fade-up" data-aos-duration="800" className={styles.load_more_button} onClick={fetchMoreData}>
-          {t('Products.load_more')}
-        </div>
+      {scroolLoading ? (
+        <LoadingSpinner size="large" />
+      ) : (
+        type === "more" && (
+          <div
+            data-aos="fade-up"
+            data-aos-duration="800"
+            className={"load_more_button"}
+            onClick={fetchMoreData}
+          >
+            {t("Products.load_more")}
+          </div>
+        )
       )}
     </div>
   );

@@ -65,7 +65,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     if (product?.detail?.image) {
-      // getSearchRes();
+      getSearchRes();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product?.detail?.image]);

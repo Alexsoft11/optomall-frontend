@@ -15,18 +15,14 @@ interface CardProps {
   isBlank?: boolean;
 }
 
-const Card = ({
-  data,
-  onLikeChange,
-  isBlank,
-}: CardProps) => {
+const Card = ({ data, onLikeChange, isBlank }: CardProps) => {
   const t = useTranslations("GLOBAL");
   const textRef = useRef<any>(null);
   const [isOverflowed, setIsOverflowed] = useState(false);
   const router = useRouter();
   const locale = useLocale();
   const { setScrollPosition } = useProductStore();
-  const provider = data.provider == 'Alibaba1688' ? '1688' : data.provider
+  const provider = data.provider == "Alibaba1688" ? "1688" : data.provider;
   useEffect(() => {
     const { current } = textRef;
     if (current) {
@@ -39,8 +35,9 @@ const Card = ({
     setScrollPosition(window.scrollY);
 
     const id = router.pathname.includes("wishes") ? data.product_id : data.id;
-    let url = `/${router.locale}/product/${id}?provider=${provider || router.query.provider || "1688"
-      }`;
+    let url = `/${router.locale}/product/${id}?provider=${
+      provider || router.query.provider || "1688"
+    }`;
     if (router.pathname.includes("search") && router.query.value) {
       url = `${url}&category=${router.query.value}`;
       if (router.query.carId) {
