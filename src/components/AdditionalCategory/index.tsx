@@ -12,14 +12,14 @@ interface Props {
 
 const AdditionalCategory = ({ categories, enableLink = false }: Props) => {
   return (
-    <div className={styles.additional_category}>
+    <div
+      className={styles.additional_category}
+      data-aos="fade-up"
+      data-aos-duration="600"
+    >
       {categories?.map((item: IAdditonalCategory, idx: number) => (
         <div key={idx} className={styles.products__categories_inner}>
-          <div
-            className={styles.products__banner}
-            data-aos="fade-up"
-            data-aos-duration="600"
-          >
+          <div className={styles.products__banner}>
             {enableLink ? (
               <Link href={`/hot-categories/${item.id}`}>
                 <Image

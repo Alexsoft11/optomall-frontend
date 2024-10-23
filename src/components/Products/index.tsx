@@ -71,7 +71,7 @@ const Products = ({
         type === "more" && (
           <div
             data-aos="fade-up"
-            data-aos-duration="800"
+            data-aos-duration="600"
             className={"load_more_button"}
             onClick={fetchMoreData}
           >

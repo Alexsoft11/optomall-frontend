@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Tooltip } from "antd";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "next/router";
 import styles from "./Card.module.scss";
 import { CardInterface } from "@/interfaces";
-import { useLocale, useTranslations } from "next-intl";
-import { Tooltip } from "antd";
 import CustomImage from "../CustomImage";
 import LikedBtn from "../LikedBtn";
-import { useRouter } from "next/router";
 import { formatPrice } from "@/constants";
 import useProductStore from "../../store/useProductStore";
 
@@ -13,16 +13,23 @@ interface CardProps {
   data: CardInterface;
   onLikeChange?: (cardId: number) => void;
   isBlank?: boolean;
+  enableAnimation?: boolean;
 }
 
-const Card = ({ data, onLikeChange, isBlank }: CardProps) => {
+const Card: React.FC<CardProps> = ({
+  data,
+  onLikeChange,
+  isBlank,
+  enableAnimation = true,
+}) => {
   const t = useTranslations("GLOBAL");
   const textRef = useRef<any>(null);
   const [isOverflowed, setIsOverflowed] = useState(false);
   const router = useRouter();
   const locale = useLocale();
   const { setScrollPosition } = useProductStore();
-  const provider = data.provider == "Alibaba1688" ? "1688" : data.provider;
+  const provider = data.provider === "Alibaba1688" ? "1688" : data.provider;
+
   useEffect(() => {
     const { current } = textRef;
     if (current) {
@@ -63,13 +70,19 @@ const Card = ({ data, onLikeChange, isBlank }: CardProps) => {
   const title = getTitle(data.title);
 
   return (
-    <div className={styles.card} data-aos="fade-up" data-aos-duration="600">
+    <div
+      className={styles.card}
+      {...(enableAnimation && {
+        "data-aos": "fade-up",
+        "data-aos-duration": "600",
+      })}
+    >
       <div onClick={handleLinkClick}>
         <div className={styles.card__image}>
           <CustomImage
             className={styles.card__image}
             src={data.image}
-            alt="img"
+            alt={title}
             fill={false}
             isLink={false}
             loading="lazy"
@@ -78,7 +91,7 @@ const Card = ({ data, onLikeChange, isBlank }: CardProps) => {
           />
         </div>
 
-        {window.innerWidth <= 768 ? (
+        {typeof window !== "undefined" && window.innerWidth <= 768 ? (
           <h2 className={styles.card__title}>{title}</h2>
         ) : (
           <Tooltip

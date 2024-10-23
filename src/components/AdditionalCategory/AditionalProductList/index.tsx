@@ -59,7 +59,7 @@ const AditionalProductList = ({ category = {} }: Props) => {
     <div className={styles.product_list}>
       <div className={styles.products__cards}>
         {products?.map((el: any, idx: number) => (
-          <Card isBlank={false} key={idx} data={el} />
+          <Card isBlank={false} key={idx} data={el} enableAnimation={false} />
         ))}
       </div>
       {isLoading ? (
@@ -68,8 +68,8 @@ const AditionalProductList = ({ category = {} }: Props) => {
         <></>
       ) : (
         <div
-          data-aos="fade-up"
-          data-aos-duration="800"
+          // data-aos="fade-up"
+          // data-aos-duration="800"
           className={"load_more_button"}
           onClick={handleGetMoreProducts}
         >
