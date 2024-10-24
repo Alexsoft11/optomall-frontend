@@ -12,8 +12,6 @@ import { LoadingSpinner } from "@/ui/Spin";
 import PageNoItems from "@/components/PageNoItems";
 import useProductStore from "@/store/useProductStore";
 
-
-
 const Search = () => {
   const t = useTranslations("Search");
   const router = useRouter();
@@ -29,7 +27,7 @@ const Search = () => {
     setHasMore,
     setActiveSort,
     isBack,
-    setIsBack
+    setIsBack,
   } = useProductStore();
 
   const handleButtonClick = (platform: any) => {
@@ -79,11 +77,13 @@ const Search = () => {
         getSearchRes({
           ...query,
           lang: locale,
+          imageUrl:
+            query.provider === "1688" ? query.imageUrl : query.secondImage,
           page: 1,
         });
-        setProducts([])
+        setProducts([]);
       } else {
-        setIsBack(false)
+        setIsBack(false);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -94,7 +94,6 @@ const Search = () => {
       ...customQuery,
       ...query,
       lang: locale,
-
     });
   };
 
@@ -147,16 +146,18 @@ const Search = () => {
             <div className={styles.search__platform}>
               <h2>{t("platform")}:</h2>
               <button
-                className={`${styles.search__platform_btn} ${activePlatform === "taobao" ? styles.active : ""
-                  }`}
+                className={`${styles.search__platform_btn} ${
+                  activePlatform === "taobao" ? styles.active : ""
+                }`}
                 onClick={() => handleButtonClick("taobao")}
               >
                 <SvgSelector id="taobao-svg" />
                 <span>Taobao</span>
               </button>
               <button
-                className={`${styles.search__platform_btn} ${activePlatform === "1688" ? styles.active : ""
-                  }`}
+                className={`${styles.search__platform_btn} ${
+                  activePlatform === "1688" ? styles.active : ""
+                }`}
                 onClick={() => handleButtonClick("1688")}
               >
                 <SvgSelector id="1688-svg" />
@@ -177,9 +178,7 @@ const Search = () => {
                   {t("default")}
                 </button>
                 <button
-                  className={
-                    activeSort === "sale" ? styles.active : ""
-                  }
+                  className={activeSort === "sale" ? styles.active : ""}
                   onClick={() => handleFilter("sale")}
                 >
                   {t("sales")}

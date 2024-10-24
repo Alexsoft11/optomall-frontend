@@ -212,7 +212,7 @@ const SearchBtn = () => {
       push(
         `/search?lang=${locale}&provider=${query.provider || "1688"}&imageUrl=${
           res.url
-        }`
+        }&secondImage=${res.urlOrg}`
       );
     },
     onError(err) {

@@ -44,7 +44,7 @@ const ProductDetailSection = ({ product, recommended, score }: Props) => {
     {
       key: "1",
       label: t("characteristic"),
-      children: <ProductDescription description={product.description} />,
+      children: <ProductDescription />,
     },
     {
       key: "2",
