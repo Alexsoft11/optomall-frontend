@@ -120,7 +120,7 @@ export interface ProductDetailInterface {
   videos: { url: string | null }[];
   skus: SKU[];
   props_list: PropsList[];
-  composition: { name: string; value: string }[];
+  composition: { key: string; value: string }[];
   is_liked: boolean;
   seller_info: SellerInfoInterface;
   seller_id: string;

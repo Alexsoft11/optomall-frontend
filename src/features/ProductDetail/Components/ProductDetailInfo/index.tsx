@@ -33,7 +33,6 @@ const ProductDetailInfo: React.FC<Props> = ({
   path = shareUrl(),
   setSelectedImage,
 }) => {
-  
   const [showAll, setShowAll] = useState(false);
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -139,8 +138,8 @@ const ProductDetailInfo: React.FC<Props> = ({
           )?.map((el, idx) => (
             <Fragment key={idx}>
               <div className={styles.detail}>
-                <span className={styles.detail_category}>{Object.keys(el)}</span>
-                <p className={styles.detail_value}>{Object.values(el)}</p>
+                <span className={styles.detail_category}>{el.key}</span>
+                <p className={styles.detail_value}>{el.value}</p>
               </div>
             </Fragment>
           ))}
