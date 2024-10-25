@@ -194,12 +194,12 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
             label={t("Product-detail.addToCart")}
             iconPosition={"bottom"}
           />
-          <Button
+          {/* <Button
             className={styles.buy}
             onClick={() => justBuy("to_order")}
             label={t("Product-detail.buy")}
             iconPosition={"bottom"}
-          />
+          /> */}
         </div>
         {product && product.props_list ? (
           <ProductOrderModal
