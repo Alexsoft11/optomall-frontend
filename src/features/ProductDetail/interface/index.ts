@@ -87,6 +87,7 @@ export interface SellerInfoInterface {
   open_time: string;
   credit_score: number | null;
   shop_name: string;
+  seller_user_id: string;
 }
 
 interface SellerInfo {

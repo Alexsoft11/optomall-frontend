@@ -202,7 +202,7 @@ const ProductOrderModal = ({
       const { id, title, product_url, image, seller_info, quantityRanges } =
         product;
 
-      const sellerId = seller_info?.user_num_id?.toString() || "defult" + id;
+      const sellerId = seller_info?.seller_user_id?.toString() || "prid" + id;
       let item: CreateBaskettemsDataInterface = {
         product_id: id.toString(),
         title: title,
