@@ -36,6 +36,7 @@ export default function CartBasketItem({
       product_url: item.product_url,
       title: item.title,
       provider: item.provider,
+      seller_id: item.seller_id,
       sku_id: item.sku_id,
       price: +item.price,
       properties: item.properties,
