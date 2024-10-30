@@ -78,7 +78,7 @@ const ProductOrderModal = ({
       },
       onSuccess(res) {
         message.success(t(`Product-detail.${res.message}`), 2);
-
+        setOrderType(null);
         // Handle the promise using `.then()` since `onSuccess` cannot be async
         groupProperties(
           skus,
