@@ -14,10 +14,10 @@ export interface CartItemInterface {
   provider: string;
   product_url: string;
   seller_id: string;
-  properties: ProppertiesInterface[]
+  properties: ProppertiesInterface[];
   chacked?: boolean;
-  user_info: LocationInfoInterface
-  user_location: PersonalDataInterface
+  user_info: LocationInfoInterface;
+  user_location: PersonalDataInterface;
 }
 
 export interface AddOrderInterface {
@@ -26,15 +26,16 @@ export interface AddOrderInterface {
 }
 
 export interface CartOrderItemInterface {
-  id: number,
+  id: number;
   product_id: string;
   image_url: StaticImageData | null;
   title: string;
   provider: string;
   product_url: string;
+  seller_id: string;
   sku_id: number;
   price: number;
-  properties: ProppertiesInterface[]
+  properties: ProppertiesInterface[];
   quantity: number;
 }
 
