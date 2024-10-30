@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "@/ui/index";
-import { AuthModalSvg, HeadLogo, HeadLogoMini, HeadPhone } from "$/assets/images/index";
+import { HeadLogo, HeadPhone } from "$/assets/images/index";
 import { ModalLinks, NavLinks } from "@/constants/navbar";
 import styles from "./Navbar.module.scss";
 import Image from "next/image";
@@ -60,7 +60,7 @@ const Navbar = () => {
       disableOnMount: true,
     },
     onSuccess(res) {
-      setIsCheckShow(res)
+      setIsCheckShow(res);
     },
   });
 
@@ -71,19 +71,15 @@ const Navbar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
-  useQueryApiClient(
-    {
-      request: {
-        url: `categories-from-taobao?lang=${router.locale}`,
-        method: "GET",
-      },
-      onSuccess(res) {
-        setCategory(res.categories)
-      },
-    }
-
-  );
-
+  useQueryApiClient({
+    request: {
+      url: `categories-from-taobao?lang=${router.locale}`,
+      method: "GET",
+    },
+    onSuccess(res) {
+      setCategory(res.categories);
+    },
+  });
 
   return (
     <>
@@ -117,13 +113,25 @@ const Navbar = () => {
                       {t("modalMessage")}
                       <div className="supp-item">
                         <a href="tel:+998988889885">+998 98 888 98 85</a>
-                        <div onClick={(e) => copyLinkToClipboard(e, 'url', '+998988889885')}>
+                        <div
+                          onClick={(e) =>
+                            copyLinkToClipboard(e, "url", "+998988889885")
+                          }
+                        >
                           <SvgSelector id="copylink-svg" />
                         </div>
                       </div>
                       <div className="supp-item">
                         <a href="https://t.me/Optomall_uz">t.me/Optomall_uz</a>
-                        <div onClick={(e) => copyLinkToClipboard(e, 'url', 'https://t.me/Optomall_uz')}>
+                        <div
+                          onClick={(e) =>
+                            copyLinkToClipboard(
+                              e,
+                              "url",
+                              "https://t.me/Optomall_uz"
+                            )
+                          }
+                        >
                           <SvgSelector id="copylink-svg" />
                         </div>
                       </div>
@@ -133,8 +141,12 @@ const Navbar = () => {
                 />
               </div>
 
-              <Link href="/" className={styles.navbar__logo} onClick={() => setScrollPosition(0)}>
-                <Image src={HeadLogoMini} alt="img" />
+              <Link
+                href="/"
+                className={styles.navbar__logo}
+                onClick={() => setScrollPosition(0)}
+              >
+                <Image src={HeadLogo} alt="img" />
               </Link>
 
               <div className={styles.navbar__items}>
@@ -157,23 +169,21 @@ const Navbar = () => {
                       <Link href="/cart">
                         <SvgSelector id="shop-svg" />
                       </Link>
-                      {
-                        isCheckShow && (
-                          <span></span>
-                        )
-                      }
+                      {isCheckShow && <span></span>}
                     </button>
                     <button
-                      className={`${styles.navbar__user_btn} ${openModal === "user" ? styles.open : ""
-                        }`}
+                      className={`${styles.navbar__user_btn} ${
+                        openModal === "user" ? styles.open : ""
+                      }`}
                       onClick={handleUserBtnClick}
                     >
                       <SvgSelector id="user-svg" />
                     </button>
 
                     <div
-                      className={`${styles.navbar__user_modal} ${openModal === "user" ? styles.open : ""
-                        }`}
+                      className={`${styles.navbar__user_modal} ${
+                        openModal === "user" ? styles.open : ""
+                      }`}
                     >
                       <div className={styles.navbar__user_inner}>
                         {ModalLinks.map((link: any) => (
@@ -182,7 +192,7 @@ const Navbar = () => {
                             onClick={() => {
                               logOut(link.textKey);
                               setOpenModal(null);
-                              setScrollPosition(0)
+                              setScrollPosition(0);
                             }}
                             className={styles.navbar__user_item}
                             key={link.id}
@@ -217,17 +227,15 @@ const Navbar = () => {
                 )}
               </div>
             </div>
-            <CatalogTab
-              setOpenModal={setOpenModal}
-              openModal={openModal}
-            />
+            <CatalogTab setOpenModal={setOpenModal} openModal={openModal} />
           </div>
         </div>
       </div>
 
       <div
-        className={`${styles.wrap} ${openModal === "nav" || openModal === "user" ? styles.open : ""
-          }`}
+        className={`${styles.wrap} ${
+          openModal === "nav" || openModal === "user" ? styles.open : ""
+        }`}
         onClick={handleWrapBtnClick}
       ></div>
 
@@ -235,25 +243,22 @@ const Navbar = () => {
         <div className={styles.navbar__mobile_inner}>
           {NavLinks.map((item, idx) => (
             <Link
-              className={`${styles.navbar__mobile_item} ${item.link === "/"
-                ? router.pathname === item.link
+              className={`${styles.navbar__mobile_item} ${
+                item.link === "/"
+                  ? router.pathname === item.link
+                    ? styles.activeItem
+                    : ""
+                  : router.pathname.startsWith(item.link)
                   ? styles.activeItem
                   : ""
-                : router.pathname.startsWith(item.link)
-                  ? styles.activeItem
-                  : ""
-                }`}
+              }`}
               key={idx}
               href={item.link}
               onClick={() => setScrollPosition(0)}
             >
               <SvgSelector id={`${item.key}-svg`} />
               <p>{t(item.key)}</p>
-              {
-                isCheckShow && item.key == "shop" && (
-                  <span></span>
-                )
-              }
+              {isCheckShow && item.key == "shop" && <span></span>}
             </Link>
           ))}
         </div>
