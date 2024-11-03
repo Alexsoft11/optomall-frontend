@@ -16,20 +16,11 @@ jobs:
         with:
           node-version: "18.x"
 
-      - name: Deploy to VDS
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.VDS_HOST }}
-          username: ${{ secrets.VDS_USERNAME }}
-          key: ${{ secrets.VDS_SSH_KEY }}
-          source: ".next,package.json,package-lock.json,public"
-          target: "/home/alexsoft1/onway"
-
       - name: Execute Deploy Script on Server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.VDS_HOST }}
           username: ${{ secrets.VDS_USERNAME }}
-          key: ${{ secrets.VDS_SSH_KEY }}
+          password: ${{ secrets.VDS_PASSWORD }}
           script: |
             bash /home/alexsoft1/onway/deploy.sh
