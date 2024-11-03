@@ -1,0 +1,23 @@
+name: Deploy to VDS
+
+on:
+  push:
+    branches:
+      - server
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up SSH Agent and Add SSH Key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to Server
+        run: |
+          ssh -o StrictHostKeyChecking=no alexsoft1@176.96.241.114 'bash /home/alexsoft1/onway/deploy.sh'
