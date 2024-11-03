@@ -4,26 +4,20 @@ import SvgSelector from "$/assets/icons/SvgSelector";
 import SearchBtn from "@/components/SearchBtn";
 import { useTranslations } from "next-intl";
 import Products from "@/components/Products";
-import { Button, Input, Select, SelectOption } from "@/ui";
+import { Select, SelectOption } from "@/ui";
 import { Form } from "antd";
 import { useRouter } from "next/router";
 import useQueryApiClient from "@/utils/useQueryApiClient";
-import { useJwt } from "@/utils/useJwt";
 import { LoadingSpinner } from "@/ui/Spin";
 import PageNoItems from "@/components/PageNoItems";
-import useSearchStore from "@/components/useSearchStore";
+import useProductStore from "@/store/useProductStore";
 
-interface Props {
-  data?: any[];
-}
-
-const Search = ({ data = [] }: Props) => {
+const Search = () => {
   const t = useTranslations("Search");
   const router = useRouter();
-  const { query, pathname, replace, locale, events } = router;
+  const { query, pathname, replace, locale } = router;
   const [activePlatform, setActivePlatform] = useState<any>("1688");
   const [form] = Form.useForm();
-  const isEntered = typeof window !== "undefined" ? sessionStorage.getItem("isEnterSearch") : null;
 
   const {
     products,
@@ -32,7 +26,9 @@ const Search = ({ data = [] }: Props) => {
     setProducts,
     setHasMore,
     setActiveSort,
-  } = useSearchStore();
+    isBack,
+    setIsBack,
+  } = useProductStore();
 
   const handleButtonClick = (platform: any) => {
     const newQuery = {
@@ -77,20 +73,24 @@ const Search = ({ data = [] }: Props) => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (!isEntered && query) {
+      if ((!isBack || !products.length) && (query.value || query.imageUrl)) {
         getSearchRes({
           ...query,
           lang: locale,
+          imageUrl:
+            query.provider === "1688" ? query.imageUrl : query.secondImage,
           page: 1,
         });
+        setProducts([]);
       } else {
-        sessionStorage.removeItem("isEnterSearch");
+        setIsBack(false);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, locale]);
 
-  const handleGetProduct = (customQuery: any) => {
-    getProducts({
+  const handleGetProductWhenScrool = (customQuery: any) => {
+    getMoreProducts({
       ...customQuery,
       ...query,
       lang: locale,
@@ -100,7 +100,7 @@ const Search = ({ data = [] }: Props) => {
   const { appendData: getSearchRes, isLoading: isSearchResLoading } =
     useQueryApiClient({
       request: {
-        url: `search-products-from-taobao`,
+        url: `search-products-from-tmapi`,
         method: "GET",
         disableOnMount: true,
       },
@@ -114,10 +114,10 @@ const Search = ({ data = [] }: Props) => {
       },
     });
 
-  const { appendData: getProducts, isLoading: isProductsLoading } =
+  const { appendData: getMoreProducts, isLoading: isProductsLoading } =
     useQueryApiClient({
       request: {
-        url: `search-products-from-taobao`,
+        url: `search-products-from-tmapi`,
         method: "GET",
         disableOnMount: true,
       },
@@ -129,23 +129,14 @@ const Search = ({ data = [] }: Props) => {
         const newProducts = [...products, ...res.products];
         setProducts(newProducts);
       },
+      onError() {
+        handleGetProductWhenScrool({ page: getRandomPageNumber() });
+      },
     });
 
-  const { appendData: getCategoryData, data: categoryData } = useQueryApiClient(
-    {
-      request: {
-        url: `categories-from-taobao?lang=${locale}`,
-        method: "GET",
-        disableOnMount: true,
-      },
-    }
-  );
-
-  useEffect(() => {
-    if (window.innerWidth <= 768) {
-      getCategoryData();
-    }
-  }, [locale]);
+  const getRandomPageNumber = () => {
+    return Math.floor(Math.random() * (50 - 10 + 1)) + 10;
+  };
 
   return (
     <div className={styles.search}>
@@ -155,16 +146,18 @@ const Search = ({ data = [] }: Props) => {
             <div className={styles.search__platform}>
               <h2>{t("platform")}:</h2>
               <button
-                className={`${styles.search__platform_btn} ${activePlatform === "taobao" ? styles.active : ""
-                  }`}
+                className={`${styles.search__platform_btn} ${
+                  activePlatform === "taobao" ? styles.active : ""
+                }`}
                 onClick={() => handleButtonClick("taobao")}
               >
                 <SvgSelector id="taobao-svg" />
                 <span>Taobao</span>
               </button>
               <button
-                className={`${styles.search__platform_btn} ${activePlatform === "1688" ? styles.active : ""
-                  }`}
+                className={`${styles.search__platform_btn} ${
+                  activePlatform === "1688" ? styles.active : ""
+                }`}
                 onClick={() => handleButtonClick("1688")}
               >
                 <SvgSelector id="1688-svg" />
@@ -173,7 +166,7 @@ const Search = ({ data = [] }: Props) => {
             </div>
 
             <div className={styles.search__btn}>
-              <SearchBtn categoryData={categoryData.categories} />
+              <SearchBtn />
             </div>
 
             <div className={styles.search__top}>
@@ -185,9 +178,7 @@ const Search = ({ data = [] }: Props) => {
                   {t("default")}
                 </button>
                 <button
-                  className={
-                    activeSort === "sale" ? styles.active : ""
-                  }
+                  className={activeSort === "sale" ? styles.active : ""}
                   onClick={() => handleFilter("sale")}
                 >
                   {t("sales")}
@@ -238,7 +229,7 @@ const Search = ({ data = [] }: Props) => {
               type="scroll"
               data={products}
               hasMore={hasMore}
-              handleGetProduct={handleGetProduct}
+              handleGetProduct={handleGetProductWhenScrool}
               scroolLoading={isProductsLoading}
             />
           )}

@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react'
-import styles from './MainSlider.module.scss'
-import MainSliderCard from '../MainSliderCard';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import React, { useEffect } from "react";
+import styles from "./MainSlider.module.scss";
+import MainSliderCard from "../MainSliderCard";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { SlidersDataInterface } from '@/interfaces';
-import useQueryApiClient from '@/utils/useQueryApiClient';
-import { useRouter } from 'next/router';
-import SearchBtn from '@/components/SearchBtn';
-
+import "swiper/css";
+import "swiper/css/pagination";
+import { SlidersDataInterface } from "@/interfaces";
+import useQueryApiClient from "@/utils/useQueryApiClient";
+import { useRouter } from "next/router";
+import SearchBtn from "@/components/SearchBtn";
 
 interface Props {
   data: SlidersDataInterface[];
@@ -18,29 +17,12 @@ interface Props {
 const MainSlider: React.FC<Props> = ({ data }) => {
   const router = useRouter();
 
-  const { appendData: getCategoryData, data: categoryData } = useQueryApiClient(
-    {
-      request: {
-        url: `categories-from-taobao?lang=${router.locale}`,
-        method: "GET",
-        disableOnMount: true
-      },
-    }
-  );
-
-  useEffect(() => {
-    if (window.innerWidth <= 768) {
-      getCategoryData();
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.locale]);
-
   return (
     <>
       <div className={styles.mainbanner}>
-        <div className='container'>
+        <div className="container">
           <div className={styles.mainbanner__inner}>
-            <SearchBtn categoryData={categoryData?.categories} />
+            <SearchBtn />
           </div>
         </div>
 
@@ -53,22 +35,23 @@ const MainSlider: React.FC<Props> = ({ data }) => {
               pagination={{
                 clickable: true,
               }}
+              loop={true}
               breakpoints={{
                 768: {
                   slidesPerView: 1.15,
                   spaceBetween: 20,
-                  centeredSlides: true
+                  centeredSlides: true,
                 },
                 390: {
                   slidesPerView: 1.2,
                   spaceBetween: 10,
-                  centeredSlides: true
-                }
+                  centeredSlides: true,
+                },
               }}
               autoplay={{
-                delay: 4500,
+                delay: 5500,
+                disableOnInteraction: false,
               }}
-              loop={true}
               navigation={{
                 nextEl: `.next-btn`,
                 prevEl: `.prev-btn`,
@@ -90,7 +73,7 @@ const MainSlider: React.FC<Props> = ({ data }) => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default MainSlider
+export default MainSlider;

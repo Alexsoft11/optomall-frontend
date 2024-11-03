@@ -13,7 +13,6 @@ const MainSliderCard = ({ el }: Props) => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-
       setWindowWidth(window.innerWidth);
 
       const handleResize = () => setWindowWidth(window.innerWidth);
@@ -24,19 +23,19 @@ const MainSliderCard = ({ el }: Props) => {
   }, []);
 
   return (
-    <Link target="_blank" href={el?.url ? el?.url : ''} className={styles.main_card}>
-      <div className={styles.main_card__inner}>
-        {windowWidth !== null && (
-          <Image
-            className={styles.main_card__image}
-            src={windowWidth <= 600 ? el?.image_mobile : el?.image}
-            width={1000}
-            height={1000}
-            alt="#"
-          />
-        )}
-      </div>
-    </Link>
+    // <Link target="_blank" href={el?.url ? el?.url : ''} className={styles.main_card}>
+    <div className={styles.main_card__inner}>
+      {windowWidth !== null && (
+        <Image
+          className={styles.main_card__image}
+          src={windowWidth <= 600 ? el?.image_mobile : el?.image}
+          width={1000}
+          height={1000}
+          alt="#"
+        />
+      )}
+    </div>
+    // </Link>
   );
 };
 

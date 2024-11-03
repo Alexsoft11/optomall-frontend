@@ -113,6 +113,7 @@
     "address": "Address"
   },
   "Cart": {
+    "deleteSelected": "delete selected",
     "item": "Items",
     "total": "Total",
     "checkMessage": "The receipt has been sent for verification. You can track the current status of your order on the orders page.",
@@ -146,9 +147,9 @@
     "payCost": "Amount to be paid: ",
     "cardName": "Recipient Name: ",
     "cardNumber": "Recipient's card number: ",
-    "payTutorialText": "Copy the card number below, then open your bank app and transfer the amount specified below in a single payment. Note! You need to transfer the exact amount specified below!",
+    "payTutorialText": "Copy the card number below, then open your banking application and transfer the specified amount to this card number in one payment. Attention! The exact amount shown below must be transferred! Attention: The order is not considered valid until the payment is made",
     "textCopyed": "Text copied!",
-    "impotantMessage": "You need to pay for the cargo upon arrival of your order. The delivery cost is automatically calculated upon arrival and depends on the weight, {costPerKg} uzs per Kg.",
+    "impotantMessage": "You must pay for the cargo service upon the arrival of your order. The delivery cost is automatically calculated based on the weight when the order arrives, {costPerKg} uzs per 1 kilogram. There is no minimum weight.",
     "importantTitle": "Important!"
   },
   "Purchases": {
@@ -213,7 +214,7 @@
     "tab_1": "Discount",
     "tab_2": "Top Products",
     "tab_3": "Recommended for you",
-    "load_more":"Load more"
+    "load_more": "Load more"
   },
   "Account": {
     "metaTitle": "Account | OPTOM-ALL",

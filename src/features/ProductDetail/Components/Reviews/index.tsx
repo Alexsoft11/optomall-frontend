@@ -10,16 +10,24 @@ import "swiper/css/navigation";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import { IProductComments } from "../../interface";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/router";
+import useQueryApiClient from "@/utils/useQueryApiClient";
 
-interface IProps {
-  comments: IProductComments[];
-}
-const Reviews: FC<IProps> = ({ comments }) => {
+
+const Reviews = () => {
   const t = useTranslations("Product-detail");
-
+  const { query } = useRouter()
+  const { data: productComments, appendData: getComments } = useQueryApiClient({
+    request: {
+      url: `get-comments?product_id=${query.id}`,
+      method: "GET",
+      disableOnMount: !query.id,
+    },
+    enabled: !!query.id
+  });
   return (
     <>
-      {!!comments.length ? (
+      {!!productComments.length ? (
         <div className={styles.reviews}>
           <h3 className={styles.title}>Отзывы</h3>
           <div className={styles.navigators}>
@@ -57,7 +65,7 @@ const Reviews: FC<IProps> = ({ comments }) => {
             pagination={{ clickable: true }}
             modules={[Navigation]}
           >
-            {comments?.map((review: IProductComments, index: number) => (
+            {productComments?.map((review: IProductComments, index: number) => (
               <SwiperSlide key={index} className={styles.stars}>
                 <div className={styles.review_card}>
                   <div className={styles.card_info}>

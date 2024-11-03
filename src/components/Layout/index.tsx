@@ -23,7 +23,7 @@ const MainLayout = ({ children }: ILayoutsProps) => {
       easing: "ease-in-out",
     });
   }, []);
-  
+
   const protectPages = ["/messages", "/my-reviews", "/purchases"];
   useEffect(() => {
     if (!token && protectPages.includes(pathname))
@@ -31,12 +31,6 @@ const MainLayout = ({ children }: ILayoutsProps) => {
       push(asPath);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [asPath]);
-
-  useEffect(() => {
-    if (pathname !== "/search" && pathname !== "/product/[id]" && pathname !== "/") {
-      sessionStorage.removeItem("isEnter");
-    }
-  },[pathname])
 
   useEffect(() => {
     const handleStart = () => setLoading(true);

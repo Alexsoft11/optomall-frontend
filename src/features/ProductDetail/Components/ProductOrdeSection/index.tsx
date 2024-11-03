@@ -50,8 +50,17 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
 
   useEffect(() => {
     if (!product || !product.props_list) return;
+    const data: { [key: string]: string } = {};
+
+    // Iterate through the product props_list
+    product.props_list.forEach(({ pid, prop_name, values }) => {
+      data[`${pid}`] = prop_name;
+      values.forEach(({ name, vid }) => {
+        data[`${pid}:${vid}`] = name;
+      });
+    });
     const translateData = {
-      data: product.props_list,
+      data: data,
       from: "auto",
       to: router.locale || "ru",
     };
@@ -161,7 +170,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
             </>
           ) : null}
         </div>
-        {product && product.props_list ? null : (
+        {product && product.skus.length >= 1 ? null : (
           <div className={styles.quantity}>
             <div key={1} className={styles.change_value}>
               <AntdButton onClick={() => changeQuantity(itemQuantity - 1)}>
@@ -182,15 +191,15 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
           <Button
             className={styles.addToCart}
             onClick={() => justBuy("to_cart")}
-            iconId={"shop-svg"}
+            label={t("Product-detail.addToCart")}
             iconPosition={"bottom"}
           />
-          <Button
+          {/* <Button
             className={styles.buy}
             onClick={() => justBuy("to_order")}
             label={t("Product-detail.buy")}
             iconPosition={"bottom"}
-          />
+          /> */}
         </div>
         {product && product.props_list ? (
           <ProductOrderModal
@@ -205,8 +214,7 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
       </div>
       {product &&
       product?.quantityRanges &&
-      product?.quantityRanges &&
-      product?.quantityRanges?.length ? (
+      product?.quantityRanges?.length > 1 ? (
         <div className={styles.price_range}>
           {product?.quantityRanges?.map((el, index) => {
             const quantityRange = product?.quantityRanges || [];

@@ -1,59 +1,59 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Products.module.scss";
 import { CustomTabs } from "@/ui/Tabs";
 import TabPane from "antd/es/tabs/TabPane";
 import { ProductTabsData } from "@/constants/products";
-import { CardInterface } from "@/interfaces";
 import { useTranslations } from "next-intl";
 import { LoadingSpinner } from "@/ui/Spin";
-import { CategoryInterface } from "../../interfaces";
-import dynamic from "next/dynamic";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import Products from "@/components/Products";
 import { useRouter } from "next/router";
-import useSearchStore from "@/components/useSearchStore";
+import useProductStore from "@/store/useProductStore";
+import { getProductLimit } from "@/utils/getProductLimit";
+import AdditionalCategory from "@/components/AdditionalCategory";
 
-const Card = dynamic(() => import("@/components/Card"));
-
-interface Props {
-  productsData: CardInterface[];
-  categoryData: CategoryInterface[];
-  getProductsData: any;
-  isProductsLoading: any;
-}
-
-const ProductsSection = ({ categoryData }: Props) => {
+const ProductsSection = () => {
   const t = useTranslations();
   const { query, locale } = useRouter();
   const [keyApi, setKeyApi] = useState("discount");
 
   const {
-    products,
+    homeProducts,
     hasMore,
-    setProducts,
+    isBack,
     setHasMore,
-  } = useSearchStore();
-
-  const isEntered = typeof window !== "undefined" ? sessionStorage.getItem("isEnter") : null;
+    setHomeProducts,
+    setIsBack,
+  } = useProductStore();
 
   const handleTabChange = (key: string) => {
-    getProductsData({ query: key });
+    const productsCount = getProductLimit(5);
+    getProductsData({ query: key, productsCount });
     setKeyApi(key);
   };
 
   const handleGetProductWhenScrool = (custom?: any) => {
-    if (!isEntered && query) {
+    if (query) {
       getProductsWhenScrool({
         ...custom,
         ...query,
         lang: locale,
         query: keyApi,
       });
-    } else {
-      sessionStorage.removeItem("isEnter");
     }
   };
 
+  useEffect(() => {
+    if (!isBack || !homeProducts.length) {
+      const productsCount = getProductLimit(5);
+      getProductsWhenScrool({ query: "discount", lang: locale, productsCount });
+      const limit = getProductLimit(3);
+      getAditionalCats({ limit });
+    } else {
+      setIsBack(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const {
     appendData: getProductsWhenScrool,
@@ -69,7 +69,7 @@ const ProductsSection = ({ categoryData }: Props) => {
         setHasMore(false);
         return;
       }
-      setProducts([...products, ...res.products]);
+      setHomeProducts([...homeProducts, ...res.products]);
     },
   });
 
@@ -82,8 +82,17 @@ const ProductsSection = ({ categoryData }: Props) => {
       },
       onSuccess(res: any) {
         if (res.products) {
-          setProducts(res.products);
+          setHomeProducts(res.products);
         }
+      },
+    });
+
+  const { data: additionalCategories, appendData: getAditionalCats } =
+    useQueryApiClient({
+      request: {
+        url: `additional-categories`,
+        method: "GET",
+        disableOnMount: true,
       },
     });
 
@@ -103,54 +112,32 @@ const ProductsSection = ({ categoryData }: Props) => {
             </CustomTabs>
           </div>
 
-          <div className={styles.products__cards}>
-            {isProductsLoading ? (
-              <LoadingSpinner
-                spinning={isProductsLoading}
-                tip={"loadingData"}
-                size="large"
-              />
-            ) : (
-              <Products
-                type="scroll"
-                perPage={1}
-                data={products}
-                hasMore={hasMore}
-                handleGetProduct={handleGetProductWhenScrool}
-                scroolLoading={isProductsScroolLoading}
-              />
-            )}
+          <div className={styles.product_sec}>
+            <div className={styles.products__cards}>
+              {isProductsLoading ? (
+                <LoadingSpinner
+                  spinning={isProductsLoading}
+                  tip={"loadingData"}
+                  size="large"
+                />
+              ) : (
+                <Products
+                  type="more"
+                  perPage={1}
+                  data={homeProducts}
+                  hasMore={hasMore}
+                  handleGetProduct={handleGetProductWhenScrool}
+                  scroolLoading={isProductsScroolLoading}
+                />
+              )}
+            </div>
           </div>
-
-          {/* <div className={styles.products__categories}>
-            {categoryData?.map((item: any, idx: number) => (
-              <div key={idx} className={styles.products__categories_inner}>
-                <div className={styles.products__banner}>
-                  <Image
-                    src={
-                      window.innerWidth <= 600
-                        ? item?.image_mobile
-                        : item?.image
-                    }
-                    width={10000}
-                    height={10000}
-                    alt="banner img"
-                  />
-                </div>
-
-                <div className={styles.products__cards}>
-                  {item?.products.map((el: any, idx: number) => (
-                    <Card
-                      isBlank={false}
-                      key={idx}
-                      data={el}
-                      provider="local"
-                    />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div> */}
+          <div className={styles.products__categories}>
+            <AdditionalCategory
+              categories={additionalCategories?.categories}
+              enableLink={true}
+            />
+          </div>
         </div>
       </div>
     </div>

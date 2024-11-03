@@ -7,6 +7,7 @@ import {
   CreateOrderDataInterface,
   CreateBaskettemsDataInterface,
   PropsList,
+  TranslaedProps,
 } from "../../interface";
 import { Button, Modal } from "@/ui";
 import { groupProperties } from "@/utils/orderFunctions";
@@ -29,7 +30,7 @@ interface Props {
   product: ProductDetailInterface;
   setOrderType?: any;
   type?: "to_order" | "to_cart" | null;
-  translatedData?: PropsList;
+  translatedData?: TranslaedProps;
 }
 
 const ProductOrderModal = ({
@@ -44,17 +45,9 @@ const ProductOrderModal = ({
   const { provider } = router.query; // Extract provider from the query
   const [showModal, setShowModal] = useState<boolean>(false);
   const [parsedSku, setParsedSku] = useState<SKU[]>([]);
-  const [groupedProperties, setGroupedProperties] = useState<GroupedProperties>(
-    {}
-  );
+  const [groupedProperties, setGroupedProperties] = useState<PropsList[]>([]);
   const [messageApi, contextHolder] = message.useMessage();
   const [messageVisible, setMessageVisible] = useState(false);
-  const [propertiesWithImages, setPropertiesWithImages] = useState<{
-    [key: string]: {
-      keys: { value: string; imageUrl?: string; propId: string }[];
-      propName: string;
-    };
-  }>({});
 
   const [selectProperty, setSelectProperty] = useState<
     {
@@ -75,6 +68,7 @@ const ProductOrderModal = ({
     setPhotoIndex(index);
     setIsOpen(true);
   };
+
   const { appendData: createUserBasket, isLoading: isOrderLoading } =
     useQueryApiClient({
       request: {
@@ -84,11 +78,10 @@ const ProductOrderModal = ({
       },
       onSuccess(res) {
         message.success(t(`Product-detail.${res.message}`), 2);
-
+        setOrderType(null);
         // Handle the promise using `.then()` since `onSuccess` cannot be async
         groupProperties(
           skus,
-          prop_imgs,
           product.props_list,
           translatedData,
           product.quantityRanges
@@ -104,6 +97,17 @@ const ProductOrderModal = ({
             console.error("Error in groupProperties:", error);
           });
       },
+      onError(err) {
+        if (!messageVisible) {
+          setMessageVisible(true);
+          messageApi.open({
+            type: "error",
+            content: t(`Auth.something_wrong`),
+            onClose: () => setMessageVisible(false),
+            duration: 2,
+          });
+        }
+      },
     });
 
   const handleCloseModal = () => {
@@ -113,14 +117,12 @@ const ProductOrderModal = ({
   useEffect(() => {
     const fetchGroupedProperties = async () => {
       if (skus && prop_imgs) {
-        const { allProperties, imageProperties, parsedSku } =
-          await groupProperties(
-            skus,
-            prop_imgs,
-            product.props_list,
-            translatedData,
-            product.quantityRanges
-          );
+        const { allProperties, parsedSku } = await groupProperties(
+          skus,
+          product.props_list,
+          translatedData,
+          product.quantityRanges
+        );
 
         const newSelectedPropertys = parsedSku[0].parsedProperties?.map(
           (el) => ({
@@ -134,7 +136,6 @@ const ProductOrderModal = ({
         setSelectedSku([parsedSku[0]]);
         setParsedSku(parsedSku);
         setGroupedProperties(allProperties);
-        setPropertiesWithImages(imageProperties);
       }
     };
 
@@ -143,9 +144,10 @@ const ProductOrderModal = ({
 
   const getImageUrl = (propertys: string[]) => {
     let url = "";
-    Object.values(propertiesWithImages).map(({ keys }) => {
-      keys.map((el) => {
-        if (propertys.includes(el.propId)) {
+
+    groupedProperties.map(({ values }) => {
+      values.map((el) => {
+        if (propertys.includes(el.id) && el.imageUrl) {
           url = el.imageUrl as string;
           return;
         }
@@ -175,22 +177,24 @@ const ProductOrderModal = ({
     }
     const quantityRanges = product?.quantityRanges?.[0];
     const minQuantity = quantityRanges?.minQuantity || 0;
+    const quantity = newSelectedSku.reduce(
+      (acum, cur) => acum + cur.selected_quantity,
+      0
+    );
 
-    newSelectedSku?.map((el) => {
-      if (product && el.selected_quantity < minQuantity) {
-        if (!messageVisible) {
-          setMessageVisible(true);
-          messageApi.open({
-            type: "warning",
-            content: `${t("Product-detail.isMinQuantity")} ${minQuantity}`,
-            onClose: () => setMessageVisible(false),
-            duration: 5,
-          });
-        }
-        warning = true;
-        return;
+    if (product && quantity < minQuantity) {
+      if (!messageVisible) {
+        setMessageVisible(true);
+        messageApi.open({
+          type: "warning",
+          content: `${t("Product-detail.isMinQuantity")} ${minQuantity}`,
+          onClose: () => setMessageVisible(false),
+          duration: 5,
+        });
       }
-    });
+      warning = true;
+      return;
+    }
 
     if (warning) return;
 
@@ -198,7 +202,7 @@ const ProductOrderModal = ({
       const { id, title, product_url, image, seller_info, quantityRanges } =
         product;
 
-      const sellerId = seller_info?.user_num_id?.toString() || "defult" + id
+      const sellerId = seller_info?.seller_user_id?.toString() || "prid" + id;
       let item: CreateBaskettemsDataInterface = {
         product_id: id.toString(),
         title: title,
@@ -252,14 +256,22 @@ const ProductOrderModal = ({
   };
 
   const handleSizeChange = (value: number) => {
-    if (value < 0 || !currentSku?.quantity) return;
+    if (!currentSku) return;
+    if (value < 0 || !currentSku.quantity) return;
 
-    if (currentSku?.quantity && value > currentSku.quantity) {
-      message.warning(t("Product-detail.isMaxQuantity"), 5);
+    if (currentSku.quantity && value > currentSku.quantity) {
+      if (!messageVisible) {
+        setMessageVisible(true);
+        messageApi.open({
+          type: "warning",
+          content: `${t("Product-detail.isMaxQuantity")}, ${
+            currentSku.quantity
+          } `,
+          onClose: () => setMessageVisible(false),
+        });
+      }
       return;
     }
-
-    if (!currentSku) return;
 
     if (!selectedSku) {
       const newCurrentSku = { ...currentSku, selected_quantity: value };
@@ -270,6 +282,7 @@ const ProductOrderModal = ({
     if (!selectedSku.find((el) => el.sku_id === currentSku.sku_id)) {
       const clone = selectedSku.map((el) => el);
       clone.push({ ...currentSku, selected_quantity: value });
+      setCurrentSku({ ...currentSku, selected_quantity: value });
       setSelectedSku(clone);
       return;
     }
@@ -348,36 +361,74 @@ const ProductOrderModal = ({
   };
 
   const oneItemPrice = useMemo(() => {
-    if (!selectedSku || !product.quantityRanges) return currentSku?.price;
+    if (
+      !selectedSku ||
+      !product.quantityRanges ||
+      product.quantityRanges.length <= 1
+    )
+      return currentSku?.price;
+
     if (!currentSku) return 0;
+
     const quantity = selectedSku.reduce(
       (accum, cur) => accum + cur.selected_quantity,
       0
     );
 
     let price = currentSku.price;
+
     product.quantityRanges.map((el) =>
       el.minQuantity <= quantity ? (price = el.price) : null
     );
 
     return price;
-  }, [selectedSku]);
+  }, [selectedSku, currentSku]);
 
   const getTotalPrice = () => {
-    const total = selectedSku?.reduce((acum, cur) => {
-      const price = oneItemPrice || 0;
-      return acum + price * cur.selected_quantity;
-    }, 0);
-    return total;
+    if (
+      selectedSku &&
+      product.quantityRanges &&
+      product.quantityRanges.length > 1
+    ) {
+      let price = 0;
+      const quantity = selectedSku.reduce(
+        (accum, cur) => accum + cur.selected_quantity,
+        0
+      );
+
+      product.quantityRanges.map((el) =>
+        el.minQuantity <= quantity ? (price = el.price) : null
+      );
+
+      const total = selectedSku?.reduce(
+        (acum, cur) => acum + (price || cur.price) * cur.selected_quantity,
+        0
+      );
+
+      return total;
+    } else {
+      const total = selectedSku?.reduce((acum, cur) => {
+        return acum + cur.price * cur.selected_quantity;
+      }, 0);
+      return total;
+    }
   };
 
-  const capitalize = (text: string) =>
-    text.charAt(0).toUpperCase() + text.slice(1);
+  const getQuantity = useMemo(() => {
+    return currentSku ? currentSku.selected_quantity : 0;
+  }, [currentSku, selectedSku]);
 
+  const capitalize = (text: string) => {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  };
   return (
     <div>
       {contextHolder}
-      <LoadingSpinner spinning={isOrderLoading} fullscreen size="large" />
+      <LoadingSpinner
+        spinning={isOrderLoading || !translatedData}
+        fullscreen
+        size="large"
+      />
       <Modal
         className="order-modal"
         onCancel={handleCloseModal}
@@ -399,9 +450,7 @@ const ProductOrderModal = ({
                 <Image src={MinusSvg} width={24} height={24} alt="#" />
               </AntdButton>
               <Tooltip title={t("Product-detail.isMaxQuantity")}>
-                <h4 className={styles.selected_quantity}>
-                  {currentSku?.selected_quantity}
-                </h4>
+                <h4 className={styles.selected_quantity}>{getQuantity}</h4>
               </Tooltip>
               <Tooltip>
                 <AntdButton
@@ -436,12 +485,12 @@ const ProductOrderModal = ({
               </h3>
             </div>
             <div className="property-items">
-              {Object.values(propertiesWithImages).map(({ keys, propName }) => {
-                const slidesCount = keys.length;
+              {groupedProperties.map(({ prop_name, values }, idx) => {
+                const slidesCount = values.length;
 
-                return (
-                  <div className="content-inner" key={propName}>
-                    <h2>{capitalize(propName)}</h2>
+                return values[0].imageUrl ? (
+                  <div className="content-inner" key={prop_name}>
+                    <h2>{capitalize(prop_name)}</h2>
                     <Swiper
                       spaceBetween={20}
                       slidesPerView={Math.min(3, slidesCount)}
@@ -449,7 +498,7 @@ const ProductOrderModal = ({
                       scrollbar={{ draggable: true }}
                       breakpoints={{
                         1000: {
-                          slidesPerView: 8,
+                          slidesPerView: "auto",
                         },
                         960: {
                           slidesPerView: Math.min(6, slidesCount),
@@ -460,28 +509,39 @@ const ProductOrderModal = ({
                       }}
                       pagination={{ clickable: true }}
                     >
-                      {keys.map(({ value, propId, imageUrl }, index) => (
-                        <SwiperSlide key={propId}>
-                          <Badge count={getPropertyQuantity(propId, propName)}>
+                      {values.map(({ imageUrl, name, id }, index) => (
+                        <SwiperSlide key={id}>
+                          <Badge
+                            count={
+                              idx === 0
+                                ? getPropertyQuantity(id, prop_name)
+                                : null
+                            }
+                          >
                             <div
                               onClick={() =>
-                                handlePropertySelect(propId, propName)
+                                handlePropertySelect(id, prop_name)
                               }
-                              className={`img-block ${currentSku?.properties
-                                .split(";")
-                                .includes(propId)
-                                ? styles.active
-                                : !getExist(propId, parsedSku)
+                              className={`${
+                                currentSku?.properties.split(";").includes(id)
+                                  ? styles.active
+                                  : !getExist(id, parsedSku)
                                   ? styles.disable
                                   : ""
-                                }`}
+                              }
+                                ${
+                                  imageUrl
+                                    ? "img-block"
+                                    : "content-inner grouped-prop"
+                                }
+                              `}
                             >
                               {imageUrl && (
                                 <div className="img-box">
                                   <span
                                     className="view-icon"
                                     onClick={() => {
-                                      const validImageUrls = keys
+                                      const validImageUrls = values
                                         .map(({ imageUrl }) => imageUrl)
                                         .filter((url): url is string => !!url);
                                       handleImageClick(validImageUrls, index);
@@ -489,11 +549,11 @@ const ProductOrderModal = ({
                                   >
                                     <SvgSelector id="open-image-view-svg" />
                                   </span>
-                                  <Image src={imageUrl} alt={value} fill />
+                                  <Image src={imageUrl} alt={name} fill />
                                 </div>
                               )}
                               <div className="img-describtion">
-                                <p>{value}</p>
+                                <p>{name}</p>
                               </div>
                             </div>
                           </Badge>
@@ -501,44 +561,44 @@ const ProductOrderModal = ({
                       ))}
                     </Swiper>
                   </div>
-                );
-              })}
-              {Object.entries(groupedProperties).map(
-                ([propName, { keys }], idx) => (
-                  <div className="content-inner grouped-prop" key={propName}>
-                    <h2>{capitalize(propName)}</h2>
+                ) : (
+                  <div className="content-inner grouped-prop" key={prop_name}>
+                    <h2>{capitalize(prop_name)}</h2>
                     <div className="items">
-                      {keys.map(({ value, propId }) => (
+                      {values.map(({ name, id }, index) => (
                         <Badge
                           count={
                             idx !== 0
                               ? null
-                              : !Object.values(propertiesWithImages).length
-                                ? getPropertyQuantity(propId, propName)
-                                : null
+                              : idx === 0
+                              ? getPropertyQuantity(id, prop_name)
+                              : null
                           }
-                          key={value}
+                          key={index}
                         >
                           <p
-                            onClick={() =>
-                              handlePropertySelect(propId, propName)
-                            }
+                            onClick={() => handlePropertySelect(id, prop_name)}
                             className={
-                              currentSku?.properties.split(";").includes(propId)
+                              currentSku?.properties.split(";").includes(id)
                                 ? styles.active
-                                : !getExist(propId, parsedSku)
-                                  ? styles.disable
-                                  : ""
+                                : !getExist(id, parsedSku)
+                                ? styles.disable
+                                : ""
                             }
                           >
-                            {value}
+                            {name}
                           </p>
                         </Badge>
                       ))}
                     </div>
                   </div>
+                );
+              })}
+              {/* {Object.entries(groupedProperties).map(
+                ([propName, { keys }], idx) => (
+                  
                 )
-              )}
+              )} */}
             </div>
           </div>
         </div>

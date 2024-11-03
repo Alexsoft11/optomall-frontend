@@ -1,32 +1,35 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Tooltip } from "antd";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "next/router";
 import styles from "./Card.module.scss";
 import { CardInterface } from "@/interfaces";
-import { useLocale, useTranslations } from "next-intl";
-import { Tooltip } from "antd";
 import CustomImage from "../CustomImage";
 import LikedBtn from "../LikedBtn";
-import { useRouter } from "next/router";
 import { formatPrice } from "@/constants";
-import useSearchStore from "../useSearchStore";
+import useProductStore from "../../store/useProductStore";
 
 interface CardProps {
   data: CardInterface;
   onLikeChange?: (cardId: number) => void;
   isBlank?: boolean;
+  enableAnimation?: boolean;
 }
 
-const Card = ({
+const Card: React.FC<CardProps> = ({
   data,
   onLikeChange,
   isBlank,
-}: CardProps) => {
+  enableAnimation = true,
+}) => {
   const t = useTranslations("GLOBAL");
   const textRef = useRef<any>(null);
   const [isOverflowed, setIsOverflowed] = useState(false);
   const router = useRouter();
   const locale = useLocale();
-  const { setScrollPosition } = useSearchStore();
-  const provider = data.provider == 'Alibaba1688' ? '1688' : data.provider
+  const { setScrollPosition } = useProductStore();
+  const provider = data.provider === "Alibaba1688" ? "1688" : data.provider;
+
   useEffect(() => {
     const { current } = textRef;
     if (current) {
@@ -36,16 +39,12 @@ const Card = ({
 
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (router.pathname.includes('search')) {
-      sessionStorage.setItem("isEnterSearch", 'search');
-    } else {
-      sessionStorage.setItem("isEnter", 'default');
-    }
     setScrollPosition(window.scrollY);
 
     const id = router.pathname.includes("wishes") ? data.product_id : data.id;
-    let url = `/${router.locale}/product/${id}?provider=${provider || router.query.provider || "1688"
-      }`;
+    let url = `/${router.locale}/product/${id}?provider=${
+      provider || router.query.provider || "1688"
+    }`;
     if (router.pathname.includes("search") && router.query.value) {
       url = `${url}&category=${router.query.value}`;
       if (router.query.carId) {
@@ -71,13 +70,19 @@ const Card = ({
   const title = getTitle(data.title);
 
   return (
-    <div className={styles.card} data-aos="fade-up" data-aos-duration="1200">
+    <div
+      className={styles.card}
+      {...(enableAnimation && {
+        "data-aos": "fade-up",
+        "data-aos-duration": "600",
+      })}
+    >
       <div onClick={handleLinkClick}>
         <div className={styles.card__image}>
           <CustomImage
             className={styles.card__image}
             src={data.image}
-            alt="img"
+            alt={title}
             fill={false}
             isLink={false}
             loading="lazy"
@@ -86,7 +91,7 @@ const Card = ({
           />
         </div>
 
-        {window.innerWidth <= 768 ? (
+        {typeof window !== "undefined" && window.innerWidth <= 768 ? (
           <h2 className={styles.card__title}>{title}</h2>
         ) : (
           <Tooltip

@@ -2,6 +2,7 @@ import React from "react";
 import { createCache, extractStyle, StyleProvider } from "@ant-design/cssinjs";
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import type { DocumentContext } from "next/document";
+import Script from "next/script";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -10,11 +11,11 @@ class MyDocument extends Document {
     ctx.renderPage = () =>
       originalRenderPage({
         enhanceApp: (App) => (props) =>
-        (
-          <StyleProvider cache={cache}>
-            <App {...props} />
-          </StyleProvider>
-        ),
+          (
+            <StyleProvider cache={cache}>
+              <App {...props} />
+            </StyleProvider>
+          ),
       });
 
     const initialProps = await Document.getInitialProps(ctx);
@@ -33,7 +34,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>         
+        <Head>
           <meta
             name="google-site-verification"
             content="AmLYTSZ7gHcV8XopUlGBqWjxHeWmRfXMVX8D_xMn54E"
@@ -63,8 +64,18 @@ class MyDocument extends Document {
           />
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#ffffff" />
-        
-
+          <Script
+            src="https://www.googletagmanager.com/gtag/js?id=G-08GBMPFFSF"
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-08GBMPFFSF');
+          `}
+          </Script>
         </Head>
         <body>
           <Main />

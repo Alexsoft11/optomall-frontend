@@ -39,6 +39,7 @@ export default function Info() {
         maxAge: maxAge,
       });
       push((localStorage.getItem("backUrl") as string) || "/");
+      localStorage.removeItem('backUrl')
     },
     onError(res) {
       message.error(t("Auth.something_wrong"));

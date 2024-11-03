@@ -2,9 +2,14 @@ import React, { Fragment } from "react";
 import styles from "./CartBasketItems.module.scss";
 import { useTranslations } from "next-intl";
 import CartBasketItem from "../CartBasketItem";
-import { AddOrderInterface, CartItemInterface } from "../../interface";
+import {
+  AddOrderInterface,
+  CartItemInterface,
+  CartOrderItemInterface,
+} from "../../interface";
 import { Checkbox } from "@/ui";
 import { LoadingSpinner } from "@/ui/Spin";
+import useQueryApiClient from "@/utils/useQueryApiClient";
 
 interface Props {
   setAddOrder: React.Dispatch<
@@ -16,6 +21,7 @@ interface Props {
   selectAll: boolean;
   setSelectAll: React.Dispatch<React.SetStateAction<boolean>>;
   isLoading: boolean;
+  selected: CartOrderItemInterface[];
 }
 
 export default function CartBasketItems({
@@ -26,9 +32,11 @@ export default function CartBasketItems({
   selectAll,
   setSelectAll,
   isLoading,
+  selected,
 }: Props) {
   const t = useTranslations("Cart");
-
+  console.log(data);
+  
   const selectClick = (value: boolean) => {
     setSelectAll(value);
     const clone = data.map((el) => ({ ...el, chacked: value }));
@@ -49,9 +57,11 @@ export default function CartBasketItems({
         quantity,
         seller_id,
         provider,
+        id,
       } = item;
-
+    
       const cartOrderItem = {
+        id: id,
         product_id,
         image_url,
         properties,
@@ -70,6 +80,23 @@ export default function CartBasketItems({
     setAddOrder(addOrderClone);
   };
 
+  const { appendData: deleteSelectedItem } = useQueryApiClient({
+    request: {
+      url: "remove",
+      method: "DELETE",
+      disableOnMount: true,
+    },
+    onSuccess(res) {
+      setDataClone(res.original)
+    }
+  });
+
+  const deleteSelected = () => {
+    if (!selected.length) return;
+    const data = selected.map((el) => el.id);
+    deleteSelectedItem({ basket_ids: data });
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles.items_count}>
@@ -77,8 +104,11 @@ export default function CartBasketItems({
           <p>
             {t("item")} {data.length}
           </p>
-          <span>
-            {t('')}
+          <span
+            onClick={deleteSelected}
+            className={selected.length ? "" : styles.delete_disable}
+          >
+            {t("deleteSelected")}
           </span>
         </div>
         <Checkbox

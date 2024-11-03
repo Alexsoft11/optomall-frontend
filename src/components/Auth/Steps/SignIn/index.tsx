@@ -52,6 +52,7 @@ export default function SignIn() {
       });
 
       push((localStorage.getItem("backUrl") as string) || "/");
+      localStorage.removeItem('backUrl')
     },
     onError(err) {
       if (err.message.includes("email")) {

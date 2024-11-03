@@ -37,12 +37,13 @@
 .stars {
   font-size: 10px !important;
 }
-.comments_notfound{
+.comments_notfound {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  p{
+  min-height: 30vh;
+  p {
     font-size: 20px;
   }
 }
@@ -56,7 +57,7 @@
   gap: 20px;
   width: 100%;
   justify-content: flex-end;
-  button{
+  button {
     border: none;
     background: none;
   }

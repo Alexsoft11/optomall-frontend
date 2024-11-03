@@ -113,6 +113,7 @@
     "address": "Manzil"
   },
   "Cart": {
+    "deleteSelected": "tanlanganlarni o'chirish",
     "item": "Mahsulotlar",
     "total": "Jami",
     "complite": "BUYURTMA QILISH",
@@ -146,9 +147,9 @@
     "cardName": "Qabul qiluvchining ismi: ",
     "payCost": "To'lanadigan summa: ",
     "cardNumber": "Oluvchining karta raqami: ",
-    "payTutorialText": "Quyidagi karta raqamini nusxalab oling, so'ngra bank ilovangizni oching va ko'rsatilgan summani bir to'lov bilan ushbu raqamga o'tkazing. Diqqat! Quyida ko'rsatilgan aniq summani o'tkazish kerak!",
+    "payTutorialText": "Quyidagi karta raqamini nusxalab oling, so'ngra bank ilovangizni oching va ko'rsatilgan summani bir to'lov bilan ushbu karta raqamga o'tkazing. Diqqat! Quyida ko'rsatilgan aniq summani o'tkazish kerak! Diqqat: To'lov amalga oshirilmaguncha buyurtma xaqiqiy xisoblanmyaydi",
     "textCopyed": "Matn ko'chirildi!",
-    "impotantMessage": "Sizning buyurtmangiz kelganidan so'ng yukni to'lashingiz kerak. Yetkazib berish narxi buyurtma kelganda avtomatik ravishda hisoblanadi va og'irlikka bog'liq, har Kg uchun {costPerKg} uzs.",
+    "impotantMessage": "Sizning buyurtmangiz kelganidan so'ng kargo xizmatini to'lashingiz kerak. Yetkazib berish narxi buyurtma kelganda avtomatik ravishda hisoblanadi va og'irlikka bog'liq, har 1 kilogramm uchun {costPerKg} uzs. Minimal og'irlik yo'q.",
     "importantTitle": "Muhim!"
   },
   "Purchases": {

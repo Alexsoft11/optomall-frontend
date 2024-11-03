@@ -1,6 +1,5 @@
 export { default as ProductImage } from "./product_img.png";
 export { default as HeadLogo } from "./head_logo.png";
-export { default as HeadLogoMini } from "./head_logo_mini.png";
 export { default as AuAuthBackground } from "./AuthBackground.svg";
 export { default as GoogleLogo } from "./GoogleLogo.svg";
 export { default as AuthModalSvg } from "./AuthModalSvg.svg";

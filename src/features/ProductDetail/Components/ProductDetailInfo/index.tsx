@@ -33,7 +33,6 @@ const ProductDetailInfo: React.FC<Props> = ({
   path = shareUrl(),
   setSelectedImage,
 }) => {
-  
   const [showAll, setShowAll] = useState(false);
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -83,7 +82,7 @@ const ProductDetailInfo: React.FC<Props> = ({
       label: (
         <Link href={path} className={styles.link}>
           <SvgSelector id="facebook-svg" />
-          Facebook{" "}
+          Facebook
         </Link>
       ),
       key: "3",
@@ -139,7 +138,7 @@ const ProductDetailInfo: React.FC<Props> = ({
           )?.map((el, idx) => (
             <Fragment key={idx}>
               <div className={styles.detail}>
-                <span className={styles.detail_category}>{el.name}</span>
+                <span className={styles.detail_category}>{el.key}</span>
                 <p className={styles.detail_value}>{el.value}</p>
               </div>
             </Fragment>

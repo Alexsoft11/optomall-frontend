@@ -12,8 +12,21 @@ export interface ColorImage {
   url: string;
 }
 
-export interface PropsList {
+export interface TranslaedProps {
   [key: string]: string;
+}
+
+export interface PropsList {
+  pid: string;
+  prop_name: string;
+  values: PropListItem[];
+}
+
+export interface PropListItem {
+  imageUrl: string;
+  name: string;
+  vid?: string;
+  id: string;
 }
 
 export interface SKUProperty {
@@ -74,6 +87,7 @@ export interface SellerInfoInterface {
   open_time: string;
   credit_score: number | null;
   shop_name: string;
+  seller_user_id: string;
 }
 
 interface SellerInfo {
@@ -106,8 +120,8 @@ export interface ProductDetailInterface {
   product_url: string;
   videos: { url: string | null }[];
   skus: SKU[];
-  props_list: PropsList;
-  composition: { name: string; value: string }[];
+  props_list: PropsList[];
+  composition: { key: string; value: string }[];
   is_liked: boolean;
   seller_info: SellerInfoInterface;
   seller_id: string;
