@@ -18,7 +18,7 @@ jobs:
       - name: Set up SSH Agent and Add SSH Key
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.VDS_SSH_KEY  }}
 
       # Step 3: Deploy to server by running a remote script
       - name: Deploy to Server
