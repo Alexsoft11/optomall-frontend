@@ -2,7 +2,7 @@ name: Deploy to VDS
 
 on:
   push:
-    branches: [server]
+    branches: [main]
 
 jobs:
   deploy:
@@ -11,17 +11,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.VDS_SSH_KEY }}
-
-      - name: Add known hosts
-        run: ssh-keyscan -H ${{ secrets.VDS_HOST }} >> ~/.ssh/known_hosts
-
       - name: Deploy to VDS
-        env:
-          VDS_HOST: ${{ secrets.VDS_HOST }}
-          VDS_USERNAME: ${{ secrets.VDS_USERNAME }}
         run: |
-          ssh $VDS_USERNAME@$VDS_HOST 'bash /home/alexsoft1/onway/deploy.sh'
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VDS_USERNAME }}@${{ secrets.VDS_HOST }} 'bash /home/alexsoft1/onway/deploy.sh'
