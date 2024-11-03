@@ -22,5 +22,6 @@ jobs:
           host: ${{ secrets.VDS_HOST }}
           username: ${{ secrets.VDS_USERNAME }}
           password: ${{ secrets.VDS_PASSWORD }}
+
           script: |
             bash /home/alexsoft1/onway/deploy.sh
