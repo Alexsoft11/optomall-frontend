@@ -2,50 +2,29 @@ name: Deploy to VDS
 
 on:
   push:
-    branches: [server]
+    branches:
+      - server
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout code
-      - uses: actions/checkout@v2
+      # Step 1: Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      # Set up Node.js environment
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      # Step 2: Set up SSH Agent and add SSH Key for secure server connection
+      - name: Set up SSH Agent and Add SSH Key
+        uses: webfactory/ssh-agent@v0.5.3
         with:
-          node-version: '18.x'
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # Install dependencies
-      - name: Install dependencies
-        run: npm install --production --force
-
-      # Build the project
-      - name: Build
-        run: npm run build
-
-      # Deploy files to VDS
-      - name: Deploy to VDS
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.VDS_HOST }}
-          username: ${{ secrets.VDS_USERNAME }}
-          key: ${{ secrets.VDS_SSH_KEY }}
-          source: |
-            .next
-            package.json
-            package-lock.json
-            public
-          target: "/home/alexsoft1/onway"
-
-      # Restart PM2
-      - name: Restart PM2
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.VDS_HOST }}
-          username: ${{ secrets.VDS_USERNAME }}
-          key: ${{ secrets.VDS_SSH_KEY }}
-          script: |
-            pm2 restart front 
+      # Step 3: Deploy to server by running a remote script
+      - name: Deploy to Server
+        env:
+          # Pass environment secrets securely, such as SSH user and server IP
+          VDS_USER: ${{ secrets.VDS_USER }}
+          VDS_HOST: ${{ secrets.VDS_HOST }}
+        run: |
+          ssh -o StrictHostKeyChecking=no $VDS_USER@$VDS_HOST 'bash /home/alexsoft1/onway/deploy.sh'
