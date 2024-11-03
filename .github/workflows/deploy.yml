@@ -2,29 +2,27 @@ name: Deploy to VDS
 
 on:
   push:
-    branches:
-      - server
+    branches: [server]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      # Step 1: Checkout the repository code
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Step 2: Set up SSH Agent and add SSH Key for secure server connection
-      # - name: Set up SSH Agent and Add SSH Key
-      #   uses: webfactory/ssh-agent@v0.5.3
-      #   with:
-      #     ssh-private-key: ${{ secrets.VDS_SSH_KEY  }}
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.VDS_SSH_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
 
-      # Step 3: Deploy to server by running a remote script
-      - name: Deploy to Server
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ secrets.VDS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to VDS
         env:
-          # Pass environment secrets securely, such as SSH user and server IP
-          VDS_USER: ${{ secrets.VDS_USER }}
           VDS_HOST: ${{ secrets.VDS_HOST }}
+          VDS_USERNAME: ${{ secrets.VDS_USERNAME }}
         run: |
-          ssh -o StrictHostKeyChecking=no $VDS_USER@$VDS_HOST 'bash /home/alexsoft1/onway/deploy.sh'
+          ssh $VDS_USERNAME@$VDS_HOST 'bash /home/alexsoft1/onway/deploy.sh'
