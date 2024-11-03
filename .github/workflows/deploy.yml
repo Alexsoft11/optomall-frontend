@@ -15,10 +15,6 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.VDS_SSH_KEY }}
-          known_hosts: ${{ secrets.KNOWN_HOSTS }}
-
-      - name: Adding Known Hosts
-        run: ssh-keyscan -H ${{ secrets.VDS_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy to VDS
         env:
