@@ -31,22 +31,28 @@ const Search = () => {
   } = useProductStore();
 
   const handleButtonClick = (platform: any) => {
-    const newQuery = {
+    const newQuery: any = {
       ...query,
       provider: platform || "1688",
     };
+
+    delete newQuery?.sort;
     replace({ pathname: pathname, query: newQuery }, undefined, {
       shallow: true,
     });
     setActivePlatform(platform);
   };
 
-  const handleFilter = (sortType: string) => {
+  const handleFilter = (sortIndex: number) => {
+    const selectedSort = sort[sortIndex];
+    const sortKey =
+      activePlatform === "1688" ? selectedSort.tmKey : selectedSort.onboundKey;
     const newQuery = { ...query };
-    setActiveSort(sortType);
 
-    if (sortType) {
-      newQuery.sort = sortType;
+    setActiveSort(sortKey || "");
+
+    if (sortKey) {
+      newQuery.sort = sortKey;
     } else {
       delete newQuery.sort;
     }
@@ -138,6 +144,13 @@ const Search = () => {
     return Math.floor(Math.random() * (50 - 10 + 1)) + 10;
   };
 
+  const sort = [
+    { id: 1, name: "default", tmKey: undefined, onboundKey: undefined },
+    { id: 2, name: "sales", tmKey: "sales", onboundKey: "sale" },
+    { id: 3, name: "price_down", tmKey: "price_up", onboundKey: "_bid" },
+    { id: 4, name: "price_top", tmKey: "price_down", onboundKey: "bid" },
+  ];
+
   return (
     <div className={styles.search}>
       <div className="container">
@@ -171,46 +184,31 @@ const Search = () => {
 
             <div className={styles.search__top}>
               <div className={styles.search__btns}>
-                <button
-                  className={activeSort === "" ? styles.active : ""}
-                  onClick={() => handleFilter("")}
-                >
-                  {t("default")}
-                </button>
-                <button
-                  className={activeSort === "sale" ? styles.active : ""}
-                  onClick={() => handleFilter("sale")}
-                >
-                  {t("sales")}
-                </button>
-                <button
-                  className={activeSort === "_bid" ? styles.active : ""}
-                  onClick={() => handleFilter("_bid")}
-                >
-                  {t("price_down")}
-                </button>
-                <button
-                  className={activeSort === "bid" ? styles.active : ""}
-                  onClick={() => handleFilter("bid")}
-                >
-                  {t("price_top")}
-                </button>
+                {sort.map((item, index) => (
+                  <button
+                    key={item.id}
+                    className={
+                      query.sort === item.tmKey ||
+                      query.sort === item.onboundKey
+                        ? styles.active
+                        : ""
+                    }
+                    onClick={() => handleFilter(index)}
+                  >
+                    {t(item.name)}
+                  </button>
+                ))}
                 <Select
-                  value={activeSort}
+                  defaultValue={0}
                   onChange={(value: any) => handleFilter(value)}
                   className={`${styles.search__select} search_select`}
                   showSearch={false}
                 >
-                  <SelectOption value="Default">{t("default")}</SelectOption>
-                  <SelectOption value="TotalPrice:Asc">
-                    {t("sales")}
-                  </SelectOption>
-                  <SelectOption value="Price:Asc">
-                    {t("price_down")}
-                  </SelectOption>
-                  <SelectOption value="Price:Desc">
-                    {t("price_top")}
-                  </SelectOption>
+                  {sort.map((item, index) => (
+                    <SelectOption key={item.id} value={index}>
+                      {t(item.name)}
+                    </SelectOption>
+                  ))}
                 </Select>
               </div>
             </div>
