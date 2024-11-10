@@ -9,9 +9,10 @@ import { BasketSvg } from "$/assets/images";
 interface Props {
   title?: string;
   text?: string;
+  customBtnFunc?: () => void;
 }
 
-const PageNoItems = ({text, title}: Props) => {
+const PageNoItems = ({ text, title, customBtnFunc }: Props) => {
   const t = useTranslations("Cart");
   const router = useRouter();
 
@@ -25,20 +26,23 @@ const PageNoItems = ({text, title}: Props) => {
         alt="#"
       />
       <h1>{title}</h1>
-      
-      {
-        text ? (
-          <div className={styles.button_block}>
-            <Button
-              onClick={() => router.push("/")}
-              type="primary"
-              htmlType="submit"
-              className="generalbtn"
-              label={text}
-            />
-          </div>
-        ) : null
-      }
+
+      {text ? (
+        <div className={styles.button_block}>
+          <Button
+            onClick={() => {
+              if (customBtnFunc) {
+                return customBtnFunc();
+              }
+              router.push("/");
+            }}
+            type="primary"
+            htmlType="submit"
+            className="generalbtn"
+            label={text}
+          />
+        </div>
+      ) : null}
     </div>
   );
 };

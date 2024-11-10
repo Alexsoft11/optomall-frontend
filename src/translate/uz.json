@@ -197,7 +197,9 @@
     "price_top": "Tepa narx",
     "search_place": "Taobao yoki 1688 havolasini kiriting",
     "upload_validate": "Siz faqat JPG/PNG/JPEG fayllarni yuklashingiz mumkin!",
-    "imageWarning": "Rasm yuklanishi hajmiga qarab 10-15 soniya olishi mumkin."
+    "imageWarning": "Rasm yuklanishi hajmiga qarab 10-15 soniya olishi mumkin.",
+    "refresh_error_text": "Kechirasiz! Qidiruvda xatolik yuz berdi. Iltimos, sahifani qayta yuklab, qaytadan qidirib ko'ring.",
+    "refresh_page": "Sahifani yangilash"
   },
   "MyReviews": {
     "waitForReview": "Baho berish kutilmoqda",
