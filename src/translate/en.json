@@ -197,7 +197,9 @@
     "price_top": "Price Top",
     "search_place": "Enter link Taobao or 1688",
     "upload_validate": "You can only upload JPG/PNG/JPEG files!",
-    "imageWarning": "Image upload may take 10-15 seconds depending on size."
+    "imageWarning": "Image upload may take 10-15 seconds depending on size.",
+    "refresh_error_text": "Oops! Something went wrong with your search. Please try refreshing the page and search again.",
+    "refresh_page": "Refresh page"
   },
   "MyReviews": {
     "waitForReview": "Waiting for Review",

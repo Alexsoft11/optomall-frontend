@@ -223,7 +223,11 @@ const Search = () => {
               spinning={isSearchResLoading}
             />
           ) : !products?.length && !isSearchResLoading ? (
-            <PageNoItems title={t("noItems")} />
+            <PageNoItems
+              title={t("refresh_error_text")}
+              text={t("refresh_page")}
+              customBtnFunc={() => window.location.reload()}
+            />
           ) : (
             <Products
               type="scroll"
