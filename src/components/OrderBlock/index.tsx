@@ -46,14 +46,15 @@ export default function OrderBlock({
   >("idle");
   const cookie = new Cookies();
 
-  const buttonClass = `${styles["loading-btn"]} ${buttonStatus === "pending"
-    ? styles["loading-btn--pending"]
-    : buttonStatus === "success"
+  const buttonClass = `${styles["loading-btn"]} ${
+    buttonStatus === "pending"
+      ? styles["loading-btn--pending"]
+      : buttonStatus === "success"
       ? styles["loading-btn--success"]
       : buttonStatus === "fail"
-        ? styles["loading-btn--fail"]
-        : ""
-    }`;
+      ? styles["loading-btn--fail"]
+      : ""
+  }`;
 
   const checkModalClose = () => {
     router.push("/purchases?filter=in_verification");
@@ -125,8 +126,8 @@ export default function OrderBlock({
       const ctx = canvas.getContext("2d");
 
       img.onload = () => {
-        const maxWidth = 1200;
-        const maxHeight = 1200;
+        const maxWidth = 1000;
+        const maxHeight = 1000;
         let width = img.width;
         let height = img.height;
 
@@ -144,17 +145,21 @@ export default function OrderBlock({
         canvas.height = height;
         ctx?.drawImage(img, 0, 0, width, height);
 
-        canvas.toBlob((blob) => {
-          if (blob) {
-            const resizedFile = new File([blob], file.name, {
-              type: file.type,
-              lastModified: Date.now(),
-            });
-            resolve(resizedFile);
-          } else {
-            reject(new Error("Error resizing image"));
-          }
-        }, file.type, 1);
+        canvas.toBlob(
+          (blob) => {
+            if (blob) {
+              const resizedFile = new File([blob], file.name, {
+                type: file.type,
+                lastModified: Date.now(),
+              });
+              resolve(resizedFile);
+            } else {
+              reject(new Error("Error resizing image"));
+            }
+          },
+          file.type,
+          1
+        );
       };
 
       img.onerror = reject;
@@ -178,16 +183,18 @@ export default function OrderBlock({
       return true;
     },
     onChange: async (info: any) => {
+      setButtonStatus("pending");
       if (info.file.status === "done" && !isUploadErr) {
         try {
-          const resizedFile = await resizeImage(info.file.originFileObj as File);
+          const resizedFile = await resizeImage(
+            info.file.originFileObj as File
+          );
           const formData = new FormData();
           formData.append("image", resizedFile);
           formData.append("type", type as string);
           formData.append("order_group_id", orderId!.toString());
           createChequeData(formData);
           editOrder(editOrderData);
-          setButtonStatus("pending");
         } catch (error) {
           console.error("Error uploading file:", error);
         }
