@@ -32,7 +32,7 @@ export default function NavigationCard({
               <Link
                 onClick={handleClose}
                 className={styles.navigationcard__title}
-                href={`/search?value=${el?.name?.toLowerCase()}&channel=taobao&catId=${
+                href={`/search?value=${el?.name?.toLowerCase()}&channel=1688&catId=${
                   el.id
                 }`}
               >
@@ -44,7 +44,7 @@ export default function NavigationCard({
                     <Fragment key={idx}>
                       <Link
                         onClick={handleClose}
-                        href={`/search?value=${item?.name?.toLocaleLowerCase()}&provider=taobao&catId=${
+                        href={`/search?value=${item?.name?.toLocaleLowerCase()}&provider=1688&catId=${
                           item.id
                         }`}
                       >
