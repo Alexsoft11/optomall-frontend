@@ -11,6 +11,7 @@ import { Button } from "antd";
 import { Checkbox } from "@/ui";
 import { useTranslations } from "next-intl";
 import { formatPrice } from "@/constants";
+import { useRouter } from "next/router";
 
 interface Props {
   item: CartItemInterface;
@@ -26,6 +27,7 @@ export default function CartBasketItem({
   setAddOrder,
 }: Props) {
   const t = useTranslations("GLOBAL");
+  const router = useRouter();
 
   const handleChange = (chacked: boolean) => {
     if (!item.sku_id) return;
@@ -45,9 +47,17 @@ export default function CartBasketItem({
 
     setAddOrder({ item: data, chacked: chacked });
   };
+  console.log(item);
+
+  const handleNavigate = () => {
+    let url = `/${router.locale}/product/${item.product_id}?provider=${
+      item.provider || "1688"
+    }`;
+    router.push(url);
+  };
 
   return (
-    <div className={styles.main}>
+    <div onClick={handleNavigate} className={styles.main}>
       <div className={styles.item_img}>
         {item.image_url ? <Image fill alt="#" src={item.image_url} /> : null}
       </div>

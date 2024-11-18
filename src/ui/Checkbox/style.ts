@@ -10,8 +10,8 @@ export const StyledChackbox = styled(Checkbox)`
     }
     .ant-checkbox-inner {
       background: #d9d9d9;
-      width: 20px;
-      height: 20px;
+      width: 25px;
+      height: 25px;
 
       &:after {
         inset-inline-start: 29.8%;
