@@ -57,7 +57,7 @@ export default function CartBasketItem({
   };
 
   return (
-    <div onClick={handleNavigate} className={styles.main}>
+    <div className={styles.main}>
       <div className={styles.item_img}>
         {item.image_url ? <Image fill alt="#" src={item.image_url} /> : null}
       </div>
