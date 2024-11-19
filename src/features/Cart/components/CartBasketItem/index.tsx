@@ -63,7 +63,7 @@ export default function CartBasketItem({
       </div>
 
       <div className={styles.item_text}>
-        <div className={styles.item_info}>
+        <div className={styles.item_info} onClick={handleNavigate}>
           <p>{item.title}</p>
         </div>
 
