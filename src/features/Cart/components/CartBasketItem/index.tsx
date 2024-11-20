@@ -1,3 +1,9 @@
+/*************  ✨ Codeium Command 🌟  *************/
+/**
+ * CartBasketItem component
+ * @param {Props} props - Component props
+ * @returns {ReactElement} - React component
+ */
 import React, { Fragment, useState } from "react";
 import styles from "./CartBasketItem.module.scss";
 import {
@@ -29,6 +35,10 @@ export default function CartBasketItem({
   const t = useTranslations("GLOBAL");
   const router = useRouter();
 
+  /**
+   * Handles checkbox changes
+   * @param {boolean} chacked - Checkbox state
+   */
   const handleChange = (chacked: boolean) => {
     if (!item.sku_id) return;
     const data: CartOrderItemInterface = {
@@ -49,6 +59,9 @@ export default function CartBasketItem({
   };
   console.log(item);
 
+  /**
+   * Handles product page navigation
+   */
   const handleNavigate = () => {
     let url = `/${router.locale}/product/${item.product_id}?provider=${
       item.provider || "1688"

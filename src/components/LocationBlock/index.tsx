@@ -1,3 +1,13 @@
+/*************  ✨ Codeium Command 🌟  *************/
+/**
+ * LocationBlock component
+ * @component
+ * @prop {function} setLocationInfo - sets location info to the state
+ * @prop {LocationInfoInterface} locationInfo - current location info
+ * @prop {ILocation} ILocation - location info with initial values
+ * @prop {boolean} isShowBorder - is show border around the component
+ * @returns {ReactNode} - component
+ */
 import React, { Fragment, useEffect, useState } from "react";
 import styles from "./LocationBlock.module.scss";
 import { useTranslations } from "next-intl";
@@ -29,6 +39,11 @@ export default function LocationBlock({
   const [currentRegion, setCurrentRegion] =
     useState<keyof RegionProvincesInterface>();
 
+  /**
+   * Handles select change event
+   * @param {string} value - value of the select
+   * @param {string} name - name of the select
+   */
   const selectChange = (
     value: keyof RegionProvincesInterface,
     name: keyof LocationInfoInterface
@@ -69,6 +84,9 @@ export default function LocationBlock({
       : null;
   }, []);
 
+  /**
+   * Props for region select
+   */
   const regionSelectProps = {
     className: styles.select,
     placeholder: t("selectRegion"),
@@ -82,6 +100,9 @@ export default function LocationBlock({
     onChange: (e: keyof RegionProvincesInterface) => selectChange(e, "region"),
   };
 
+  /**
+   * Props for district select
+   */
   const districtSelectProps = {
     className: styles.select,
     placeholder: t("selectDistrict"),

@@ -12,11 +12,25 @@ import { useJwt } from "@/utils/useJwt";
 interface ILayoutsProps {
   children: ReactNode;
 }
+/*************  ✨ Codeium Command 🌟  *************/
+/**
+ * The main layout component for the application.
+ *
+ * This component is responsible for rendering the main application layout, including the
+ * navigation bar, main content area, and footer. It also handles client-side routing and
+ * sets up the AOS animation library.
+ *
+ * @param {ILayoutsProps} props The properties for this component.
+ * @returns {JSX.Element} The rendered JSX element.
+ */
 const MainLayout = ({ children }: ILayoutsProps) => {
   const { pathname, push, asPath, events } = useRouter();
   const [loading, setLoading] = useState(false);
   const token = useJwt();
 
+  /**
+   * Initializes the AOS animation library.
+   */
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -24,6 +38,12 @@ const MainLayout = ({ children }: ILayoutsProps) => {
     });
   }, []);
 
+  /**
+   * Handles client-side routing for protected pages.
+   *
+   * If the user is not logged in and tries to access a protected page, they will be
+   * redirected to the login page.
+   */
   const protectPages = ["/messages", "/my-reviews", "/purchases"];
   useEffect(() => {
     if (!token && protectPages.includes(pathname))
@@ -32,6 +52,13 @@ const MainLayout = ({ children }: ILayoutsProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [asPath]);
 
+  /**
+   * Handles client-side routing events.
+   *
+   * This sets up event listeners for route change start, complete, and error events.
+   * When a route change starts, the loading state is set to true. When the route change
+   * is complete or an error occurs, the loading state is set to false.
+   */
   useEffect(() => {
     const handleStart = () => setLoading(true);
     const handleComplete = () => setLoading(false);
@@ -47,9 +74,16 @@ const MainLayout = ({ children }: ILayoutsProps) => {
     };
   }, [events]);
 
+  /**
+   * If the current page is an auth page, just render the children.
+   */
   if (pathname.includes("auth")) {
     return children;
   }
+
+  /**
+   * Render the main application layout.
+   */
   return (
     <>
       {loading && <LoadingSpinner fullscreen={true} size="large" />}
