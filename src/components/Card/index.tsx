@@ -1,3 +1,10 @@
+/*************  ✨ Codeium Command 🌟  *************/
+/**
+ * @file Card component
+ *
+ * @param {CardProps} props
+ * @returns {JSX.Element}
+ */
 import React, { useEffect, useRef, useState } from "react";
 import { Tooltip } from "antd";
 import { useLocale, useTranslations } from "next-intl";
@@ -9,13 +16,34 @@ import LikedBtn from "../LikedBtn";
 import { formatPrice } from "@/constants";
 import useProductStore from "../../store/useProductStore";
 
+/**
+ * Card component props
+ */
 interface CardProps {
+  /**
+   * Data object with card data
+   */
   data: CardInterface;
+  /**
+   * Function to call when user clicks on like button
+   */
   onLikeChange?: (cardId: number) => void;
+  /**
+   * If true, card will be rendered without any content
+   */
   isBlank?: boolean;
+  /**
+   * If true, animation will be enabled
+   */
   enableAnimation?: boolean;
 }
 
+/**
+ * Card component
+ *
+ * @param {CardProps} props
+ * @returns {JSX.Element}
+ */
 const Card: React.FC<CardProps> = ({
   data,
   onLikeChange,

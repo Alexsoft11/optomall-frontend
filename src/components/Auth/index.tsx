@@ -8,7 +8,6 @@ import { Modal } from "@/ui";
 import dynamic from "next/dynamic";
 import LanguageSelector from "../LanguageSelector";
 import Cookies from "universal-cookie";
-import { LoadingSpinner } from "@/ui/Spin";
 
 const ForgotPassword = dynamic(() => import("./Steps/ForgotPassword"));
 
@@ -21,29 +20,34 @@ const Registration = dynamic(() => import("./Steps/Registration"));
 const SignIn = dynamic(() => import("./Steps/SignIn"));
 
 export default function AuthPage() {
-  const { asPath, push, query, } = useRouter();
-  const [step, setStep] = useState<string | string[]>('')
+  const { asPath, push, query } = useRouter();
+  const [step, setStep] = useState<string | string[]>("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const t = useTranslations("Auth");
   const cookies = new Cookies();
-  const token = cookies.get('token');
+  const token = cookies.get("token");
   const currentStep = query.step;
 
+  /**
+   * Check if the user is authenticated and redirect them to the main page
+   */
   useEffect(() => {
-    if (asPath === '/auth') push('/auth?step=signin')
+    if (asPath === "/auth") push("/auth?step=signin");
     if (!currentStep) return;
     if (token && currentStep !== "reset" && currentStep !== "forgot-password") {
-      push('/');
+      push("/");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, currentStep]);
 
-
+  /**
+   * Set the current step of the auth process
+   */
   useEffect(() => {
     if (currentStep) {
-      setStep(currentStep)
+      setStep(currentStep);
     }
-  }, [currentStep,])
+  }, [currentStep]);
 
   return (
     <div>
@@ -57,16 +61,20 @@ export default function AuthPage() {
               <LanguageSelector />
             </div>
             {step === "signin" ? <SignIn /> : null}
-            {step === "signUp" ? <Registration setModalIsOpen={setModalIsOpen} /> : null}
+            {step === "signUp" ? (
+              <Registration setModalIsOpen={setModalIsOpen} />
+            ) : null}
             {step === "info" && query.id ? <Info /> : null}
             {step === "reset" ? <NewPassword /> : null}
-            {step === "forgot-password" ? <ForgotPassword setModalIsOpen={setModalIsOpen} /> : null}
+            {step === "forgot-password" ? (
+              <ForgotPassword setModalIsOpen={setModalIsOpen} />
+            ) : null}
           </div>
         </div>
       </div>
       <Modal
         onCancel={setModalIsOpen}
-        className='bg_white'
+        className="bg_white"
         img={AuthModalSvg}
         description={t("modalMessage")}
         open={modalIsOpen}

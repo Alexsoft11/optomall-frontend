@@ -12,11 +12,25 @@ import useProductStore from "@/store/useProductStore";
 import { getProductLimit } from "@/utils/getProductLimit";
 import AdditionalCategory from "@/components/AdditionalCategory";
 
+/*************  ✨ Codeium Command 🌟  *************/
+/**
+ * ProductsSection component
+ * @returns {ReactElement} - React component
+ */
 const ProductsSection = () => {
   const t = useTranslations();
   const { query, locale } = useRouter();
   const [keyApi, setKeyApi] = useState("discount");
 
+  /**
+   * Get products from store
+   * @property {Array} homeProducts - Products from store
+   * @property {boolean} hasMore - Has more products
+   * @property {boolean} isBack - Is back from another page
+   * @property {Function} setHasMore - Set has more products
+   * @property {Function} setHomeProducts - Set products from store
+   * @property {Function} setIsBack - Set is back from another page
+   */
   const {
     homeProducts,
     hasMore,
@@ -26,12 +40,20 @@ const ProductsSection = () => {
     setIsBack,
   } = useProductStore();
 
+  /**
+   * Handle tab change
+   * @param {string} key - Tab key
+   */
   const handleTabChange = (key: string) => {
     const productsCount = getProductLimit(5);
     getProductsData({ query: key, productsCount });
     setKeyApi(key);
   };
 
+  /**
+   * Handle get product when scrool
+   * @param {Object} custom - Custom data
+   */
   const handleGetProductWhenScrool = (custom?: any) => {
     if (query) {
       getProductsWhenScrool({
@@ -43,6 +65,9 @@ const ProductsSection = () => {
     }
   };
 
+  /**
+   * Get products data on mount
+   */
   useEffect(() => {
     if (!isBack || !homeProducts.length) {
       const productsCount = getProductLimit(5);
@@ -55,6 +80,11 @@ const ProductsSection = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  /**
+   * Get products when scrool
+   * @property {Function} appendData - Append data
+   * @property {boolean} isLoading - Is loading
+   */
   const {
     appendData: getProductsWhenScrool,
     isLoading: isProductsScroolLoading,
@@ -73,6 +103,11 @@ const ProductsSection = () => {
     },
   });
 
+  /**
+   * Get products data
+   * @property {Function} appendData - Append data
+   * @property {boolean} isLoading - Is loading
+   */
   const { appendData: getProductsData, isLoading: isProductsLoading } =
     useQueryApiClient({
       request: {
@@ -87,6 +122,11 @@ const ProductsSection = () => {
       },
     });
 
+  /**
+   * Get aditional categories
+   * @property {any} data - Data
+   * @property {Function} appendData - Append data
+   */
   const { data: additionalCategories, appendData: getAditionalCats } =
     useQueryApiClient({
       request: {
