@@ -424,11 +424,7 @@ const ProductOrderModal = ({
   return (
     <div>
       {contextHolder}
-      <LoadingSpinner
-        spinning={isOrderLoading || !translatedData}
-        fullscreen
-        size="large"
-      />
+      <LoadingSpinner spinning={isOrderLoading} fullscreen size="large" />
       <Modal
         className="order-modal"
         onCancel={handleCloseModal}
