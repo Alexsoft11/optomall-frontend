@@ -4,7 +4,7 @@
  * @param {Props} props - Component props
  * @returns {ReactElement} - React component
  */
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import styles from "./CartBasketItem.module.scss";
 import {
   AddOrderInterface,
@@ -32,8 +32,26 @@ export default function CartBasketItem({
   item,
   setAddOrder,
 }: Props) {
-  const t = useTranslations("GLOBAL");
+  const t = useTranslations("");
   const router = useRouter();
+
+  const [showAll, setShowAll] = useState(false);
+  const divRef = useRef<HTMLDivElement>(null);
+
+  const scrollToTop = (pixels: number = 100): void => {
+    window.scrollTo({
+      top: window.scrollY - pixels,
+      behavior: "smooth",
+    });
+  };
+
+  const handleToggleShowAll = () => {
+    if (showAll && divRef?.current) {
+      const height = divRef.current.offsetHeight;
+      scrollToTop(height - 50);
+    }
+    setShowAll(!showAll);
+  };
 
   /**
    * Handles checkbox changes
@@ -69,6 +87,9 @@ export default function CartBasketItem({
     router.push(url);
   };
 
+  console.log(item?.properties);
+  
+
   return (
     <div className={styles.main}>
       <div className={styles.item_img}>
@@ -81,16 +102,29 @@ export default function CartBasketItem({
         </div>
 
         <h3>
-          {formatPrice(item.price)} {t("currency")}
+          {formatPrice(item.price)} {t("GLOBAL.currency")}
         </h3>
       </div>
 
       <div className={styles.color_block}>
-        {item.properties.map((el) => (
-          <Fragment key={el.id}>
-            <p>{el.name}</p> · <p>{el.value}</p>
-          </Fragment>
-        ))}
+        {(showAll ? item?.properties : item?.properties?.slice(0, 1))?.map(
+          (el, idx) => (
+            <Fragment key={idx}>
+              <div className={styles.detail}>
+                <span className={styles.detail_category}>{el.name}</span>
+                <p className={styles.detail_value}>{el.value}</p>
+              </div>
+            </Fragment>
+          )
+        )}
+        {item?.properties && item?.properties?.length > 1 && (
+          <button
+            onClick={handleToggleShowAll}
+            className={styles.showAllButton}
+          >
+            {showAll ? t("Product-detail.hide") : t("Product-detail.allSpecificationsAndDescription")}
+          </button>
+        )}
       </div>
 
       <div className={styles.checkbox_block}>
