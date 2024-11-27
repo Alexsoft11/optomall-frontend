@@ -34,8 +34,7 @@ export default function CartBasketItems({
   isLoading,
   selected,
 }: Props) {
-  const t = useTranslations("Cart");
-  console.log(data);
+  const t = useTranslations("Cart")
   
   const selectClick = (value: boolean) => {
     setSelectAll(value);

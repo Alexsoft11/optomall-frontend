@@ -75,8 +75,6 @@ export default function CartBasketItem({
 
     setAddOrder({ item: data, chacked: chacked });
   };
-  console.log(item);
-
   /**
    * Handles product page navigation
    */
@@ -86,9 +84,6 @@ export default function CartBasketItem({
     }`;
     router.push(url);
   };
-
-  console.log(item?.properties);
-  
 
   return (
     <div className={styles.main}>
