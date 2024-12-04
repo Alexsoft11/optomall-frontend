@@ -13,11 +13,12 @@ import {
 } from "@/features/Cart/interface";
 import Image from "next/image";
 import { MinusSvg, PlusSvg } from "$/assets/images";
-import { Button } from "antd";
+import { Breadcrumb, Button } from "antd";
 import { Checkbox } from "@/ui";
 import { useTranslations } from "next-intl";
 import { formatPrice } from "@/constants";
 import { useRouter } from "next/router";
+import SvgSelector from "$/assets/icons/SvgSelector";
 
 interface Props {
   item: CartItemInterface;
@@ -117,9 +118,24 @@ export default function CartBasketItem({
             onClick={handleToggleShowAll}
             className={styles.showAllButton}
           >
-            {showAll ? t("Product-detail.hide") : t("Product-detail.allSpecificationsAndDescription")}
+            {showAll
+              ? t("Product-detail.hide")
+              : t("Product-detail.allSpecificationsAndDescription")}
           </button>
         )}
+      </div>
+
+      <div className={styles.characteristics_mobile}>
+        <div className={styles.characteristics}>
+          {item?.properties?.map((el, idx) => (
+            <Fragment key={idx}>
+              <span>{el.value}</span>
+            </Fragment>
+          ))}
+        </div>
+        <div className={styles.arrow}>
+          <SvgSelector id={"chevron-svg"} />
+        </div>
       </div>
 
       <div className={styles.checkbox_block}>
