@@ -13,7 +13,7 @@ import {
 } from "@/features/Cart/interface";
 import Image from "next/image";
 import { MinusSvg, PlusSvg } from "$/assets/images";
-import { Breadcrumb, Button } from "antd";
+import { Button, Tooltip } from "antd";
 import { Checkbox } from "@/ui";
 import { useTranslations } from "next-intl";
 import { formatPrice } from "@/constants";
@@ -125,18 +125,23 @@ export default function CartBasketItem({
         )}
       </div>
 
-      <div className={styles.characteristics_mobile}>
-        <div className={styles.characteristics}>
-          {item?.properties?.map((el, idx) => (
-            <Fragment key={idx}>
-              <span>{el.value}</span>
-            </Fragment>
-          ))}
+      <Tooltip
+        trigger={"click"}
+        title={item?.properties.map((el) => el.value).join("/ ")}
+      >
+        <div className={styles.characteristics_mobile}>
+          <div className={styles.characteristics}>
+            {item?.properties?.map((el, idx) => (
+              <Fragment key={idx}>
+                <span>{el.value}/</span>
+              </Fragment>
+            ))}
+          </div>
+          <div className={styles.arrow}>
+            <SvgSelector id={"chevron-svg"} />
+          </div>
         </div>
-        <div className={styles.arrow}>
-          <SvgSelector id={"chevron-svg"} />
-        </div>
-      </div>
+      </Tooltip>
 
       <div className={styles.checkbox_block}>
         <div className={styles.Checkbox}>
