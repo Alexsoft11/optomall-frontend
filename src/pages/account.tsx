@@ -13,10 +13,10 @@ const AccountInfo = dynamic(
   }
 );
 
-const AccountPage =  () => {
+const AccountPage = () => {
   const [user, setUser] = useState();
 
-  const { } = useQueryApiClient({
+  const {} = useQueryApiClient({
     request: {
       url: "user-get-data",
       method: "GET",
@@ -25,7 +25,8 @@ const AccountPage =  () => {
       setUser(res);
     },
   });
-  const t =  useTranslations("Account");
+
+  const t = useTranslations("Account");
   return (
     <div className="container">
       <PageLayout
