@@ -53,9 +53,11 @@ export interface Subcategory {
 }
 
 export interface CategoryInterface {
+  id: number;
   name: string;
   slug: string;
   imageUrl: string;
+  image_url: string;
   subcategories: Subcategory[];
 }
 
