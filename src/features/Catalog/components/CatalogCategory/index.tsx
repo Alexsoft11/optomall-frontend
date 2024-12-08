@@ -38,11 +38,11 @@ const CatalogCategory = () => {
           </div>
           <div className={styles.categories__cards}>
             <Collapse expandIconPosition="end" className="catalog_select">
-              {categories[parseInt(id as string)].subcategories.map(
+              {categories[parseInt(id as string)]?.subcategories?.map(
                 (el, idx) => (
                   <Panel header={el.name} key={idx}>
                     <div>
-                      {el.items.map((subcategory, subIdx) => (
+                      {el.items?.map((subcategory, subIdx) => (
                         <ul className={styles.categories__ul} key={subIdx}>
                           {/* <h4 className={styles.sub_title}> */}
                           <Link
