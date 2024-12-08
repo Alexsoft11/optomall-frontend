@@ -1,5 +1,5 @@
 import PageLayout from "@/components/Layout/PageLayout";
-import CatalogCategory from "@/features/Catalog/components/CatalogCategory";
+import CatalogView from "@/features/Catalog/components/CatalogView";
 import { useTranslations } from "next-intl";
 import React from "react";
 
@@ -8,7 +8,7 @@ const Catalog = () => {
   return (
     <>
       <PageLayout metaTitle={t("catalog")}>
-        <CatalogCategory />
+        <CatalogView />
       </PageLayout>
     </>
   );
