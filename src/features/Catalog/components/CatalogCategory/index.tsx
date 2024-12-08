@@ -40,7 +40,16 @@ const CatalogCategory = () => {
             <Collapse expandIconPosition="end" className="catalog_select">
               {categories[parseInt(id as string)]?.subcategories?.map(
                 (el, idx) => (
-                  <Panel header={el.name} key={idx}>
+                  <Panel
+                    header={
+                      <Link
+                        href={`/search?value=${el.name}&provider=1688&catId=${el.id}`}
+                      >
+                        {el.name}
+                      </Link>
+                    }
+                    key={idx}
+                  >
                     <div>
                       {el.items?.map((subcategory, subIdx) => (
                         <ul className={styles.categories__ul} key={subIdx}>
