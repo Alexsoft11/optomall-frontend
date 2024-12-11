@@ -17,7 +17,9 @@ export const parseSKUProperties = (
       let propLength = item.properties_name.split(";").length;
       const [propName, propValue] =
         propLength > 2 ? prop.split(":") : item.properties_name.split(";");
-      const [index, subindex] = item.properties.split(";")[idx].split(":");
+      const [index, subindex] =
+        item.properties.split(";")[idx]?.split(":") ||
+        item.properties.split(":");
       let value = propValue;
       let name = propName;
       let propId = `${index}:${subindex}`;
