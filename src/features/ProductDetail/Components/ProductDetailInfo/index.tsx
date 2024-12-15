@@ -96,6 +96,19 @@ const ProductDetailInfo: React.FC<Props> = ({
       ),
       key: "4",
     },
+    {
+      label: (
+        <Link
+          className={styles.link}
+          target="_blank"
+          href={product?.product_url || ""}
+        >
+          <SvgSelector id="copylink-svg" />
+          link
+        </Link>
+      ),
+      key: "5",
+    },
   ];
 
   return (
