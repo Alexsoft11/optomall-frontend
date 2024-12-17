@@ -86,6 +86,7 @@ const Search = () => {
           imageUrl:
             query.provider === "1688" ? query.imageUrl : query.secondImage,
           page: 1,
+          sort: query.provider === "1688" ? query.sort : "",
         });
         setProducts([]);
       } else {
@@ -100,6 +101,7 @@ const Search = () => {
       ...customQuery,
       ...query,
       lang: locale,
+      sort: query.provider === "1688" ? query.sort : "",
     });
   };
 
