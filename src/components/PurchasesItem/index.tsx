@@ -17,7 +17,6 @@ export default function PurchasesItem({ item }: Props) {
   const t = useTranslations("Purchases");
   const locale = useLocale();
   const { push, asPath } = useRouter();
-  const [isUploadErr, setIsUploadErr] = useState(false);
   const getCreateDateRegexp = /(\d){4}-(\d){2}-(\d){2}/;
 
   function hexToRgba(hex?: string, alpha: number = 1): string {
@@ -40,7 +39,7 @@ export default function PurchasesItem({ item }: Props) {
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 
-  const [isRotatedUp, setIsRotatedUp] = useState(false);
+  const [isRotatedUp, setIsRotatedUp] = useState(true);
   const [firstLoad, setFirstLoad] = useState(true);
 
   const handleClick = () => {
@@ -118,7 +117,7 @@ export default function PurchasesItem({ item }: Props) {
           </p>
         </div>
       </div>
-      <div
+      {/* <div
         className={`${styles.more_datail} ${
           isRotatedUp ? styles.rotateUp : styles.rotateDown
         }`}
@@ -126,9 +125,9 @@ export default function PurchasesItem({ item }: Props) {
       >
         <p>{t("moreDetail")}</p>
         <SvgSelector className={"breadcrumb_icon"} id={"chevron-svg"} />
-      </div>
+      </div> */}
       <div className={styles.order_items}>
-        {!item.isPaid && !asPath.includes('order') ? (
+        {!item.isPaid && !asPath.includes("order") ? (
           <div onClick={toOrder} className={styles.sub_status_slug}>
             <h4>{t("send_check_again")}</h4>
             <button>{t("upload")}</button>
