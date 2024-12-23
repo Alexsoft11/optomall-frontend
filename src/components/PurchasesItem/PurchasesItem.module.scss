@@ -8,8 +8,8 @@
   height: min-content;
 
   @media (max-width: 720px) {
-      padding: 10px;
-    }
+    padding: 10px;
+  }
 
   .order_info {
     display: flex;
@@ -36,12 +36,12 @@
       }
 
       .order_status__status {
-        font-size: var(--paragraph-two);
+        font-size: var(--paragraph);
         font-weight: 400;
         line-height: 15.73px;
         border-radius: 10px;
-        padding: 4px 10px;
-        
+        padding: 6px 12px;
+
         @media (max-width: 720px) {
           font-size: var(--paragraph-three);
           padding: 4px 5px;
@@ -72,15 +72,15 @@
       display: flex;
       justify-content: space-between;
       gap: 10px;
-
+      align-items: center;
       h3 {
-        font-size: var(--paragraph);
+        font-size: var(--heading-six);
         font-weight: 500;
-        line-height: 19.36px;
+        line-height: 24.36px;
       }
 
       p {
-        font-size: var(--paragraph-three);
+        font-size: var(--paragraph-two);
         font-weight: 400;
         line-height: 14.52px;
       }
@@ -90,7 +90,6 @@
       }
 
       @media (max-width: 760px) {
-
         flex-direction: column;
         justify-content: flex-start;
 
@@ -98,7 +97,6 @@
           display: flex;
         }
       }
-
     }
 
     .sub_status {
@@ -144,7 +142,6 @@
   }
 
   .order_items {
-    overflow: auto !important;
     overflow: hidden;
     max-height: 270px;
     height: min-content;
@@ -162,7 +159,7 @@
       padding: 0px 0px 20px 0px;
 
       h4 {
-        font-size: var(--paragraph);
+        font-size: var(--heading-six);
         font-weight: 400;
         line-height: 19.36px;
       }
@@ -173,10 +170,9 @@
         border: none;
 
         color: var(--primary-color);
-        font-size: var(--paragraph-three);
+        font-size: var(--heading-six);
         font-weight: 400;
-        line-height: 15.73px;
-
+        line-height: 18.73px;
 
         &:hover {
           background: none !important;
@@ -206,7 +202,7 @@
   transition: height 2s;
 
   .order_items {
-    margin: 30px 0px 0px 0px;
+    margin: 10px 0px 0px 0px;
     animation: 0.5s block-open linear;
     max-height: 270px;
   }
