@@ -94,7 +94,6 @@
     "minSymbolPassword": "Пароль должен содержать минимум 8 символов",
     "passwordsIsDifferent": "Пароли не совпадают",
     "emailIncorect": "Введите действительный адрес электронной почты",
-    "haveAccount": "У вас есть аккаунт?",
     "requiredTelMessage": "Введите действительный номер телефона",
     "requiredNameMessage": "Введите имя",
     "requiredSecondNameMessage": "Введите фамилию",
@@ -102,7 +101,7 @@
     "wrong_password": "неверный пароль",
     "add_personal_data": "Заполните личную информацию",
     "email_doesnt_exist": "электронная почта не зарегистрирована",
-    "signInDescription": "заполните поля для входа",
+    "signInDescription": "Заполните поля для входа",
     "infoDescription": "заполните поля для информации",
     "forgotPasswordDescription": "заполните поле",
     "newPasswordDescription": "придмайте новый пароль",
@@ -115,7 +114,13 @@
     "metaDescription": "Безопасно войдите в свой аккаунт OPTOM-ALL для доступа к эксклюзивным функциям и управления заказами.",
     "metaKeywords": "OPTOM-ALL, вход, авторизация, доступ к аккаунту, безопасный вход",
     "passwordHasEmpty": "Пароль не может содержать пробел!",
-    "address": "Адрес"
+    "address": "Адрес",
+    "registrationDescription": "Пожалуйста, заполните форму ниже для регистрации",
+    "registerWithEmail": "Через Email",
+    "registerWithPhone": "Через телефон",
+    "haveAccount": "Уже есть аккаунт?",
+    "invalidPhone": "Неправильный номер телефона",
+    "enterPhone": "Введите ваш номер телефона"
   },
   "Cart": {
     "deleteSelected": "удалить выбранное",
