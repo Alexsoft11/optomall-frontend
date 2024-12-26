@@ -14,7 +14,7 @@
     "currency": "so'm",
     "loadingData": "Yuklanmoqda...",
     "my_account": "Mening Akountim",
-    "cargo": "Karqo uchun to'lov"
+    "cargo": "Kargo uchun to'lov"
   },
   "Home": {
     "metaTitle": "Bosh sahifa | Optomall",
@@ -91,14 +91,13 @@
     "minSymbolPassword": "Parol kamida 8 ta belgidan iborat bo'lishi kerak",
     "passwordsIsDifferent": "Parollar mos kelmaydi",
     "emailIncorect": "Yaroqli elektron pochta manzilini kiriting",
-    "haveAccount": "Hisobingiz bormi?",
     "requiredTelMessage": "Iltimos, haqiqiy telefon raqamini kiriting",
     "requiredNameMessage": "Iltimos, ismingizni kiriting",
     "requiredSecondNameMessage": "Iltimos, familiyangizni kiriting",
     "emailAlredyUsed": "elektron pochta allaqachon band qilingan!",
     "wrong_password": "noto‘g‘ri parol",
     "email_doesnt_exist": "elektron pochta ro‘yxatdan o‘tmagan",
-    "signInDescription": "kirish uchun maydonlarni to'ldiring",
+    "signInDescription": "Kirish uchun maydonlarni to'ldiring",
     "infoDescription": "ma'lumot uchun maydonlarni to'ldiring",
     "forgotPasswordDescription": "maydonni to'ldiring",
     "newPasswordDescription": "yangi parolni o‘ylab toping",
@@ -110,7 +109,13 @@
     "metaDescription": "OPTOM-ALL hisobingizga xavfsiz kiring va maxsus funksiyalardan foydalaning hamda buyurtmalaringizni boshqaring.",
     "metaKeywords": "OPTOM-ALL, kirish, hisobga kirish, xavfsiz kirish",
     "passwordHasEmpty": "Parolda bo'sh joy bo'lmasligi kerak!",
-    "address": "Manzil"
+    "address": "Manzil",
+    "registrationDescription": "Ro'yxatdan o'tish uchun quyidagi shaklni to'ldiring",
+    "registerWithEmail": "Email orqali",
+    "registerWithPhone": "Telefon orqali",
+    "haveAccount": "Akkauntingiz bormi?",
+    "invalidPhone": "Noto'g'ri telefon raqami",
+    "enterPhone": "Telefon raqamingizni kiriting"
   },
   "Cart": {
     "deleteSelected": "tanlanganlarni o'chirish",
@@ -134,7 +139,7 @@
     "imgTypeValidation": "Faqat rasm yuklashingiz mumkin!",
     "imgSizeValidation": "Rasm hajmi 5 MB dan kichik bo'lishi kerak!",
     "chooseItem": "Kamida bitta mahsulot tanlang",
-    "cargo": "Karqo",
+    "cargo": "Kargo",
     "forKg": "kg uchun",
     "locationRequired": "Tovarni yetkazib berish manzilini to'ldiring va xaritada joylashuvni",
     "userDataRequired": "Qabul qiluvchining shaxsiy ma'lumotlarini to'ldiring!",
@@ -168,7 +173,7 @@
     "orderCost": "Summa:",
     "currency": "so'm",
     "inVerification": "tekshirilmoqda",
-    "cargo": "Karqo:",
+    "cargo": "Kargo:",
     "calculated": "Hisoblanmoqda",
     "emptyData": "Bu yer bo'sh",
     "pay": "To'lash",
