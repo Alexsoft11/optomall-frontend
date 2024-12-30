@@ -15,10 +15,6 @@ const MetaData = ({ title, description, keywords }: MetaDataProps) => (
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:type" content="website" />
-    <meta
-      name="google-site-verification"
-      content="fiFvmehWhm-G_I_ES4gmzIJRtAtF6qMOpg-3pnjtv38"
-    />
   </Head>
 );
 

@@ -37,7 +37,7 @@ class MyDocument extends Document {
         <Head>
           <meta
             name="google-site-verification"
-            content="AmLYTSZ7gHcV8XopUlGBqWjxHeWmRfXMVX8D_xMn54E"
+            content="JD6kunlEhJJZL8g4rCVQP9hl_-9xGgxAjNuCGR8wNM0"
           />
           <link
             rel="apple-touch-icon"
