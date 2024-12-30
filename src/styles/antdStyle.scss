@@ -308,3 +308,15 @@
     width: 100% !important;
   }
 }
+
+.masked_input_register {
+  .ant-input-affix-wrapper {
+    padding: 12px !important;
+  }
+}
+
+.register-tab {
+  .ant-tabs-tab-btn {
+    font-size: var(--paragraph);
+  }
+}

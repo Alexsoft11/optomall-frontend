@@ -6,7 +6,7 @@ import Head from "next/head";
 import MainLayout from "@/components/Layout";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import "../../node_modules/animate.css/animate.min.css";
-
+import "react-puzzle-captcha/dist/react-puzzle-captcha.css";
 import "react-awesome-lightbox/build/style.css";
 
 export default function App({ Component, pageProps }: AppProps) {

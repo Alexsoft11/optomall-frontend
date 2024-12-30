@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./SignIn.module.scss";
 import { Form, message } from "antd";
 import { Button, Input } from "@/ui";
@@ -11,8 +11,6 @@ import Cookies from "universal-cookie";
 import { useRouter } from "next/router";
 import GoToBack from "@/components/GoToBack";
 import useHandleError from "@/utils/useHandleError";
-import { CartItemInterface } from "@/features/Cart/interface";
-import { API } from "@/services/api";
 
 export default function SignIn() {
   const [form] = Form.useForm();
@@ -52,7 +50,7 @@ export default function SignIn() {
       });
 
       push((localStorage.getItem("backUrl") as string) || "/");
-      localStorage.removeItem('backUrl')
+      localStorage.removeItem("backUrl");
     },
     onError(err) {
       if (err.message.includes("email")) {

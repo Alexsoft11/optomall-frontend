@@ -64,6 +64,13 @@ export const validatePhone = (t: Function, value: string) => {
   return Promise.resolve();
 };
 
+export const validatePhoneNumber = (t: Function, value: string) => {
+  if (!/^(\d{2}) (\d{3}) (\d{2}) (\d{2})$/m.test(value)) {
+    return Promise.reject(new Error(t("Auth.requiredTelMessage")));
+  }
+  return Promise.resolve();
+};
+
 export const validateName = (
   text: string,
   currentValue: any,
@@ -81,7 +88,7 @@ export const validateName = (
 //   arr.map((el) => {
 //     corectData.push({
 //       product_id: el.product_id,
-      
+
 //     });
 //   });
 

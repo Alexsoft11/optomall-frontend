@@ -363,5 +363,10 @@
     "text_8": "Kartamizga pul o‘tkazganingizdan so‘ng, chekning skrinshotini oling:",
     "text_9": "Va uni platformamizdagi chek yuklash bo‘limiga yuklang:",
     "text_10": "Chekni yuklaganingizdan so‘ng, to‘lovingiz va buyurtmangiz 9:00 dan 19:00 gacha ko‘rib chiqilib, tasdiqlanadi. Platformamizda nafaqat plastik karta, balki naqd pul bilan ham to‘lov qilishingiz mumkin. Buning uchun mahsulotlarni tanlab, savatchaga qo‘shing va ofislarimizga tashrif buyuring, u yerda siz pulni topshirishingiz mumkin. Biz chek beramiz va darhol buyurtmani rasmiylashtiramiz. Hozirgi kunda ofislarimiz faqat Qo‘qon va Toshkent shaharlarida joylashgan."
+  },
+  "captcha": {
+    "checkboxText": "Robot emasligingizni tasdiqlang",
+    "errorMessage": "Captcha tasdiqlash muvaffaqiyatsiz tugadi. Qaytadan urinib ko'ring.",
+    "warningMessage": "Iltimos, captchani to'g'ri tugating."
   }
 }

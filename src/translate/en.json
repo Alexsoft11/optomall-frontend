@@ -363,5 +363,10 @@
     "text_8": "After transferring the money to our card, take a screenshot of the receipt:",
     "text_9": "And upload it in the receipt upload section on our platform:",
     "text_10": "After uploading the receipt, your payment and order will be reviewed and confirmed between 9:00 AM and 7:00 PM. On our platform, you can pay not only with a plastic card but also in cash. To do this, select the products, add them to the basket, and visit our offices where you can hand over the money. We will issue a receipt and immediately process the order. Currently, our offices are located only in Kokand and Tashkent."
+  },
+  "captcha": {
+    "checkboxText": "Confirm you are not a robot",
+    "errorMessage": "Captcha validation failed. Please try again.",
+    "warningMessage": "Please complete the captcha correctly."
   }
 }

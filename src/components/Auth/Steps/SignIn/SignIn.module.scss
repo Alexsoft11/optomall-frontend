@@ -1,113 +1,111 @@
 .main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+
+  .desc {
+    font-size: var(--paragraph-two);
+    font-weight: 400;
+    line-height: 16.94px;
+  }
+
+  .form {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 100%;
+    input {
+      font-size: var(--paragraph-two);
+      font-weight: 400;
+      line-height: 16.94px;
+      padding: 12px;
+      margin: 0px;
+      height: 100%;
 
-    .desc {
+      &::placeholder {
+        color: var(--davys-grey);
+      }
+    }
+
+    span {
+      padding: 0px 5px 0px 0px;
+
+      input {
         font-size: var(--paragraph-two);
         font-weight: 400;
         line-height: 16.94px;
+        padding: 12px;
+        margin: 0px;
+
+        &::placeholder {
+          color: var(--davys-grey);
+        }
+      }
     }
 
-    .form {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        input {
-            font-size: var(--paragraph-two);
-            font-weight: 400;
-            line-height: 16.94px;
-            padding: 12px;
-            margin: 0px;
-            height: 100%;
-
-            &::placeholder {
-                color: var(--davys-grey);
-            }
-        }
-
-        span {
-            padding: 0px 5px 0px 0px;
-
-            input {
-                font-size: var(--paragraph-two);
-                font-weight: 400;
-                line-height: 16.94px;
-                padding: 12px;
-                margin: 0px;
-    
-                &::placeholder {
-                    color: var(--davys-grey);
-                }
-            }
-        }
-
-        h1 {
-            font-size: var(--heading-two);
-            font-weight: 400;
-            line-height: 48.41px;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        div {
-            margin: 0px;
-            max-width: 100% !important;
-        }
-
-        .forgot_Password {
-            text-align: right;
-
-            a {
-                color: rgba(255, 66, 0, 1);
-
-                &:hover {
-                    color: rgba(255, 66, 0, 1) !important;
-                }
-            }
-        }
-
+    h1 {
+      font-size: var(--heading-two);
+      font-weight: 400;
+      line-height: 48.41px;
     }
 
-    .not_registred {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        margin: 20px 0px 0px 0px;
-
-        span {
-            a {
-                text-decoration: none;
-                font-size: var(--paragraph-two);
-                font-weight: 400;
-                line-height: 16.94px;
-                color: rgba(255, 66, 0, 1);
-            }
-        }
-
-        p {
-            font-size: var(--paragraph-three);
-            font-weight: 400;
-            line-height: 14.52px;
-        }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
-
-    .submitButton {
-        button {
-            width: 100%;
-            font-size: var(--paragraph-two);
-            font-weight: 400;
-            line-height: 16.94px;
-            padding: 12px;
-            height: auto;
-            background: rgba(255, 66, 0, 1);
-            border-radius: 5px;
-        }
+    div {
+      margin: 0px;
+      max-width: 100% !important;
     }
+
+    .forgot_Password {
+      text-align: right;
+
+      a {
+        color: rgba(255, 66, 0, 1);
+
+        &:hover {
+          color: rgba(255, 66, 0, 1) !important;
+        }
+      }
+    }
+  }
+
+  .not_registred {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin: 20px 0px 0px 0px;
+
+    span {
+      a {
+        text-decoration: none;
+        font-size: var(--paragraph-two);
+        font-weight: 400;
+        line-height: 16.94px;
+        color: rgba(255, 66, 0, 1);
+      }
+    }
+
+    p {
+      font-size: var(--paragraph-three);
+      font-weight: 400;
+      line-height: 14.52px;
+    }
+  }
+
+  .submitButton {
+    button {
+      width: 100%;
+      font-size: var(--paragraph-two);
+      font-weight: 400;
+      line-height: 16.94px;
+      padding: 12px;
+      height: auto;
+      background: rgba(255, 66, 0, 1);
+      border-radius: 5px;
+    }
+  }
 }
