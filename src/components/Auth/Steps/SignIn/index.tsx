@@ -1,25 +1,23 @@
 import React from "react";
 import styles from "./SignIn.module.scss";
-import { Form, message } from "antd";
-import { Button, Input } from "@/ui";
+import { Form, Tabs, message } from "antd";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import GoToBack from "@/components/GoToBack";
 import GoogleButton from "../../GoogleButton";
-import { validateEmail, validatePassword } from "../../Functions";
+import SignInWithPhone from "./signInWithPhone";
+import SignInWithEmail from "./signInWithEmail";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import Cookies from "universal-cookie";
 import { useRouter } from "next/router";
-import GoToBack from "@/components/GoToBack";
 import useHandleError from "@/utils/useHandleError";
+import Link from "next/link";
 
 export default function SignIn() {
   const [form] = Form.useForm();
   const t = useTranslations("");
+  const { push } = useRouter();
   const cookie = new Cookies();
-  const expirationDate = new Date();
-  const { push, query } = useRouter();
   const [handleError] = useHandleError(form);
-  expirationDate.setDate(expirationDate.getDate() + 3);
 
   const { appendData: createData, isLoading } = useQueryApiClient({
     request: {
@@ -28,9 +26,7 @@ export default function SignIn() {
       disableOnMount: true,
     },
     onSuccess(res) {
-      // const backUrl = localStorage.getItem("backUrl");
-      if (res.message === "add_personal_data" || !res.info_filled) {
-        message.error(t(`Auth.${res.message}`));
+      if (res.message === "add_personal_data") {
         push(`/auth?step=info&id=${res.unique_id}`);
         return;
       }
@@ -38,16 +34,9 @@ export default function SignIn() {
         message.error(t("Auth.something_wrong"));
         return;
       }
-      // if (localStorage.getItem('basket-data')) {
-      //   API.userBasketFromStorage(res.token, cookieBasket(JSON.parse(localStorage.getItem('basket-data') as string) as CartItemInterface[]))
-      // }
-      const maxAge = 10 * 24 * 60 * 60; // 3 days in seconds
 
-      // Set the cookie
-      cookie.set("token", res.token, {
-        path: "/",
-        maxAge: maxAge,
-      });
+      const maxAge = 10 * 24 * 60 * 60; // 10 days in seconds
+      cookie.set("token", res.token, { path: "/", maxAge });
 
       push((localStorage.getItem("backUrl") as string) || "/");
       localStorage.removeItem("backUrl");
@@ -60,18 +49,14 @@ export default function SignIn() {
             errors: [t(`Auth.${err.message}`)],
           },
         ]);
-        return;
-      }
-      if (err.message.includes("password")) {
+      } else if (err.message.includes("password")) {
         form.setFields([
           {
             name: "password",
             errors: [t(`Auth.${err.message}`)],
           },
         ]);
-        return;
-      }
-      if (err.message.includes("verify_email")) {
+      } else if (err.message.includes("verify_email")) {
         form.setFields([
           {
             name: "email",
@@ -79,14 +64,47 @@ export default function SignIn() {
           },
         ]);
         return;
+      } else if (err.message.includes("phone")) {
+        form.setFields([
+          {
+            name: "phone_number",
+            errors: [t(`Auth.${err.message}`)],
+          },
+        ]);
+        return;
+      } else if (typeof err.message === "string" && err.message) {
+        message.error(t(`Auth.${err.message}`));
+        return;
       }
       handleError(err);
     },
   });
 
-  const onFinish = (values: any) => {
-    createData(values);
-  };
+  const tabItems = [
+    {
+      key: "1",
+      label: t("Auth.registerWithPhone"),
+
+      children: (
+        <SignInWithPhone
+          form={form}
+          isLoading={isLoading}
+          createData={createData}
+        />
+      ),
+    },
+    {
+      key: "2",
+      label: t("Auth.registerWithEmail"),
+      children: (
+        <SignInWithEmail
+          form={form}
+          isLoading={isLoading}
+          createData={createData}
+        />
+      ),
+    },
+  ];
 
   return (
     <div className={styles.main}>
@@ -94,58 +112,18 @@ export default function SignIn() {
       <h1>{t("Auth.signin")}</h1>
       <p className={styles.desc}>{t("Auth.signInDescription")}</p>
       <div className={styles.form}>
-        <Form
-          form={form}
-          onFinish={(data) => onFinish(data)}
-          name="basic"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          style={{ maxWidth: 600 }}
-          autoComplete="off"
-        >
-          <Input
-            name="email"
-            rules={[
-              { validator: (rule, value) => validateEmail(t, rule, value) },
-            ]}
-            type="email"
-            placeholder={t("Auth.email")}
-          />
-
-          <Input
-            name="password"
-            rules={[
-              {
-                validator: (rule, value) => validatePassword(t, rule, value),
-              },
-            ]}
-            type="password"
-            placeholder={t("Auth.yourPassword")}
-          />
-
-          <span className={styles.forgot_Password}>
-            <Link href="/auth?step=forgot-password">
-              {t("Auth.forgotPassword")}
-            </Link>
-          </span>
-
-          <Form.Item className={styles.submitButton}>
-            <Button
-              isLoading={isLoading}
-              type="primary"
-              htmlType="submit"
-              label={t("Auth.signin")}
-            />
-          </Form.Item>
-        </Form>
-
+        <Tabs
+          className={`${styles.tabs} register-tab`}
+          defaultActiveKey="1"
+          items={tabItems}
+          destroyInactiveTabPane={true}
+        />
         <div className={styles.not_registred}>
           <p>{t("Auth.notRegistred")}</p>
           <span>
             <Link href="/auth?step=signUp">{t("Auth.registerNow")}</Link>
           </span>
         </div>
-
         <GoogleButton />
       </div>
     </div>

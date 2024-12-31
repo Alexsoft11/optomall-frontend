@@ -22,7 +22,6 @@
     "metaKeywords": "e-commerce, shopping uz, optomall,ON WAY, products, online store uz, taobao uz"
   },
   "Error": {
-    "user_registered_successfully": "User registered successfully",
     "user_already_registrated": "User is already registered",
     "incorrect_login_or_password": "Incorrect login or password",
     "data_added_successfully": "Data added successfully",
@@ -66,7 +65,7 @@
   },
   "Auth": {
     "confirmCode": "Confirmation code",
-    "confirmCodeIncorect": "Incorrect confirmation code",
+    "incorect_coniform_code": "Incorrect confirmation code",
     "reset": "New password",
     "signin": "Sign in",
     "forgotPassword": "Forgot password?",
@@ -115,7 +114,12 @@
     "registerWithPhone": "With Phone",
     "haveAccount": "Already have an account?",
     "invalidPhone": "Invalid phone number",
-    "enterPhone": "Enter your phone number"
+    "enterPhone": "Enter your phone number",
+    "coniform_code_sended": "Confirmation code sent",
+    "send_code_failed": "Failed to send code. Please try again later.",
+    "phone_number_exists": "The phone number has already been taken",
+    "user_registered_successfully": "User registered successfully",
+    "phone_doesnt_exist": "The phone number is not registered"
   },
   "Cart": {
     "deleteSelected": "delete selected",

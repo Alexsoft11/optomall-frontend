@@ -22,7 +22,6 @@
     "metaKeywords": "elektron tijorat, xarid qilish, optomall, mahsulotlar, onlayn do'kon,magazin,taobao uz"
   },
   "Error": {
-    "user_registered_successfully": "Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi",
     "user_already_registrated": "Foydalanuvchi allaqachon ro'yxatdan o'tgan",
     "incorrect_login_or_password": "Noto'g'ri login yoki parol",
     "data_added_successfully": "Ma'lumotlar muvaffaqiyatli qo'shildi",
@@ -66,7 +65,7 @@
   },
   "Auth": {
     "confirmCode": "Tasdiqlash kodi",
-    "confirmCodeIncorect": "Noto'g'ri tasdiqlash kodi",
+    "incorect_coniform_code": "Noto'g'ri tasdiqlash kodi",
     "reset": "Yangi parol",
     "signin": "Kirish",
     "forgotPassword": "Parolni unutdingizmi?",
@@ -115,7 +114,12 @@
     "registerWithPhone": "Telefon orqali",
     "haveAccount": "Akkauntingiz bormi?",
     "invalidPhone": "Noto'g'ri telefon raqami",
-    "enterPhone": "Telefon raqamingizni kiriting"
+    "enterPhone": "Telefon raqamingizni kiriting",
+    "coniform_code_sended": "Tasdiqlash kodi yuborildi",
+    "send_code_failed": "Kod yuborishda xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.",
+    "phone_number_exists": "Telefon raqami band qilingan",
+    "user_registered_successfully": "Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi",
+    "phone_doesnt_exist": "Telefon raqami ro'yxatdan o'tmagan"
   },
   "Cart": {
     "deleteSelected": "tanlanganlarni o'chirish",

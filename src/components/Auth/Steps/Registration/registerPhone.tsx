@@ -1,13 +1,12 @@
 import { Form, InputRef, message } from "antd";
 import React, { useRef, useState } from "react";
-import { validatePhone, validatePhoneNumber } from "../../Functions";
+import { validatePhoneNumber } from "../../Functions";
 import styles from "./Registration.module.scss";
 import { MaskedInput } from "antd-mask-input";
 import { Button, Checkbox, Modal } from "@/ui";
 import Link from "next/link";
 import { Verify } from "react-puzzle-captcha";
 import { useTranslations } from "next-intl";
-import useHandleError from "@/utils/useHandleError";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useRouter } from "next/router";
 
@@ -18,7 +17,6 @@ const RegisterWithPhone = () => {
   const [form] = Form.useForm();
   const { push, locale } = useRouter();
   const t = useTranslations("");
-  const [handleError] = useHandleError(form);
 
   const { appendData, isLoading } = useQueryApiClient({
     request: {
@@ -27,10 +25,20 @@ const RegisterWithPhone = () => {
       disableOnMount: true,
     },
     onSuccess(res) {
-      push(`/${locale}/auth?step=coniform&`);
+      push(`/${locale}/auth?step=coniform&id=${res.id}`);
+      message.success(t(`Auth.${res.message}`));
     },
     onError(res) {
-      handleError(res);
+      if (res.message.includes("phone")) {
+        form.setFields([
+          {
+            name: "phone_number",
+            errors: [t(`Auth.${res.message}`)],
+          },
+        ]);
+      } else if (res.message) {
+        message.warning(t(`Auth.${res.message}`));
+      }
     },
   });
 
@@ -115,14 +123,16 @@ const RegisterWithPhone = () => {
         </div>
       </Form>
       <Modal open={visible} onCancel={handleCancel} footer={null}>
-        <Verify
-          width={320}
-          height={160}
-          visible={visible}
-          onSuccess={handleVerify}
-          onFail={() => message.warning(t("captcha.errorMessage"))}
-          onRefresh={() => console.log("refresh")}
-        />
+        <div className="puzzle-captcha">
+          <Verify
+            width={window.innerWidth <= 400 ? 200 : 300}
+            height={window.innerWidth <= 400 ? 90 : 150}
+            visible={visible}
+            onSuccess={handleVerify}
+            onFail={() => message.warning(t("captcha.errorMessage"))}
+            onRefresh={() => console.log("refresh")}
+          />
+        </div>
       </Modal>
     </div>
   );

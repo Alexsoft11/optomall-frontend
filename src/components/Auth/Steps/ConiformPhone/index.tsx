@@ -1,14 +1,19 @@
 import React from "react";
 import styles from "./ConiformPhone.module.scss";
 import GoToBack from "@/components/GoToBack";
-import { Form, message } from "antd";
+import { Form, InputNumber, message } from "antd";
 import { Button, Input } from "@/ui";
 import { useTranslations } from "next-intl";
 import useHandleError from "@/utils/useHandleError";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import Cookies from "universal-cookie";
 import { useRouter } from "next/router";
-import { validateConfirmPassword, validatePassword } from "../../Functions";
+import {
+  validateConfirmPassword,
+  validateName,
+  validatePassword,
+  validateSixDigitNumber,
+} from "../../Functions";
 
 const ConiformPhone = () => {
   const [form] = Form.useForm();
@@ -24,7 +29,6 @@ const ConiformPhone = () => {
       disableOnMount: true,
     },
     onSuccess(res) {
-      // const backUrl = localStorage.getItem("backUrl");
       if (!res.token) {
         message.error(t("Auth.something_wrong"));
         return;
@@ -38,15 +42,22 @@ const ConiformPhone = () => {
       });
       push((localStorage.getItem("backUrl") as string) || "/");
       localStorage.removeItem("backUrl");
+      if (res.message) {
+        message.success(t(`Auth.${res.message}`));
+      }
     },
     onError(res) {
-      message.error(t("Auth.something_wrong"));
-      handleError(res);
+      if (res.message) {
+        message.error(t(`Auth.${res.message}`));
+      } else {
+        message.error(t("Auth.something_wrong"));
+      }
     },
   });
 
   const onFinish = (values: any) => {
-    values.unique_id = query.id;
+    values.id = query.id;
+    values.otp = values.otp.toString();
     createData(values);
   };
 
@@ -71,6 +82,33 @@ const ConiformPhone = () => {
           }}
           autoComplete="off"
         >
+          <Form.Item
+            name={"otp"}
+            rules={[
+              {
+                validator: (rule, value) => validateSixDigitNumber(t, value),
+              },
+            ]}
+            style={{ width: "100%" }}
+            validateTrigger="onBlur"
+          >
+            <InputNumber
+              controls={false}
+              placeholder={t("Auth.confirmCode")}
+              style={{ width: "100%" }}
+            />
+          </Form.Item>
+          <Input
+            name="name"
+            rules={[
+              {
+                validator: (rule, value) =>
+                  validateName(t("Auth.nameValidateError"), rule, value),
+              },
+            ]}
+            type="text"
+            placeholder={t("Auth.name")}
+          />
           <Input
             name="password"
             rules={[

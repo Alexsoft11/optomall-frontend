@@ -52,7 +52,7 @@ export const validateConfirmCode = (
   value: string
 ) => {
   if (value.length !== 6) {
-    return Promise.reject(new Error(t("Auth.confirmCodeIncorect")));
+    return Promise.reject(new Error(t("Auth.incorect_coniform_code")));
   }
   return Promise.resolve();
 };
@@ -76,9 +76,18 @@ export const validateName = (
   currentValue: any,
   value: string
 ) => {
-  const regex = /^[A-zА-я\s]+$/; // Regular expression to match letters and spaces
-  if (!regex.test(value)) {
+  const regex = /^[A-Za-zА-Яа-я\s]+$/; // Regular expression to match letters and spaces
+  const trimmedValue = value.trim(); // Remove leading and trailing spaces
+
+  if (!regex.test(trimmedValue) || trimmedValue === "") {
     return Promise.reject(new Error(text));
+  }
+  return Promise.resolve();
+};
+
+export const validateSixDigitNumber = (t: Function, value: any) => {
+  if (!/^\d{6}$/.test(value)) {
+    return Promise.reject(new Error(t("Auth.incorect_coniform_code")));
   }
   return Promise.resolve();
 };

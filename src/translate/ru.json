@@ -22,7 +22,6 @@
     "metaKeywords": "электронная коммерция, покупки, optomall, продукты, интернет-магазин,optomall,ON WAY, products, online store uz, taobao uz"
   },
   "Error": {
-    "user_registered_successfully": "Пользователь успешно зарегистрирован",
     "user_already_registrated": "Пользователь уже зарегистрирован",
     "incorrect_login_or_password": "Неверный логин или пароль",
     "data_added_successfully": "Данные успешно добавлены",
@@ -71,7 +70,7 @@
   },
   "Auth": {
     "confirmCode": "Код подтверждения",
-    "confirmCodeIncorect": "неверный код подтверждения",
+    "incorect_coniform_code": "неверный код подтверждения",
     "reset": "Новый пароль",
     "signin": "Войти",
     "forgotPassword": "Забыли пароль?",
@@ -120,7 +119,12 @@
     "registerWithPhone": "Через телефон",
     "haveAccount": "Уже есть аккаунт?",
     "invalidPhone": "Неправильный номер телефона",
-    "enterPhone": "Введите ваш номер телефона"
+    "enterPhone": "Введите ваш номер телефона",
+    "coniform_code_sended": "Код подтверждения отправлен",
+    "send_code_failed": "Код не отправлен, попробуйте еще раз",
+    "phone_number_exists": "Номер телефона уже занят",
+    "user_registered_successfully": "Пользователь успешно зарегистрирован",
+    "phone_doesnt_exist": "Номер телефона не зарегистрирован"
   },
   "Cart": {
     "deleteSelected": "удалить выбранное",

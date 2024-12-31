@@ -312,6 +312,16 @@
 .masked_input_register {
   .ant-input-affix-wrapper {
     padding: 12px !important;
+    .ant-input-prefix {
+      font-size: var(--paragraph);
+    }
+    input {
+      padding: 0px !important;
+      font-size: var(--paragraph);
+      @media screen and (max-width: 700px) {
+        padding: 3px !important;
+      }
+    }
   }
 }
 

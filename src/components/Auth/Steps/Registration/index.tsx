@@ -36,6 +36,7 @@ export default function Registration({ setModalIsOpen }: Props) {
           className={`${styles.tabs} register-tab`}
           defaultActiveKey="1"
           items={tabItems}
+          destroyInactiveTabPane={true}
         />
         <GoogleButton />
       </div>
