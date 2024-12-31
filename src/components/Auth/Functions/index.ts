@@ -52,7 +52,7 @@ export const validateConfirmCode = (
   value: string
 ) => {
   if (value.length !== 6) {
-    return Promise.reject(new Error(t("Auth.confirmCodeIncorect")));
+    return Promise.reject(new Error(t("Auth.incorect_coniform_code")));
   }
   return Promise.resolve();
 };
@@ -64,14 +64,30 @@ export const validatePhone = (t: Function, value: string) => {
   return Promise.resolve();
 };
 
+export const validatePhoneNumber = (t: Function, value: string) => {
+  if (!/^(\d{2}) (\d{3}) (\d{2}) (\d{2})$/m.test(value)) {
+    return Promise.reject(new Error(t("Auth.requiredTelMessage")));
+  }
+  return Promise.resolve();
+};
+
 export const validateName = (
   text: string,
   currentValue: any,
   value: string
 ) => {
-  const regex = /^[A-zА-я\s]+$/; // Regular expression to match letters and spaces
-  if (!regex.test(value)) {
+  const regex = /^[A-Za-zА-Яа-я\s]+$/; // Regular expression to match letters and spaces
+  const trimmedValue = value.trim(); // Remove leading and trailing spaces
+
+  if (!regex.test(trimmedValue) || trimmedValue === "") {
     return Promise.reject(new Error(text));
+  }
+  return Promise.resolve();
+};
+
+export const validateSixDigitNumber = (t: Function, value: any) => {
+  if (!/^\d{6}$/.test(value)) {
+    return Promise.reject(new Error(t("Auth.incorect_coniform_code")));
   }
   return Promise.resolve();
 };
@@ -81,7 +97,7 @@ export const validateName = (
 //   arr.map((el) => {
 //     corectData.push({
 //       product_id: el.product_id,
-      
+
 //     });
 //   });
 

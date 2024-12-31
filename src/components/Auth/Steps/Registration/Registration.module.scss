@@ -1,83 +1,97 @@
 .main {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 352px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 400px;
 
-    .form {
-        .submitButton {
-            position: relative;
-            button {
-                width: 100%;
-                font-size: var(--paragraph-two);
-                font-weight: 400;
-                line-height: 16.94px;
-                padding: 12px;
-                height: auto;
-                background: rgba(255, 66, 0, 1);
-                border-radius: 5px;
-            }
-        }
-
-        input {
-            font-size: var(--paragraph-two);
-            font-weight: 400;
-            line-height: 16.94px;
-            padding: 12px;
-
-            &::placeholder {
-                color: var(--davys-grey);
-            }
-        }
-
-        .have_account {
-            display: flex;
-            gap: 5px;
-
-            a {
-                color: var(--primary-color);
-            }
-        }
-
-        span {
-            padding: 0px 5px 0px 0px;
-
-            input {
-                font-size: var(--paragraph-two);
-                font-weight: 400;
-                line-height: 16.94px;
-                padding: 12px;
-                margin: 0px;
-                height: 100%;
-
-                &::placeholder {
-                    color: var(--davys-grey);
-                }
-            }
-        }
-
-        h1 {
-            font-size: var(--heading-two);
-            font-weight: 400;
-            line-height: 48.41px;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        div {
-            max-width: 100% !important;
-            margin: 0px;
-        }
-
-    }
-
-    .desc {
+  .form {
+    .submitButton {
+      position: relative;
+      button {
+        width: 100%;
         font-size: var(--paragraph-two);
         font-weight: 400;
         line-height: 16.94px;
+        padding: 12px;
+        height: auto;
+        background: rgba(255, 66, 0, 1);
+        border-radius: 5px;
+      }
     }
+
+    input {
+      font-size: var(--paragraph-two);
+      font-weight: 400;
+      line-height: 16.94px;
+      padding: 12px;
+
+      &::placeholder {
+        color: var(--davys-grey);
+      }
+    }
+
+    .have_account {
+      display: flex;
+      gap: 5px;
+
+      a {
+        color: var(--primary-color);
+      }
+    }
+
+    span {
+      padding: 0px 5px 0px 0px;
+
+      input {
+        font-size: var(--paragraph);
+        font-weight: 400;
+        line-height: 16.94px;
+        padding: 12px;
+        margin: 0px;
+        height: 100%;
+
+        &::placeholder {
+          color: var(--davys-grey);
+        }
+      }
+    }
+
+    .form_phone {
+      .maskedInput {
+        input {
+          padding: 0;
+        }
+        > span {
+          padding: 12px;
+        }
+      }
+    }
+
+    h1 {
+      font-size: var(--heading-two);
+      font-weight: 400;
+      line-height: 48.41px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    div {
+      max-width: 100% !important;
+      margin: 0px;
+    }
+    .tabs {
+      row-gap: 20px;
+      font-size: var(--paragraph-two);
+    }
+  }
+
+  .desc {
+    font-size: var(--paragraph-two);
+    font-weight: 400;
+    line-height: 16.94px;
+  }
 }
