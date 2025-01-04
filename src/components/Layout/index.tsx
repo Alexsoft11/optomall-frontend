@@ -38,8 +38,8 @@ const MainLayout = ({ children }: ILayoutsProps) => {
     },
     onSuccess(res) {
       const maxAge = 10 * 24 * 60 * 60;
-      if (res.token) {
-        cookie.set("token", res.token, {
+      if (res.new_token) {
+        cookie.set("token", res.new_token, {
           path: "/",
           maxAge: maxAge,
         });
@@ -104,14 +104,17 @@ const MainLayout = ({ children }: ILayoutsProps) => {
 
     if (tokenSetTime) {
       const now = dayjs();
-      const timeSinceSet = now.diff(dayjs(tokenSetTime), "second");
+      const timeSinceSet = now.diff(dayjs(tokenSetTime), "hour");
+      const timeSinceSetMin = now.diff(dayjs(tokenSetTime), "minute");
 
-      if (timeSinceSet >= 20) {
+      if (timeSinceSet >= 12) {
         console.log("Token needs to be refreshed");
-        resetToken({ token });
+        resetToken();
         cookie.set("tokenSetTime", now.toISOString(), { path: "/" });
       } else {
-        console.log(`Token is valid. Days since last refresh: ${timeSinceSet}`);
+        console.log(
+          `Token is valid. Time since last refresh: ${timeSinceSet}:${timeSinceSetMin}`
+        );
       }
     } else {
       // If `tokenSetTime` is not set, initialize it
