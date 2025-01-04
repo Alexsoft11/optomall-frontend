@@ -4,10 +4,12 @@ import Footer from "../Footer/index";
 import "aos/dist/aos.css";
 import AOS from "aos";
 import { useRouter } from "next/router";
-import Head from "next/head";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { LoadingSpinner } from "@/ui/Spin";
 import { useJwt } from "@/utils/useJwt";
+import dayjs from "dayjs";
+import Cookies from "universal-cookie";
+import useQueryApiClient from "@/utils/useQueryApiClient";
 
 interface ILayoutsProps {
   children: ReactNode;
@@ -27,6 +29,23 @@ const MainLayout = ({ children }: ILayoutsProps) => {
   const { pathname, push, asPath, events } = useRouter();
   const [loading, setLoading] = useState(false);
   const token = useJwt();
+  const cookie = new Cookies();
+
+  const { appendData: resetToken } = useQueryApiClient({
+    request: {
+      url: "refresh-token",
+      method: "POST",
+    },
+    onSuccess(res) {
+      const maxAge = 10 * 24 * 60 * 60;
+      if (res.token) {
+        cookie.set("token", res.token, {
+          path: "/",
+          maxAge: maxAge,
+        });
+      }
+    },
+  });
 
   /**
    * Initializes the AOS animation library.
@@ -73,6 +92,32 @@ const MainLayout = ({ children }: ILayoutsProps) => {
       events.off("routeChangeError", handleComplete);
     };
   }, [events]);
+
+  useEffect(() => {
+    const token = cookie.get("token");
+    if (!token) {
+      console.warn("Token not found");
+      return;
+    }
+
+    const tokenSetTime = cookie.get("tokenSetTime");
+
+    if (tokenSetTime) {
+      const now = dayjs();
+      const timeSinceSet = now.diff(dayjs(tokenSetTime), "second");
+
+      if (timeSinceSet >= 20) {
+        console.log("Token needs to be refreshed");
+        resetToken({ token });
+        cookie.set("tokenSetTime", now.toISOString(), { path: "/" });
+      } else {
+        console.log(`Token is valid. Days since last refresh: ${timeSinceSet}`);
+      }
+    } else {
+      // If `tokenSetTime` is not set, initialize it
+      cookie.set("tokenSetTime", dayjs().toISOString(), { path: "/" });
+    }
+  }, []);
 
   /**
    * If the current page is an auth page, just render the children.
