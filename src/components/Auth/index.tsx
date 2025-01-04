@@ -8,6 +8,7 @@ import { Modal } from "@/ui";
 import dynamic from "next/dynamic";
 import LanguageSelector from "../LanguageSelector";
 import Cookies from "universal-cookie";
+import ConiformPhone from "./Steps/ConiformPhone";
 
 const ForgotPassword = dynamic(() => import("./Steps/ForgotPassword"));
 
@@ -69,6 +70,7 @@ export default function AuthPage() {
             {step === "forgot-password" ? (
               <ForgotPassword setModalIsOpen={setModalIsOpen} />
             ) : null}
+            {step === "coniform" && <ConiformPhone />}
           </div>
         </div>
       </div>

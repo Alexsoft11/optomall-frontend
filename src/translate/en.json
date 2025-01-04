@@ -22,7 +22,6 @@
     "metaKeywords": "e-commerce, shopping uz, optomall,ON WAY, products, online store uz, taobao uz"
   },
   "Error": {
-    "user_registered_successfully": "User registered successfully",
     "user_already_registrated": "User is already registered",
     "incorrect_login_or_password": "Incorrect login or password",
     "data_added_successfully": "Data added successfully",
@@ -66,7 +65,7 @@
   },
   "Auth": {
     "confirmCode": "Confirmation code",
-    "confirmCodeIncorect": "Incorrect confirmation code",
+    "incorect_coniform_code": "Incorrect confirmation code",
     "reset": "New password",
     "signin": "Sign in",
     "forgotPassword": "Forgot password?",
@@ -115,7 +114,12 @@
     "registerWithPhone": "With Phone",
     "haveAccount": "Already have an account?",
     "invalidPhone": "Invalid phone number",
-    "enterPhone": "Enter your phone number"
+    "enterPhone": "Enter your phone number",
+    "coniform_code_sended": "Confirmation code sent",
+    "send_code_failed": "Failed to send code. Please try again later.",
+    "phone_number_exists": "The phone number has already been taken",
+    "user_registered_successfully": "User registered successfully",
+    "phone_doesnt_exist": "The phone number is not registered"
   },
   "Cart": {
     "deleteSelected": "delete selected",
@@ -363,5 +367,10 @@
     "text_8": "After transferring the money to our card, take a screenshot of the receipt:",
     "text_9": "And upload it in the receipt upload section on our platform:",
     "text_10": "After uploading the receipt, your payment and order will be reviewed and confirmed between 9:00 AM and 7:00 PM. On our platform, you can pay not only with a plastic card but also in cash. To do this, select the products, add them to the basket, and visit our offices where you can hand over the money. We will issue a receipt and immediately process the order. Currently, our offices are located only in Kokand and Tashkent."
+  },
+  "captcha": {
+    "checkboxText": "Confirm you are not a robot",
+    "errorMessage": "Captcha validation failed. Please try again.",
+    "warningMessage": "Please complete the captcha correctly."
   }
 }
