@@ -45,7 +45,7 @@ const ProductsSection = () => {
    * @param {string} key - Tab key
    */
   const handleTabChange = (key: string) => {
-    const productsCount = getProductLimit(5);
+    const productsCount = getProductLimit(15);
     getProductsData({ query: key, productsCount });
     setKeyApi(key);
   };
@@ -70,9 +70,9 @@ const ProductsSection = () => {
    */
   useEffect(() => {
     if (!isBack || !homeProducts.length) {
-      const productsCount = getProductLimit(5);
+      const productsCount = getProductLimit(15);
       getProductsWhenScrool({ query: "discount", lang: locale, productsCount });
-      const limit = getProductLimit(3);
+      const limit = getProductLimit(10);
       getAditionalCats({ limit });
     } else {
       setIsBack(false);
