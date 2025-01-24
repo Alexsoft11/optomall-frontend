@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import {
-  GroupedProperties,
   ProductDetailInterface,
   SKU,
   CreateOrderDataInterface,
@@ -22,7 +21,6 @@ import { useJwt } from "@/utils/useJwt";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Scrollbar } from "swiper/modules";
 import SvgSelector from "$/assets/icons/SvgSelector";
-import { API } from "@/services/api";
 import { formatPrice } from "@/constants";
 import { LoadingSpinner } from "@/ui/Spin";
 
