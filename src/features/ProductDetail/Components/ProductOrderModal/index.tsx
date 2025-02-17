@@ -122,7 +122,7 @@ const ProductOrderModal = ({
           product.quantityRanges
         );
 
-        const newSelectedPropertys = parsedSku[0].parsedProperties?.map(
+        const newSelectedPropertys = parsedSku?.[0]?.parsedProperties?.map(
           (el) => ({
             name: el.name,
             id: el.id,
@@ -340,7 +340,7 @@ const ProductOrderModal = ({
 
     let quantity = 0;
     for (const item of selectedSku) {
-      if (item.properties.split(";").includes(propId)) {
+      if (item?.properties?.split(";").includes(propId)) {
         quantity += item.selected_quantity;
       }
     }
@@ -399,14 +399,14 @@ const ProductOrderModal = ({
       );
 
       const total = selectedSku?.reduce(
-        (acum, cur) => acum + (price || cur.price) * cur.selected_quantity,
+        (acum, cur) => acum + (price || cur?.price) * cur?.selected_quantity,
         0
       );
 
       return total;
     } else {
       const total = selectedSku?.reduce((acum, cur) => {
-        return acum + cur.price * cur.selected_quantity;
+        return acum + cur?.price * cur?.selected_quantity;
       }, 0);
       return total;
     }

@@ -161,9 +161,11 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
           {product?.discounted_price &&
           product.price !== product.discounted_price ? (
             <>
-              <span className={styles.discount}>
-                -{product.discount_percentage}%
-              </span>
+              {product.discount_percentage && (
+                <span className={styles.discount}>
+                  -{product.discount_percentage}%
+                </span>
+              )}
               <span className={styles.originalPrice}>
                 {formatPrice(product.discounted_price)} uzs
               </span>
