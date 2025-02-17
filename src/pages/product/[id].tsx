@@ -96,19 +96,19 @@ const ProductDetail = () => {
       ) : (
         product?.detail && (
           <PageLayout metaTitle={title}>
-            {query.provider === "local" ? (
+            {/* {query.provider === "local" ? (
               <ProductDetailSectionLocal
                 product={product.detail}
                 recommended={recomendProducts.products}
                 score={product.score}
               />
-            ) : (
-              <ProductDetailSection
-                product={product.detail}
-                recommended={recomendProducts.products}
-                score={product.score}
-              />
-            )}
+            ) : ( */}
+            <ProductDetailSection
+              product={product.detail}
+              recommended={recomendProducts.products}
+              score={product.score}
+            />
+            {/* )} */}
           </PageLayout>
         )
       )}
