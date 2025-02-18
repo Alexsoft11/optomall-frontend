@@ -126,6 +126,7 @@ export interface ProductDetailInterface {
   seller_info: SellerInfoInterface;
   seller_id: string;
   prop_imgs: PropImage[];
+  description_images?: string[];
 }
 export interface PropImage {
   properties: string;
