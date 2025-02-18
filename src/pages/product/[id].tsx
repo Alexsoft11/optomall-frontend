@@ -8,6 +8,8 @@ import DataNotFound from "@/ui/DataNotFound";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { message } from "antd";
 import useProductStore from "@/store/useProductStore";
+import PageNoItems from "@/components/PageNoItems";
+import { useTranslations } from "next-intl";
 
 const ProductDetailSection = dynamic(
   () => import("@/features/ProductDetail/Components/ProductDetailSection"),
@@ -27,6 +29,7 @@ const ProductDetailSectionLocal = dynamic(
 const ProductDetail = () => {
   const { query, locale, beforePopState } = useRouter();
   const { setIsBack } = useProductStore();
+  const t = useTranslations("");
 
   const {
     data: product,
@@ -86,7 +89,13 @@ const ProductDetail = () => {
   }, [beforePopState]);
 
   if (isError) {
-    return <DataNotFound />;
+    return (
+      <PageNoItems
+        title={t("Products.refresh_error_text")}
+        text={t("Search.refresh_page")}
+        customBtnFunc={() => window.location.reload()}
+      />
+    );
   }
   const title = product?.detail?.title;
   return (

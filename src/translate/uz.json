@@ -225,7 +225,8 @@
     "tab_1": "Chegirma",
     "tab_2": "Eng yaxshi mahsulotlar",
     "tab_3": "Siz uchun tavsiya etamiz",
-    "load_more": "Ko'proq yuklash"
+    "load_more": "Ko'proq yuklash",
+    "refresh_error_text": "Kechirasiz! xatolik yuz berdi. Iltimos, sahifani qayta yuklab, qaytadan qidirib ko'ring."
   },
   "Account": {
     "metaTitle": "Hisob | OPTOM-ALL",
