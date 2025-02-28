@@ -183,8 +183,8 @@ export default function OrderBlock({
       return true;
     },
     onChange: async (info: any) => {
-      setButtonStatus("pending");
       if (info.file.status === "done" && !isUploadErr) {
+        setButtonStatus("pending");
         try {
           const resizedFile = await resizeImage(
             info.file.originFileObj as File
