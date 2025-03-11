@@ -200,6 +200,17 @@ const ProductOrderModal = ({
       const { id, title, product_url, image, seller_info, quantityRanges } =
         product;
 
+      console.log(el.parsedProperties);
+      const parsedProps = el.parsedProperties?.map((el) => {
+        return {
+          id: el.id,
+          name: el.name || "default",
+          value: el.value || "default",
+          originalValue: el.originalValue,
+          originalName: el.originalName || "default",
+        };
+      });
+
       const sellerId = seller_info?.seller_user_id?.toString() || "prid" + id;
       let item: CreateBaskettemsDataInterface = {
         product_id: id.toString(),
@@ -211,7 +222,7 @@ const ProductOrderModal = ({
         seller_id: sellerId,
         provider: provider as string,
         sku_id: el.sku_id.toString(),
-        properties: el.parsedProperties!,
+        properties: parsedProps!,
         quantityRanges: quantityRanges,
       };
 
