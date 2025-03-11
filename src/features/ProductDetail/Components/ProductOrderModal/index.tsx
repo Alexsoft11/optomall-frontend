@@ -206,7 +206,7 @@ const ProductOrderModal = ({
           id: el.id,
           name: el.name || "default",
           value: el.value || "default",
-          originalValue: el.originalValue || "default",
+          originalValue: el.originalValue,
           originalName: el.originalName || "default",
         };
       });
