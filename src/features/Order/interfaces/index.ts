@@ -7,6 +7,7 @@ export interface OrderDataInterface {
     card_number: string;
     name?: string;
     id: number;
+    delivery_china?: number;
   };
   detail: PurchasesOrderInterface[];
 }

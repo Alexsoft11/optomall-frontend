@@ -53,6 +53,7 @@ export default function OrderPage({ orderData, userData }: Props) {
           costPerKg={orderData?.order?.kg_price}
           cardId={orderData?.order?.card_number}
           cost={orderData?.order?.total_price}
+          delivery_china={orderData?.order?.delivery_china}
         />
       </div>
       <div className={styles.items_block}>
@@ -72,13 +73,15 @@ export default function OrderPage({ orderData, userData }: Props) {
           orderId={orderData?.order?.id}
           type="order"
           cost={orderData?.order?.total_price}
+          delivery_china={orderData?.order?.delivery_china}
         />
         <div className={styles.order_info}>
           <div
-            className={`${dataFailed === "location"
-              ? "animate__shakeX animate__animated"
-              : null
-              }`}
+            className={`${
+              dataFailed === "location"
+                ? "animate__shakeX animate__animated"
+                : null
+            }`}
           >
             <LocationBlock
               setLocationInfo={setLocationInfo}
@@ -86,10 +89,11 @@ export default function OrderPage({ orderData, userData }: Props) {
             />
           </div>
           <div
-            className={`${dataFailed === "personal"
-              ? "animate__shakeX animate__animated"
-              : null
-              }`}
+            className={`${
+              dataFailed === "personal"
+                ? "animate__shakeX animate__animated"
+                : null
+            }`}
           >
             <GetOtderPerson
               personData={personData}
