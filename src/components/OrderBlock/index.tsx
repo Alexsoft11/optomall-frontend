@@ -21,6 +21,7 @@ interface Props {
   createOrderData?: CreateOrderDataInterface;
   type?: string;
   editOrderData?: EditOrderInterface;
+  delivery_china?: number;
   setDataFailed?: React.Dispatch<
     React.SetStateAction<"personal" | "location" | null>
   >;
@@ -35,6 +36,7 @@ export default function OrderBlock({
   cargoCost,
   editOrderData,
   setDataFailed,
+  delivery_china,
 }: Props) {
   const t = useTranslations("");
   const [checkModalIsOpen, setCheckModalIsOpen] = useState(false);
@@ -228,6 +230,12 @@ export default function OrderBlock({
           <h1>{t("Cart.total")}:</h1>
           <p>{formatPrice(cost)} uzs</p>
         </div>
+        {delivery_china && (
+          <div className={styles.china_delivery}>
+            <h1>{t("Cart.delivery_china")}:</h1>
+            <p>{formatPrice(delivery_china)} uzs</p>
+          </div>
+        )}
       </div>
       {orderId && (
         <div className={styles.upload_btn}>

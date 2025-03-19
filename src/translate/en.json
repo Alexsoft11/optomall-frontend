@@ -150,7 +150,8 @@
     "signin": "Sign in",
     "selectAll": "select all",
     "selectRegion": "Select Region",
-    "selectDistrict": "Select District"
+    "selectDistrict": "Select District",
+    "delivery_china": "Price in delivery China"
   },
   "Order": {
     "payCost": "Amount to be paid: ",

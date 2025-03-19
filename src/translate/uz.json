@@ -150,7 +150,8 @@
     "signin": "Kirish",
     "selectAll": "barchasini tanlash",
     "selectRegion": "Hududni tanlang",
-    "selectDistrict": "Tumanni tanlang"
+    "selectDistrict": "Tumanni tanlang",
+    "delivery_china": "Xitoy ichida yetkazib berish"
   },
   "Order": {
     "cardName": "Qabul qiluvchining ismi: ",
