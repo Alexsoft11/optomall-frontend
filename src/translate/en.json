@@ -151,7 +151,7 @@
     "selectAll": "select all",
     "selectRegion": "Select Region",
     "selectDistrict": "Select District",
-    "delivery_china": "Price in delivery China"
+    "delivery_china": "Delivery in China"
   },
   "Order": {
     "payCost": "Amount to be paid: ",

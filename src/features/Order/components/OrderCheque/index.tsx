@@ -56,7 +56,7 @@ export default function OrderCheque({
         <div className={styles.card_number}>
           {t("Order.cardNumber")}
           <div>
-            <p>
+            <p style={{ color: "red" }}>
               <b>{cardId}</b>
             </p>
             <Image

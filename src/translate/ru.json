@@ -155,7 +155,7 @@
     "selectAll": "выбрать все",
     "selectRegion": "Выберите регион",
     "selectDistrict": "Выберите район",
-    "delivery_china": "Цена в доставке Китаи"
+    "delivery_china": "Доставка в Китаи"
   },
   "Order": {
     "payCost": "Сумма к оплате: ",
