@@ -151,7 +151,7 @@
     "selectAll": "barchasini tanlash",
     "selectRegion": "Hududni tanlang",
     "selectDistrict": "Tumanni tanlang",
-    "delivery_china": "Xitoy ichida yetkazib berish"
+    "delivery_china": "Xitoy ichki transport"
   },
   "Order": {
     "cardName": "Qabul qiluvchining ismi: ",
