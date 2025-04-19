@@ -3,7 +3,7 @@ import styles from "./OrderBlock.module.scss";
 import { useTranslations } from "next-intl";
 import { Button, Modal } from "@/ui";
 import { useRouter } from "next/router";
-import { SearchSvg } from "$/assets/images";
+import { SearchSvg, SuccsessSvg } from "$/assets/images";
 import { CreateOrderDataInterface } from "../../features/Cart/interface";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { message, Upload } from "antd";
@@ -266,7 +266,7 @@ export default function OrderBlock({
       <Modal
         onCancel={checkModalClose}
         className="bg_white"
-        img={SearchSvg}
+        img={SuccsessSvg}
         description={t("Cart.checkMessage")}
         open={checkModalIsOpen}
       />

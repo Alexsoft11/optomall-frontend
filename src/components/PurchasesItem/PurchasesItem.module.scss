@@ -143,6 +143,7 @@
 
   .order_items {
     overflow: hidden;
+    overflow-y: scroll;
     max-height: 270px;
     height: min-content;
 
@@ -204,7 +205,6 @@
   .order_items {
     margin: 10px 0px 0px 0px;
     animation: 0.5s block-open linear;
-    max-height: 270px;
   }
 }
 
