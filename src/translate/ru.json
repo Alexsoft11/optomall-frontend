@@ -124,7 +124,9 @@
     "send_code_failed": "Код не отправлен, попробуйте еще раз",
     "phone_number_exists": "Номер телефона уже занят",
     "user_registered_successfully": "Пользователь успешно зарегистрирован",
-    "phone_doesnt_exist": "Номер телефона не зарегистрирован"
+    "phone_doesnt_exist": "Номер телефона не зарегистрирован",
+    "resetWithEmail": "Сброс по Email",
+    "resetWithPhone": "Сброс по номеру телефона"
   },
   "Cart": {
     "deleteSelected": "удалить выбранное",

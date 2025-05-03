@@ -53,8 +53,8 @@ const RegisterWithPhone = () => {
       message.error(t("captcha.warningMessage"));
       return;
     }
-    const number = values.phone_number.replace(/\s+/g, "");
-    appendData({ phone_number: `998${number}` });
+    const number = `998 ${values?.phone_number}`;
+    appendData({ phone_number: number });
   };
 
   const handleVerify = () => {

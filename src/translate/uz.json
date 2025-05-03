@@ -119,7 +119,9 @@
     "send_code_failed": "Kod yuborishda xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.",
     "phone_number_exists": "Telefon raqami band qilingan",
     "user_registered_successfully": "Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi",
-    "phone_doesnt_exist": "Telefon raqami ro'yxatdan o'tmagan"
+    "phone_doesnt_exist": "Telefon raqami ro'yxatdan o'tmagan",
+    "resetWithEmail": "Email orqali tiklash",
+    "resetWithPhone": "Telefon raqami orqali tiklash"
   },
   "Cart": {
     "deleteSelected": "tanlanganlarni o'chirish",
