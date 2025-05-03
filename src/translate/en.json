@@ -119,7 +119,9 @@
     "send_code_failed": "Failed to send code. Please try again later.",
     "phone_number_exists": "The phone number has already been taken",
     "user_registered_successfully": "User registered successfully",
-    "phone_doesnt_exist": "The phone number is not registered"
+    "phone_doesnt_exist": "The phone number is not registered",
+    "resetWithEmail": "Reset with Email",
+    "resetWithPhone": "Reset with Phone"
   },
   "Cart": {
     "deleteSelected": "delete selected",

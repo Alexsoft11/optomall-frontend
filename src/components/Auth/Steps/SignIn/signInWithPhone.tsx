@@ -19,9 +19,9 @@ const SignInWithPhone = ({ createData, form, isLoading }: Props) => {
   const t = useTranslations("");
 
   const onPhoneSignIn = (values: any) => {
-    const number = values.phone_number.replace(/\s+/g, "");
+    const number = `998 ${values?.phone_number}`;
     createData({
-      email: `998${number}`,
+      email: number,
       password: values.password,
       type: "phone",
     });
