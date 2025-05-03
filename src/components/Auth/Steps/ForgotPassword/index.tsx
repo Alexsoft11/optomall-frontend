@@ -46,6 +46,7 @@ export default function ForgotPassword({ setModalIsOpen }: Props) {
     });
     if (values.email) cookie.set("forgot-email", values.email);
     if (values.phone_number) cookie.set("forgot-phone", values.phone_number);
+    if (tab) cookie.set("forgot-type", tab);
   };
 
   const tabItems = [
