@@ -27,12 +27,15 @@ export default function NewPassword() {
     },
     onSuccess(res) {
       router.push("/auth");
+      cookie.remove("forgot-email");
+      cookie.remove("forgot-phone");
+      cookie.remove("forgot-type");
     },
   });
 
   const onFinish = (values: any) => {
     values.email = cookie.get("forgot-email");
-    values.phone_number = cookie.get("forgot-phone");
+    values.phone_number = `998 ${cookie.get("forgot-phone")}`;
     values.type = cookie.get("forgot-type");
     createData(values);
   };
