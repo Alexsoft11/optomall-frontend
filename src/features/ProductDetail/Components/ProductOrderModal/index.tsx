@@ -77,7 +77,6 @@ const ProductOrderModal = ({
       onSuccess(res) {
         message.success(t(`Product-detail.${res.message}`), 2);
         setOrderType(null);
-        // Handle the promise using `.then()` since `onSuccess` cannot be async
         groupProperties(
           skus,
           product.props_list,
@@ -200,7 +199,6 @@ const ProductOrderModal = ({
       const { id, title, product_url, image, seller_info, quantityRanges } =
         product;
 
-      console.log(el.parsedProperties);
       const parsedProps = el.parsedProperties?.map((el) => {
         return {
           id: el.id,
@@ -339,6 +337,10 @@ const ProductOrderModal = ({
 
       if (counter === properyIdArr.length) {
         const isFind = selectedSku?.find((item) => el.sku_id === item.sku_id);
+        console.log("isFind", isFind);
+        console.log("selectedSku", selectedSku);
+        console.log("elSku", el);
+
         setCurrentSku(isFind || el);
       }
     });

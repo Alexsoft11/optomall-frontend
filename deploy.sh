@@ -3,10 +3,10 @@
 # Navigate to the project directory
 cd /var/www/onway/
 
-# Fetch latest changes from the repository
-git fetch
+# # Fetch latest changes from the repository
+# git fetch
 
-git merge origin/server
+# git merge origin/server
 
 # Install dependencies
 #npm install --force

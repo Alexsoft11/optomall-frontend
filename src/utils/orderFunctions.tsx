@@ -68,8 +68,9 @@ export const groupProperties = async (
 
   const allProperties: PropsList[] = propsList.map(
     ({ pid, prop_name, values }) => {
-      let propName = prop_name;
-      let originalValue = "";
+      let [key, value] = prop_name.split(":");
+      let propName = key;
+      let originalValue = value;
 
       const updatesValues = values.map(({ imageUrl, name, vid }) => {
         let value = name;
