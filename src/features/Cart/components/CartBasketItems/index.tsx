@@ -34,8 +34,8 @@ export default function CartBasketItems({
   isLoading,
   selected,
 }: Props) {
-  const t = useTranslations("Cart")
-  
+  const t = useTranslations("Cart");
+
   const selectClick = (value: boolean) => {
     setSelectAll(value);
     const clone = data.map((el) => ({ ...el, chacked: value }));
@@ -57,8 +57,9 @@ export default function CartBasketItems({
         seller_id,
         provider,
         id,
+        product_info,
       } = item;
-    
+
       const cartOrderItem = {
         id: id,
         product_id,
@@ -71,6 +72,7 @@ export default function CartBasketItems({
         sku_id: sku_id!,
         price: price,
         quantity,
+        product_info,
       };
 
       return { item: cartOrderItem, chacked: value };
@@ -86,8 +88,8 @@ export default function CartBasketItems({
       disableOnMount: true,
     },
     onSuccess(res) {
-      setDataClone(res.original)
-    }
+      setDataClone(res.original);
+    },
   });
 
   const deleteSelected = () => {

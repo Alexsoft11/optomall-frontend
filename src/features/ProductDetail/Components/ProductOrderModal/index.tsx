@@ -112,6 +112,25 @@ const ProductOrderModal = ({
     setOrderType(null);
   };
 
+  const {
+    appendData: getProductInfo,
+    data: productFeeInfo = {},
+    isLoading,
+  } = useQueryApiClient({
+    request: {
+      url: `product-info/${product?.id}`,
+      method: "GET",
+      disableOnMount: true,
+    },
+  });
+
+  useEffect(() => {
+    console.log(productFeeInfo);
+    if (provider === "1688" && !!type && !productFeeInfo?.skuWeight) {
+      getProductInfo();
+    }
+  }, [type, provider]);
+
   useEffect(() => {
     const fetchGroupedProperties = async () => {
       if (skus && prop_imgs) {
@@ -200,7 +219,6 @@ const ProductOrderModal = ({
       const { id, title, product_url, image, seller_info, quantityRanges } =
         product;
 
-      console.log(el.parsedProperties);
       const parsedProps = el.parsedProperties?.map((el) => {
         return {
           id: el.id,
@@ -224,6 +242,10 @@ const ProductOrderModal = ({
         sku_id: el.sku_id.toString(),
         properties: parsedProps!,
         quantityRanges: quantityRanges,
+        product_info: {
+          ...productFeeInfo,
+          skuWeight: productFeeInfo.skuWeight[el.sku_id] || 0,
+        },
       };
 
       if (type === "to_cart") item.max_quantity = el.quantity;
@@ -284,6 +306,7 @@ const ProductOrderModal = ({
 
     if (!selectedSku) {
       const newCurrentSku = { ...currentSku, selected_quantity: value };
+
       setSelectedSku([newCurrentSku]);
       return;
     }
@@ -292,6 +315,7 @@ const ProductOrderModal = ({
       const clone = selectedSku.map((el) => el);
       clone.push({ ...currentSku, selected_quantity: value });
       setCurrentSku({ ...currentSku, selected_quantity: value });
+
       setSelectedSku(clone);
       return;
     }
@@ -476,6 +500,8 @@ const ProductOrderModal = ({
                   : t("Product-detail.buy")
               }
               type="primary"
+              isLoading={isLoading || isOrderLoading}
+              disabled={isLoading || isOrderLoading}
               onClick={toOrder}
             />
           </div>

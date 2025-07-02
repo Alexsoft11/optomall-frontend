@@ -183,4 +183,6 @@ export const API = {
         Authorization: "Bearer " + token,
       },
     }),
+  getChinaProductInfo: (productId: string) =>
+    axiosInstance.get(`product-info/${productId}`).then((res) => res.data),
 };
