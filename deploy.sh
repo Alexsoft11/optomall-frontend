@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Navigate to the project directory
-cd /home/alexsoft1/onway/
+cd /var/www/onway/
 
 # Fetch latest changes from the repository
 git fetch
