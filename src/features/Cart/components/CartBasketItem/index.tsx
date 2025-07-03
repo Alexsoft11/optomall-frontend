@@ -72,6 +72,7 @@ export default function CartBasketItem({
       price: +item.price,
       properties: item.properties,
       quantity: item.quantity,
+      product_info: item.product_info,
     };
 
     setAddOrder({ item: data, chacked: chacked });

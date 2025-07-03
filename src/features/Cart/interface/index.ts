@@ -18,6 +18,7 @@ export interface CartItemInterface {
   chacked?: boolean;
   user_info: LocationInfoInterface;
   user_location: PersonalDataInterface;
+  product_info?: any;
 }
 
 export interface AddOrderInterface {
@@ -37,6 +38,7 @@ export interface CartOrderItemInterface {
   price: number;
   properties: ProppertiesInterface[];
   quantity: number;
+  product_info?: any;
 }
 
 export interface CreateOrderDataInterface {

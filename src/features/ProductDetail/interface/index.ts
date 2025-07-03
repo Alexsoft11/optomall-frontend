@@ -190,4 +190,5 @@ export interface CreateBaskettemsDataInterface {
   product_url: string;
   properties: ProppertiesInterface[];
   quantityRanges?: any[];
+  product_info?: any;
 }

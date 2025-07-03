@@ -12,6 +12,7 @@ interface Props {
   costPerKg: string;
   cardName?: string;
   delivery_china?: number;
+  product_cost?: number;
 }
 
 export default function OrderCheque({
@@ -20,6 +21,7 @@ export default function OrderCheque({
   costPerKg,
   cardName,
   delivery_china,
+  product_cost,
 }: Props) {
   const t = useTranslations("");
   const [messageApi, contextHolder] = message.useMessage();
@@ -41,16 +43,27 @@ export default function OrderCheque({
       <div className={styles.cheque}>
         {contextHolder}
         <p className={styles.pay_text}>{t("Order.payTutorialText")}</p>
+
+        {!!delivery_china && (
+          <>
+            <p className={styles.pay_china}>
+              {t("Cart.product_cost")}
+              <span>
+                <b> {formatPrice(product_cost)} sum </b>
+              </span>
+            </p>
+            <p className={styles.pay_china}>
+              {t("Cart.delivery_china")}
+              <span>
+                <b> {formatPrice(delivery_china)} sum </b>
+              </span>
+            </p>
+          </>
+        )}
         <p className={styles.pay_cost}>
           {t("Order.payCost")}
           <span>
             <b> {formatPrice(cost)} sum </b>
-          </span>
-        </p>
-        <p className={styles.pay_china}>
-          {t("Cart.delivery_china")}
-          <span>
-            <b> {formatPrice(delivery_china)} sum </b>
           </span>
         </p>
         <div className={styles.card_number}>

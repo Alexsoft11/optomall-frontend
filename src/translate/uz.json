@@ -153,7 +153,8 @@
     "selectAll": "barchasini tanlash",
     "selectRegion": "Hududni tanlang",
     "selectDistrict": "Tumanni tanlang",
-    "delivery_china": "Xitoy ichki transport"
+    "delivery_china": "Xitoy ichki transport",
+    "product_cost": "Mahsulot narxi"
   },
   "Order": {
     "cardName": "Qabul qiluvchining ismi: ",
@@ -162,7 +163,9 @@
     "payTutorialText": "Quyidagi karta raqamini nusxalab oling, so'ngra bank ilovangizni oching va ko'rsatilgan summani bir to'lov bilan ushbu karta raqamga o'tkazing. Diqqat! Quyida ko'rsatilgan aniq summani o'tkazish kerak! Diqqat: To'lov amalga oshirilmaguncha buyurtma xaqiqiy xisoblanmyaydi",
     "textCopyed": "Matn ko'chirildi!",
     "impotantMessage": "Sizning buyurtmangiz kelganidan so'ng kargo xizmatini to'lashingiz kerak. Yetkazib berish narxi buyurtma kelganda avtomatik ravishda hisoblanadi va og'irlikka bog'liq, har 1 kilogramm uchun {costPerKg} uzs. Minimal og'irlik yo'q.",
-    "importantTitle": "Muhim!"
+    "importantTitle": "Muhim!",
+    "calculatingChinaDelivery": "Xitoyda sotuvchidan omborga yetkazib berish narxi hisoblanmoqda...",
+    "calculationMayTakeTime": "Hisoblash bir necha soniya yoki bir daqiqa vaqt olishi mumkin."
   },
   "Purchases": {
     "active": "Faol",
@@ -317,14 +320,12 @@
       "text_2": "Rasm bo'yicha qidirish. Bu usul juda aniq va qulay! Siz mahsulot rasmini yuklaysiz va 10 soniya ichida siz ushbu mahsulot narxi va ma'lumotlarini olasiz. Rasm qidirish funksiyasi qidiruv paneli oldida joylashgan. bizning platformamizda ushbu bo'limda siz o'zingizning rasmingizni yoki Internetdan olingan rasmni yuklashingiz mumkin.",
       "text_3": "Havola bo'yicha qidiruv. Bu funksiya yordamida Taobao, Tmall yoki 1688 savdo platformalaridagi havoladan foydalanib, kerakli mahsulotni topishingiz mumkin."
     },
-
     "panel_2": {
       "title_1": "Bizning savdo platformamizda mahsulotni qanday topish mumkin? Keling, bir nechta usullarni ko'rib chiqaylik!",
       "title_2": "Uy sahifa tasviri",
       "title_3": "Ro'yxatdan o'tish so'rovi sahifasi tasviri",
       "title_4": "E-pochta manzili va parol so'ragan jadvalga ko'rsatgich",
       "title_5": "Google tugmasiga ko'rsatgich",
-
       "text_1": "Ro'yxatdan o'tish uchun elektron pochta manzilingiz kerak!",
       "text_2": "Rasmda ko'rsatilgan tartibda ro'yxatdan o'tasiz",
       "text_3": "Platformamizga kirganingizdan so'ng rasmda ko'rsatilgan bo'limga o'ting",

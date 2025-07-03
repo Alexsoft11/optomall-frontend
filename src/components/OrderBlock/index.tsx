@@ -3,7 +3,7 @@ import styles from "./OrderBlock.module.scss";
 import { useTranslations } from "next-intl";
 import { Button, Modal } from "@/ui";
 import { useRouter } from "next/router";
-import { SearchSvg, SuccsessSvg } from "$/assets/images";
+import { SuccsessSvg } from "$/assets/images";
 import { CreateOrderDataInterface } from "../../features/Cart/interface";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { message, Upload } from "antd";
@@ -22,6 +22,7 @@ interface Props {
   type?: string;
   editOrderData?: EditOrderInterface;
   delivery_china?: number;
+  product_cost?: number;
   setDataFailed?: React.Dispatch<
     React.SetStateAction<"personal" | "location" | null>
   >;
@@ -37,6 +38,7 @@ export default function OrderBlock({
   editOrderData,
   setDataFailed,
   delivery_china,
+  product_cost,
 }: Props) {
   const t = useTranslations("");
   const [checkModalIsOpen, setCheckModalIsOpen] = useState(false);
@@ -230,10 +232,16 @@ export default function OrderBlock({
           <h1>{t("Cart.total")}:</h1>
           <p>{formatPrice(cost)} uzs</p>
         </div>
-        {delivery_china && (
+        {!!delivery_china && (
           <div className={styles.china_delivery}>
             <h1>{t("Cart.delivery_china")}:</h1>
             <p>{formatPrice(delivery_china)} uzs</p>
+          </div>
+        )}
+        {!!delivery_china && (
+          <div className={styles.china_delivery}>
+            <h1>{t("Cart.product_cost")}:</h1>
+            <p>{formatPrice(product_cost)} uzs</p>
           </div>
         )}
       </div>
