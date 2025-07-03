@@ -1,23 +1,49 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import styles from "./PurchasesItem.module.scss";
 import { useLocale, useTranslations } from "next-intl";
-import SvgSelector from "$/assets/icons/SvgSelector";
 import Image from "next/image";
 import { LanguageStringIntergace } from "@/interfaces";
 import { useRouter } from "next/router";
 import { formatPrice } from "@/constants";
 import { PurchasesOrderInterface } from "../Types";
 import PurchasesOrderItem from "../PurchasesOrderItem";
+import useQueryApiClient from "@/utils/useQueryApiClient";
 
 interface Props {
   item: PurchasesOrderInterface;
+  isOrderPage?: boolean;
+  onDeliveryFeeFinished: (total?: number) => void;
 }
 
-export default function PurchasesItem({ item }: Props) {
+export default function PurchasesItem({
+  item,
+  isOrderPage,
+  onDeliveryFeeFinished,
+}: Props) {
   const t = useTranslations("Purchases");
   const locale = useLocale();
   const { push, asPath } = useRouter();
   const getCreateDateRegexp = /(\d){4}-(\d){2}-(\d){2}/;
+
+  const { appendData: createData } = useQueryApiClient({
+    request: {
+      url: `orders/${item.order_id}/delivery‑fees`,
+      method: "GET",
+      disableOnMount: true,
+    },
+    onSuccess(res) {
+      onDeliveryFeeFinished(res?.groupTotal || 0);
+    },
+    onError(response) {
+      onDeliveryFeeFinished(0);
+    },
+  });
+
+  useEffect(() => {
+    if (isOrderPage && item.items[0].provider === "1688") {
+      createData();
+    }
+  }, [isOrderPage]);
 
   function hexToRgba(hex?: string, alpha: number = 1): string {
     // Remove the hash at the start if it's there

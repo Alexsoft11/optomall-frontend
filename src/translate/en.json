@@ -153,7 +153,8 @@
     "selectAll": "select all",
     "selectRegion": "Select Region",
     "selectDistrict": "Select District",
-    "delivery_china": "Delivery in China"
+    "delivery_china": "Delivery in China",
+    "product_cost": "Product cost"
   },
   "Order": {
     "payCost": "Amount to be paid: ",
@@ -162,7 +163,9 @@
     "payTutorialText": "Copy the card number below, then open your banking application and transfer the specified amount to this card number in one payment. Attention! The exact amount shown below must be transferred! Attention: The order is not considered valid until the payment is made",
     "textCopyed": "Text copied!",
     "impotantMessage": "You must pay for the cargo service upon the arrival of your order. The delivery cost is automatically calculated based on the weight when the order arrives, {costPerKg} uzs per 1 kilogram. There is no minimum weight.",
-    "importantTitle": "Important!"
+    "importantTitle": "Important!",
+    "calculatingChinaDelivery": "Calculating delivery fee from seller to warehouse in China...",
+    "calculationMayTakeTime": "This may take a few seconds or up to one minute."
   },
   "Purchases": {
     "active": "Active",
@@ -317,14 +320,12 @@
       "text_2": "Searching by image. This method is very accurate and convenient! You upload a product image, and within 10 seconds, you’ll receive the prices and information for that product. The image search function is located before the search bar on our platform. In this section, you can upload your image or an image taken from the Internet.",
       "text_3": "Searching by link. With this function, you can find the exact product you want using a link from Taobao, Tmall, or 1688 trading platforms."
     },
-
     "panel_2": {
       "title_1": "How can you find a product on our trading platform? Let's explore a few methods!",
       "title_2": "Home Page Image",
       "title_3": "Registration Request Page Image",
       "title_4": "Pointer to the table requesting email address and password",
       "title_5": "Pointer to the Google button",
-
       "text_1": "To register, we need your email address!",
       "text_2": "You will register by following the procedure shown in the image",
       "text_3": "After logging into our platform, navigate to the section shown in the image",

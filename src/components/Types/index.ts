@@ -27,11 +27,12 @@ export interface PurchasesItemInterface {
   price: number;
   title: string;
   product_id?: number;
-  properties: ProppertiesInterface[]
+  properties: ProppertiesInterface[];
 }
 
 export interface PurchasesOrderInterface {
   id: number;
+  order_id: number;
   unique_id: string;
   status: LanguageStringIntergace;
   status_color: string;

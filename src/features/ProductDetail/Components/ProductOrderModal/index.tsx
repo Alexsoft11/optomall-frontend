@@ -116,6 +116,8 @@ const ProductOrderModal = ({
     appendData: getProductInfo,
     data: productFeeInfo = {},
     isLoading,
+    isError,
+    isSuccess,
   } = useQueryApiClient({
     request: {
       url: `product-info/${product?.id}`,
@@ -125,8 +127,7 @@ const ProductOrderModal = ({
   });
 
   useEffect(() => {
-    console.log(productFeeInfo);
-    if (provider === "1688" && !!type && !productFeeInfo?.skuWeight) {
+    if (provider === "1688" && !!type && !isSuccess && !isError) {
       getProductInfo();
     }
   }, [type, provider]);
@@ -242,10 +243,7 @@ const ProductOrderModal = ({
         sku_id: el.sku_id.toString(),
         properties: parsedProps!,
         quantityRanges: quantityRanges,
-        product_info: {
-          ...productFeeInfo,
-          skuWeight: productFeeInfo.skuWeight[el.sku_id] || 0,
-        },
+        product_info: productFeeInfo,
       };
 
       if (type === "to_cart") item.max_quantity = el.quantity;
