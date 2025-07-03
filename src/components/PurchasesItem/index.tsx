@@ -12,7 +12,7 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 interface Props {
   item: PurchasesOrderInterface;
   isOrderPage?: boolean;
-  onDeliveryFeeFinished: (total?: number) => void;
+  onDeliveryFeeFinished?: (total?: number) => void;
 }
 
 export default function PurchasesItem({
@@ -32,10 +32,10 @@ export default function PurchasesItem({
       disableOnMount: true,
     },
     onSuccess(res) {
-      onDeliveryFeeFinished(res?.groupTotal || 0);
+      onDeliveryFeeFinished?.(res?.groupTotal || 0);
     },
     onError(response) {
-      onDeliveryFeeFinished(0);
+      onDeliveryFeeFinished?.(0);
     },
   });
 
