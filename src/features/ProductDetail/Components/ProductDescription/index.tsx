@@ -21,7 +21,7 @@ const ProductDescription = ({ descImages = [] }: { descImages?: string[] }) => {
       {descImages.length > 0 ? (
         <div className={styles.desc_images_local}>
           {descImages.map((el, idx) => (
-            <img key={idx} src={el} alt="img" />
+            <img key={idx} src={el} alt="img" referrerPolicy="no-referrer" />
           ))}
         </div>
       ) : isLoading ? (
