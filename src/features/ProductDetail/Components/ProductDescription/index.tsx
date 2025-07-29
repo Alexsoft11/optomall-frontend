@@ -1,11 +1,11 @@
-import React, { FC } from "react";
-
+import React from "react";
 import styles from "./ProductDescription.module.scss";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useRouter } from "next/router";
 import { LoadingSpinner } from "@/ui/Spin";
-import Image from "next/image";
 import CustomImage from "@/components/CustomImage";
+import Image from "next/image";
+import parse, { domToReact, HTMLReactParserOptions, Element } from "html-react-parser";
 
 const ProductDescription = ({ descImages = [] }: { descImages?: string[] }) => {
   const { query, locale } = useRouter();
@@ -18,15 +18,36 @@ const ProductDescription = ({ descImages = [] }: { descImages?: string[] }) => {
     },
   });
 
-  console.log('desc', description.desc?.detail_html);
+  const html = description?.desc?.detail_html || "";
 
+  const htmlOptions: HTMLReactParserOptions = {
+    replace: (node) => {
+      if (node instanceof Element && node.name === "img") {
+        const src = node.attribs.src;
+        const alt = node.attribs.alt || "";
+        const width = 800;
+        const height = 600;
+
+        if (src) {
+          return (
+            <Image
+              src={src}
+              alt={alt}
+              width={width}
+              height={height}
+              style={{ width: "100%", height: "auto", objectFit: "contain" }}
+            />
+          );
+        }
+      }
+    },
+  };
 
   return (
     <>
       {descImages.length > 0 ? (
         <div className={styles.desc_images_local}>
           {descImages.map((el, idx) => (
-            // <Image key={idx} src={el} alt="img" referrerPolicy="no-referrer" />
             <CustomImage
               src={el}
               alt="Product Image"
@@ -41,12 +62,7 @@ const ProductDescription = ({ descImages = [] }: { descImages?: string[] }) => {
       ) : isLoading ? (
         <LoadingSpinner size="large" />
       ) : (
-        <div
-          className={styles.html_img}
-          dangerouslySetInnerHTML={{
-            __html: description?.desc?.detail_html,
-          }}
-        />
+        <div className={styles.html_img}>{parse(html, htmlOptions)}</div>
       )}
     </>
   );
