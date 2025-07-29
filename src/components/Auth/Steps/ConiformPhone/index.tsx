@@ -96,6 +96,7 @@ const ConiformPhone = () => {
               controls={false}
               placeholder={t("Auth.confirmCode")}
               style={{ width: "100%" }}
+              inputMode="numeric"
             />
           </Form.Item>
           <Input

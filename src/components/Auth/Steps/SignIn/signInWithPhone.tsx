@@ -59,6 +59,8 @@ const SignInWithPhone = ({ createData, form, isLoading }: Props) => {
             type="text"
             prefix={"+998"}
             mask={"00 000 00 00"}
+            inputMode="numeric"
+            // pattern="/d*"
           />
         </Form.Item>
 

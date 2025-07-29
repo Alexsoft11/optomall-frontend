@@ -98,6 +98,7 @@ const RegisterWithPhone = () => {
             type="text"
             prefix={"+998"}
             mask={"00 000 00 00"}
+            inputMode="numeric"
           />
         </Form.Item>
 
