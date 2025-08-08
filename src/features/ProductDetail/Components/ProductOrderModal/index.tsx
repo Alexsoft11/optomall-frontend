@@ -111,25 +111,25 @@ const ProductOrderModal = ({
     setOrderType(null);
   };
 
-  const {
-    appendData: getProductInfo,
-    data: productFeeInfo = {},
-    isLoading,
-    isError,
-    isSuccess,
-  } = useQueryApiClient({
-    request: {
-      url: `product-info/${product?.id}`,
-      method: "GET",
-      disableOnMount: true,
-    },
-  });
+  // const {
+  //   appendData: getProductInfo,
+  //   data: productFeeInfo = {},
+  //   isLoading,
+  //   isError,
+  //   isSuccess,
+  // } = useQueryApiClient({
+  //   request: {
+  //     url: `product-info/${product?.id}`,
+  //     method: "GET",
+  //     disableOnMount: true,
+  //   },
+  // });
 
-  useEffect(() => {
-    if (provider === "1688" && !!type && !isSuccess && !isError) {
-      getProductInfo();
-    }
-  }, [type, provider]);
+  // useEffect(() => {
+  //   if (provider === "1688" && !!type && !isSuccess && !isError) {
+  //     getProductInfo();
+  //   }
+  // }, [type, provider]);
 
   useEffect(() => {
     const fetchGroupedProperties = async () => {
@@ -242,7 +242,7 @@ const ProductOrderModal = ({
         sku_id: el.sku_id.toString(),
         properties: parsedProps!,
         quantityRanges: quantityRanges,
-        product_info: productFeeInfo,
+        // product_info: productFeeInfo,
       };
 
       if (type === "to_cart") item.max_quantity = el.quantity;
@@ -292,9 +292,8 @@ const ProductOrderModal = ({
         setMessageVisible(true);
         messageApi.open({
           type: "warning",
-          content: `${t("Product-detail.isMaxQuantity")}, ${
-            currentSku.quantity
-          } `,
+          content: `${t("Product-detail.isMaxQuantity")}, ${currentSku.quantity
+            } `,
           onClose: () => setMessageVisible(false),
         });
       }
@@ -501,8 +500,8 @@ const ProductOrderModal = ({
                   : t("Product-detail.buy")
               }
               type="primary"
-              isLoading={isLoading || isOrderLoading}
-              disabled={isLoading || isOrderLoading}
+              isLoading={isOrderLoading}
+              disabled={isOrderLoading}
               onClick={toOrder}
             />
           </div>
@@ -554,17 +553,15 @@ const ProductOrderModal = ({
                               onClick={() =>
                                 handlePropertySelect(id, prop_name)
                               }
-                              className={`${
-                                currentSku?.properties.split(";").includes(id)
-                                  ? styles.active
-                                  : !getExist(id, parsedSku)
+                              className={`${currentSku?.properties.split(";").includes(id)
+                                ? styles.active
+                                : !getExist(id, parsedSku)
                                   ? styles.disable
                                   : ""
-                              }
-                                ${
-                                  imageUrl
-                                    ? "img-block"
-                                    : "content-inner grouped-prop"
+                                }
+                                ${imageUrl
+                                  ? "img-block"
+                                  : "content-inner grouped-prop"
                                 }
                               `}
                             >
@@ -603,8 +600,8 @@ const ProductOrderModal = ({
                             idx !== 0
                               ? null
                               : idx === 0
-                              ? getPropertyQuantity(id, prop_name)
-                              : null
+                                ? getPropertyQuantity(id, prop_name)
+                                : null
                           }
                           key={index}
                         >
@@ -614,8 +611,8 @@ const ProductOrderModal = ({
                               currentSku?.properties.split(";").includes(id)
                                 ? styles.active
                                 : !getExist(id, parsedSku)
-                                ? styles.disable
-                                : ""
+                                  ? styles.disable
+                                  : ""
                             }
                           >
                             {name}

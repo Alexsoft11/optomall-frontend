@@ -27,7 +27,7 @@ export default function PurchasesItem({
 
   const { appendData: createData } = useQueryApiClient({
     request: {
-      url: `orders/${item.order_id}/delivery‑fees`,
+      url: `orders/${item.order_id}/delivery‑fees/tmapi`,
       method: "GET",
       disableOnMount: true,
     },
@@ -77,13 +77,12 @@ export default function PurchasesItem({
 
   return (
     <div
-      className={`${styles.main} ${
-        isRotatedUp
+      className={`${styles.main} ${isRotatedUp
           ? styles.detailOpen
           : firstLoad
-          ? styles.firsLoadAnimation
-          : styles.detailClose
-      }`}
+            ? styles.firsLoadAnimation
+            : styles.detailClose
+        }`}
     >
       <div className={styles.order_info}>
         <p>
