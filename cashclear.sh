@@ -8,6 +8,7 @@ cd /var/www/onway/
 #git merge origin/server
 
 # Clean old build
+rm -rf .next/images
 rm -rf .next
 
 # Install dependencies (if needed)
