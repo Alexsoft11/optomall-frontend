@@ -154,7 +154,8 @@
     "selectRegion": "Select Region",
     "selectDistrict": "Select District",
     "delivery_china": "Delivery in China",
-    "product_cost": "Product cost"
+    "product_cost": "Product cost",
+    "MinOrderSum50000": "The total amount of your order must be at least 50 000 UZS"
   },
   "Order": {
     "payCost": "Amount to be paid: ",
