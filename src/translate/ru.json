@@ -158,7 +158,8 @@
     "selectRegion": "Выберите регион",
     "selectDistrict": "Выберите район",
     "delivery_china": "Доставка в Китаи",
-    "product_cost": "Стоимость товара"
+    "product_cost": "Стоимость товара",
+    "MinOrderSum50000": "Сумма заказа должна быть не менее 50 000 сум"
   },
   "Order": {
     "payCost": "Сумма к оплате: ",

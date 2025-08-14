@@ -50,15 +50,14 @@ export default function OrderBlock({
   >("idle");
   const cookie = new Cookies();
 
-  const buttonClass = `${styles["loading-btn"]} ${
-    buttonStatus === "pending"
-      ? styles["loading-btn--pending"]
-      : buttonStatus === "success"
+  const buttonClass = `${styles["loading-btn"]} ${buttonStatus === "pending"
+    ? styles["loading-btn--pending"]
+    : buttonStatus === "success"
       ? styles["loading-btn--success"]
       : buttonStatus === "fail"
-      ? styles["loading-btn--fail"]
-      : ""
-  }`;
+        ? styles["loading-btn--fail"]
+        : ""
+    }`;
 
   const checkModalClose = () => {
     router.push("/purchases?filter=in_verification");
@@ -214,11 +213,17 @@ export default function OrderBlock({
     if (itemValue === 0) {
       if (!messageVisible) {
         setMessageVisible(true);
-        message.warning(t("Cart.chooseItem"), 1);
+        message.warning(t("Cart.chooseItemM"), 3);
         setTimeout(() => setMessageVisible(false), 1000);
       }
       return;
     }
+
+    if (!!createOrderData?.total_price && createOrderData?.total_price < 50000) {
+      message.warning(t("Cart.MinOrderSum50000"), 3);
+      return;
+    }
+
     createData(createOrderData);
   };
 
