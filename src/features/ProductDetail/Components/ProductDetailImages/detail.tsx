@@ -115,7 +115,7 @@ const Detail = ({ selectedImage, product, imageIndex }: any) => {
           doubleClickZoom={2}
         />
       )} */}
-      <LightboxGallery currentImages={images} startIndex={currentImageIndex} setIsOpen={setIsOpen} isOpen={isOpen} />
+      <LightboxGallery images={images} startIndex={currentImageIndex} setIsOpen={setIsOpen} isOpen={isOpen} />
       {isPlaying && getVideoUrl() ? <Modal {...modalProps} /> : null}
     </>
   );

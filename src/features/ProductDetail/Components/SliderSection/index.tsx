@@ -87,7 +87,7 @@ const SliderSection: FC<IProps> = ({ data, video }) => {
           doubleClickZoom={2}
         />
       )} */}
-      <LightboxGallery currentImages={data} startIndex={currentImageIndex} setIsOpen={setIsOpen} isOpen={isOpen} />
+      <LightboxGallery images={data} startIndex={currentImageIndex} setIsOpen={setIsOpen} isOpen={isOpen} />
 
       {isPlaying && <Modal {...modalProps} />}
     </>

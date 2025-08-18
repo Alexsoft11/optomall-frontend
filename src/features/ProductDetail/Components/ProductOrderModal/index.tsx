@@ -642,7 +642,7 @@ const ProductOrderModal = ({
           doubleClickZoom={2} // Zoom level on double-click
         />
       )} */}
-      <LightboxGallery currentImages={currentImages} startIndex={photoIndex} setIsOpen={setIsOpen} isOpen={isOpen} />
+      <LightboxGallery images={currentImages} startIndex={photoIndex} setIsOpen={setIsOpen} isOpen={isOpen} />
 
     </div>
   );
