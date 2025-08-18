@@ -34,7 +34,9 @@ export default function LightboxGallery({ isOpen, setIsOpen, images, startIndex 
       slides={slides}
       plugins={[Zoom]}
       zoom={{ maxZoomPixelRatio: 3, zoomInMultiplier: 1.5 }}
-      render={canUseNext ? { slide: LightBoxImage } : undefined}
+      render={{
+        slide: LightBoxImage,
+      }}
     />
   );
 }
