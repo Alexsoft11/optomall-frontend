@@ -14,7 +14,6 @@ import Image from "next/image";
 import { MinusSvg, PlusSvg, SearchSvg } from "$/assets/images";
 import styles from "./ProductOrderModal.module.scss";
 import { Button as AntdButton, Tooltip, Badge, message } from "antd";
-import Lightbox from "react-awesome-lightbox";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
 import { useJwt } from "@/utils/useJwt";
@@ -23,6 +22,7 @@ import { Navigation, Scrollbar } from "swiper/modules";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import { formatPrice } from "@/constants";
 import { LoadingSpinner } from "@/ui/Spin";
+import LightboxGallery from "../LightboxGallery";
 
 interface Props {
   product: ProductDetailInterface;
@@ -634,14 +634,16 @@ const ProductOrderModal = ({
       </Modal>
       <Modal {...modalProps} />
 
-      {isOpen && (
+      {/* {isOpen && (
         <Lightbox
           images={currentImages.map((img) => ({ url: img }))}
           onClose={() => setIsOpen(false)}
           startIndex={photoIndex} // Starting index for the lightbox
           doubleClickZoom={2} // Zoom level on double-click
         />
-      )}
+      )} */}
+      <LightboxGallery currentImages={currentImages} startIndex={photoIndex} setIsOpen={setIsOpen} isOpen={isOpen} />
+
     </div>
   );
 };

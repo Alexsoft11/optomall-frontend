@@ -10,8 +10,6 @@ import Detail from "./detail";
 import { ProductDetailInterface } from "../../interface";
 import CustomImage from "@/components/CustomImage";
 import { Mousewheel, Navigation } from "swiper/modules";
-import Lightbox from "react-awesome-lightbox";
-import SvgSelector from "$/assets/icons/SvgSelector";
 
 interface Props {
   selectedImage: any;

@@ -2,12 +2,12 @@ import React, { useEffect, useMemo, useState } from "react";
 import styles from "./ProductDetailImages.module.scss";
 import ReactPlayer from "react-player";
 import CustomImage from "@/components/CustomImage";
-import Lightbox from "react-awesome-lightbox";
 import { Button } from "antd";
 import SliderSection from "../SliderSection";
 import Image from "next/image";
 import { CloseIcon, PlayIcon } from "$/assets/images";
 import { Modal } from "@/ui";
+import LightboxGallery from "../LightboxGallery";
 
 const isMobile = (windowWidth: number) => windowWidth > 850;
 
@@ -107,14 +107,15 @@ const Detail = ({ selectedImage, product, imageIndex }: any) => {
           </>
         )}
       </div>
-      {isOpen && (
+      {/* {isOpen && (
         <Lightbox
           images={images.map((img: string) => ({ url: img }))}
           onClose={() => setIsOpen(false)}
           startIndex={currentImageIndex}
           doubleClickZoom={2}
         />
-      )}
+      )} */}
+      <LightboxGallery currentImages={images} startIndex={currentImageIndex} setIsOpen={setIsOpen} isOpen={isOpen} />
       {isPlaying && getVideoUrl() ? <Modal {...modalProps} /> : null}
     </>
   );
