@@ -23,7 +23,6 @@
     "dayjs": "^1.11.10",
     "html-react-parser": "^5.2.6",
     "jwt-decode": "^4.0.0",
-    "lightbox.js-react": "^1.6.2",
     "next": "^14.2.4",
     "next-intl": "^3.9.0",
     "react": "^18",
