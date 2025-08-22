@@ -71,6 +71,7 @@ export interface SKU {
   sku_id: string;
   parsedProperties?: ParsedProperty[];
   quantityRanges?: any[];
+  package_info?: any;
 }
 
 export interface SellerInfoInterface {

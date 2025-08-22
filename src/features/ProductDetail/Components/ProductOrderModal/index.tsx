@@ -242,7 +242,7 @@ const ProductOrderModal = ({
         sku_id: el.sku_id.toString(),
         properties: parsedProps!,
         quantityRanges: quantityRanges,
-        // product_info: productFeeInfo,
+        product_info: el.package_info,
       };
 
       if (type === "to_cart") item.max_quantity = el.quantity;
