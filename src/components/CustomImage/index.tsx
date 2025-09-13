@@ -18,6 +18,7 @@ interface IProps {
   onClick?: any;
   useProxy?: boolean;
   style?: React.CSSProperties;
+  sizes?: string;
 }
 
 const CustomImage: FC<IProps> = ({
@@ -34,7 +35,7 @@ const CustomImage: FC<IProps> = ({
   target = "_self",
   onClick,
   useProxy = true,
-  style,
+  style,sizes
 }) => {
   const [isLoad, setIsLoad] = useState(true);
 
@@ -93,6 +94,7 @@ const CustomImage: FC<IProps> = ({
             onError={() => console.error(`Failed to load image: ${imgSrc}`)}
             unoptimized={useProxy}
             style={style}
+            sizes={sizes}
           />
         </Link>
       ) : (
@@ -108,6 +110,8 @@ const CustomImage: FC<IProps> = ({
           onError={() => console.error(`Failed to load image: ${imgSrc}`)}
           unoptimized={useProxy}
           style={style}
+            sizes={sizes}
+
         />
       )}
     </div>

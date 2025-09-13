@@ -38,6 +38,7 @@ export default function LightBoxImage({ slide, offset, rect }: Props) {
         width={rect.width}
         height={rect.height}
         style={{ objectFit: "contain" }}
+        fill={false}
       />
     );
   }
@@ -58,12 +59,13 @@ export default function LightBoxImage({ slide, offset, rect }: Props) {
 
   return (
     <div style={{ position: "relative", width, height }}>
-      <Image
+      <CustomImage
         src={slide.src}
         alt={slide.alt ?? ""}
         width={width}
         height={height}
-        draggable={false}
+        fill={false}
+        // draggable={false}
         // placeholder={slide.blurDataURL ? "blur" : undefined}
         style={{
           objectFit: cover ? "cover" : "contain",
