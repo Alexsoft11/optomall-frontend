@@ -1,5 +1,6 @@
 "use client";
 
+import CustomImage from "@/components/CustomImage";
 import Image from "next/image";
 import {
   isImageFitCover,
@@ -31,7 +32,7 @@ export default function LightBoxImage({ slide, offset, rect }: Props) {
 
   if (!isNextImage(slide)) {
     return (
-      <Image
+      <CustomImage
         src={slide.src}
         alt={(slide as any).alt ?? ""}
         width={rect.width}

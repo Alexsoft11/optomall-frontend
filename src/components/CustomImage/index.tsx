@@ -29,7 +29,7 @@ const CustomImage: FC<IProps> = ({
   width,
   height,
   link,
-  isLink = true,
+  isLink = false,
   loading = "lazy",
   target = "_self",
   onClick,
