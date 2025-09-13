@@ -1,22 +1,23 @@
-import Image, { StaticImageData } from "next/image"
-import Link from "next/link"
-import React, { FC, useState } from "react"
-import { Skeleton } from "antd"
+import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
+import React, { FC, useState } from "react";
+import { Skeleton } from "antd";
 
 interface IProps {
-  className?: string
-  imgClass?: string
-  src: string | StaticImageData
-  alt: string
-  fill?: boolean
-  width?: number
-  height?: number
-  link?: string
-  isLink?: boolean
-  loading?: "lazy" | "eager"
-  target?: "_blank" | "_parent" | "_self" | "_top"
-  onClick?: any
-  useProxy?: boolean
+  className?: string;
+  imgClass?: string;
+  src: string | StaticImageData;
+  alt: string;
+  fill?: boolean;
+  width?: number;
+  height?: number;
+  link?: string;
+  isLink?: boolean;
+  loading?: "lazy" | "eager";
+  target?: "_blank" | "_parent" | "_self" | "_top";
+  onClick?: any;
+  useProxy?: boolean;
+  style?: React.CSSProperties;
 }
 
 const CustomImage: FC<IProps> = ({
@@ -32,38 +33,39 @@ const CustomImage: FC<IProps> = ({
   loading = "lazy",
   target = "_self",
   onClick,
-  useProxy = false,
+  useProxy = true,
+  style,
 }) => {
-  const [isLoad, setIsLoad] = useState(true)
+  const [isLoad, setIsLoad] = useState(true);
 
   const handleImageLoad = () => {
-    setIsLoad(false)
-  }
+    setIsLoad(false);
+  };
 
   const getProxyUrl = (url: string): string => {
-    const base = "https://proxy.optomall.uz/proxy/?url="
+    const base = "https://proxy.optomall.uz/proxy/?url=";
     if (url.startsWith("//")) {
-      return `${base}${encodeURIComponent(`https:${url}`)}`
+      return `${base}${encodeURIComponent(`https:${url}`)}`;
     } else if (url.startsWith("http://")) {
-      return `${base}${encodeURIComponent(url.replace("http://", "https://"))}`
+      return `${base}${encodeURIComponent(url.replace("http://", "https://"))}`;
     }
-    return `${base}${encodeURIComponent(url)}`
-  }
+    return `${base}${encodeURIComponent(url)}`;
+  };
 
   const formatImageUrl = (url: string): string => {
     if (useProxy) {
-      return getProxyUrl(url)
+      return getProxyUrl(url);
     }
     if (url.startsWith("//")) {
-      return `https:${url}`
+      return `https:${url}`;
     } else if (url.startsWith("http://")) {
-      return url.replace("http://", "https://")
+      return url.replace("http://", "https://");
     }
-    return url
-  }
+    return url;
+  };
 
   const imgSrc =
-    typeof src === "string" ? formatImageUrl(src) : (src as StaticImageData)
+    typeof src === "string" ? formatImageUrl(src) : (src as StaticImageData);
 
   return (
     <div
@@ -90,6 +92,7 @@ const CustomImage: FC<IProps> = ({
             onLoad={handleImageLoad}
             onError={() => console.error(`Failed to load image: ${imgSrc}`)}
             unoptimized={useProxy}
+            style={style}
           />
         </Link>
       ) : (
@@ -104,10 +107,11 @@ const CustomImage: FC<IProps> = ({
           onLoad={handleImageLoad}
           onError={() => console.error(`Failed to load image: ${imgSrc}`)}
           unoptimized={useProxy}
+          style={style}
         />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default CustomImage
+export default CustomImage;

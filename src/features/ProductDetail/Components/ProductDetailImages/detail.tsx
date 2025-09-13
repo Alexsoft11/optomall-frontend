@@ -90,6 +90,7 @@ const Detail = ({ selectedImage, product, imageIndex }: any) => {
               isLink={false}
               loading="lazy"
               onClick={() => handleImageClick()}
+              useProxy={true}
             />
             {!isPlaying && getVideoUrl() ? (
               <>
