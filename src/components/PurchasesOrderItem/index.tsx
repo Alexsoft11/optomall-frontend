@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { formatPrice } from "@/constants";
 import { PurchasesItemInterface } from "../Types";
+import CustomImage from "../CustomImage";
 
 interface Props {
   item: PurchasesItemInterface;
@@ -21,7 +22,7 @@ export default function PurchasesOrderItem({ item }: Props) {
   return (
     <div className={styles.main} onClick={openPageWithProduct}>
       <div className={styles.item_img}>
-        <Image height={80} width={80} alt="#" src={item.image_url} />
+        <CustomImage height={80} width={80} alt="#" src={item.image_url} />
       </div>
 
       <div className={styles.item_text}>

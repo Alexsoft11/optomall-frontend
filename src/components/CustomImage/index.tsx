@@ -35,7 +35,8 @@ const CustomImage: FC<IProps> = ({
   target = "_self",
   onClick,
   useProxy = true,
-  style,sizes
+  style,
+  sizes,
 }) => {
   const [isLoad, setIsLoad] = useState(true);
 
@@ -44,7 +45,7 @@ const CustomImage: FC<IProps> = ({
   };
 
   const getProxyUrl = (url: string): string => {
-    const base = "https://proxy.optomall.uz/proxy/?url=";
+    const base = "https://api.optomall.uz/proxy/?url=";
     if (url.startsWith("//")) {
       return `${base}${encodeURIComponent(`https:${url}`)}`;
     } else if (url.startsWith("http://")) {
@@ -87,7 +88,7 @@ const CustomImage: FC<IProps> = ({
             className={imgClass}
             alt={alt}
             loading={loading}
-            fill={fill}
+            fill={width && height ? false : fill}
             width={width}
             height={height}
             onLoad={handleImageLoad}
@@ -102,7 +103,7 @@ const CustomImage: FC<IProps> = ({
           className={imgClass}
           src={imgSrc}
           alt={alt}
-          fill={fill}
+          fill={width && height ? false : fill}
           width={width}
           height={height}
           loading={loading}
@@ -110,8 +111,7 @@ const CustomImage: FC<IProps> = ({
           onError={() => console.error(`Failed to load image: ${imgSrc}`)}
           unoptimized={useProxy}
           style={style}
-            sizes={sizes}
-
+          sizes={sizes}
         />
       )}
     </div>

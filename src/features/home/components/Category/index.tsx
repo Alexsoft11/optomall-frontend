@@ -6,6 +6,7 @@ import { CategoryInterface } from "@/interfaces";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { Tooltip } from "antd";
 import useProductStore from "@/store/useProductStore";
+import CustomImage from "@/components/CustomImage";
 
 const Category = () => {
   const { categories } = useProductStore();
@@ -46,7 +47,7 @@ const Category = () => {
                         {item.name}
                       </p>
                     </Tooltip>
-                    <Image src={item.imageUrl} alt="img" />
+                    <CustomImage src={item.imageUrl} alt="img" />
                   </div>
                 </Link>
               ))}

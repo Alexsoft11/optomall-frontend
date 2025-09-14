@@ -6,6 +6,7 @@ import { Button, Input, Modal } from '@/ui';
 import Image from 'next/image';
 import { AddSvg } from '$/assets/images';
 import { RcFile } from 'antd/es/upload';
+import CustomImage from '@/components/CustomImage';
 
 interface Props {
     modalIsOpen: boolean,
@@ -145,7 +146,7 @@ export default function ReviewModal({ modalIsOpen, onCancel, productId, setComme
                         {fileList.map((el) => (
                             <Fragment key={el.id}>
                                 <Upload {...uploadProps} onChange={(info) => hendleOnChange(info, el.id)}>
-                                    {!el.initialUrl ? <Image src={el.url} fill alt="#" /> : <Image src={el.url} width={24} height={24} alt="#" />}
+                                    {!el.initialUrl ? <CustomImage src={el.url} fill alt="#" /> : <CustomImage src={el.url} width={24} height={24} alt="#" />}
                                 </Upload>
                             </Fragment>
                         ))
