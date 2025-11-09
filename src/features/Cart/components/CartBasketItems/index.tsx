@@ -1,113 +1,48 @@
 import React, { Fragment } from "react";
 import styles from "./CartBasketItems.module.scss";
 import { useTranslations } from "next-intl";
-import CartBasketItem from "../CartBasketItem";
-import {
-  AddOrderInterface,
-  CartItemInterface,
-  CartOrderItemInterface,
-} from "../../interface";
 import { Checkbox } from "@/ui";
 import { LoadingSpinner } from "@/ui/Spin";
-import useQueryApiClient from "@/utils/useQueryApiClient";
+import { CartItemInterface } from "../../interface";
+import CartBasketItem from "../CartBasketItem";
 
-interface Props {
-  setAddOrder: React.Dispatch<
-    React.SetStateAction<AddOrderInterface | AddOrderInterface[] | null>
-  >;
-  setDataClone: React.Dispatch<React.SetStateAction<CartItemInterface[]>>;
+interface CartBasketItemsProps {
   data: CartItemInterface[];
-  changeQuantity: (number: number, item: CartItemInterface) => void;
+  selected: CartItemInterface[];
   selectAll: boolean;
-  setSelectAll: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectAll: (checked: boolean) => void;
+  changeQuantity: (number: number, item: CartItemInterface) => void;
+  onToggleItem: (item: CartItemInterface, checked: boolean) => void;
+  onDeleteSelected: () => void;
   isLoading: boolean;
-  selected: CartOrderItemInterface[];
 }
 
 export default function CartBasketItems({
-  changeQuantity,
   data,
-  setAddOrder,
-  setDataClone,
+  selected,
   selectAll,
   setSelectAll,
+  changeQuantity,
+  onToggleItem,
+  onDeleteSelected,
   isLoading,
-  selected,
-}: Props) {
+}: CartBasketItemsProps) {
   const t = useTranslations("Cart");
 
-  const selectClick = (value: boolean) => {
-    setSelectAll(value);
-    const clone = data.map((el) => ({ ...el, chacked: value }));
-
-    setDataClone(clone);
-
-    const addOrderClone = data.map((item) => {
-      if (!item) return undefined;
-
-      const {
-        product_id,
-        image_url,
-        title,
-        properties,
-        sku_id,
-        product_url,
-        price,
-        quantity,
-        seller_id,
-        provider,
-        id,
-        product_info,
-      } = item;
-
-      const cartOrderItem = {
-        id: id,
-        product_id,
-        image_url,
-        properties,
-        title,
-        product_url,
-        seller_id: seller_id,
-        provider: provider,
-        sku_id: sku_id!,
-        price: price,
-        quantity,
-        product_info,
-      };
-
-      return { item: cartOrderItem, chacked: value };
-    }) as AddOrderInterface[];
-
-    setAddOrder(addOrderClone);
-  };
-
-  const { appendData: deleteSelectedItem } = useQueryApiClient({
-    request: {
-      url: "remove",
-      method: "DELETE",
-      disableOnMount: true,
-    },
-    onSuccess(res) {
-      setDataClone(res.original);
-    },
-  });
-
-  const deleteSelected = () => {
-    if (!selected.length) return;
-    const data = selected.map((el) => el.id);
-    deleteSelectedItem({ basket_ids: data });
+  const handleSelectAll = (checked: boolean) => {
+    setSelectAll(checked);
   };
 
   return (
     <div className={styles.main}>
       <div className={styles.items_count}>
-        <div>
+        <div className={styles.items_count__inner}>
           <p>
             {t("item")} {data.length}
           </p>
           <span
-            onClick={deleteSelected}
-            className={selected.length ? "" : styles.delete_disable}
+            onClick={onDeleteSelected}
+            className={selected.length ? styles.delete_btn : styles.delete_disable}
           >
             {t("deleteSelected")}
           </span>
@@ -115,18 +50,20 @@ export default function CartBasketItems({
         <Checkbox
           label={t("selectAll")}
           checked={selectAll}
-          className={styles.chechbox}
-          onChange={(e) => selectClick(e.target.checked)}
+          className={styles.checkbox}
+          onChange={(e) => handleSelectAll(e.target.checked)}
         />
       </div>
+
       <div className={styles.swiper}>
-        <LoadingSpinner spinning={isLoading} fullscreen={true} size="large" />
-        {data.map((el) => (
-          <Fragment key={el.sku_id}>
+        <LoadingSpinner spinning={isLoading} fullscreen size="large" />
+        {data.map((item) => (
+          <Fragment key={item.sku_id}>
             <CartBasketItem
+              item={item}
+              checked={!!selected.find((el) => el.sku_id === item.sku_id)}
+              onToggle={(checked:any) => onToggleItem(item, checked)}
               changeQuantity={changeQuantity}
-              item={el}
-              setAddOrder={setAddOrder}
             />
           </Fragment>
         ))}

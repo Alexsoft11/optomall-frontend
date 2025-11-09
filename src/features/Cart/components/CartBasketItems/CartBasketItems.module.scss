@@ -34,8 +34,15 @@
       display: flex;
       gap: 10px;
       align-items: end;
+      justify-content: end;
     }
-
+    .items_count__inner {
+      width: 50%;
+      justify-content: start;
+    }
+    .delete_btn{
+      cursor: pointer;
+    }
     p {
       color: var(--silver-grey);
       font-size: var(--paragraph-two);
@@ -52,6 +59,7 @@
 
     .delete_disable {
       opacity: 0.4;
+      cursor: not-allowed;
     }
 
     .chechbox {

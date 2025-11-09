@@ -53,12 +53,14 @@ const GoToBack: FC<IGoToBack> = ({
           },
         }}
       >
-        <Breadcrumb
-          separator={
-            <SvgSelector className={"breadcrumb_icon"} id={"chevron-svg"} />
-          }
-          items={arr}
-        />
+        {typeof window !== "undefined" && (
+          <Breadcrumb
+            separator={
+              <SvgSelector className={"breadcrumb_icon"} id={"chevron-svg"} />
+            }
+            items={arr}
+          />
+        )}
       </ConfigProvider>
     </div>
   );
