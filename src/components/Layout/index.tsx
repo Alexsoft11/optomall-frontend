@@ -10,6 +10,7 @@ import { useJwt } from "@/utils/useJwt";
 import dayjs from "dayjs";
 import Cookies from "universal-cookie";
 import useQueryApiClient from "@/utils/useQueryApiClient";
+import TechnicalWork from "../TechnicalWork";
 
 interface ILayoutsProps {
   children: ReactNode;
@@ -30,6 +31,7 @@ const MainLayout = ({ children }: ILayoutsProps) => {
   const [loading, setLoading] = useState(false);
   const token = useJwt();
   const cookie = new Cookies();
+ const technicalWork = process.env.NEXT_PUBLIC_TECHNICAL_WORK === 'true'
 
   const { appendData: resetToken } = useQueryApiClient({
     request: {
@@ -136,7 +138,7 @@ const MainLayout = ({ children }: ILayoutsProps) => {
     <>
       {loading && <LoadingSpinner fullscreen={true} size="large" />}
       <Navbar />
-      <main className="main_page">{children}</main>
+      <main className="main_page"> {technicalWork ? <TechnicalWork /> : children}</main>
       <Footer />
       <SpeedInsights />
     </>

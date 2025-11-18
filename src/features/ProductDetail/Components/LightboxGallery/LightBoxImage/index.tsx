@@ -1,5 +1,6 @@
 "use client";
 
+import CustomImage from "@/components/CustomImage";
 import Image from "next/image";
 import {
   isImageFitCover,
@@ -31,12 +32,13 @@ export default function LightBoxImage({ slide, offset, rect }: Props) {
 
   if (!isNextImage(slide)) {
     return (
-      <Image
+      <CustomImage
         src={slide.src}
         alt={(slide as any).alt ?? ""}
         width={rect.width}
         height={rect.height}
         style={{ objectFit: "contain" }}
+        fill={false}
       />
     );
   }
@@ -57,12 +59,13 @@ export default function LightBoxImage({ slide, offset, rect }: Props) {
 
   return (
     <div style={{ position: "relative", width, height }}>
-      <Image
+      <CustomImage
         src={slide.src}
         alt={slide.alt ?? ""}
         width={width}
         height={height}
-        draggable={false}
+        fill={false}
+        // draggable={false}
         // placeholder={slide.blurDataURL ? "blur" : undefined}
         style={{
           objectFit: cover ? "cover" : "contain",

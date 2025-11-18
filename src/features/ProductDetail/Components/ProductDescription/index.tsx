@@ -1,14 +1,13 @@
-import React from "react";
-import styles from "./ProductDescription.module.scss";
-import useQueryApiClient from "@/utils/useQueryApiClient";
-import { useRouter } from "next/router";
-import { LoadingSpinner } from "@/ui/Spin";
-import CustomImage from "@/components/CustomImage";
-import Image from "next/image";
-import parse, { domToReact, HTMLReactParserOptions, Element } from "html-react-parser";
+import React from "react"
+import styles from "./ProductDescription.module.scss"
+import useQueryApiClient from "@/utils/useQueryApiClient"
+import { useRouter } from "next/router"
+import { LoadingSpinner } from "@/ui/Spin"
+import CustomImage from "@/components/CustomImage"
+import parse, { HTMLReactParserOptions, Element } from "html-react-parser"
 
 const ProductDescription = ({ descImages = [] }: { descImages?: string[] }) => {
-  const { query, locale } = useRouter();
+  const { query, locale } = useRouter()
 
   const { data: description, isLoading } = useQueryApiClient({
     request: {
@@ -16,32 +15,34 @@ const ProductDescription = ({ descImages = [] }: { descImages?: string[] }) => {
       method: "GET",
       disableOnMount: descImages.length > 0,
     },
-  });
+  })
 
-  const html = description?.desc?.detail_html || "";
+  const html = description?.desc?.detail_html || ""
 
   const htmlOptions: HTMLReactParserOptions = {
     replace: (node) => {
       if (node instanceof Element && node.name === "img") {
-        const src = node.attribs.src;
-        const alt = node.attribs.alt || "";
-        const width = 800;
-        const height = 600;
+        const src = node.attribs.src
+        const alt = node.attribs.alt || ""
 
         if (src) {
           return (
-            <Image
+            <CustomImage
               src={src}
               alt={alt}
-              width={width}
-              height={height}
-              style={{ width: "100%", height: "auto", objectFit: "contain" }}
+              width={800}
+              height={600}
+              fill={false}
+              className={styles.detail_image}
+              imgClass={styles.img}
+              isLink={false}
+              useProxy
             />
-          );
+          )
         }
       }
     },
-  };
+  }
 
   return (
     <>
@@ -49,13 +50,14 @@ const ProductDescription = ({ descImages = [] }: { descImages?: string[] }) => {
         <div className={styles.desc_images_local}>
           {descImages.map((el, idx) => (
             <CustomImage
+              key={idx}
               src={el}
               alt="Product Image"
               className={styles.detail_image}
               imgClass={styles.img}
               isLink={false}
               loading="lazy"
-              key={idx}
+              useProxy
             />
           ))}
         </div>
@@ -65,7 +67,7 @@ const ProductDescription = ({ descImages = [] }: { descImages?: string[] }) => {
         <div className={styles.html_img}>{parse(html, htmlOptions)}</div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default ProductDescription;
+export default ProductDescription

@@ -19,6 +19,7 @@ import { useTranslations } from "next-intl";
 import { formatPrice } from "@/constants";
 import { useRouter } from "next/router";
 import SvgSelector from "$/assets/icons/SvgSelector";
+import CustomImage from "@/components/CustomImage";
 
 interface Props {
   item: CartItemInterface;
@@ -90,7 +91,7 @@ export default function CartBasketItem({
   return (
     <div className={styles.main}>
       <div className={styles.item_img}>
-        {item.image_url ? <Image fill alt="#" src={item.image_url} /> : null}
+        {item.image_url ? <CustomImage fill alt="#" src={item.image_url} /> : null}
       </div>
 
       <div className={styles.item_text}>

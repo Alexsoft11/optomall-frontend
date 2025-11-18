@@ -13,6 +13,7 @@ import { PlayIcon } from "$/assets/images";
 import ReactPlayer from "react-player";
 import { Modal } from "@/ui";
 import LightboxGallery from "../LightboxGallery";
+import CustomImage from "@/components/CustomImage";
 interface IProps {
   data: [] | any;
   video: string;
@@ -56,7 +57,7 @@ const SliderSection: FC<IProps> = ({ data, video }) => {
       >
         {data.map((el: any, idx: number) => (
           <div key={idx} className={styles.img_content}>
-            <Image
+            <CustomImage
               src={el.image_url}
               alt="Selected"
               className={styles.main_img}

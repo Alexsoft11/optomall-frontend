@@ -23,6 +23,7 @@ import SvgSelector from "$/assets/icons/SvgSelector";
 import { formatPrice } from "@/constants";
 import { LoadingSpinner } from "@/ui/Spin";
 import LightboxGallery from "../LightboxGallery";
+import CustomImage from "@/components/CustomImage";
 
 interface Props {
   product: ProductDetailInterface;
@@ -578,7 +579,7 @@ const ProductOrderModal = ({
                                   >
                                     <SvgSelector id="open-image-view-svg" />
                                   </span>
-                                  <Image src={imageUrl} alt={name} fill />
+                                  <CustomImage src={imageUrl} alt={name} fill />
                                 </div>
                               )}
                               <div className="img-describtion">

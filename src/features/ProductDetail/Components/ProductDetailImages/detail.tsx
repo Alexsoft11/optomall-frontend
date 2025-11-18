@@ -90,11 +90,12 @@ const Detail = ({ selectedImage, product, imageIndex }: any) => {
               isLink={false}
               loading="lazy"
               onClick={() => handleImageClick()}
+              useProxy={true}
             />
             {!isPlaying && getVideoUrl() ? (
               <>
                 <Button onClick={handlePlay} className={styles.play_button}>
-                  <Image alt="#" src={PlayIcon} width={40} height={40} />
+                  <Image alt="#" src={PlayIcon} width={40} height={40} style={{height:'40px'}} />
                 </Button>
               </>
             ) : null}

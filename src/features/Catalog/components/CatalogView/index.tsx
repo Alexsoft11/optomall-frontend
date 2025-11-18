@@ -4,6 +4,7 @@ import SearchBtn from "@/components/SearchBtn";
 import Image from "next/image";
 import Link from "next/link";
 import useProductStore from "@/store/useProductStore";
+import CustomImage from "@/components/CustomImage";
 
 const CatalogView = () => {
   const { categories } = useProductStore();
@@ -27,7 +28,7 @@ const CatalogView = () => {
                   className={styles.categories__card}
                 >
                   <div className={styles.categories__card_image}>
-                    <Image
+                    <CustomImage
                       src={item.image_url}
                       width={100}
                       height={100}

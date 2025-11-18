@@ -6,6 +6,7 @@ import { Button } from '@/ui';
 import { useTranslations } from 'next-intl';
 import { Rate, Tooltip } from 'antd';
 import ReviewModal from '../ReviewModal/Index';
+import CustomImage from '@/components/CustomImage';
 
 interface Pros {
     item: MyReviewsReviewedInterface,
@@ -27,7 +28,7 @@ export default function ReviewsItem({ item, setCommentData }: Pros) {
         <div className={styles.main}>
             <div className={styles.item_info}>
                 <div className={styles.img}>
-                    <Image width={98} height={98} alt='#' src={item.image_url} />
+                    <CustomImage width={98} height={98} alt='#' src={item.image_url} />
                 </div>
                 <div className={styles.item_text}>
                     <Tooltip
@@ -51,7 +52,7 @@ export default function ReviewsItem({ item, setCommentData }: Pros) {
                                 {item.photos.map((el, index) => (
                                     <Fragment key={index}>
                                         <div className={styles.review_photos__img}>
-                                            <Image alt='#' fill src={el} />
+                                            <CustomImage alt='#' fill src={el} />
                                         </div>
                                     </Fragment>
                                 ))
