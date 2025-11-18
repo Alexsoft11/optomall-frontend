@@ -45,7 +45,7 @@ const CustomImage: FC<IProps> = ({
   };
 
   const getProxyUrl = (url: string): string => {
-    const base = "https://api.optomall.uz/proxy/?url=";
+    const base = "https://china-proxy.optomall.uz/image-proxy?url=";
     if (url.startsWith("//")) {
       return `${base}${encodeURIComponent(`https:${url}`)}`;
     } else if (url.startsWith("http://")) {
