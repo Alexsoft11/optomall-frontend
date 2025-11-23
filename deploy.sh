@@ -4,9 +4,11 @@
 cd /var/www/onway/
 
 # # Fetch latest changes from the repository
-# git fetch
+git fetch
 
-# git merge origin/server
+git merge origin/main
+
+
 
 # Install dependencies
 #npm install --force

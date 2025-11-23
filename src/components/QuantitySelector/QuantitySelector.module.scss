@@ -1,0 +1,52 @@
+.wrapper {
+  height: min-content;
+  width: min-content;
+  background: var(--light-grey);
+  padding: 5px;
+  border-radius: 10px;
+  display: flex;
+  gap: 23px;
+  align-items: center;
+}
+
+.btn {
+  background: white;
+  border-radius: 8px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  cursor: pointer;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 40px;
+}
+
+.display {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 4px 8px;
+  user-select: none;
+}
+
+.input {
+  width: 100%;
+  min-width: 80px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--q-border);
+  outline: none;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  @media screen and (max-width: 400px) {
+    min-width: 40px;
+  }
+}

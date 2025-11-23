@@ -129,6 +129,7 @@ export interface ProductDetailInterface {
   prop_imgs: PropImage[];
   description_images?: string[];
   sku_price_range?: any;
+  delivery_info?: any;
 }
 export interface PropImage {
   properties: string;
