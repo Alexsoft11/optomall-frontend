@@ -10,8 +10,7 @@ import {
 } from "../../interface";
 import { Button, Modal } from "@/ui";
 import { groupProperties } from "@/utils/orderFunctions";
-import Image from "next/image";
-import { MinusSvg, PlusSvg, SearchSvg } from "$/assets/images";
+import { SearchSvg } from "$/assets/images";
 import styles from "./ProductOrderModal.module.scss";
 import { Button as AntdButton, Tooltip, Badge, message } from "antd";
 import useQueryApiClient from "@/utils/useQueryApiClient";
@@ -24,6 +23,7 @@ import { formatPrice } from "@/constants";
 import { LoadingSpinner } from "@/ui/Spin";
 import LightboxGallery from "../LightboxGallery";
 import CustomImage from "@/components/CustomImage";
+import QuantitySelector from "@/components/QuantitySelector";
 
 interface Props {
   product: ProductDetailInterface;
@@ -67,6 +67,8 @@ const ProductOrderModal = ({
     setPhotoIndex(index);
     setIsOpen(true);
   };
+
+  console.log(currentSku);
 
   const { appendData: createUserBasket, isLoading: isOrderLoading } =
     useQueryApiClient({
@@ -217,8 +219,15 @@ const ProductOrderModal = ({
     if (warning) return;
 
     const items: CreateBaskettemsDataInterface[] = newSelectedSku.map((el) => {
-      const { id, title, product_url, image, seller_info, quantityRanges } =
-        product;
+      const {
+        id,
+        title,
+        product_url,
+        image,
+        seller_info,
+        quantityRanges,
+        delivery_info,
+      } = product;
 
       const parsedProps = el.parsedProperties?.map((el) => {
         return {
@@ -243,7 +252,7 @@ const ProductOrderModal = ({
         sku_id: el.sku_id.toString(),
         properties: parsedProps!,
         quantityRanges: quantityRanges,
-        product_info: el.package_info,
+        product_info: { ...el.package_info, ...delivery_info },
       };
 
       if (type === "to_cart") item.max_quantity = el.quantity;
@@ -293,8 +302,9 @@ const ProductOrderModal = ({
         setMessageVisible(true);
         messageApi.open({
           type: "warning",
-          content: `${t("Product-detail.isMaxQuantity")}, ${currentSku.quantity
-            } `,
+          content: `${t("Product-detail.isMaxQuantity")}, ${
+            currentSku.quantity
+          } `,
           onClose: () => setMessageVisible(false),
         });
       }
@@ -471,27 +481,7 @@ const ProductOrderModal = ({
                 {formatPrice(getTotalPrice())} {t("GLOBAL.currency")}
               </h3>
             </div>
-            <div key={1} className={styles.change_value}>
-              <AntdButton
-                onClick={() =>
-                  handleSizeChange(currentSku!.selected_quantity - 1)
-                }
-              >
-                <Image src={MinusSvg} width={24} height={24} alt="#" />
-              </AntdButton>
-              <Tooltip title={t("Product-detail.isMaxQuantity")}>
-                <h4 className={styles.selected_quantity}>{getQuantity}</h4>
-              </Tooltip>
-              <Tooltip>
-                <AntdButton
-                  onClick={() =>
-                    handleSizeChange(currentSku!.selected_quantity + 1)
-                  }
-                >
-                  <Image src={PlusSvg} width={24} height={24} alt="#" />
-                </AntdButton>
-              </Tooltip>
-            </div>
+            <QuantitySelector value={getQuantity} onChange={handleSizeChange} />
             <Button
               className={styles.addToCart}
               size="large"
@@ -554,15 +544,17 @@ const ProductOrderModal = ({
                               onClick={() =>
                                 handlePropertySelect(id, prop_name)
                               }
-                              className={`${currentSku?.properties.split(";").includes(id)
-                                ? styles.active
-                                : !getExist(id, parsedSku)
+                              className={`${
+                                currentSku?.properties.split(";").includes(id)
+                                  ? styles.active
+                                  : !getExist(id, parsedSku)
                                   ? styles.disable
                                   : ""
-                                }
-                                ${imageUrl
-                                  ? "img-block"
-                                  : "content-inner grouped-prop"
+                              }
+                                ${
+                                  imageUrl
+                                    ? "img-block"
+                                    : "content-inner grouped-prop"
                                 }
                               `}
                             >
@@ -601,8 +593,8 @@ const ProductOrderModal = ({
                             idx !== 0
                               ? null
                               : idx === 0
-                                ? getPropertyQuantity(id, prop_name)
-                                : null
+                              ? getPropertyQuantity(id, prop_name)
+                              : null
                           }
                           key={index}
                         >
@@ -612,8 +604,8 @@ const ProductOrderModal = ({
                               currentSku?.properties.split(";").includes(id)
                                 ? styles.active
                                 : !getExist(id, parsedSku)
-                                  ? styles.disable
-                                  : ""
+                                ? styles.disable
+                                : ""
                             }
                           >
                             {name}
@@ -643,8 +635,12 @@ const ProductOrderModal = ({
           doubleClickZoom={2} // Zoom level on double-click
         />
       )} */}
-      <LightboxGallery images={currentImages} startIndex={photoIndex} setIsOpen={setIsOpen} isOpen={isOpen} />
-
+      <LightboxGallery
+        images={currentImages}
+        startIndex={photoIndex}
+        setIsOpen={setIsOpen}
+        isOpen={isOpen}
+      />
     </div>
   );
 };
