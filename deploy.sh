@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Navigate to the project directory
-cd /var/www/onway/
+cd /var/www/front/
 
 # # Fetch latest changes from the repository
 git fetch

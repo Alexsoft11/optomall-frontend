@@ -12,6 +12,7 @@ import { RcFile } from "antd/es/upload";
 import { formatPrice } from "@/constants";
 import { EditOrderInterface } from "@/features/Order/interfaces";
 import { UploadProps } from "antd/lib";
+import { LoadingSpinner } from "@/ui/Spin";
 
 interface Props {
   cost: number;
@@ -49,15 +50,17 @@ export default function OrderBlock({
     "idle" | "pending" | "success" | "fail"
   >("idle");
   const cookie = new Cookies();
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
 
-  const buttonClass = `${styles["loading-btn"]} ${buttonStatus === "pending"
-    ? styles["loading-btn--pending"]
-    : buttonStatus === "success"
+  const buttonClass = `${styles["loading-btn"]} ${
+    buttonStatus === "pending"
+      ? styles["loading-btn--pending"]
+      : buttonStatus === "success"
       ? styles["loading-btn--success"]
       : buttonStatus === "fail"
-        ? styles["loading-btn--fail"]
-        : ""
-    }`;
+      ? styles["loading-btn--fail"]
+      : ""
+  }`;
 
   const checkModalClose = () => {
     router.push("/purchases?filter=in_verification");
@@ -71,6 +74,7 @@ export default function OrderBlock({
       disableOnMount: true,
     },
     onSuccess(res) {
+      setConfirmModalOpen(false);
       router.push(`order/${res.order_group}`);
     },
   });
@@ -80,6 +84,23 @@ export default function OrderBlock({
       url: "edit-order",
       method: "PUT",
       disableOnMount: true,
+    },
+  });
+
+  const {
+    appendData: getDeliveryFees,
+    isLoading: isGettingDelivery,
+    data: deliveryData,
+  } = useQueryApiClient({
+    request: {
+      url: "basket/delivery‑fees/tmapi",
+      method: "GET",
+      disableOnMount: true,
+    },
+    onError() {
+      message.error(
+        t("Cart.errorDeliveryCalc") || "Error calculating delivery"
+      );
     },
   });
 
@@ -219,12 +240,22 @@ export default function OrderBlock({
       return;
     }
 
-    if (!!createOrderData?.total_price && createOrderData?.total_price < 50000) {
+    if (
+      !!createOrderData?.total_price &&
+      createOrderData?.total_price < 50000
+    ) {
       message.warning(t("Cart.MinOrderSum50000"), 3);
       return;
     }
 
-    createData(createOrderData);
+    const basketItemIds = createOrderData?.items
+      ? createOrderData.items.map((item) => item.id)
+      : [];
+
+    setConfirmModalOpen(true);
+    getDeliveryFees({
+      basket_item_ids: basketItemIds,
+    });
   };
 
   return (
@@ -273,7 +304,7 @@ export default function OrderBlock({
           onClick={handleOrder}
           className={styles.complite_btn}
           label={t("Cart.complite")}
-          isLoading={isLoading || isLoadingCheck}
+          isLoading={isLoadingCheck}
         />
       )}
       <Modal
@@ -283,6 +314,62 @@ export default function OrderBlock({
         description={t("Cart.checkMessage")}
         open={checkModalIsOpen}
       />
+      <Modal
+        open={confirmModalOpen}
+        onCancel={() => setConfirmModalOpen(false)}
+        footer={null}
+        centered
+        className={styles.confirm_modal}
+      >
+        {isGettingDelivery || !deliveryData ? (
+          <div className={styles.loadingTip}>
+            <LoadingSpinner />
+            <div className={styles.loadingMessage}>
+              <p>{t("Order.calculatingChinaDelivery")}</p>
+              <p>{t("Order.calculationMayTakeTime")}</p>
+            </div>
+          </div>
+        ) : (
+          <div className={styles.confirm_content}>
+            <h2 className={styles.confirm_title}>{t("Cart.orderSummary")}</h2>
+
+            <div className={styles.confirm_row}>
+              <span>{t("Cart.itemsCount")}:</span>
+              <span>{deliveryData.total_quantity}</span>
+            </div>
+
+            <div className={styles.confirm_row}>
+              <span>{t("Cart.product_cost")}:</span>
+              <span>{formatPrice(deliveryData.price)} uzs</span>
+            </div>
+
+            <div className={styles.confirm_row}>
+              <span>{t("Cart.delivery_china")}:</span>
+              <span>{formatPrice(deliveryData.delivery_china)} uzs</span>
+            </div>
+
+            <div className={styles.confirm_total}>
+              <span>{t("Cart.total")}:</span>
+              <span>{formatPrice(deliveryData.total_price)} uzs</span>
+            </div>
+
+            <div className={styles.confirm_button_block}>
+              <Button
+                label={t("Cart.complite")}
+                className={styles.complite_btn}
+                isLoading={isLoading}
+                onClick={() => {
+                  createData({
+                    ...createOrderData,
+                    delivery_fees: deliveryData.fees,
+                  });
+                }}
+              />
+            </div>
+          </div>
+        )}
+      </Modal>
+
       {/* <Modal {...modalProps} /> */}
     </div>
   );
