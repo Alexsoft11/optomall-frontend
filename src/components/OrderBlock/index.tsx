@@ -74,6 +74,7 @@ export default function OrderBlock({
       disableOnMount: true,
     },
     onSuccess(res) {
+      setConfirmModalOpen(false);
       router.push(`order/${res.order_group}`);
     },
   });
@@ -92,7 +93,7 @@ export default function OrderBlock({
     data: deliveryData,
   } = useQueryApiClient({
     request: {
-      url: "basket/delivery‑fees/tmapi", 
+      url: "basket/delivery‑fees/tmapi",
       method: "GET",
       disableOnMount: true,
     },
@@ -358,8 +359,10 @@ export default function OrderBlock({
                 className={styles.complite_btn}
                 isLoading={isLoading}
                 onClick={() => {
-                  setConfirmModalOpen(false);
-                  createData(createOrderData);
+                  createData({
+                    ...createOrderData,
+                    delivery_fees: deliveryData.fees,
+                  });
                 }}
               />
             </div>
