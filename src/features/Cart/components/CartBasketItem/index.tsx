@@ -53,62 +53,6 @@ export default function CartBasketItem({
 
   return (
     <div className={styles.main}>
-      <div className={styles.item_img}>
-        {item.image_url && (
-          <CustomImage fill alt={item.title} src={item.image_url} />
-        )}
-      </div>
-
-      <div className={styles.item_text}>
-        <div className={styles.item_info} onClick={handleNavigate}>
-          <p>{item.title}</p>
-        </div>
-        <h3>
-          {formatPrice(item.price)} {t("GLOBAL.currency")}
-        </h3>
-      </div>
-
-      <div className={styles.color_block} ref={divRef}>
-        {(showAll ? item?.properties : item?.properties?.slice(0, 1))?.map(
-          (el, idx) => (
-            <Fragment key={idx}>
-              <div className={styles.detail}>
-                <span className={styles.detail_category}>{el.name}</span>
-                <p className={styles.detail_value}>{el.value}</p>
-              </div>
-            </Fragment>
-          )
-        )}
-        {item?.properties?.length > 1 && (
-          <button
-            onClick={handleToggleShowAll}
-            className={styles.showAllButton}
-          >
-            {showAll
-              ? t("Product-detail.hide")
-              : t("Product-detail.allSpecificationsAndDescription")}
-          </button>
-        )}
-      </div>
-
-      <Tooltip
-        trigger="click"
-        title={item?.properties?.map((el) => el.value).join("/ ")}
-      >
-        <div className={styles.characteristics_mobile}>
-          <div className={styles.characteristics}>
-            {item?.properties?.map((el, idx) => (
-              <Fragment key={idx}>
-                <span>{el.value}/</span>
-              </Fragment>
-            ))}
-          </div>
-          <div className={styles.arrow}>
-            <SvgSelector id="chevron-svg" />
-          </div>
-        </div>
-      </Tooltip>
-
       <div className={styles.checkbox_block}>
         <div className={styles.Checkbox}>
           <Checkbox
@@ -117,15 +61,47 @@ export default function CartBasketItem({
           />
         </div>
       </div>
+      <div className={styles.item}>
+        <div className={styles.item_img}>
+          {item.image_url && (
+            <CustomImage fill alt={item.title} src={item.image_url} />
+          )}
+        </div>
+        <div className={styles.item_inner}>
+          <div className={styles.info_text}>
+            <div className={styles.item_text}>
+              <div className={styles.item_info} onClick={handleNavigate}>
+                <p>{item.title}</p>
+              </div>
+              <h3>
+                {formatPrice(item.price)} {t("GLOBAL.currency")}
+              </h3>
+            </div>
+          </div>
 
-      <div className={styles.change_value}>
-        <Button onClick={handleDecrease} disabled={item.quantity <= 1}>
-          <Image src={MinusSvg} width={24} height={24} alt="-" />
-        </Button>
-        <h4>{item.quantity}</h4>
-        <Button onClick={handleIncrease}>
-          <Image src={PlusSvg} width={24} height={24} alt="+" />
-        </Button>
+          <div className={styles.item_color}>
+            <div className={styles.color_block} ref={divRef}>
+              {item?.properties?.map((el, idx) => (
+                <Fragment key={idx}>
+                  <div className={styles.detail}>
+                    <span className={styles.detail_category}>{el.name}</span>
+                    <p className={styles.detail_value}>{el.value}</p>
+                  </div>
+                </Fragment>
+              ))}
+            </div>
+
+            <div className={styles.change_value}>
+              <Button onClick={handleDecrease} disabled={item.quantity <= 1}>
+                <Image src={MinusSvg} width={24} height={24} alt="-" />
+              </Button>
+              <h4>{item.quantity}</h4>
+              <Button onClick={handleIncrease}>
+                <Image src={PlusSvg} width={24} height={24} alt="+" />
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
