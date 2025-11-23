@@ -48,7 +48,7 @@ export default function CartBasketItem({
   };
   const handleIncrease = () => changeQuantity(Number(item.quantity) + 1, item);
   const handleDecrease = () => {
-    if (item.quantity > 1) changeQuantity(item.quantity - 1, item);
+    if (item.quantity > 1) changeQuantity(Number(item.quantity) - 1, item);
   };
 
   return (

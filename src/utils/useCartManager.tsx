@@ -7,70 +7,78 @@ import {
   CreateOrderDataInterface,
 } from "@/features/Cart/interface";
 
-export function useCartManager(initialData: CartItemInterface[], isBasketDataLoading: boolean) {
-  const cookie = new Cookies()
-  const [cartItems, setCartItems] = useState<CartItemInterface[]>(initialData)
-  const [selectedItems, setSelectedItems] = useState<CartItemInterface[]>([])
-  const [selectAll, setSelectAll] = useState(false)
+export function useCartManager(
+  initialData: CartItemInterface[],
+  isBasketDataLoading: boolean
+) {
+  const cookie = new Cookies();
+  const [cartItems, setCartItems] = useState<CartItemInterface[]>(initialData);
+  const [selectedItems, setSelectedItems] = useState<CartItemInterface[]>([]);
+  const [selectAll, setSelectAll] = useState(false);
 
-  const { appendData: removeFromServer, isLoading: isRemoving } = useQueryApiClient({
-    request: {
-      url: "remove",
-      method: "DELETE",
-      disableOnMount: true,
-    },
-    onSuccess(res) {
-      setCartItems(res.original)
-      setSelectedItems([])
-      setSelectAll(false)
-    },
-  })
+  const { appendData: removeFromServer, isLoading: isRemoving } =
+    useQueryApiClient({
+      request: {
+        url: "remove",
+        method: "DELETE",
+        disableOnMount: true,
+      },
+      onSuccess(res) {
+        setCartItems(res.original);
+        setSelectedItems([]);
+        setSelectAll(false);
+      },
+    });
 
   useEffect(() => {
-    if (initialData) setCartItems(initialData)
-  }, [initialData])
+    if (initialData) setCartItems(initialData);
+  }, [initialData]);
 
   const toggleSelectItem = (item: CartItemInterface, checked: boolean) => {
     setSelectedItems((prev) =>
       checked ? [...prev, item] : prev.filter((el) => el.sku_id !== item.sku_id)
-    )
-  }
+    );
+  };
 
   const toggleSelectAll = (checked: boolean) => {
-    setSelectAll(checked)
-    setSelectedItems(checked ? [...cartItems] : [])
-  }
+    setSelectAll(checked);
+    setSelectedItems(checked ? [...cartItems] : []);
+  };
 
   const changeQuantity = (quantity: number, item: CartItemInterface) => {
     if (quantity === 0 && cookie.get("token")) {
-      removeFromServer({ basket_ids: [item.id] })
-      return
+      removeFromServer({ basket_ids: [item.id] });
+      return;
     }
 
     setCartItems((prev) =>
       prev.map((el) => (el.sku_id === item.sku_id ? { ...el, quantity } : el))
-    )
+    );
 
     setSelectedItems((prev) =>
       prev.map((el) => (el.sku_id === item.sku_id ? { ...el, quantity } : el))
-    )
-  }
+    );
+  };
 
   const deleteSelected = () => {
-    if (!selectedItems.length) return
-    const ids = selectedItems.map((el) => el.id)
-    removeFromServer({ basket_ids: ids })
-  }
+    if (!selectedItems.length) return;
+    const ids = selectedItems.map((el) => el.id);
+    removeFromServer({ basket_ids: ids });
+  };
 
   const totalPrice = useMemo(
-    () => selectedItems.reduce((sum, el) => sum + el.price * el.quantity, 0),
+    () =>
+      selectedItems.reduce(
+        (sum, el) => Number(sum) + Number(el.price) * Number(el.quantity),
+        0
+      ),
     [selectedItems]
-  )
+  );
 
   const itemCount = useMemo(
-    () => selectedItems.reduce((sum, el) => sum + el.quantity, 0),
+    () => selectedItems.reduce((sum, el) => Number(sum) + Number(el.quantity), 0),
     [selectedItems]
-  )
+  );
 
   // 🔥 Build order payload properly
   const createOrderData: CreateOrderDataInterface = useMemo(() => {
@@ -87,13 +95,15 @@ export function useCartManager(initialData: CartItemInterface[], isBasketDataLoa
       properties: item.properties,
       quantity: item.quantity,
       product_info: item.product_info,
-    }))
-    return { total_price: totalPrice, items }
-  }, [selectedItems, totalPrice])
+    }));
+    return { total_price: totalPrice, items };
+  }, [selectedItems, totalPrice]);
 
   useEffect(() => {
-    setSelectAll(selectedItems.length === cartItems.length && cartItems.length > 0)
-  }, [selectedItems, cartItems])
+    setSelectAll(
+      selectedItems.length === cartItems.length && cartItems.length > 0
+    );
+  }, [selectedItems, cartItems]);
 
   return {
     cartItems,
@@ -109,5 +119,5 @@ export function useCartManager(initialData: CartItemInterface[], isBasketDataLoa
     createOrderData,
     isRemoving,
     isBasketDataLoading,
-  }
+  };
 }
