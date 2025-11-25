@@ -247,7 +247,6 @@ export default function OrderBlock({
       message.warning(t("Cart.MinOrderSum50000"), 3);
       return;
     }
-    console.log(createOrderData);
     
     const data = createOrderData?.items
       ? createOrderData.items.map((item) => ({

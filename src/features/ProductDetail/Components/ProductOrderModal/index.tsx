@@ -68,7 +68,6 @@ const ProductOrderModal = ({
     setIsOpen(true);
   };
 
-  console.log(currentSku);
 
   const { appendData: createUserBasket, isLoading: isOrderLoading } =
     useQueryApiClient({
@@ -255,7 +254,7 @@ const ProductOrderModal = ({
         product_info: {
           ...el.package_info,
           ...delivery_info,
-          ...product?.sku_price_range,
+          quantityRanges: quantityRanges,
         },
       };
 
