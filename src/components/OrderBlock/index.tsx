@@ -247,14 +247,18 @@ export default function OrderBlock({
       message.warning(t("Cart.MinOrderSum50000"), 3);
       return;
     }
-
-    const basketItemIds = createOrderData?.items
-      ? createOrderData.items.map((item) => item.id)
+    console.log(createOrderData);
+    
+    const data = createOrderData?.items
+      ? createOrderData.items.map((item) => ({
+          id: item.id,
+          quantity: item.quantity,
+        }))
       : [];
 
     setConfirmModalOpen(true);
     getDeliveryFees({
-      basket_item_ids: basketItemIds,
+      data: data,
     });
   };
 
