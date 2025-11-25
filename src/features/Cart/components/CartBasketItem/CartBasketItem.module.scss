@@ -59,6 +59,8 @@
       gap: 30px;
       margin-bottom: 5px;
       justify-content: space-between;
+      flex-wrap: wrap;
+      row-gap: 3px;
       span,
       p {
         font-size: 14px;
@@ -80,14 +82,14 @@
         font-weight: 400;
         line-height: 16.94px;
 
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        /* Limit to 2 lines */
-        -webkit-box-orient: vertical;
-        white-space: normal;
-        word-wrap: break-word;
+        // overflow: hidden;
+        // text-overflow: ellipsis;
+        // display: -webkit-box;
+        // -webkit-line-clamp: 2;
+        // /* Limit to 2 lines */
+        // -webkit-box-orient: vertical;
+        // white-space: normal;
+        // word-wrap: break-word;
         position: relative;
         /* For potential ::after positioning */
       }
@@ -159,13 +161,13 @@
         font-weight: 400;
         line-height: 19.36px;
 
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 3;
-        overflow: hidden;
+        // display: -webkit-box;
+        // -webkit-box-orient: vertical;
+        // -webkit-line-clamp: 3;
+        // overflow: hidden;
 
-        word-break: break-all;
-        text-overflow: ellipsis;
+        // word-break: break-all;
+        // text-overflow: ellipsis;
       }
     }
   }
@@ -174,8 +176,11 @@
     display: flex;
     justify-self: end;
     grid-area: checkbox;
-    width: min-content;
-
+    width: 100%;
+    > div {
+      text-align: end;
+      margin-left: auto;
+    }
     .checkbox {
       div {
         position: static;

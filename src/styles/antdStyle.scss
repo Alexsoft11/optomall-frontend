@@ -192,8 +192,8 @@
           .img-describtion {
             width: 120px;
             display: -webkit-box;
-            -webkit-line-clamp: 8; // Обрезаем на 4 строке
-            -webkit-box-orient: vertical;
+            // -webkit-line-clamp: 8; // Обрезаем на 4 строке
+            // -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
             // max-height: 6em; // Примерно 4 строки

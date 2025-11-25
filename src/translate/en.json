@@ -124,7 +124,7 @@
     "resetWithPhone": "Reset with Phone"
   },
   "Cart": {
-    "deleteSelected": "delete selected",
+    "deleteSelected": "Delete selected",
     "item": "Items",
     "total": "Total",
     "checkMessage": "The receipt has been sent for verification. You can track the current status of your order on the orders page.",
