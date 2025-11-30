@@ -235,7 +235,9 @@
     "tab_2": "Eng yaxshi mahsulotlar",
     "tab_3": "Siz uchun tavsiya etamiz",
     "load_more": "Ko'proq yuklash",
-    "refresh_error_text": "Kechirasiz! xatolik yuz berdi. Iltimos, sahifani qayta yuklab, qaytadan qidirib ko'ring."
+    "refresh_error_text": "Kechirasiz! xatolik yuz berdi. Iltimos, sahifani qayta yuklab, qaytadan qidirib ko'ring.",
+    "product_not_found": "Mahsulot topilmadi",
+    "search_same_products": "Shunga o'xshash mahsulotlarni qidirish"
   },
   "Account": {
     "metaTitle": "Hisob | OPTOM-ALL",

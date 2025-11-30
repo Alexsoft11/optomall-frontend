@@ -235,7 +235,9 @@
     "tab_2": "Top Products",
     "tab_3": "Recommended for you",
     "load_more": "Load more",
-    "refresh_error_text": "Oops! Something went wrong. Please try refreshing the page and search again."
+    "refresh_error_text": "Oops! Something went wrong. Please try refreshing the page and search again.",
+    "product_not_found": "Product not found",
+    "search_same_products": "Search similar products"
   },
   "Account": {
     "metaTitle": "Account | OPTOM-ALL",

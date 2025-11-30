@@ -2,7 +2,7 @@ import PageLayout from "@/components/Layout/PageLayout";
 import { LoadingSpinner } from "@/ui/Spin";
 
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import DataNotFound from "@/ui/DataNotFound";
 import useQueryApiClient from "@/utils/useQueryApiClient";
@@ -27,9 +27,10 @@ const ProductDetailSectionLocal = dynamic(
 );
 
 const ProductDetail = () => {
-  const { query, locale, beforePopState } = useRouter();
+  const { query, locale, beforePopState, push } = useRouter();
   const { setIsBack } = useProductStore();
   const t = useTranslations("");
+  const [errorData, setError] = useState<any>(undefined);
 
   const {
     data: product,
@@ -41,6 +42,9 @@ const ProductDetail = () => {
       url: `product-detail-tmapi`,
       method: "GET",
       disableOnMount: true,
+    },
+    onError(response) {
+      setError(response);
     },
   });
 
@@ -73,6 +77,16 @@ const ProductDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product?.detail?.image]);
 
+  const handleNavigateSearchPage = () => {
+    if (errorData?.homeProduct?.image) {
+      push(
+        `/search?lang=${locale}&provider=${query.provider || "1688"}&imageUrl=${
+          errorData?.homeProduct?.image
+        }`
+      );
+    }
+  };
+
   useEffect(() => {
     const handleBack = () => {
       setIsBack(true);
@@ -87,6 +101,20 @@ const ProductDetail = () => {
       beforePopState(() => true);
     };
   }, [beforePopState]);
+
+  if (errorData?.error === "product_not_found") {
+    return (
+      <PageNoItems
+        title={t("Products.product_not_found")}
+        text={
+          errorData?.homeProduct?.image
+            ? t("Products.search_same_products")
+            : undefined
+        }
+        customBtnFunc={handleNavigateSearchPage}
+      />
+    );
+  }
 
   if (isError) {
     return (
