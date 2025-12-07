@@ -1,6 +1,6 @@
 import React, { Fragment, useRef, useState } from "react";
 import styles from "./CartBasketItem.module.scss";
-import { Button, Tooltip } from "antd";
+import { Button, message, Tooltip } from "antd";
 import { Checkbox } from "@/ui";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -48,6 +48,16 @@ export default function CartBasketItem({
   };
   const handleIncrease = () => changeQuantity(Number(item.quantity) + 1, item);
   const handleDecrease = () => {
+    if (
+      !!item?.quantityRanges &&
+      Number(item?.quantityRanges?.[0].minQuantity)
+    ) {
+      return message.warning(
+        t("Cart.minQuantityNum", {
+          minQuantity: item?.quantityRanges?.[0].minQuantity || 1,
+        })
+      );
+    }
     if (item.quantity > 1) changeQuantity(Number(item.quantity) - 1, item);
   };
 

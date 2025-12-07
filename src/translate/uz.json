@@ -157,7 +157,8 @@
     "product_cost": "Mahsulot narxi",
     "MinOrderSum50000": "Buyurtmangiz 50 000 so'mdan katta bo'lishi kerak",
     "orderSummary": "Buyurtma tasdiqlash",
-    "itemsCount": "Mahsulotlar soni"
+    "itemsCount": "Mahsulotlar soni",
+    "minQuantityNum": "Minimal miqdor {minQuantity} dan katta bo'lishi kerak"
   },
   "Order": {
     "cardName": "Qabul qiluvchining ismi: ",
@@ -287,7 +288,7 @@
   },
   "Product-detail": {
     "isMaxQuantity": "maksimal miqdor",
-    "isMinQuantity": "Минимальное количество",
+    "isMinQuantity": "Minimal miqdor",
     "bought": "Sotib olganlar",
     "compound": "Tarkibi",
     "made_country": "Ishlab chiqarilgan davlati",

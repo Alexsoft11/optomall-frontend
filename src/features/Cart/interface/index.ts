@@ -19,8 +19,14 @@ export interface CartItemInterface {
   user_info: LocationInfoInterface;
   user_location: PersonalDataInterface;
   product_info?: any;
+  quantityRanges?: QuantityRanges[];
+  maxQuantity?: string;
 }
 
+export interface QuantityRanges {
+  price: number;
+  minQuantity: string;
+}
 export interface AddOrderInterface {
   item: CartOrderItemInterface;
   chacked: boolean;
