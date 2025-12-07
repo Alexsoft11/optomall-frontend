@@ -79,11 +79,11 @@ const Card: React.FC<CardProps> = ({
         url = `${url}&catId=${router.query.catId}`;
       }
     }
-    if (e.ctrlKey || e.metaKey || isBlank) {
-      window.open(url, "_blank");
-    } else {
-      router.push(url);
-    }
+    window.open(url, "_blank");
+    // if (e.ctrlKey || e.metaKey || isBlank) {
+    // } else {
+    //   router.push(url);
+    // }
   };
 
   const getTitle = (

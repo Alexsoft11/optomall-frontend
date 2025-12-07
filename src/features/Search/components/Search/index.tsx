@@ -160,7 +160,7 @@ const Search = () => {
           <div className={styles.search__media}>
             <div className={styles.search__platform}>
               <h2>{t("platform")}:</h2>
-              <button
+              {/* <button
                 className={`${styles.search__platform_btn} ${
                   activePlatform === "taobao" ? styles.active : ""
                 }`}
@@ -168,7 +168,7 @@ const Search = () => {
               >
                 <SvgSelector id="taobao-svg" />
                 <span>Taobao</span>
-              </button>
+              </button> */}
               <button
                 className={`${styles.search__platform_btn} ${
                   activePlatform === "1688" ? styles.active : ""
