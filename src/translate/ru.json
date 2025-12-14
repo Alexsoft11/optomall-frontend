@@ -162,7 +162,8 @@
     "MinOrderSum50000": "Сумма заказа должна быть не менее 50 000 сум",
     "orderSummary": "Подтверждение заказа",
     "itemsCount": "Количество товаров",
-    "minQuantityNum": "Минимальное количество товара {minQuantity}"
+    "minQuantityNum": "Минимальное количество товара {minQuantity}",
+    "maxQuantityNum": "Максимальное количество товара {maxQuantity}"
   },
   "Order": {
     "payCost": "Сумма к оплате: ",

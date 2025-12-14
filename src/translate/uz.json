@@ -158,7 +158,8 @@
     "MinOrderSum50000": "Buyurtmangiz 50 000 so'mdan katta bo'lishi kerak",
     "orderSummary": "Buyurtma tasdiqlash",
     "itemsCount": "Mahsulotlar soni",
-    "minQuantityNum": "Minimal miqdor {minQuantity} dan katta bo'lishi kerak"
+    "minQuantityNum": "Minimal miqdor {minQuantity} dan katta bo'lishi kerak",
+    "maxQuantityNum": "Maksimal miqdor {maxQuantity} dan kichik bo'lishi kerak"
   },
   "Order": {
     "cardName": "Qabul qiluvchining ismi: ",

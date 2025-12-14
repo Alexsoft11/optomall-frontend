@@ -256,9 +256,8 @@ const ProductOrderModal = ({
           ...delivery_info,
           quantityRanges: quantityRanges,
         },
+        max_quantity: type === "to_cart" ? el.quantity : undefined,
       };
-
-      if (type === "to_cart") item.max_quantity = el.quantity;
 
       return item;
     });

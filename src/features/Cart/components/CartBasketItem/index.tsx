@@ -46,7 +46,16 @@ export default function CartBasketItem({
     }`;
     window.open(url, "_blank");
   };
-  const handleIncrease = () => changeQuantity(Number(item.quantity) + 1, item);
+  const handleIncrease = () => {
+    if (item.maxQuantity && Number(item.quantity) >= Number(item.maxQuantity)) {
+      return message.warning(
+        t("Cart.maxQuantityNum", {
+          maxQuantity: item.maxQuantity,
+        })
+      );
+    }
+    changeQuantity(Number(item.quantity) + 1, item);
+  };
   const handleDecrease = () => {
     if (
       !!item?.quantityRanges &&
