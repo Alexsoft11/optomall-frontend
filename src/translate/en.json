@@ -305,7 +305,12 @@
     "order_created_successfully": "Order created successfully",
     "hide": "Hide",
     "allSpecificationsAndDescription": "All specifications",
-    "order": "The order arrives during 25-35 days"
+    "order": "The order arrives during 25-35 days",
+    "local_reviews": "Local Reviews",
+    "platform_reviews": "Platform Reviews",
+    "load_more": "Load more",
+    "no_platform_reviews": "No platform reviews found.",
+    "anonymous": "Anonymous"
   },
   "Messages": {
     "dearClient": "Dear client, ",

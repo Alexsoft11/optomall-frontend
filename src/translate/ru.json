@@ -309,7 +309,12 @@
     "order_created_successfully": "Заказ успешно создан",
     "hide": "Скрыть",
     "allSpecificationsAndDescription": "Все характеристики",
-    "order": "Заказ приходит в течении 25-35 дней"
+    "order": "Заказ приходит в течении 25-35 дней",
+    "local_reviews": "Местные отзывы",
+    "platform_reviews": "Отзывы платформы",
+    "load_more": "Загрузить еще",
+    "no_platform_reviews": "Отзывы платформы не найдены.",
+    "anonymous": "Анонимный"
   },
   "Messages": {
     "dearClient": "Уважаемый клиент, ",

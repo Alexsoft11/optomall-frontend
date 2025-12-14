@@ -305,7 +305,12 @@
     "order_created_successfully": "Buyurtma muvaffaqiyatli yaratildi",
     "hide": "Yashirish",
     "allSpecificationsAndDescription": "Barcha xususiyatlar",
-    "order": "Buyurtma 25-35 kun ichida yetib keladi"
+    "order": "Buyurtma 25-35 kun ichida yetib keladi",
+    "local_reviews": "Mahalliy sharhlar",
+    "platform_reviews": "Platforma sharhlari",
+    "load_more": "Ko'proq yuklash",
+    "no_platform_reviews": "Platforma sharhlari topilmadi.",
+    "anonymous": "Anonim"
   },
   "Messages": {
     "dearClient": "Hurmatli mijoz, ",

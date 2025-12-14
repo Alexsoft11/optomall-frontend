@@ -65,7 +65,7 @@ const Reviews = () => {
           const mapped: IProductComments[] = newItems.map((item: any) => ({
               id: item.id || Math.random(), // fallback id
               product_id: Number(query.id) || 0,
-              user_name: item.user_nick || 'Anonymous',
+              user_name: item.user_nick || t('anonymous'),
               created_at: item.feedback_date,
               rating: Number(item.rate_star),
               name: item.sku_map ? `${item.feedback}\n(${item.sku_map})` : item.feedback,
@@ -93,8 +93,8 @@ const Reviews = () => {
 
   // Translation keys might not exist for 'local'/'platform', using fallback text
   const options = [
-      { label: t("local_reviews") === "Product-detail.local_reviews" ? "Local Reviews" : t("local_reviews") || "Local Reviews", value: 'local' },
-      { label: t("platform_reviews") === "Product-detail.platform_reviews" ? "Platform Reviews" : t("platform_reviews") || "Platform Reviews", value: 'platform' }
+      { label: t("local_reviews"), value: 'local' },
+      { label: t("platform_reviews"), value: 'platform' }
   ];
 
   return (
@@ -155,7 +155,7 @@ const Reviews = () => {
                             <SwiperSlide className={styles.stars}>
                                 <div className={styles.review_card} style={{ justifyContent: 'center', alignItems: 'center', height: '100%', minHeight: '150px' }}>
                                     <Button onClick={handleLoadMore} loading={isExternalLoading} type="primary" shape="round">
-                                        Load More
+                                        {t("load_more")}
                                     </Button>
                                 </div>
                             </SwiperSlide>
@@ -165,7 +165,7 @@ const Reviews = () => {
             </>
             ) : (
             <div className={styles.comments_notfound}>
-                 <p>{source === 'local' ? t("comments-not") : (isExternalLoading ? "" : "No platform reviews found.")}</p>
+                 <p>{source === 'local' ? t("comments-not") : (isExternalLoading ? "" : t("no_platform_reviews"))}</p>
             </div>
             )
         )}
