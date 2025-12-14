@@ -159,7 +159,8 @@
     "orderSummary": "Buyurtma tasdiqlash",
     "itemsCount": "Mahsulotlar soni",
     "minQuantityNum": "Minimal miqdor {minQuantity} dan katta bo'lishi kerak",
-    "maxQuantityNum": "Maksimal miqdor {maxQuantity} dan kichik bo'lishi kerak"
+    "maxQuantityNum": "Maksimal miqdor {maxQuantity} dan kichik bo'lishi kerak",
+    "bts_emu_notice": "Mahsulotlar BTS yoki EMU pochta xizmati orqali yuboriladi. Ushbu yetkazib berish xizmati kargo xizmatiga kirmaydi va to‘lovi alohida hisoblanadi."
   },
   "Order": {
     "cardName": "Qabul qiluvchining ismi: ",

@@ -159,7 +159,8 @@
     "orderSummary": "Order confirmation",
     "itemsCount": "Items count",
     "minQuantityNum": "Minimum quantity of goods {minQuantity}",
-    "maxQuantityNum": "Maximum quantity of goods {maxQuantity}"
+    "maxQuantityNum": "Maximum quantity of goods {maxQuantity}",
+    "bts_emu_notice": "Products are shipped via BTS or EMU postal services. This delivery service is not included in the cargo service and is paid separately."
   },
   "Order": {
     "payCost": "Amount to be paid: ",

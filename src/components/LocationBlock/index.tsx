@@ -126,6 +126,19 @@ export default function LocationBlock({
         <div className={styles.text_block}>
           <h2>{t("address")}</h2>
         </div>
+        <div style={{ 
+            padding: '12px', 
+            backgroundColor: '#fffbe6', 
+            border: '1px solid #ffe58f', 
+            borderRadius: '6px', 
+            marginBottom: '16px', 
+            fontWeight: 600, 
+            fontSize: '14px', 
+            lineHeight: '1.5',
+            color: '#faad14' // darkish yellow/orange text for visibility
+        }}>
+           <span style={{ color: '#000' }}>{t("bts_emu_notice")}</span>
+        </div>
         <div className={styles.enter_addres}>
           <Form.Item name="region">
             <Select {...regionSelectProps} />
