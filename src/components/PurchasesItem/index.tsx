@@ -46,22 +46,16 @@ export default function PurchasesItem({
   }, [isOrderPage]);
 
   function hexToRgba(hex?: string, alpha: number = 1): string {
-    // Remove the hash at the start if it's there
     hex = hex ? hex.replace("#", "") : "";
-
     if (hex?.length === 3) {
       hex = hex
         .split("")
         .map((char) => char + char)
         .join("");
     }
-
-    // Parse the r, g, b values
     const r = parseInt(hex.substring(0, 2), 16);
     const g = parseInt(hex.substring(2, 4), 16);
     const b = parseInt(hex.substring(4, 6), 16);
-
-    // Return the rgba string
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 
@@ -75,96 +69,96 @@ export default function PurchasesItem({
 
   const toOrder = () => push(`/order/${item.id}`);
 
+  // Helper for status badge style
+  const statusStyle = {
+    color: item.status_color,
+    backgroundColor: hexToRgba(item.status_color, 0.1),
+    borderColor: hexToRgba(item.status_color, 0.2),
+  };
+
+  const formattedDate = item?.created_at.match(getCreateDateRegexp)?.[0] || item.created_at;
+
   return (
-    <div
-      className={`${styles.main} ${isRotatedUp
-          ? styles.detailOpen
-          : firstLoad
-            ? styles.firsLoadAnimation
-            : styles.detailClose
-        }`}
-    >
-      <div className={styles.order_info}>
-        <p>
-          {t("goods")}: {item.items.length}
-        </p>
-        <div className={styles.order_status}>
-          <div className={styles.flag_img}>
-            <Image src={item.country} alt="flag" fill />
-          </div>
-          <div
-            className={styles.order_status__status}
-            style={{
-              color: item.status_color,
-              backgroundColor: hexToRgba(item.status_color, 0.1),
-            }}
-          >
-            {item.status[locale as keyof LanguageStringIntergace]}
-          </div>
+    <div className={styles.card}>
+      {/* Header Section */}
+      <div className={styles.header}>
+        <div className={styles.headerLeft}>
+          <span className={styles.idLabel}>{t("orderId")}:</span>
+          <span className={styles.idValue}>{item.unique_id}</span>
+        </div>
+        <div className={styles.headerRight}>
+           <div className={styles.flagWrapper}>
+              <Image src={item.country} alt="country" fill className={styles.flagImage} />
+           </div>
+           <div className={styles.statusBadge} style={statusStyle}>
+             {item.status[locale as keyof LanguageStringIntergace]}
+           </div>
         </div>
       </div>
-      <div className={styles.order_detail}>
-        <div className={styles.detail_item}>
-          <h3>{t("orderId")}</h3>
-          <p>{item.unique_id}</p>
+
+      {/* Details Grid */}
+      <div className={styles.detailsGrid}>
+        <div className={styles.detailItem}>
+          <span className={styles.label}>{t("orderDate")}</span>
+          <span className={styles.value}>{formattedDate}</span>
         </div>
-        <div className={styles.detail_item}>
-          <h3>{t("orderDate")}</h3>
-          <p>{item?.created_at.match(getCreateDateRegexp)![0]}</p>
+        <div className={styles.detailItem}>
+          <span className={styles.label}>{t("orderCost")}</span>
+          <span className={styles.valueHighlight}>{formatPrice(item.total_price)} сум</span>
         </div>
-        <div className={styles.detail_item}>
-          <h3>{t("orderCost")}</h3>
-          <p>{formatPrice(item.total_price)} сум</p>
+        <div className={styles.detailItem}>
+          <span className={styles.label}>{t("cargo")}</span>
+          <span className={styles.value}>{item.cargo_price ? formatPrice(item.cargo_price) + " " + t("currency") : t("calculated")}</span>
         </div>
-        {item.location_region !== "." && item.location_district !== "." ? (
-          <div className={styles.detail_item}>
-            <h3>{t("address")}</h3>
-            <p>
-              {item.location_region}, {item.location_district}
-            </p>
+         <div className={styles.detailItem}>
+          <span className={styles.label}>{t("goods")}</span>
+          <span className={styles.value}>{item.items.length}</span>
+        </div>
+
+        {item.location_region !== "." && item.location_district !== "." && (
+          <div className={`${styles.detailItem} ${styles.fullWidth}`}>
+            <span className={styles.label}>{t("address")}</span>
+            <span className={styles.value}>{item.location_region}, {item.location_district}</span>
           </div>
-        ) : null}
-        {item.user_name !== "." && item.user_phone !== "." ? (
-          <div className={styles.detail_item}>
-            <h3>{t("recipient")}</h3>
-            <div>
-              <p>{item.user_name}, </p>
-              <p>{item.user_phone}</p>
+        )}
+
+        {/* Recipient could be useful if distinguishable */}
+        {item.user_name !== "." && item.user_phone !== "." && (
+           <div className={`${styles.detailItem} ${styles.fullWidth}`}>
+            <span className={styles.label}>{t("recipient")}</span>
+            <span className={styles.value}>{item.user_name}, {item.user_phone}</span>
+          </div>
+        )}
+      </div>
+      
+      {/* Divider */}
+      <div className={styles.divider} />
+
+      {/* Items List */}
+      <div className={`${styles.itemsContainer} ${!isRotatedUp ? styles.collapsed : ''}`}>
+         {!item.isPaid && !asPath.includes("order") && (
+          <div className={styles.actionRow}>
+             <div onClick={toOrder} className={styles.checkAgainAction}>
+                <span>{t("send_check_again")}</span>
+                <button>{t("upload")}</button>
             </div>
           </div>
-        ) : null}
-        <div className={styles.detail_item}>
-          <h3>{t("cargo")}</h3>
-          <p>
-            {item.cargo_price
-              ? formatPrice(item.cargo_price) + " " + t("currency")
-              : t("calculated")}
-          </p>
+        )}
+
+        <div className={styles.itemsList}>
+          {item.items.map((el) => (
+            <Fragment key={el.id}>
+              <PurchasesOrderItem item={el} />
+            </Fragment>
+          ))}
         </div>
       </div>
-      {/* <div
-        className={`${styles.more_datail} ${
-          isRotatedUp ? styles.rotateUp : styles.rotateDown
-        }`}
-        onClick={handleClick}
-      >
-        <p>{t("moreDetail")}</p>
-        <SvgSelector className={"breadcrumb_icon"} id={"chevron-svg"} />
-      </div> */}
-      <div className={styles.order_items}>
-        {!item.isPaid && !asPath.includes("order") ? (
-          <div onClick={toOrder} className={styles.sub_status_slug}>
-            <h4>{t("send_check_again")}</h4>
-            <button>{t("upload")}</button>
-          </div>
-        ) : null}
 
-        {item.items.map((el) => (
-          <Fragment key={el.id}>
-            <PurchasesOrderItem item={el} />
-          </Fragment>
-        ))}
-      </div>
+      {/* <div className={styles.toggleRow} onClick={handleClick}>
+         <span>{isRotatedUp ? t("hideDetails") : t("moreDetail")}</span> 
+       
+         <div className={`${styles.chevron} ${isRotatedUp ? styles.up : styles.down}`}></div>
+      </div> */}
     </div>
   );
 }

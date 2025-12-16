@@ -23,24 +23,24 @@
 
     .items {
       display: grid;
-      gap: 20px;
-      grid-template-columns: repeat(3, minmax(30%, max-content));
-      grid-template-rows: auto;
+      gap: 24px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      width: 100%;
+      
       > div {
         margin-bottom: auto;
       }
+      
       .selectedOrder {
-        border: 3px solid var(--primary-color);
-        border-radius: 10px;
-        height: min-content;
+        border: 2px solid var(--primary-color);
+        box-shadow: 0 0 0 4px rgba(var(--primary-color-rgb), 0.2); // Assuming var exists, otherwise just border
+        border-radius: 12px; // Match card radius
+        height: fit-content;
       }
 
-      @media (max-width: 1110px) {
-        grid-template-columns: repeat(2, minmax(40%, max-content));
-      }
-
-      @media (max-width: 590px) {
-        grid-template-columns: repeat(1, minmax(90%, max-content));
+      // Keep mobile adjustment just in case 320px is too wide for very small screens
+      @media (max-width: 360px) {
+        grid-template-columns: 1fr;
       }
     }
   }
