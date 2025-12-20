@@ -104,7 +104,7 @@ export default function PurchasesItem({
         </div>
         <div className={styles.detailItem}>
           <span className={styles.label}>{t("orderCost")}</span>
-          <span className={styles.valueHighlight}>{formatPrice(item.total_price)} сум</span>
+          <span className={styles.valueHighlight}>{formatPrice(item.total_price)} {t("currency")}</span>
         </div>
         <div className={styles.detailItem}>
           <span className={styles.label}>{t("cargo")}</span>

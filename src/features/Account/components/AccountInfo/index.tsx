@@ -120,7 +120,7 @@ const AccountInfo = ({ user }: any) => {
   return (
     <div>
       <div className={styles.card_info}>
-        <h3>Мой аккаунт</h3>
+        <h3>{t("GLOBAL.my_account")}</h3>
         <UserProfile user={user} />
         <div className={styles.info}>
           <div className={styles.card}>
