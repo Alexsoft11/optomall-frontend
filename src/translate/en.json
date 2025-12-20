@@ -130,7 +130,9 @@
     "user_registered_successfully": "User registered successfully",
     "phone_doesnt_exist": "The phone number is not registered",
     "resetWithEmail": "Reset with Email",
-    "resetWithPhone": "Reset with Phone"
+    "resetWithPhone": "Reset with Phone",
+    "enter_sms_code": "Enter SMS Code",
+    "invalid_or_expired_otp": "Invalid or expired OTP"
   },
   "Cart": {
     "deleteSelected": "Delete selected",

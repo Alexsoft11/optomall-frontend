@@ -29,6 +29,7 @@ const AccountInfo = ({ user }: any) => {
     isPhoneNumber: false,
     isResetPassword: false,
     isAddress: false,
+    isVerifyPhone: false,
   });
 
   const [loading, setLoading] = useState({
@@ -63,16 +64,34 @@ const AccountInfo = ({ user }: any) => {
     },
   });
 
-  const { appendData: updatePhone } = useQueryApiClient({
+  const { appendData: sendUpdatePhoneOTP } = useQueryApiClient({
     request: {
-      url: "profile/update-phone",
+      url: "profile/send-update-phone-otp",
       method: "POST",
       disableOnMount: true,
     },
     onSuccess: (res) => {
       message.success(res.message);
-      setOpen({ ...open, isPhoneNumber: false });
+      setOpen({ ...open, isPhoneNumber: false, isVerifyPhone: true });
     },
+  });
+
+  const { appendData: verifyUpdatePhoneOTP } = useQueryApiClient({
+      request: {
+        url: "profile/verify-update-phone-otp",
+        method: "POST",
+        disableOnMount: true,
+      },
+      onSuccess: (res) => {
+        message.success(res.message);
+        setOpen({ ...open, isVerifyPhone: false, isPhoneNumber: false });
+        location.reload(); 
+      },
+      onError: (err) => {
+        // Assuming err has response data structure from axios
+        const errorMsg = err?.response?.data?.message || err?.message || "something_wrong";
+        message.error(t("Auth." + errorMsg));
+      }
   });
 
   const { appendData: updatePassword } = useQueryApiClient({
@@ -117,12 +136,39 @@ const AccountInfo = ({ user }: any) => {
     } catch (e) {
     }
   };
+
+  const handlePhoneSubmit = async (values: any) => {
+     setLoading((prev) => ({ ...prev, phone: true }));
+     try {
+       await sendUpdatePhoneOTP(values);
+     } finally {
+       setLoading((prev) => ({ ...prev, phone: false }));
+     }
+  };
+
+  const handleVerifyPhone = async (values: any) => {
+      setLoading((prev) => ({ ...prev, phone: true }));
+      try {
+        await verifyUpdatePhoneOTP(values);
+      } finally {
+        setLoading((prev) => ({ ...prev, phone: false }));
+      }
+  };
+  const getFormattedPhone = (phone: string) => {
+    if (!phone) return "";
+    let clean = phone.replace(/\D/g, ''); // Remove non-digits
+    if (clean.startsWith('998')) {
+        clean = clean.substring(3);
+    }
+    return clean;
+  };
   return (
     <div>
       <div className={styles.card_info}>
         <h3>{t("GLOBAL.my_account")}</h3>
         <UserProfile user={user} />
         <div className={styles.info}>
+          {user?.is_register && user?.email && (
           <div className={styles.card}>
             <p>{t("Account.mail")}</p>
             <div>
@@ -138,6 +184,7 @@ const AccountInfo = ({ user }: any) => {
               />
             </div>
           </div>
+          )}
           <div className={styles.card}>
             <p>{t("Account.name")}</p>
             <div>
@@ -253,8 +300,8 @@ const AccountInfo = ({ user }: any) => {
         onClick={() => setOpen({ ...open, isPhoneNumber: false })}
       >
         <Form
-          onFinish={(values) => handleFormSubmit(updatePhone, values, "phone")}
-          initialValues={{ phone: user?.phone }}
+          onFinish={(values) => handlePhoneSubmit(values)}
+          initialValues={{ phone: getFormattedPhone(user?.phone) }}
           className={styles.form}
         >
           <Form.Item
@@ -277,6 +324,29 @@ const AccountInfo = ({ user }: any) => {
             {t("Account.confirm")}
           </Button>
         </Form>
+      </ModalForms>
+      <ModalForms
+         isOpen={open.isVerifyPhone}
+         onClick={() => setOpen({ ...open, isVerifyPhone: false })}
+      >
+          <div className={styles.verifyContainer}>
+             <h3>{t("Auth.enter_sms_code")}</h3>
+             <Form onFinish={handleVerifyPhone} className={styles.form}>
+                <Form.Item
+                  name="otp"
+                  rules={[{ required: true, message: t("Auth.enter_sms_code") }]}
+                >
+                   <Input placeholder={t("Auth.enter_sms_code")} />
+                </Form.Item>
+                 <Button
+                    htmlType="submit"
+                    loading={loading.phone}
+                    className={styles.confirm_btn}
+                 >
+                    {t("Account.confirm")}
+                 </Button>
+             </Form>
+          </div>
       </ModalForms>
       <ModalForms
         isOpen={open.isResetPassword}

@@ -130,7 +130,9 @@
     "user_registered_successfully": "Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi",
     "phone_doesnt_exist": "Telefon raqami ro'yxatdan o'tmagan",
     "resetWithEmail": "Email orqali tiklash",
-    "resetWithPhone": "Telefon raqami orqali tiklash"
+    "resetWithPhone": "Telefon raqami orqali tiklash",
+    "enter_sms_code": "SMS kodni kiriting",
+    "invalid_or_expired_otp": "Kod noto'g'ri yoki eskirgan"
   },
   "Cart": {
     "deleteSelected": "Tanlanganlarni o'chirish",

@@ -133,7 +133,9 @@
     "user_registered_successfully": "Пользователь успешно зарегистрирован",
     "phone_doesnt_exist": "Номер телефона не зарегистрирован",
     "resetWithEmail": "Сброс по Email",
-    "resetWithPhone": "Сброс по номеру телефона"
+    "resetWithPhone": "Сброс по номеру телефона",
+    "enter_sms_code": "Введите код из СМС",
+    "invalid_or_expired_otp": "Неверный или просроченный код"
   },
   "Cart": {
     "deleteSelected": "Удалить выбранное",
