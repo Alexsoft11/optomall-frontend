@@ -72,8 +72,19 @@ const AccountInfo = ({ user }: any) => {
     },
     onSuccess: (res) => {
       message.success(res.message);
-      setOpen({ ...open, isPhoneNumber: false, isVerifyPhone: true });
+      if (res.updated_directly) {
+        // If email user and updated immediately, verifyPhone step is skipped
+        setOpen({ ...open, isPhoneNumber: false, isVerifyPhone: false });
+        location.reload();
+      } else {
+        // For phone users, go to verify step
+        setOpen({ ...open, isPhoneNumber: false, isVerifyPhone: true });
+      }
     },
+    onError: (err) => {
+        const errorMsg = err?.response?.data?.message || err?.message || "something_wrong";
+        message.error(t("Auth." + errorMsg));
+    }
   });
 
   const { appendData: verifyUpdatePhoneOTP } = useQueryApiClient({
@@ -88,7 +99,6 @@ const AccountInfo = ({ user }: any) => {
         location.reload(); 
       },
       onError: (err) => {
-        // Assuming err has response data structure from axios
         const errorMsg = err?.response?.data?.message || err?.message || "something_wrong";
         message.error(t("Auth." + errorMsg));
       }
