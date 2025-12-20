@@ -31,7 +31,14 @@
     "order_created_successfully": "Order created successfully",
     "datanot": "Data Not Found",
     "email": {
-      "validation.unique": "The email has already been taken."
+      "validation": {
+        "unique": "The email has already been taken."
+      }
+    },
+    "phone": {
+      "validation": {
+        "unique": "The phone number has already been taken."
+      }
     },
     "password": {
       "validation.min": "The password must be at least 8 characters."
