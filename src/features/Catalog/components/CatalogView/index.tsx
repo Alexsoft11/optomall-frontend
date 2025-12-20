@@ -33,6 +33,7 @@ const CatalogView = () => {
                       width={100}
                       height={100}
                       alt="img"
+                      useProxy={false}
                     />
                   </div>
                   <p>{item.name}</p>

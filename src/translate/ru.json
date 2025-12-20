@@ -19,7 +19,9 @@
   "Home": {
     "metaTitle": "Главная | Optomall",
     "metaDescription": "Добро пожаловать в Optomall - ваш универсальный магазин для всех ваших нужд. Исследуйте наш широкий ассортимент продукции и наслаждайтесь лучшим онлайн-шопингом.",
-    "metaKeywords": "электронная коммерция, покупки, optomall, продукты, интернет-магазин,optomall,ON WAY, products, online store uz, taobao uz"
+    "metaKeywords": "электронная коммерция, покупки, optomall, продукты, интернет-магазин,optomall,ON WAY, products, online store uz, taobao uz",
+    "view_category": "Посмотреть категорию",
+    "show_more": "Показать ещё"
   },
   "Error": {
     "user_already_registrated": "Пользователь уже зарегистрирован",

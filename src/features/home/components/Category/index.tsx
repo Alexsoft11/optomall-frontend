@@ -7,9 +7,11 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import { Tooltip } from "antd";
 import useProductStore from "@/store/useProductStore";
 import CustomImage from "@/components/CustomImage";
+import { useTranslations } from "next-intl";
 
 const Category = () => {
   const { categories } = useProductStore();
+  const t = useTranslations("Home");
 
   const [overflowedItems, setOverflowedItems] = useState<{
     [key: string]: boolean;
@@ -47,16 +49,16 @@ const Category = () => {
                         {item.name}
                       </p>
                     </Tooltip>
-                    <CustomImage src={item.imageUrl} alt="img" />
+                    <CustomImage src={item.imageUrl} alt="img" useProxy={false} />
                   </div>
                 </Link>
               ))}
             </div>
 
             <div className={styles.category__right}>
-              <h2>Посмотреть категорию</h2>
+              <h2>{t("view_category")}</h2>
               <Link href="/catalog" className={styles.category__btn}>
-                Показать ещё
+                {t("show_more")}
               </Link>
             </div>
           </div>

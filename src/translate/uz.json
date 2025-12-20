@@ -19,7 +19,9 @@
   "Home": {
     "metaTitle": "Bosh sahifa | Optomall",
     "metaDescription": "Optomallga xush kelibsiz - barcha ehtiyojlaringiz uchun yagona do'kon. Mahsulotlarimizning keng doirasini o'rganing va eng yaxshi onlayn xarid qilish tajribasidan rohatlaning.",
-    "metaKeywords": "elektron tijorat, xarid qilish, optomall, mahsulotlar, onlayn do'kon,magazin,taobao uz"
+    "metaKeywords": "elektron tijorat, xarid qilish, optomall, mahsulotlar, onlayn do'kon,magazin,taobao uz",
+    "view_category": "Kategoriyani ko'rish",
+    "show_more": "Ko'proq ko'rsatish"
   },
   "Error": {
     "user_already_registrated": "Foydalanuvchi allaqachon ro'yxatdan o'tgan",

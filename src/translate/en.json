@@ -19,7 +19,9 @@
   "Home": {
     "metaTitle": "Home | OPTOM-ALL",
     "metaDescription": "Welcome to Optomall - Your one-stop shop for all your needs. Explore our wide range of products and enjoy the best online shopping experience.",
-    "metaKeywords": "e-commerce, shopping uz, optomall,ON WAY, products, online store uz, taobao uz"
+    "metaKeywords": "e-commerce, shopping uz, optomall,ON WAY, products, online store uz, taobao uz",
+    "view_category": "View category",
+    "show_more": "Show more"
   },
   "Error": {
     "user_already_registrated": "User is already registered",
