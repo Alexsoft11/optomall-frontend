@@ -1,6 +1,5 @@
 import PageLayout from "@/components/Layout/PageLayout";
 import { ProductDetailSkeleton } from "@/ui/Skeleton";
-
 import { useRouter } from "next/router";
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import dynamic from "next/dynamic";
@@ -9,7 +8,6 @@ import useProductStore from "@/store/useProductStore";
 import PageNoItems from "@/components/PageNoItems";
 import { useTranslations } from "next-intl";
 
-// Lazy load components with no loading state (we handle loading ourselves)
 const ProductDetailSection = dynamic(
   () => import("@/features/ProductDetail/Components/ProductDetailSection"),
   { ssr: false }
@@ -21,22 +19,82 @@ const ProductDetail = () => {
   const t = useTranslations("");
   const [errorData, setError] = useState<any>(undefined);
   const [showSkeleton, setShowSkeleton] = useState(true);
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [productData, setProductData] = useState<any>(null);
+  const [scoreData, setScoreData] = useState<any>(null);
 
-  // Main product data fetch
-  const {
-    data: product,
-    appendData,
-    isLoading,
-    isError,
-  } = useQueryApiClient({
+  const productId = useMemo(() => {
+    const id = query.id ? String(query.id) : "";
+    return id.replace(/^abb-/, "");
+  }, [query.id]);
+
+  const provider = useMemo(() => {
+    return String(query.provider || "1688");
+  }, [query.provider]);
+
+  // First request: Get cached product (fast, local)
+  const { appendData: getCachedProduct } = useQueryApiClient({
+    request: {
+      url: `cached-product`,
+      method: "GET",
+      disableOnMount: true,
+    },
+    onSuccess(response) {
+      if (response?.exists && response?.detail) {
+        // Show cached data immediately
+        setProductData(response.detail);
+        setScoreData(response.score);
+        setShowSkeleton(false);
+
+        // If cache is expired, trigger background sync
+        if (response.needs_sync) {
+          triggerBackgroundSync();
+        }
+      } else if (response?.needs_fetch) {
+        // No cache exists, fetch from TMAPI
+        fetchFromTmapi();
+      }
+    },
+    onError() {
+      // Cache request failed, try TMAPI directly
+      fetchFromTmapi();
+    },
+  });
+
+  // Second request: Sync product (background, TMAPI)
+  const { appendData: syncProduct } = useQueryApiClient({
+    request: {
+      url: `sync-product`,
+      method: "POST",
+      disableOnMount: true,
+    },
+    onSuccess(response) {
+      setIsSyncing(false);
+      if (response?.detail) {
+        // Update with fresh data
+        setProductData(response.detail);
+        setScoreData(response.score);
+      }
+    },
+    onError() {
+      setIsSyncing(false);
+      // Keep showing cached data on error
+    },
+  });
+
+  // Fallback: Direct TMAPI request (when no cache)
+  const { appendData: fetchTmapi } = useQueryApiClient({
     request: {
       url: `product-detail-tmapi`,
       method: "GET",
       disableOnMount: true,
     },
-    onSuccess() {
-      // Small delay to ensure smooth transition
-      setTimeout(() => setShowSkeleton(false), 100);
+    onSuccess(response) {
+      if (response?.detail) {
+        setProductData(response.detail);
+        setScoreData(response.score);
+        setShowSkeleton(false);
+      }
     },
     onError(response) {
       setError(response);
@@ -44,41 +102,55 @@ const ProductDetail = () => {
     },
   });
 
-  // Recommended products - fetch AFTER main product loads (non-blocking)
+  // Similar products search
   const { appendData: getSearchRes, data: recomendProducts } =
     useQueryApiClient({
       request: {
-        url: `search-products-from-tmapi?imageUrl=${product?.detail?.image}&lang=${locale}&provider=${query.provider}`,
+        url: `search-products-from-tmapi?imageUrl=${productData?.image}&lang=${locale}&provider=${provider}`,
         method: "GET",
         disableOnMount: true,
       },
     });
 
-  // Fetch product data when route is ready
+  const triggerBackgroundSync = useCallback(() => {
+    setIsSyncing(true);
+    syncProduct({
+      productId,
+      provider,
+      lang: locale,
+    });
+  }, [productId, provider, locale, syncProduct]);
+
+  const fetchFromTmapi = useCallback(() => {
+    fetchTmapi({
+      productId,
+      lang: locale,
+      provider,
+    });
+  }, [productId, locale, provider, fetchTmapi]);
+
+  // Initial load: Get cached product first
   useEffect(() => {
-    if (isReady && query.id) {
-      const id: any = query.id ? query.id : "";
-      const productId = id.replace(/^abb-/, "");
-      const params = {
-        productId: productId,
-        lang: locale,
-        provider: query.provider,
-      };
-      
-      // Reset skeleton state for new product
+    if (isReady && productId) {
       setShowSkeleton(true);
       setError(undefined);
-      
-      appendData(params);
-    }
-  }, [query.id, query.provider, locale, isReady]);
+      setProductData(null);
+      setScoreData(null);
 
-  // Fetch recommended products after main product image is available
+      getCachedProduct({
+        productId,
+        provider,
+        lang: locale,
+      });
+    }
+  }, [productId, provider, locale, isReady]);
+
+  // Load similar products when we have image
   useEffect(() => {
-    if (product?.detail?.image) {
+    if (productData?.image) {
       getSearchRes();
     }
-  }, [product?.detail?.image]);
+  }, [productData?.image]);
 
   // Handle back navigation
   useEffect(() => {
@@ -96,18 +168,13 @@ const ProductDetail = () => {
     };
   }, [beforePopState, setIsBack]);
 
-  // Memoized navigation handler
   const handleNavigateSearchPage = useCallback(() => {
-    if (errorData?.homeProduct?.image) {
-      push(
-        `/search?lang=${locale}&provider=${query.provider || "1688"}&imageUrl=${
-          errorData?.homeProduct?.image
-        }`
-      );
+    const imageUrl = errorData?.homeProduct?.image || productData?.image;
+    if (imageUrl) {
+      push(`/search?lang=${locale}&provider=${provider}&imageUrl=${imageUrl}`);
     }
-  }, [errorData, locale, query.provider, push]);
+  }, [errorData, productData, locale, provider, push]);
 
-  // Error: Product not found
   if (errorData?.error === "product_not_found") {
     return (
       <PageNoItems
@@ -122,8 +189,7 @@ const ProductDetail = () => {
     );
   }
 
-  // Error: General error
-  if (isError && !showSkeleton) {
+  if (errorData && !showSkeleton && !productData) {
     return (
       <PageNoItems
         title={t("Products.refresh_error_text")}
@@ -133,18 +199,18 @@ const ProductDetail = () => {
     );
   }
 
-  const title = product?.detail?.title || t("Product-detail.loading");
+  const title = productData?.title || t("Product-detail.loading");
 
   return (
     <PageLayout metaTitle={title}>
-      {showSkeleton || isLoading ? (
+      {showSkeleton ? (
         <ProductDetailSkeleton />
       ) : (
-        product?.detail && (
+        productData && (
           <ProductDetailSection
-            product={product.detail}
+            product={productData}
             recommended={recomendProducts?.products}
-            score={product.score}
+            score={scoreData}
           />
         )
       )}

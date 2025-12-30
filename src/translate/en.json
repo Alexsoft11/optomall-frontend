@@ -251,7 +251,15 @@
     "load_more": "Load more",
     "refresh_error_text": "Oops! Something went wrong. Please try refreshing the page and search again.",
     "product_not_found": "Product not found",
-    "search_same_products": "Search similar products"
+    "search_same_products": "Search similar products",
+    "product_unavailable_warning": "This product may no longer be available",
+    "product_unavailable_desc": "The product could not be found from the seller. You can search for similar products.",
+    "search_similar": "Search Similar",
+    "syncing_product": "Updating product information...",
+    "product_unavailable_basket": "This product is no longer available and cannot be added to cart",
+    "checking_availability": "Checking availability...",
+    "new_tab": "New Tab",
+    "open_detail": "Open"
   },
   "Account": {
     "metaTitle": "Account | OPTOM-ALL",

@@ -251,7 +251,15 @@
     "load_more": "Ko'proq yuklash",
     "refresh_error_text": "Kechirasiz! xatolik yuz berdi. Iltimos, sahifani qayta yuklab, qaytadan qidirib ko'ring.",
     "product_not_found": "Mahsulot topilmadi",
-    "search_same_products": "Shunga o'xshash mahsulotlarni qidirish"
+    "search_same_products": "Shunga o'xshash mahsulotlarni qidirish",
+    "product_unavailable_warning": "Bu mahsulot endi mavjud bo'lmasligi mumkin",
+    "product_unavailable_desc": "Mahsulot sotuvchida topilmadi. O'xshash mahsulotlarni qidirishingiz mumkin.",
+    "search_similar": "O'xshash qidirish",
+    "syncing_product": "Mahsulot ma'lumotlari yangilanmoqda...",
+    "product_unavailable_basket": "Bu mahsulot endi mavjud emas va savatga qo'shib bo'lmaydi",
+    "checking_availability": "Mavjudlik tekshirilmoqda...",
+    "new_tab": "Yangi oyna",
+    "open_detail": "Ochish"
   },
   "Account": {
     "metaTitle": "Hisob | OPTOM-ALL",
