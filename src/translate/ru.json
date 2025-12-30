@@ -293,6 +293,7 @@
     "make_payment": "Как сделать платеж"
   },
   "Product-detail": {
+    "loading": "Загрузка товара...",
     "isMaxQuantity": "максимальное количество",
     "isMinQuantity": "Минимальное количество",
     "bought": "Купили",

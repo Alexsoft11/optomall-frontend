@@ -1,0 +1,279 @@
+// Skeleton Component Styles
+// Provides smooth loading states for all pages
+
+.productDetailSkeleton {
+  padding: 20px 0;
+  min-height: 100vh;
+  background: var(--background-color, #fff);
+
+  .breadcrumbSkeleton {
+    margin-bottom: 24px;
+  }
+
+  .productContent {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 40px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  .imagesSection {
+    display: flex;
+    gap: 16px;
+    flex: 0 0 50%;
+    max-width: 50%;
+
+    @media (max-width: 768px) {
+      flex-direction: column-reverse;
+      flex: 1;
+      max-width: 100%;
+    }
+
+    .thumbnailColumn {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 80px;
+      flex-shrink: 0;
+
+      @media (max-width: 768px) {
+        flex-direction: row;
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      .thumbnailItem {
+        width: 70px;
+        height: 70px;
+        flex-shrink: 0;
+
+        @media (max-width: 768px) {
+          width: 60px;
+          height: 60px;
+        }
+      }
+    }
+
+    .mainImage {
+      flex: 1;
+      aspect-ratio: 1 / 1;
+      min-height: 400px;
+      max-height: 500px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f5f5f5;
+
+      @media (max-width: 768px) {
+        min-height: 300px;
+        max-height: 350px;
+      }
+    }
+  }
+
+  .infoSection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .ratingRow {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .specifications {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px 0;
+      border-top: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f0f0f0;
+
+      .specRow {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+    }
+
+    .priceSection {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+    }
+
+    .orderSection {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: auto;
+    }
+  }
+
+  .tabsSection {
+    margin-bottom: 40px;
+
+    .tabButtons {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid #f0f0f0;
+      padding-bottom: 16px;
+    }
+
+    .tabContent {
+      padding: 16px 0;
+    }
+  }
+
+  .recommendedSection {
+    .recommendedGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+    }
+  }
+}
+
+// Skeleton Node overrides - CRITICAL for proper sizing
+.thumbnailSkeleton {
+  width: 70px !important;
+  height: 70px !important;
+  border-radius: 8px !important;
+  
+  @media (max-width: 768px) {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  
+  .thumbnailPlaceholder {
+    width: 100%;
+    height: 100%;
+  }
+
+  // Override antd skeleton within this component
+  :global(.ant-skeleton-element) {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+.mainImageSkeleton {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 400px !important;
+  border-radius: 12px !important;
+  
+  @media (max-width: 768px) {
+    min-height: 300px !important;
+  }
+  
+  .mainImagePlaceholder {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    
+    @media (max-width: 768px) {
+      min-height: 300px;
+    }
+  }
+
+  // Override antd skeleton within this component
+  :global(.ant-skeleton-element) {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 400px !important;
+  }
+}
+
+.productImageSkeleton {
+  width: 100% !important;
+  height: 180px !important;
+  border-radius: 8px !important;
+  margin-bottom: 12px;
+  
+  @media (max-width: 768px) {
+    height: 140px !important;
+  }
+  
+  .productImagePlaceholder {
+    width: 100%;
+    height: 100%;
+  }
+
+  // Override antd skeleton within this component
+  :global(.ant-skeleton-element) {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+.sliderImageSkeleton {
+  width: 100% !important;
+  height: 400px !important;
+  border-radius: 12px !important;
+  
+  @media (max-width: 768px) {
+    height: 200px !important;
+  }
+  
+  .sliderImagePlaceholder {
+    width: 100%;
+    height: 100%;
+  }
+
+  // Override antd skeleton within this component
+  :global(.ant-skeleton-element) {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+.searchSkeleton,
+.homeSkeleton {
+  padding: 20px;
+
+  .sliderSkeleton {
+    margin-bottom: 40px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .productsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+  }
+
+  .productCard {
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+}
+
+// Shimmer animation enhancement
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
