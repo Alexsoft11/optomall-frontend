@@ -19,7 +19,9 @@
   "Home": {
     "metaTitle": "Главная | Optomall",
     "metaDescription": "Добро пожаловать в Optomall - ваш универсальный магазин для всех ваших нужд. Исследуйте наш широкий ассортимент продукции и наслаждайтесь лучшим онлайн-шопингом.",
-    "metaKeywords": "электронная коммерция, покупки, optomall, продукты, интернет-магазин,optomall,ON WAY, products, online store uz, taobao uz"
+    "metaKeywords": "электронная коммерция, покупки, optomall, продукты, интернет-магазин,optomall,ON WAY, products, online store uz, taobao uz",
+    "view_category": "Посмотреть категорию",
+    "show_more": "Показать ещё"
   },
   "Error": {
     "user_already_registrated": "Пользователь уже зарегистрирован",
@@ -34,6 +36,11 @@
     "email": {
       "validation": {
         "unique": "Эта электронная почта уже используется."
+      }
+    },
+    "phone": {
+      "validation": {
+        "unique": "Этот номер телефона уже занят."
       }
     },
     "password": {
@@ -126,7 +133,9 @@
     "user_registered_successfully": "Пользователь успешно зарегистрирован",
     "phone_doesnt_exist": "Номер телефона не зарегистрирован",
     "resetWithEmail": "Сброс по Email",
-    "resetWithPhone": "Сброс по номеру телефона"
+    "resetWithPhone": "Сброс по номеру телефона",
+    "enter_sms_code": "Введите код из СМС",
+    "invalid_or_expired_otp": "Неверный или просроченный код"
   },
   "Cart": {
     "deleteSelected": "Удалить выбранное",
@@ -316,7 +325,38 @@
     "platform_reviews": "Отзывы платформы",
     "load_more": "Загрузить еще",
     "no_platform_reviews": "Отзывы платформы не найдены.",
-    "anonymous": "Анонимный"
+    "anonymous": "Анонимный",
+    "shop": "Магазин",
+    "shop_info": "Информация о магазине",
+    "shop_not_available": "Информация о магазине недоступна",
+    "shop_info_not_available": "Невозможно загрузить информацию о магазине",
+    "unknown_shop": "Неизвестный магазин",
+    "visit_shop": "Посетить магазин",
+    "chat_with_seller": "Написать продавцу",
+    "show_shop_products": "Посмотреть товары магазина",
+    "shop_products": "Товары магазина",
+    "no_shop_products": "Товары в этом магазине не найдены",
+    "followers": "Подписчиков",
+    "years_on_platform": "Лет",
+    "shop_ratings": "Рейтинги магазина",
+    "rating_logistics": "Логистика",
+    "rating_consultation": "Консультация",
+    "rating_dispute": "Решение споров",
+    "rating_return": "Возврат товара",
+    "rating_quality": "Качество",
+    "rating_comprehensive": "Общий сервис",
+    "contact_info": "Контакт",
+    "badge_factory": "Фабрика",
+    "badge_super_factory": "Супер Фабрика",
+    "badge_flagship": "Флагманский магазин",
+    "badge_brand": "Отраслевой бренд",
+    "badge_tp": "Надежный партнер",
+    "sort_default": "По умолчанию",
+    "sort_sales": "По продажам",
+    "sort_price_up": "Цена: по возрастанию",
+    "sort_price_down": "Цена: по убыванию",
+    "sort_time_new": "Сначала новые",
+    "sort_time_old": "Сначала старые"
   },
   "Messages": {
     "dearClient": "Уважаемый клиент, ",

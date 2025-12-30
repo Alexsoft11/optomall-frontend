@@ -19,7 +19,9 @@
   "Home": {
     "metaTitle": "Bosh sahifa | Optomall",
     "metaDescription": "Optomallga xush kelibsiz - barcha ehtiyojlaringiz uchun yagona do'kon. Mahsulotlarimizning keng doirasini o'rganing va eng yaxshi onlayn xarid qilish tajribasidan rohatlaning.",
-    "metaKeywords": "elektron tijorat, xarid qilish, optomall, mahsulotlar, onlayn do'kon,magazin,taobao uz"
+    "metaKeywords": "elektron tijorat, xarid qilish, optomall, mahsulotlar, onlayn do'kon,magazin,taobao uz",
+    "view_category": "Kategoriyani ko'rish",
+    "show_more": "Ko'proq ko'rsatish"
   },
   "Error": {
     "user_already_registrated": "Foydalanuvchi allaqachon ro'yxatdan o'tgan",
@@ -31,7 +33,14 @@
     "order_created_successfully": "Buyurtma muvaffaqiyatli yaratildi",
     "datanot": "Maʼlumot topilmadi",
     "email": {
-      "validation.unique": "Email allaqachon olingan."
+      "validation": {
+        "unique": "Email allaqachon olingan."
+      }
+    },
+    "phone": {
+      "validation": {
+        "unique": "Telefon raqami allaqachon olingan."
+      }
     },
     "password": {
       "validation.min": "Parol kamida 8 ta belgidan iborat bo'lishi kerak."
@@ -121,7 +130,9 @@
     "user_registered_successfully": "Foydalanuvchi muvaffaqiyatli ro'yxatdan o'tdi",
     "phone_doesnt_exist": "Telefon raqami ro'yxatdan o'tmagan",
     "resetWithEmail": "Email orqali tiklash",
-    "resetWithPhone": "Telefon raqami orqali tiklash"
+    "resetWithPhone": "Telefon raqami orqali tiklash",
+    "enter_sms_code": "SMS kodni kiriting",
+    "invalid_or_expired_otp": "Kod noto'g'ri yoki eskirgan"
   },
   "Cart": {
     "deleteSelected": "Tanlanganlarni o'chirish",
@@ -312,7 +323,38 @@
     "platform_reviews": "Platforma sharhlari",
     "load_more": "Ko'proq yuklash",
     "no_platform_reviews": "Platforma sharhlari topilmadi.",
-    "anonymous": "Anonim"
+    "anonymous": "Anonim",
+    "shop": "Do'kon",
+    "shop_info": "Do'kon haqida",
+    "shop_not_available": "Do'kon ma'lumoti mavjud emas",
+    "shop_info_not_available": "Do'kon ma'lumotini yuklab bo'lmadi",
+    "unknown_shop": "Noma'lum do'kon",
+    "visit_shop": "Do'konga tashrif",
+    "chat_with_seller": "Sotuvchiga yozish",
+    "show_shop_products": "Do'kon mahsulotlarini ko'rish",
+    "shop_products": "Do'kon mahsulotlari",
+    "no_shop_products": "Bu do'konda mahsulot topilmadi",
+    "followers": "Obunachilar",
+    "years_on_platform": "Yil",
+    "shop_ratings": "Do'kon reytinglari",
+    "rating_logistics": "Logistika",
+    "rating_consultation": "Maslahat",
+    "rating_dispute": "Nizolarni hal qilish",
+    "rating_return": "Qaytarish tajribasi",
+    "rating_quality": "Sifat",
+    "rating_comprehensive": "Umumiy xizmat",
+    "contact_info": "Aloqa",
+    "badge_factory": "Fabrika",
+    "badge_super_factory": "Super Fabrika",
+    "badge_flagship": "Asosiy do'kon",
+    "badge_brand": "Sanoat brendi",
+    "badge_tp": "Ishonchli hamkor",
+    "sort_default": "Standart",
+    "sort_sales": "Eng ko'p sotilgan",
+    "sort_price_up": "Narx: pastdan yuqoriga",
+    "sort_price_down": "Narx: yuqoridan pastga",
+    "sort_time_new": "Avval yangilari",
+    "sort_time_old": "Avval eskilari"
   },
   "Messages": {
     "dearClient": "Hurmatli mijoz, ",

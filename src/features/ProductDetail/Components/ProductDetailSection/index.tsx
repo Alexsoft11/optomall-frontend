@@ -3,6 +3,7 @@ import styles from "./ProductDetailSection.module.scss";
 import ProductDetailImages from "../ProductDetailImages";
 import ProductDetailInfo from "../ProductDetailInfo";
 import Reviews from "../Reviews";
+import Shop from "../Shop";
 import RecomendedProducts from "../RecomendedProducts";
 import { Tabs, TabsProps } from "antd";
 import ProductDescription from "../ProductDescription";
@@ -51,6 +52,11 @@ const ProductDetailSection = ({ product, recommended, score }: Props) => {
       label: t("comments"),
       children: <Reviews />,
     },
+    {
+      key: "3",
+      label: t("shop"),
+      children: <Shop sellerId={product.seller_info?.seller_member_id || product.seller_id} />,
+    },
   ];
 
   return (
@@ -83,3 +89,4 @@ const ProductDetailSection = ({ product, recommended, score }: Props) => {
 };
 
 export default ProductDetailSection;
+

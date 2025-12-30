@@ -21,7 +21,7 @@ const Reviews: FC<IProps> = ({ comments }) => {
     <>
       {!!comments.length ? (
         <div className={styles.reviews}>
-          <h3 className={styles.title}>Отзывы</h3>
+          <h3 className={styles.title}>{t("comments")}</h3>
           <div className={styles.navigators}>
             <button
               className={`prev_btn_reviews ${styles.prev_btn} ${styles.swiper_btns}`}

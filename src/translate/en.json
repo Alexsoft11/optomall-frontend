@@ -19,7 +19,9 @@
   "Home": {
     "metaTitle": "Home | OPTOM-ALL",
     "metaDescription": "Welcome to Optomall - Your one-stop shop for all your needs. Explore our wide range of products and enjoy the best online shopping experience.",
-    "metaKeywords": "e-commerce, shopping uz, optomall,ON WAY, products, online store uz, taobao uz"
+    "metaKeywords": "e-commerce, shopping uz, optomall,ON WAY, products, online store uz, taobao uz",
+    "view_category": "View category",
+    "show_more": "Show more"
   },
   "Error": {
     "user_already_registrated": "User is already registered",
@@ -31,7 +33,14 @@
     "order_created_successfully": "Order created successfully",
     "datanot": "Data Not Found",
     "email": {
-      "validation.unique": "The email has already been taken."
+      "validation": {
+        "unique": "The email has already been taken."
+      }
+    },
+    "phone": {
+      "validation": {
+        "unique": "The phone number has already been taken."
+      }
     },
     "password": {
       "validation.min": "The password must be at least 8 characters."
@@ -121,7 +130,9 @@
     "user_registered_successfully": "User registered successfully",
     "phone_doesnt_exist": "The phone number is not registered",
     "resetWithEmail": "Reset with Email",
-    "resetWithPhone": "Reset with Phone"
+    "resetWithPhone": "Reset with Phone",
+    "enter_sms_code": "Enter SMS Code",
+    "invalid_or_expired_otp": "Invalid or expired OTP"
   },
   "Cart": {
     "deleteSelected": "Delete selected",
@@ -312,7 +323,38 @@
     "platform_reviews": "Platform Reviews",
     "load_more": "Load more",
     "no_platform_reviews": "No platform reviews found.",
-    "anonymous": "Anonymous"
+    "anonymous": "Anonymous",
+    "shop": "Shop",
+    "shop_info": "Shop Information",
+    "shop_not_available": "Shop information is not available",
+    "shop_info_not_available": "Unable to load shop information",
+    "unknown_shop": "Unknown Shop",
+    "visit_shop": "Visit Shop",
+    "chat_with_seller": "Chat with Seller",
+    "show_shop_products": "View Shop Products",
+    "shop_products": "Shop Products",
+    "no_shop_products": "No products found in this shop",
+    "followers": "Followers",
+    "years_on_platform": "Years",
+    "shop_ratings": "Shop Ratings",
+    "rating_logistics": "Logistics",
+    "rating_consultation": "Consultation",
+    "rating_dispute": "Dispute Resolution",
+    "rating_return": "Return Experience",
+    "rating_quality": "Quality",
+    "rating_comprehensive": "Overall Service",
+    "contact_info": "Contact",
+    "badge_factory": "Factory",
+    "badge_super_factory": "Super Factory",
+    "badge_flagship": "Flagship Store",
+    "badge_brand": "Industry Brand",
+    "badge_tp": "Trusted Partner",
+    "sort_default": "Default",
+    "sort_sales": "Best Selling",
+    "sort_price_up": "Price: Low to High",
+    "sort_price_down": "Price: High to Low",
+    "sort_time_new": "Newest First",
+    "sort_time_old": "Oldest First"
   },
   "Messages": {
     "dearClient": "Dear client, ",

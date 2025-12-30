@@ -8,6 +8,7 @@ import Image from "next/image";
 import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useJwt } from "@/utils/useJwt";
 import { formatPrice } from "@/constants";
+import { useTranslations } from "next-intl";
 
 interface Size {
   id: number;
@@ -58,6 +59,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
   totalQuantities,
   setSelectedColor,
 }) => {
+  const t = useTranslations("");
   const [loading, setLoading] = useState<boolean>(false);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const defaultSizes = [{ id: 1, value: "default" }];
@@ -198,7 +200,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
       } else {
         const newBasketData = (JSON.parse(localStorage.getItem("basket-data") as string) || []).concat(localeData);
         localStorage.setItem("basket-data", JSON.stringify(newBasketData));
-        message.success("Added to Basket");
+        message.success(t("Product-detail.products_added_to_basket"));
         resetStates();
         setLoading(false);
       }
@@ -223,7 +225,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
     <div className={styles.product_order}>
       <div className={styles.priceSection}>
         <span className={styles.currentPrice}>
-          {formatPrice(product.price)} uzs
+          {formatPrice(product.price)} {t("GLOBAL.currency")}
         </span>
         {product.discounted_price &&
         product.price !== product.discounted_price ? (
@@ -232,7 +234,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
               -{product.discount_percentage}%
             </span>
             <span className={styles.originalPrice}>
-              {formatPrice(product.discounted_price)} uzs
+              {formatPrice(product.discounted_price)} {t("GLOBAL.currency")}
             </span>
           </>
         ) : null}
@@ -277,9 +279,9 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
       )}
       <div className={styles.add_basket}>
         <div className={styles.total}>
-          <p>Итого</p>
+          <p>{t("Cart.total")}</p>
           <span className={styles.total_quantity}>
-            {formatPrice(totalPrice)} uzs
+            {formatPrice(totalPrice)} {t("GLOBAL.currency")}
           </span>
         </div>
         <Button
@@ -288,7 +290,7 @@ const ProductOrderSection: React.FC<ProductOrderSectionProps> = ({
           onClick={onFinish}
           disabled={!isProductSelected()}
         >
-          В корзину
+          {t("Product-detail.addToCart")}
         </Button>
       </div>
     </div>
