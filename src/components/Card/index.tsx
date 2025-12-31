@@ -55,7 +55,7 @@ const Card: React.FC<CardProps> = ({
   const [isOverflowed, setIsOverflowed] = useState(false);
   const router = useRouter();
   const locale = useLocale();
-  const { setScrollPosition } = useProductStore();
+  const { setScrollPosition, setIsBack } = useProductStore();
   const provider = data.provider === "Alibaba1688" ? "1688" : data.provider;
 
   useEffect(() => {
@@ -68,6 +68,7 @@ const Card: React.FC<CardProps> = ({
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setScrollPosition(window.scrollY);
+    setIsBack(true);
 
     const id = router.pathname.includes("wishes") ? data.product_id : data.id;
     let url = `/${router.locale}/product/${id}?provider=${
@@ -79,11 +80,30 @@ const Card: React.FC<CardProps> = ({
         url = `${url}&catId=${router.query.catId}`;
       }
     }
+    // Simple open current page (no new tab)
+    router.push(url);
+  };
+
+  const handleNewTabClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const id = router.pathname.includes("wishes") ? data.product_id : data.id;
+    let url = `/${router.locale}/product/${id}?provider=${
+      provider || router.query.provider || "1688"
+    }`;
     window.open(url, "_blank");
-    // if (e.ctrlKey || e.metaKey || isBlank) {
-    // } else {
-    //   router.push(url);
-    // }
+  };
+
+  const handleSimilarClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (data.image) {
+      const imageUrl = typeof data.image === 'string' ? data.image : (data.image as any)?.src || '';
+      const url = `/${router.locale}/search?lang=${router.locale}&provider=${
+        provider || router.query.provider || "1688"
+      }&imageUrl=${encodeURIComponent(imageUrl)}`;
+      router.push(url);
+    }
   };
 
   const getTitle = (
@@ -136,6 +156,15 @@ const Card: React.FC<CardProps> = ({
           <p>
             {formatPrice(data.price)} {t("currency")}
           </p>
+        </div>
+        
+        <div className={styles.card__actions}>
+          <button onClick={handleSimilarClick}>
+            {useTranslations("Products")("search_similar")}
+          </button>
+          <button onClick={handleNewTabClick}>
+             {useTranslations("Products")("new_tab")}
+          </button>
         </div>
       </div>
       <LikedBtn

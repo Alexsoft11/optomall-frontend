@@ -69,13 +69,13 @@ const ProductsSection = () => {
    * Get products data on mount
    */
   useEffect(() => {
-    if (!isBack || !homeProducts.length) {
+    if (isBack && homeProducts.length > 0) {
+      setIsBack(false);
+    } else {
       const productsCount = getProductLimit(15);
       getProductsWhenScrool({ query: "discount", lang: locale, productsCount });
       const limit = getProductLimit(10);
       getAditionalCats({ limit });
-    } else {
-      setIsBack(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

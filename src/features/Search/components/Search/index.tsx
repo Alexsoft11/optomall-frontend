@@ -78,8 +78,17 @@ const Search = () => {
   }, [query.value]);
 
   useEffect(() => {
+    if (!router.isReady) return;
+    
     if (typeof window !== "undefined") {
-      if ((!isBack || !products.length) && (query.value || query.imageUrl)) {
+      // If we are coming back and have content, just restore state (don't fetch)
+      if (isBack && products.length > 0) {
+        setIsBack(false);
+        return;
+      }
+
+      // Normal fetch if we have query params
+      if (query.value || query.imageUrl) {
         getSearchRes({
           ...query,
           lang: locale,
@@ -94,7 +103,7 @@ const Search = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, locale]);
+  }, [query, locale, router.isReady]);
 
   const handleGetProductWhenScrool = (customQuery: any) => {
     getMoreProducts({
