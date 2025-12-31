@@ -55,7 +55,7 @@ const Card: React.FC<CardProps> = ({
   const [isOverflowed, setIsOverflowed] = useState(false);
   const router = useRouter();
   const locale = useLocale();
-  const { setScrollPosition } = useProductStore();
+  const { setScrollPosition, setIsBack } = useProductStore();
   const provider = data.provider === "Alibaba1688" ? "1688" : data.provider;
 
   useEffect(() => {
@@ -68,6 +68,7 @@ const Card: React.FC<CardProps> = ({
   const handleLinkClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setScrollPosition(window.scrollY);
+    setIsBack(true);
 
     const id = router.pathname.includes("wishes") ? data.product_id : data.id;
     let url = `/${router.locale}/product/${id}?provider=${
