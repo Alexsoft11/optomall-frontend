@@ -19,6 +19,7 @@ const GoToBack: FC<IGoToBack> = ({
         <Link
           style={{ cursor: el.path ? "pointer" : "default" }}
           href={el.path}
+          target={el.target}
         >
           {el.titleNotr ? el.titleNotr : t(el.title)}
         </Link>

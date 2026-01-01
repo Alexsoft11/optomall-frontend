@@ -49,6 +49,7 @@ interface ShopInfo {
 
 interface Props {
   sellerId?: string;
+  autoLoadProducts?: boolean;
 }
 
 const SORT_OPTIONS = [
@@ -60,10 +61,10 @@ const SORT_OPTIONS = [
   { value: "time_down", labelKey: "sort_time_old" },
 ];
 
-const Shop: FC<Props> = ({ sellerId }) => {
+const Shop: FC<Props> = ({ sellerId, autoLoadProducts = false }) => {
   const t = useTranslations("Product-detail");
   const { locale } = useRouter();
-  const [showProducts, setShowProducts] = useState(false);
+  const [showProducts, setShowProducts] = useState(autoLoadProducts);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState("default");
   const [shopInfo, setShopInfo] = useState<ShopInfo | null>(null);
@@ -104,6 +105,12 @@ const Shop: FC<Props> = ({ sellerId }) => {
       fetchShopInfo({ member_id: sellerId, lang: locale });
     }
   }, [sellerId]);
+
+  useEffect(() => {
+    if (autoLoadProducts && sellerId) {
+      handleShowProducts();
+    }
+  }, [sellerId, autoLoadProducts]);
 
   // Effect to handle shop info response
   useEffect(() => {

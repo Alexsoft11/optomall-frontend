@@ -136,6 +136,9 @@ const ProductOrderSection: React.FC<Props> = ({ product }) => {
         provider: provider as string,
         sku_id: id,
         properties: [],
+        original_price_yuan: product.original_price_yuan ?? 0,
+        local_delivery_yuan: product.local_delivery_yuan ?? 0,
+        profit_amount: product.profit_amount ?? 0,
       };
 
       if (orderType === "to_cart") {

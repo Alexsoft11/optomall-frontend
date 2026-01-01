@@ -151,6 +151,7 @@
   --paragraph-three-px: 12px;
 
   --navbar-height: 80px;
+  --gradient-green: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
 }
 
 html {
