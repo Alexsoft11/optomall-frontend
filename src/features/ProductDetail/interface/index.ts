@@ -72,6 +72,8 @@ export interface SKU {
   parsedProperties?: ParsedProperty[];
   quantityRanges?: any[];
   package_info?: any;
+  original_price_yuan?: number;
+  profit_amount?: number;
 }
 
 export interface SellerInfoInterface {
@@ -112,6 +114,9 @@ export interface ProductDetailInterface {
   id: string;
   title: string;
   price: number;
+  original_price_yuan?: number; // Added
+  local_delivery_yuan?: number; // Added
+  profit_amount?: number; // Added
   discounted_price: number;
   discount_percentage: number;
   image: string;
@@ -196,4 +201,7 @@ export interface CreateBaskettemsDataInterface {
   properties: ProppertiesInterface[];
   quantityRanges?: any[];
   product_info?: any;
+  original_price_yuan?: number;
+  local_delivery_yuan?: number;
+  profit_amount?: number;
 }

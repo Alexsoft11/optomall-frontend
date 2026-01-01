@@ -257,6 +257,9 @@ const ProductOrderModal = ({
           quantityRanges: quantityRanges,
         },
         max_quantity: type === "to_cart" ? el.quantity : undefined,
+        original_price_yuan: el.original_price_yuan ?? 0,
+        local_delivery_yuan: product.local_delivery_yuan ?? 0,
+        profit_amount: el.profit_amount ?? 0,
       };
 
       return item;

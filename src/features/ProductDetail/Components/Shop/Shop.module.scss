@@ -293,19 +293,30 @@
 }
 
 .show_products_btn {
-    height: 48px;
-    padding: 0 32px;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-    border: none;
-    box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
+    height: 32px !important;
+    padding: 0 16px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    border-radius: 16px !important;
+    background: var(--gradient-green) !important;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(17, 153, 142, 0.4) !important;
     transition: all 0.3s ease;
+    color: white !important;
 
-    &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(17, 153, 142, 0.5);
+    &:hover,
+    &:focus,
+    &:active {
+        background: var(--gradient-green) !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(17, 153, 142, 0.5) !important;
+        color: white !important;
+        opacity: 0.9;
+    }
+
+    // Antd button overrides
+    span {
+        color: white !important;
     }
 }
 

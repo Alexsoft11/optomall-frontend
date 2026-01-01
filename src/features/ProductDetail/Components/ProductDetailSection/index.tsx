@@ -72,18 +72,18 @@ const ProductDetailSection = ({ product, recommended, score }: Props) => {
   return (
     <>
       <div className="container">
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
           <GoToBack pathArr={pathArr} />
           {sellerId && (
             <Link 
               href={`/shop/${sellerId}`} 
               target="_blank" 
-              style={{ display: "flex", alignItems: "center", gap: "6px", textDecoration: "none", color: "inherit", fontWeight: 500 }}
+              className={styles.shopLink}
             >
               <span style={{ width: 16, height: 16, display: "flex", alignItems: "center" }}>
                  <SvgSelector id="shop-icon" />
               </span>
-              <span>{t("shop")}</span>
+              <span>{t("go_to_seller_shop")}&gt;</span>
             </Link>
           )}
         </div>
