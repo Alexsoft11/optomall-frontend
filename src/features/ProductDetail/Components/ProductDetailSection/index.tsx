@@ -10,7 +10,10 @@ import ProductDescription from "../ProductDescription";
 import { useTranslations } from "next-intl";
 import GoToBack from "@/components/GoToBack";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { ProductDetailInterface } from "../../interface";
+import SvgSelector from "$/assets/icons/SvgSelector";
+import { IGoToBackObject } from "@/components/Types";
 
 interface Props {
   product: ProductDetailInterface;
@@ -28,7 +31,14 @@ const ProductDetailSection = ({ product, recommended, score }: Props) => {
 
   const { category, provider } = router.query;
 
-  const pathArr = category
+  const shopName =
+    product.seller_info?.shop_name ||
+    product.seller_info?.company_name ||
+    t("shop");
+  const sellerId =
+    product.seller_info?.seller_member_id || product.seller_id;
+
+  const pathArr: IGoToBackObject[] = category
     ? [
         {
           titleNotr: category as string,
@@ -62,7 +72,21 @@ const ProductDetailSection = ({ product, recommended, score }: Props) => {
   return (
     <>
       <div className="container">
-        <GoToBack pathArr={pathArr} />
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <GoToBack pathArr={pathArr} />
+          {sellerId && (
+            <Link 
+              href={`/shop/${sellerId}`} 
+              target="_blank" 
+              style={{ display: "flex", alignItems: "center", gap: "6px", textDecoration: "none", color: "inherit", fontWeight: 500 }}
+            >
+              <span style={{ width: 16, height: 16, display: "flex", alignItems: "center" }}>
+                 <SvgSelector id="shop-icon" />
+              </span>
+              <span>{t("shop")}</span>
+            </Link>
+          )}
+        </div>
         <div className="containers">
           <div className={styles.product}>
             <div className={styles.product__inner}>
@@ -89,4 +113,3 @@ const ProductDetailSection = ({ product, recommended, score }: Props) => {
 };
 
 export default ProductDetailSection;
-

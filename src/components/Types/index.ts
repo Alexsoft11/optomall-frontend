@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface IGoToBack {
   pathArr?: IGoToBackObject[];
   styles?: { color: string };
@@ -7,7 +9,8 @@ export interface IGoToBack {
 export interface IGoToBackObject {
   title?: string;
   path?: string;
-  titleNotr?: string;
+  titleNotr?: string | ReactNode;
+  target?: string;
 }
 
 export interface LocationInfoInterface {

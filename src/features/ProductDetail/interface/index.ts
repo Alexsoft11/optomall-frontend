@@ -90,6 +90,7 @@ export interface SellerInfoInterface {
   shop_name: string;
   seller_user_id: string;
   seller_member_id?: string;
+  company_name?: string;
 }
 
 interface SellerInfo {
