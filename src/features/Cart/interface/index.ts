@@ -21,6 +21,9 @@ export interface CartItemInterface {
   product_info?: any;
   quantityRanges?: QuantityRanges[];
   maxQuantity?: string;
+  original_price_yuan?: number;
+  local_delivery_yuan?: number;
+  profit_amount?: number;
 }
 
 export interface QuantityRanges {
@@ -45,6 +48,9 @@ export interface CartOrderItemInterface {
   properties: ProppertiesInterface[];
   quantity: number;
   product_info?: any;
+  original_price_yuan?: number;
+  local_delivery_yuan?: number;
+  profit_amount?: number;
 }
 
 export interface CreateOrderDataInterface {

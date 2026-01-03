@@ -95,6 +95,9 @@ export function useCartManager(
       properties: item.properties,
       quantity: item.quantity,
       product_info: item.product_info,
+      original_price_yuan: item.original_price_yuan,
+      local_delivery_yuan: item.local_delivery_yuan,
+      profit_amount: item.profit_amount,
     }));
     return { total_price: totalPrice, items };
   }, [selectedItems, totalPrice]);

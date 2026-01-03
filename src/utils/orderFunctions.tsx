@@ -42,6 +42,8 @@ export const parseSKUProperties = (
       quantityRanges: quantityRanges,
       parsedProperties: propertiesArray,
       selected_quantity: 0,
+      original_price_yuan: item.original_price_yuan ?? 0,
+      profit_amount: item.profit_amount ?? 0,
     };
   });
 };
