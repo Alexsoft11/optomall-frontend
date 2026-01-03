@@ -362,8 +362,22 @@ export default function OrderBlock({
                 className={styles.complite_btn}
                 isLoading={isLoading}
                 onClick={() => {
+                  // Merge delivery fee data into items
+                  const updatedItems = createOrderData?.items?.map((item) => {
+                    const matchingFee = deliveryData?.fees?.find(
+                      (fee: any) => fee.basket_item_id === item.id
+                    );
+                    return {
+                      ...item,
+                      original_price_yuan: matchingFee?.original_price_yuan ?? item.original_price_yuan ?? 0,
+                      local_delivery_yuan: matchingFee?.local_delivery_yuan ?? item.local_delivery_yuan ?? 0,
+                      profit_amount: matchingFee?.profit_amount ?? item.profit_amount ?? 0,
+                    };
+                  }) || [];
+                  
                   createData({
                     ...createOrderData,
+                    items: updatedItems,
                     delivery_fees: deliveryData.fees,
                   });
                 }}
