@@ -1,3 +1,8 @@
+/* ============================================
+   HOME PRODUCTS - OPTIMIZED DESIGN
+   Modern product section layout
+   ============================================ */
+
 .products {
   min-height: 50vh;
 
@@ -6,21 +11,34 @@
   }
 
   .products__categories {
-    margin-top: 50px;
+    margin-top: 40px;
   }
+
   @media (max-width: 500px) {
     margin-top: 0px;
   }
 
+  /* === BANNER === */
   &__banner {
-    margin: 20px 0px;
+    margin: 24px 0px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
     img {
-      border-radius: 15px;
+      border-radius: 16px;
       width: 100% !important;
       height: 100% !important;
       object-fit: contain;
+
       @media (max-width: 768px) {
-        border-radius: 10px;
+        border-radius: 12px;
       }
     }
   }

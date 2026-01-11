@@ -37,9 +37,7 @@
   font-size: var(--heading-four);
 }
 
-:where(
-    .css-dev-only-do-not-override-1okl62o
-  ).ant-badge.ant-badge-not-a-wrapper:not(.ant-badge-status) {
+:where(.css-dev-only-do-not-override-1okl62o).ant-badge.ant-badge-not-a-wrapper:not(.ant-badge-status) {
   vertical-align: middle;
   top: 8px;
   left: 32px;
@@ -117,27 +115,49 @@
 }
 
 .order-modal {
+  .ant-modal-content {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  }
+
   .ant-modal-close {
-    right: 30px !important;
-    top: 25px !important;
+    right: 24px !important;
+    top: 20px !important;
+    width: 36px;
+    height: 36px;
+    background: #f5f5f5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+
+    &:hover {
+      background: #eee;
+    }
 
     svg {
-      width: 25px;
-      height: 25px;
+      width: 18px;
+      height: 18px;
     }
   }
 
   .modal-body {
-    padding: 0px 0px 15px 0px !important;
+    padding: 0px 0px 16px 0px !important;
   }
 
   .ant-modal-footer {
     display: block !important;
+    padding: 20px 28px !important;
+    background: #fafafa;
+    border-top: 1px solid #f0f0f0;
+    border-radius: 0 0 20px 20px;
 
     .modal-footer {
       display: flex;
       align-items: center;
-      justify-content: end;
+      justify-content: flex-end;
       gap: 20px;
 
       .totalPrice {
@@ -146,9 +166,10 @@
         }
 
         h3 {
-          font-size: 20px;
-          font-weight: 400;
-          line-height: 29.05px;
+          font-size: 22px;
+          font-weight: 700;
+          color: #ff6b00;
+          line-height: 1.3;
         }
       }
     }
@@ -157,27 +178,32 @@
   .order-modal-body {
     width: 800px;
     max-width: 84dvw;
+    padding: 28px;
 
     .ant-modal-close {
-      left: 30px !important;
+      left: auto !important;
+      right: 24px !important;
     }
 
     .content {
       .currentPrice {
         text-align: left;
-        padding: 0px 0px 37px 0px;
+        padding: 0px 0px 24px 0px;
+        border-bottom: 1px solid #f0f0f0;
+        margin-bottom: 24px;
 
         h3 {
-          font-size: 24px;
-          font-weight: 500;
-          line-height: 29.05px;
+          font-size: 28px;
+          font-weight: 700;
+          color: #ff6b00;
+          line-height: 1.3;
         }
       }
 
       .property-items {
         display: flex;
         flex-direction: column;
-        row-gap: 30px;
+        row-gap: 24px;
       }
 
       .content-inner {
@@ -188,72 +214,102 @@
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+          border-radius: 14px;
+          overflow: hidden;
+          transition: all 0.2s;
+
+          &:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+          }
 
           .img-describtion {
             width: 120px;
             display: -webkit-box;
-            // -webkit-line-clamp: 8; // Обрезаем на 4 строке
-            // -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
-            // max-height: 6em; // Примерно 4 строки
-            line-height: 1.5em; // Настройте в зависимости от высоты строки
-            background: #f2f2f2;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            padding: 8px;
+            line-height: 1.4;
+            background: #f8f8f8;
+            border-bottom-left-radius: 14px;
+            border-bottom-right-radius: 14px;
+            padding: 10px;
             min-height: 50px;
+            font-size: 13px;
+            color: #333;
           }
         }
 
         .img-box {
           position: relative;
+          background: #fafafa;
+          border-radius: 14px 14px 0 0;
 
           .view-icon {
             position: absolute;
             z-index: 1;
-            top: 5px;
-            right: 10px;
+            top: 8px;
+            right: 8px;
+            background: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.2s;
+
+            &:hover {
+              transform: scale(1.1);
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
 
             svg {
-              width: 20px;
-              height: 20px;
+              width: 16px;
+              height: 16px;
 
               path {
-                fill: var(--primary-color);
+                fill: #ff6b00;
               }
             }
           }
 
           img {
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
+            border-top-left-radius: 14px;
+            border-top-right-radius: 14px;
           }
         }
 
         h2 {
-          margin-bottom: 10px;
-          color: #000;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 500;
-          line-height: 121.065%;
+          margin-bottom: 14px;
+          color: #333;
+          font-size: 15px;
+          font-weight: 600;
+          line-height: 1.3;
         }
       }
 
       .grouped-prop {
         p {
-          border-radius: 6px;
-          background: #f2f2f2;
-          padding: 6px 10px;
+          border-radius: 10px;
+          background: #f5f5f5;
+          padding: 10px 16px;
           cursor: pointer;
+          font-weight: 500;
+          transition: all 0.2s;
+          border: 2px solid transparent;
+
+          &:hover {
+            background: #fff5f0;
+            border-color: #ffcca8;
+          }
         }
 
         .items {
           display: flex;
           align-items: center;
           flex-wrap: wrap;
-          gap: 10px;
+          gap: 12px;
         }
       }
 
@@ -263,14 +319,19 @@
         .swiper-wrapper {
           .swiper-slide {
             width: min-content;
-            padding: 5px 4px;
+            padding: 6px;
             min-width: 120px;
             display: flex;
             justify-content: flex-end;
             flex-direction: column;
-            border-radius: 10px;
+            border-radius: 14px;
             cursor: pointer;
             padding-top: 10px;
+            transition: all 0.2s;
+
+            &:hover {
+              transform: translateY(-2px);
+            }
 
             .img-box {
               position: relative;
@@ -300,6 +361,7 @@
 
 .search_select {
   width: 250px !important;
+
   .ant-select-selector {
     border-color: var(--primary-color) !important;
   }
@@ -312,12 +374,15 @@
 .masked_input_register {
   .ant-input-affix-wrapper {
     padding: 12px !important;
+
     .ant-input-prefix {
       font-size: var(--paragraph);
     }
+
     input {
       padding: 0px !important;
       font-size: var(--paragraph);
+
       @media screen and (max-width: 700px) {
         padding: 3px !important;
       }

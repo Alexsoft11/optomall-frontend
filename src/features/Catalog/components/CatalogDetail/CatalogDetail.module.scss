@@ -1,38 +1,62 @@
-.catalog_detail {
+/* ============================================
+   CATALOG DETAIL - CATEGORY LIST
+   Modern link styling with hover effects
+   ============================================ */
 
-    @media (min-width:970px) {
+.catalog_detail {
+    @media (min-width: 970px) {
         display: none;
     }
 
     &__title {
-        color: var(--primary-color);
-        font-size: var(--paragraph-three-px);
-        font-weight: 400;
-
-        margin-bottom: 10px;
+        color: #ff6b00;
+        font-size: var(--paragraph);
+        font-weight: 600;
+        margin-bottom: 16px;
         text-align: left;
+        padding-left: 12px;
     }
 
     &__link {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 50px;
-        padding: 13px 0px;
+        gap: 40px;
+        padding: 14px 16px;
+        margin-bottom: 4px;
+        border-radius: 12px;
+        transition: all 0.2s ease;
+        cursor: pointer;
 
-        @media (max-width:375px) {
-            gap: 30px;
+        &:hover {
+            background: #fff5f0;
+
+            p {
+                color: #ff6b00;
+            }
+
+            svg path {
+                stroke: #ff6b00;
+            }
+        }
+
+        @media (max-width: 375px) {
+            gap: 24px;
+            padding: 12px 14px;
         }
 
         p {
             color: var(--black-color);
-            font-size: var(--paragraph-two-px);
-            font-weight: 400;
+            font-size: var(--paragraph);
+            font-weight: 500;
+            transition: color 0.2s;
         }
 
         svg {
-            max-width: 24px;
-            max-height: 24px;
+            max-width: 20px;
+            max-height: 20px;
+            opacity: 0.5;
+            transition: all 0.2s;
         }
     }
 }
