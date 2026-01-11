@@ -1,29 +1,66 @@
+/* ============================================
+   GET ORDER PERSON - REDESIGNED STYLES
+   Premium buyer information form
+   ============================================ */
+
 .main {
-    border: 1px solid var(--primary-color);
-    border-radius: 10px;
-    padding: 20px;
+    border: none;
+    border-radius: 12px;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
     width: 100%;
 
+    /* === TITLE === */
+    h2 {
+        font-size: var(--heading-seven);
+        font-weight: 600;
+        line-height: 1.4;
+        color: var(--black-color);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        &::before {
+            content: "👤";
+            font-size: 18px;
+        }
+    }
+
+    /* === FORM BLOCK === */
     .form_block {
         display: flex;
-        gap: 21px;
+        gap: 16px;
 
         form {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
             width: 100%;
 
+            /* === MASKED INPUT === */
             .maskedInput {
                 border-radius: 10px;
-                padding: 9px 15px;
+                padding: 12px 16px;
                 font-size: var(--paragraph);
+                border: 2px solid #e9ecef;
+                transition: border-color 0.2s ease, box-shadow 0.2s ease;
+                min-height: 48px;
+
+                &:hover {
+                    border-color: #ff9500;
+                }
+
+                &:focus {
+                    border-color: #ff6b00;
+                    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+                    outline: none;
+                }
             }
         }
 
+        /* === FORM ITEM OVERRIDES === */
         div {
             margin: 0px !important;
             width: 100%;
@@ -33,20 +70,93 @@
             }
         }
 
+        /* === INPUT STYLING === */
         input {
-            padding: 9px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            font-size: var(--paragraph);
+            min-height: 48px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+            &:hover {
+                border-color: #ff9500;
+            }
+
+            &:focus {
+                border-color: #ff6b00;
+                box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+                outline: none;
+            }
 
             &::placeholder {
                 color: var(--davys-grey);
+                font-weight: 400;
+            }
+        }
+
+        /* === ANT DESIGN INPUT OVERRIDES === */
+        :global(.ant-input) {
+            border-radius: 10px !important;
+            padding: 12px 16px !important;
+            min-height: 48px;
+            border: 2px solid #e9ecef !important;
+
+            &:hover {
+                border-color: #ff9500 !important;
             }
 
+            &:focus {
+                border-color: #ff6b00 !important;
+                box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1) !important;
+            }
+        }
+
+        :global(.ant-input-affix-wrapper) {
+            border-radius: 10px !important;
+            padding: 4px 16px !important;
+            min-height: 48px;
+            border: 2px solid #e9ecef !important;
+
+            &:hover {
+                border-color: #ff9500 !important;
+            }
+
+            &:focus,
+            &:global(.ant-input-affix-wrapper-focused) {
+                border-color: #ff6b00 !important;
+                box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1) !important;
+            }
+
+            :global(.ant-input) {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 8px 0 !important;
+                min-height: auto;
+            }
         }
     }
+}
 
-    h2 {
-        font-size: var(--heading-six);
-        font-weight: 500;
-        line-height: 24.2px;
+/* === RESPONSIVE ADJUSTMENTS === */
+@media (max-width: 768px) {
+    .main {
+        gap: 16px;
+
+        h2 {
+            font-size: var(--paragraph);
+        }
+
+        .form_block {
+            form {
+                gap: 12px;
+
+                .maskedInput,
+                input {
+                    padding: 10px 14px;
+                    min-height: 44px;
+                }
+            }
+        }
     }
-
 }

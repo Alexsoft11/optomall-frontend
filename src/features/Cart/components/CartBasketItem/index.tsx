@@ -57,17 +57,19 @@ export default function CartBasketItem({
     changeQuantity(Number(item.quantity) + 1, item);
   };
   const handleDecrease = () => {
-    if (
-      !!item?.quantityRanges &&
-      Number(item?.quantityRanges?.[0].minQuantity)
-    ) {
+    const currentQty = Number(item.quantity);
+    const minQty = Number(item?.quantityRanges?.[0]?.minQuantity || 1);
+    
+    if (!!item?.quantityRanges && currentQty <= minQty) {
       return message.warning(
         t("Cart.minQuantityNum", {
-          minQuantity: item?.quantityRanges?.[0].minQuantity || 1,
+          minQuantity: minQty,
         })
       );
     }
-    if (item.quantity > 1) changeQuantity(Number(item.quantity) - 1, item);
+    if (currentQty > 1) {
+      changeQuantity(currentQty - 1, item);
+    }
   };
 
   return (
@@ -111,7 +113,7 @@ export default function CartBasketItem({
             </div>
 
             <div className={styles.change_value}>
-              <Button onClick={handleDecrease} disabled={item.quantity <= 1}>
+              <Button onClick={handleDecrease} disabled={Number(item.quantity) <= 1}>
                 <Image src={MinusSvg} width={24} height={24} alt="-" />
               </Button>
               <h4>{item.quantity}</h4>

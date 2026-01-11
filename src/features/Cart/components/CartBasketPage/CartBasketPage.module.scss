@@ -1,12 +1,39 @@
-.main {
-    padding: 10px 0px 0px 0px;
-    display: flex;
-    gap: 20px;
+/* ============================================
+   CART BASKET PAGE - OPTIMIZED LAYOUT
+   LEFT 68%: Items, RIGHT 32%: Summary (smaller)
+   ============================================ */
 
-    @media (max-width: 769px) {
-        padding: 0px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+.main {
+    display: grid;
+    grid-template-columns: 1fr 32%;
+    gap: 24px;
+    padding: 10px 0;
+    align-items: start;
+
+    @media (max-width: 1200px) {
+        grid-template-columns: 1fr 35%;
+        gap: 20px;
+    }
+
+    @media (max-width: 970px) {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding-bottom: 130px;
+        /* Space for compact fixed footer */
+    }
+}
+
+/* === ITEMS SIDE (Left) === */
+.itemsSide {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* === SUMMARY SIDE (Right - Sticky on desktop) === */
+.summarySide {
+    @media (max-width: 970px) {
+        /* Hidden from flow on mobile - shows as fixed footer */
+        position: static;
     }
 }

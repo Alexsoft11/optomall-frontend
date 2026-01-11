@@ -3,9 +3,9 @@ import styles from "./CartBasketPage.module.scss"
 import { useTranslations } from "next-intl"
 import PageNoItems from "@/components/PageNoItems"
 import { LoadingSpinner } from "@/ui/Spin"
-import OrderBlock from "@/components/OrderBlock"
 import { CartItemInterface } from "../../interface"
 import CartBasketItems from "../../components/CartBasketItems"
+import CartSummary from "../../components/CartSummary"
 import { useCartManager } from "@/utils/useCartManager"
 
 interface Props {
@@ -37,18 +37,27 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
 
   return (
     <div className={styles.main}>
-      <CartBasketItems
-        data={cartItems}
-        selected={selectedItems}
-        selectAll={selectAll}
-        setSelectAll={toggleSelectAll}
-        changeQuantity={changeQuantity}
-        onToggleItem={toggleSelectItem}
-        onDeleteSelected={deleteSelected}
-        isLoading={isRemoving}
-      />
-      <div className={styles.order_side}>
-        <OrderBlock type="cart" itemValue={itemCount} createOrderData={createOrderData} cost={totalPrice} />
+      {/* Left side - Cart Items (65%) */}
+      <div className={styles.itemsSide}>
+        <CartBasketItems
+          data={cartItems}
+          selected={selectedItems}
+          selectAll={selectAll}
+          setSelectAll={toggleSelectAll}
+          changeQuantity={changeQuantity}
+          onToggleItem={toggleSelectItem}
+          onDeleteSelected={deleteSelected}
+          isLoading={isRemoving}
+        />
+      </div>
+
+      {/* Right side - Summary (35%) */}
+      <div className={styles.summarySide}>
+        <CartSummary
+          cost={totalPrice}
+          itemCount={itemCount}
+          createOrderData={createOrderData}
+        />
       </div>
     </div>
   )

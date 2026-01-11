@@ -35,7 +35,6 @@ export default function OrderBlock({
   orderId,
   createOrderData,
   type,
-  cargoCost,
   editOrderData,
   setDataFailed,
   delivery_china,
@@ -51,16 +50,6 @@ export default function OrderBlock({
   >("idle");
   const cookie = new Cookies();
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
-
-  const buttonClass = `${styles["loading-btn"]} ${
-    buttonStatus === "pending"
-      ? styles["loading-btn--pending"]
-      : buttonStatus === "success"
-      ? styles["loading-btn--success"]
-      : buttonStatus === "fail"
-      ? styles["loading-btn--fail"]
-      : ""
-  }`;
 
   const checkModalClose = () => {
     router.push("/purchases?filter=in_verification");
@@ -228,7 +217,6 @@ export default function OrderBlock({
 
   const handleOrder = () => {
     if (!cookie.get("token")) {
-      // setAuthModalIsOpen(true);
       return;
     }
     if (itemValue === 0) {
@@ -261,47 +249,63 @@ export default function OrderBlock({
     });
   };
 
+  // Check if this is Order page (has orderId)
+  const isOrderPage = !!orderId;
+
   return (
     <div className={styles.main}>
+      {/* Title */}
       <p className={styles.order_title}>
-        {orderId ? t("Cart.payment") : `${t("Cart.item")}, ${itemValue}`}
+        {isOrderPage ? t("Order.confirmPayment") : `${t("Cart.item")}, ${itemValue}`}
       </p>
-      <div className={styles.total}>
-        <div>
-          <h1>{t("Cart.total")}:</h1>
-          <p>{formatPrice(cost)} uzs</p>
-        </div>
-        {!!delivery_china && (
-          <div className={styles.china_delivery}>
-            <h1>{t("Cart.delivery_china")}:</h1>
-            <p>{formatPrice(delivery_china)} uzs</p>
-          </div>
-        )}
-        {!!delivery_china && (
-          <div className={styles.china_delivery}>
-            <h1>{t("Cart.product_cost")}:</h1>
-            <p>{formatPrice(product_cost)} uzs</p>
-          </div>
-        )}
-      </div>
-      {orderId && (
-        <div className={styles.upload_btn}>
-          <Upload {...uploadProps} accept="image/*">
-            <div className={styles.response_button__block}>
-              <span className={styles["loading-btn-wrapper"]}>
-                <button
-                  className={buttonClass}
-                  disabled={buttonStatus === "pending"}
-                >
-                  <span className={styles["loading-btn__text"]}>
-                    {buttonStatus === "idle" && t("Cart.loadCheque")}
-                  </span>
-                </button>
-              </span>
+
+      {/* Price Summary - ALWAYS show on Order page */}
+      <div className={styles.priceSection}>
+        {isOrderPage && (
+          <>
+            <div className={styles.priceRow}>
+              <span>{t("Cart.product_cost")}:</span>
+              <span className={styles.priceValue}>{formatPrice(product_cost || 0)} uzs</span>
             </div>
+            <div className={styles.priceRow}>
+              <span>{t("Cart.delivery_china")}:</span>
+              <span className={styles.priceValue}>{formatPrice(delivery_china || 0)} uzs</span>
+            </div>
+          </>
+        )}
+        <div className={styles.totalRow}>
+          <span>{t("Cart.total")}:</span>
+          <span className={styles.totalValue}>{formatPrice(cost)} uzs</span>
+        </div>
+      </div>
+
+      {/* Upload Button - Order page only */}
+      {isOrderPage && (
+        <div className={styles.upload_section}>
+          <Upload {...uploadProps} accept="image/*">
+            <button 
+              className={`${styles.uploadButton} ${buttonStatus !== "idle" ? styles.uploadButtonLoading : ""}`}
+              disabled={buttonStatus === "pending"}
+            >
+              {buttonStatus === "idle" && t("Cart.loadCheque")}
+              {buttonStatus === "pending" && (
+                <span className={styles.loadingText}>
+                  <span className={styles.spinner}></span>
+                  {t("Order.uploading") || "Загрузка..."}
+                </span>
+              )}
+              {buttonStatus === "success" && (
+                <span className={styles.successText}>✓ {t("Order.uploaded") || "Загружено"}</span>
+              )}
+              {buttonStatus === "fail" && (
+                <span className={styles.failText}>✗ {t("Order.uploadFailed") || "Ошибка"}</span>
+              )}
+            </button>
           </Upload>
         </div>
       )}
+
+      {/* Create Order Button - Cart page only */}
       {type === "cart" && (
         <Button
           onClick={handleOrder}
@@ -310,6 +314,7 @@ export default function OrderBlock({
           isLoading={isLoadingCheck}
         />
       )}
+
       <Modal
         onCancel={checkModalClose}
         className="bg_white"
@@ -317,6 +322,8 @@ export default function OrderBlock({
         description={t("Cart.checkMessage")}
         open={checkModalIsOpen}
       />
+      
+      {/* Confirm Modal */}
       <Modal
         open={confirmModalOpen}
         onCancel={() => setConfirmModalOpen(false)}
@@ -335,7 +342,7 @@ export default function OrderBlock({
         ) : (
           <div className={styles.confirm_content}>
             <h2 className={styles.confirm_title}>{t("Cart.orderSummary")}</h2>
-
+            
             <div className={styles.confirm_row}>
               <span>{t("Cart.itemsCount")}:</span>
               <span>{deliveryData.total_quantity}</span>
@@ -362,15 +369,12 @@ export default function OrderBlock({
                 className={styles.complite_btn}
                 isLoading={isLoading}
                 onClick={() => {
-                  // Only update local_delivery_yuan from delivery fees
-                  // original_price_yuan and profit_amount come from basket (already correct)
                   const updatedItems = createOrderData?.items?.map((item) => {
                     const matchingFee = deliveryData?.fees?.find(
                       (fee: any) => fee.basket_item_id === item.id
                     );
                     return {
                       ...item,
-                      // Only update local_delivery_yuan from the delivery calculation
                       local_delivery_yuan: matchingFee?.local_delivery_yuan ?? item.local_delivery_yuan ?? 0,
                     };
                   }) || [];
@@ -386,8 +390,6 @@ export default function OrderBlock({
           </div>
         )}
       </Modal>
-
-      {/* <Modal {...modalProps} /> */}
     </div>
   );
 }

@@ -1,77 +1,158 @@
+/* ============================================
+   CART BASKET ITEMS - OPTIMIZED STYLES
+   Premium card design with better spacing
+   ============================================ */
+
 .main {
   grid-area: items;
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
+  background: white;
+  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
   width: 100%;
-  // max-height: 500px;
-  height: 100%;
+  flex: 1;
   min-height: 400px;
 
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 28px;
   gap: 20px;
 
+  @media (max-width: 970px) {
+    padding: 20px;
+    border-radius: 14px;
+    min-height: auto;
+  }
+
+  /* === ITEMS LIST === */
   .swiper {
     -webkit-tap-highlight-color: transparent;
     display: flex;
     flex-direction: column;
-    max-height: 500px;
-    gap: 12px;
+    max-height: 700px;
+    gap: 20px;
     overflow: auto;
-    scrollbar-width: 2;
-    padding: 0px 10px 0px 0px;
+    scrollbar-width: thin;
+    padding: 0px 12px 0px 0px;
     height: auto;
-    min-height: 300px;
+    min-height: 200px;
+
+    /* Custom Scrollbar */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f5f5f5;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #d0d0d0;
+      border-radius: 3px;
+
+      &:hover {
+        background: #b0b0b0;
+      }
+    }
   }
 
+  /* === ITEMS COUNT HEADER === */
   .items_count {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f0f0f0;
+    flex-wrap: wrap;
+    gap: 16px;
 
-    > div {
+    >div {
       display: flex;
-      gap: 10px;
-      align-items: end;
-      justify-content: end;
+      gap: 14px;
+      align-items: center;
+
       @media (max-width: 1000px) {
-        width: 60% !important;
+        width: auto !important;
       }
     }
+
     .items_count__inner {
-      width: 50%;
-      justify-content: start;
+      flex: 1;
+      justify-content: flex-start;
+
       @media screen and (max-width: 1100px) {
         width: 100% !important;
         align-items: center;
       }
     }
+
+    /* Delete Button */
     .delete_btn {
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: transparent;
+      border: 2px solid #ff4d4f;
+      border-radius: 10px;
+      color: #ff4d4f;
+      font-size: var(--paragraph);
+      font-weight: 500;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #ff4d4f;
+        color: white;
+      }
+
+      @media (max-width: 600px) {
+        padding: 8px 16px;
+        font-size: var(--paragraph-two);
+      }
     }
+
     p {
-      color: var(--silver-grey);
-      font-size: var(--paragraph-two);
-      font-weight: 400;
-      line-height: 16.94px;
+      color: #666;
+      font-size: var(--paragraph);
+      font-weight: 500;
+      line-height: 1.4;
     }
+
     span {
-      color: var(--silver-grey);
-      font-size: var(--paragraph-two);
-      font-weight: 400;
-      line-height: 16.94px;
-      color: var(--primary-color);
+      color: #ff6b00;
+      font-size: var(--heading-seven);
+      font-weight: 600;
+      line-height: 1.4;
     }
 
     .delete_disable {
       opacity: 0.4;
       cursor: not-allowed;
+      pointer-events: none;
     }
 
+    /* Checkbox */
     .chechbox {
-      max-width: 150px;
+      max-width: 180px;
       width: auto !important;
+
+      :global(.ant-checkbox-wrapper) {
+        font-size: var(--paragraph);
+        color: var(--davys-grey);
+        font-weight: 500;
+      }
+
+      :global(.ant-checkbox-checked .ant-checkbox-inner) {
+        background-color: #ff6b00;
+        border-color: #ff6b00;
+      }
+
+      :global(.ant-checkbox-inner) {
+        width: 20px;
+        height: 20px;
+        border-radius: 6px;
+      }
     }
   }
 }
