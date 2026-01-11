@@ -1,12 +1,60 @@
+/* ============================================
+   CART BASKET PAGE - OPTIMIZED LAYOUT
+   LEFT 65%: Items, RIGHT 35%: Summary
+   ============================================ */
+
 .main {
-    padding: 10px 0px 0px 0px;
-    display: flex;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: 65% 35%;
+    gap: 24px;
+    padding: 10px 0;
+    align-items: start;
+
+    @media (max-width: 1200px) {
+        grid-template-columns: 62% 38%;
+        gap: 20px;
+    }
+
+    @media (max-width: 1024px) {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
 
     @media (max-width: 769px) {
-        padding: 0px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+        padding: 0;
+        padding-bottom: 120px;
+        /* Space for fixed footer */
+    }
+}
+
+/* === PAGE TITLE === */
+.pageTitle {
+    font-size: var(--heading-five);
+    font-weight: 600;
+    color: var(--black-color);
+    margin-bottom: 20px;
+
+    @media (max-width: 769px) {
+        font-size: var(--heading-six);
+        margin-bottom: 16px;
+    }
+}
+
+/* === ITEMS SIDE (Left - 65%) === */
+.itemsSide {
+    display: flex;
+    flex-direction: column;
+}
+
+/* === SUMMARY SIDE (Right - 35%) === */
+.summarySide {
+    @media (max-width: 1024px) {
+        order: -1;
+        /* Show summary first on tablet */
+    }
+
+    @media (max-width: 769px) {
+        /* Summary becomes fixed footer on mobile - handled by CartSummary */
+        position: static;
     }
 }

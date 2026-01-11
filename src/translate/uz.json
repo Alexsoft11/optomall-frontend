@@ -171,7 +171,12 @@
     "itemsCount": "Mahsulotlar soni",
     "minQuantityNum": "Minimal miqdor {minQuantity} dan katta bo'lishi kerak",
     "maxQuantityNum": "Maksimal miqdor {maxQuantity} dan kichik bo'lishi kerak",
-    "bts_emu_notice": "Mahsulotlar BTS yoki EMU pochta xizmati orqali yuboriladi. Ushbu yetkazib berish xizmati kargo xizmatiga kirmaydi va to‘lovi alohida hisoblanadi."
+    "bts_emu_notice": "Mahsulotlar BTS yoki EMU pochta xizmati orqali yuboriladi. Ushbu yetkazib berish xizmati kargo xizmatiga kirmaydi va to‘lovi alohida hisoblanadi.",
+    "orderedProducts": "Buyurtma qilingan mahsulotlar",
+    "paymentMethods": "To'lov usulini tanlash",
+    "cashPayment": "Naqdi to'lov",
+    "cardPayment": "Plastik karta",
+    "cart": "Savat"
   },
   "Order": {
     "cardName": "Qabul qiluvchining ismi: ",
@@ -182,7 +187,13 @@
     "impotantMessage": "Sizning buyurtmangiz kelganidan so'ng kargo xizmatini to'lashingiz kerak. Yetkazib berish narxi buyurtma kelganda avtomatik ravishda hisoblanadi va og'irlikka bog'liq, har 1 kilogramm uchun {costPerKg} uzs. Minimal og'irlik yo'q.",
     "importantTitle": "Muhim!",
     "calculatingChinaDelivery": "Xitoyda sotuvchidan omborga yetkazib berish narxi hisoblanmoqda...",
-    "calculationMayTakeTime": "Hisoblash bir necha soniya yoki bir daqiqa vaqt olishi mumkin."
+    "calculationMayTakeTime": "Hisoblash bir necha soniya yoki bir daqiqa vaqt olishi mumkin.",
+    "paymentTitle": "To'lovni amalga oshiring",
+    "paymentSubtitle": "Buyurtmani yakunlash uchun to'lovni hozir amalga oshiring!",
+    "safePayment": "Xavfsiz to'lov",
+    "fastProcessing": "Tezkor rasmiylashtirish",
+    "supportAvailable": "Qo'llab-quvvatlash mavjud",
+    "confirmPayment": "To'lovni tasdiqlang"
   },
   "Purchases": {
     "active": "Faol",

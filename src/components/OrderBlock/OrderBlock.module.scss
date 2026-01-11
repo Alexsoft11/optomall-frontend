@@ -1,378 +1,268 @@
-.complite_btn {
-  grid-area: upload_btn;
-  height: auto;
-  color: white;
-  background: var(--primary-color) !important;
-  padding: 12px 0px;
-  border-radius: 10px;
-  min-width: 100px;
-  span {
-    font-size: var(--paragraph-two);
-    font-weight: 400;
-    line-height: 16.94px;
-    color: white;
-  }
+/* ============================================
+   ORDER BLOCK - OPTIMIZED STYLES
+   Desktop: Full card with prices (bigger fonts)
+   Mobile (970px): Fixed footer with total + button
+   ============================================ */
 
-  @media (max-width: 769px) {
-    z-index: 1000 !important;
-  }
-
-  &:hover {
-    background: var(--primary-color) !important;
-    color: white !important;
-  }
-}
+/* === MAIN CARD === */
 .main {
-  grid-area: order;
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
-  padding: 20px;
+  background: white;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  padding: 28px;
   display: flex;
   flex-direction: column;
-  gap: 23px;
-  border-radius: 10px;
-  height: min-content;
-  width: 310px;
+  gap: 24px;
+  border-radius: 16px;
+  width: 100%;
 
-  .cargo_title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    p {
-      font-size: var(--paragraph-two) !important;
-      font-weight: 400 !important;
-      line-height: 16.94px !important;
-    }
-  }
-
-  .order_title {
-    grid-area: count;
-    font-size: var(--paragraph-two);
-    font-weight: 400;
-    line-height: 16.94px;
-    color: var(--silver-grey);
-  }
-
-  .upload_btn {
-    width: 100%;
-
-    @media (max-width: 600px) {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    grid-area: upload_btn;
-
-    .response_button__block {
-      $circle-size: 40px;
-
-      // Unfortunately, we need a wrapper element containing the fixed width for centering the button within the animation (you could also apply the width as an inline style).
-      .loading-btn-wrapper {
-        display: inline-block;
-        max-width: 274px;
-        width: 50dvw;
-        height: $circle-size;
-
-        text-align: center;
-
-        @media (max-width: 768px) {
-          max-width: none;
-          width: 57dvw;
-        }
-      }
-
-      .loading-btn {
-        $root: &;
-
-        position: relative;
-
-        display: inline-block;
-        width: 100%;
-        height: 100%;
-
-        background: var(--primary-color);
-
-        border: 0;
-        border-radius: 10px;
-
-        cursor: pointer;
-
-        transition: all 0.33s ease-in-out;
-
-        &,
-        &:focus {
-          outline: none;
-        }
-
-        // Styles for all states
-        &--pending,
-        &--success,
-        &--fail {
-          // Morph button to circle (width equals height)
-          width: $circle-size;
-
-          // Prevent any further clicks triggering events during animation
-          pointer-events: none;
-          cursor: default;
-
-          // Hide text
-          #{$root}__text {
-            opacity: 0;
-          }
-        }
-
-        // State "pending"
-        // Show loading indicator
-        &--pending:before {
-          content: "";
-
-          position: absolute;
-          top: 50%;
-          left: 50%;
-
-          display: inline-block;
-
-          // Can't use percentage here as we already show this icon during morph animation
-          height: #{$circle-size * 0.7};
-          width: #{$circle-size * 0.7};
-
-          border: 3px solid rgba(255, 255, 255, 0.33);
-          border-top-color: #fff;
-          border-radius: 50%;
-
-          animation: loading-btn--fade-in 0.33s ease,
-            loading-btn--rotation 0.66s linear 0s infinite;
-        }
-
-        // Success state - show check icon
-        &--success {
-          // Use "after" pseudo to trigger new fade in animation, as "before" is already used on "--pending"
-          &:after {
-            content: "";
-
-            position: absolute;
-            top: 50%;
-            left: 50%;
-
-            // Simulate checkmark icon
-            display: inline-block;
-            height: 25%;
-            width: 50%;
-
-            border: 3px solid #fff;
-            border-top-width: 0;
-            border-right-width: 0;
-
-            transform: translate(-50%, -75%) rotate(-45deg);
-
-            animation: loading-btn--fade-in 0.6s ease;
-          }
-        }
-
-        // Fail state - show cross icon
-        &--fail {
-          // Use "after" pseudo to trigger new fade in animation, as "before" is already used on "--pending"
-          &:after {
-            content: "";
-
-            position: absolute;
-            top: 50%;
-            left: 50%;
-
-            // Simulate cross icon
-            display: inline-block;
-            height: 65%;
-            width: 65%;
-
-            // Using background gradient is the only solution creating a cross with a single element
-            background: linear-gradient(
-                to bottom,
-                transparent 44%,
-                #fff 44%,
-                #fff 56%,
-                transparent 56%
-              ),
-              linear-gradient(
-                to right,
-                transparent 44%,
-                #fff 44%,
-                #fff 56%,
-                transparent 56%
-              );
-
-            transform: translate(-50%, -50%) rotate(-45deg);
-
-            animation: loading-btn--fade-in 0.6s ease;
-          }
-        }
-
-        // Text has to be positioned absolute in order prevent line-breaks or trimming of text when morphing button to circle.
-        &__text {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-
-          font-size: 13px;
-          color: #fff;
-
-          transition: inherit;
-        }
-      }
-    }
-  }
-
-  .total {
-    div {
-      grid-area: total;
-      display: flex;
-      justify-content: space-between;
-
-      h1,
-      p {
-        font-size: var(--heading-seven);
-        font-weight: 500;
-        line-height: 29.05px;
-      }
-    }
-    .china_delivery {
-      margin-top: 5px;
-      h1,
-      p {
-        font-size: var(--paragraph-two);
-        font-weight: 400;
-        line-height: 16.94px;
-      }
-      @media screen and (max-width: 769px) {
-        display: none;
-      }
-    }
-  }
-
-  @media (max-width: 769px) {
-    max-height: 82px !important;
+  @media (max-width: 970px) {
     position: fixed;
     bottom: 55px;
-    max-width: none;
-    display: grid;
-    gap: 0px;
-    grid-template-columns: 40% 60%;
-    grid-template-areas:
-      "total upload_btn upload_btn"
-      "count upload_btn upload_btn";
+    left: 0;
+    right: 0;
+    z-index: 999;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.15);
+    padding: 18px 20px;
+    gap: 14px;
+  }
+}
+
+/* === TITLE === */
+.order_title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--heading-five);
+  font-weight: 600;
+  color: var(--black-color);
+
+  &::before {
+    content: "📋";
+    font-size: 22px;
+  }
+
+  @media (max-width: 970px) {
+    display: none;
+    /* Hide title on mobile */
+  }
+}
+
+/* === PRICE SECTION === */
+.priceSection {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+  background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+  border-radius: 14px;
+
+  @media (max-width: 970px) {
+    padding: 0;
+    background: none;
+    gap: 0;
+  }
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--heading-seven);
+  color: var(--davys-grey);
+
+  .priceValue {
+    font-weight: 600;
+    color: var(--jet-black);
+  }
+
+  @media (max-width: 970px) {
+    display: none;
+    /* Hide detailed prices on mobile */
+  }
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 2px solid #e8e8e8;
+
+  span:first-child {
+    font-size: var(--heading-six);
+    font-weight: 600;
+    color: var(--black-color);
+  }
+
+  .totalValue {
+    font-size: var(--heading-four);
+    font-weight: 700;
+    color: #ff6b00;
+  }
+
+  @media (max-width: 970px) {
+    padding-top: 0;
+    border-top: none;
+
+    span:first-child {
+      font-size: var(--paragraph);
+      font-weight: 500;
+    }
+
+    .totalValue {
+      font-size: var(--heading-five);
+    }
+  }
+}
+
+/* === UPLOAD SECTION === */
+.upload_section {
+  width: 100%;
+
+  :global(.ant-upload) {
     width: 100%;
-    left: 0px;
-    border-radius: 0px;
-    z-index: 998;
-    background: var(--white-color);
-
-    .order_title {
-      width: fit-content;
-      font-size: var(--paragraph-two);
-      font-weight: 400;
-      line-height: 16.94px;
-      color: var(--silver-grey);
-    }
-
-    .total {
-      h1 {
-        display: none;
-      }
-
-      p {
-        font-size: var(--heading-six);
-        font-weight: 500;
-        line-height: 24.2px;
-      }
-    }
+    display: block;
   }
 }
 
-@keyframes loading-btn--fade-in {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes loading-btn--rotation {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-.loadingTip {
+.uploadButton {
+  width: 100%;
+  padding: 18px 28px;
+  background: linear-gradient(135deg, #FF6B00 0%, #FF9500 100%);
+  color: white;
+  font-size: var(--heading-seven);
+  font-weight: 600;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  border-radius: 12px;
-  padding: 1rem 1.5rem;
-  margin-bottom: 1rem;
-  animation: fadeIn 0.3s ease-in-out;
-  width: 100%;
-  height: 100%;
-}
+  gap: 12px;
+  min-height: 56px;
 
-.confirm_modal {
-  padding: 20px;
-}
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 0, 0.4);
+    background: linear-gradient(135deg, #ff5500 0%, #ff8500 100%);
+  }
 
-.confirm_loading {
-  padding: 40px 0;
-  text-align: center;
-  font-size: 16px;
-}
+  &:active {
+    transform: translateY(0);
+  }
 
-.confirm_content {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  min-width: 500px;
-  @media screen and (max-width: 600px) {
-    min-width: 200px;
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  @media (max-width: 970px) {
+    padding: 16px 24px;
+    min-height: 52px;
+    border-radius: 12px;
+    font-size: var(--paragraph);
   }
 }
 
+/* === COMPLETE BUTTON (Cart) === */
+.complite_btn {
+  width: 100%;
+  padding: 18px 28px !important;
+  background: linear-gradient(135deg, #FF6B00 0%, #FF9500 100%) !important;
+  color: white !important;
+  font-size: var(--heading-seven) !important;
+  font-weight: 600 !important;
+  border-radius: 14px !important;
+  border: none !important;
+  min-height: 56px;
+
+  span {
+    color: white !important;
+    font-weight: 600 !important;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 0, 0.4);
+  }
+}
+
+/* === CONFIRM MODAL === */
+.confirm_modal {
+  :global(.ant-modal-content) {
+    border-radius: 20px;
+    padding: 0;
+    overflow: hidden;
+  }
+}
+
+.confirm_content {
+  padding: 32px;
+}
+
 .confirm_title {
-  font-size: 20px;
+  font-size: var(--heading-four);
   font-weight: 600;
-  margin-bottom: 10px;
   text-align: center;
+  margin-bottom: 28px;
+  color: var(--black-color);
 }
 
 .confirm_row {
   display: flex;
   justify-content: space-between;
-  font-size: 16px;
-  color: #333;
+  padding: 16px 0;
+  border-bottom: 1px dashed #e9ecef;
+  font-size: var(--heading-seven);
+  color: var(--davys-grey);
+
+  span:last-child {
+    font-weight: 600;
+    color: var(--jet-black);
+  }
 }
 
 .confirm_total {
-  margin-top: 10px;
-  padding-top: 12px;
-  border-top: 1px solid #eee;
   display: flex;
   justify-content: space-between;
-  font-size: 18px;
-  font-weight: 600;
+  padding: 24px 0;
+  margin-top: 12px;
+  border-top: 2px solid #f0f0f0;
+  font-size: var(--heading-five);
+  font-weight: 700;
+
+  span:last-child {
+    color: #ff6b00;
+    font-size: var(--heading-four);
+  }
 }
 
 .confirm_button_block {
-  margin-top: 20px;
+  margin-top: 28px;
 }
 
-.confirm_btn {
-  width: 100%;
-  height: 44px;
+.loadingTip {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.loadingMessage {
+  p {
+    color: var(--davys-grey);
+    font-size: var(--paragraph);
+    line-height: 1.6;
+
+    &:first-child {
+      font-weight: 600;
+      color: #ff6b00;
+      font-size: var(--heading-seven);
+    }
+  }
 }

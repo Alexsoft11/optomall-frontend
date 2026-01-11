@@ -1,77 +1,150 @@
+/* ============================================
+   CART BASKET ITEMS - OPTIMIZED STYLES
+   Premium card design consistent with Order page
+   ============================================ */
+
 .main {
   grid-area: items;
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
+  background: white;
+  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
   width: 100%;
-  // max-height: 500px;
-  height: 100%;
+  flex: 1;
   min-height: 400px;
 
   display: flex;
   flex-direction: column;
   padding: 20px;
-  gap: 20px;
+  gap: 16px;
 
+  @media (max-width: 769px) {
+    padding: 16px;
+    border-radius: 12px;
+    min-height: auto;
+  }
+
+  /* === ITEMS LIST === */
   .swiper {
     -webkit-tap-highlight-color: transparent;
     display: flex;
     flex-direction: column;
-    max-height: 500px;
+    max-height: 600px;
     gap: 12px;
     overflow: auto;
-    scrollbar-width: 2;
-    padding: 0px 10px 0px 0px;
+    scrollbar-width: thin;
+    padding: 0px 8px 0px 0px;
     height: auto;
-    min-height: 300px;
+    min-height: 200px;
+
+    /* Custom Scrollbar */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f5f5f5;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #d0d0d0;
+      border-radius: 3px;
+
+      &:hover {
+        background: #b0b0b0;
+      }
+    }
   }
 
+  /* === ITEMS COUNT HEADER === */
   .items_count {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+    flex-wrap: wrap;
+    gap: 12px;
 
-    > div {
+    >div {
       display: flex;
-      gap: 10px;
-      align-items: end;
-      justify-content: end;
+      gap: 12px;
+      align-items: center;
+
       @media (max-width: 1000px) {
-        width: 60% !important;
+        width: auto !important;
       }
     }
+
     .items_count__inner {
-      width: 50%;
-      justify-content: start;
+      flex: 1;
+      justify-content: flex-start;
+
       @media screen and (max-width: 1100px) {
         width: 100% !important;
         align-items: center;
       }
     }
+
+    /* Delete Button */
     .delete_btn {
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: transparent;
+      border: 1px solid #ff4d4f;
+      border-radius: 8px;
+      color: #ff4d4f;
+      font-size: var(--paragraph-two);
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #ff4d4f;
+        color: white;
+      }
+
+      @media (max-width: 600px) {
+        padding: 6px 12px;
+        font-size: var(--paragraph-three);
+      }
     }
+
     p {
       color: var(--silver-grey);
       font-size: var(--paragraph-two);
       font-weight: 400;
-      line-height: 16.94px;
+      line-height: 1.4;
     }
+
     span {
-      color: var(--silver-grey);
-      font-size: var(--paragraph-two);
-      font-weight: 400;
-      line-height: 16.94px;
       color: var(--primary-color);
+      font-size: var(--paragraph-two);
+      font-weight: 500;
+      line-height: 1.4;
     }
 
     .delete_disable {
       opacity: 0.4;
       cursor: not-allowed;
+      pointer-events: none;
     }
 
+    /* Checkbox */
     .chechbox {
       max-width: 150px;
       width: auto !important;
+
+      :global(.ant-checkbox-wrapper) {
+        font-size: var(--paragraph-two);
+        color: var(--davys-grey);
+      }
+
+      :global(.ant-checkbox-checked .ant-checkbox-inner) {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
     }
   }
 }

@@ -1,35 +1,141 @@
+/* ============================================
+   LOCATION BLOCK - REDESIGNED STYLES
+   Premium address selection form
+   ============================================ */
+
 .main {
-  border-radius: 10px;
-  padding: 20px;
+  border-radius: 12px;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
   width: 100%;
 
   &.border {
-    border: 1px solid var(--primary-color);
+    border: none;
+    padding: 0;
   }
+
+  /* === ADDRESS INPUT SECTION === */
   .enter_addres {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
+
+    /* Ant Design Form Item Override */
+    :global(.ant-form-item) {
+      margin-bottom: 0;
+    }
+
+    /* Select Styling */
+    :global(.ant-select) {
+      width: 100%;
+
+      .ant-select-selector {
+        border-radius: 10px !important;
+        padding: 10px 14px !important;
+        height: auto !important;
+        min-height: 48px;
+        border: 2px solid #e9ecef !important;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+        &:hover {
+          border-color: #ff9500 !important;
+        }
+      }
+
+      &.ant-select-focused .ant-select-selector {
+        border-color: #ff6b00 !important;
+        box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1) !important;
+      }
+    }
   }
 
+  /* === TEXT BLOCK === */
   .text_block {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
   }
 
+  /* === TITLE === */
   h2 {
-    font-size: var(--heading-six);
-    font-weight: 500;
-    line-height: 24.2px;
+    font-size: var(--heading-seven);
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--black-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &::before {
+      content: "📍";
+      font-size: 18px;
+    }
   }
 
+  /* === DESCRIPTION TEXT === */
   p {
     font-size: var(--paragraph-two);
     font-weight: 400;
-    line-height: 16.94px;
+    line-height: 1.5;
+    color: var(--davys-grey);
+  }
+}
+
+/* === SELECT COMPONENT === */
+.select {
+  width: 100%;
+
+  :global(.ant-select-selector) {
+    border-radius: 10px !important;
+    min-height: 48px !important;
+    border: 2px solid #e9ecef !important;
+
+    &:hover {
+      border-color: #ff9500 !important;
+    }
+  }
+
+  &:global(.ant-select-focused) {
+    :global(.ant-select-selector) {
+      border-color: #ff6b00 !important;
+      box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1) !important;
+    }
+  }
+}
+
+/* === NOTICE BOX (BTS EMU) === */
+.noticeBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: linear-gradient(135deg, #fff8e6 0%, #fffdf5 100%);
+  border: 1px solid #ffe082;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 8px;
+
+  .noticeIcon {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .noticeText {
+    font-size: var(--paragraph-two);
+    font-weight: 500;
+    color: #8b6914;
+    line-height: 1.5;
+  }
+}
+
+/* === RESPONSIVE ADJUSTMENTS === */
+@media (max-width: 768px) {
+  .main {
+    gap: 16px;
+
+    h2 {
+      font-size: var(--paragraph);
+    }
   }
 }
