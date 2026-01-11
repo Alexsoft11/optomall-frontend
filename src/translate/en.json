@@ -171,7 +171,12 @@
     "itemsCount": "Items count",
     "minQuantityNum": "Minimum quantity of goods {minQuantity}",
     "maxQuantityNum": "Maximum quantity of goods {maxQuantity}",
-    "bts_emu_notice": "Products are shipped via BTS or EMU postal services. This delivery service is not included in the cargo service and is paid separately."
+    "bts_emu_notice": "Products are shipped via BTS or EMU postal services. This delivery service is not included in the cargo service and is paid separately.",
+    "orderedProducts": "Ordered Products",
+    "paymentMethods": "Choose payment method",
+    "cashPayment": "Cash payment",
+    "cardPayment": "Credit/Debit card",
+    "cart": "Cart"
   },
   "Order": {
     "payCost": "Amount to be paid: ",
@@ -182,7 +187,16 @@
     "impotantMessage": "You must pay for the cargo service upon the arrival of your order. The delivery cost is automatically calculated based on the weight when the order arrives, {costPerKg} uzs per 1 kilogram. There is no minimum weight.",
     "importantTitle": "Important!",
     "calculatingChinaDelivery": "Calculating delivery fee from seller to warehouse in China...",
-    "calculationMayTakeTime": "This may take a few seconds or up to one minute."
+    "calculationMayTakeTime": "This may take a few seconds or up to one minute.",
+    "paymentTitle": "Complete Your Payment",
+    "paymentSubtitle": "Make your payment now to finalize your order!",
+    "safePayment": "Safe Payment",
+    "fastProcessing": "Fast Processing",
+    "supportAvailable": "Support Available",
+    "confirmPayment": "Confirm Payment",
+    "uploading": "Uploading...",
+    "uploaded": "Uploaded",
+    "uploadFailed": "Failed"
   },
   "Purchases": {
     "active": "Active",

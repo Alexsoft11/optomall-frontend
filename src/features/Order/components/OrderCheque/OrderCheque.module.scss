@@ -1,89 +1,250 @@
+/* ============================================
+   ORDER CHEQUE - PAYMENT INFO CARD
+   Left side - card number and instructions
+   Bigger fonts for readability
+   ============================================ */
+
 .main {
-  grid-area: cheque;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
+}
 
-  .important_message {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    box-shadow: 0px 0px 6px 0px #00000026;
-    border-radius: 10px;
-    padding: 20px 12px;
-    height: min-content;
-    width: 100%;
+/* === PAYMENT CARD === */
+.paymentCard {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
 
-    h4 {
-      font-size: var(--paragraph);
-      font-weight: 500;
-      line-height: 19.36px;
-      color: var(--primary-color);
-    }
+/* === ORANGE HEADER - HIDE ON MOBILE === */
+.cardHeader {
+  background: linear-gradient(135deg, #ff6b00 0%, #ff9500 100%);
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
 
-    p {
-      font-size: var(--paragraph);
-      font-style: italic;
-      font-weight: 500;
-      line-height: 19.36px;
-      font-variation-settings: "slnt" -10;
-    }
+  @media (max-width: 970px) {
+    display: none;
+    /* Hide on mobile since bottom bar shows price */
+  }
+}
+
+.lockIcon {
+  font-size: 20px;
+}
+
+.headerTitle {
+  color: white;
+  font-size: var(--heading-seven);
+  font-weight: 500;
+  flex: 1;
+}
+
+.headerAmount {
+  color: white;
+  font-size: var(--heading-four);
+  font-weight: 700;
+}
+
+/* === CARD BODY === */
+.cardBody {
+  padding: 28px;
+
+  @media (max-width: 970px) {
+    padding: 24px 20px;
+  }
+}
+
+/* === PAYMENT TEXT - BIGGER FONT === */
+.payText {
+  color: var(--jet-black);
+  font-size: var(--paragraph);
+  line-height: 1.8;
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #f0f0f0;
+
+  @media (max-width: 970px) {
+    font-size: var(--paragraph);
+    line-height: 1.7;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+  }
+}
+
+/* === CARD NUMBER === */
+.cardNumberSection {
+  margin-bottom: 24px;
+}
+
+.cardLabel {
+  display: block;
+  font-size: var(--paragraph);
+  color: var(--davys-grey);
+  margin-bottom: 12px;
+}
+
+.cardNumberBox {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, #fff5f0 0%, #ffffff 100%);
+  border: 2px solid #ffe0cc;
+  padding: 18px 24px;
+  border-radius: 14px;
+  transition: all 0.2s ease;
+
+  @media (max-width: 970px) {
+    padding: 16px 18px;
   }
 
-  .cheque {
-    display: flex;
-    flex-direction: column;
+  &:hover {
+    border-color: #ff6b00;
+    box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.1);
+  }
+}
+
+.cardNumber {
+  flex: 1;
+  font-size: var(--heading-five);
+  font-weight: 700;
+  color: #28a745;
+  letter-spacing: 3px;
+  font-family: 'Courier New', Courier, monospace;
+
+  @media (max-width: 970px) {
+    font-size: var(--heading-six);
+    letter-spacing: 2px;
+  }
+}
+
+.copyBtn {
+  background: linear-gradient(135deg, #ff6b00 0%, #ff9500 100%);
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  img {
+    filter: brightness(0) invert(1);
+    width: 22px;
+    height: 22px;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(255, 107, 0, 0.4);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+/* === RECEIVER === */
+.receiverSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 22px;
+  background: #f8f9fa;
+  border-radius: 14px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.receiverLabel {
+  font-size: var(--paragraph);
+  color: var(--davys-grey);
+}
+
+.receiverName {
+  font-size: var(--heading-seven);
+  font-weight: 600;
+  color: var(--black-color);
+}
+
+/* === TRUST BADGES === */
+.trustBadges {
+  display: flex;
+  gap: 28px;
+  padding-top: 24px;
+  border-top: 1px solid #f0f0f0;
+  flex-wrap: wrap;
+
+  @media (max-width: 970px) {
     gap: 20px;
-    box-shadow: 0px 0px 6px 0px #00000026;
-    border-radius: 10px;
-    padding: 20px 12px;
-    height: min-content;
-    width: 100%;
+    padding-top: 20px;
+  }
+}
 
-    p {
-      font-size: var(--paragraph);
-      font-weight: 400;
-      line-height: 19.36px;
-    }
-    .pay_china {
-      font-size: var(--paragraph-two);
-    }
-    .card_number {
-      display: flex;
-      gap: 13px;
-      align-items: center;
+.trustBadge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--paragraph);
+  color: var(--davys-grey);
+}
 
-      div {
-        display: flex;
-        gap: 13px;
-        align-items: center;
+.badgeIcon {
+  font-size: 18px;
+}
 
-        p {
-          font-size: var(--heading-seven);
-          font-weight: 400;
-          line-height: 19.36px;
-        }
+/* === WARNING CARD - MORE PROMINENT === */
+.warningCard {
+  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+  border: 2px solid #ffc107;
+  border-radius: 16px;
+  padding: 24px 28px;
+  box-shadow: 0 4px 16px rgba(255, 193, 7, 0.2);
 
-        img {
-          cursor: pointer;
-        }
-      }
-    }
+  @media (max-width: 970px) {
+    padding: 20px;
+    border-radius: 14px;
+  }
+}
 
-    @media (max-width: 770px) {
-      padding: 0px;
-      box-shadow: none;
-      gap: 10px;
+.warningHeader {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
 
-      p {
-        font-size: var(--paragraph);
-        font-weight: 400;
-        line-height: 16.36px;
-      }
+.warningIcon {
+  font-size: 28px;
 
-      .card_number {
-        align-self: flex-start;
-      }
-    }
+  @media (max-width: 970px) {
+    font-size: 24px;
+  }
+}
+
+.warningTitle {
+  font-size: var(--heading-five);
+  font-weight: 700;
+  color: #f57c00;
+
+  @media (max-width: 970px) {
+    font-size: var(--heading-six);
+  }
+}
+
+.warningText {
+  font-size: var(--heading-seven);
+  color: #e65100;
+  line-height: 1.7;
+  font-weight: 500;
+
+  @media (max-width: 970px) {
+    font-size: var(--paragraph);
   }
 }

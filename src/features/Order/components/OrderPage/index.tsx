@@ -25,6 +25,8 @@ export default function OrderPage({ orderData, userData }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const [deliveryPrice, setDeliveryPrice] = useState(0);
   const t = useTranslations("Order");
+  const tCart = useTranslations("Cart");
+
   const locationInitialValue: LocationInfoInterface = {
     region: userData.region || "",
     district: userData.district || "",
@@ -34,6 +36,7 @@ export default function OrderPage({ orderData, userData }: Props) {
     name: userData.name || "",
     phone: userData.phone || "",
   };
+
   const [locationInfo, setLocationInfo] =
     useState<LocationInfoInterface>(locationInitialValue);
 
@@ -57,11 +60,6 @@ export default function OrderPage({ orderData, userData }: Props) {
     const count = orderData.detail.filter(
       (order) => order.items[0]?.provider === "1688"
     ).length;
-
-    console.log(
-      !!orderData.order.delivery_china &&
-        !Number(orderData.order.delivery_china)
-    );
 
     if (
       count &&
@@ -94,72 +92,117 @@ export default function OrderPage({ orderData, userData }: Props) {
     }
   };
 
+  const totalCost = Math.round(orderData?.order?.total_price) + deliveryPrice;
+  const productCost = Math.round(orderData?.order?.total_price);
+
   return (
     <div className={styles.main}>
+      {/* Loading Overlay */}
       {isLoading && (
-        <div className={styles.loadingTip}>
-          <LoadingSpinner />
-          <div className={styles.loadingMessage}>
+        <div className={styles.loadingOverlay}>
+          <div className={styles.loadingContent}>
+            <LoadingSpinner />
             <p>{t("calculatingChinaDelivery")}</p>
             <p>{t("calculationMayTakeTime")}</p>
           </div>
         </div>
       )}
-      <div className={styles.check}>
+
+      {/* LEFT COLUMN - Payment Info + Forms (on mobile) */}
+      <div className={styles.left_column}>
+        {/* Payment Info Card */}
         <OrderCheque
           cardName={orderData?.order?.name}
           costPerKg={orderData?.order?.kg_price}
           cardId={orderData?.order?.card_number}
-          cost={Math.round(orderData?.order?.total_price) + deliveryPrice}
+          cost={totalCost}
           delivery_china={deliveryPrice}
-          product_cost={Math.round(orderData?.order?.total_price)}
+          product_cost={productCost}
         />
-      </div>
-      <div className={styles.items_block}>
-        <div className={styles.items}>
-          {orderData?.detail?.map((el) => (
-            <Fragment key={el.id}>
-              <PurchasesItem
-                item={el}
-                isOrderPage={
-                  !!orderData.order.delivery_china &&
-                  !Number(orderData.order.delivery_china)
-                }
-                onDeliveryFeeFinished={handleDeliveryFeeFinished}
-              />
-            </Fragment>
-          ))}
-        </div>
-      </div>
 
-      <div className={styles.order_side}>
-        <OrderBlock
-          editOrderData={editOrderData}
-          setDataFailed={setDataFailed}
-          orderId={orderData?.order?.id}
-          type="order"
-          product_cost={Math.round(orderData?.order?.total_price)}
-          delivery_china={deliveryPrice}
-          cost={Math.round(orderData?.order?.total_price) + deliveryPrice}
-        />
-        <div className={styles.order_info}>
+        {/* Forms - Show here on mobile */}
+        <div className={styles.mobile_forms}>
+          {/* Location Form */}
           <div
-            className={`${
-              dataFailed === "location"
-                ? "animate__shakeX animate__animated"
-                : null
+            className={`${styles.form_section} ${
+              dataFailed === "location" ? styles.hasError : ""
             }`}
           >
             <LocationBlock
               setLocationInfo={setLocationInfo}
               locationInfo={locationInfo}
+              isShowBorder={false}
             />
           </div>
+
+          {/* Person Form */}
           <div
-            className={`${
-              dataFailed === "personal"
-                ? "animate__shakeX animate__animated"
-                : null
+            className={`${styles.form_section} ${
+              dataFailed === "personal" ? styles.hasError : ""
+            }`}
+          >
+            <GetOtderPerson
+              personData={personData}
+              setPersonData={setPersonData}
+            />
+          </div>
+        </div>
+
+        {/* Ordered Items */}
+        <div className={styles.items_section}>
+          <h2 className={styles.items_title}>
+            {tCart("orderedProducts")}
+            <span className={styles.items_count}>{orderData?.detail?.length || 0}</span>
+          </h2>
+          <div className={styles.items_grid}>
+            {orderData?.detail?.map((el) => (
+              <Fragment key={el.id}>
+                <PurchasesItem
+                  item={el}
+                  isOrderPage={
+                    !!orderData.order.delivery_china &&
+                    !Number(orderData.order.delivery_china)
+                  }
+                  onDeliveryFeeFinished={handleDeliveryFeeFinished}
+                />
+              </Fragment>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* RIGHT COLUMN - Sidebar (Desktop only) */}
+      <div className={styles.right_column}>
+        {/* Order Summary + Upload Button */}
+        <OrderBlock
+          editOrderData={editOrderData}
+          setDataFailed={setDataFailed}
+          orderId={orderData?.order?.id}
+          type="order"
+          product_cost={productCost}
+          delivery_china={deliveryPrice}
+          cost={totalCost}
+        />
+
+        {/* Forms - Desktop only */}
+        <div className={styles.desktop_forms}>
+          {/* Location Form */}
+          <div
+            className={`${styles.form_section} ${
+              dataFailed === "location" ? styles.hasError : ""
+            }`}
+          >
+            <LocationBlock
+              setLocationInfo={setLocationInfo}
+              locationInfo={locationInfo}
+              isShowBorder={false}
+            />
+          </div>
+
+          {/* Person Form */}
+          <div
+            className={`${styles.form_section} ${
+              dataFailed === "personal" ? styles.hasError : ""
             }`}
           >
             <GetOtderPerson

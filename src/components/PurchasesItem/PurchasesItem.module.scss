@@ -1,21 +1,28 @@
+/* ============================================
+   PURCHASES ITEM - ORDER PRODUCT CARD
+   Bigger fonts for better readability
+   ============================================ */
+
 .card {
-  background: transparent;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  padding: 16px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   height: fit-content;
   transition: transform 0.2s, box-shadow 0.2s;
 
   &:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
   }
 
-  @media (max-width: 768px) {
-    padding: 12px;
+  @media (max-width: 970px) {
+    padding: 20px;
+    gap: 16px;
+    border-radius: 14px;
   }
 }
 
@@ -23,21 +30,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
 
   .headerLeft {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 
     .idLabel {
       color: #888;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 500;
     }
 
     .idValue {
       color: #333;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 600;
     }
   }
@@ -45,24 +54,24 @@
   .headerRight {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
 
     .flagWrapper {
       position: relative;
-      width: 24px;
-      height: 24px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       overflow: hidden;
-      
+
       .flagImage {
         object-fit: cover;
       }
     }
 
     .statusBadge {
-      padding: 4px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
       border: 1px solid transparent;
       white-space: nowrap;
@@ -73,9 +82,8 @@
 .detailsGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  
-  // Make full width items span both columns
+  gap: 16px;
+
   .fullWidth {
     grid-column: span 2;
   }
@@ -83,57 +91,71 @@
   .detailItem {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
 
     .label {
-      color: #999;
-      font-size: 12px;
+      color: #888;
+      font-size: 13px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      font-weight: 500;
     }
 
     .value {
-      color: #444;
-      font-size: 14px;
+      color: #333;
+      font-size: 16px;
       font-weight: 500;
       word-break: break-word;
     }
 
     .valueHighlight {
-      color: #ff6b00; // Orange or primary color
-      font-size: 15px;
+      color: #ff6b00;
+      font-size: 18px;
       font-weight: 700;
     }
   }
 
-  @media (max-width: 500px) {
-     grid-template-columns: 1fr;
-     
-     .fullWidth {
-       grid-column: span 1;
-     }
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 12px;
 
-     .detailItem {
-       flex-direction: row;
-       justify-content: space-between;
-       align-items: baseline;
-     }
+    .fullWidth {
+      grid-column: span 1;
+    }
+
+    .detailItem {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: baseline;
+
+      .label {
+        font-size: 12px;
+      }
+
+      .value {
+        font-size: 15px;
+      }
+
+      .valueHighlight {
+        font-size: 16px;
+      }
+    }
   }
 }
 
 .divider {
   height: 1px;
-  background-color: #eee;
+  background-color: #f0f0f0;
   width: 100%;
 }
 
 .itemsContainer {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
-  
+
   &.collapsed {
     max-height: 0;
     opacity: 0;
@@ -144,29 +166,32 @@
 .actionRow {
   display: flex;
   justify-content: flex-end;
-  
+
   .checkAgainAction {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     cursor: pointer;
 
     span {
-        font-size: 13px;
-        color: #666;
+      font-size: 14px;
+      color: #666;
     }
 
     button {
-      background: #ff6b00;
+      background: linear-gradient(135deg, #ff6b00 0%, #ff9500 100%);
       color: white;
       border: none;
-      padding: 6px 12px;
-      border-radius: 6px;
+      padding: 10px 18px;
+      border-radius: 10px;
       cursor: pointer;
-      font-size: 12px;
-      
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s;
+
       &:hover {
-        background: #e65c00;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
       }
     }
   }
@@ -175,35 +200,35 @@
 .itemsList {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .toggleRow {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   color: #999;
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
-  padding-top: 4px;
-  
+  padding-top: 8px;
+
   &:hover {
-    color: #666;
+    color: #ff6b00;
   }
 
   .chevron {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-top: 2px solid currentColor;
     border-right: 2px solid currentColor;
     transition: transform 0.3s;
-    
+
     &.up {
       transform: rotate(-45deg);
-       margin-top: 4px;
+      margin-top: 4px;
     }
-    
+
     &.down {
       transform: rotate(135deg);
       margin-top: -2px;
