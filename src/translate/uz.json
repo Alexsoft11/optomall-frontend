@@ -193,7 +193,10 @@
     "safePayment": "Xavfsiz to'lov",
     "fastProcessing": "Tezkor rasmiylashtirish",
     "supportAvailable": "Qo'llab-quvvatlash mavjud",
-    "confirmPayment": "To'lovni tasdiqlang"
+    "confirmPayment": "To'lovni tasdiqlang",
+    "uploading": "Yuklanmoqda...",
+    "uploaded": "Yuklandi",
+    "uploadFailed": "Xatolik"
   },
   "Purchases": {
     "active": "Faol",

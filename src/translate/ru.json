@@ -195,7 +195,10 @@
     "safePayment": "Безопасная оплата",
     "fastProcessing": "Быстрая обработка",
     "supportAvailable": "Поддержка доступна",
-    "confirmPayment": "Подтвердите оплату"
+    "confirmPayment": "Подтвердите оплату",
+    "uploading": "Загрузка...",
+    "uploaded": "Загружено",
+    "uploadFailed": "Ошибка"
   },
   "Purchases": {
     "active": "Активные",

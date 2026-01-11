@@ -284,13 +284,22 @@ export default function OrderBlock({
         <div className={styles.upload_section}>
           <Upload {...uploadProps} accept="image/*">
             <button 
-              className={styles.uploadButton}
+              className={`${styles.uploadButton} ${buttonStatus !== "idle" ? styles.uploadButtonLoading : ""}`}
               disabled={buttonStatus === "pending"}
             >
               {buttonStatus === "idle" && t("Cart.loadCheque")}
-              {buttonStatus === "pending" && <LoadingSpinner size="small" />}
-              {buttonStatus === "success" && "✓"}
-              {buttonStatus === "fail" && "✗"}
+              {buttonStatus === "pending" && (
+                <span className={styles.loadingText}>
+                  <span className={styles.spinner}></span>
+                  {t("Order.uploading") || "Загрузка..."}
+                </span>
+              )}
+              {buttonStatus === "success" && (
+                <span className={styles.successText}>✓ {t("Order.uploaded") || "Загружено"}</span>
+              )}
+              {buttonStatus === "fail" && (
+                <span className={styles.failText}>✗ {t("Order.uploadFailed") || "Ошибка"}</span>
+              )}
             </button>
           </Upload>
         </div>

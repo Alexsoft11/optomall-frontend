@@ -193,7 +193,10 @@
     "safePayment": "Safe Payment",
     "fastProcessing": "Fast Processing",
     "supportAvailable": "Support Available",
-    "confirmPayment": "Confirm Payment"
+    "confirmPayment": "Confirm Payment",
+    "uploading": "Uploading...",
+    "uploaded": "Uploaded",
+    "uploadFailed": "Failed"
   },
   "Purchases": {
     "active": "Active",

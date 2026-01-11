@@ -1,6 +1,6 @@
 /* ============================================
    CART BASKET ITEMS - OPTIMIZED STYLES
-   Premium card design consistent with Order page
+   Premium card design with better spacing
    ============================================ */
 
 .main {
@@ -14,12 +14,12 @@
 
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  gap: 16px;
+  padding: 28px;
+  gap: 20px;
 
-  @media (max-width: 769px) {
-    padding: 16px;
-    border-radius: 12px;
+  @media (max-width: 970px) {
+    padding: 20px;
+    border-radius: 14px;
     min-height: auto;
   }
 
@@ -28,11 +28,11 @@
     -webkit-tap-highlight-color: transparent;
     display: flex;
     flex-direction: column;
-    max-height: 600px;
-    gap: 12px;
+    max-height: 700px;
+    gap: 20px;
     overflow: auto;
     scrollbar-width: thin;
-    padding: 0px 8px 0px 0px;
+    padding: 0px 12px 0px 0px;
     height: auto;
     min-height: 200px;
 
@@ -61,14 +61,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f0f0f0;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 16px;
 
     >div {
       display: flex;
-      gap: 12px;
+      gap: 14px;
       align-items: center;
 
       @media (max-width: 1000px) {
@@ -91,13 +91,14 @@
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
+      gap: 8px;
+      padding: 10px 20px;
       background: transparent;
-      border: 1px solid #ff4d4f;
-      border-radius: 8px;
+      border: 2px solid #ff4d4f;
+      border-radius: 10px;
       color: #ff4d4f;
-      font-size: var(--paragraph-two);
+      font-size: var(--paragraph);
+      font-weight: 500;
       transition: all 0.2s ease;
 
       &:hover {
@@ -106,22 +107,22 @@
       }
 
       @media (max-width: 600px) {
-        padding: 6px 12px;
-        font-size: var(--paragraph-three);
+        padding: 8px 16px;
+        font-size: var(--paragraph-two);
       }
     }
 
     p {
-      color: var(--silver-grey);
-      font-size: var(--paragraph-two);
-      font-weight: 400;
+      color: #666;
+      font-size: var(--paragraph);
+      font-weight: 500;
       line-height: 1.4;
     }
 
     span {
-      color: var(--primary-color);
-      font-size: var(--paragraph-two);
-      font-weight: 500;
+      color: #ff6b00;
+      font-size: var(--heading-seven);
+      font-weight: 600;
       line-height: 1.4;
     }
 
@@ -133,17 +134,24 @@
 
     /* Checkbox */
     .chechbox {
-      max-width: 150px;
+      max-width: 180px;
       width: auto !important;
 
       :global(.ant-checkbox-wrapper) {
-        font-size: var(--paragraph-two);
+        font-size: var(--paragraph);
         color: var(--davys-grey);
+        font-weight: 500;
       }
 
       :global(.ant-checkbox-checked .ant-checkbox-inner) {
-        background-color: var(--primary-color);
-        border-color: var(--primary-color);
+        background-color: #ff6b00;
+        border-color: #ff6b00;
+      }
+
+      :global(.ant-checkbox-inner) {
+        width: 20px;
+        height: 20px;
+        border-radius: 6px;
       }
     }
   }

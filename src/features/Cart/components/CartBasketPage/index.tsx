@@ -39,7 +39,6 @@ export default function CartBasketPage({ data, isBasketDataLoading }: Props) {
     <div className={styles.main}>
       {/* Left side - Cart Items (65%) */}
       <div className={styles.itemsSide}>
-        <h1 className={styles.pageTitle}>{t("cart") || "Savat"}</h1>
         <CartBasketItems
           data={cartItems}
           selected={selectedItems}

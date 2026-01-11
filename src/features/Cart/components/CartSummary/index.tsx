@@ -92,10 +92,10 @@ export default function CartSummary({
 
   return (
     <div className={styles.summaryCard}>
-      {/* Header */}
-      <div className={styles.header}>
-        <h2 className={styles.title}>{t("Cart.total")}:</h2>
-        <p className={styles.totalPrice}>{formatPrice(cost)} uzs</p>
+      {/* Price Display */}
+      <div className={styles.priceSection}>
+        <span className={styles.totalLabel}>{t("Cart.total")}:</span>
+        <span className={styles.totalPrice}>{formatPrice(cost)} uzs</span>
       </div>
 
       {/* Checkout Button */}
@@ -105,20 +105,22 @@ export default function CartSummary({
         label={t("Cart.complite")}
       />
 
-      {/* Payment Methods */}
+      {/* Payment Methods - HIDDEN FOR NOW */}
+      {/* 
       <div className={styles.paymentMethods}>
-        <p className={styles.paymentTitle}>{t("Cart.paymentMethods") || "To'lov usulini tanlash"}</p>
+        <p className={styles.paymentTitle}>{t("Cart.paymentMethods")}</p>
         <div className={styles.paymentOptions}>
           <div className={styles.paymentOption}>
             <span className={styles.paymentIcon}>💵</span>
-            <span>{t("Cart.cashPayment") || "Naqdi to'lov"}</span>
+            <span>{t("Cart.cashPayment")}</span>
           </div>
           <div className={styles.paymentOption}>
             <span className={styles.paymentIcon}>💳</span>
-            <span>{t("Cart.cardPayment") || "Plastik karta"}</span>
+            <span>{t("Cart.cardPayment")}</span>
           </div>
         </div>
       </div>
+      */}
 
       {/* Confirm Modal */}
       <Modal
