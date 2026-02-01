@@ -11,6 +11,9 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import { LoadingSpinner } from "@/ui/Spin";
 import PageNoItems from "@/components/PageNoItems";
 import useProductStore from "@/store/useProductStore";
+import { Button, Modal, Input, message } from "antd";
+import { LikeOutlined, DislikeOutlined, CommentOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 const Search = () => {
   const t = useTranslations("Search");
@@ -28,6 +31,7 @@ const Search = () => {
     setActiveSort,
     isBack,
     setIsBack,
+    appendProducts
   } = useProductStore();
 
   const handleButtonClick = (platform: any) => {
@@ -79,7 +83,7 @@ const Search = () => {
 
   useEffect(() => {
     if (!router.isReady) return;
-    
+
     if (typeof window !== "undefined") {
       // If we are coming back and have content, just restore state (don't fetch)
       if (isBack && products.length > 0) {
@@ -88,7 +92,10 @@ const Search = () => {
       }
 
       // Normal fetch if we have query params
-      if (query.value || query.imageUrl) {
+      if (query.ai_id) {
+        // AI Search handled by separate effect or here
+        // We will handle it below to avoid conflict
+      } else if (query.value || query.imageUrl) {
         getSearchRes({
           ...query,
           lang: locale,
@@ -105,13 +112,23 @@ const Search = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, locale, router.isReady]);
 
+  const [aiPage, setAiPage] = useState(1);
+  const aiPageRef = React.useRef(1);
+
   const handleGetProductWhenScrool = (customQuery: any) => {
-    getMoreProducts({
-      ...customQuery,
-      ...query,
-      lang: locale,
-      sort: query.provider === "1688" ? query.sort : "",
-    });
+    if (query.ai_id) {
+      const nextPage = aiPageRef.current + 1;
+      aiPageRef.current = nextPage;
+      setAiPage(nextPage);
+      getAiSearchRes({ id: query.ai_id, page: nextPage });
+    } else {
+      getMoreProducts({
+        ...customQuery,
+        ...query,
+        lang: locale,
+        sort: query.provider === "1688" ? query.sort : "",
+      });
+    }
   };
 
   const { appendData: getSearchRes, isLoading: isSearchResLoading } =
@@ -147,9 +164,75 @@ const Search = () => {
         setProducts(newProducts);
       },
       onError() {
-        handleGetProductWhenScrool({ page: getRandomPageNumber() });
+        // Retry logic? For now removed random retry to prevent recursion loops
+        setHasMore(false);
       },
     });
+
+  const { appendData: getAiSearchRes, isLoading: isAiLoading } = useQueryApiClient({
+    request: {
+      url: `/ai/search`,
+      method: "POST",
+      disableOnMount: true,
+    },
+    onSuccess(res: any) {
+      if (aiPageRef.current === 1) {
+        setProducts(res.data);
+      } else {
+        appendProducts(res.data);
+      }
+      setHasMore(res.data.length > 0);
+    },
+  });
+
+  const tAi = useTranslations("Ai");
+
+  useEffect(() => {
+    if (query.ai_id && router.isReady) {
+      // Complete reset for new AI Search
+      setProducts([]); // Clear old data immediately to show loading
+      setHasMore(true);
+      aiPageRef.current = 1;
+      setAiPage(1);
+      getAiSearchRes({ id: query.ai_id, page: 1 });
+    }
+  }, [query.ai_id, router.isReady]);
+
+  const [commentModalOpen, setCommentModalOpen] = useState(false);
+  const [commentText, setCommentText] = useState("");
+
+  const { appendData: submitFeedback } = useQueryApiClient({
+    request: {
+      url: '/ai/feedback',
+      method: 'POST',
+      disableOnMount: true,
+    },
+    onSuccess: () => {
+      // handled locally
+    },
+    onError: () => {
+      message.error(tAi("error"));
+    }
+  });
+
+  const handleFeedback = (like: boolean) => {
+    submitFeedback(
+      { id: query.ai_id, like },
+      undefined,
+      null
+    );
+    message.success(tAi("feedback_thanks"));
+  };
+
+  const submitComment = () => {
+    submitFeedback(
+      { id: query.ai_id, comment: commentText },
+      undefined,
+      null
+    );
+    message.success(tAi("comment_sent"));
+    setCommentModalOpen(false);
+  };
 
   const getRandomPageNumber = () => {
     return Math.floor(Math.random() * (50 - 10 + 1)) + 10;
@@ -179,9 +262,8 @@ const Search = () => {
                 <span>Taobao</span>
               </button> */}
               <button
-                className={`${styles.search__platform_btn} ${
-                  activePlatform === "1688" ? styles.active : ""
-                }`}
+                className={`${styles.search__platform_btn} ${activePlatform === "1688" ? styles.active : ""
+                  }`}
                 onClick={() => handleButtonClick("1688")}
               >
                 <SvgSelector id="1688-svg" />
@@ -200,7 +282,7 @@ const Search = () => {
                     key={item.id}
                     className={
                       query.sort === item.tmKey ||
-                      query.sort === item.onboundKey
+                        query.sort === item.onboundKey
                         ? styles.active
                         : ""
                     }
@@ -225,13 +307,28 @@ const Search = () => {
             </div>
           </div>
 
-          {isSearchResLoading ? (
+
+          {query.ai_id && (
+            <div className={styles.search__aiBanner}>
+              <div>
+                <h3>{tAi("banner_title")}</h3>
+                <p>{tAi("banner_subtitle")}</p>
+              </div>
+              <div className={styles.search__aiBanner_actions}>
+                <Button icon={<LikeOutlined />} onClick={() => handleFeedback(true)}>{tAi("good")}</Button>
+                <Button icon={<DislikeOutlined />} onClick={() => handleFeedback(false)}>{tAi("bad")}</Button>
+                <Button icon={<CommentOutlined />} onClick={() => setCommentModalOpen(true)}>{tAi("comment")}</Button>
+              </div>
+            </div>
+          )}
+
+          {isSearchResLoading || (isAiLoading && products.length === 0) ? (
             <LoadingSpinner
               size="large"
               fullscreen={true}
-              spinning={isSearchResLoading}
+              spinning={isSearchResLoading || (isAiLoading && products.length === 0)}
             />
-          ) : !products?.length && !isSearchResLoading ? (
+          ) : !products?.length && !isSearchResLoading && !isAiLoading ? (
             <PageNoItems
               title={t("refresh_error_text")}
               text={t("refresh_page")}
@@ -243,11 +340,15 @@ const Search = () => {
               data={products}
               hasMore={hasMore}
               handleGetProduct={handleGetProductWhenScrool}
-              scroolLoading={isProductsLoading}
+              scroolLoading={isProductsLoading || isAiLoading}
             />
           )}
         </div>
       </div>
+
+      <Modal title={tAi("modal_comment_title")} open={commentModalOpen} onCancel={() => setCommentModalOpen(false)} onOk={submitComment}>
+        <Input.TextArea rows={4} value={commentText} onChange={e => setCommentText(e.target.value)} placeholder={tAi("comment_placeholder")} />
+      </Modal>
     </div>
   );
 };

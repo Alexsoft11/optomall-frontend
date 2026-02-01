@@ -12,7 +12,7 @@
     max-width: 100%;
     width: 100%;
   }
-  
+
   .search_input {
     height: 44px;
     border-radius: 39px;
@@ -46,10 +46,12 @@
 .sticky_start {
   .search_inner {
     display: none;
+
     @media (max-width:768px) {
       display: flex;
     }
   }
+
   @media (max-width: 768px) {
     box-shadow: 0px 4px 35px 0px rgba(0, 0, 0, 0.1);
     position: fixed;
@@ -90,6 +92,7 @@
         width: 100%;
       }
     }
+
     &.sticky {
       transition: 0.4s ease;
       top: 0%;
@@ -114,10 +117,10 @@
     gap: 10px;
   }
 
-  div {
+  .search {
     @media (max-width:970px) {
       min-width: 80% !important;
-      
+
     }
 
     @media (max-width:430px) {

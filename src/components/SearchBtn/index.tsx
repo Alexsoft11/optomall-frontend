@@ -10,6 +10,7 @@ import useQueryApiClient from "@/utils/useQueryApiClient";
 import { useTranslations } from "next-intl";
 import { LoadingSpinner } from "@/ui/Spin";
 import useProductStore from "../../store/useProductStore";
+import AiIcon from "../Ai/AiIcon";
 
 const { Dragger } = Upload;
 type ProviderInfo = {
@@ -210,8 +211,7 @@ const SearchBtn = () => {
     onSuccess(res) {
       handleCancel();
       push(
-        `/search?lang=${locale}&provider=${query.provider || "1688"}&imageUrl=${
-          res.url
+        `/search?lang=${locale}&provider=${query.provider || "1688"}&imageUrl=${res.url
         }&secondImage=${res.urlOrg}`
       );
     },
@@ -427,6 +427,7 @@ const SearchBtn = () => {
           iconPosition="left"
           onClick={handleButtonClick}
         />
+        <AiIcon />
 
         <Modal
           title={t("upload_title")}

@@ -6,6 +6,7 @@ import styles from "./Navbar.module.scss";
 import Image from "next/image";
 import SvgSelector from "$/assets/icons/SvgSelector";
 import SearchBtn from "../SearchBtn/index";
+import AiIcon from "../Ai/AiIcon";
 import Link from "next/link";
 import LanguageSelector from "../LanguageSelector/index";
 import { useRouter } from "next/router";
@@ -172,18 +173,16 @@ const Navbar = () => {
                       {isCheckShow && <span></span>}
                     </button>
                     <button
-                      className={`${styles.navbar__user_btn} ${
-                        openModal === "user" ? styles.open : ""
-                      }`}
+                      className={`${styles.navbar__user_btn} ${openModal === "user" ? styles.open : ""
+                        }`}
                       onClick={handleUserBtnClick}
                     >
                       <SvgSelector id="user-svg" />
                     </button>
 
                     <div
-                      className={`${styles.navbar__user_modal} ${
-                        openModal === "user" ? styles.open : ""
-                      }`}
+                      className={`${styles.navbar__user_modal} ${openModal === "user" ? styles.open : ""
+                        }`}
                     >
                       <div className={styles.navbar__user_inner}>
                         {ModalLinks.map((link: any) => (
@@ -233,9 +232,8 @@ const Navbar = () => {
       </div>
 
       <div
-        className={`${styles.wrap} ${
-          openModal === "nav" || openModal === "user" ? styles.open : ""
-        }`}
+        className={`${styles.wrap} ${openModal === "nav" || openModal === "user" ? styles.open : ""
+          }`}
         onClick={handleWrapBtnClick}
       ></div>
 
@@ -243,15 +241,14 @@ const Navbar = () => {
         <div className={styles.navbar__mobile_inner}>
           {NavLinks.map((item, idx) => (
             <Link
-              className={`${styles.navbar__mobile_item} ${
-                item.link === "/"
-                  ? router.pathname === item.link
-                    ? styles.activeItem
-                    : ""
-                  : router.pathname.startsWith(item.link)
+              className={`${styles.navbar__mobile_item} ${item.link === "/"
+                ? router.pathname === item.link
                   ? styles.activeItem
                   : ""
-              }`}
+                : router.pathname.startsWith(item.link)
+                  ? styles.activeItem
+                  : ""
+                }`}
               key={idx}
               href={item.link}
               onClick={() => setScrollPosition(0)}

@@ -456,5 +456,32 @@
     "checkboxText": "Confirm you are not a robot",
     "errorMessage": "Captcha validation failed. Please try again.",
     "warningMessage": "Please complete the captcha correctly."
+  },
+  "Ai": {
+    "popover_title": "New Feature! 🚀",
+    "popover_content_1": "Try our new AI Search Engine!",
+    "popover_content_2": "Describe what you need in natural language.",
+    "tab_chat": "Chat",
+    "tab_history": "History",
+    "modal_title": "AI Assistant",
+    "intro_message": "Hello! Please describe what you are looking for. I will help you find the best products on 1688/Taobao.",
+    "placeholder": "Describe your product...",
+    "send": "Send",
+    "model_openai": "OpenAI",
+    "model_deepseek": "DeepSeek (Beta)",
+    "searching": "I found optimal keywords: {keywords}. Searching now...",
+    "error": "Sorry, something went wrong. Please try again.",
+    "banner_title": "✨ AI Search Results",
+    "banner_subtitle": "Mixed results from generated keywords",
+    "good": "Good",
+    "bad": "Bad",
+    "comment": "Comment",
+    "modal_comment_title": "Leave a Comment",
+    "comment_placeholder": "Tell us what you think...",
+    "comment_sent": "Comment sent!",
+    "feedback_thanks": "Thank you for your feedback!",
+    "history_title": "Recent Searches",
+    "thinking": "Thinking...",
+    "auth_required": "Please login to use AI features."
   }
 }

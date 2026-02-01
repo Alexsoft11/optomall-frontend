@@ -456,5 +456,32 @@
     "checkboxText": "Robot emasligingizni tasdiqlang",
     "errorMessage": "Captcha tasdiqlash muvaffaqiyatsiz tugadi. Qaytadan urinib ko'ring.",
     "warningMessage": "Iltimos, captchani to'g'ri tugating."
+  },
+  "Ai": {
+    "popover_title": "Yangi funksiya! 🚀",
+    "popover_content_1": "Bizning yangi AI qidiruvni sinab ko'ring!",
+    "popover_content_2": "Sizga nima kerakligini oddiy tilda tasvirlab bering.",
+    "tab_chat": "Chat",
+    "tab_history": "Tarix",
+    "modal_title": "AI Yordamchi",
+    "intro_message": "Nima qidirayotganingizni aniq tasvirlab bering (Brend, Model, Rang, Xususiyatlar). Men 1688/Taobao'dan eng yaxshilarini topaman.",
+    "placeholder": "Aniq mahsulotni tasvirlang...",
+    "send": "Yuborish",
+    "model_openai": "OpenAI",
+    "model_deepseek": "DeepSeek (Beta)",
+    "searching": "Optimal kalit so'zlarni topdim: {keywords}. Qidirilmoqda...",
+    "error": "Kechirasiz, xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring.",
+    "banner_title": "✨ AI Qidiruv Natijalari",
+    "banner_subtitle": "Kalit so'zlar bo'yicha aralash natijalar",
+    "good": "Yaxshi",
+    "bad": "Yomon",
+    "comment": "Izoh",
+    "modal_comment_title": "Izoh qoldirish",
+    "comment_placeholder": "Fikringizni bildiring...",
+    "comment_sent": "Izoh yuborildi!",
+    "feedback_thanks": "Fikringiz uchun rahmat!",
+    "history_title": "Oxirgi qidiruvlar",
+    "thinking": "O'ylanmoqda...",
+    "auth_required": "AI xususiyatlaridan foydalanish uchun tizimga kiring."
   }
 }
