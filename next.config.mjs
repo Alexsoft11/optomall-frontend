@@ -9,6 +9,17 @@ const nextConfig = {
     defaultLocale: "uz",
   },
 
+  // API Proxy - Forward /api requests to Laravel backend
+  // This allows the mobile web app to use the Next.js frontend as a CORS-safe proxy
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:8000/api/:path*',
+      },
+    ];
+  },
+
   // Image Configuration - DISABLED optimization to prevent server cache buildup
   images: {
     // Disable image optimization - prevents caching on server
